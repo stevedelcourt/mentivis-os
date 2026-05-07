@@ -3,7 +3,7 @@ import { Locale } from "@/lib/i18n";
 import NavBar from "@/components/nav-bar";
 import FooterBlock from "@/components/footer-block";
 
-export function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Metadata {
+export function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Metadata {
   return { title: "MentivisOS" };
 }
 
@@ -12,15 +12,15 @@ export default async function LangLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
 
   return (
     <>
-      <NavBar lang={lang} />
+      <NavBar lang={lang as Locale} />
       <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
-      <FooterBlock lang={lang} />
+      <FooterBlock lang={lang as Locale} />
     </>
   );
 }

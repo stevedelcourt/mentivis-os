@@ -11,22 +11,23 @@ import IntegrationSection from "@/components/integration-section";
 import NotLmsSection from "@/components/not-lms-section";
 import CombinationSection from "@/components/combination-section";
 
-export default async function HomePage({ params }: { params: Promise<{ lang: Locale }> }) {
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const locale = lang as Locale;
 
   return (
     <>
-      <HeroUnit lang={lang} />
-      <ProductCard lang={lang} />
-      <ProblemSection lang={lang} />
-      <StepsSection lang={lang} />
-      <ProofSection lang={lang} />
-      <SegmentsSection lang={lang} />
-      <ShiftsSection lang={lang} />
-      <IntegrationSection lang={lang} />
-      <NotLmsSection lang={lang} />
-      <CombinationSection lang={lang} />
-      <CTABlock lang={lang} variant="final" />
+      <HeroUnit lang={locale} />
+      <ProductCard lang={locale} />
+      <ProblemSection lang={locale} />
+      <StepsSection lang={locale} />
+      <ProofSection lang={locale} />
+      <SegmentsSection lang={locale} />
+      <ShiftsSection lang={locale} />
+      <IntegrationSection lang={locale} />
+      <NotLmsSection lang={locale} />
+      <CombinationSection lang={locale} />
+      <CTABlock lang={locale} variant="final" />
     </>
   );
 }
