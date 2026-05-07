@@ -12,9 +12,7 @@ export default function ShiftsSection({ lang }: { lang: Locale }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.1 }
     );
     observer.observe(el);
@@ -28,18 +26,14 @@ export default function ShiftsSection({ lang }: { lang: Locale }) {
       ref={ref}
       style={{
         padding: "var(--section-gap) 0",
-        background: "var(--color-surface-1)",
+        background: "var(--bg-secondary)",
       }}
     >
       <div className="container">
         <h2
+          className="t-display"
           style={{
-            fontFamily: "var(--font-display)",
             fontSize: "var(--text-display)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--color-ink-primary)",
             marginBottom: 48,
           }}
         >
@@ -60,12 +54,10 @@ export default function ShiftsSection({ lang }: { lang: Locale }) {
               }}
             >
               <span
+                className="t-caption"
                 style={{
-                  fontFamily: "var(--font-interface)",
-                  fontSize: "var(--text-micro)",
+                  color: "var(--text-tertiary)",
                   fontWeight: 500,
-                  color: "var(--color-accent)",
-                  letterSpacing: "0.08em",
                   flexShrink: 0,
                   marginTop: 4,
                 }}
@@ -74,27 +66,15 @@ export default function ShiftsSection({ lang }: { lang: Locale }) {
               </span>
               <div>
                 <h3
+                  className="t-display"
                   style={{
-                    fontFamily: "var(--font-display)",
                     fontSize: "var(--text-heading)",
-                    fontWeight: 300,
-                    color: "var(--color-ink-primary)",
                     marginBottom: 8,
                   }}
                 >
                   {shift.title}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-small)",
-                    color: "var(--color-ink-secondary)",
-                    lineHeight: 1.7,
-                    maxWidth: 640,
-                  }}
-                >
-                  {shift.body}
-                </p>
+                <p className="t-caption" style={{ maxWidth: 640 }}>{shift.body}</p>
               </div>
             </div>
           ))}

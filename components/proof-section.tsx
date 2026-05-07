@@ -12,9 +12,7 @@ export default function ProofSection({ lang }: { lang: Locale }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.15 }
     );
     observer.observe(el);
@@ -28,18 +26,17 @@ export default function ProofSection({ lang }: { lang: Locale }) {
       ref={ref}
       style={{
         padding: "var(--section-gap) 0",
-        background: "var(--color-surface-1)",
+        background: "var(--bg-primary)",
       }}
     >
       <div className="container">
         <p
+          className="t-caption"
           style={{
-            fontFamily: "var(--font-interface)",
-            fontSize: "var(--text-micro)",
             fontWeight: 500,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "var(--color-accent)",
+            color: "var(--text-tertiary)",
             marginBottom: 16,
           }}
         >
@@ -47,23 +44,15 @@ export default function ProofSection({ lang }: { lang: Locale }) {
         </p>
 
         <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "var(--text-body)",
-            color: "var(--color-ink-secondary)",
-            maxWidth: 720,
-            lineHeight: 1.7,
-            marginBottom: 40,
-          }}
+          className="t-lead"
+          style={{ maxWidth: 720, marginBottom: 40 }}
         >
           {t.proof.situation}
         </p>
 
         <div
+          className="card"
           style={{
-            background: "var(--color-ground)",
-            border: `1px solid var(--color-border)`,
-            borderRadius: "var(--card-radius)",
             padding: 32,
             maxWidth: 640,
             opacity: visible ? 1 : 0,
@@ -72,13 +61,12 @@ export default function ProofSection({ lang }: { lang: Locale }) {
           }}
         >
           <h3
+            className="t-caption"
             style={{
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
               fontWeight: 500,
               letterSpacing: "0.06em",
               textTransform: "uppercase",
-              color: "var(--color-accent)",
+              color: "var(--text-tertiary)",
               marginBottom: 24,
             }}
           >
@@ -95,12 +83,10 @@ export default function ProofSection({ lang }: { lang: Locale }) {
           ].map((line, i) => (
             <p
               key={i}
+              className="t-caption"
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-small)",
-                color: "var(--color-ink-secondary)",
-                padding: "8px 0",
-                borderBottom: i < 5 ? `1px solid var(--color-border-soft)` : "none",
+                padding: "10px 0",
+                borderBottom: i < 5 ? `1px solid var(--border-light)` : "none",
               }}
             >
               {line}
@@ -109,26 +95,21 @@ export default function ProofSection({ lang }: { lang: Locale }) {
         </div>
 
         <blockquote
+          className="t-caption"
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "var(--text-small)",
-            color: "var(--color-ink-tertiary)",
+            color: "var(--text-tertiary)",
             fontStyle: "italic",
             marginTop: 24,
             paddingLeft: 16,
-            borderLeft: `2px solid var(--color-accent)`,
+            borderLeft: `2px solid var(--border-light)`,
           }}
         >
           {t.proof.honesty}
         </blockquote>
 
         <p
-          style={{
-            fontFamily: "var(--font-interface)",
-            fontSize: "var(--text-small)",
-            color: "var(--color-ink-secondary)",
-            marginTop: 32,
-          }}
+          className="t-caption"
+          style={{ marginTop: 32, color: "var(--text-secondary)" }}
         >
           {t.proof.editorial}
         </p>

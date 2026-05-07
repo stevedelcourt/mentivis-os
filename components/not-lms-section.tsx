@@ -12,9 +12,7 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.15 }
     );
     observer.observe(el);
@@ -26,18 +24,14 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
       ref={ref}
       style={{
         padding: "var(--section-gap) 0",
-        background: "var(--color-surface-1)",
+        background: "var(--bg-secondary)",
       }}
     >
       <div className="container">
         <h2
+          className="t-display"
           style={{
-            fontFamily: "var(--font-display)",
             fontSize: "var(--text-display)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--color-ink-primary)",
             marginBottom: 48,
           }}
         >
@@ -48,7 +42,7 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: 64,
+            gap: 48,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.5s ease, transform 0.5s ease",
@@ -56,13 +50,12 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
         >
           <div>
             <h3
+              className="t-caption"
               style={{
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-micro)",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "var(--color-ink-tertiary)",
+                color: "var(--text-tertiary)",
                 marginBottom: 20,
               }}
             >
@@ -72,12 +65,11 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
               {t.notLms.lms.map((item) => (
                 <li
                   key={item}
+                  className="t-caption"
                   style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-small)",
-                    color: "var(--color-ink-tertiary)",
                     padding: "10px 0",
-                    borderBottom: `1px solid var(--color-border-soft)`,
+                    borderBottom: `1px solid var(--border-light)`,
+                    color: "var(--text-tertiary)",
                   }}
                 >
                   {item}
@@ -88,13 +80,12 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
 
           <div>
             <h3
+              className="t-caption"
               style={{
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-micro)",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "var(--color-accent)",
+                color: "var(--text-primary)",
                 marginBottom: 20,
               }}
             >
@@ -104,12 +95,10 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
               {t.notLms.mentivos.map((item) => (
                 <li
                   key={item}
+                  className="t-caption"
                   style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-small)",
-                    color: "var(--color-ink-secondary)",
                     padding: "10px 0",
-                    borderBottom: `1px solid var(--color-border-soft)`,
+                    borderBottom: `1px solid var(--border-light)`,
                   }}
                 >
                   {item}
@@ -121,8 +110,8 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          section > div > div { grid-template-columns: 1fr !important; }
+        @media (max-width: 1024px) {
+          section > .container > div { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

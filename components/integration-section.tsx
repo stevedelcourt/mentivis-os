@@ -13,9 +13,7 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.15 }
     );
     observer.observe(el);
@@ -32,13 +30,9 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
     <section ref={ref} className="section">
       <div className="container">
         <h2
+          className="t-display"
           style={{
-            fontFamily: "var(--font-display)",
             fontSize: "var(--text-display)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--color-ink-primary)",
             marginBottom: 48,
             textAlign: "center",
           }}
@@ -46,48 +40,33 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
           {t.integration.title}
         </h2>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "var(--grid-gutter)",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
           {modes.map((mode, i) => (
             <Link
               key={mode.title}
               href={`/${lang}${mode.path}`}
+              className="card"
               style={{
                 textAlign: "center",
                 padding: 32,
-                border: `1px solid var(--color-border)`,
-                borderRadius: "var(--card-radius)",
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(16px)",
-                transition: `opacity 0.4s ${i * 50}ms ease, transform 0.4s ${i * 50}ms ease, border-color 0.2s ease`,
+                transition: `opacity 0.4s ${i * 50}ms ease, transform 0.4s ${i * 50}ms ease`,
               }}
             >
               <h3
                 style={{
-                  fontFamily: "var(--font-interface)",
+                  fontFamily: "var(--font-body)",
                   fontSize: "var(--text-heading)",
                   fontWeight: 500,
                   letterSpacing: "0.04em",
-                  color: "var(--color-ink-primary)",
+                  color: "var(--text-primary)",
                   marginBottom: 12,
                 }}
               >
                 {mode.title}
               </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--text-small)",
-                  color: "var(--color-ink-secondary)",
-                }}
-              >
-                {mode.body}
-              </p>
+              <p className="t-caption">{mode.body}</p>
             </Link>
           ))}
         </div>
@@ -95,12 +74,8 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
         <div style={{ textAlign: "center", marginTop: 40 }}>
           <Link
             href={`/${lang}/integration`}
-            className="section-link"
-            style={{
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
-              color: "var(--color-accent)",
-            }}
+            className="section-link t-caption"
+            style={{ color: "var(--text-tertiary)" }}
           >
             {t.integration.link} &rarr;
           </Link>
@@ -108,8 +83,8 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          section > div > div { grid-template-columns: 1fr !important; }
+        @media (max-width: 1024px) {
+          section > .container > div { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

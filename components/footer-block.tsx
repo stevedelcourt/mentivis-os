@@ -11,9 +11,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
   return (
     <footer
       style={{
-        borderTop: `1px solid var(--color-border)`,
+        borderTop: `1px solid var(--border-light)`,
         padding: "64px 0 32px",
-        background: "var(--color-ground)",
+        background: "var(--bg-secondary)",
       }}
     >
       <div
@@ -26,36 +26,18 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
       >
         <div>
           <div style={{ marginBottom: 16 }}>
-            <span
-              style={{
-                display: "inline-block",
-                width: 8,
-                height: 8,
-                background: "var(--color-accent)",
-                marginRight: 8,
-                verticalAlign: "middle",
-              }}
+            <img
+              src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
+              alt="MentivisOS"
+              style={{ height: 24, width: "auto", opacity: 0.7 }}
             />
-            <span
-              style={{
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-small)",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--color-ink-primary)",
-              }}
-            >
-              MentivisOS
-            </span>
           </div>
           <p
+            className="t-caption"
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "var(--text-small)",
-              color: "var(--color-ink-tertiary)",
-              lineHeight: 1.6,
               maxWidth: 280,
+              lineHeight: 1.6,
+              color: "var(--text-tertiary)",
             }}
           >
             {t.footer.tagline}
@@ -83,12 +65,12 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           <div key={col.title}>
             <h4
               style={{
-                fontFamily: "var(--font-interface)",
+                fontFamily: "var(--font-body)",
                 fontSize: "var(--text-micro)",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "var(--color-accent)",
+                color: "var(--text-tertiary)",
                 marginBottom: 16,
               }}
             >
@@ -99,11 +81,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}`}
-                    className="footer-link"
+                    className="footer-link t-caption"
                     style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-small)",
-                      color: "var(--color-ink-tertiary)",
+                      color: "var(--text-tertiary)",
                     }}
                   >
                     {link}
@@ -120,7 +100,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         style={{
           marginTop: 48,
           paddingTop: 24,
-          borderTop: `1px solid var(--color-border-soft)`,
+          borderTop: `1px solid var(--border-light)`,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -130,9 +110,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
       >
         <span
           style={{
-            fontFamily: "var(--font-interface)",
+            fontFamily: "var(--font-body)",
             fontSize: "var(--text-micro)",
-            color: "var(--color-ink-tertiary)",
+            color: "var(--text-tertiary)",
           }}
         >
           {t.footer.copyright} &copy; {new Date().getFullYear()} Mentivis.
@@ -144,9 +124,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               href={`/${lang}`}
               className="footer-link"
               style={{
-                fontFamily: "var(--font-interface)",
+                fontFamily: "var(--font-body)",
                 fontSize: "var(--text-micro)",
-                color: "var(--color-ink-tertiary)",
+                color: "var(--text-tertiary)",
               }}
             >
               {link}
@@ -156,12 +136,12 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
       </div>
 
       <style>{`
-        .footer-link:hover { color: var(--color-ink-primary) !important; }
+        .footer-link:hover { color: var(--text-primary) !important; }
         @media (max-width: 1024px) {
-          .container > div:first-of-type { grid-template-columns: 1fr 1fr !important; }
+          footer > .container > div:first-of-type { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 768px) {
-          .container > div:first-of-type { grid-template-columns: 1fr !important; }
+          footer > .container > div:first-of-type { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </footer>

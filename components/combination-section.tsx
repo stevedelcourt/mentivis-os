@@ -8,11 +8,8 @@ export default function CombinationSection({ lang }: { lang: Locale }) {
     <section className="section">
       <div className="container" style={{ maxWidth: 720 }}>
         <p
+          className="t-lead"
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "var(--text-body)",
-            color: "var(--color-ink-secondary)",
-            lineHeight: 1.8,
             whiteSpace: "pre-line",
           }}
         >
@@ -20,13 +17,11 @@ export default function CombinationSection({ lang }: { lang: Locale }) {
         </p>
         <Link
           href={`/${lang}/a-propos`}
-          className="section-link"
+          className="section-link t-caption"
           style={{
-            fontFamily: "var(--font-interface)",
-            fontSize: "var(--text-small)",
-            color: "var(--color-accent)",
             marginTop: 24,
             display: "inline-block",
+            color: "var(--text-tertiary)",
           }}
         >
           {t.combination.link} &rarr;

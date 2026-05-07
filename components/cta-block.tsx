@@ -13,79 +13,28 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
     return (
       <section
         style={{
-          background: "var(--color-surface-1)",
+          background: "var(--bg-secondary)",
           padding: "var(--section-gap) 0",
-          position: "relative",
-          overflow: "hidden",
           textAlign: "center",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            pointerEvents: "none",
-            userSelect: "none",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 140,
-              fontWeight: 300,
-              color: "var(--color-ink-primary)",
-              opacity: 0.04,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            MentivisOS
-          </span>
-        </div>
-
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        <div className="container" style={{ maxWidth: 640 }}>
           <h2
+            className="t-display"
             style={{
-              fontFamily: "var(--font-display)",
               fontSize: "var(--text-display)",
-              fontWeight: 300,
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              color: "var(--color-ink-primary)",
               whiteSpace: "pre-line",
               marginBottom: 24,
             }}
           >
             {t.finalCta.headline}
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 18,
-              color: "var(--color-ink-secondary)",
-              marginBottom: 36,
-            }}
-          >
+          <p className="t-lead" style={{ marginBottom: 40 }}>
             {t.finalCta.subline}
           </p>
           <Link
             href={`/${lang}/demo`}
-            className="btn btn-primary"
-            style={{
-              background: "var(--color-accent)",
-              color: "var(--color-ground)",
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
-              fontWeight: 500,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              padding: "14px 32px",
-              borderRadius: "var(--button-radius)",
-              transition: "background 0.18s ease, box-shadow 0.18s ease",
-              display: "inline-block",
-            }}
+            className="btn-pill btn-warm"
           >
             {t.finalCta.button}
           </Link>
@@ -95,16 +44,12 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
   }
 
   return (
-    <section style={{ padding: "var(--section-gap) 0", textAlign: "center" }}>
+    <section className="section" style={{ textAlign: "center" }}>
       <div className="container">
         <h2
+          className="t-display"
           style={{
-            fontFamily: "var(--font-display)",
             fontSize: "var(--text-display)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--color-ink-primary)",
             marginBottom: 24,
           }}
         >
@@ -112,19 +57,7 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
         </h2>
         <Link
           href={`/${lang}/demo`}
-          className="btn btn-primary"
-          style={{
-            background: "var(--color-accent)",
-            color: "var(--color-ground)",
-            fontFamily: "var(--font-interface)",
-            fontSize: "var(--text-small)",
-            fontWeight: 500,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            padding: "12px 24px",
-            borderRadius: "var(--button-radius)",
-            display: "inline-block",
-          }}
+          className="btn-pill btn-black"
         >
           {t.finalCta.button}
         </Link>

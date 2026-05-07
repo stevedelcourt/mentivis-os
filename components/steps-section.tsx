@@ -13,9 +13,7 @@ export default function StepsSection({ lang }: { lang: Locale }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.2 }
     );
     observer.observe(el);
@@ -28,13 +26,9 @@ export default function StepsSection({ lang }: { lang: Locale }) {
     <section ref={ref} className="section">
       <div className="container">
         <h2
+          className="t-display"
           style={{
-            fontFamily: "var(--font-display)",
             fontSize: "var(--text-display)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--color-ink-primary)",
             marginBottom: 64,
             textAlign: "center",
           }}
@@ -42,13 +36,7 @@ export default function StepsSection({ lang }: { lang: Locale }) {
           {t.steps.title}
         </h2>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "var(--grid-gutter)",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
           {steps.map((step, i) => (
             <div
               key={step.number}
@@ -59,39 +47,22 @@ export default function StepsSection({ lang }: { lang: Locale }) {
               }}
             >
               <span
-                style={{
-                  fontFamily: "var(--font-interface)",
-                  fontSize: "var(--text-micro)",
-                  fontWeight: 500,
-                  color: "var(--color-accent)",
-                  letterSpacing: "0.08em",
-                }}
+                className="t-caption"
+                style={{ color: "var(--text-tertiary)", fontWeight: 500 }}
               >
                 {step.number}
               </span>
               <h3
+                className="t-display"
                 style={{
-                  fontFamily: "var(--font-display)",
                   fontSize: "var(--text-heading)",
-                  fontWeight: 300,
-                  lineHeight: 1.2,
-                  color: "var(--color-ink-primary)",
                   marginTop: 12,
                   marginBottom: 12,
                 }}
               >
                 {step.title}
               </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--text-small)",
-                  color: "var(--color-ink-secondary)",
-                  lineHeight: 1.7,
-                }}
-              >
-                {step.body}
-              </p>
+              <p className="t-caption">{step.body}</p>
             </div>
           ))}
         </div>
@@ -99,12 +70,8 @@ export default function StepsSection({ lang }: { lang: Locale }) {
         <div style={{ textAlign: "center", marginTop: 48 }}>
           <Link
             href={`/${lang}/produit`}
-            className="section-link"
-            style={{
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
-              color: "var(--color-accent)",
-            }}
+            className="section-link t-caption"
+            style={{ color: "var(--text-tertiary)" }}
           >
             {t.steps.link} &rarr;
           </Link>
@@ -112,8 +79,8 @@ export default function StepsSection({ lang }: { lang: Locale }) {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          section > div > div { grid-template-columns: 1fr !important; }
+        @media (max-width: 1024px) {
+          section > .container > div { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

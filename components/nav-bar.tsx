@@ -34,12 +34,12 @@ export default function NavBar({ lang }: NavBarProps) {
           left: 0,
           right: 0,
           zIndex: 1000,
-          height: 56,
-          background: scrolled ? "rgba(8, 8, 8, 0.92)" : "rgba(8, 8, 8, 0.98)",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: `1px solid var(--color-border)`,
+          height: 64,
+          background: scrolled ? "rgba(255, 255, 255, 0.92)" : "rgba(255, 255, 255, 0.98)",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: `1px solid var(--border-subtle)`,
           transition: "background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease",
-          boxShadow: scrolled ? "0 12px 40px rgba(16,24,40,0.12)" : "none",
+          boxShadow: scrolled ? "var(--shadow-card)" : "none",
         }}
       >
         <div
@@ -55,31 +55,14 @@ export default function NavBar({ lang }: NavBarProps) {
           }}
         >
           <Link href={`/${lang}`} className="navbar-logo">
-            <span
-              style={{
-                display: "inline-block",
-                width: 8,
-                height: 8,
-                background: "var(--color-accent)",
-                marginRight: 8,
-                verticalAlign: "middle",
-              }}
+            <img
+              src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
+              alt="MentivisOS"
+              style={{ height: 28, width: "auto" }}
             />
-            <span
-              style={{
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-small)",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--color-ink-primary)",
-              }}
-            >
-              MentivisOS
-            </span>
           </Link>
 
-          <nav className="navbar-links" style={{ display: "flex", gap: 24, alignItems: "center" }}>
+          <nav className="navbar-links" style={{ display: "flex", gap: 32, alignItems: "center" }}>
             {[
               { label: t.nav.produit, path: "/produit", dropdown: t.nav.produitLinks },
               { label: t.nav.pourQui, path: "/pour-qui", dropdown: t.nav.pourQuiLinks },
@@ -96,29 +79,23 @@ export default function NavBar({ lang }: NavBarProps) {
               >
                 <Link
                   href={`/${lang}${item.path}`}
+                  className="t-nav"
                   style={{
-                    fontFamily: "var(--font-interface)",
-                    fontSize: "var(--text-small)",
-                    color: isActive(item.path) ? "var(--color-ink-primary)" : "var(--color-ink-secondary)",
+                    color: isActive(item.path) ? "var(--text-primary)" : "var(--text-secondary)",
                     transition: "color 0.18s ease",
-                    position: "relative",
                     paddingBottom: 2,
-                    borderLeft: isActive(item.path) ? "2px solid var(--color-accent)" : "2px solid transparent",
-                    paddingLeft: 8,
+                    borderBottom: isActive(item.path) ? "1px solid var(--text-primary)" : "1px solid transparent",
                   }}
                 >
                   {item.label}
                 </Link>
                 {item.dropdown && activeDropdown === item.label && (
                   <div
+                    className="card"
                     style={{
                       position: "absolute",
-                      top: "100%",
+                      top: "calc(100% + 8px)",
                       left: 0,
-                      marginTop: 8,
-                      background: "var(--color-surface-2)",
-                      border: `1px solid var(--color-border)`,
-                      borderRadius: "var(--card-radius)",
                       padding: "12px 16px",
                       minWidth: 220,
                       zIndex: 1001,
@@ -128,13 +105,11 @@ export default function NavBar({ lang }: NavBarProps) {
                       <Link
                         key={link}
                         href={`/${lang}${item.path}`}
-                        className="dropdown-link"
+                        className="dropdown-link t-caption"
                         style={{
                           display: "block",
-                          padding: "6px 0",
-                          fontFamily: "var(--font-body)",
-                          fontSize: "var(--text-small)",
-                          color: "var(--color-ink-secondary)",
+                          padding: "8px 0",
+                          color: "var(--text-secondary)",
                         }}
                       >
                         {link}
@@ -149,18 +124,11 @@ export default function NavBar({ lang }: NavBarProps) {
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
             <Link
               href={`/${lang}/demo`}
-              className="btn btn-primary"
+              className="btn-pill btn-black"
               style={{
-                background: "var(--color-accent)",
-                color: "var(--color-ground)",
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-small)",
+                fontSize: "var(--text-caption)",
                 fontWeight: 500,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                padding: "8px 16px",
-                borderRadius: "var(--button-radius)",
-                transition: "background 0.18s ease",
+                padding: "8px 18px",
               }}
             >
               {t.nav.demarrer}
@@ -172,7 +140,7 @@ export default function NavBar({ lang }: NavBarProps) {
               style={{ display: "none", padding: 8 }}
               aria-label="Toggle menu"
             >
-              <span style={{ color: "var(--color-ink-primary)", fontSize: 20 }}>{mobileOpen ? "x" : "☰"}</span>
+              <span style={{ color: "var(--text-primary)", fontSize: 20 }}>{mobileOpen ? "x" : "☰"}</span>
             </button>
           </div>
         </div>
@@ -184,7 +152,7 @@ export default function NavBar({ lang }: NavBarProps) {
             position: "fixed",
             inset: 0,
             zIndex: 999,
-            background: "var(--color-ground)",
+            background: "var(--bg-primary)",
             display: "flex",
             flexDirection: "column",
             padding: "80px var(--grid-margin) 40px",
@@ -202,11 +170,12 @@ export default function NavBar({ lang }: NavBarProps) {
               href={`/${lang}${item.path}`}
               onClick={() => setMobileOpen(false)}
               style={{
-                fontFamily: "var(--font-interface)",
+                fontFamily: "var(--font-display)",
                 fontSize: "var(--text-heading)",
-                color: "var(--color-ink-primary)",
+                fontWeight: 300,
+                color: "var(--text-primary)",
                 padding: "16px 0",
-                borderBottom: `1px solid var(--color-border)`,
+                borderBottom: `1px solid var(--border-light)`,
                 animation: `fadeInUp 0.4s ${i * 40}ms both`,
               }}
             >
@@ -216,17 +185,11 @@ export default function NavBar({ lang }: NavBarProps) {
           <Link
             href={`/${lang}/demo`}
             onClick={() => setMobileOpen(false)}
-            className="btn btn-primary"
+            className="btn-pill btn-black"
             style={{
-              background: "var(--color-accent)",
-              color: "var(--color-ground)",
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
+              fontSize: "var(--text-caption)",
               fontWeight: 500,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
               padding: "12px 24px",
-              borderRadius: "var(--button-radius)",
               marginTop: 24,
               textAlign: "center",
             }}
@@ -241,8 +204,8 @@ export default function NavBar({ lang }: NavBarProps) {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .dropdown-link:hover { color: var(--color-ink-primary) !important; }
-        @media (max-width: 768px) {
+        .dropdown-link:hover { color: var(--text-primary) !important; }
+        @media (max-width: 1024px) {
           .navbar-links { display: none !important; }
           .navbar-burger { display: block !important; }
         }

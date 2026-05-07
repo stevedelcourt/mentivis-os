@@ -14,86 +14,55 @@ export default function ProductCard({ lang }: ProductCardProps) {
   ];
 
   return (
-    <section className="section" style={{ paddingBottom: 0 }}>
+    <section className="section-sm" style={{ paddingBottom: 0 }}>
       <div className="container">
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "var(--grid-gutter)",
+            gap: 24,
           }}
         >
           {products.map((product) => (
             <Link
               key={product.number}
               href={`/${lang}${product.path}`}
-              className="product-card"
+              className="card product-card"
               style={{
-                background: "var(--color-surface-1)",
-                border: `1px solid var(--color-border)`,
-                borderRadius: "var(--card-radius)",
                 padding: 32,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 minHeight: 180,
-                transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-                position: "relative",
-                overflow: "hidden",
               }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  width: 120,
-                  height: 120,
-                  background: "radial-gradient(circle at top right, rgba(200, 169, 110, 0.08), transparent 70%)",
-                  opacity: 0,
-                  transition: "opacity 0.3s ease",
-                }}
-              />
               <span
+                className="t-caption"
                 style={{
-                  fontFamily: "var(--font-interface)",
-                  fontSize: "var(--text-micro)",
+                  color: "var(--text-tertiary)",
                   fontWeight: 500,
-                  color: "var(--color-accent)",
-                  letterSpacing: "0.08em",
                 }}
               >
                 {product.number}
               </span>
               <div>
                 <h3
+                  className="t-display"
                   style={{
-                    fontFamily: "var(--font-interface)",
-                    fontSize: "var(--text-small)",
-                    fontWeight: 500,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    color: "var(--color-ink-primary)",
+                    fontSize: "var(--text-heading)",
                     marginBottom: 8,
                   }}
                 >
                   {product.name}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-small)",
-                    color: "var(--color-ink-secondary)",
-                  }}
-                >
+                <p className="t-caption">
                   {product.descriptor}
                 </p>
               </div>
               <span
+                className="t-caption"
                 style={{
-                  fontFamily: "var(--font-interface)",
-                  fontSize: "var(--text-small)",
-                  color: "var(--color-accent)",
+                  color: "var(--text-tertiary)",
                   marginTop: 16,
                 }}
               >
@@ -106,13 +75,10 @@ export default function ProductCard({ lang }: ProductCardProps) {
 
       <style>{`
         .product-card:hover {
-          border-color: rgba(200, 169, 110, 0.3) !important;
+          box-shadow: var(--shadow-card-full), var(--shadow-soft) !important;
         }
-        .product-card:hover > div:first-of-type {
-          opacity: 1 !important;
-        }
-        @media (max-width: 768px) {
-          .product-card > div:first-of-type { display: none; }
+        @media (max-width: 1024px) {
+          section > .container > div { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

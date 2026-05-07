@@ -10,65 +10,10 @@ interface HeroUnitProps {
 
 export default function HeroUnit({ lang }: HeroUnitProps) {
   const t = getT(lang);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setVisible(true);
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationId: number;
-    let rotation = 0;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const draw = () => {
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
-      ctx.clearRect(0, 0, w, h);
-      ctx.save();
-      ctx.translate(w * 0.7, h * 0.5);
-      ctx.rotate(rotation);
-
-      const lines = 12;
-      const size = Math.min(w, h) * 0.35;
-      ctx.strokeStyle = "rgba(200, 169, 110, 0.06)";
-      ctx.lineWidth = 0.5;
-
-      for (let i = 0; i < lines; i++) {
-        const offset = (i - lines / 2) * (size / lines);
-        ctx.beginPath();
-        ctx.moveTo(-size + offset, -size);
-        ctx.lineTo(size + offset, size);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(-size, -size + offset);
-        ctx.lineTo(size, size + offset);
-        ctx.stroke();
-      }
-
-      ctx.restore();
-      rotation += 0.0001;
-      animationId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
-    };
   }, []);
 
   return (
@@ -80,20 +25,10 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
         alignItems: "center",
         position: "relative",
         overflow: "hidden",
-        paddingTop: 56,
+        paddingTop: 64,
+        background: "var(--bg-primary)",
       }}
     >
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-        }}
-      />
-
       <div className="container-wide" style={{ position: "relative", zIndex: 1 }}>
         <div
           style={{
@@ -105,12 +40,12 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
         >
           <p
             style={{
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-micro)",
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-caption)",
               fontWeight: 500,
-              letterSpacing: "0.12em",
+              letterSpacing: "0.14px",
               textTransform: "uppercase",
-              color: "var(--color-accent)",
+              color: "var(--text-tertiary)",
               marginBottom: 24,
             }}
           >
@@ -118,13 +53,9 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
           </p>
 
           <h1
+            className="t-display"
             style={{
-              fontFamily: "var(--font-display)",
               fontSize: "var(--text-hero)",
-              fontWeight: 300,
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              color: "var(--color-ink-primary)",
               whiteSpace: "pre-line",
               marginBottom: 28,
             }}
@@ -133,14 +64,11 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
           </h1>
 
           <p
+            className="t-lead"
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 18,
-              lineHeight: 1.6,
-              color: "var(--color-ink-secondary)",
               maxWidth: 560,
               whiteSpace: "pre-line",
-              marginBottom: 36,
+              marginBottom: 40,
             }}
           >
             {t.hero.subheadline}
@@ -149,78 +77,29 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
               href={`/${lang}/demo`}
-              className="btn btn-primary"
-              style={{
-                background: "var(--color-accent)",
-                color: "var(--color-ground)",
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-small)",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                padding: "12px 24px",
-                borderRadius: "var(--button-radius)",
-                transition: "background 0.18s ease, box-shadow 0.18s ease",
-              }}
+              className="btn-pill btn-black"
             >
               {t.hero.ctaPrimary}
             </Link>
             <Link
               href={`/${lang}/produit`}
-              className="btn btn-secondary"
-              style={{
-                background: "transparent",
-                border: `1px solid var(--color-border)`,
-                color: "var(--color-ink-primary)",
-                fontFamily: "var(--font-interface)",
-                fontSize: "var(--text-small)",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                padding: "12px 24px",
-                borderRadius: "var(--button-radius)",
-                transition: "border-color 0.18s ease, background 0.18s ease",
-              }}
+              className="btn-pill btn-warm"
             >
               {t.hero.ctaSecondary}
             </Link>
           </div>
 
           <p
+            className="t-caption"
             style={{
-              fontFamily: "var(--font-interface)",
-              fontSize: "var(--text-small)",
-              color: "var(--color-ink-tertiary)",
-              marginTop: 24,
+              marginTop: 32,
+              color: "var(--text-tertiary)",
             }}
           >
             {t.hero.proof}
           </p>
         </div>
       </div>
-
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 1,
-          background: "var(--color-accent)",
-          boxShadow: "0 0 20px 0 rgba(200, 169, 110, 0.15)",
-        }}
-      />
-
-      <style>{`
-        .btn-primary:hover {
-          background: #d4b67a !important;
-          box-shadow: 0 0 20px rgba(200, 169, 110, 0.2) !important;
-        }
-        .btn-secondary:hover {
-          border-color: rgba(200, 169, 110, 0.6) !important;
-          background: var(--color-surface-1) !important;
-        }
-      `}</style>
     </section>
   );
 }
