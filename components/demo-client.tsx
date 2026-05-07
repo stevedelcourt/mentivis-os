@@ -221,6 +221,15 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             </div>
           </div>
 
+          <input
+            type="text"
+            name="honeypot"
+            tabIndex={-1}
+            autoComplete="off"
+            style={{ display: "none" }}
+            aria-hidden="true"
+          />
+
           <button
             type="submit"
             disabled={status === "loading"}

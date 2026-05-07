@@ -1,6 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "https://mentivis-os.vercel.app,http://localhost:3000").split(",");
+
+const rateLimit = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimit.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + 60_000 });
+    return true;
+  }
+
+  entry.count++;
+  return entry.count <= 5;
+}
+
+function getIp(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for") ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
+
 export async function POST(request: NextRequest) {
+  const ip = getIp(request);
+
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json(
+      { success: false, error: "Too many requests. Try again later." },
+      { status: 429 }
+    );
+  }
+
+  const origin = request.headers.get("origin") || "";
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return NextResponse.json(
+      { success: false, error: "Origin not allowed" },
+      { status: 403 }
+    );
+  }
+
   try {
     const body = await request.json();
 
@@ -13,7 +55,15 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       preference,
+      honeypot,
     } = body;
+
+    if (honeypot) {
+      return NextResponse.json(
+        { success: false, error: "Spam detected" },
+        { status: 400 }
+      );
+    }
 
     if (!firstname || !email) {
       return NextResponse.json(
@@ -26,8 +76,7 @@ export async function POST(request: NextRequest) {
     const hubspotFormId = process.env.HUBSPOT_FORM_ID;
 
     if (!hubspotPortalId || !hubspotFormId) {
-      // Fallback: log the submission for now
-      console.log("Demo request (HubSpot not configured):", {
+      console.log("[Demo API] HubSpot not configured:", {
         firstname,
         organization,
         role,
@@ -67,7 +116,7 @@ export async function POST(request: NextRequest) {
 
     if (!hubspotResponse.ok) {
       const errorText = await hubspotResponse.text();
-      console.error("HubSpot API error:", errorText);
+      console.error("[Demo API] HubSpot error:", errorText);
       return NextResponse.json(
         { success: false, error: "HubSpot submission failed" },
         { status: 502 }
@@ -77,7 +126,7 @@ export async function POST(request: NextRequest) {
     const hubspotData = await hubspotResponse.json();
     return NextResponse.json({ success: true, hubspot: hubspotData });
   } catch (error) {
-    console.error("Demo API error:", error);
+    console.error("[Demo API] Error:", error);
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 }
