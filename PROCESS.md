@@ -1,132 +1,198 @@
 # PROCESS.md — MentivisOS Development Workflow
 
-## Phase 1: Foundation
+## 0. Critical Rules
 
-1. **Set up project scaffolding**
-   - Initialize framework (Next.js / Astro / chosen stack)
-   - Configure CSS custom properties from design tokens (§2 of design doc)
-   - Set up font loading with `font-display: swap` and system fallbacks
+### Webpack, NOT Turbopack
 
-2. **Build core layout primitives**
-   - 12-column grid system with CSS Grid
-   - Container widths: `--container-max` (1280px), `--container-wide` (1440px)
-   - Blueprint grid overlay component (SVG or CSS background pattern)
-   - Section gap spacing: `clamp(80px, 10vw, 160px)`
+Turbopack has known chunk naming bugs (GitHub #87680, #88775) that cause `ChunkLoadError`.
+Always use `--webpack`:
 
-3. **Implement design tokens**
-   - Color system (§2)
-   - Typography scale (§3)
-   - Layout variables (§4)
-   - Button system (§17)
+```bash
+npm run dev       # uses --webpack
+npm run build     # uses --webpack
+```
 
----
+Never run `next dev` or `next build` without the `--webpack` flag.
 
-## Phase 2: Shared Components
+### Clean Builds
 
-Build in this order (dependencies flow downward):
+When chunk filenames change (every source change), old and new chunks can coexist.
+Always do a clean build:
 
-1. `<NavBar />` — fixed, 56px, scroll-aware opacity
-2. `<FooterBlock />` — four-column layout
-3. `<CTABlock />` — reusable CTA patterns
-4. `<CustomCursor />` — amber circle with trailing effect
-5. `<StatCard />` — animated counter with IntersectionObserver
-6. `<ArticleCard />` — blog card with hover states
+```bash
+rm -rf .next
+npm run build
+```
 
 ---
 
-## Phase 3: Homepage Sections
+## Project Structure
 
-Build sections in scroll order:
-
-1. **Hero** (`<HeroUnit />`) — 100vh, wireframe background, marquee strip
-2. **Product Suite Strip** (`<ProductCard />` × 3)
-3. **Social Proof Rail** (`<SocialProofRail />`) — dual-row auto-scroll
-4. **MentivisAtelier Deep Dive** — 7/5 split, `<BentoGrid />`, client evidence strip
-5. **MentivisOperate Deep Dive** — 5/7 split (flipped), `<AccordionFeature />`
-6. **MentivisIntel Deep Dive** — full-width, `<DashboardMock />`, metric callouts
-7. **Timeline** (`<TimelineNode />` × 6) — scroll-driven fill animation
-8. **Trust & Compliance** — three-column typographic treatment
-9. **Final CTA** — full-bleed, watermark background
-10. **Blog Strip** (`<ArticleCard />` × 3)
-
----
-
-## Phase 4: Inner Pages
-
-Follow the site structure in `mentivisOS_website_structure_v2.md`:
-
-1. `/produit/` — Product overview
-2. `/produit/diagnostic/` — Diagnostic deep dive
-3. `/produit/programme/` — Program generation
-4. `/produit/assistant/` — Embedded assistant
-5. `/pour-qui/individuel/` — Individual segment
-6. `/pour-qui/corporate/` — Corporate segment
-7. `/pour-qui/formation/` — Training organizations
-8. `/pour-qui/competences/` — ESN & consulting
-9. `/integration/` — Integration overview
-10. `/integration/acces-direct/` — Direct access
-11. `/integration/licence-entreprise/` — Enterprise license
-12. `/integration/api/` — API integration
-13. `/demo/` — Demo request form (primary conversion)
-14. `/a-propos/` — About page
-15. `/ressources/insights/` — Blog listing
-16. `/ressources/guides/` — Downloadable guides
+```
+mentivis-os/
+├── app/
+│   ├── layout.tsx              # Root: fonts, metadata
+│   ├── globals.css             # Design tokens
+│   ├── proxy.ts                # Locale routing (FR/EN)
+│   ├── [lang]/
+│   │   ├── layout.tsx          # NavBar + Footer shell
+│   │   ├── page.tsx            # Homepage
+│   │   └── demo/page.tsx       # Demo request
+│   └── api/
+│       └── demo/route.ts       # Serverless: form → HubSpot
+├── components/                 # UI components
+├── lib/
+│   └── i18n.ts                 # Translations (FR/EN)
+├── docs/
+│   ├── MentivisOS_design-v2.md         # Design system spec
+│   └── mentivisOS_website_structure_v2.md  # Site structure
+├── public/images/MentivisOS/   # Logos, assets
+├── .env.local                  # Secrets (gitignored)
+├── .env.example                # Template
+├── PROCESS.md                  # This file
+└── AGENTS.md                   # Coding conventions
+```
 
 ---
 
-## Phase 5: Polish & Performance
+## Environment Variables
 
-1. **Animation audit**
-   - All entry animations: 400ms, stagger 50ms
-   - Hover transitions: 180ms ease-out
-   - Scroll-driven effects: timeline fill, stat counters
-   - `prefers-reduced-motion` compliance
+Set in Vercel dashboard or `.env.local`:
 
-2. **Responsive testing**
-   - Mobile (< 768px): single column, hamburger nav, vertical timeline
-   - Tablet (768–1024px): two-column bento, reduced timeline nodes
-   - Desktop (> 1024px): full design as specified
+| Variable | Purpose | Required |
+|----------|---------|----------|
+| `HUBSPOT_PORTAL_ID` | HubSpot account ID | For live form submissions |
+| `HUBSPOT_FORM_ID` | Demo form GUID | For live form submissions |
+| `INTERNAL_TOKEN` | API auth token | Future: protect API routes |
+| `ALLOWED_ORIGINS` | CORS whitelist | Comma-separated URLs |
 
-3. **Performance optimization**
-   - Inline critical CSS for hero
-   - Lazy-load below-the-fold imagery
-   - Font subsetting where possible
-   - Preload hero wireframe asset
+**Never commit `.env.local`.** Use `.env.example` as template.
 
-4. **Accessibility audit**
-   - Color contrast verification (WCAG AA minimum)
-   - Focus indicators (amber, 2px outline, 2px offset)
-   - Keyboard navigation testing
-   - Screen reader testing
+---
 
-5. **Lighthouse targets**
-   - Performance: 90+
-   - Accessibility: 98+
-   - Best Practices: 100
-   - SEO: 95+
+## API Security (`/api/demo`)
+
+The demo form POSTs to `/api/demo` which relays to HubSpot. Protected by:
+
+1. **Rate limiting**: 5 requests per minute per IP (in-memory)
+2. **CORS**: Only allowed origins can POST
+3. **Honeypot**: Hidden `honeypot` field catches bots
+4. **Server-only**: API routes never bundle to client
+
+The API route is invisible to the public — it only responds to POST requests.
+
+---
+
+## Phase 1: Foundation ✅
+
+- [x] Next.js 16 + TypeScript + App Router
+- [x] CSS custom properties (dark mode, amber accent, blueprint grid)
+- [x] Font loading: Playfair Display, DM Mono, Inter (self-hosted via next/font)
+- [x] Grid system, container widths, section gaps
+- [x] Bilingual routing via `proxy.ts` (FR/EN)
+
+## Phase 2: Shared Components ✅
+
+- [x] `<NavBar />` — fixed 56px, scroll-aware, dropdowns, mobile hamburger
+- [x] `<FooterBlock />` — multi-column layout
+- [x] `<CTABlock />` — section closers + final fullscreen CTA
+- [x] `<HeroUnit />` — 100vh, canvas wireframe background
+- [x] `<ProductCard />` — three-product suite strip
+- [ ] `<CustomCursor />` — amber circle with trailing effect
+- [ ] `<StatCard />` — animated counter with IntersectionObserver
+- [ ] `<ArticleCard />` — blog card with hover states
+
+## Phase 3: Homepage ✅
+
+- [x] Hero with wireframe canvas
+- [x] Product suite strip (3 cards)
+- [x] Problem statement section
+- [x] Three steps section
+- [x] Proof case (aeronautique diagnostic)
+- [x] Segments grid (4 cards)
+- [x] Four shifts section
+- [x] Integration modes (3 cards)
+- [x] Not-LMS comparison (2 columns)
+- [x] Combination/credibility section
+- [x] Final CTA with watermark
+
+## Phase 4: Inner Pages (TODO)
+
+Follow `docs/mentivisOS_website_structure_v2.md`:
+
+1. `/[lang]/produit/` — Product overview
+2. `/[lang]/produit/diagnostic/` — Diagnostic deep dive
+3. `/[lang]/produit/programme/` — Program generation
+4. `/[lang]/produit/assistant/` — Embedded assistant
+5. `/[lang]/pour-qui/individuel/` — Individual segment
+6. `/[lang]/pour-qui/corporate/` — Corporate segment
+7. `/[lang]/pour-qui/formation/` — Training organizations
+8. `/[lang]/pour-qui/competences/` — ESN & consulting
+9. `/[lang]/integration/` — Integration overview
+10. `/[lang]/integration/acces-direct/` — Direct access
+11. `/[lang]/integration/licence-entreprise/` — Enterprise license
+12. `/[lang]/integration/api/` — API integration
+13. `/[lang]/a-propos/` — About page
+14. `/[lang]/ressources/insights/` — Blog listing
+15. `/[lang]/ressources/guides/` — Downloadable guides
+
+## Phase 5: Polish & Performance (TODO)
+
+1. **Animation audit** — entry, hover, scroll-driven, prefers-reduced-motion
+2. **Responsive testing** — mobile, tablet, desktop
+3. **Performance** — critical CSS, lazy-load, font subsetting
+4. **Accessibility** — WCAG AA, focus indicators, keyboard nav
+5. **Lighthouse** — Performance 90+, Accessibility 98+, Best Practices 100, SEO 95+
 
 ---
 
 ## Quality Gates
 
-Before committing any section or page:
+Before committing:
 
-- [ ] Matches design spec (colors, type, spacing, motion)
+- [ ] Matches design spec (`docs/MentivisOS_design-v2.md`)
 - [ ] Responsive at all three breakpoints
-- [ ] No hardcoded values — all tokens referenced
+- [ ] No hardcoded colors — always CSS tokens
 - [ ] `prefers-reduced-motion` respected
-- [ ] WCAG AA contrast verified
-- [ ] Focus indicators visible and styled
-- [ ] No layout shift on load
-- [ ] French content matches `mentivisOS_website_structure_v2.md`
-- [ ] No forbidden vocabulary (innovation, disruption, etc.)
+- [ ] French content matches `docs/mentivisOS_website_structure_v2.md`
+- [ ] No forbidden vocabulary (innovation, disruption, révolutionnaire, solution, écosystème)
 - [ ] One primary CTA per page
+- [ ] Build passes: `npm run build`
 
 ---
 
 ## Git Workflow
 
+- **Remote**: `origin` → `git@github.com:stevedelcourt/mentivis-os.git`
+- **Branch**: `main`
+- **User**: stevedelcourt / steven.delcourt@mentivis.com
 - Feature branches: `feature/<section-name>`
 - Commit messages: imperative mood, concise
-- No commits without passing quality gates
-- Squash merge to main after review
+- Push triggers Vercel auto-deploy
+
+---
+
+## Deployment
+
+### Vercel (Production)
+
+```bash
+git push origin main
+# or
+vercel --prod --scope steves-projects-09f7051e --yes
+```
+
+URL: https://mentivis-os.vercel.app
+
+### Local Dev
+
+```bash
+npm run dev       # Webpack, not Turbopack
+```
+
+### Clean Build
+
+```bash
+rm -rf .next
+npm run build     # Webpack
+```
