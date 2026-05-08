@@ -5,6 +5,11 @@ const locales = ["fr", "en"];
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Skip proxy for static files (paths ending with a file extension)
+  if (/\.[a-zA-Z0-9]+$/.test(pathname)) {
+    return NextResponse.next();
+  }
+
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
