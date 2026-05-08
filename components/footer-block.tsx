@@ -120,10 +120,16 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           {t.footer.copyright} &copy; {new Date().getFullYear()} Mentivis.
         </span>
         <div style={{ display: "flex", gap: 16 }}>
-          {["Mentions legales", "Confidentialite", "CGU", "Cookies"].map((link) => (
+          {[
+            { label: "Composants", href: `/${lang}/composants` },
+            { label: "Mentions legales", href: `/${lang}` },
+            { label: "Confidentialite", href: `/${lang}` },
+            { label: "CGU", href: `/${lang}` },
+            { label: "Cookies", href: `/${lang}` },
+          ].map((item) => (
             <Link
-              key={link}
-              href={`/${lang}`}
+              key={item.label}
+              href={item.href}
               className="footer-link"
               style={{
                 fontFamily: "var(--font-sans)",
@@ -131,7 +137,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 color: "var(--text-tertiary)",
               }}
             >
-              {link}
+              {item.label}
             </Link>
           ))}
         </div>

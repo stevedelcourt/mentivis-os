@@ -150,34 +150,6 @@ export default function NavBar({ lang }: NavBarProps) {
 
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
             <Link
-              href={`/${lang}/composants`}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "8px 16px",
-                borderRadius: 8,
-                background: "#E8726A",
-                color: "#ffffff",
-                fontSize: "var(--text-caption)",
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "all 0.18s ease",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "#D06058";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "#E8726A";
-              }}
-            >
-              Composants
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-
-            <Link
               href={`/${lang}/demo`}
               className="btn-pill btn-black navbar-cta"
               style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
@@ -213,23 +185,6 @@ export default function NavBar({ lang }: NavBarProps) {
               {item.label}
             </Link>
           ))}
-          <Link
-            href={`/${lang}/composants`}
-            onClick={() => setMobileOpen(false)}
-            style={{
-              marginTop: 16,
-              textAlign: "center",
-              padding: "12px 24px",
-              borderRadius: 8,
-              background: "#E8726A",
-              color: "#ffffff",
-              fontSize: "var(--text-body-sm)",
-              fontWeight: 500,
-              textDecoration: "none",
-            }}
-          >
-            Composants
-          </Link>
           <Link
             href={`/${lang}/demo`}
             onClick={() => setMobileOpen(false)}

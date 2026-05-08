@@ -212,8 +212,6 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 | Texte primaire | `#000000` | Titres, corps |
 | Texte secondaire | `#4e4e4e` | Descriptions, sous-titres |
 | Texte tertiaire | `#777169` | Eyebrows, captions, légendes |
-| Accent coral | `#E8726A` | Bouton "Composants" uniquement |
-| Accent coral hover | `#D06058` | Survol du bouton coral |
 | Grain overlay | `rgba(0,0,0,0.08-0.10)` | Texture sur cartes gradient |
 | Focus outline | `rgb(147 197 253 / 0.5)` | Accessibilité |
 
@@ -375,7 +373,6 @@ Ordre exact des sections sur la homepage :
   - Chaque lien : `t-nav` weight 500, underline animé (scaleX 0→1, 0.25s, cubic-bezier(0.22,1,0.36,1))
 - **Dropdown** : position `absolute`, `top: calc(100% + 20px)`, min-width 220px, radius 16px, shadow `var(--shadow-card-full), var(--shadow-soft)`
 - **Bridge invisible** : `.navbar-dropdown-bridge`, height 24px, entre le lien et le dropdown
-- **Bouton "Composants"** : coral `#E8726A`, radius 8px, padding 8px 16px, chevron 12px
 - **Bouton "Démarrer"** : `.btn-pill.btn-black.navbar-cta`, padding 8px 18px, chevron 12px
 - **Burger mobile** : `display: none` desktop, `display: block` < 1024px
 - **Overlay mobile** : fixed inset 0, z-index 999, padding 80px var(--grid-margin) 40px
