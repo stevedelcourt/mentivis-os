@@ -801,7 +801,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
               gap: 24,
             }}
           >
-            <nav style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
+            <nav className="showcase-features-nav" style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
               {FEATURES.map((f, i) => (
                 <button
                   key={f}
@@ -817,6 +817,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                     position: "relative",
                     transition: "color .2s ease",
                     fontWeight: activeFeature === i ? 500 : 400,
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                   onMouseEnter={(e) => {
                     if (activeFeature !== i) {
@@ -851,6 +853,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
             </nav>
             <Link
               href={`/${lang}/demo`}
+              className="showcase-cta-link"
               style={{
                 background: "#0A0A0A",
                 color: "#FFFFFF",
@@ -881,6 +884,36 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
               </svg>
             </Link>
           </div>
+
+          {/* Mobile CTA — full width, below features */}
+          <Link
+            href={`/${lang}/demo`}
+            className="showcase-mobile-cta"
+            style={{
+              display: "none",
+              background: "#0A0A0A",
+              color: "#FFFFFF",
+              border: "none",
+              borderRadius: 8,
+              padding: "12px 16px",
+              fontFamily: "inherit",
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "all .25s ease",
+              whiteSpace: "nowrap",
+              textDecoration: "none",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 6,
+              marginTop: 12,
+            }}
+          >
+            {t.demo.form.submit}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+              <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
       </div>
 
@@ -969,6 +1002,24 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
           .showcase-orb-container[data-pos="-3"] {
             opacity: 0 !important;
             pointer-events: none !important;
+          }
+          .showcase-features-nav {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-wrap: nowrap !important;
+            gap: 16px !important;
+            width: 100%;
+            padding-bottom: 4px;
+          }
+          .showcase-features-nav::-webkit-scrollbar { display: none; }
+          .showcase-cta-link {
+            display: none !important;
+          }
+          .showcase-mobile-cta {
+            display: flex !important;
+            width: 100%;
           }
         }
       `}</style>
