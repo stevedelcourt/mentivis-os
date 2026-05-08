@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import VisualOrb from "@/components/visual-orb";
 
 export default function SegmentsSection({ lang }: { lang: Locale }) {
   const t = getT(lang);
@@ -21,10 +22,10 @@ export default function SegmentsSection({ lang }: { lang: Locale }) {
   }, []);
 
   const segments = [
-    { ...t.segments.individuel, path: "/pour-qui/individuel" },
-    { ...t.segments.corporate, path: "/pour-qui/corporate" },
-    { ...t.segments.formation, path: "/pour-qui/formation" },
-    { ...t.segments.competences, path: "/pour-qui/competences" },
+    { ...t.segments.individuel, path: "/pour-qui/individuel", orb: "narration" as const },
+    { ...t.segments.corporate, path: "/pour-qui/corporate", orb: "terravert" as const },
+    { ...t.segments.formation, path: "/pour-qui/formation", orb: "dusk" as const },
+    { ...t.segments.competences, path: "/pour-qui/competences", orb: "characters" as const },
   ];
 
   return (
@@ -53,15 +54,17 @@ export default function SegmentsSection({ lang }: { lang: Locale }) {
                 transition: `opacity 0.4s ${i * 50}ms ease, transform 0.4s ${i * 50}ms ease`,
               }}
             >
-              <h3
-                className="t-display"
-                style={{
-                  fontSize: "var(--text-heading)",
-                  marginBottom: 12,
-                }}
-              >
-                {seg.title}
-              </h3>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+                <h3
+                  className="t-display"
+                  style={{
+                    fontSize: "var(--text-heading)",
+                  }}
+                >
+                  {seg.title}
+                </h3>
+                <VisualOrb variant={seg.orb} size="sm" />
+              </div>
               <p className="t-caption">{seg.body}</p>
             </Link>
           ))}

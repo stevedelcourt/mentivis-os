@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import TopoLines from "@/components/topo-lines";
 
 interface HeroUnitProps {
   lang: Locale;
@@ -21,15 +22,30 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
       className="hero"
       style={{
         minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
         position: "relative",
-        overflow: "hidden",
-        paddingTop: 64,
+        paddingTop: "calc(64px + var(--section-gap))",
+        paddingBottom: "var(--section-gap)",
         background: "var(--bg-primary)",
       }}
     >
-      <div className="container-wide" style={{ position: "relative", zIndex: 1 }}>
+      <div
+        className="hero-topo"
+        style={{
+          position: "absolute",
+          left: "calc(var(--grid-margin) + 720px)",
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: "clamp(300px, 40vw, 600px)",
+          height: "clamp(300px, 40vw, 600px)",
+          opacity: 0.5,
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <TopoLines count={15} height="100%" lineColor="rgba(0,0,0,0.12)" lineWidth={0.75} speed={0.3} />
+      </div>
+
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div
           style={{
             maxWidth: 720,
@@ -40,7 +56,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
         >
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-sans)",
               fontSize: "var(--text-caption)",
               fontWeight: 500,
               letterSpacing: "0.14px",
@@ -57,7 +73,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             style={{
               fontSize: "var(--text-hero)",
               whiteSpace: "pre-line",
-              marginBottom: 28,
+              marginBottom: 20,
             }}
           >
             {t.hero.headline}
@@ -78,14 +94,34 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             <Link
               href={`/${lang}/demo`}
               className="btn-pill btn-black"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                borderRadius: 8,
+                padding: "12px 20px",
+              }}
             >
               {t.hero.ctaPrimary}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
             <Link
               href={`/${lang}/produit`}
               className="btn-pill btn-warm"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                borderRadius: 8,
+                padding: "12px 20px",
+              }}
             >
               {t.hero.ctaSecondary}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
           </div>
 

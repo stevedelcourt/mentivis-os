@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import VisualOrb from "@/components/visual-orb";
 
 interface ProductCardProps {
   lang: Locale;
@@ -8,9 +9,9 @@ interface ProductCardProps {
 export default function ProductCard({ lang }: ProductCardProps) {
   const t = getT(lang);
   const products = [
-    { ...t.products.atelier, path: "/produit" },
-    { ...t.products.operate, path: "/produit" },
-    { ...t.products.intel, path: "/produit" },
+    { ...t.products.atelier, path: "/produit", orb: "ember" as const },
+    { ...t.products.operate, path: "/produit", orb: "sage" as const },
+    { ...t.products.intel, path: "/produit", orb: "periwinkle" as const },
   ];
 
   return (
@@ -33,18 +34,21 @@ export default function ProductCard({ lang }: ProductCardProps) {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                minHeight: 180,
+                minHeight: 220,
               }}
             >
-              <span
-                className="t-caption"
-                style={{
-                  color: "var(--text-tertiary)",
-                  fontWeight: 500,
-                }}
-              >
-                {product.number}
-              </span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span
+                  className="t-caption"
+                  style={{
+                    color: "var(--text-tertiary)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {product.number}
+                </span>
+                <VisualOrb variant={product.orb} size="sm" />
+              </div>
               <div>
                 <h3
                   className="t-display"

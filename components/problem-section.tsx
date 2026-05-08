@@ -8,7 +8,6 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
       style={{
         padding: "var(--section-gap) 0",
         background: "var(--bg-secondary)",
-        textAlign: "center",
       }}
     >
       <div className="container">
@@ -18,7 +17,6 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
             fontSize: "clamp(28px, 4vw, 48px)",
             whiteSpace: "pre-line",
             maxWidth: 800,
-            margin: "0 auto",
           }}
         >
           {t.problem.statement}
@@ -27,7 +25,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
           className="t-lead"
           style={{
             maxWidth: 600,
-            margin: "24px auto 0",
+            marginTop: 24,
           }}
         >
           {t.problem.counterpoint}

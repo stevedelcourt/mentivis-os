@@ -89,7 +89,7 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
                 marginBottom: 20,
               }}
             >
-              MentivisOS
+              Mentivis OS
             </h3>
             <ul>
               {t.notLms.mentivos.map((item) => (

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import LogomarkMotion from "./logomark-motion";
 
 interface FooterBlockProps {
   lang: Locale;
@@ -42,6 +43,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           >
             {t.footer.tagline}
           </p>
+          <LogomarkMotion />
         </div>
 
         {[
@@ -65,7 +67,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           <div key={col.title}>
             <h4
               style={{
-                fontFamily: "var(--font-body)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "var(--text-micro)",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
@@ -110,7 +112,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
       >
         <span
           style={{
-            fontFamily: "var(--font-body)",
+            fontFamily: "var(--font-sans)",
             fontSize: "var(--text-micro)",
             color: "var(--text-tertiary)",
           }}
@@ -124,7 +126,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               href={`/${lang}`}
               className="footer-link"
               style={{
-                fontFamily: "var(--font-body)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "var(--text-micro)",
                 color: "var(--text-tertiary)",
               }}
@@ -138,10 +140,19 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
       <style>{`
         .footer-link:hover { color: var(--text-primary) !important; }
         @media (max-width: 1024px) {
-          footer > .container > div:first-of-type { grid-template-columns: 1fr 1fr !important; }
+          footer > .container:first-of-type { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 768px) {
-          footer > .container > div:first-of-type { grid-template-columns: 1fr !important; }
+          footer > .container:first-of-type { grid-template-columns: 1fr !important; }
+          footer > .container:last-of-type {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+          }
+          footer > .container:last-of-type > div {
+            flex-wrap: wrap !important;
+            gap: 12px !important;
+          }
         }
       `}</style>
     </footer>

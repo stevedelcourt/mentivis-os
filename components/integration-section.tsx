@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 
+const gradientVars = [
+  "--integration-grad-1",
+  "--integration-grad-2",
+  "--integration-grad-3",
+];
+
 export default function IntegrationSection({ lang }: { lang: Locale }) {
   const t = getT(lang);
   const ref = useRef<HTMLDivElement>(null);
@@ -27,14 +33,13 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
   ];
 
   return (
-    <section ref={ref} className="section">
+    <section ref={ref} className="section" style={{ background: "#ffffff" }}>
       <div className="container">
         <h2
           className="t-display"
           style={{
             fontSize: "var(--text-display)",
             marginBottom: 48,
-            textAlign: "center",
           }}
         >
           {t.integration.title}
@@ -45,28 +50,22 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
             <Link
               key={mode.title}
               href={`/${lang}${mode.path}`}
-              className="card"
+              className="integration-card"
               style={{
-                textAlign: "center",
-                padding: 32,
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(16px)",
                 transition: `opacity 0.4s ${i * 50}ms ease, transform 0.4s ${i * 50}ms ease`,
               }}
             >
-              <h3
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--text-heading)",
-                  fontWeight: 500,
-                  letterSpacing: "0.04em",
-                  color: "var(--text-primary)",
-                  marginBottom: 12,
-                }}
-              >
-                {mode.title}
-              </h3>
-              <p className="t-caption">{mode.body}</p>
+              <div
+                className="integration-card__bg"
+                style={{ background: `var(${gradientVars[i]})` }}
+              />
+              <div className="integration-card__grain" />
+              <div className="integration-card__content">
+                <h3 className="integration-card__title">{mode.title}</h3>
+                <p className="integration-card__body">{mode.body}</p>
+              </div>
             </Link>
           ))}
         </div>
@@ -75,9 +74,12 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
           <Link
             href={`/${lang}/integration`}
             className="section-link t-caption"
-            style={{ color: "var(--text-tertiary)" }}
+            style={{ color: "var(--text-tertiary)", display: "inline-flex", alignItems: "center", gap: 6 }}
           >
-            {t.integration.link} &rarr;
+            {t.integration.link}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+              <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </div>
       </div>

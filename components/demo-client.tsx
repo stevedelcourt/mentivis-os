@@ -78,7 +78,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
                   padding: "12px 16px",
                   border: `1px solid var(--border-light)`,
                   borderRadius: "var(--r-card)",
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "var(--text-body-sm)",
                   background: "var(--bg-primary)",
                   color: "var(--text-primary)",
@@ -109,7 +109,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
                 padding: "12px 16px",
                 border: `1px solid var(--border-light)`,
                 borderRadius: "var(--r-card)",
-                fontFamily: "var(--font-body)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "var(--text-body-sm)",
                 background: "var(--bg-primary)",
                 color: "var(--text-primary)",
@@ -150,9 +150,18 @@ export default function DemoClient({ lang }: { lang: Locale }) {
               padding: "14px 32px",
               cursor: status === "loading" ? "not-allowed" : "pointer",
               opacity: status === "loading" ? 0.6 : 1,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
             }}
           >
             {status === "loading" ? "..." : t.demo.form.submit}
+            {status !== "loading" && (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
           </button>
 
           {status === "error" && (
@@ -199,7 +208,7 @@ function FormField({ label, name, type = "text", required = false }: { label: st
           padding: "12px 16px",
           border: `1px solid var(--border-light)`,
           borderRadius: "var(--r-card)",
-          fontFamily: "var(--font-body)",
+          fontFamily: "var(--font-sans)",
           fontSize: "var(--text-body-sm)",
           background: "var(--bg-primary)",
           color: "var(--text-primary)",

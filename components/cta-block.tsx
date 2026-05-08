@@ -13,12 +13,11 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
     return (
       <section
         style={{
-          background: "var(--bg-secondary)",
+          background: "#ffffff",
           padding: "var(--section-gap) 0",
-          textAlign: "center",
         }}
       >
-        <div className="container" style={{ maxWidth: 640 }}>
+        <div className="container">
           <h2
             className="t-display"
             style={{
@@ -35,8 +34,12 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
           <Link
             href={`/${lang}/demo`}
             className="btn-pill btn-warm"
+            style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
           >
             {t.finalCta.button}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+              <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </div>
       </section>
@@ -44,7 +47,7 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
   }
 
   return (
-    <section className="section" style={{ textAlign: "center" }}>
+    <section className="section">
       <div className="container">
         <h2
           className="t-display"
@@ -58,8 +61,12 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
         <Link
           href={`/${lang}/demo`}
           className="btn-pill btn-black"
+          style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
         >
           {t.finalCta.button}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </Link>
       </div>
     </section>

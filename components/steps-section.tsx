@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import VisualOrb from "@/components/visual-orb";
 
 export default function StepsSection({ lang }: { lang: Locale }) {
   const t = getT(lang);
@@ -20,7 +21,11 @@ export default function StepsSection({ lang }: { lang: Locale }) {
     return () => observer.disconnect();
   }, []);
 
-  const steps = [t.steps.step1, t.steps.step2, t.steps.step3];
+  const steps = [
+    { ...t.steps.step1, orb: "petal" as const },
+    { ...t.steps.step2, orb: "huedrift" as const },
+    { ...t.steps.step3, orb: "pulse" as const },
+  ];
 
   return (
     <section ref={ref} className="section">
@@ -30,7 +35,6 @@ export default function StepsSection({ lang }: { lang: Locale }) {
           style={{
             fontSize: "var(--text-display)",
             marginBottom: 64,
-            textAlign: "center",
           }}
         >
           {t.steps.title}
@@ -46,9 +50,10 @@ export default function StepsSection({ lang }: { lang: Locale }) {
                 transition: `opacity 0.4s ${i * 50}ms ease, transform 0.4s ${i * 50}ms ease`,
               }}
             >
+              <VisualOrb variant={step.orb} size="md" />
               <span
                 className="t-caption"
-                style={{ color: "var(--text-tertiary)", fontWeight: 500 }}
+                style={{ color: "var(--text-tertiary)", fontWeight: 500, marginTop: 16, display: "block" }}
               >
                 {step.number}
               </span>
