@@ -115,7 +115,6 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const toggleAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) {
-      console.error("Audio element not mounted");
       return;
     }
     if (isPlaying) {
@@ -128,10 +127,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch((err) => {
-            console.error("Audio play failed:", err);
-            setIsPlaying(false);
-          });
+          .catch(() => setIsPlaying(false));
       }
     }
   }, [isPlaying, fadeVolume]);
