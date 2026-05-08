@@ -583,12 +583,7 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
                   fontWeight: 400,
                   transition: "background 0.18s ease",
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-warm)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-secondary)";
-                }}
+                className="visual-lib-link"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, opacity: 0.5 }}>
                   <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -598,6 +593,12 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
             ))}
           </div>
         </div>
+
+        <style>{`
+          .visual-lib-link:hover {
+            background: var(--bg-warm) !important;
+          }
+        `}</style>
       </div>
     </section>
   );
