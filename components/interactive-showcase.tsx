@@ -87,22 +87,54 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const [pulsingIdx, setPulsingIdx] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const wheelLock = useRef(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const wasPlayingRef = useRef(false);
+
+  const fadeVolume = useCallback((target: number, duration = 400) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const start = audio.volume;
+    const startTime = performance.now();
+    if (fadeInterval.current) clearInterval(fadeInterval.current);
+    fadeInterval.current = setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      audio.volume = start + (target - start) * t;
+      if (t >= 1) {
+        if (fadeInterval.current) clearInterval(fadeInterval.current);
+        if (target === 0) {
+          audio.pause();
+        }
+      }
+    }, 16);
+  }, []);
 
   const toggleAudio = useCallback(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio("/sounds/bacri.mp3");
-      audioRef.current.onended = () => setIsPlaying(false);
+    const audio = audioRef.current;
+    if (!audio) {
+      console.error("Audio element not mounted");
+      return;
     }
     if (isPlaying) {
-      audioRef.current.pause();
+      fadeVolume(0, 250);
       setIsPlaying(false);
     } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      audio.volume = 1;
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch((err) => {
+            console.error("Audio play failed:", err);
+            setIsPlaying(false);
+          });
+      }
     }
-  }, [isPlaying]);
+  }, [isPlaying, fadeVolume]);
 
   const handlePrev = useCallback(() => {
     setActiveIdx((prev) => (prev - 1 + ORBS.length) % ORBS.length);
@@ -136,6 +168,36 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   }, [handlePrev, handleNext]);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const audio = audioRef.current;
+          if (!audio) return;
+          if (!entry.isIntersecting) {
+            if (isPlaying) {
+              wasPlayingRef.current = true;
+              fadeVolume(0, 500);
+              setIsPlaying(false);
+            }
+          } else {
+            if (wasPlayingRef.current && !isPlaying) {
+              audio.volume = 1;
+              audio.play().catch(() => {});
+              setIsPlaying(true);
+            }
+            wasPlayingRef.current = false;
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [isPlaying, fadeVolume]);
+
+  useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
     const onWheel = (e: WheelEvent) => {
@@ -164,7 +226,15 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const prod = PRODUCTS[product];
 
   return (
-    <section className="section" style={{ background: "var(--bg-warm)" }}>
+    <section ref={sectionRef} className="section" style={{ background: "var(--bg-warm)" }}>
+      <audio
+        ref={audioRef}
+        src="/sounds/bacri.mp3"
+        preload="auto"
+        onEnded={() => setIsPlaying(false)}
+        onError={() => setIsPlaying(false)}
+        style={{ display: "none" }}
+      />
       <div className="container">
         <div
           style={{
@@ -410,16 +480,14 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                       />
                       {/* Play button / Audio player */}
                       {i === 6 ? (
-                        /* Bilan d'impact — audio player with waveform */
+                        /* Bilan d'impact — centered play button + full-width waveform */
                         <div
                           style={{
                             position: "absolute",
-                            bottom: 20,
-                            left: "50%",
-                            transform: "translateX(-50%)",
+                            inset: 0,
                             display: pos === 0 ? "flex" : "none",
                             alignItems: "center",
-                            gap: 10,
+                            justifyContent: "center",
                             zIndex: 10,
                             opacity: pos === 0 ? 1 : 0,
                             pointerEvents: pos === 0 ? "auto" : "none",
@@ -427,25 +495,40 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                             transitionDelay: ".2s",
                           }}
                         >
-                          {/* Waveform */}
+                          {/* Full-width edge-to-edge waveform */}
                           {isPlaying && (
-                            <div style={{ display: "flex", alignItems: "center", gap: 2, height: 20 }}>
-                              {Array.from({ length: 12 }).map((_, wi) => (
+                            <div
+                              style={{
+                                position: "absolute",
+                                left: 16,
+                                right: 16,
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                height: 56,
+                                gap: 2,
+                                zIndex: 1,
+                              }}
+                            >
+                              {Array.from({ length: 50 }).map((_, wi) => (
                                 <span
                                   key={wi}
                                   style={{
-                                    width: 2,
+                                    flex: 1,
                                     borderRadius: 1,
-                                    background: "#FFFFFF",
-                                    animation: `waveform ${0.4 + Math.random() * 0.5}s ease-in-out infinite alternate`,
-                                    animationDelay: `${wi * 0.05}s`,
-                                    height: `${6 + Math.random() * 14}px`,
+                                    background: "rgba(255,255,255,0.95)",
+                                    animation: `waveform ${0.25 + Math.random() * 0.35}s ease-in-out infinite alternate`,
+                                    animationDelay: `${wi * 0.025}s`,
+                                    height: `${10 + Math.random() * 40}px`,
                                   }}
                                 />
                               ))}
                             </div>
                           )}
-                          {/* Play / Pause */}
+
+                          {/* Centered play/pause button */}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -453,16 +536,18 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                             }}
                             aria-label={isPlaying ? "Pause" : "Lire"}
                             style={{
-                              width: 44,
-                              height: 44,
-                              borderRadius: 12,
+                              position: "relative",
+                              zIndex: 10,
+                              width: 64,
+                              height: 64,
+                              borderRadius: 16,
                               background: "#FFFFFF",
                               border: "none",
                               cursor: "pointer",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              boxShadow: "0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05)",
+                              boxShadow: "0 4px 20px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.05)",
                               transition: "transform .2s ease",
                             }}
                             onMouseEnter={(e) => {
@@ -471,14 +556,20 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                             onMouseLeave={(e) => {
                               (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
                             }}
+                            onMouseDown={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.96)";
+                            }}
+                            onMouseUp={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                            }}
                           >
                             {isPlaying ? (
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A">
-                                <rect x="6" y="5" width="4" height="14" rx="1" />
-                                <rect x="14" y="5" width="4" height="14" rx="1" />
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A">
+                                <rect x="6" y="5" width="5" height="14" rx="1.5" />
+                                <rect x="13" y="5" width="5" height="14" rx="1.5" />
                               </svg>
                             ) : (
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A" style={{ marginLeft: 1 }}>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A" style={{ marginLeft: 2 }}>
                                 <path d="M8 5v14l11-7z" />
                               </svg>
                             )}
