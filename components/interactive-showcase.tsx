@@ -86,6 +86,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const [activeFeature, setActiveFeature] = useState(0);
   const [pulsingIdx, setPulsingIdx] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playingOrbIdx, setPlayingOrbIdx] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const navLock = useRef(false);
@@ -113,25 +114,27 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
     }, 16);
   }, []);
 
-  const toggleAudio = useCallback(() => {
+  const toggleAudio = useCallback((orbIdx: number) => {
     const audio = audioRef.current;
     if (!audio) {
       return;
     }
-    if (isPlaying) {
+    if (isPlaying && playingOrbIdx === orbIdx) {
       fadeVolume(0, 250);
       setIsPlaying(false);
+      setPlayingOrbIdx(null);
     } else {
+      setPlayingOrbIdx(orbIdx);
       audio.volume = 1;
       audio.currentTime = 0;
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch(() => setIsPlaying(false));
+          .catch(() => { setIsPlaying(false); setPlayingOrbIdx(null); });
       }
     }
-  }, [isPlaying, fadeVolume]);
+  }, [isPlaying, playingOrbIdx, fadeVolume]);
 
   const handlePrev = useCallback(() => {
     setActiveIdx((prev) => (prev - 1 + ORBS.length) % ORBS.length);
@@ -177,6 +180,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
               wasPlayingRef.current = true;
               fadeVolume(0, 500);
               setIsPlaying(false);
+              setPlayingOrbIdx(null);
             }
           } else {
             if (wasPlayingRef.current && !isPlaying) {
@@ -255,8 +259,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
         ref={audioRef}
         src="/sounds/bacri.mp3"
         preload="auto"
-        onEnded={() => setIsPlaying(false)}
-        onError={() => setIsPlaying(false)}
+        onEnded={() => { setIsPlaying(false); setPlayingOrbIdx(null); }}
+        onError={() => { setIsPlaying(false); setPlayingOrbIdx(null); }}
         style={{ display: "none" }}
       />
       <div className="container">
@@ -457,7 +461,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                     data-pos={pos}
                     onClick={(e) => {
                       const target = e.target as HTMLElement;
-                      if (target.closest(".showcase-play") || target.closest(".showcase-tap-zone")) {
+                      if (target.closest(".showcase-tap-zone")) {
                         handleOrbClick(i, true);
                         return;
                       }
@@ -565,127 +569,74 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                       )}
 
                       {/* Play button / Audio player */}
-                      {i === 6 ? (
-                        /* Bilan d'impact — centered play button + full-width waveform */
-                        <div
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            display: pos === 0 ? "flex" : "none",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            zIndex: 10,
-                            opacity: pos === 0 ? 1 : 0,
-                            pointerEvents: pos === 0 ? "auto" : "none",
-                            transition: "all .4s ease",
-                            transitionDelay: ".2s",
-                          }}
-                        >
-                          {/* Full-width edge-to-edge waveform */}
-                          {isPlaying && (
-                            <div
-                              style={{
-                                position: "absolute",
-                                left: 16,
-                                right: 16,
-                                top: "50%",
-                                transform: "translateY(-50%)",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                height: 56,
-                                gap: 2,
-                                zIndex: 1,
-                              }}
-                            >
-                              {Array.from({ length: 50 }).map((_, wi) => (
-                                <span
-                                  key={wi}
-                                  style={{
-                                    flex: 1,
-                                    borderRadius: 1,
-                                    background: "rgba(255,255,255,0.95)",
-                                    animation: `waveform ${0.25 + Math.random() * 0.35}s ease-in-out infinite alternate`,
-                                    animationDelay: `${wi * 0.025}s`,
-                                    height: `${10 + Math.random() * 40}px`,
-                                  }}
-                                />
-                              ))}
-                            </div>
-                          )}
-
-                          {/* Centered play/pause button */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleAudio();
-                            }}
-                            aria-label={isPlaying ? "Pause" : "Lire"}
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          display: pos === 0 ? "flex" : "none",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          zIndex: 10,
+                          opacity: pos === 0 ? 1 : 0,
+                          pointerEvents: pos === 0 ? "auto" : "none",
+                          transition: "all .4s ease",
+                          transitionDelay: ".2s",
+                        }}
+                      >
+                        {/* Full-width edge-to-edge waveform */}
+                        {isPlaying && playingOrbIdx === i && (
+                          <div
                             style={{
-                              position: "relative",
-                              zIndex: 10,
-                              width: 64,
-                              height: 64,
-                              borderRadius: 16,
-                              background: "#FFFFFF",
-                              border: "none",
-                              cursor: "pointer",
+                              position: "absolute",
+                              left: 16,
+                              right: 16,
+                              top: "50%",
+                              transform: "translateY(-50%)",
                               display: "flex",
                               alignItems: "center",
-                              justifyContent: "center",
-                              boxShadow: "0 4px 20px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.05)",
-                              transition: "transform .2s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
-                            }}
-                            onMouseLeave={(e) => {
-                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
-                            }}
-                            onMouseDown={(e) => {
-                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.96)";
-                            }}
-                            onMouseUp={(e) => {
-                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                              justifyContent: "space-between",
+                              height: 56,
+                              gap: 2,
+                              zIndex: 1,
                             }}
                           >
-                            {isPlaying ? (
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A">
-                                <rect x="6" y="5" width="5" height="14" rx="1.5" />
-                                <rect x="13" y="5" width="5" height="14" rx="1.5" />
-                              </svg>
-                            ) : (
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A" style={{ marginLeft: 2 }}>
-                                <path d="M8 5v14l11-7z" />
-                              </svg>
-                            )}
-                          </button>
-                        </div>
-                      ) : (
-                        /* Other orbs — demo button */
+                            {Array.from({ length: 50 }).map((_, wi) => (
+                              <span
+                                key={wi}
+                                style={{
+                                  flex: 1,
+                                  borderRadius: 1,
+                                  background: "rgba(255,255,255,0.95)",
+                                  animation: `waveform ${0.25 + Math.random() * 0.35}s ease-in-out infinite alternate`,
+                                  animationDelay: `${wi * 0.025}s`,
+                                  height: `${10 + Math.random() * 40}px`,
+                                }}
+                              />
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Centered play/pause button */}
                         <button
-                          className="showcase-play"
-                          aria-label="Lancer la démonstration"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleAudio(i);
+                          }}
+                          aria-label={isPlaying && playingOrbIdx === i ? "Pause" : "Lire"}
                           style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            width: 60,
-                            height: 60,
-                            margin: "-30px 0 0 -30px",
+                            position: "relative",
+                            zIndex: 10,
+                            width: 64,
+                            height: 64,
                             borderRadius: 16,
                             background: "#FFFFFF",
                             border: "none",
                             cursor: "pointer",
-                            display: pos === 0 ? "flex" : "none",
+                            display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            boxShadow: "0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05)",
-                            zIndex: 10,
-                            opacity: pos === 0 ? 1 : 0,
-                            pointerEvents: pos === 0 ? "auto" : "none",
-                            transition: "all .4s ease",
-                            transitionDelay: ".2s",
+                            boxShadow: "0 4px 20px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.05)",
+                            transition: "transform .2s ease",
                           }}
                           onMouseEnter={(e) => {
                             (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
@@ -700,11 +651,18 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                             (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
                           }}
                         >
-                          <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginLeft: 2, fill: "#0A0A0A" }}>
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
+                          {isPlaying && playingOrbIdx === i ? (
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A">
+                              <rect x="6" y="5" width="5" height="14" rx="1.5" />
+                              <rect x="13" y="5" width="5" height="14" rx="1.5" />
+                            </svg>
+                          ) : (
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0A0A" style={{ marginLeft: 2 }}>
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          )}
                         </button>
-                      )}
+                      </div>
                     </div>
 
                     {/* Info */}

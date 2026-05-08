@@ -13,6 +13,7 @@ import ImpactSection from "@/components/impact-section";
 import CombinationSection from "@/components/combination-section";
 import InteractiveShowcase from "@/components/interactive-showcase";
 import ArticlesFeaturesSection from "@/components/articles-features-section";
+import FaqSection from "@/components/faq-section";
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -32,6 +33,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <InteractiveShowcase lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />
+      <FaqSection lang={locale} />
       <CTABlock lang={locale} variant="final" />
       <ArticlesFeaturesSection lang={locale} />
     </>
