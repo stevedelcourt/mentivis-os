@@ -85,8 +85,24 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const [product, setProduct] = useState("atelier");
   const [activeFeature, setActiveFeature] = useState(0);
   const [pulsingIdx, setPulsingIdx] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const wheelLock = useRef(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const toggleAudio = useCallback(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/sounds/bacri.mp3");
+      audioRef.current.onended = () => setIsPlaying(false);
+    }
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  }, [isPlaying]);
 
   const handlePrev = useCallback(() => {
     setActiveIdx((prev) => (prev - 1 + ORBS.length) % ORBS.length);
@@ -392,48 +408,126 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                           pointerEvents: "none",
                         }}
                       />
-                      {/* Play button */}
-                      <button
-                        className="showcase-play"
-                        aria-label="Lancer la démonstration"
-                        style={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          width: 60,
-                          height: 60,
-                          margin: "-30px 0 0 -30px",
-                          borderRadius: 16,
-                          background: "#FFFFFF",
-                          border: "none",
-                          cursor: "pointer",
-                          display: pos === 0 ? "flex" : "none",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          boxShadow: "0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05)",
-                          zIndex: 10,
-                          opacity: pos === 0 ? 1 : 0,
-                          pointerEvents: pos === 0 ? "auto" : "none",
-                          transition: "all .4s ease",
-                          transitionDelay: ".2s",
-                        }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
-                        }}
-                        onMouseDown={(e) => {
-                          (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.96)";
-                        }}
-                        onMouseUp={(e) => {
-                          (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
-                        }}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginLeft: 2, fill: "#0A0A0A" }}>
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </button>
+                      {/* Play button / Audio player */}
+                      {i === 6 ? (
+                        /* Bilan d'impact — audio player with waveform */
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: 20,
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            display: pos === 0 ? "flex" : "none",
+                            alignItems: "center",
+                            gap: 10,
+                            zIndex: 10,
+                            opacity: pos === 0 ? 1 : 0,
+                            pointerEvents: pos === 0 ? "auto" : "none",
+                            transition: "all .4s ease",
+                            transitionDelay: ".2s",
+                          }}
+                        >
+                          {/* Waveform */}
+                          {isPlaying && (
+                            <div style={{ display: "flex", alignItems: "center", gap: 2, height: 20 }}>
+                              {Array.from({ length: 12 }).map((_, wi) => (
+                                <span
+                                  key={wi}
+                                  style={{
+                                    width: 2,
+                                    borderRadius: 1,
+                                    background: "#FFFFFF",
+                                    animation: `waveform ${0.4 + Math.random() * 0.5}s ease-in-out infinite alternate`,
+                                    animationDelay: `${wi * 0.05}s`,
+                                    height: `${6 + Math.random() * 14}px`,
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          )}
+                          {/* Play / Pause */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleAudio();
+                            }}
+                            aria-label={isPlaying ? "Pause" : "Lire"}
+                            style={{
+                              width: 44,
+                              height: 44,
+                              borderRadius: 12,
+                              background: "#FFFFFF",
+                              border: "none",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              boxShadow: "0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05)",
+                              transition: "transform .2s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                            }}
+                            onMouseLeave={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                            }}
+                          >
+                            {isPlaying ? (
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A">
+                                <rect x="6" y="5" width="4" height="14" rx="1" />
+                                <rect x="14" y="5" width="4" height="14" rx="1" />
+                              </svg>
+                            ) : (
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A" style={{ marginLeft: 1 }}>
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            )}
+                          </button>
+                        </div>
+                      ) : (
+                        /* Other orbs — demo button */
+                        <button
+                          className="showcase-play"
+                          aria-label="Lancer la démonstration"
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            width: 60,
+                            height: 60,
+                            margin: "-30px 0 0 -30px",
+                            borderRadius: 16,
+                            background: "#FFFFFF",
+                            border: "none",
+                            cursor: "pointer",
+                            display: pos === 0 ? "flex" : "none",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxShadow: "0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05)",
+                            zIndex: 10,
+                            opacity: pos === 0 ? 1 : 0,
+                            pointerEvents: pos === 0 ? "auto" : "none",
+                            transition: "all .4s ease",
+                            transitionDelay: ".2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                          }}
+                          onMouseDown={(e) => {
+                            (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.96)";
+                          }}
+                          onMouseUp={(e) => {
+                            (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                          }}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginLeft: 2, fill: "#0A0A0A" }}>
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
 
                     {/* Info */}
@@ -671,6 +765,10 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
             radial-gradient(ellipse 58% 66% at 66% 52%,#E87858 0%,transparent 60%),
             radial-gradient(ellipse 70% 48% at 52% 82%,#F09060 0%,transparent 56%),
             #E8B898;
+        }
+        @keyframes waveform {
+          0% { transform: scaleY(0.3); }
+          100% { transform: scaleY(1); }
         }
         @media (max-width: 900px) {
           .showcase-stage { flex-direction: column; gap: 24px; }
