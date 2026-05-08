@@ -88,10 +88,11 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   const [isPlaying, setIsPlaying] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const wheelLock = useRef(false);
+  const navLock = useRef(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const wasPlayingRef = useRef(false);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const fadeVolume = useCallback((target: number, duration = 400) => {
     const audio = audioRef.current;
@@ -196,11 +197,12 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
     const onWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) < 12 && Math.abs(e.deltaY) < 12) return;
-      if (wheelLock.current) return;
-      wheelLock.current = true;
-      setTimeout(() => { wheelLock.current = false; }, 600);
+      if (navLock.current) return;
+      navLock.current = true;
+      setTimeout(() => { navLock.current = false; }, 600);
       if (e.deltaX > 0 || e.deltaY > 0) {
         handleNext();
       } else {
@@ -209,6 +211,32 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
     };
     stage.addEventListener("wheel", onWheel, { passive: true });
     return () => stage.removeEventListener("wheel", onWheel);
+  }, [handlePrev, handleNext]);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!touchStart.current) return;
+      const dx = e.changedTouches[0].clientX - touchStart.current.x;
+      const dy = e.changedTouches[0].clientY - touchStart.current.y;
+      touchStart.current = null;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+      if (navLock.current) return;
+      navLock.current = true;
+      setTimeout(() => { navLock.current = false; }, 600);
+      if (dx < 0) handleNext();
+      else handlePrev();
+    };
+    stage.addEventListener("touchstart", onTouchStart, { passive: true });
+    stage.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      stage.removeEventListener("touchstart", onTouchStart);
+      stage.removeEventListener("touchend", onTouchEnd);
+    };
   }, [handlePrev, handleNext]);
 
   const getPos = (idx: number) => {
@@ -261,8 +289,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
               style={{
                 display: "flex",
                 background: "rgba(0,0,0,.03)",
-                borderRadius: 9999,
-                padding: 5,
+                borderRadius: 8,
+                padding: 4,
                 height: "fit-content",
               }}
             >
@@ -273,11 +301,11 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 10,
-                    padding: "9px 18px 9px 14px",
+                    gap: 8,
+                    padding: "10px 16px",
                     border: "none",
                     background: product === key ? "#FFFFFF" : "transparent",
-                    borderRadius: 9999,
+                    borderRadius: 8,
                     cursor: "pointer",
                     fontSize: 14,
                     fontWeight: 500,
@@ -292,8 +320,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                   <span
                     style={{
                       display: "block",
-                      width: 18,
-                      height: 18,
+                      width: 16,
+                      height: 16,
                       borderRadius: "50%",
                       position: "relative",
                       overflow: "hidden",
@@ -372,6 +400,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
           >
             {/* Prev */}
             <button
+              className="showcase-arrows"
               onClick={handlePrev}
               aria-label="Précédent"
               style={{
@@ -424,9 +453,11 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                 return (
                   <div
                     key={i}
+                    className="showcase-orb-container"
+                    data-pos={pos}
                     onClick={(e) => {
                       const target = e.target as HTMLElement;
-                      if (target.closest(".showcase-play")) {
+                      if (target.closest(".showcase-play") || target.closest(".showcase-tap-zone")) {
                         handleOrbClick(i, true);
                         return;
                       }
@@ -474,6 +505,65 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                           pointerEvents: "none",
                         }}
                       />
+
+                      {/* Tap zones — prev/next chevrons on active card */}
+                      {pos === 0 && (
+                        <>
+                          <button
+                            className="showcase-tap-zone"
+                            aria-label="Précédent"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePrev();
+                            }}
+                            style={{
+                              position: "absolute",
+                              left: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: "25%",
+                              zIndex: 8,
+                              background: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ color: "rgba(255,255,255,0.7)" }}>
+                              <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </button>
+                          <button
+                            className="showcase-tap-zone"
+                            aria-label="Suivant"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleNext();
+                            }}
+                            style={{
+                              position: "absolute",
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: "25%",
+                              zIndex: 8,
+                              background: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ color: "rgba(255,255,255,0.7)" }}>
+                              <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </button>
+                        </>
+                      )}
+
                       {/* Play button / Audio player */}
                       {i === 6 ? (
                         /* Bilan d'impact — centered play button + full-width waveform */
@@ -662,6 +752,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
 
             {/* Next */}
             <button
+              className="showcase-arrows"
               onClick={handleNext}
               aria-label="Suivant"
               style={{
@@ -764,8 +855,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                 background: "#0A0A0A",
                 color: "#FFFFFF",
                 border: "none",
-                borderRadius: 9999,
-                padding: "10px 22px",
+                borderRadius: 8,
+                padding: "10px 16px",
                 fontFamily: "inherit",
                 fontSize: 14,
                 fontWeight: 500,
@@ -863,6 +954,22 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
         }
         @media (max-width: 768px) {
           .showcase-nav { display: none !important; }
+          .showcase-arrows { display: none !important; }
+          .showcase-orb-container[data-pos="1"] {
+            transform: translate(-50%, -50%) translateX(calc(50vw + 52px)) scale(0.55) !important;
+            opacity: 0.55 !important;
+          }
+          .showcase-orb-container[data-pos="-1"] {
+            transform: translate(-50%, -50%) translateX(calc(-50vw - 52px)) scale(0.55) !important;
+            opacity: 0.55 !important;
+          }
+          .showcase-orb-container[data-pos="2"],
+          .showcase-orb-container[data-pos="-2"],
+          .showcase-orb-container[data-pos="3"],
+          .showcase-orb-container[data-pos="-3"] {
+            opacity: 0 !important;
+            pointer-events: none !important;
+          }
         }
       `}</style>
     </section>
