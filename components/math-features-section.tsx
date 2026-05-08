@@ -259,7 +259,7 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
             <h2
               className="t-display"
               style={{
-                fontSize: "clamp(22px, 3vw, 32px)",
+                fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 300,
                 maxWidth: 480,
                 lineHeight: 1.35,

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS Light Visual Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#F5F2EF;
+  --white:#FFFFFF;
+  --ink:#000000;
+  --ink2:#4E4E4E;
+  --ink3:#777169;
+  --ink4:#A8A39A;
+  --border:#E5E5E5;
+  --shadow-ring:rgba(0,0,0,.06) 0 0 0 1px,rgba(0,0,0,.04) 0 1px 2px,rgba(0,0,0,.04) 0 2px 4px;
+  --shadow-warm:rgba(78,50,23,.05) 0 6px 18px;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Mono','Courier New',monospace;
+  padding:52px 40px 90px;
+}
+
+.hd{
+  max-width:1280px;margin:0 auto 44px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid rgba(0,0,0,.06);padding-bottom:20px;
+}
+.hd-t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--ink)}
+.hd-c{font-size:11px;color:var(--ink3);letter-spacing:.08em}
+
+.sect{max-width:1280px;margin:36px auto 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink4)}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1280px;margin:0 auto}
+
+.card{display:flex;flex-direction:column;gap:10px}
+
+/* ── ORB CARD — warm stone background ── */
+.oc{
+  position:relative;
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;overflow:hidden;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ── GEO CARD — white with ring shadow ── */
+.gc{
+  position:relative;
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;overflow:hidden;
+  background:var(--white);
+  box-shadow:var(--shadow-ring);
+}
+.gc svg.fill{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* ── THE ORB CIRCLE ── */
+.orb{
+  width:82%;aspect-ratio:1/1;
+  border-radius:50%;overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+}
+.orb::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+  opacity:.09;mix-blend-mode:multiply;pointer-events:none;z-index:5;
+}
+
+/* ── LABELS ── */
+.lbl{display:flex;justify-content:space-between;align-items:center;padding:0 2px}
+.ln{font-size:11px;color:var(--ink3)}
+.bs{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.bs-s{background:rgba(0,0,0,.05);color:var(--ink3)}
+.bs-a{background:rgba(0,0,0,.07);color:var(--ink2)}
+
+/* ════════════ GROUP A — GRADIENT ORBS ════════════ */
+
+/* 01 Narration */
+.o01{background:
+  radial-gradient(ellipse 66% 56% at 32% 28%,#E87268 0%,transparent 62%),
+  radial-gradient(ellipse 56% 66% at 68% 58%,#E89068 0%,transparent 62%),
+  radial-gradient(ellipse 72% 46% at 50% 88%,#F0B090 0%,transparent 56%),
+  radial-gradient(ellipse 42% 42% at 18% 72%,#D46262 0%,transparent 52%),
+  #F4C8B8}
+
+/* 02 Characters */
+.o02{background:
+  radial-gradient(ellipse 70% 60% at 34% 26%,#6058A8 0%,transparent 58%),
+  radial-gradient(ellipse 56% 56% at 64% 42%,#8878C0 0%,transparent 56%),
+  radial-gradient(ellipse 62% 66% at 54% 78%,#D88060 0%,transparent 58%),
+  radial-gradient(ellipse 44% 44% at 80% 22%,#9080C8 0%,transparent 50%),
+  #C8B8E8}
+
+/* 03 Sage */
+.o03{background:
+  radial-gradient(ellipse 62% 56% at 38% 30%,#7092A8 0%,transparent 58%),
+  radial-gradient(ellipse 56% 62% at 64% 54%,#8898A0 0%,transparent 56%),
+  radial-gradient(ellipse 66% 52% at 48% 82%,#909862 0%,transparent 56%),
+  radial-gradient(ellipse 48% 40% at 75% 22%,#88A8B0 0%,transparent 52%),
+  #B8C8B0}
+
+/* 04 Petal */
+.o04{background:
+  radial-gradient(ellipse 70% 60% at 38% 32%,#F0C0C8 0%,transparent 60%),
+  radial-gradient(ellipse 60% 70% at 62% 60%,#F8D8D0 0%,transparent 62%),
+  radial-gradient(ellipse 50% 50% at 50% 85%,#F8E8E0 0%,transparent 55%),
+  #FCF0EC}
+
+/* 05 Ember */
+.o05{background:
+  radial-gradient(ellipse 66% 58% at 36% 26%,#C85838 0%,transparent 58%),
+  radial-gradient(ellipse 58% 66% at 66% 52%,#D87050 0%,transparent 60%),
+  radial-gradient(ellipse 70% 48% at 52% 82%,#E09060 0%,transparent 56%),
+  radial-gradient(ellipse 44% 44% at 20% 68%,#B84838 0%,transparent 52%),
+  #E8B898}
+
+/* 06 Periwinkle */
+.o06{background:
+  radial-gradient(ellipse 64% 58% at 36% 28%,#8890C8 0%,transparent 58%),
+  radial-gradient(ellipse 58% 64% at 66% 54%,#A8B0D8 0%,transparent 60%),
+  radial-gradient(ellipse 68% 50% at 50% 84%,#C0C8E8 0%,transparent 56%),
+  #D0D8F0}
+
+/* 07 Terravert */
+.o07{background:
+  radial-gradient(ellipse 64% 56% at 34% 28%,#486858 0%,transparent 56%),
+  radial-gradient(ellipse 56% 64% at 64% 54%,#587868 0%,transparent 58%),
+  radial-gradient(ellipse 68% 50% at 50% 82%,#789068 0%,transparent 56%),
+  radial-gradient(ellipse 46% 46% at 78% 24%,#688078 0%,transparent 52%),
+  #A8B898}
+
+/* 08 Dusk */
+.o08{background:
+  radial-gradient(ellipse 66% 56% at 30% 26%,#9060A0 0%,transparent 56%),
+  radial-gradient(ellipse 58% 66% at 66% 48%,#A07090 0%,transparent 58%),
+  radial-gradient(ellipse 70% 52% at 52% 78%,#C87858 0%,transparent 58%),
+  radial-gradient(ellipse 50% 44% at 76% 28%,#A880B0 0%,transparent 52%),
+  #D0A8C0}
+
+/* ════════════ GROUP B — BLACK LINE GEOMETRY ════════════ */
+/* SVGs generated via JS */
+
+/* ════════════ GROUP C — ANIMATED ════════════ */
+
+/* 17 Breathing coral */
+.o17{background:
+  radial-gradient(ellipse 66% 56% at 32% 28%,#E87268 0%,transparent 62%),
+  radial-gradient(ellipse 56% 66% at 68% 58%,#E89068 0%,transparent 62%),
+  radial-gradient(ellipse 72% 46% at 50% 88%,#F0B090 0%,transparent 56%),
+  #F4C8B8;
+  animation:breathe 4.5s ease-in-out infinite alternate}
+@keyframes breathe{
+  from{transform:scale(.90);opacity:.85}
+  to{transform:scale(1.02);opacity:1}
+}
+
+/* 18 Hue drift indigo */
+.o18{background:
+  radial-gradient(ellipse 70% 60% at 34% 26%,#6058A8 0%,transparent 58%),
+  radial-gradient(ellipse 56% 56% at 64% 42%,#8878C0 0%,transparent 56%),
+  radial-gradient(ellipse 62% 66% at 54% 78%,#D88060 0%,transparent 58%),
+  #C8B8E8;
+  animation:huedrift 12s linear infinite}
+@keyframes huedrift{
+  0%{filter:hue-rotate(0deg)}
+  100%{filter:hue-rotate(360deg)}
+}
+
+/* 19 Pulse sage */
+.o19{background:
+  radial-gradient(ellipse 62% 56% at 38% 30%,#7092A8 0%,transparent 58%),
+  radial-gradient(ellipse 56% 62% at 64% 54%,#8898A0 0%,transparent 56%),
+  radial-gradient(ellipse 66% 52% at 48% 82%,#909862 0%,transparent 56%),
+  #B8C8B0;
+  animation:pulse 5s ease-in-out infinite}
+@keyframes pulse{
+  0%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(.94);filter:brightness(1.08)}
+  100%{transform:scale(1);filter:brightness(1)}
+}
+
+/* 20 Rotate ember */
+.o20{background:
+  radial-gradient(ellipse 66% 58% at 36% 26%,#C85838 0%,transparent 58%),
+  radial-gradient(ellipse 58% 66% at 66% 52%,#D87050 0%,transparent 60%),
+  radial-gradient(ellipse 70% 48% at 52% 82%,#E09060 0%,transparent 56%),
+  #E8B898;
+  animation:rotGrad 10s linear infinite}
+@keyframes rotGrad{
+  from{filter:hue-rotate(0deg) saturate(1)}
+  50%{filter:hue-rotate(-30deg) saturate(1.1)}
+  to{filter:hue-rotate(0deg) saturate(1)}
+}
+
+/* 21 3D Cube — CSS 3D, black wireframe */
+.v21-wrap{
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;background:var(--white);
+  box-shadow:var(--shadow-ring);
+  display:flex;align-items:center;justify-content:center;
+  perspective:500px;
+  overflow:hidden;
+}
+.cube-3d{
+  width:110px;height:110px;
+  transform-style:preserve-3d;
+  animation:rcube 9s linear infinite;
+}
+@keyframes rcube{
+  from{transform:rotateX(22deg) rotateY(0deg)}
+  to{transform:rotateX(22deg) rotateY(360deg)}
+}
+.face{
+  position:absolute;width:110px;height:110px;
+  border:1.2px solid #1A1A18;
+  background:transparent;opacity:.75;
+}
+.f-front {transform:translateZ(55px)}
+.f-back  {transform:translateZ(-55px) rotateY(180deg)}
+.f-left  {transform:translateX(-55px) rotateY(-90deg)}
+.f-right {transform:translateX(55px) rotateY(90deg)}
+.f-top   {transform:translateY(-55px) rotateX(90deg)}
+.f-bot   {transform:translateY(55px) rotateX(-90deg)}
+
+/* 22 Wave dance */
+.v22-wrap{
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;background:var(--white);
+  box-shadow:var(--shadow-ring);overflow:hidden;
+}
+.v22-wrap svg{position:absolute;inset:0;width:100%;height:100%}
+.v22-wrap{position:relative}
+
+/* animated sine paths */
+.wsv path{
+  transform-origin:200px 200px;
+  animation:waveDance 4s ease-in-out infinite alternate;
+}
+.wsv path:nth-child(1){animation-duration:4.0s;animation-delay:0s}
+.wsv path:nth-child(2){animation-duration:5.2s;animation-delay:.5s}
+.wsv path:nth-child(3){animation-duration:3.6s;animation-delay:1.0s}
+.wsv path:nth-child(4){animation-duration:4.8s;animation-delay:.3s}
+.wsv path:nth-child(5){animation-duration:3.2s;animation-delay:.7s}
+@keyframes waveDance{
+  from{transform:scaleY(1) translateY(0px)}
+  to{transform:scaleY(1.5) translateY(-12px)}
+}
+
+/* 23 Expanding rings — black on warm white */
+.v23-wrap{
+  position:relative;
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;background:var(--white);
+  box-shadow:var(--shadow-ring);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.ring-pulse span{
+  display:block;position:absolute;
+  border:1px solid rgba(0,0,0,.5);
+  border-radius:50%;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  animation:rpulse 4.5s ease-out infinite;
+}
+.ring-pulse span:nth-child(1){animation-delay:0s}
+.ring-pulse span:nth-child(2){animation-delay:.9s}
+.ring-pulse span:nth-child(3){animation-delay:1.8s}
+.ring-pulse span:nth-child(4){animation-delay:2.7s}
+.ring-pulse span:nth-child(5){animation-delay:3.6s}
+@keyframes rpulse{
+  0%{width:0;height:0;opacity:.7}
+  100%{width:380px;height:380px;opacity:0}
+}
+.ring-dot{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:7px;height:7px;border-radius:50%;
+  background:#1A1A18;z-index:5;
+}
+
+/* 24 Orbiting canvas */
+.v24-wrap{
+  position:relative;
+  width:100%;aspect-ratio:1/1;
+  border-radius:12px;background:var(--white);
+  box-shadow:var(--shadow-ring);overflow:hidden;
+}
+.v24-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
+
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <span class="hd-t">MentivisOS — Light Visual Library</span>
+  <span class="hd-c">24 visuels · Orbes degradés &amp; Géométriques</span>
+</div>
+
+<!-- ═══════ A — GRADIENT ORBS ═══════ -->
+<p class="sect">A — Orbes dégradés</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="oc"><div class="orb o01"></div></div>
+    <div class="lbl"><span class="ln">01 Narration</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o02"></div></div>
+    <div class="lbl"><span class="ln">02 Characters</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o03"></div></div>
+    <div class="lbl"><span class="ln">03 Sage</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o04"></div></div>
+    <div class="lbl"><span class="ln">04 Petal</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o05"></div></div>
+    <div class="lbl"><span class="ln">05 Ember</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o06"></div></div>
+    <div class="lbl"><span class="ln">06 Periwinkle</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o07"></div></div>
+    <div class="lbl"><span class="ln">07 Terravert</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o08"></div></div>
+    <div class="lbl"><span class="ln">08 Dusk</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════ B — BLACK GEOMETRICS ═══════ -->
+<p class="sect">B — Géométriques noirs</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g09" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">09 Sine Field</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g10" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">10 Cube ISO</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g11" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">11 Spiral</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g12" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">12 Icosa</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g13" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">13 Lissajous</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g14" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">14 Radial Grid</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g15" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">15 Topo Lines</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="gc"><svg class="fill" id="g16" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">16 Voronoi</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════ C — ANIMATED ═══════ -->
+<p class="sect">C — Animés</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="oc"><div class="orb o17"></div></div>
+    <div class="lbl"><span class="ln">17 Breath</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o18"></div></div>
+    <div class="lbl"><span class="ln">18 Hue Drift</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o19"></div></div>
+    <div class="lbl"><span class="ln">19 Pulse</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="oc"><div class="orb o20"></div></div>
+    <div class="lbl"><span class="ln">20 Ember Shift</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="v21-wrap">
+      <div class="cube-3d">
+        <div class="face f-front"></div>
+        <div class="face f-back"></div>
+        <div class="face f-left"></div>
+        <div class="face f-right"></div>
+        <div class="face f-top"></div>
+        <div class="face f-bot"></div>
+      </div>
+    </div>
+    <div class="lbl"><span class="ln">21 Cube 3D</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="v22-wrap">
+      <svg class="wsv" id="g22" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%"></svg>
+    </div>
+    <div class="lbl"><span class="ln">22 Wave Dance</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="v23-wrap">
+      <div class="ring-pulse">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="ring-dot"></div>
+    </div>
+    <div class="lbl"><span class="ln">23 Rings</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="v24-wrap"><canvas id="c24"></canvas></div>
+    <div class="lbl"><span class="ln">24 Orbits</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+</div>
+
+<script>
+const ns='http://www.w3.org/2000/svg';
+const S='#1A1A18';
+
+function el(tag,a,p){
+  const e=document.createElementNS(ns,tag);
+  Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));
+  if(p) p.appendChild(e);
+  return e;
+}
+function bg(svg){el('rect',{width:400,height:400,fill:'white'},svg)}
+function ln(svg,x1,y1,x2,y2,w,op,dash){
+  const a={x1,y1,x2,y2,stroke:S,'stroke-width':w||1,opacity:op||.88};
+  if(dash) a['stroke-dasharray']=dash;
+  el('line',a,svg);
+}
+function dot(svg,cx,cy,r){el('circle',{cx,cy,r:r||2.2,fill:S},svg)}
+function path(svg,d,w,op,fill){
+  el('path',{d,fill:fill||'none',stroke:S,'stroke-width':w||1,opacity:op||.88},svg);
+}
+
+/* ── G09: Sine Field ──────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g09');bg(svg);
+  const waves=[
+    {fr:.8,amp:50,yb:72, sw:1.2,op:.88},
+    {fr:1.6,amp:34,yb:150,sw:1.0,op:.65},
+    {fr:2.4,amp:24,yb:200,sw:.8, op:.50},
+    {fr:1.1,amp:44,yb:268,sw:1.1,op:.75},
+    {fr:3.2,amp:16,yb:338,sw:.6, op:.40},
+  ];
+  waves.forEach(w=>{
+    // axis
+    ln(svg,0,w.yb,400,w.yb,.4,.22,'2,7');
+    // wave
+    let d='';
+    for(let x=0;x<=400;x+=2){
+      const y=w.yb+w.amp*Math.sin((x/400)*2*Math.PI*w.fr);
+      d+=(x===0?'M':'L')+x.toFixed(1)+','+y.toFixed(2)+' ';
+    }
+    path(svg,d,w.sw,w.op);
+    // peak dots
+    for(let n=0;n<=Math.ceil(w.fr*2);n++){
+      const x=(n/(w.fr*2))*400;
+      dot(svg,x.toFixed(1),(w.yb-w.amp).toFixed(1),1.8);
+    }
+  });
+})();
+
+/* ── G10: Isometric Cube ────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g10');bg(svg);
+  const A=[200,94],B=[274,134],C=[274,214],D=[200,254],E=[126,214],F=[126,134],G=[200,174];
+  // construction ext
+  [[A[0],A[1],A[0],A[1]-44],[B[0],B[1],B[0]+52,B[1]-30],
+   [F[0],F[1],F[0]-52,F[1]-30],[C[0],C[1],C[0]+52,C[1]+30],
+   [E[0],E[1],E[0]-52,E[1]+30],[D[0],D[1],D[0],D[1]+44]]
+  .forEach(([x1,y1,x2,y2])=>ln(svg,x1,y1,x2,y2,.4,.2,'3,5'));
+  // diagonals
+  [[A,D],[F,C],[B,E]].forEach(([p,q])=>ln(svg,p[0],p[1],q[0],q[1],.35,.15,'3,6'));
+  // face subdivisions
+  const m={
+    AB:[(A[0]+B[0])/2,(A[1]+B[1])/2],BG:[(B[0]+G[0])/2,(B[1]+G[1])/2],
+    GF:[(G[0]+F[0])/2,(G[1]+F[1])/2],FA:[(F[0]+A[0])/2,(F[1]+A[1])/2],
+    BC:[(B[0]+C[0])/2,(B[1]+C[1])/2],CD:[(C[0]+D[0])/2,(C[1]+D[1])/2],
+    DG:[(D[0]+G[0])/2,(D[1]+G[1])/2],DE:[(D[0]+E[0])/2,(D[1]+E[1])/2],
+    EF:[(E[0]+F[0])/2,(E[1]+F[1])/2],
+  };
+  [[m.FA,m.BG],[m.AB,m.GF],[m.BC,m.DG],[m.BG,m.CD],[m.EF,m.DG],[m.GF,m.DE]]
+  .forEach(([a,b])=>ln(svg,a[0],a[1],b[0],b[1],.6,.46));
+  [[A,B],[B,C],[C,D],[D,E],[E,F],[F,A]].forEach(([p,q])=>ln(svg,p[0],p[1],q[0],q[1],1.5,.9));
+  [[G,A],[G,C],[G,E]].forEach(([p,q])=>ln(svg,p[0],p[1],q[0],q[1],1.5,.9));
+  [A,B,C,D,E,F,G].forEach(([x,y])=>dot(svg,x,y,2.2));
+})();
+
+/* ── G11: Spiral ─────────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g11');bg(svg);
+  const cx=200,cy=200,spc=8.5,maxR=168;
+  const pts=[];
+  for(let t=0;t<11.5*Math.PI;t+=.024){
+    const r=spc*t/(2*Math.PI)*2;
+    if(r>maxR) break;
+    pts.push(`${(cx+r*Math.cos(t-Math.PI/2)).toFixed(2)},${(cy+r*Math.sin(t-Math.PI/2)).toFixed(2)}`);
+  }
+  path(svg,'M '+pts[0]+' L '+pts.slice(1).join(' L '),1,.85);
+  el('circle',{cx,cy,r:maxR,fill:'none',stroke:S,'stroke-width':.5,'stroke-dasharray':'2,5',opacity:.28},svg);
+  dot(svg,cx,cy,2.5);
+})();
+
+/* ── G12: Icosahedron ────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g12');bg(svg);
+  const cx=200,cy=200,R=150;
+  const phi=(1+Math.sqrt(5))/2;
+  let v=[
+    [0,1,phi],[0,-1,phi],[0,1,-phi],[0,-1,-phi],
+    [1,phi,0],[-1,phi,0],[1,-phi,0],[-1,-phi,0],
+    [phi,0,1],[-phi,0,1],[phi,0,-1],[-phi,0,-1]
+  ].map(([x,y,z])=>{const l=Math.hypot(x,y,z);return[x/l*R,y/l*R,z/l*R]});
+  // rotate
+  const ry=.22,rz=.1,cy2=Math.cos(ry),sy=Math.sin(ry),cz=Math.cos(rz),sz=Math.sin(rz);
+  v=v.map(([x,y,z])=>{const x2=x*cy2+z*sy,z2=-x*sy+z*cy2;return[x2*cz-y*sz,x2*sz+y*cz,z2]});
+  const p=v.map(([x,y,z])=>({px:cx+x,py:cy-y,z}));
+  const edges=[[0,1],[0,4],[0,5],[0,8],[0,9],[1,6],[1,7],[1,8],[1,9],[2,3],[2,4],[2,5],[2,10],[2,11],[3,6],[3,7],[3,10],[3,11],[4,5],[4,8],[4,10],[5,9],[5,11],[6,7],[6,8],[6,10],[7,9],[7,11],[8,10],[9,11]];
+  edges.forEach(([i,j])=>{
+    const a=p[i],b=p[j],mz=(a.z+b.z)/2,fr=mz>-R*.08;
+    const attrs={x1:a.px.toFixed(2),y1:a.py.toFixed(2),x2:b.px.toFixed(2),y2:b.py.toFixed(2),
+      stroke:S,'stroke-width':.9,opacity:(fr?.88:.25).toFixed(2)};
+    if(!fr) attrs['stroke-dasharray']='2,4';
+    el('line',attrs,svg);
+  });
+  p.forEach(({px,py,z})=>el('circle',{cx:px.toFixed(2),cy:py.toFixed(2),r:2,fill:S,opacity:(z>0?.88:.28).toFixed(2)},svg));
+})();
+
+/* ── G13: Lissajous ──────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g13');bg(svg);
+  const cx=200,cy=200,A=165;
+  // Multiple Lissajous figures stacked
+  const configs=[
+    {a:3,b:2,d:Math.PI/4, sw:1.1,op:.82},
+    {a:5,b:4,d:Math.PI/6, sw:.7, op:.48},
+    {a:2,b:3,d:Math.PI/2, sw:.9, op:.62},
+  ];
+  configs.forEach(cfg=>{
+    const pts=[];
+    for(let t=0;t<=2*Math.PI*100;t+=.03){
+      const x=cx+A*Math.sin(cfg.a*t+cfg.d);
+      const y=cy+A*Math.sin(cfg.b*t);
+      pts.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+    }
+    path(svg,'M '+pts[0]+' L '+pts.slice(1).join(' L '),cfg.sw,cfg.op);
+  });
+  // center crosshair
+  ln(svg,200,30,200,370,.4,.2,'2,7');
+  ln(svg,30,200,370,200,.4,.2,'2,7');
+  dot(svg,200,200,2.5);
+})();
+
+/* ── G14: Radial Grid ────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g14');bg(svg);
+  const cx=200,cy=200;
+  // concentric circles
+  for(let r=20;r<=180;r+=20){
+    el('circle',{cx,cy,r,fill:'none',stroke:S,'stroke-width':.8,opacity:(.4+r/180*.45).toFixed(3)},svg);
+  }
+  // radiating lines
+  for(let i=0;i<24;i++){
+    const a=i*(Math.PI/12);
+    const x2=cx+185*Math.cos(a), y2=cy+185*Math.sin(a);
+    ln(svg,cx,cy,x2.toFixed(2),y2.toFixed(2),.5,.3);
+  }
+  // additional circles (intermediate, light)
+  for(let r=10;r<=180;r+=20){
+    el('circle',{cx,cy,r,fill:'none',stroke:S,'stroke-width':.4,'stroke-dasharray':'1,4',opacity:.2},svg);
+  }
+  dot(svg,cx,cy,3);
+})();
+
+/* ── G15: Topo Lines ─────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g15');bg(svg);
+  const cx=200,cy=200;
+  for(let i=1;i<=14;i++){
+    const base=(i/14)*185;
+    const dist=base*.2;
+    const phase=i*.32;
+    const pts=[];
+    for(let a=0;a<=360;a++){
+      const rad=a*Math.PI/180;
+      const w=dist*(Math.sin(3*rad+phase)+.5*Math.sin(5*rad-phase*.8)+.3*Math.sin(7*rad+phase*1.4));
+      pts.push(`${(cx+(base+w)*Math.cos(rad)).toFixed(2)},${(cy+(base+w)*Math.sin(rad)).toFixed(2)}`);
+    }
+    const d='M '+pts[0]+' L '+pts.slice(1).join(' L ')+' Z';
+    const op=.18+(i/14)*.42;
+    path(svg,d,.75,op.toFixed(3));
+  }
+  dot(svg,cx,cy,2.5);
+})();
+
+/* ── G16: Voronoi ────────────────────────────────────── */
+(function(){
+  const svg=document.getElementById('g16');bg(svg);
+  // Deterministic seed points for Voronoi-like tessellation
+  const rng=(s)=>{let x=s;return()=>{x=((x*1664525+1013904223)&0xffffffff)/0xffffffff;return x}};
+  const rand=rng(42);
+  const pts=[];
+  // generate seed points in a grid with jitter
+  const cols=7,rows=7;
+  for(let i=0;i<cols;i++){
+    for(let j=0;j<rows;j++){
+      pts.push([
+        (i+.5+(rand()-.5)*.7)*(400/cols),
+        (j+.5+(rand()-.5)*.7)*(400/rows)
+      ]);
+    }
+  }
+  // For each pair of points, draw the perpendicular bisector segment
+  // Simplified: draw connections between near neighbors (Delaunay approx)
+  // Use a simple nearest-neighbor approach: connect each pt to its 3 nearest
+  pts.forEach((p,i)=>{
+    const dists=pts.map((q,j)=>({j,d:j===i?Infinity:Math.hypot(q[0]-p[0],q[1]-p[1])}));
+    dists.sort((a,b)=>a.d-b.d);
+    dists.slice(0,3).forEach(({j})=>{
+      if(j>i){
+        const q=pts[j];
+        // only draw if both points are in a reasonable range
+        el('line',{x1:p[0].toFixed(1),y1:p[1].toFixed(1),x2:q[0].toFixed(1),y2:q[1].toFixed(1),
+          stroke:S,'stroke-width':.8,opacity:.55},svg);
+      }
+    });
+  });
+  // seed point dots
+  pts.forEach(([x,y])=>dot(svg,x.toFixed(1),y.toFixed(1),1.8));
+})();
+
+/* ── G22: Wave Dance (animated) ──────────────────────── */
+(function(){
+  const svg=document.getElementById('g22');
+  el('rect',{width:400,height:400,fill:'white'},svg);
+  const waves=[
+    {fr:.7,amp:48,yb:68, sw:1.2,op:.85},
+    {fr:1.5,amp:32,yb:145,sw:1.0,op:.62},
+    {fr:2.2,amp:22,yb:200,sw:.8, op:.48},
+    {fr:1.0,amp:42,yb:268,sw:1.1,op:.72},
+    {fr:3.0,amp:14,yb:338,sw:.6, op:.38},
+  ];
+  waves.forEach(w=>{
+    let d='';
+    for(let x=0;x<=400;x+=2){
+      const y=w.yb+w.amp*Math.sin((x/400)*2*Math.PI*w.fr);
+      d+=(x===0?'M':'L')+x.toFixed(1)+','+y.toFixed(2)+' ';
+    }
+    const pe=el('path',{d,fill:'none',stroke:S,'stroke-width':w.sw,opacity:w.op},svg);
+  });
+})();
+
+/* ── C24: Orbiting dots (canvas) ─────────────────────── */
+window.addEventListener('load',function(){
+  const c=document.getElementById('c24');
+  if(!c) return;
+  const W=c.parentElement.offsetWidth||300;
+  c.width=W;c.height=W;
+  const ctx=c.getContext('2d');
+  const cx=W/2,cy=W/2;
+  let t=0;
+
+  // orbital parameters
+  const orbits=[
+    {r:W*.36,speed:.008,phase:0,    dotR:5,  lineW:1.0,op:.7},
+    {r:W*.26,speed:.014,phase:1.2,  dotR:4,  lineW:.8, op:.55},
+    {r:W*.18,speed:.022,phase:2.5,  dotR:3,  lineW:.6, op:.42},
+    {r:W*.44,speed:.005,phase:3.8,  dotR:3.5,lineW:.7, op:.38},
+  ];
+
+  function frame(){
+    ctx.clearRect(0,0,W,W);
+    ctx.fillStyle='white';
+    ctx.fillRect(0,0,W,W);
+
+    orbits.forEach(o=>{
+      // orbit ring
+      ctx.beginPath();
+      ctx.arc(cx,cy,o.r,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(26,26,24,${o.op})`;
+      ctx.lineWidth=o.lineW;
+      ctx.stroke();
+
+      // orbiting dot
+      const ax=cx+o.r*Math.cos(t*o.speed+o.phase);
+      const ay=cy+o.r*Math.sin(t*o.speed+o.phase);
+      ctx.beginPath();
+      ctx.arc(ax,ay,o.dotR,0,Math.PI*2);
+      ctx.fillStyle=`rgba(26,26,24,${(o.op+.15).toFixed(2)})`;
+      ctx.fill();
+    });
+
+    // center
+    ctx.beginPath();
+    ctx.arc(cx,cy,5,0,Math.PI*2);
+    ctx.fillStyle='rgba(26,26,24,.85)';
+    ctx.fill();
+
+    t++;
+    requestAnimationFrame(frame);
+  }
+  frame();
+});
+</script>
+</body>
+</html>

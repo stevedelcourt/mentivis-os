@@ -536,6 +536,68 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
             </div>
           </div>
         ))}
+
+        {/* ── Visual Library ── */}
+        <div style={{ marginTop: 80, paddingTop: 48, borderTop: "1px solid var(--border-light)" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 14,
+              fontWeight: 500,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              color: "var(--text-tertiary)",
+              marginBottom: 20,
+            }}
+          >
+            {locale === "fr" ? "Bibliotheque visuelle" : "Visual Library"}
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
+            {[
+              { name: "Charts", file: "mentivisOS_charts.html" },
+              { name: "Math Visuals", file: "mentivisOS_math_visuals.html" },
+              { name: "Articles Features", file: "mentivisOS_articles_features.html" },
+              { name: "Impact Section", file: "mentivisOS_impact_section.html" },
+              { name: "Interactive Showcase", file: "mentivisOS_interactive_showcase.html" },
+              { name: "Logomark Motion", file: "mentivisOS_logomark_motion.html" },
+              { name: "Funky Visual Library", file: "mentivisOS_funky_visual_library.html" },
+              { name: "Visual Library", file: "mentivisOS_visual_library.html" },
+              { name: "Light Visual Library", file: "mentivisOS_light_visual_library.html" },
+            ].map((v) => (
+              <a
+                key={v.file}
+                href={`/visuals-library/${v.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "12px 16px",
+                  background: "var(--bg-secondary)",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  color: "var(--text-primary)",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  transition: "background 0.18s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-warm)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-secondary)";
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, opacity: 0.5 }}>
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {v.name}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

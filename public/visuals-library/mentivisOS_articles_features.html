@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS — Articles &amp; Features</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Mono:wght@400&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --page:#F5F2EF;
+  --white:#FFFFFF;
+  --ink:#0A0A0A;
+  --ink2:#3E3B38;
+  --ink3:#777169;
+  --ink4:#A8A39A;
+  --card-geo:#EDEAE3;
+  --border:rgba(0,0,0,.07);
+  --mono:'DM Mono',monospace;
+  --display:'Cormorant Garamond',serif;
+  --body:'Outfit','Helvetica Neue',sans-serif;
+}
+
+body{
+  background:var(--page);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+  padding:72px 0;
+  display:flex;
+  flex-direction:column;
+  gap:100px;
+}
+
+.container{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+/* ════════════════════════════════════════
+   SECTION A — ARTICLES
+════════════════════════════════════════ */
+
+.articles-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:48px;
+  margin-bottom:36px;
+}
+.articles-eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink3);
+  margin-bottom:10px;
+}
+.articles-lead{
+  font-family:var(--display);
+  font-size:clamp(22px,3vw,32px);
+  font-weight:300;
+  line-height:1.35;
+  letter-spacing:-.01em;
+  color:var(--ink2);
+  max-width:380px;
+}
+.articles-more{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:auto;
+  align-self:flex-end;
+  font-family:var(--body);
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink);
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:9999px;
+  padding:10px 18px;
+  text-decoration:none;
+  box-shadow:rgba(0,0,0,.04) 0 2px 8px;
+  transition:all .22s ease;
+  cursor:pointer;
+}
+.articles-more:hover{background:var(--ink);color:var(--white)}
+.articles-more svg{transition:transform .22s ease}
+.articles-more:hover svg{transform:translateX(2px)}
+
+/* Grid */
+.articles-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+/* Card */
+.art-card{
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.art-card:hover{transform:translateY(-4px)}
+
+/* 16:9 image area */
+.art-img{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.art-img canvas{
+  display:block;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+/* Date badge */
+.date-badge{
+  position:absolute;
+  top:14px;left:14px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:.06em;
+  color:var(--ink);
+  padding:5px 12px;
+  border-radius:9999px;
+  box-shadow:rgba(0,0,0,.06) 0 1px 6px;
+  z-index:5;
+}
+
+/* Card info */
+.art-title{
+  font-family:var(--body);
+  font-size:16px;
+  font-weight:500;
+  line-height:1.38;
+  letter-spacing:-.005em;
+  color:var(--ink);
+  max-width:320px;
+}
+.art-tag{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink4);
+  margin-bottom:5px;
+}
+
+/* ════════════════════════════════════════
+   SECTION B — GEOMETRIC FEATURES
+════════════════════════════════════════ */
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.feat-card{
+  background:var(--card-geo);
+  border-radius:22px;
+  overflow:hidden;
+  padding:32px 28px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.feat-viz{
+  width:100%;
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 0 24px;
+  min-height:220px;
+}
+.feat-viz svg{
+  width:100%;
+  max-width:300px;
+  display:block;
+}
+
+.feat-title{
+  font-family:var(--body);
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+.feat-desc{
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.55;
+  color:var(--ink3);
+  max-width:280px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:760px){
+  .articles-header{flex-direction:column;gap:20px}
+  .articles-grid,.features-grid{grid-template-columns:1fr}
+  .articles-more{align-self:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ A: ARTICLES ════ -->
+<div class="container">
+  <header class="articles-header">
+    <div>
+      <p class="articles-eyebrow">Insights &amp; Actualités</p>
+      <p class="articles-lead">Faire avancer la formation au-delà des catalogues : diagnostic IA, ingénierie pédagogique, et plus encore.</p>
+    </div>
+    <a href="#" class="articles-more">
+      En savoir plus
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </header>
+
+  <div class="articles-grid">
+
+    <div class="art-card">
+      <div class="art-img">
+        <canvas id="canvas-0"></canvas>
+        <span class="date-badge">Jan 2026</span>
+      </div>
+      <p class="art-tag">Produit</p>
+      <h3 class="art-title">Présentation de MentivisOS 2.0, formation native IA</h3>
+    </div>
+
+    <div class="art-card">
+      <div class="art-img">
+        <canvas id="canvas-1"></canvas>
+        <span class="date-badge">Nov 2025</span>
+      </div>
+      <p class="art-tag">Ingénierie</p>
+      <h3 class="art-title">L'assistant pédagogique embarqué change le rapport au décrochage</h3>
+    </div>
+
+    <div class="art-card">
+      <div class="art-img">
+        <canvas id="canvas-2"></canvas>
+        <span class="date-badge">Aug 2025</span>
+      </div>
+      <p class="art-tag">Partenariats</p>
+      <h3 class="art-title">MentivisOS s'intègre aux principaux SIRH et outils OPCO</h3>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ B: FEATURES ════ -->
+<div class="container">
+  <div class="features-grid">
+
+    <div class="feat-card">
+      <div class="feat-viz">
+        <svg id="geo-sine" viewBox="0 0 320 220"></svg>
+      </div>
+      <h3 class="feat-title">Précision</h3>
+      <p class="feat-desc">Nous analysons chaque profil avec un diagnostic chiffré, à dix heures près.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-viz">
+        <svg id="geo-cube" viewBox="0 0 320 220"></svg>
+      </div>
+      <h3 class="feat-title">Structure</h3>
+      <p class="feat-desc">Chaque dispositif est architecturé selon les canons de l'ingénierie pédagogique.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-viz">
+        <svg id="geo-spiral" viewBox="0 0 320 220"></svg>
+      </div>
+      <h3 class="feat-title">Continuité</h3>
+      <p class="feat-desc">Le suivi ne s'arrête pas au déploiement. Il se mesure et s'affine en continu.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const ns = 'http://www.w3.org/2000/svg';
+const S = '#1A1A18';
+
+function se(tag, a, p) {
+  const e = document.createElementNS(ns, tag);
+  Object.entries(a).forEach(([k,v]) => e.setAttribute(k,v));
+  if(p) p.appendChild(e);
+  return e;
+}
+
+/* ════════════════════════════════════════
+   CANVAS WAVE PATTERN
+════════════════════════════════════════ */
+const CARD_CONFIGS = [
+  {
+    stops: [[0,'#1A2B80'],[.38,'#7030A0'],[.72,'#B02050'],[1,'#C83040']],
+    cols:6, rows:5, ampH:.055, ampV:.036
+  },
+  {
+    stops: [[0,'#243A1A'],[.4,'#607020'],[.78,'#909840'],[1,'#A8B040']],
+    cols:5, rows:4, ampH:.048, ampV:.032
+  },
+  {
+    stops: [[0,'#A03020'],[.35,'#C05828'],[.7,'#D08840'],[1,'#E0AA50']],
+    cols:7, rows:5, ampH:.058, ampV:.038
+  }
+];
+
+function drawCard(canvas, cfg) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth;
+  const H = canvas.offsetHeight;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Gradient fill
+  const g = ctx.createLinearGradient(0, H, W, 0);
+  cfg.stops.forEach(([s,c]) => g.addColorStop(s,c));
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  // Film grain
+  const gd = ctx.createImageData(W, H);
+  for(let i = 0; i < gd.data.length; i += 4) {
+    const v = (Math.random() * 40 - 20) | 0;
+    gd.data[i]   = 128 + v;
+    gd.data[i+1] = 128 + v;
+    gd.data[i+2] = 128 + v;
+    gd.data[i+3] = 18;
+  }
+  ctx.putImageData(gd, 0, 0);
+
+  // Overlay gradient (re-apply after grain)
+  ctx.globalCompositeOperation = 'multiply';
+  const g2 = ctx.createLinearGradient(0, H, W, 0);
+  cfg.stops.forEach(([s,c]) => g2.addColorStop(s,c));
+  ctx.fillStyle = g2;
+  ctx.globalAlpha = 0.92;
+  ctx.fillRect(0, 0, W, H);
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+
+  // Wave grid
+  ctx.strokeStyle = 'rgba(255,255,255,.42)';
+  ctx.lineWidth = 0.85;
+  const {cols, rows, ampH, ampV} = cfg;
+
+  // Horizontal wires
+  for(let r = 0; r <= rows; r++) {
+    const yBase = (r / rows) * H;
+    const phase = (r / rows - 0.5) * Math.PI * 2.2;
+    const amp   = H * ampH;
+    ctx.beginPath();
+    for(let x = 0; x <= W; x += 1.2) {
+      const freq = (cols * Math.PI * 2) / W;
+      const y = yBase + amp * Math.sin(x * freq + phase);
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // Vertical wires
+  for(let c = 0; c <= cols; c++) {
+    const xBase = (c / cols) * W;
+    const phase = (c / cols - 0.5) * Math.PI * 2.2;
+    const amp   = W * ampV;
+    ctx.beginPath();
+    for(let y = 0; y <= H; y += 1.2) {
+      const freq = (rows * Math.PI * 2) / H;
+      const x = xBase + amp * Math.sin(y * freq + phase);
+      y === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+}
+
+window.addEventListener('load', () => {
+  CARD_CONFIGS.forEach((cfg, i) => {
+    const canvas = document.getElementById('canvas-' + i);
+    if(canvas) drawCard(canvas, cfg);
+  });
+});
+
+/* ════════════════════════════════════════
+   GEO 1 — SINE WAVE WITH AMPLITUDE ELLIPSES
+════════════════════════════════════════ */
+(function() {
+  const svg = document.getElementById('geo-sine');
+  const W = 320, H = 220, cx = W/2, cy = H/2;
+
+  // Dotted axes
+  se('line',{x1:30,y1:cy,x2:290,y2:cy,stroke:S,'stroke-width':.55,'stroke-dasharray':'2,5',opacity:.38},svg);
+  se('line',{x1:cx,y1:18,x2:cx,y2:202,stroke:S,'stroke-width':.55,'stroke-dasharray':'2,5',opacity:.38},svg);
+
+  // Left ellipse (at x~90)
+  se('ellipse',{cx:90,cy,rx:16,ry:62,fill:'none',stroke:S,'stroke-width':1.1,opacity:.88},svg);
+
+  // Right ellipse (at x~230)
+  se('ellipse',{cx:230,cy,rx:16,ry:62,fill:'none',stroke:S,'stroke-width':1.1,opacity:.88},svg);
+
+  // Sine wave — one full period from x=50 to x=270
+  const amp = 58, x0 = 50, x1 = 270;
+  let d = '';
+  for(let x = x0; x <= x1; x += 1) {
+    const t = (x - x0) / (x1 - x0);
+    const y = cy + amp * Math.sin(t * Math.PI * 2);
+    d += (x === x0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(2) + ' ';
+  }
+  se('path',{d,fill:'none',stroke:S,'stroke-width':1.1,opacity:.90},svg);
+
+  // Small tick marks on axis
+  [-60,-30,30,60].forEach(dy => {
+    se('line',{x1:cx-5,y1:cy+dy,x2:cx+5,y2:cy+dy,stroke:S,'stroke-width':.6,opacity:.32},svg);
+  });
+  [50,90,130,170,210,250].forEach(px => {
+    se('line',{x1:px,y1:cy-5,x2:px,y2:cy+5,stroke:S,'stroke-width':.6,opacity:.32},svg);
+  });
+})();
+
+/* ════════════════════════════════════════
+   GEO 2 — ISOMETRIC CUBE WIREFRAME
+════════════════════════════════════════ */
+(function() {
+  const svg = document.getElementById('geo-cube');
+  const cx = 160, cy = 110;
+
+  // Cube vertices (isometric, side ~72)
+  const A=[cx,   cy-72], B=[cx+62, cy-36], C=[cx+62, cy+36],
+        D=[cx,   cy+72], E=[cx-62, cy+36], F=[cx-62, cy-36],
+        G=[cx,   cy];    // center
+
+  function ln(x1,y1,x2,y2,w,op,dash){
+    const a={x1,y1,x2,y2,stroke:S,'stroke-width':w||1.1,opacity:op||.88};
+    if(dash) a['stroke-dasharray']=dash;
+    se('line',a,svg);
+  }
+  function dot(x,y,r){se('rect',{x:x-r,y:y-r,width:r*2,height:r*2,fill:S,opacity:.82},svg)}
+
+  // Construction lines (extended, dotted)
+  [[A[0],A[1],A[0],A[1]-36],[B[0],B[1],B[0]+42,B[1]-24],
+   [F[0],F[1],F[0]-42,F[1]-24],[C[0],C[1],C[0]+42,C[1]+24],
+   [E[0],E[1],E[0]-42,E[1]+24],[D[0],D[1],D[0],D[1]+36]]
+  .forEach(([x1,y1,x2,y2])=>ln(x1,y1,x2,y2,.42,.22,'3,5'));
+
+  // Far-corner diagonals (very faint)
+  [[A,D],[F,C],[B,E]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],.35,.15,'3,6'));
+
+  // Face subdivisions
+  const m = {
+    AB:[(A[0]+B[0])/2,(A[1]+B[1])/2],
+    BG:[(B[0]+G[0])/2,(B[1]+G[1])/2],
+    GF:[(G[0]+F[0])/2,(G[1]+F[1])/2],
+    FA:[(F[0]+A[0])/2,(F[1]+A[1])/2],
+    BC:[(B[0]+C[0])/2,(B[1]+C[1])/2],
+    CD:[(C[0]+D[0])/2,(C[1]+D[1])/2],
+    DG:[(D[0]+G[0])/2,(D[1]+G[1])/2],
+    DE:[(D[0]+E[0])/2,(D[1]+E[1])/2],
+    EF:[(E[0]+F[0])/2,(E[1]+F[1])/2],
+  };
+  [[m.FA,m.BG],[m.AB,m.GF],[m.BC,m.DG],[m.BG,m.CD],[m.EF,m.DG],[m.GF,m.DE]]
+  .forEach(([a,b])=>ln(a[0],a[1],b[0],b[1],.65,.48));
+
+  // Main outer edges
+  [[A,B],[B,C],[C,D],[D,E],[E,F],[F,A]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],1.45,.92));
+  // Inner skeleton
+  [[G,A],[G,C],[G,E]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],1.45,.92));
+
+  // Vertex marks (small squares, not circles)
+  [A,B,C,D,E,F,G].forEach(([x,y])=>dot(x,y,2));
+})();
+
+/* ════════════════════════════════════════
+   GEO 3 — ECCENTRIC CONCENTRIC CIRCLES
+════════════════════════════════════════ */
+(function() {
+  const svg = document.getElementById('geo-spiral');
+  const cx = 140, cy = 110;
+
+  // Outer dotted guide circle
+  se('circle',{cx,cy,r:140,fill:'none',stroke:S,
+    'stroke-width':.48,'stroke-dasharray':'2,5',opacity:.32},svg);
+
+  // 16 concentric circles: outer ones evenly spaced, inner ones
+  // progressively shifted rightward → creates dense cluster on right
+  const n = 16;
+  for(let i = 0; i < n; i++) {
+    const t = i / (n - 1);           // 0 = outermost, 1 = innermost
+    const r = 130 * (1 - t * 0.92);  // radius shrinks
+    // Eccentric shift: inner circles drift rightward
+    const shift = t * t * t * 92;    // cubic: barely moves until deep inner
+    const opacity = 0.3 + t * 0.55;  // inner circles darker
+    const strokeW = 0.8 + t * 0.55;  // inner circles slightly thicker
+
+    se('circle',{
+      cx: cx + shift,
+      cy,
+      r: r.toFixed(2),
+      fill:'none',
+      stroke:S,
+      'stroke-width':strokeW.toFixed(2),
+      opacity: opacity.toFixed(3)
+    }, svg);
+  }
+
+  // Small square at center of innermost cluster
+  const innerShift = 92;
+  se('rect',{
+    x: cx + innerShift - 3,
+    y: cy - 3,
+    width:6, height:6,
+    fill:S, opacity:.9
+  }, svg);
+})();
+</script>
+</body>
+</html>

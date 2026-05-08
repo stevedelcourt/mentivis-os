@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS — Impact Section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600&family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET & BASE ─────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#F5F2EF;
+  font-family:'Inter','Helvetica Neue',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:72px 24px;
+}
+
+/* ── SECTION WRAPPER ──────────────────────────────────── */
+.section{
+  width:100%;
+  max-width:1100px;
+}
+
+/* ── TITLE ────────────────────────────────────────────── */
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5.5vw,58px);
+  font-weight:300;
+  letter-spacing:-.025em;
+  line-height:1.10;
+  text-align:center;
+  color:#0A0A0A;
+  margin-bottom:36px;
+}
+
+/* ── TABS ─────────────────────────────────────────────── */
+.tabs{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  margin-bottom:40px;
+}
+.tab{
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.005em;
+  padding:9px 22px;
+  border-radius:9999px;
+  border:none;
+  background:transparent;
+  color:#777169;
+  cursor:pointer;
+  transition:all .22s ease;
+}
+.tab.active{
+  background:#FFFFFF;
+  color:#0A0A0A;
+  box-shadow:
+    rgba(0,0,0,.06) 0 0 0 1px,
+    rgba(0,0,0,.05) 0 1px 2px,
+    rgba(0,0,0,.04) 0 3px 10px;
+}
+.tab:hover:not(.active){
+  background:rgba(0,0,0,.04);
+  color:#3A3A3A;
+}
+
+/* ── BENTO GRID ───────────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:1fr 1.56fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:12px;
+  height:620px;
+}
+
+/* ── CARD BASE ────────────────────────────────────────── */
+.card{
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  transition:transform .5s cubic-bezier(.22,1,.36,1),
+             box-shadow .5s cubic-bezier(.22,1,.36,1);
+}
+.card:not(.ghost):hover{
+  transform:scale(1.014);
+  box-shadow:0 12px 40px rgba(0,0,0,.12);
+}
+.card:not(.ghost):active{
+  transform:scale(1.006);
+}
+
+/* grid positions */
+.card-a{grid-row:1;grid-column:1}
+.card-b{grid-row:1/3;grid-column:2}
+.card-c{grid-row:1;grid-column:3}
+.card-d{grid-row:2;grid-column:1}
+.card-e{grid-row:2;grid-column:3}
+
+/* ── GHOST CARDS ──────────────────────────────────────── */
+.ghost{background:#EBE7E0;cursor:default}
+.ghost:hover{transform:none!important;box-shadow:none!important}
+
+/* Ghost C: subtle interior window suggestion */
+.card-c::before{
+  content:'';position:absolute;
+  top:14%;left:10%;right:10%;bottom:5%;
+  background:
+    linear-gradient(160deg,rgba(220,215,210,.6) 0%,rgba(195,188,180,.3) 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 24px,rgba(0,0,0,.025) 24px,rgba(0,0,0,.025) 25px),
+    repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(0,0,0,.025) 24px,rgba(0,0,0,.025) 25px);
+  border-radius:6px;
+  opacity:.55;
+}
+.card-d::before{
+  content:'';position:absolute;
+  top:20%;left:15%;right:15%;bottom:20%;
+  background:rgba(0,0,0,.04);
+  border-radius:6px;
+}
+
+/* ── GRADIENT FILLS (dummy images) ────────────────────── */
+
+/* Card A: warm amber/terra-cotta gradient (matches NVIDIA card vibe) */
+.card-a{
+  background:
+    radial-gradient(ellipse 90% 70% at 72% 18%,rgba(255,190,90,.95) 0%,rgba(210,100,20,.85) 45%,rgba(110,30,5,.95) 100%),
+    #7A2800;
+}
+
+/* Card B: dark atmospheric studio */
+.card-b{
+  background:
+    radial-gradient(ellipse 60% 45% at 55% 28%,rgba(68,80,95,.9) 0%,rgba(28,36,50,.8) 55%,transparent 80%),
+    radial-gradient(ellipse 80% 60% at 30% 70%,rgba(18,28,42,.95) 0%,rgba(10,16,28,.98) 70%),
+    linear-gradient(155deg,#2E3D50 0%,#141E2E 50%,#080F1A 100%);
+}
+
+/* Card E: desaturated cool gray (B&W portrait feel) */
+.card-e{
+  background:
+    radial-gradient(ellipse 55% 60% at 62% 32%,rgba(200,195,188,.92) 0%,rgba(130,124,118,.7) 45%,transparent 70%),
+    radial-gradient(ellipse 80% 55% at 35% 65%,rgba(65,60,55,.8) 0%,rgba(28,24,22,.9) 65%),
+    linear-gradient(150deg,#8C8782 0%,#504C48 45%,#1C1816 100%);
+}
+
+/* ── FILM GRAIN ───────────────────────────────────────── */
+.card-a::after,
+.card-b::after,
+.card-e::after{
+  content:'';
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px 160px;
+  opacity:.10;
+  mix-blend-mode:overlay;
+}
+
+/* ── CARD BODY (content layer) ────────────────────────── */
+.card-body{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  padding:22px;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.76) 0%,
+    rgba(0,0,0,.28) 36%,
+    rgba(0,0,0,.06) 58%,
+    transparent 75%
+  );
+}
+.card-b .card-body{
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.72) 0%,
+    rgba(0,0,0,.22) 35%,
+    transparent 60%
+  );
+}
+
+/* ── CARD TOP (logo area) ──────────────────────────────── */
+.card-top{
+  display:flex;align-items:center;gap:10px;
+  min-height:36px;
+}
+.logo-chip{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  padding:6px 12px 6px 8px;
+}
+.logo-chip svg{display:block;flex-shrink:0}
+.logo-chip span{
+  color:#FFFFFF;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+
+/* ── CARD BOTTOM (caption) ─────────────────────────────── */
+.card-caption{
+  color:#FFFFFF;
+  font-size:16px;
+  font-weight:500;
+  line-height:1.40;
+  letter-spacing:-.005em;
+  text-shadow:0 1px 6px rgba(0,0,0,.25);
+  max-width:290px;
+}
+.card-b .card-caption{font-size:18px;max-width:380px;line-height:1.36}
+.card-e .card-caption{font-size:15px;max-width:260px}
+
+/* ── CARD B: atmospheric details ───────────────────────── */
+.card-b-detail{
+  position:absolute;inset:0;z-index:1;
+  overflow:hidden;
+  pointer-events:none;
+}
+.card-b-detail::before{
+  content:'';
+  position:absolute;
+  top:8%;left:50%;
+  width:160px;height:140px;
+  margin-left:-80px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.04);
+  border-radius:12px;
+}
+.card-b-detail::after{
+  content:'';
+  position:absolute;
+  top:12%;left:50%;
+  width:110px;height:85px;
+  margin-left:-55px;
+  background:
+    linear-gradient(165deg,rgba(100,140,180,.12) 0%,rgba(60,80,120,.06) 100%);
+  border-radius:4px;
+}
+
+/* ── TAG BADGE ─────────────────────────────────────────── */
+.card-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+  margin-bottom:8px;
+}
+.card-tag::before{
+  content:'';
+  width:5px;height:5px;
+  border-radius:50%;
+  background:rgba(255,255,255,.5);
+  flex-shrink:0;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:800px){
+  .bento{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto auto;
+    height:auto;
+  }
+  .card-a{grid-row:1;grid-column:1;aspect-ratio:1}
+  .card-b{grid-row:1;grid-column:2;aspect-ratio:1}
+  .card-c{display:none}
+  .card-d{display:none}
+  .card-e{grid-row:2;grid-column:1/3;aspect-ratio:2}
+  .card-b .card-caption{font-size:16px}
+}
+
+@media(max-width:520px){
+  .bento{grid-template-columns:1fr;height:auto}
+  .card-a,.card-b,.card-e{grid-column:1;aspect-ratio:.9}
+  .card-b{grid-row:auto}
+}
+
+</style>
+</head>
+<body>
+
+<section class="section">
+
+  <!-- Title -->
+  <h2 class="section-title">Mettre en avant l'impact mondial<br>de la formation professionnelle IA</h2>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" aria-selected="true" data-tab="atelier">MentivisAtelier</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="operate">MentivisOperate</button>
+  </div>
+
+  <!-- Bento Grid -->
+  <div class="bento">
+
+    <!-- Card A: amber gradient + logo -->
+    <div class="card card-a" tabindex="0">
+      <div class="card-body">
+        <div class="card-top">
+          <div class="logo-chip">
+            <!-- MentivisOS logomark (17 squares) -->
+            <svg width="18" height="18" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="10" height="10" fill="white"/>
+              <rect x="100" y="20" width="10" height="10" fill="white"/>
+              <rect x="20" y="40" width="10" height="10" fill="white"/>
+              <rect x="40" y="40" width="10" height="10" fill="white"/>
+              <rect x="80" y="40" width="10" height="10" fill="white"/>
+              <rect x="100" y="40" width="10" height="10" fill="white"/>
+              <rect x="20" y="60" width="10" height="10" fill="white"/>
+              <rect x="40" y="60" width="10" height="10" fill="white"/>
+              <rect x="60" y="60" width="10" height="10" fill="white"/>
+              <rect x="80" y="60" width="10" height="10" fill="white"/>
+              <rect x="100" y="60" width="10" height="10" fill="white"/>
+              <rect x="20" y="80" width="10" height="10" fill="white"/>
+              <rect x="40" y="80" width="10" height="10" fill="white"/>
+              <rect x="80" y="80" width="10" height="10" fill="white"/>
+              <rect x="100" y="80" width="10" height="10" fill="white"/>
+              <rect x="20" y="100" width="10" height="10" fill="white"/>
+              <rect x="100" y="100" width="10" height="10" fill="white"/>
+            </svg>
+            <span>MentivisOS</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <p class="card-caption">Mentivis présente MentivisOS, l'OS de la formation native IA, à EdTech France 2025</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card B: large center, dark atmospheric -->
+    <div class="card card-b" tabindex="0">
+      <div class="card-b-detail"></div>
+      <div class="card-body">
+        <div class="card-top"></div>
+        <div class="card-bottom">
+          <p class="card-caption">Les directeurs formation qui adoptent MentivisOS témoignent d'un diagnostic précis dès le premier jour</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card C: ghost, top right -->
+    <div class="card card-c ghost" aria-hidden="true"></div>
+
+    <!-- Card D: ghost, bottom left -->
+    <div class="card card-d ghost" aria-hidden="true"></div>
+
+    <!-- Card E: B&W portrait feel -->
+    <div class="card card-e" tabindex="0">
+      <div class="card-body">
+        <div class="card-top"></div>
+        <div class="card-bottom">
+          <p class="card-tag">Impact</p>
+          <p class="card-caption">MentivisOS annonce un partenariat avec France Compétences et lance une certification IA reconnue</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+/* ── Tab switching ──────────────────────────────────────── */
+const TABS_CONTENT = {
+  atelier: {
+    title: 'Mettre en avant l\'impact mondial<br>de la formation professionnelle IA',
+    cards: {
+      a: { logo: true, caption: 'Mentivis présente MentivisOS, l\'OS de la formation native IA, à EdTech France 2025' },
+      b: { caption: 'Les directeurs formation qui adoptent MentivisOS témoignent d\'un diagnostic précis dès le premier jour' },
+      e: { tag: 'Impact', caption: 'MentivisOS annonce un partenariat avec France Compétences et lance une certification IA reconnue' }
+    }
+  },
+  operate: {
+    title: 'Mettre en avant l\'impact opérationnel<br>de la gestion de formation IA',
+    cards: {
+      a: { logo: true, caption: 'MentivisOperate intègre Qualiopi, OPCO et les SIRH dans un seul système cohérent' },
+      b: { caption: 'Les organismes de formation qui déploient MentivisOperate divisent leur charge administrative par trois' },
+      e: { tag: 'Conformité', caption: 'MentivisOS remporte le prix de la meilleure solution de pilotage pédagogique aux Trophées de la Formation' }
+    }
+  }
+};
+
+const tabs = document.querySelectorAll('.tab');
+const titleEl = document.querySelector('.section-title');
+const captionA = document.querySelector('.card-a .card-caption');
+const captionB = document.querySelector('.card-b .card-caption');
+const captionE = document.querySelector('.card-e .card-caption');
+const tagE = document.querySelector('.card-e .card-tag');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+
+    const data = TABS_CONTENT[tab.dataset.tab];
+    titleEl.innerHTML = data.title;
+    captionA.textContent = data.cards.a.caption;
+    captionB.textContent = data.cards.b.caption;
+    captionE.textContent = data.cards.e.caption;
+    tagE.textContent = data.cards.e.tag;
+  });
+});
+
+/* ── Card keyboard interaction ───────────────────────────── */
+document.querySelectorAll('.card:not(.ghost)').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

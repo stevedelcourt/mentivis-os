@@ -63,7 +63,7 @@ export default function FaqSection({ lang }: { lang: Locale }) {
             <h2
               className="t-display"
               style={{
-                fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)",
+                fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 300,
                 lineHeight: 1.08,
                 letterSpacing: "-0.025em",

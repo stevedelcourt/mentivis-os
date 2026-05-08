@@ -14,7 +14,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
         <h2
           className="t-display"
           style={{
-            fontSize: "clamp(28px, 4vw, 48px)",
+            fontSize: "clamp(28px, 4vw, 44px)",
             whiteSpace: "pre-line",
             maxWidth: 800,
           }}

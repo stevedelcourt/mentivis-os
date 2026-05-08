@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mathematical Visuals — Black Line Series</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#FAFAF7;
+  font-family:'DM Mono','Courier New',monospace;
+  padding:56px 40px 80px;
+  -webkit-font-smoothing:antialiased;
+}
+.hd{
+  max-width:1260px;margin:0 auto 52px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid rgba(0,0,0,.07);padding-bottom:18px;
+}
+.hd-t{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0A0A0A}
+.hd-s{font-size:11px;color:#AAAAAA;letter-spacing:.06em}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  max-width:1260px;
+  margin:0 auto;
+}
+.item{display:flex;flex-direction:column;gap:8px}
+canvas{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  background:#FAFAF7;
+}
+.item-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding:0 1px;
+}
+.item-name{font-size:11px;color:#2A2A2A;letter-spacing:.03em}
+.item-idx{font-size:10px;color:#C8C8C8;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <span class="hd-t">Mathematical Visuals — Black Line Series</span>
+  <span class="hd-s">24 illustrations · surfaces · curves · attractors · fractals</span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+/* ── NAMES ─────────────────────────────────────────────── */
+const NAMES = [
+  'Torus','Saddle Surface','Ripple / Sinc','Möbius Strip',
+  'Helicoid','Trefoil Knot','Superformula A','Superformula B',
+  'Rose 7/2','Hypotrochoid','Lissajous 3:2','Lissajous 5:4',
+  'Lorenz Attractor','De Jong Attractor','Phyllotaxis','Fermat Spiral',
+  'Epicycloid','Lemniscate','Hilbert Curve','Koch Snowflake',
+  'Dragon Curve','Pythagoras Tree','Flow Field','Nested Roses'
+];
+
+/* Build HTML */
+const grid=document.getElementById('grid');
+NAMES.forEach((n,i)=>{
+  const it=document.createElement('div');
+  it.className='item';
+  it.innerHTML=`<canvas id="c${i}"></canvas>
+  <div class="item-foot"><span class="item-name">${n}</span><span class="item-idx">${String(i+1).padStart(2,'0')}</span></div>`;
+  grid.appendChild(it);
+});
+
+/* ── SHARED CONSTANTS ───────────────────────────────────── */
+const RES=400, CX=200, CY=200, S=168;
+const RX=0.44, RY=-0.50;
+
+/* ── 3D PROJECTION ──────────────────────────────────────── */
+function p3(x,y,z){
+  const y1=y*Math.cos(RX)-z*Math.sin(RX), z1=y*Math.sin(RX)+z*Math.cos(RX);
+  const x2=x*Math.cos(RY)+z1*Math.sin(RY);
+  return[x2,y1];
+}
+
+/* ── PARAMETRIC SURFACE RENDERER ────────────────────────── */
+function surf(ctx,fn,uN,vN,u0,u1,v0,v1,sc=S){
+  ctx.lineWidth=1.1;
+  const uH=uN*4, vH=vN*4;
+  for(let i=0;i<=uN;i++){
+    const u=u0+i*(u1-u0)/uN;
+    ctx.beginPath();
+    for(let j=0;j<=vH;j++){
+      const v=v0+j*(v1-v0)/vH;
+      const[px,py]=p3(...fn(u,v));
+      j===0?ctx.moveTo(CX+px*sc,CY-py*sc):ctx.lineTo(CX+px*sc,CY-py*sc);
+    }ctx.stroke();
+  }
+  for(let j=0;j<=vN;j++){
+    const v=v0+j*(v1-v0)/vN;
+    ctx.beginPath();
+    for(let i=0;i<=uH;i++){
+      const u=u0+i*(u1-u0)/uH;
+      const[px,py]=p3(...fn(u,v));
+      i===0?ctx.moveTo(CX+px*sc,CY-py*sc):ctx.lineTo(CX+px*sc,CY-py*sc);
+    }ctx.stroke();
+  }
+}
+
+const τ=Math.PI*2;
+
+/* ═══════════════════════════════════════════════════════
+   VISUAL FUNCTIONS
+═══════════════════════════════════════════════════════ */
+
+/* 01 TORUS */
+function v00(ctx){
+  const R=0.60,r=0.24;
+  surf(ctx,(u,v)=>[(R+r*Math.cos(v))*Math.cos(u),(R+r*Math.cos(v))*Math.sin(u),r*Math.sin(v)],
+    22,14,0,τ,0,τ,S);
+}
+
+/* 02 SADDLE (hyperbolic paraboloid) */
+function v01(ctx){
+  surf(ctx,(u,v)=>[u,v,u*u-v*v],18,18,-1,1,-1,1,S);
+}
+
+/* 03 RIPPLE (sinc surface) */
+function v02(ctx){
+  surf(ctx,(u,v)=>{const r=Math.hypot(u,v)||1e-8;return[u,v,0.6*Math.sin(r*5)/r]},
+    20,20,-1.5,1.5,-1.5,1.5,S*0.88);
+}
+
+/* 04 MÖBIUS STRIP */
+function v03(ctx){
+  surf(ctx,(u,v)=>[(1+0.4*v*Math.cos(u/2))*Math.cos(u),(1+0.4*v*Math.cos(u/2))*Math.sin(u),0.4*v*Math.sin(u/2)],
+    36,6,0,τ,-1,1,S*0.9);
+}
+
+/* 05 HELICOID */
+function v04(ctx){
+  surf(ctx,(u,v)=>[u*Math.cos(v),u*Math.sin(v),v*0.14],
+    10,30,0,0.96,0,Math.PI*6.3,S);
+}
+
+/* 06 TREFOIL KNOT — curve + tube rings */
+function v05(ctx){
+  const knot=t=>[(Math.sin(t)+2*Math.sin(2*t))/4,(Math.cos(t)-2*Math.cos(2*t))/4,-Math.sin(3*t)/4];
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  for(let i=0;i<=600;i++){
+    const t=i/600*τ;
+    const[px,py]=p3(...knot(t));
+    i===0?ctx.moveTo(CX+px*S,CY-py*S):ctx.lineTo(CX+px*S,CY-py*S);
+  }ctx.stroke();
+  // Tube cross-sections
+  ctx.lineWidth=1.3;
+  for(let k=0;k<18;k++){
+    const t=k/18*τ, dt=0.04;
+    const[kx,ky,kz]=knot(t);
+    const[kxt,kyt,kzt]=knot(t+dt);
+    const tx=kxt-kx,ty=kyt-ky,tz=kzt-kz;
+    const tl=Math.hypot(tx,ty,tz)||1;
+    const nx=-ty/tl,ny=tx/tl,nz=0;
+    const bx=(ty*nz-tz*ny),by=(tz*nx-tx*nz),bz=(tx*ny-ty*nx);
+    const bl=Math.hypot(bx,by,bz)||1;
+    const rad=0.075;
+    ctx.beginPath();
+    for(let j=0;j<=20;j++){
+      const a=j/20*τ;
+      const[px,py]=p3(kx+rad*(nx*Math.cos(a)+bx/bl*Math.sin(a)),
+                       ky+rad*(ny*Math.cos(a)+by/bl*Math.sin(a)),
+                       kz+rad*(nz*Math.cos(a)+bz/bl*Math.sin(a)));
+      j===0?ctx.moveTo(CX+px*S,CY-py*S):ctx.lineTo(CX+px*S,CY-py*S);
+    }ctx.stroke();
+  }
+}
+
+/* 07 SUPERFORMULA A */
+function superPts(m,n1,n2,n3,a=1,b=1){
+  const N=2000;
+  let maxR=0;const pts=[];
+  for(let i=0;i<=N;i++){
+    const t=i/N*τ, th=m*t/4;
+    const r=Math.pow(Math.pow(Math.abs(Math.cos(th)/a),n2)+Math.pow(Math.abs(Math.sin(th)/b),n3),-1/n1)||0;
+    maxR=Math.max(maxR,r);
+    pts.push([r*Math.cos(t),r*Math.sin(t)]);
+  }
+  return{pts,maxR};
+}
+function drawSuper(ctx,m,n1,n2,n3){
+  const{pts,maxR}=superPts(m,n1,n2,n3);
+  const sc=S*0.88/maxR;
+  ctx.lineWidth=1.3;
+  ctx.beginPath();
+  pts.forEach(([x,y],i)=>i===0?ctx.moveTo(CX+x*sc,CY-y*sc):ctx.lineTo(CX+x*sc,CY-y*sc));
+  ctx.closePath();ctx.stroke();
+}
+function v06(ctx){drawSuper(ctx,8,4,4,4);}      // 8-fold star
+function v07(ctx){drawSuper(ctx,5,2.5,7,7);}    // asymmetric 5-star
+
+/* 09 ROSE CURVE r=cos(7θ/2) */
+function v08(ctx){
+  ctx.lineWidth=1.3;
+  ctx.beginPath();
+  for(let i=0;i<=3000;i++){
+    const t=i/3000*τ*5;
+    const r=Math.cos(3.5*t)*S*0.84;
+    const x=CX+r*Math.cos(t), y=CY-r*Math.sin(t);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }ctx.stroke();
+}
+
+/* 10 HYPOTROCHOID R=5,r=3,d=5.5 */
+function v09(ctx){
+  const R=5,r=3,d=5.5;
+  const per=τ*r; // LCM period
+  ctx.lineWidth=1.2;
+  ctx.beginPath();
+  for(let i=0;i<=3000;i++){
+    const t=i/3000*per*3;
+    const x=CX+((R-r)*Math.cos(t)+d*Math.cos((R-r)/r*t))*S*0.115;
+    const y=CY-((R-r)*Math.sin(t)-d*Math.sin((R-r)/r*t))*S*0.115;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }ctx.stroke();
+}
+
+/* 11-12 LISSAJOUS */
+function liss(ctx,a,b,delta,N=1500){
+  ctx.lineWidth=1.3;
+  ctx.beginPath();
+  for(let i=0;i<=N;i++){
+    const t=i/N*τ;
+    const x=CX+Math.sin(a*t+delta)*S*0.82;
+    const y=CY-Math.sin(b*t)*S*0.82;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }ctx.stroke();
+}
+function v10(ctx){liss(ctx,3,2,Math.PI/2);}
+function v11(ctx){liss(ctx,5,4,Math.PI/6,2500);}
+
+/* 13 LORENZ ATTRACTOR */
+function v12(ctx){
+  const σ=10,ρ=28,β=8/3,dt=0.005,N=14000;
+  let x=1,y=1,z=1;
+  const pts=[];
+  for(let i=0;i<N;i++){
+    const dx=σ*(y-x),dy=x*(ρ-z)-y,dz=x*y-β*z;
+    x+=dx*dt;y+=dy*dt;z+=dz*dt;
+    pts.push([x,z-30]);
+  }
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  const[minX,maxX]=[Math.min(...xs),Math.max(...xs)];
+  const[minY,maxY]=[Math.min(...ys),Math.max(...ys)];
+  const sc=Math.min(S*1.8/(maxX-minX),S*1.8/(maxY-minY));
+  const offX=(minX+maxX)/2,offY=(minY+maxY)/2;
+  ctx.lineWidth=0.8;
+  ctx.beginPath();
+  pts.forEach(([x,y],i)=>{
+    const sx=CX+(x-offX)*sc, sy=CY-(y-offY)*sc;
+    i===0?ctx.moveTo(sx,sy):ctx.lineTo(sx,sy);
+  });ctx.stroke();
+}
+
+/* 14 DE JONG ATTRACTOR (point-density) */
+function v13(ctx){
+  const a=-1.7,b=1.3,c=-0.1,d=-1.2;
+  let x=0.1,y=0.1;
+  const N=120000;
+  const img=ctx.getImageData(0,0,RES,RES);
+  for(let i=0;i<N;i++){
+    const nx=Math.sin(a*y)-Math.cos(b*x);
+    const ny=Math.sin(c*x)-Math.cos(d*y);
+    x=nx;y=ny;
+    const px=Math.round(CX+x*S*0.5);
+    const py=Math.round(CY-y*S*0.5);
+    if(px>=0&&px<RES&&py>=0&&py<RES){
+      const idx=(py*RES+px)*4;
+      img.data[idx]=0;img.data[idx+1]=0;img.data[idx+2]=0;
+      img.data[idx+3]=Math.min(255,img.data[idx+3]+22);
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
+
+/* 15 PHYLLOTAXIS */
+function v14(ctx){
+  const golden=Math.PI*(3-Math.sqrt(5));
+  const N=600;
+  ctx.fillStyle='rgba(0,0,0,0.78)';
+  for(let i=0;i<N;i++){
+    const r=Math.sqrt(i)*S*0.055;
+    const θ=i*golden;
+    const x=CX+r*Math.cos(θ), y=CY-r*Math.sin(θ);
+    const sz=Math.max(1,3*(1-i/N)+0.5);
+    ctx.fillRect(x-sz/2,y-sz/2,sz,sz);
+  }
+  // Delicate connecting arcs
+  ctx.lineWidth=0.6;
+  ctx.strokeStyle='rgba(0,0,0,0.22)';
+  for(let i=0;i<N-34;i++){
+    const r1=Math.sqrt(i)*S*0.055,θ1=i*golden;
+    const r2=Math.sqrt(i+34)*S*0.055,θ2=(i+34)*golden;
+    ctx.beginPath();
+    ctx.moveTo(CX+r1*Math.cos(θ1),CY-r1*Math.sin(θ1));
+    ctx.lineTo(CX+r2*Math.cos(θ2),CY-r2*Math.sin(θ2));
+    ctx.stroke();
+  }
+  ctx.strokeStyle='rgba(0,0,0,0.82)';
+}
+
+/* 16 FERMAT SPIRAL */
+function v15(ctx){
+  ctx.lineWidth=1.2;
+  function branch(sign){
+    ctx.beginPath();
+    for(let i=0;i<=2000;i++){
+      const t=i/2000*τ*12;
+      const r=sign*S*0.72*Math.sqrt(t/(τ*12));
+      const x=CX+r*Math.cos(t), y=CY-r*Math.sin(t);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }ctx.stroke();
+  }
+  branch(1);branch(-1);
+}
+
+/* 17 EPICYCLOID R=4r */
+function v16(ctx){
+  const R=4,r=1;
+  ctx.lineWidth=1.3;
+  ctx.beginPath();
+  for(let i=0;i<=2000;i++){
+    const t=i/2000*τ;
+    const x=CX+((R+r)*Math.cos(t)-r*Math.cos((R/r+1)*t))*S*0.115;
+    const y=CY-((R+r)*Math.sin(t)-r*Math.sin((R/r+1)*t))*S*0.115;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }ctx.stroke();
+  // Inner circle for reference
+  ctx.lineWidth=0.7;ctx.globalAlpha=0.3;
+  ctx.beginPath();ctx.arc(CX,CY,R*S*0.115,0,τ);ctx.stroke();
+  ctx.globalAlpha=1;
+}
+
+/* 18 LEMNISCATE + INNER RESONANCES */
+function v17(ctx){
+  const a=S*0.7;
+  function lemni(scale){
+    ctx.beginPath();
+    for(let i=0;i<=1200;i++){
+      const t=i/1200*τ;
+      const d=Math.sin(t)*Math.sin(t)+1;
+      ctx.lineTo(CX+scale*Math.SQRT2*Math.cos(t)/d,CY-scale*Math.SQRT2*Math.sin(t)*Math.cos(t)/d);
+    }ctx.closePath();ctx.stroke();
+  }
+  ctx.lineWidth=1.5;lemni(a);
+  for(let s=0.22;s<0.96;s+=0.13){
+    ctx.lineWidth=0.7;ctx.globalAlpha=0.32+s*0.4;lemni(a*s);
+  }
+  ctx.globalAlpha=1;ctx.lineWidth=1.2;
+}
+
+/* 19 HILBERT CURVE order 5 */
+function v18(ctx){
+  const order=5,n=1<<order;
+  const sz=S*1.82,pts=[];
+  for(let d=0;d<n*n;d++){
+    let rx,ry,s,t=d,x=0,y=0;
+    for(s=1;s<n;s<<=1){
+      rx=1&(t>>1);ry=1&(t^rx);
+      if(!ry){if(rx){x=s-1-x;y=s-1-y;}const tmp=x;x=y;y=tmp;}
+      x+=s*rx;y+=s*ry;t>>=2;
+    }
+    pts.push([CX-sz/2+x*sz/(n-1),CY-sz/2+y*sz/(n-1)]);
+  }
+  ctx.lineWidth=0.8;
+  ctx.beginPath();
+  pts.forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+  ctx.stroke();
+}
+
+/* 20 KOCH SNOWFLAKE order 4 */
+function v19(ctx){
+  const side=S*1.55,h=side*Math.sqrt(3)/2;
+  let pts=[[CX-side/2,CY+h/3],[CX+side/2,CY+h/3],[CX,CY-2*h/3],[CX-side/2,CY+h/3]];
+  function subdivide(p){
+    const r=[];
+    for(let i=0;i<p.length-1;i++){
+      const[x1,y1]=p[i],[x2,y2]=p[i+1];
+      const dx=x2-x1,dy=y2-y1;
+      r.push([x1,y1],[x1+dx/3,y1+dy/3],
+             [x1+dx/2-dy*Math.sqrt(3)/6,y1+dy/2+dx*Math.sqrt(3)/6],
+             [x1+2*dx/3,y1+2*dy/3]);
+      if(i===p.length-2)r.push([x2,y2]);
+    }return r;
+  }
+  for(let i=0;i<4;i++)pts=subdivide(pts);
+  ctx.lineWidth=0.9;
+  ctx.beginPath();
+  pts.forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+  ctx.stroke();
+}
+
+/* 21 DRAGON CURVE order 13 */
+function v20(ctx){
+  let seq=[1];
+  for(let i=1;i<13;i++){
+    const rev=[...seq].reverse().map(v=>v^1);
+    seq=[...seq,1,...rev];
+  }
+  let x=0,y=0,dir=0;
+  const D=[[1,0],[0,-1],[-1,0],[0,1]];
+  const step=S*1.55/Math.pow(2,6.5);
+  const pts=[[x,y]];
+  seq.forEach(t=>{dir=t?(dir+1)%4:(dir+3)%4;x+=D[dir][0]*step;y+=D[dir][1]*step;pts.push([x,y])});
+  const[mnX,mxX,mnY,mxY]=[Math.min,Math.max].flatMap(f=>[f(...pts.map(p=>p[0])),f(...pts.map(p=>p[1]))]);
+  const offX=CX-(mnX+mxX)/2,offY=CY-(mnY+mxY)/2;
+  ctx.lineWidth=0.85;
+  ctx.beginPath();
+  pts.forEach(([x,y],i)=>i===0?ctx.moveTo(x+offX,y+offY):ctx.lineTo(x+offX,y+offY));
+  ctx.stroke();
+}
+
+/* 22 PYTHAGORAS TREE */
+function pyBranch(ctx,x,y,len,angle,depth){
+  if(depth<1)return;
+  const x2=x+len*Math.sin(angle),y2=y-len*Math.cos(angle);
+  ctx.lineWidth=Math.max(0.7,depth*0.36);
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y2);ctx.stroke();
+  pyBranch(ctx,x2,y2,len*0.68,angle-0.64,depth-1);
+  pyBranch(ctx,x2,y2,len*0.68,angle+0.64,depth-1);
+}
+function v21(ctx){pyBranch(ctx,CX,CY+S*0.85,S*0.4,0,9);}
+
+/* 23 FLOW FIELD (sine vector field streamlines) */
+function v22(ctx){
+  ctx.lineWidth=1.3;
+  const R=S*1.1,SEEDS=320,STEPS=35,STEP=5.5;
+  for(let i=0;i<SEEDS;i++){
+    let x=(Math.random()*2-1)*R+CX;
+    let y=(Math.random()*2-1)*R+CY;
+    ctx.beginPath();ctx.moveTo(x,y);
+    for(let j=0;j<STEPS;j++){
+      const nx=(x-CX)/R,ny=(y-CY)/R;
+      const angle=Math.sin(nx*Math.PI*2.2)*Math.PI+Math.cos(ny*Math.PI*2.2)*0.88*Math.PI;
+      x+=Math.cos(angle)*STEP;y+=Math.sin(angle)*STEP;
+      if(Math.abs(x-CX)>R+8||Math.abs(y-CY)>R+8)break;
+      ctx.lineTo(x,y);
+    }ctx.stroke();
+  }
+}
+
+/* 24 NESTED ROSE CURVES */
+function v23(ctx){
+  for(let n=1;n<=8;n++){
+    const r0=n*S*0.92/8;
+    ctx.lineWidth=1.1;
+    ctx.globalAlpha=0.28+n*0.09;
+    ctx.beginPath();
+    for(let i=0;i<=720;i++){
+      const θ=i/720*τ;
+      const r=r0*Math.abs(Math.cos(n*θ));
+      ctx.lineTo(CX+r*Math.cos(θ),CY-r*Math.sin(θ));
+    }ctx.stroke();
+  }ctx.globalAlpha=1;
+}
+
+/* ── DISPATCH ─────────────────────────────────────────── */
+const FNS=[v00,v01,v02,v03,v04,v05,v06,v07,v08,v09,v10,v11,
+           v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23];
+
+window.addEventListener('load',()=>{
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+
+  FNS.forEach((fn,i)=>{
+    const canvas=document.getElementById('c'+i);
+    canvas.width=RES*dpr;
+    canvas.height=RES*dpr;
+    const ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+    ctx.strokeStyle='rgba(0,0,0,0.84)';
+    ctx.fillStyle='rgba(0,0,0,0.84)';
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+    fn(ctx);
+  });
+});
+</script>
+</body>
+</html>

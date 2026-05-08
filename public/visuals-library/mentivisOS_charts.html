@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS — Data Visualizations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#EDEBE5;
+  --white:#FFFFFF;
+  --ink:#0C0C0A;
+  --ink2:#374151;
+  --ink3:#6B7280;
+  --ink4:#9CA3AF;
+  --border:rgba(0,0,0,.06);
+  --shadow:rgba(0,0,0,.04) 0 0 0 1px,rgba(0,0,0,.03) 0 2px 6px,rgba(0,0,0,.02) 0 10px 30px;
+
+  --c-orange:#F97316;
+  --c-orange-a:rgba(249,115,22,.12);
+  --c-blue:#3B82F6;
+  --c-blue-a:rgba(59,130,246,.10);
+  --c-green:#10B981;
+  --c-green-a:rgba(16,185,129,.12);
+  --c-purple:#8B5CF6;
+  --c-red:#EF4444;
+  --c-amber:#D97706;
+  --c-grid:#E5E7EB;
+}
+
+body{
+  background:var(--bg);
+  font-family:'Outfit','Helvetica Neue',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:52px 40px 80px;
+}
+
+.page{max-width:1240px;margin:0 auto}
+
+/* ── HEADER ── */
+.pg-hd{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid var(--border);
+  padding-bottom:16px;margin-bottom:48px;
+}
+.pg-title{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.pg-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink4);letter-spacing:.06em}
+
+/* ── SECTION ── */
+.sec-hd{display:flex;align-items:center;gap:10px;margin:52px 0 22px}
+.sec-hd:first-of-type{margin-top:0}
+.sec-label{font-size:12px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.badge{
+  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 9px;border-radius:9999px;
+}
+.b-int{background:#FEF3C7;color:#B45309}
+.b-sta{background:#F1F5F9;color:#64748B}
+
+/* ── ROWS — 16fr:9fr grid makes wide+square same height ── */
+.row{display:grid;grid-template-columns:16fr 9fr;gap:20px;margin-bottom:20px;align-items:start}
+.row.flip{grid-template-columns:9fr 16fr}
+
+/* ── CARDS ── */
+.card{
+  background:var(--white);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.card.wide{aspect-ratio:16/9}
+.card.sq{aspect-ratio:1/1}
+
+.c-head{padding:20px 22px 10px;flex-shrink:0}
+.c-lbl{font-size:12px;font-weight:500;color:var(--ink3)}
+.c-val{font-size:24px;font-weight:700;color:var(--ink);line-height:1.15;margin-top:3px;letter-spacing:-.02em}
+.c-val.sm{font-size:18px}
+
+.c-body{flex:1;padding:0 18px 16px;overflow:hidden;position:relative;display:flex;align-items:stretch}
+.c-body svg{width:100%;height:100%}
+
+/* ── TOOLTIP ── */
+#tip{
+  position:fixed;z-index:999;pointer-events:none;
+  background:var(--white);border-radius:10px;
+  padding:10px 14px;min-width:130px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.09),0 4px 18px rgba(0,0,0,.08);
+  font-size:12px;opacity:0;transition:opacity .1s ease;
+}
+#tip.on{opacity:1}
+.td{font-size:11px;color:var(--ink3);margin-bottom:5px;font-weight:500}
+.tr{display:flex;align-items:center;gap:6px;padding:1.5px 0}
+.tr strong{margin-left:auto;font-weight:600}
+.tdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ── SVG fonts ── */
+svg text{font-family:'Outfit','Helvetica Neue',sans-serif}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="pg-hd">
+  <span class="pg-title">MentivisOS — Data Visualizations</span>
+  <span class="pg-sub">12 charts · 6 interactifs · 6 statiques · formats 16:9 &amp; 1:1</span>
+</div>
+
+<div id="tip"></div>
+
+<!-- ══ INTERACTIVE ══ -->
+<div class="sec-hd">
+  <span class="badge b-int">6 Interactifs</span>
+  <span class="sec-label">Hover, tooltip, animation</span>
+</div>
+
+<div class="row">
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Score de couverture</p><p class="c-val">83.4%</p></div><div class="c-body"><svg id="c01" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Couverture par domaine</p><p class="c-val sm">Radar 6 axes</p></div><div class="c-body"><svg id="c02" viewBox="0 0 300 280" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+<div class="row flip">
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Score diagnostic</p><p class="c-val">84 / 100</p></div><div class="c-body"><svg id="c03" viewBox="0 0 300 270" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Durée estimée par module</p><p class="c-val">70h · 7 sem.</p></div><div class="c-body"><svg id="c04" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+<div class="row">
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Taux de validation avant / après MentivisOS</p><p class="c-val">+14 pts moy.</p></div><div class="c-body"><svg id="c05" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Entonnoir apprenants</p><p class="c-val">438 certifiés</p></div><div class="c-body"><svg id="c06" viewBox="0 0 300 280" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+<!-- ══ STATIC ══ -->
+<div class="sec-hd">
+  <span class="badge b-sta">6 Statiques</span>
+  <span class="sec-label">Affichage informatif</span>
+</div>
+
+<div class="row">
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Progression cumulative des modules</p><p class="c-val sm">8 semaines · 4 modules</p></div><div class="c-body"><svg id="c07" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Indicateurs Qualiopi</p><p class="c-val sm">7 indicateurs</p></div><div class="c-body"><svg id="c09" viewBox="0 0 300 290" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+<div class="row">
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Activité de formation · calendrier annuel</p><p class="c-val sm">Heatmap 52 semaines</p></div><div class="c-body"><svg id="c08" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Profils apprenants</p><p class="c-val sm">40 apprenants</p></div><div class="c-body"><svg id="c10" viewBox="0 0 300 280" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+<div class="row">
+  <div class="card wide"><div class="c-head"><p class="c-lbl">Décomposition ROI formation</p><p class="c-val">+3 000 €</p></div><div class="c-body"><svg id="c11" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+  <div class="card sq"><div class="c-head"><p class="c-lbl">Répartition budget OPCO</p><p class="c-val sm">100 k€</p></div><div class="c-body"><svg id="c12" viewBox="0 0 300 280" preserveAspectRatio="xMidYMid meet"></svg></div></div>
+</div>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+const NS='http://www.w3.org/2000/svg';
+function e(tag,a={},txt=''){
+  const el=document.createElementNS(NS,tag);
+  for(const[k,v]of Object.entries(a))el.setAttribute(k,String(v));
+  if(txt)el.textContent=txt;
+  return el;
+}
+function app(parent,...kids){kids.forEach(k=>k&&parent.appendChild(k));return parent}
+
+function smooth(pts,ten=0.36){
+  if(!pts.length)return'';
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){
+    const[px,py]=pts[i-1],[cx,cy]=pts[i];
+    d+=` C${px+(cx-px)*ten},${py} ${cx-(cx-px)*ten},${cy} ${cx},${cy}`;
+  }return d;
+}
+
+function areaD(pts,yb,ten=0.36){
+  return smooth(pts,ten)+` L${pts.at(-1)[0]},${yb} L${pts[0][0]},${yb} Z`;
+}
+
+function sector(cx,cy,R,r,a1,a2){
+  const[c,s]=[Math.cos,Math.sin],lg=a2-a1>Math.PI?1:0;
+  return`M${cx+R*c(a1)},${cy+R*s(a1)} A${R},${R},0,${lg},1,${cx+R*c(a2)},${cy+R*s(a2)} L${cx+r*c(a2)},${cy+r*s(a2)} A${r},${r},0,${lg},0,${cx+r*c(a1)},${cy+r*s(a1)} Z`;
+}
+
+function seed(n){const x=Math.sin(n*9301+49297)*233280;return x-Math.floor(x)}
+
+/* ═══════════════════════════════════════
+   TOOLTIP
+═══════════════════════════════════════ */
+const tip=document.getElementById('tip');
+function showTip(evt,html){
+  tip.innerHTML=html;tip.classList.add('on');moveTip(evt);
+}
+function moveTip(evt){
+  const x=evt.clientX+16,y=evt.clientY-tip.offsetHeight/2;
+  tip.style.left=Math.min(x,window.innerWidth-180)+'px';
+  tip.style.top=Math.max(8,y)+'px';
+}
+function hideTip(){tip.classList.remove('on')}
+
+function dot(color){return`<span class="tdot" style="background:${color}"></span>`}
+
+/* ═══════════════════════════════════════
+   CHART 01 — MULTI-LINE WITH AREA
+═══════════════════════════════════════ */
+function chart01(){
+  const svg=document.getElementById('c01');
+  const W=760,H=220,M={t:24,r:20,b:38,l:42};
+  const pw=W-M.l-M.r,ph=H-M.t-M.b;
+
+  const dates=['17 aout','18 aout','19 aout','20 aout','21 aout','22 aout','23 aout','24 aout'];
+  const v1=[87,89,88,85,90,88,85,82];
+  const v2=[35,38,32,28,36,30,25,22];
+
+  const xS=i=>M.l+i*pw/(dates.length-1);
+  const yS=v=>M.t+(100-v)/100*ph;
+
+  // Grid
+  [0,50,100].forEach(v=>{
+    const y=yS(v);
+    app(svg,
+      e('line',{x1:M.l,y1:y,x2:M.l+pw,y2:y,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:M.l-6,y:y+4,'text-anchor':'end',fill:'#9CA3AF','font-size':10},v+'%')
+    );
+  });
+
+  // x axis labels
+  app(svg,
+    e('text',{x:xS(0),y:H-6,'text-anchor':'middle',fill:'#9CA3AF','font-size':10},dates[0]),
+    e('text',{x:xS(7),y:H-6,'text-anchor':'middle',fill:'#9CA3AF','font-size':10},dates[7])
+  );
+
+  const pts1=v1.map((v,i)=>[xS(i),yS(v)]);
+  const pts2=v2.map((v,i)=>[xS(i),yS(v)]);
+
+  // Areas
+  app(svg,
+    e('path',{d:areaD(pts1,yS(0)),fill:'rgba(249,115,22,.10)',stroke:'none'}),
+    e('path',{d:areaD(pts2,yS(0)),fill:'rgba(59,130,246,.10)',stroke:'none'})
+  );
+
+  // Lines
+  app(svg,
+    e('path',{d:smooth(pts1),fill:'none',stroke:'#F97316','stroke-width':2,'stroke-linecap':'round'}),
+    e('path',{d:smooth(pts2),fill:'none',stroke:'#3B82F6','stroke-width':2,'stroke-linecap':'round'})
+  );
+
+  // Hover elements
+  const xLine=e('line',{x1:0,y1:M.t,x2:0,y2:M.t+ph,stroke:'#CBD5E1','stroke-width':1,'stroke-dasharray':'3,3',display:'none'});
+  const d1=e('circle',{r:4.5,fill:'#F97316',stroke:'#fff','stroke-width':2,display:'none'});
+  const d2=e('circle',{r:4.5,fill:'#3B82F6',stroke:'#fff','stroke-width':2,display:'none'});
+  const overlay=e('rect',{x:M.l,y:M.t,width:pw,height:ph,fill:'transparent',cursor:'crosshair'});
+
+  app(svg,xLine,d1,d2,overlay);
+
+  overlay.addEventListener('mousemove',evt=>{
+    const r=svg.getBoundingClientRect(),mx=(evt.clientX-r.left)*(W/r.width);
+    let ni=0,md=Infinity;
+    dates.forEach((_,i)=>{const d=Math.abs(xS(i)-mx);if(d<md){md=d;ni=i}});
+    const x=xS(ni);
+    xLine.setAttribute('x1',x);xLine.setAttribute('x2',x);xLine.removeAttribute('display');
+    [d1,d2].forEach((d,j)=>{
+      d.setAttribute('cx',x);d.setAttribute('cy',yS([v1,v2][j][ni]));d.removeAttribute('display');
+    });
+    showTip(evt,
+      `<div class="td">${dates[ni]}</div>
+       <div class="tr">${dot('#F97316')} V1 <strong>${v1[ni]}%</strong></div>
+       <div class="tr">${dot('#3B82F6')} V2 <strong>${v2[ni]}%</strong></div>`
+    );
+  });
+  overlay.addEventListener('mouseleave',()=>{
+    [xLine,d1,d2].forEach(n=>n.setAttribute('display','none'));hideTip();
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 02 — RADAR
+═══════════════════════════════════════ */
+function chart02(){
+  const svg=document.getElementById('c02');
+  const cx=150,cy=148,R=105;
+  const axes=['Fondamentaux','Sécurité','Normes','IA','Outils','Évaluation'];
+  const cur=[84,72,68,45,80,76];
+  const tgt=[95,90,85,80,90,88];
+  const N=axes.length;
+  const pt=(v,i)=>{
+    const a=-Math.PI/2+i/N*2*Math.PI,r=v/100*R;
+    return[cx+r*Math.cos(a),cy+r*Math.sin(a)];
+  };
+
+  // Grid rings
+  [20,40,60,80,100].forEach(v=>{
+    const pts=axes.map((_,i)=>pt(v,i));
+    app(svg,e('polygon',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#E5E7EB','stroke-width':.8}));
+  });
+
+  // Axis lines
+  axes.forEach((_,i)=>{
+    const a=-Math.PI/2+i/N*2*Math.PI;
+    app(svg,e('line',{x1:cx,y1:cy,x2:cx+R*Math.cos(a),y2:cy+R*Math.sin(a),stroke:'#E5E7EB','stroke-width':.8}));
+    const[lx,ly]=pt(112,i);
+    const anchor=Math.abs(Math.cos(-Math.PI/2+i/N*2*Math.PI))<0.1?'middle':Math.cos(-Math.PI/2+i/N*2*Math.PI)>0?'start':'end';
+    app(svg,e('text',{x:lx,y:ly+4,'text-anchor':anchor,fill:'#6B7280','font-size':10,'font-weight':'500'},axes[i]));
+  });
+
+  // Target polygon
+  app(svg,e('polygon',{
+    points:tgt.map((_,i)=>pt(tgt[i],i).join(',')).join(' '),
+    fill:'rgba(59,130,246,.06)',stroke:'#3B82F6','stroke-width':1.4,'stroke-dasharray':'4,3'
+  }));
+
+  // Current polygon
+  const curPoly=e('polygon',{
+    points:cur.map((_,i)=>pt(cur[i],i).join(',')).join(' '),
+    fill:'rgba(249,115,22,.14)',stroke:'#F97316','stroke-width':1.8
+  });
+  app(svg,curPoly);
+
+  // Vertex dots with hover
+  cur.forEach((v,i)=>{
+    const[px,py]=pt(v,i);
+    const dot=e('circle',{cx:px,cy:py,r:4.5,fill:'#F97316',stroke:'#fff','stroke-width':1.8});
+    const zone=e('circle',{cx:px,cy:py,r:14,fill:'transparent',cursor:'pointer'});
+    zone.addEventListener('mouseenter',evt=>showTip(evt,
+      `<div class="td">${axes[i]}</div>
+       <div class="tr">${dot_s('#F97316')} Actuel <strong>${v}%</strong></div>
+       <div class="tr">${dot_s('#3B82F6')} Cible <strong>${tgt[i]}%</strong></div>`
+    ));
+    zone.addEventListener('mousemove',moveTip);
+    zone.addEventListener('mouseleave',hideTip);
+    app(svg,dot,zone);
+  });
+}
+function dot_s(c){return`<span class="tdot" style="background:${c}"></span>`}
+
+/* ═══════════════════════════════════════
+   CHART 03 — DONUT
+═══════════════════════════════════════ */
+function chart03(){
+  const svg=document.getElementById('c03');
+  const cx=150,cy=148,R=105,r=68;
+  const segs=[
+    {label:'Couvert',value:84,color:'#F97316'},
+    {label:'Partiel',value:10,color:'#FED7AA'},
+    {label:'Non couvert',value:6,color:'#E5E7EB'},
+  ];
+  const total=segs.reduce((s,d)=>s+d.value,0);
+  let angle=-Math.PI/2;
+
+  segs.forEach(seg=>{
+    const sweep=seg.value/total*2*Math.PI;
+    const a1=angle,a2=angle+sweep;
+    const path=e('path',{d:sector(cx,cy,R,r,a1,a2),fill:seg.color,
+      stroke:'#fff','stroke-width':2,'stroke-linejoin':'round',cursor:'pointer'});
+
+    path.addEventListener('mouseenter',evt=>{
+      path.setAttribute('transform',`translate(${Math.cos((a1+a2)/2)*4},${Math.sin((a1+a2)/2)*4})`);
+      showTip(evt,
+        `<div class="td">${seg.label}</div>
+         <div class="tr">${dot_s(seg.color)} Part <strong>${seg.value}%</strong></div>`
+      );
+    });
+    path.addEventListener('mousemove',moveTip);
+    path.addEventListener('mouseleave',()=>{path.removeAttribute('transform');hideTip()});
+    app(svg,path);
+    angle+=sweep;
+  });
+
+  // Center
+  app(svg,
+    e('text',{x:cx,y:cy-6,'text-anchor':'middle','font-size':30,'font-weight':'700',fill:'#0C0C0A'},'84'),
+    e('text',{x:cx,y:cy+14,'text-anchor':'middle','font-size':11,fill:'#9CA3AF'},'Score / 100')
+  );
+
+  // Legend
+  segs.forEach((s,i)=>{
+    const y=250+i*20;
+    app(svg,
+      e('rect',{x:cx-80,y:y-7,width:10,height:10,rx:2,fill:s.color}),
+      e('text',{x:cx-64,y:y+1,'font-size':11,fill:'#6B7280'},s.label),
+      e('text',{x:cx+80,y:y+1,'text-anchor':'end','font-size':11,'font-weight':'600',fill:'#374151'},s.value+'%')
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 04 — HORIZONTAL BAR
+═══════════════════════════════════════ */
+function chart04(){
+  const svg=document.getElementById('c04');
+  const W=760,H=220,Ml=158,Mt=20,Mb=30,Mr=24;
+  const pw=W-Ml-Mr,ph=H-Mt-Mb;
+  const modules=[
+    {name:'Norme DO-178C',h:18,c:'#EF4444'},
+    {name:'Fondations avioniques',h:15,c:'#F97316'},
+    {name:'Sûreté systèmes',h:12,c:'#F97316'},
+    {name:'ARINC & AFDX',h:10,c:'#10B981'},
+    {name:'IA embarquée',h:8,c:'#10B981'},
+    {name:'Certification IA',h:7,c:'#10B981'},
+  ];
+  const maxH=20,bh=(ph/(modules.length))*0.58;
+
+  // Grid
+  [0,5,10,15,20].forEach(v=>{
+    const x=Ml+v/maxH*pw;
+    app(svg,
+      e('line',{x1:x,y1:Mt,x2:x,y2:Mt+ph,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:x,y:H-8,'text-anchor':'middle',fill:'#9CA3AF','font-size':10},v+'h')
+    );
+  });
+
+  modules.forEach((m,i)=>{
+    const y=Mt+i*(ph/modules.length)+(ph/modules.length-bh)/2;
+    const bw=m.h/maxH*pw;
+
+    // bg track
+    app(svg,e('rect',{x:Ml,y,width:pw,height:bh,fill:'#F3F4F6',rx:3}));
+
+    // bar
+    const bar=e('rect',{x:Ml,y,width:bw,height:bh,fill:m.c,rx:3,cursor:'pointer',
+      style:`transition:filter .15s`});
+    bar.addEventListener('mouseenter',evt=>{
+      bar.style.filter='brightness(1.1)';
+      showTip(evt,
+        `<div class="td">${m.name}</div>
+         <div class="tr">${dot_s(m.c)} Durée <strong>${m.h}h</strong></div>`
+      );
+    });
+    bar.addEventListener('mousemove',moveTip);
+    bar.addEventListener('mouseleave',()=>{bar.style.filter='';hideTip()});
+
+    // label
+    const lbl=e('text',{x:Ml-8,y:y+bh/2+4,'text-anchor':'end',fill:'#374151','font-size':11},m.name);
+    app(svg,bar,
+      e('text',{x:Ml+bw+5,y:y+bh/2+4,fill:m.c,'font-size':11,'font-weight':'600'},m.h+'h'),
+      lbl
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 05 — GROUPED BAR
+═══════════════════════════════════════ */
+function chart05(){
+  const svg=document.getElementById('c05');
+  const W=760,H=220,M={t:24,r:20,b:38,l:42};
+  const pw=W-M.l-M.r,ph=H-M.t-M.b;
+  const cohorts=['Cohort A','Cohort B','Cohort C','Cohort D','Cohort E','Cohort F'];
+  const before=[78,82,75,88,71,85];
+  const after=[91,94,87,96,83,92];
+  const maxV=100,gw=pw/cohorts.length,bw=gw*0.28,gap=gw*0.06;
+  const yS=v=>M.t+(100-v)/100*ph;
+
+  // Grid
+  [0,25,50,75,100].forEach(v=>{
+    const y=yS(v);
+    app(svg,
+      e('line',{x1:M.l,y1:y,x2:M.l+pw,y2:y,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:M.l-6,y:y+4,'text-anchor':'end',fill:'#9CA3AF','font-size':10},v+'%')
+    );
+  });
+
+  cohorts.forEach((name,i)=>{
+    const gx=M.l+i*gw+gw/2;
+    const x1=gx-bw-gap/2,x2=gx+gap/2;
+
+    const mkBar=(x,v,col)=>{
+      const y=yS(v),bh=yS(0)-y;
+      const bar=e('rect',{x,y,width:bw,height:bh,fill:col,rx:3,cursor:'pointer'});
+      bar.addEventListener('mouseenter',evt=>{
+        bar.setAttribute('opacity','.8');
+        showTip(evt,
+          `<div class="td">${name}</div>
+           <div class="tr">${dot_s('#3B82F6')} Avant <strong>${before[i]}%</strong></div>
+           <div class="tr">${dot_s('#F97316')} Après <strong>${after[i]}%</strong></div>
+           <div class="tr" style="border-top:1px solid #f0f0f0;margin-top:4px;padding-top:4px">Gain <strong>+${after[i]-before[i]}pts</strong></div>`
+        );
+      });
+      bar.addEventListener('mousemove',moveTip);
+      bar.addEventListener('mouseleave',()=>{bar.setAttribute('opacity','1');hideTip()});
+      return bar;
+    };
+
+    app(svg,mkBar(x1,before[i],'#3B82F6'),mkBar(x2,after[i],'#F97316'));
+    app(svg,e('text',{x:gx,y:H-M.b+14,'text-anchor':'middle',fill:'#9CA3AF','font-size':10},name));
+  });
+
+  // Legend
+  app(svg,
+    e('rect',{x:W-M.r-110,y:M.t,width:9,height:9,rx:2,fill:'#3B82F6'}),
+    e('text',{x:W-M.r-97,y:M.t+8,fill:'#6B7280','font-size':11},'Avant'),
+    e('rect',{x:W-M.r-55,y:M.t,width:9,height:9,rx:2,fill:'#F97316'}),
+    e('text',{x:W-M.r-42,y:M.t+8,fill:'#6B7280','font-size':11},'Après')
+  );
+}
+
+/* ═══════════════════════════════════════
+   CHART 06 — FUNNEL
+═══════════════════════════════════════ */
+function chart06(){
+  const svg=document.getElementById('c06');
+  const stages=[
+    {label:'Diagnostiqués',value:1240,pct:'100%',col:'#3B82F6'},
+    {label:'Actifs',value:890,pct:'71.8%',col:'#6366F1'},
+    {label:'En certification',value:512,pct:'41.3%',col:'#8B5CF6'},
+    {label:'Certifiés',value:438,pct:'35.3%',col:'#A855F7'},
+  ];
+  const W=300,fh=260,mt=12,mL=20,mR=20;
+  const fw=W-mL-mR,sh=fh/stages.length;
+  const maxW=fw,minW=fw*0.38;
+
+  stages.forEach((s,i)=>{
+    const t=i/(stages.length-1),tw=maxW-t*(maxW-minW);
+    const prev_tw=i===0?maxW:maxW-(i-1)/(stages.length-1)*(maxW-minW);
+    const y=mt+i*sh,cx=W/2;
+
+    // Trapezoid
+    const pts=`${cx-prev_tw/2},${y} ${cx+prev_tw/2},${y} ${cx+tw/2},${y+sh-2} ${cx-tw/2},${y+sh-2}`;
+    const trap=e('polygon',{points:pts,fill:s.col,opacity:.9,cursor:'pointer'});
+    trap.addEventListener('mouseenter',evt=>{
+      trap.setAttribute('opacity','1');
+      showTip(evt,
+        `<div class="td">${s.label}</div>
+         <div class="tr">${dot_s(s.col)} Effectif <strong>${s.value.toLocaleString('fr')}</strong></div>
+         <div class="tr">${dot_s(s.col)} Part <strong>${s.pct}</strong></div>`
+      );
+    });
+    trap.addEventListener('mousemove',moveTip);
+    trap.addEventListener('mouseleave',()=>{trap.setAttribute('opacity','.9');hideTip()});
+
+    app(svg,trap,
+      e('text',{x:cx,y:y+sh/2-5,'text-anchor':'middle',fill:'#fff','font-size':12,'font-weight':'600'},s.label),
+      e('text',{x:cx,y:y+sh/2+11,'text-anchor':'middle',fill:'rgba(255,255,255,.85)','font-size':11},s.value.toLocaleString('fr')+' · '+s.pct)
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 07 — STACKED AREA
+═══════════════════════════════════════ */
+function chart07(){
+  const svg=document.getElementById('c07');
+  const W=760,H=220,M={t:24,r:24,b:38,l:42};
+  const pw=W-M.l-M.r,ph=H-M.t-M.b;
+  const weeks=8;
+  const mods=[
+    {name:'Profil',col:'#BFDBFE',data:[100,100,100,100,100,100,100,100]},
+    {name:'Diagnostic',col:'#93C5FD',data:[0,85,100,100,100,100,100,100]},
+    {name:'Programme',col:'#60A5FA',data:[0,0,30,70,100,100,100,100]},
+    {name:'Assistant',col:'#3B82F6',data:[0,0,0,20,60,90,100,100]},
+  ];
+  const xS=i=>M.l+i*pw/(weeks-1);
+  const yS=v=>M.t+(100-v)/100*ph;
+
+  // Grid
+  [0,25,50,75,100].forEach(v=>{
+    const y=yS(v);
+    app(svg,
+      e('line',{x1:M.l,y1:y,x2:M.l+pw,y2:y,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:M.l-6,y:y+4,'text-anchor':'end',fill:'#9CA3AF','font-size':10},v+'%')
+    );
+  });
+
+  // Stacked areas (bottom to top)
+  const stacked=Array.from({length:weeks},()=>0);
+  mods.forEach(mod=>{
+    const top=mod.data.map((v,i)=>stacked[i]+v);
+    const ptsTop=top.map((v,i)=>[xS(i),yS(v)]);
+    const ptsBot=stacked.map((v,i)=>[xS(i),yS(v)]);
+    const d=smooth(ptsTop)+' L'+[...ptsBot].reverse().map(p=>p.join(',')).join(' L ')+' Z';
+    app(svg,e('path',{d,fill:mod.col,opacity:.9}));
+    mod.data.forEach((v,i)=>stacked[i]+=v);
+  });
+
+  // Top line
+  app(svg,e('path',{d:smooth(stacked.map((v,i)=>[xS(i),yS(v)])),fill:'none',stroke:'#2563EB','stroke-width':1.5}));
+
+  // X labels
+  Array.from({length:weeks},(_, i)=>{
+    app(svg,e('text',{x:xS(i),y:H-M.b+14,'text-anchor':'middle',fill:'#9CA3AF','font-size':10},'S'+(i+1)));
+  });
+
+  // Legend
+  mods.forEach((m,i)=>{
+    app(svg,
+      e('rect',{x:M.l+i*120,y:M.t-16,width:9,height:9,rx:2,fill:m.col}),
+      e('text',{x:M.l+i*120+13,y:M.t-8,fill:'#6B7280','font-size':11},m.name)
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 08 — HEATMAP CALENDAR
+═══════════════════════════════════════ */
+function chart08(){
+  const svg=document.getElementById('c08');
+  const W=760,H=220,ml=28,mt=28,mr=12,mb=24;
+  const cols=52,rows=7,pw=W-ml-mr,ph=H-mt-mb;
+  const cw=pw/cols,ch=ph/rows;
+  const months=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Déc'];
+  const days=['L','M','M','J','V','S','D'];
+  const colors=['#F3F4F6','#BFDBFE','#93C5FD','#60A5FA','#2563EB'];
+
+  // Day labels
+  days.forEach((d,i)=>{
+    if(i%2===0)app(svg,e('text',{x:ml-6,y:mt+i*ch+ch/2+4,'text-anchor':'end',fill:'#9CA3AF','font-size':9},d));
+  });
+
+  // Month labels (roughly every 4-5 weeks)
+  months.forEach((m,i)=>{
+    app(svg,e('text',{x:ml+(i*4.33)*cw,y:mt-10,fill:'#9CA3AF','font-size':9},m));
+  });
+
+  // Cells
+  for(let c=0;c<cols;c++){
+    for(let r=0;r<rows;r++){
+      const n=c*rows+r;
+      // Simulate: busier in midweek, peak in spring/fall
+      const base=seed(n)*4+Math.sin(c/4)*1.5+Math.sin(r+1.5)*0.8+(r<5?1:0);
+      const intensity=Math.floor(Math.max(0,Math.min(4,base+seed(n*3)*2)));
+      app(svg,e('rect',{
+        x:ml+c*cw+1,y:mt+r*ch+1,
+        width:cw-2,height:ch-2,
+        rx:2,fill:colors[intensity]
+      }));
+    }
+  }
+
+  // Legend
+  const lx=W-mr-90,ly=H-mb+8;
+  app(svg,e('text',{x:lx,y:ly+6,fill:'#9CA3AF','font-size':9},'Moins'));
+  colors.forEach((c,i)=>app(svg,e('rect',{x:lx+36+i*14,y:ly,width:11,height:11,rx:2,fill:c})));
+  app(svg,e('text',{x:lx+36+5*14+4,y:ly+6,fill:'#9CA3AF','font-size':9},'Plus'));
+}
+
+/* ═══════════════════════════════════════
+   CHART 09 — BULLET GAUGE (QUALIOPI)
+═══════════════════════════════════════ */
+function chart09(){
+  const svg=document.getElementById('c09');
+  const inds=[
+    {label:'1 · Analyse besoins',current:88,target:90},
+    {label:'2 · Conception',current:82,target:85},
+    {label:'3 · Suivi',current:75,target:80},
+    {label:'4 · Évaluation',current:91,target:85},
+    {label:'5 · Satisfaction',current:78,target:80},
+    {label:'6 · Employabilité',current:68,target:75},
+    {label:'7 · Amélioration',current:85,target:80},
+  ];
+  const mt=10,ml=16,mr=16,bw=300-ml-mr,bh=10,gap=35;
+
+  inds.forEach((ind,i)=>{
+    const y=mt+i*gap+14;
+    const xS=v=>ml+v/100*bw;
+    const ok=ind.current>=ind.target;
+    const col=ok?'#10B981':'#F97316';
+
+    app(svg,
+      e('text',{x:ml,y,fill:'#374151','font-size':10,'font-weight':'500'},ind.label),
+      // track
+      e('rect',{x:ml,y:y+5,width:bw,height:bh,rx:4,fill:'#F3F4F6'}),
+      // target zone
+      e('rect',{x:xS(ind.target-5),y:y+5,width:xS(5)-xS(0),height:bh,rx:2,fill:'rgba(0,0,0,.06)'}),
+      // actual bar
+      e('rect',{x:ml,y:y+6,width:xS(ind.current)-ml,height:bh-2,rx:3,fill:col}),
+      // target marker
+      e('rect',{x:xS(ind.target)-1,y:y+4,width:2.5,height:bh+2,rx:1,fill:'#374151'}),
+      // value
+      e('text',{x:bw+ml+5,y:y+bh+1,'font-size':10,'font-weight':'600',fill:col},ind.current+'%')
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 10 — SCATTER PLOT
+═══════════════════════════════════════ */
+function chart10(){
+  const svg=document.getElementById('c10');
+  const W=300,H=280,M={t:20,r:20,b:36,l:42};
+  const pw=W-M.l-M.r,ph=H-M.t-M.b;
+
+  const xS=v=>M.l+v/15*pw;
+  const yS=v=>M.t+(100-v)/60*ph;
+
+  // Grid
+  [40,60,80,100].forEach(v=>{
+    const y=yS(v);
+    app(svg,
+      e('line',{x1:M.l,y1:y,x2:M.l+pw,y2:y,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:M.l-6,y:y+4,'text-anchor':'end',fill:'#9CA3AF','font-size':9},v+'%')
+    );
+  });
+  [0,5,10,15].forEach(v=>{
+    app(svg,
+      e('line',{x1:xS(v),y1:M.t,x2:xS(v),y2:M.t+ph,stroke:'#E5E7EB','stroke-width':.8}),
+      e('text',{x:xS(v),y:H-M.b+12,'text-anchor':'middle',fill:'#9CA3AF','font-size':9},v+'h')
+    );
+  });
+
+  // Axis labels
+  app(svg,
+    e('text',{x:W/2,y:H-2,'text-anchor':'middle',fill:'#6B7280','font-size':10},'Heures / semaine'),
+    e('text',{x:10,y:H/2,'text-anchor':'middle',fill:'#6B7280','font-size':10,transform:`rotate(-90,10,${H/2})`},'Coverage %')
+  );
+
+  // Points
+  const cols={active:'#3B82F6',complete:'#10B981',risk:'#F97316'};
+  Array.from({length:40},(_,i)=>{
+    const r1=seed(i*3+1),r2=seed(i*3+2),r3=seed(i*3+3);
+    const spd=1+r1*13,cov=40+r2*58,sz=3+r3*4;
+    const status=cov>80&&spd>7?'complete':spd<4?'risk':'active';
+    const col=cols[status];
+    app(svg,e('circle',{cx:xS(spd),cy:yS(cov),r:sz,fill:col,opacity:.65,'stroke':'none'}));
+  });
+
+  // Legend
+  Object.entries(cols).forEach(([k,v],i)=>{
+    app(svg,
+      e('circle',{cx:M.l+i*72,cy:M.t-8,r:4,fill:v}),
+      e('text',{x:M.l+i*72+8,y:M.t-4,fill:'#6B7280','font-size':9},k)
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 11 — WATERFALL
+═══════════════════════════════════════ */
+function chart11(){
+  const svg=document.getElementById('c11');
+  const W=760,H=220,M={t:24,r:20,b:46,l:60};
+  const pw=W-M.l-M.r,ph=H-M.t-M.b;
+
+  const steps=[
+    {label:'Coût initial',val:-12000},
+    {label:'Productivité +',val:8500},
+    {label:'Réduction turn.',val:4200},
+    {label:'Valeur RNCP',val:3800},
+    {label:'Frais annexes',val:-1500},
+  ];
+
+  // Compute running totals
+  let run=0;
+  const bars=steps.map(s=>{
+    const start=run;
+    run+=s.val;
+    return{...s,start,end:run};
+  });
+  bars.push({label:'ROI Net',val:run,start:0,end:run,isTotal:true});
+
+  const minV=-13000,maxV=5500,range=maxV-minV;
+  const yS=v=>M.t+(maxV-v)/range*ph;
+  const n=bars.length,bw=pw/n*0.55;
+  const xC=i=>M.l+i*pw/n+pw/n/2;
+
+  // Zero line
+  const y0=yS(0);
+  app(svg,e('line',{x1:M.l,y1:y0,x2:M.l+pw,y2:y0,stroke:'#374151','stroke-width':.8,'stroke-dasharray':'4,3'}));
+  app(svg,e('text',{x:M.l-6,y:y0+4,'text-anchor':'end',fill:'#6B7280','font-size':10},'0'));
+
+  // Grid
+  [-12000,-6000,3000].forEach(v=>{
+    const y=yS(v),lbl=v>=0?'+'+v/1000+'k':v/1000+'k';
+    app(svg,
+      e('line',{x1:M.l,y1:y,x2:M.l+pw,y2:y,stroke:'#F3F4F6','stroke-width':.8}),
+      e('text',{x:M.l-6,y:y+4,'text-anchor':'end',fill:'#9CA3AF','font-size':9},lbl+'€')
+    );
+  });
+
+  bars.forEach((b,i)=>{
+    const x=xC(i)-bw/2;
+    const yTop=yS(Math.max(b.start,b.end));
+    const yBot=yS(Math.min(b.start,b.end));
+    const bh=Math.max(2,yBot-yTop);
+    const pos=b.end>b.start;
+    const col=b.isTotal?'#374151':pos?'#10B981':'#EF4444';
+
+    app(svg,e('rect',{x,y:yTop,width:bw,height:bh,fill:col,rx:3,opacity:.85}));
+
+    // Connector line to next bar
+    if(i<bars.length-1&&!bars[i+1].isTotal){
+      const nx=xC(i+1)-bw/2;
+      app(svg,e('line',{x1:x+bw,y1:yS(b.end),x2:nx,y2:yS(b.end),stroke:'#CBD5E1','stroke-width':.8,'stroke-dasharray':'3,2'}));
+    }
+
+    // Label
+    const lv=(b.val>=0?'+':'')+b.val.toLocaleString('fr')+'€';
+    app(svg,
+      e('text',{x:xC(i),y:yTop-5,'text-anchor':'middle',fill:col,'font-size':10,'font-weight':'600'},lv),
+      e('text',{x:xC(i),y:H-M.b+14,'text-anchor':'middle',fill:'#6B7280','font-size':10},b.label)
+    );
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHART 12 — TREEMAP
+═══════════════════════════════════════ */
+function chart12(){
+  const svg=document.getElementById('c12');
+  const PAD=14,W=300-PAD*2,H=268-PAD*2;
+  const data=[
+    {label:'Certification',pct:35,col:'#DBEAFE',colD:'#1D4ED8',children:[
+      {label:'RNCP',pct:20},{label:'RS',pct:15}
+    ]},
+    {label:'Technique',pct:28,col:'#D1FAE5',colD:'#065F46',children:[
+      {label:'IA & Data',pct:16},{label:'DevOps',pct:12}
+    ]},
+    {label:'Management',pct:22,col:'#EDE9FE',colD:'#5B21B6',children:[
+      {label:'Leadership',pct:13},{label:'Projet',pct:9}
+    ]},
+    {label:'Digital',pct:15,col:'#FEF3C7',colD:'#92400E',children:[
+      {label:'Outils',pct:9},{label:'Méthodo',pct:6}
+    ]},
+  ];
+
+  // Simple squarified-like layout: 2 rows
+  const row1=data.slice(0,2),row2=data.slice(2,4);
+  const r1h=H*(35+28)/100,r2h=H-r1h;
+
+  function drawCells(items,y0,rowH){
+    let x=PAD,total=items.reduce((s,d)=>s+d.pct,0);
+    items.forEach(item=>{
+      const cw=W*item.pct/total;
+
+      // Main cell
+      app(svg,e('rect',{x,y:y0,width:cw-2,height:rowH-2,rx:6,fill:item.col}));
+
+      // Sub-cells (split vertically)
+      let subX=x;
+      item.children.forEach((child,j)=>{
+        const sw=cw*child.pct/item.pct;
+        if(j>0)app(svg,e('line',{x1:subX,y1:y0+24,x2:subX,y2:y0+rowH-2,stroke:'rgba(0,0,0,.08)','stroke-width':1}));
+        if(rowH>60){
+          app(svg,
+            e('text',{x:subX+sw/2,y:y0+rowH*0.7,'text-anchor':'middle','font-size':10,fill:item.colD,opacity:.7},child.label),
+            e('text',{x:subX+sw/2,y:y0+rowH*0.88,'text-anchor':'middle','font-size':11,'font-weight':'600',fill:item.colD},child.pct+'k€')
+          );
+        }
+        subX+=sw;
+      });
+
+      // Category label
+      app(svg,
+        e('text',{x:x+10,y:y0+16,'font-size':11,'font-weight':'600',fill:item.colD},item.label),
+        e('text',{x:x+cw-10,y:y0+16,'text-anchor':'end','font-size':11,'font-weight':'700',fill:item.colD},item.pct+'%')
+      );
+
+      x+=cw;
+    });
+  }
+
+  drawCells(row1,PAD,r1h);
+  drawCells(row2,PAD+r1h+2,r2h);
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+window.addEventListener('load',()=>{
+  chart01();chart02();chart03();chart04();
+  chart05();chart06();chart07();chart08();
+  chart09();chart10();chart11();chart12();
+});
+</script>
+</body>
+</html>

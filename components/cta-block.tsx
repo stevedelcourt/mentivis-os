@@ -21,7 +21,7 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
           <h2
             className="t-display"
             style={{
-              fontSize: "var(--text-display)",
+              fontSize: "clamp(28px, 4vw, 44px)",
               whiteSpace: "pre-line",
               marginBottom: 24,
             }}
@@ -52,7 +52,7 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
         <h2
           className="t-display"
           style={{
-            fontSize: "var(--text-display)",
+            fontSize: "clamp(28px, 4vw, 44px)",
             marginBottom: 24,
           }}
         >

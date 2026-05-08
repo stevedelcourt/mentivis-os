@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS Visual Library</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#080808;
+  --s1:#111;
+  --border:#1C1C1C;
+  --ink:#F0EDE6;
+  --ink2:#8A8680;
+  --ink3:#504E4B;
+  --amber:#C8A96E;
+  --amber2:rgba(200,169,110,.12);
+  --geo-bg:#EDEAE3;
+  --geo-stroke:#1A1A18;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Mono','Courier New',monospace;
+  padding:48px 40px 80px;
+  min-height:100vh;
+}
+
+/* ── HEADER ── */
+.hd{
+  max-width:1280px;margin:0 auto 40px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid var(--border);padding-bottom:20px;
+}
+.hd-title{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.hd-count{font-size:11px;color:var(--ink3)}
+
+/* ── SECTION ── */
+.sect{max-width:1280px;margin:32px auto 16px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.sect:first-of-type{margin-top:0}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1280px;margin:0 auto}
+
+/* ── CARD ── */
+.card{display:flex;flex-direction:column;gap:10px}
+.vis{position:relative;width:100%;aspect-ratio:1/1;border-radius:10px;overflow:hidden;cursor:default}
+.vis canvas,.vis svg.fill{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.lbl{display:flex;justify-content:space-between;align-items:center;padding:0 2px}
+.ln{font-size:11px;color:var(--ink2)}
+.bs{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px}
+.bs-s{background:#141414;color:var(--ink3)}
+.bs-a{background:var(--amber2);color:var(--amber)}
+
+/* ── GRAIN OVERLAY ── */
+.grain::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  opacity:.13;mix-blend-mode:overlay;
+}
+
+/* ══════════════════════ GROUP A — GRADIENTS ══════════════════════ */
+
+/* 01 Dusk Field */
+.v01{background:radial-gradient(ellipse 80% 80% at 38% 38%,#9A728A 0%,#5E4870 45%,#12090F 100%)}
+
+/* 02 Amber Core */
+.v02{background:radial-gradient(ellipse at 50% 55%,#D0A248 0%,#7A4A18 42%,#090605 100%)}
+.v02-grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(200,169,110,.18) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,169,110,.18) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+
+/* 03 Boreal */
+.v03{background:linear-gradient(148deg,#1E4F92 0%,#176860 48%,#0F2818 100%)}
+
+/* 04 Terracotta */
+.v04{background:radial-gradient(ellipse 90% 72% at 56% 60%,#BA6848 0%,#4E2010 45%,#080808 100%)}
+
+/* 05 Deep Space */
+.v05{background:radial-gradient(ellipse at 50% 68%,#16143E 0%,#0A0A24 52%,#080808 100%)}
+.v05-stars{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.85) 1px,transparent 1px),
+    radial-gradient(circle,rgba(200,210,255,.55) 1px,transparent 1px),
+    radial-gradient(circle,rgba(255,255,255,.45) 1px,transparent 1px),
+    radial-gradient(circle,rgba(180,200,255,.35) 1px,transparent 1px);
+  background-size:128px 128px,88px 88px,68px 68px,48px 48px;
+  background-position:22px 40px,54px 76px,11px 17px,37px 61px;
+}
+
+/* 06 Aurora */
+.v06{background:#0A1015}
+.v06-inner{
+  position:absolute;inset:-20%;z-index:1;
+  background:
+    radial-gradient(ellipse 58% 48% at 28% 42%,rgba(22,108,92,.72) 0%,transparent 62%),
+    radial-gradient(ellipse 48% 60% at 72% 55%,rgba(30,79,146,.62) 0%,transparent 62%),
+    radial-gradient(ellipse 68% 42% at 52% 76%,rgba(16,44,30,.85) 0%,transparent 72%);
+  animation:aur 9s ease-in-out infinite alternate;
+}
+@keyframes aur{
+  0%{transform:scale(1) rotate(0deg);filter:hue-rotate(0deg)}
+  35%{transform:scale(1.09) rotate(3.5deg);filter:hue-rotate(18deg)}
+  68%{transform:scale(.94) rotate(-2.5deg);filter:hue-rotate(-12deg)}
+  100%{transform:scale(1.06) rotate(6deg);filter:hue-rotate(28deg)}
+}
+
+/* 07 Breath */
+.v07{background:#080808}
+.v07-glow{
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 62% 62% at 50% 50%,rgba(200,169,110,.58) 0%,rgba(200,169,110,.12) 40%,transparent 72%);
+  animation:brth 3.6s ease-in-out infinite alternate;
+}
+@keyframes brth{
+  from{opacity:.32;transform:scale(.72)}
+  to{opacity:1;transform:scale(1.18)}
+}
+
+/* 08 Chrome */
+.v08{background:#0E0E0E}
+.v08-shim{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    116deg,
+    transparent 0%,transparent 32%,
+    rgba(200,169,110,.04) 38%,
+    rgba(200,169,110,.2) 50%,
+    rgba(200,169,110,.04) 62%,
+    transparent 68%,transparent 100%
+  );
+  background-size:300% 100%;
+  animation:chr 2.6s linear infinite;
+}
+@keyframes chr{
+  0%{background-position:250% 0}
+  100%{background-position:-150% 0}
+}
+
+/* ═══════════════════════ GROUP B — AMBER NOIR ═══════════════════════ */
+
+/* 09 Blueprint */
+.v09{background:#080808}
+.v09::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(200,169,110,.24) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,169,110,.24) 1px,transparent 1px),
+    linear-gradient(rgba(200,169,110,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,169,110,.06) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,20px 20px,20px 20px;
+}
+.v09-cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:0;height:0}
+.v09-cross::before,.v09-cross::after{content:'';position:absolute;background:rgba(200,169,110,.5)}
+.v09-cross::before{width:1px;height:38px;left:0;top:-19px}
+.v09-cross::after{width:38px;height:1px;top:0;left:-19px}
+
+/* 10 Warm Void */
+.v10{background:radial-gradient(ellipse at 56% 44%,#0E0A06 0%,#080808 100%)}
+.v10::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 72% 62% at 62% 42%,rgba(200,169,110,.07) 0%,transparent 72%);
+}
+
+/* 11 Ember */
+.v11{
+  background:
+    radial-gradient(ellipse 88% 78% at 4% 96%,rgba(200,169,110,.48) 0%,rgba(115,82,30,.14) 34%,transparent 62%),
+    radial-gradient(ellipse 58% 58% at 96% 4%,rgba(155,112,48,.22) 0%,transparent 48%),
+    #080808;
+}
+
+/* 12 Topo (canvas) */
+.v12{background:#080808}
+
+/* 13 Ripple */
+.v13{background:#080808}
+.ripple-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2}
+.ripple-center span{
+  display:block;position:absolute;
+  border:1px solid rgba(200,169,110,.55);
+  border-radius:50%;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  animation:rpl 3.8s ease-out infinite;
+}
+.ripple-center span:nth-child(1){animation-delay:0s}
+.ripple-center span:nth-child(2){animation-delay:.76s}
+.ripple-center span:nth-child(3){animation-delay:1.52s}
+.ripple-center span:nth-child(4){animation-delay:2.28s}
+.ripple-center span:nth-child(5){animation-delay:3.04s}
+@keyframes rpl{
+  0%{width:0;height:0;opacity:.85}
+  100%{width:380px;height:380px;opacity:0}
+}
+.ripple-dot{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(200,169,110,.9);
+  box-shadow:0 0 10px rgba(200,169,110,.5);
+  z-index:5;
+}
+
+/* 14 Scan */
+.v14{background:#080808}
+.v14::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:repeating-linear-gradient(
+    180deg,
+    transparent 0px,transparent 3px,
+    rgba(200,169,110,.022) 3px,rgba(200,169,110,.022) 4px
+  );
+}
+.scan-line{
+  position:absolute;left:0;right:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent 0%,rgba(200,169,110,.92) 25%,rgba(200,169,110,.92) 75%,transparent 100%);
+  box-shadow:0 0 14px 3px rgba(200,169,110,.35);
+  animation:scl 2.4s linear infinite;
+}
+.scan-glow{
+  position:absolute;left:0;right:0;height:90px;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(200,169,110,.08),transparent);
+  animation:scl 2.4s linear infinite;
+  margin-top:-45px;
+}
+@keyframes scl{0%{top:-2px}100%{top:100%}}
+
+/* 15 Drift (canvas) */
+.v15{background:#080808}
+
+/* 16 Signal */
+.v16{background:#080808;display:flex;align-items:center;justify-content:center}
+.bars{display:flex;align-items:center;gap:5px;height:42%;width:62%}
+.bar{
+  flex:1;border-radius:1px;
+  background:rgba(200,169,110,.75);
+  min-height:3px;
+  animation:wv .7s ease-in-out infinite alternate;
+}
+.bar:nth-child(1){animation-duration:.88s;animation-delay:.00s}
+.bar:nth-child(2){animation-duration:.62s;animation-delay:.08s}
+.bar:nth-child(3){animation-duration:1.10s;animation-delay:.16s}
+.bar:nth-child(4){animation-duration:.74s;animation-delay:.04s}
+.bar:nth-child(5){animation-duration:.54s;animation-delay:.20s}
+.bar:nth-child(6){animation-duration:.84s;animation-delay:.12s}
+.bar:nth-child(7){animation-duration:.70s;animation-delay:.24s}
+.bar:nth-child(8){animation-duration:1.02s;animation-delay:.18s}
+.bar:nth-child(9){animation-duration:.58s;animation-delay:.06s}
+.bar:nth-child(10){animation-duration:.78s;animation-delay:.14s}
+.bar:nth-child(11){animation-duration:.96s;animation-delay:.22s}
+.bar:nth-child(12){animation-duration:.66s;animation-delay:.10s}
+@keyframes wv{from{height:7%;opacity:.45}to{height:100%;opacity:1}}
+
+/* ═══════════════════════ GROUP C — GEOMETRIQUE ═══════════════════════ */
+
+.geo{background:var(--geo-bg)}
+
+/* 23 Grid Distort (dark, canvas) */
+.v23{background:#080808}
+
+/* 24 Orbs (dark, canvas) */
+.v24{background:#080808}
+
+/* 22 Morph */
+.v22{background:var(--geo-bg);display:flex;align-items:center;justify-content:center}
+.morph-s{
+  width:52%;height:52%;
+  border:1.5px solid var(--geo-stroke);
+  animation:morf 7s ease-in-out infinite;
+}
+@keyframes morf{
+  0%  {clip-path:circle(50% at 50% 50%);border-radius:50%}
+  18% {clip-path:polygon(50% 0%,100% 100%,0% 100%);border-radius:0}
+  36% {clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%);border-radius:0}
+  54% {clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);border-radius:0}
+  72% {clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);border-radius:0}
+  90% {clip-path:polygon(50% 0%,90% 20%,100% 60%,75% 100%,25% 100%,0% 60%,10% 20%);border-radius:0}
+  100%{clip-path:circle(50% at 50% 50%);border-radius:50%}
+}
+
+/* 21 Orbit: SVG animations handled in JS */
+.v21{background:var(--geo-bg)}
+
+/* Wave field animation for V20 */
+.v20{background:var(--geo-bg)}
+.wave-svg path{
+  transform-origin:center;
+  animation:wf 4s ease-in-out infinite alternate;
+}
+.wave-svg path:nth-child(1){animation-duration:4.0s;animation-delay:0s}
+.wave-svg path:nth-child(2){animation-duration:4.8s;animation-delay:.4s}
+.wave-svg path:nth-child(3){animation-duration:3.6s;animation-delay:.8s}
+.wave-svg path:nth-child(4){animation-duration:5.2s;animation-delay:.2s}
+.wave-svg path:nth-child(5){animation-duration:4.4s;animation-delay:.6s}
+@keyframes wf{
+  from{transform:scaleY(1) translateY(0)}
+  to{transform:scaleY(1.4) translateY(-8px)}
+}
+
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <span class="hd-title">MentivisOS Visual Library</span>
+  <span class="hd-count">24 visuels CSS / SVG / Canvas</span>
+</div>
+
+<!-- ════════ A ════════ -->
+<p class="sect">A — Gradients sombres</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="vis v01 grain"></div>
+    <div class="lbl"><span class="ln">01 Dusk Field</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v02 grain"><div class="v02-grid"></div></div>
+    <div class="lbl"><span class="ln">02 Amber Core</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v03 grain"></div>
+    <div class="lbl"><span class="ln">03 Boreal</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v04 grain"></div>
+    <div class="lbl"><span class="ln">04 Terracotta</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v05 grain"><div class="v05-stars"></div></div>
+    <div class="lbl"><span class="ln">05 Deep Space</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v06 grain"><div class="v06-inner"></div></div>
+    <div class="lbl"><span class="ln">06 Aurora</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v07 grain"><div class="v07-glow"></div></div>
+    <div class="lbl"><span class="ln">07 Breath</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v08 grain"><div class="v08-shim"></div></div>
+    <div class="lbl"><span class="ln">08 Chrome</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+</div>
+
+<!-- ════════ B ════════ -->
+<p class="sect">B — Ambre sur noir</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="vis v09"><div class="v09-cross"></div></div>
+    <div class="lbl"><span class="ln">09 Blueprint</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v10 grain"></div>
+    <div class="lbl"><span class="ln">10 Warm Void</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v11 grain"></div>
+    <div class="lbl"><span class="ln">11 Ember</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v12"><canvas id="c12"></canvas></div>
+    <div class="lbl"><span class="ln">12 Topo</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v13">
+      <div class="ripple-center">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="ripple-dot"></div>
+    </div>
+    <div class="lbl"><span class="ln">13 Ripple</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v14">
+      <div class="scan-line"></div>
+      <div class="scan-glow"></div>
+    </div>
+    <div class="lbl"><span class="ln">14 Scan</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v15 grain"><canvas id="c15"></canvas></div>
+    <div class="lbl"><span class="ln">15 Drift</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v16">
+      <div class="bars">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+    </div>
+    <div class="lbl"><span class="ln">16 Signal</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+</div>
+
+<!-- ════════ C ════════ -->
+<p class="sect">C — Geometrique</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="vis geo"><svg class="fill" id="svg17" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">17 Sinus</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis geo"><svg class="fill" id="svg18" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">18 Cube</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis geo"><svg class="fill" id="svg19" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">19 Spiral</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis geo"><svg class="fill" id="svg20" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">20 Icosa</span><span class="bs bs-s">Static</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v21"><svg class="fill" id="svg21" viewBox="0 0 400 400"></svg></div>
+    <div class="lbl"><span class="ln">21 Orbit</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v22"><div class="morph-s"></div></div>
+    <div class="lbl"><span class="ln">22 Morph</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v23 grain"><canvas id="c23"></canvas></div>
+    <div class="lbl"><span class="ln">23 Flow Field</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis v24 grain"><canvas id="c24"></canvas></div>
+    <div class="lbl"><span class="ln">24 Orbs</span><span class="bs bs-a">Anim</span></div>
+  </div>
+
+</div>
+
+<script>
+const ns = 'http://www.w3.org/2000/svg';
+
+/* ─── helpers ─────────────────────────────────────────────── */
+function svgEl(tag, attrs, parent) {
+  const el = document.createElementNS(ns, tag);
+  Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k, v));
+  if (parent) parent.appendChild(el);
+  return el;
+}
+
+/* ─── 17 SINUS ─────────────────────────────────────────────── */
+(function(){
+  const svg = document.getElementById('svg17');
+  svgEl('rect',{width:400,height:400,fill:'#EDEAE3'},svg);
+
+  const waves = [
+    {freq:.8, amp:52, yb:75,  sw:1.2, op:.88},
+    {freq:1.6,amp:36, yb:152, sw:1.0, op:.65},
+    {freq:2.4,amp:26, yb:200, sw:.8,  op:.5 },
+    {freq:1.1,amp:46, yb:268, sw:1.1, op:.78},
+    {freq:3.2,amp:16, yb:336, sw:.6,  op:.4 },
+  ];
+
+  waves.forEach(w => {
+    // axis
+    svgEl('line',{x1:0,y1:w.yb,x2:400,y2:w.yb,stroke:'#1A1A18',
+      'stroke-width':.4,'stroke-dasharray':'2,7',opacity:.25},svg);
+
+    // wave path
+    let d = '';
+    for(let x=0;x<=400;x+=2){
+      const y = w.yb + w.amp * Math.sin((x/400)*2*Math.PI*w.freq);
+      d += (x===0?'M':'L')+x.toFixed(1)+','+y.toFixed(2)+' ';
+    }
+    svgEl('path',{d,fill:'none',stroke:'#1A1A18',
+      'stroke-width':w.sw,opacity:w.op},svg);
+
+    // peak dots
+    for(let n=0;n<=w.freq*2;n++){
+      const x = (n/w.freq/2)*400;
+      const yPk = w.yb - w.amp;
+      const yTr = w.yb + w.amp;
+      svgEl('circle',{cx:x.toFixed(1),cy:yPk.toFixed(1),r:2,fill:'#1A1A18',opacity:w.op*.8},svg);
+      svgEl('circle',{cx:x.toFixed(1),cy:yTr.toFixed(1),r:2,fill:'#1A1A18',opacity:w.op*.5},svg);
+    }
+  });
+})();
+
+/* ─── 18 CUBE ──────────────────────────────────────────────── */
+(function(){
+  const svg = document.getElementById('svg18');
+  svgEl('rect',{width:400,height:400,fill:'#EDEAE3'},svg);
+
+  // isometric vertices
+  const A=[200,94], B=[274,134], C=[274,214], D=[200,254],
+        E=[126,214], F=[126,134], G=[200,174];
+
+  function ln(x1,y1,x2,y2,sw,op,dash){
+    const a={x1,y1,x2,y2,stroke:'#1A1A18','stroke-width':sw||1.2,opacity:op||.9};
+    if(dash) a['stroke-dasharray']='3,5';
+    svgEl('line',a,svg);
+  }
+  function dot(x,y,r){svgEl('circle',{cx:x,cy:y,r:r||2,fill:'#1A1A18'},svg)}
+
+  // construction ext lines
+  [[A[0],A[1],A[0],A[1]-42],[B[0],B[1],B[0]+50,B[1]-28],
+   [F[0],F[1],F[0]-50,F[1]-28],[C[0],C[1],C[0]+50,C[1]+28],
+   [E[0],E[1],E[0]-50,E[1]+28],[D[0],D[1],D[0],D[1]+42]]
+  .forEach(([x1,y1,x2,y2])=>ln(x1,y1,x2,y2,.4,.22,true));
+
+  // diagonal construction
+  [[A,D],[F,C],[B,E]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],.35,.14,true));
+
+  // face subdivisions
+  const mids = {
+    AB:[(A[0]+B[0])/2,(A[1]+B[1])/2],
+    BG:[(B[0]+G[0])/2,(B[1]+G[1])/2],
+    GF:[(G[0]+F[0])/2,(G[1]+F[1])/2],
+    FA:[(F[0]+A[0])/2,(F[1]+A[1])/2],
+    BC:[(B[0]+C[0])/2,(B[1]+C[1])/2],
+    CD:[(C[0]+D[0])/2,(C[1]+D[1])/2],
+    DG:[(D[0]+G[0])/2,(D[1]+G[1])/2],
+    DE:[(D[0]+E[0])/2,(D[1]+E[1])/2],
+    EF:[(E[0]+F[0])/2,(E[1]+F[1])/2],
+  };
+  // top face
+  ln(mids.FA[0],mids.FA[1],mids.BG[0],mids.BG[1],.65,.48);
+  ln(mids.AB[0],mids.AB[1],mids.GF[0],mids.GF[1],.65,.48);
+  // right face
+  ln(mids.BC[0],mids.BC[1],mids.DG[0],mids.DG[1],.65,.48);
+  ln(mids.BG[0],mids.BG[1],mids.CD[0],mids.CD[1],.65,.48);
+  // left face
+  ln(mids.EF[0],mids.EF[1],mids.DG[0],mids.DG[1],.65,.48);
+  ln(mids.GF[0],mids.GF[1],mids.DE[0],mids.DE[1],.65,.48);
+
+  // outer edges
+  [[A,B],[B,C],[C,D],[D,E],[E,F],[F,A]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],1.5,.92));
+  // inner
+  [[G,A],[G,C],[G,E]].forEach(([p,q])=>ln(p[0],p[1],q[0],q[1],1.5,.92));
+  // dots
+  [A,B,C,D,E,F,G].forEach(([x,y])=>dot(x,y,2.2));
+})();
+
+/* ─── 19 SPIRAL ────────────────────────────────────────────── */
+(function(){
+  const svg = document.getElementById('svg19');
+  svgEl('rect',{width:400,height:400,fill:'#EDEAE3'},svg);
+
+  const cx=200, cy=200, spacing=9, maxR=168;
+  const pts=[];
+  for(let t=0; t<11.2*Math.PI; t+=0.025){
+    const r = spacing*t/(2*Math.PI)*2;
+    if(r>maxR) break;
+    pts.push(`${(cx+r*Math.cos(t-Math.PI/2)).toFixed(2)},${(cy+r*Math.sin(t-Math.PI/2)).toFixed(2)}`);
+  }
+  svgEl('path',{d:'M '+pts[0]+' L '+pts.slice(1).join(' L '),
+    fill:'none',stroke:'#1A1A18','stroke-width':1,opacity:.85},svg);
+  // outer guide circle
+  svgEl('circle',{cx,cy,r:maxR,fill:'none',stroke:'#1A1A18',
+    'stroke-width':.5,'stroke-dasharray':'2,5',opacity:.28},svg);
+  svgEl('circle',{cx,cy,r:2.5,fill:'#1A1A18'},svg);
+})();
+
+/* ─── 20 ICOSAHEDRON ───────────────────────────────────────── */
+(function(){
+  const svg = document.getElementById('svg20');
+  svgEl('rect',{width:400,height:400,fill:'#EDEAE3'},svg);
+
+  const cx=200, cy=200, R=148;
+  const phi=(1+Math.sqrt(5))/2;
+  let verts3=[
+    [0,1,phi],[0,-1,phi],[0,1,-phi],[0,-1,-phi],
+    [1,phi,0],[-1,phi,0],[1,-phi,0],[-1,-phi,0],
+    [phi,0,1],[-phi,0,1],[phi,0,-1],[-phi,0,-1]
+  ].map(([x,y,z])=>{const l=Math.hypot(x,y,z);return[x/l*R,y/l*R,z/l*R]});
+
+  // rotate for good angle
+  const ry=.22, rz=.1;
+  const cy2=Math.cos(ry),sy=Math.sin(ry);
+  const cz=Math.cos(rz),sz=Math.sin(rz);
+  verts3=verts3.map(([x,y,z])=>{
+    const x2=x*cy2+z*sy, z2=-x*sy+z*cy2;
+    return[x2*cz-y*sz, x2*sz+y*cz, z2];
+  });
+
+  const proj = verts3.map(([x,y,z])=>({px:cx+x, py:cy-y, z}));
+
+  const edges=[
+    [0,1],[0,4],[0,5],[0,8],[0,9],
+    [1,6],[1,7],[1,8],[1,9],
+    [2,3],[2,4],[2,5],[2,10],[2,11],
+    [3,6],[3,7],[3,10],[3,11],
+    [4,5],[4,8],[4,10],
+    [5,9],[5,11],[6,7],[6,8],[6,10],
+    [7,9],[7,11],[8,10],[9,11]
+  ];
+
+  edges.forEach(([i,j])=>{
+    const p=proj[i], q=proj[j];
+    const mz=(p.z+q.z)/2;
+    const front=mz>-R*.08;
+    const a={x1:p.px.toFixed(2),y1:p.py.toFixed(2),
+             x2:q.px.toFixed(2),y2:q.py.toFixed(2),
+             stroke:'#1A1A18','stroke-width':.9,
+             opacity:(front?.88:.28).toFixed(2)};
+    if(!front) a['stroke-dasharray']='2,4';
+    svgEl('line',a,svg);
+  });
+
+  proj.forEach(({px,py,z})=>{
+    svgEl('circle',{cx:px.toFixed(2),cy:py.toFixed(2),
+      r:2.2,fill:'#1A1A18',opacity:(z>0?.9:.3).toFixed(2)},svg);
+  });
+})();
+
+/* ─── 21 ORBIT ─────────────────────────────────────────────── */
+(function(){
+  const svg = document.getElementById('svg21');
+  svgEl('rect',{width:400,height:400,fill:'#EDEAE3'},svg);
+
+  const cx=200,cy=200;
+  const rings=[
+    {rx:145,ry:48,tilt:0,  dur:'6s', sw:1.0,op:.75},
+    {rx:132,ry:42,tilt:60, dur:'9.5s',sw:.8,op:.55},
+    {rx:148,ry:54,tilt:122,dur:'7.5s',sw:.9,op:.65},
+    {rx:118,ry:38,tilt:-42,dur:'12s', sw:.7,op:.42},
+  ];
+
+  rings.forEach(r=>{
+    const g=svgEl('g',{transform:`translate(${cx},${cy})`},svg);
+    const inner=svgEl('g',{},g);
+    const el=svgEl('ellipse',{cx:0,cy:0,rx:r.rx,ry:r.ry,
+      fill:'none',stroke:'#1A1A18','stroke-width':r.sw,opacity:r.op},inner);
+
+    const anim=document.createElementNS(ns,'animateTransform');
+    anim.setAttribute('attributeName','transform');
+    anim.setAttribute('type','rotate');
+    anim.setAttribute('from',`${r.tilt} 0 0`);
+    anim.setAttribute('to',`${r.tilt+360} 0 0`);
+    anim.setAttribute('dur',r.dur);
+    anim.setAttribute('repeatCount','indefinite');
+    inner.appendChild(anim);
+  });
+
+  // center
+  svgEl('circle',{cx,cy,r:14,fill:'none',stroke:'#1A1A18','stroke-width':1.2,opacity:.7},svg);
+  svgEl('circle',{cx,cy,r:3.5,fill:'#1A1A18',opacity:.85},svg);
+
+  // orbiting dot on ring 1
+  const dotG=svgEl('g',{},svg);
+  const orbitDot=svgEl('circle',{cx:cx+145,cy:cy,r:4.5,fill:'#1A1A18',opacity:.9},dotG);
+  const da=document.createElementNS(ns,'animateTransform');
+  da.setAttribute('attributeName','transform');
+  da.setAttribute('type','rotate');
+  da.setAttribute('from',`0 ${cx} ${cy}`);
+  da.setAttribute('to',`360 ${cx} ${cy}`);
+  da.setAttribute('dur','6s');
+  da.setAttribute('repeatCount','indefinite');
+  dotG.appendChild(da);
+})();
+
+/* ─── 23 FLOW FIELD (canvas) ────────────────────────────────── */
+(function(){
+  const c=document.getElementById('c23');
+  window.addEventListener('load',()=>{
+    const W=c.parentElement.offsetWidth||300;
+    c.width=W;c.height=W;
+    const ctx=c.getContext('2d');
+    const cols=Math.floor(W/12), rows=Math.floor(W/12);
+    let t=0;
+
+    function drawFrame(){
+      ctx.fillStyle='rgba(8,8,8,.18)';
+      ctx.fillRect(0,0,W,W);
+
+      for(let i=0;i<cols;i++){
+        for(let j=0;j<rows;j++){
+          const x=i*(W/cols), y=j*(W/rows);
+          const angle=Math.sin(i*.25+t)*Math.cos(j*.25+t*.7)*Math.PI*2;
+          const len=9;
+          ctx.beginPath();
+          ctx.moveTo(x,y);
+          ctx.lineTo(x+Math.cos(angle)*len, y+Math.sin(angle)*len);
+          const bright=.12+.22*Math.abs(Math.sin(i*.3+j*.3+t));
+          ctx.strokeStyle=`rgba(200,169,110,${bright.toFixed(3)})`;
+          ctx.lineWidth=.6;
+          ctx.stroke();
+        }
+      }
+      t+=.012;
+      requestAnimationFrame(drawFrame);
+    }
+    drawFrame();
+  });
+})();
+
+/* ─── 24 ORBS (canvas) ──────────────────────────────────────── */
+(function(){
+  const c=document.getElementById('c24');
+  window.addEventListener('load',()=>{
+    const W=c.parentElement.offsetWidth||300;
+    c.width=W;c.height=W;
+    const ctx=c.getContext('2d');
+
+    const orbs=[
+      {x:W*.28,y:W*.32,r:W*.4, vx:.18,vy:.12, rgb:[30,79,146]},
+      {x:W*.68,y:W*.62,r:W*.36,vx:-.13,vy:.16, rgb:[22,108,92]},
+      {x:W*.52,y:W*.2, r:W*.3, vx:.10,vy:-.18, rgb:[170,92,32]},
+    ];
+
+    function drawOrbs(){
+      ctx.fillStyle='rgba(8,8,8,.2)';
+      ctx.fillRect(0,0,W,W);
+      orbs.forEach(o=>{
+        const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+        g.addColorStop(0,  `rgba(${o.rgb[0]},${o.rgb[1]},${o.rgb[2]},.62)`);
+        g.addColorStop(.5, `rgba(${o.rgb[0]},${o.rgb[1]},${o.rgb[2]},.22)`);
+        g.addColorStop(1,  `rgba(${o.rgb[0]},${o.rgb[1]},${o.rgb[2]},0)`);
+        ctx.fillStyle=g;
+        ctx.fillRect(0,0,W,W);
+        o.x+=o.vx; o.y+=o.vy;
+        if(o.x<0||o.x>W) o.vx*=-1;
+        if(o.y<0||o.y>W) o.vy*=-1;
+      });
+      requestAnimationFrame(drawOrbs);
+    }
+    drawOrbs();
+  });
+})();
+
+/* ─── 12 TOPO (canvas) ──────────────────────────────────────── */
+(function(){
+  const c=document.getElementById('c12');
+  window.addEventListener('load',()=>{
+    const S=c.parentElement.offsetWidth||300;
+    c.width=S;c.height=S;
+    const ctx=c.getContext('2d');
+    const cx=S/2, cy=S/2;
+    let t=0;
+
+    function topoFrame(){
+      ctx.clearRect(0,0,S,S);
+      ctx.fillStyle='#080808';
+      ctx.fillRect(0,0,S,S);
+
+      for(let i=1;i<=16;i++){
+        const base=(i/16)*S*.54;
+        const dist=base*.24;
+        const phase=t*.007+i*.28;
+        ctx.beginPath();
+        for(let a=0;a<=360;a++){
+          const rad=a*Math.PI/180;
+          const w=dist*(Math.sin(3*rad+phase)+.5*Math.sin(5*rad-phase*.8)+.3*Math.sin(7*rad+phase*1.4));
+          const rx=cx+(base+w)*Math.cos(rad);
+          const ry=cy+(base+w)*Math.sin(rad);
+          a===0?ctx.moveTo(rx,ry):ctx.lineTo(rx,ry);
+        }
+        ctx.closePath();
+        ctx.strokeStyle=`rgba(200,169,110,${(.14+(i/16)*.38).toFixed(3)})`;
+        ctx.lineWidth=.75;
+        ctx.stroke();
+      }
+      t++;
+      requestAnimationFrame(topoFrame);
+    }
+    topoFrame();
+  });
+})();
+
+/* ─── 15 DRIFT (canvas) ─────────────────────────────────────── */
+(function(){
+  const c=document.getElementById('c15');
+  window.addEventListener('load',()=>{
+    const W=c.parentElement.offsetWidth||300;
+    c.width=W;c.height=W;
+    const ctx=c.getContext('2d');
+
+    const pts=Array.from({length:65},()=>({
+      x:Math.random()*W, y:Math.random()*W,
+      r:Math.random()*1.9+.4,
+      vx:(Math.random()-.5)*.38,
+      vy:-(Math.random()*.52+.1),
+      o:Math.random()*.58+.18,
+    }));
+
+    function driftFrame(){
+      ctx.fillStyle='rgba(8,8,8,.16)';
+      ctx.fillRect(0,0,W,W);
+      pts.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(200,169,110,${p.o.toFixed(3)})`;
+        ctx.fill();
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.y<-5){p.y=W+5;p.x=Math.random()*W}
+        if(p.x<0||p.x>W) p.vx*=-1;
+      });
+      requestAnimationFrame(driftFrame);
+    }
+    driftFrame();
+  });
+})();
+</script>
+</body>
+</html>

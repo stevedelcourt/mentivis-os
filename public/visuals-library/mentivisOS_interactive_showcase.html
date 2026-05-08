@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS — Interactive Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#FFFFFF;
+  --card:#F2EEE7;
+  --ink:#0A0A0A;
+  --ink2:#3A3A3A;
+  --ink3:#777169;
+  --ink4:#A8A39A;
+  --border:rgba(0,0,0,.08);
+  --hover:rgba(0,0,0,.04);
+  --selection:#A0C4FF;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter','Helvetica Neue',sans-serif;
+  letter-spacing:.01em;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px;
+}
+
+/* ── SHOWCASE CARD ── */
+.showcase{
+  width:100%;
+  max-width:1180px;
+  background:var(--card);
+  border-radius:32px;
+  padding:36px 40px 28px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 0 1px rgba(0,0,0,.04),0 8px 40px rgba(0,0,0,.04);
+}
+
+/* ── TOP BAR ── */
+.bar.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:48px;
+  margin-bottom:24px;
+}
+
+.tabs-pill{
+  display:flex;
+  background:rgba(0,0,0,.03);
+  border-radius:9999px;
+  padding:5px;
+  height:fit-content;
+}
+.tp{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 18px 9px 14px;
+  border:none;
+  background:transparent;
+  border-radius:9999px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink2);
+  transition:all .25s ease;
+  font-family:inherit;
+}
+.tp:hover:not(.active){background:rgba(0,0,0,.04)}
+.tp.active{
+  background:#FFFFFF;
+  color:var(--ink);
+  box-shadow:0 0 0 1px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.06);
+}
+.tp .dot{
+  display:block;
+  width:18px;height:18px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.tp .dot::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:30px 30px;
+  opacity:.18;mix-blend-mode:multiply;
+}
+.dot.coral{background:radial-gradient(ellipse at 30% 30%,#E8726A,#F0A080 60%,#FFD0B0)}
+.dot.indigo{background:radial-gradient(ellipse at 30% 30%,#6058A8,#8878C0 60%,#D88060)}
+.dot.sage{background:radial-gradient(ellipse at 30% 30%,#4F8068,#7A9880 60%,#B0C098)}
+
+.title{
+  text-align:right;
+  max-width:480px;
+}
+.title h2{
+  font-size:18px;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:4px;
+  letter-spacing:-.01em;
+}
+.title p{
+  font-size:14px;
+  color:var(--ink3);
+  line-height:1.45;
+}
+
+/* ── CAROUSEL STAGE ── */
+.stage{
+  position:relative;
+  flex:1;
+  min-height:480px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 -40px;
+  padding:0 40px;
+}
+
+.orbs{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.oc{
+  position:absolute;
+  left:50%;top:50%;
+  width:280px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  cursor:pointer;
+  transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .55s ease;
+  transform-origin:center;
+}
+.oc[data-pos="-3"]{transform:translate(-50%,-50%) translateX(-600px) scale(.25);opacity:0;pointer-events:none}
+.oc[data-pos="-2"]{transform:translate(-50%,-50%) translateX(-420px) scale(.42);opacity:.55;z-index:1}
+.oc[data-pos="-1"]{transform:translate(-50%,-50%) translateX(-280px) scale(.62);opacity:.95;z-index:3}
+.oc[data-pos="0"] {transform:translate(-50%,-50%) translateX(0) scale(1);opacity:1;z-index:5}
+.oc[data-pos="1"] {transform:translate(-50%,-50%) translateX(280px) scale(.62);opacity:.95;z-index:3}
+.oc[data-pos="2"] {transform:translate(-50%,-50%) translateX(420px) scale(.42);opacity:.55;z-index:1}
+.oc[data-pos="3"] {transform:translate(-50%,-50%) translateX(600px) scale(.25);opacity:0;pointer-events:none}
+
+.orb{
+  width:280px;height:280px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.orb::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  opacity:.10;mix-blend-mode:multiply;pointer-events:none;
+}
+
+/* ── ORB GRADIENTS ── */
+.g-profile{background:
+  radial-gradient(ellipse 70% 60% at 35% 28%,#7A6CC4 0%,transparent 58%),
+  radial-gradient(ellipse 56% 56% at 65% 42%,#A89AD8 0%,transparent 56%),
+  radial-gradient(ellipse 62% 66% at 54% 78%,#F0B090 0%,transparent 58%),
+  radial-gradient(ellipse 44% 44% at 80% 22%,#B0A0E0 0%,transparent 50%),
+  #DCC8E8}
+
+.g-target{background:
+  radial-gradient(ellipse 64% 58% at 36% 28%,#F0C25C 0%,transparent 56%),
+  radial-gradient(ellipse 58% 64% at 66% 54%,#E89868 0%,transparent 60%),
+  radial-gradient(ellipse 68% 50% at 50% 84%,#F0D098 0%,transparent 56%),
+  #F4D8B0}
+
+.g-diagnostic{background:
+  radial-gradient(ellipse 66% 56% at 32% 26%,#FF6878 0%,transparent 60%),
+  radial-gradient(ellipse 58% 66% at 70% 50%,#FF8856 0%,transparent 60%),
+  radial-gradient(ellipse 72% 48% at 50% 88%,#FFB088 0%,transparent 56%),
+  radial-gradient(ellipse 44% 44% at 18% 70%,#E84858 0%,transparent 52%),
+  radial-gradient(ellipse 38% 32% at 76% 22%,#FFAFA8 0%,transparent 50%),
+  #FFC8B8}
+
+.g-modules{background:
+  radial-gradient(ellipse 62% 56% at 38% 30%,#7090A8 0%,transparent 58%),
+  radial-gradient(ellipse 56% 62% at 64% 54%,#8898A0 0%,transparent 56%),
+  radial-gradient(ellipse 66% 52% at 48% 82%,#909862 0%,transparent 56%),
+  radial-gradient(ellipse 48% 40% at 75% 22%,#88A8B0 0%,transparent 52%),
+  #B8C8B0}
+
+.g-program{background:
+  radial-gradient(ellipse 64% 58% at 36% 28%,#5688C8 0%,transparent 58%),
+  radial-gradient(ellipse 58% 64% at 66% 54%,#88B0D8 0%,transparent 60%),
+  radial-gradient(ellipse 68% 50% at 50% 84%,#A0C0E8 0%,transparent 56%),
+  #C0D8F0}
+
+.g-assistant{background:
+  radial-gradient(ellipse 64% 58% at 38% 30%,#4FAA94 0%,transparent 58%),
+  radial-gradient(ellipse 56% 60% at 64% 54%,#7AC4B0 0%,transparent 56%),
+  radial-gradient(ellipse 66% 50% at 50% 84%,#A8DCC8 0%,transparent 56%),
+  #C0E8D8}
+
+.g-impact{background:
+  radial-gradient(ellipse 66% 58% at 36% 26%,#D85838 0%,transparent 58%),
+  radial-gradient(ellipse 58% 66% at 66% 52%,#E87858 0%,transparent 60%),
+  radial-gradient(ellipse 70% 48% at 52% 82%,#F09060 0%,transparent 56%),
+  #E8B898}
+
+/* ── PLAY BUTTON ── */
+.play{
+  position:absolute;
+  top:50%;left:50%;
+  width:60px;height:60px;
+  margin:-30px 0 0 -30px;
+  border-radius:50%;
+  background:#FFFFFF;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.05);
+  z-index:10;
+  opacity:0;
+  pointer-events:none;
+  transition:all .4s ease;
+  transition-delay:.2s;
+}
+.oc[data-pos="0"] .play{opacity:1;pointer-events:auto}
+.play svg{width:18px;height:18px;margin-left:2px;fill:var(--ink)}
+.play:hover{transform:scale(1.08)}
+.play:active{transform:scale(.96)}
+
+/* ── ORB INFO ── */
+.info{
+  text-align:center;
+  opacity:0;
+  transition:opacity .5s ease;
+  transition-delay:.1s;
+}
+.oc[data-pos="-1"] .info,.oc[data-pos="0"] .info,.oc[data-pos="1"] .info{opacity:1}
+.info h3{
+  font-size:18px;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.oc[data-pos="0"] .info h3::after{
+  content:'↗';
+  font-size:16px;
+  font-weight:400;
+}
+.info p{
+  font-size:13px;
+  color:var(--ink3);
+  line-height:1.5;
+  max-width:240px;
+  margin:0 auto;
+}
+
+/* ── PULSE ANIMATION ── */
+.oc.pulsing .orb{
+  animation:orbPulse 1.4s cubic-bezier(.22,1,.36,1);
+}
+@keyframes orbPulse{
+  0%{transform:scale(1)}
+  20%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
+/* ── NAV BUTTONS ── */
+.nav{
+  position:absolute;
+  top:42%;
+  width:34px;height:34px;
+  border-radius:50%;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+  color:var(--ink3);
+  transition:all .25s ease;
+  font-size:24px;
+  line-height:1;
+}
+.nav:hover{
+  color:var(--ink);
+  background:rgba(0,0,0,.04);
+}
+.nav svg{width:14px;height:14px}
+.nav.prev{left:32%}
+.nav.next{right:32%}
+
+/* ── BOTTOM BAR ── */
+.bar.bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+  gap:24px;
+}
+
+.ftabs{
+  display:flex;
+  gap:24px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.ft{
+  border:none;
+  background:transparent;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--ink3);
+  cursor:pointer;
+  padding:8px 0;
+  position:relative;
+  transition:color .2s ease;
+  font-weight:400;
+}
+.ft:hover{color:var(--ink2)}
+.ft.active{
+  color:var(--ink);
+  font-weight:500;
+}
+.ft.active .word-hl{
+  background:var(--selection);
+  color:var(--ink);
+  padding:0 1px;
+}
+
+.cta{
+  background:var(--ink);
+  color:#FFFFFF;
+  border:none;
+  border-radius:9999px;
+  padding:10px 22px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all .25s ease;
+  white-space:nowrap;
+}
+.cta:hover{background:#222}
+.cta:active{transform:scale(.97)}
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px){
+  .bar.top{flex-direction:column;gap:24px}
+  .title{text-align:left}
+  .nav.prev{left:8px}
+  .nav.next{right:8px}
+  .ftabs{gap:16px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="showcase">
+
+  <!-- TOP BAR -->
+  <div class="bar top">
+    <div class="tabs-pill" role="tablist">
+      <button class="tp active" data-product="atelier">
+        <i class="dot coral"></i>
+        <span>MentivisAtelier</span>
+      </button>
+      <button class="tp" data-product="operate">
+        <i class="dot indigo"></i>
+        <span>MentivisOperate</span>
+      </button>
+      <button class="tp" data-product="intel">
+        <i class="dot sage"></i>
+        <span>MentivisIntel</span>
+      </button>
+    </div>
+    <div class="title">
+      <h2 id="hero-title">Diagnostic pédagogique IA</h2>
+      <p id="hero-sub">Le programme exact qui comble l'écart, calculé en moins d'une minute.</p>
+    </div>
+  </div>
+
+  <!-- STAGE -->
+  <div class="stage">
+    <button class="nav prev" aria-label="Précédent">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="orbs" id="orbs"></div>
+
+    <button class="nav next" aria-label="Suivant">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bar bottom">
+    <nav class="ftabs">
+      <button class="ft active">Diagnostic <span class="word-hl">IA</span></button>
+      <button class="ft">Programme adaptatif</button>
+      <button class="ft">Assistant pédagogique</button>
+      <button class="ft">Conformité Qualiopi</button>
+      <button class="ft">Tableau de bord</button>
+    </nav>
+    <button class="cta">Demander une démo</button>
+  </div>
+
+</div>
+
+<script>
+// ─── Orb data ────────────────────────────────────────────
+const ORBS = [
+  {
+    grad: 'g-profile',
+    title: 'Profil utilisateur',
+    desc: 'Saisir le profil, l\'objectif et les contraintes en quelques secondes.'
+  },
+  {
+    grad: 'g-target',
+    title: 'Référentiel cible',
+    desc: 'Cartographier le référentiel métier visé et son périmètre.'
+  },
+  {
+    grad: 'g-diagnostic',
+    title: 'Diagnostic',
+    desc: 'Score de couverture, risque résiduel, durée. Moins d\'une minute.'
+  },
+  {
+    grad: 'g-modules',
+    title: 'Modules calculés',
+    desc: 'Découpage, ordonnancement critique, profondeur ajustée.'
+  },
+  {
+    grad: 'g-program',
+    title: 'Programme généré',
+    desc: 'Théorie, projet pratique, évaluation. Module par module.'
+  },
+  {
+    grad: 'g-assistant',
+    title: 'Assistant intégré',
+    desc: 'Accompagnement embarqué qui ne sort jamais du sujet.'
+  },
+  {
+    grad: 'g-impact',
+    title: 'Bilan d\'impact',
+    desc: 'Mesure des acquis, ajustement continu, reporting clair.'
+  }
+];
+
+// ─── Carousel state ──────────────────────────────────────
+const orbsEl = document.getElementById('orbs');
+let activeIdx = 2; // start centered on the diagnostic orb
+
+function render() {
+  // ensure DOM matches data
+  if (orbsEl.children.length !== ORBS.length) {
+    orbsEl.innerHTML = '';
+    ORBS.forEach((o, i) => {
+      const card = document.createElement('div');
+      card.className = 'oc';
+      card.dataset.i = i;
+      card.innerHTML = `
+        <div class="orb ${o.grad}">
+          ${i === 0 || i === 1 ? '' : ''}
+        </div>
+        <div class="info">
+          <h3>${o.title}</h3>
+          <p>${o.desc}</p>
+        </div>
+      `;
+      // play button only meaningful on center, but we add it everywhere and CSS controls visibility
+      const orb = card.querySelector('.orb');
+      const play = document.createElement('button');
+      play.className = 'play';
+      play.setAttribute('aria-label', 'Lancer la démonstration');
+      play.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      orb.appendChild(play);
+
+      card.addEventListener('click', (e) => {
+        // if clicking the play button or active card, trigger pulse
+        if (e.target.closest('.play')) {
+          card.classList.add('pulsing');
+          setTimeout(() => card.classList.remove('pulsing'), 1400);
+          e.stopPropagation();
+          return;
+        }
+        // otherwise, set this orb as active
+        const idx = parseInt(card.dataset.i);
+        if (idx !== activeIdx) {
+          activeIdx = idx;
+          render();
+        }
+      });
+      orbsEl.appendChild(card);
+    });
+  }
+
+  // compute relative positions
+  const total = ORBS.length;
+  Array.from(orbsEl.children).forEach((card, i) => {
+    let diff = i - activeIdx;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    card.dataset.pos = diff;
+  });
+}
+
+// ─── Navigation ──────────────────────────────────────────
+document.querySelector('.nav.next').addEventListener('click', () => {
+  activeIdx = (activeIdx + 1) % ORBS.length;
+  render();
+});
+document.querySelector('.nav.prev').addEventListener('click', () => {
+  activeIdx = (activeIdx - 1 + ORBS.length) % ORBS.length;
+  render();
+});
+
+// keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') {
+    activeIdx = (activeIdx - 1 + ORBS.length) % ORBS.length;
+    render();
+  }
+  if (e.key === 'ArrowRight') {
+    activeIdx = (activeIdx + 1) % ORBS.length;
+    render();
+  }
+});
+
+// ─── Top product tabs ────────────────────────────────────
+const PRODUCT_CONTENT = {
+  atelier: {
+    title: 'Diagnostic pédagogique IA',
+    sub: 'Le programme exact qui comble l\'écart, calculé en moins d\'une minute.'
+  },
+  operate: {
+    title: 'Opérations pédagogiques',
+    sub: 'Conformité Qualiopi, dossiers OPCO, suivi formateurs. Tout au même endroit.'
+  },
+  intel: {
+    title: 'Pilotage et reporting',
+    sub: 'Mesurer l\'impact réel. Décider sur les bons chiffres, pas sur les intentions.'
+  }
+};
+
+document.querySelectorAll('.tp').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tp').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const product = tab.dataset.product;
+    document.getElementById('hero-title').textContent = PRODUCT_CONTENT[product].title;
+    document.getElementById('hero-sub').textContent = PRODUCT_CONTENT[product].sub;
+  });
+});
+
+// ─── Bottom feature tabs ─────────────────────────────────
+document.querySelectorAll('.ft').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ft').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// ─── Wheel/swipe navigation on the stage ─────────────────
+let wheelLock = false;
+document.querySelector('.stage').addEventListener('wheel', (e) => {
+  if (Math.abs(e.deltaX) < 12 && Math.abs(e.deltaY) < 12) return;
+  if (wheelLock) return;
+  wheelLock = true;
+  setTimeout(() => wheelLock = false, 600);
+  if (e.deltaX > 0 || e.deltaY > 0) {
+    activeIdx = (activeIdx + 1) % ORBS.length;
+  } else {
+    activeIdx = (activeIdx - 1 + ORBS.length) % ORBS.length;
+  }
+  render();
+}, { passive: true });
+
+// initial render
+render();
+</script>
+
+</body>
+</html>

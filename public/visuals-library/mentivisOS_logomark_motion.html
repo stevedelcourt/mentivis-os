@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MentivisOS — Logomark in Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#F4F4F4;
+  --ink:#0A0A0A;
+  --ink2:#555;
+  --ink3:#999;
+  --border:#E5E5E5;
+  --pink:#FF2A85;
+  --cyan:#00D6F0;
+  --lime:#B7FF00;
+  --yellow:#FFE600;
+  --magenta:#E625C5;
+  --orange:#FF6B1A;
+  --purple:#7B2FBE;
+  --mint:#2EFFCA;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Mono','Courier New',monospace;
+  padding:52px 40px 90px;
+}
+
+.hd{
+  max-width:1280px;margin:0 auto 44px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1px solid var(--border);padding-bottom:20px;
+}
+.hd-t{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;letter-spacing:-.02em}
+.hd-c{font-size:11px;color:var(--ink3);letter-spacing:.08em}
+
+.sect{max-width:1280px;margin:36px auto 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1280px;margin:0 auto}
+.card{display:flex;flex-direction:column;gap:10px}
+
+.vis{
+  position:relative;
+  width:100%;aspect-ratio:1/1;
+  border-radius:6px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.bg-black{background:#000}
+.bg-white{background:#FFF;border:1px solid var(--border)}
+
+.lm{width:100%;aspect-ratio:1/1}
+.lm svg{width:100%;height:100%;display:block;overflow:visible}
+
+.sq{
+  transform-box:fill-box;
+  transform-origin:center;
+}
+.bg-black .sq{fill:#FFFFFF}
+.bg-white .sq{fill:#0A0A0A}
+
+.lbl{display:flex;justify-content:space-between;align-items:center;padding:0 2px}
+.ln{font-size:11px;color:var(--ink2)}
+.bs{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:rgba(0,0,0,.05);color:var(--ink2)}
+
+/* ════════════ BLACK BACKGROUND ════════════ */
+
+/* B01 Sync Pulse */
+.v-b01 .sq{animation:b01 3.5s ease-in-out infinite}
+@keyframes b01{
+  0%,100%{opacity:1}
+  50%{opacity:.32}
+}
+
+/* B02 Column Wave */
+.v-b02 .sq{animation:b02 2.4s ease-in-out infinite}
+@keyframes b02{
+  0%,100%{opacity:.3;transform:scale(.85)}
+  50%{opacity:1;transform:scale(1)}
+}
+
+/* B03 Radial Bloom */
+.v-b03 .sq{animation:b03 3.2s ease-out infinite;opacity:0}
+@keyframes b03{
+  0%{transform:scale(0);opacity:0}
+  10%{transform:scale(1.4);opacity:1}
+  20%{transform:scale(1);opacity:1}
+  85%{transform:scale(1);opacity:1}
+  100%{transform:scale(0);opacity:0}
+}
+
+/* B04 Slow Spin */
+.v-b04 svg{animation:b04svg 24s linear infinite;transform-origin:center}
+.v-b04 .sq{animation:b04sq 4s ease-in-out infinite}
+@keyframes b04svg{to{transform:rotate(360deg)}}
+@keyframes b04sq{
+  0%,100%{opacity:.85}
+  50%{opacity:1}
+}
+
+/* B05 Sequential Build */
+.v-b05 .sq{animation:b05 8s ease-out infinite;opacity:0}
+@keyframes b05{
+  0%{opacity:0;transform:scale(.3)}
+  3%{opacity:1;transform:scale(1.5)}
+  8%{opacity:1;transform:scale(1)}
+  82%{opacity:1;transform:scale(1)}
+  90%{opacity:1;transform:scale(1.5)}
+  100%{opacity:0;transform:scale(.3)}
+}
+
+/* B06 Diagonal Sweep */
+.v-b06 .sq{animation:b06 3s ease-in-out infinite}
+@keyframes b06{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+
+/* B07 Holographic Shift */
+.v-b07 .sq{animation:b07 5s linear infinite}
+@keyframes b07{
+  0%{fill:#FFFFFF}
+  16%{fill:#FF2A85}
+  33%{fill:#00D6F0}
+  50%{fill:#B7FF00}
+  66%{fill:#FFE600}
+  83%{fill:#E625C5}
+  100%{fill:#FFFFFF}
+}
+
+/* B08 Echo Pulse */
+.v-b08 .sq{animation:b08 2.8s ease-out infinite}
+@keyframes b08{
+  0%{transform:scale(1);opacity:1;filter:blur(0)}
+  50%{transform:scale(1.6);opacity:.2;filter:blur(2px)}
+  100%{transform:scale(1);opacity:1;filter:blur(0)}
+}
+
+/* B09 Particle Drift */
+.v-b09 .sq{animation:b09 var(--dur,4s) ease-in-out infinite alternate}
+@keyframes b09{
+  to{transform:translate(var(--dx,0),var(--dy,0))}
+}
+
+/* B10 Scan Reveal */
+.v-b10 .sq{animation:b10 3.5s linear infinite;opacity:0}
+@keyframes b10{
+  0%{opacity:0;transform:translateY(-8px)}
+  10%{opacity:0;transform:translateY(-8px)}
+  18%{opacity:1;transform:translateY(0)}
+  92%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(8px)}
+}
+
+/* B11 Quantum Jitter */
+.v-b11 .sq{animation:b11 .14s steps(4) infinite}
+@keyframes b11{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-.4px,.4px)}
+  50%{transform:translate(.4px,-.4px)}
+  75%{transform:translate(-.3px,-.4px)}
+  100%{transform:translate(.3px,.4px)}
+}
+
+/* B12 Implosion Reform */
+.v-b12 .sq{animation:b12 4.5s ease-in-out infinite}
+@keyframes b12{
+  0%,100%{transform:translate(0,0)}
+  35%{transform:translate(var(--dx,0),var(--dy,0)) scale(.4)}
+  50%{transform:translate(var(--dx,0),var(--dy,0)) scale(.4)}
+  75%{transform:translate(0,0) scale(1)}
+}
+
+/* ════════════ WHITE BACKGROUND ════════════ */
+
+/* W01 Heartbeat */
+.v-w01 svg{animation:w01 1.4s ease-in-out infinite;transform-origin:center}
+@keyframes w01{
+  0%,28%,100%{transform:scale(1)}
+  10%{transform:scale(1.06)}
+  16%{transform:scale(.99)}
+  22%{transform:scale(1.04)}
+}
+
+/* W02 Drop Physics */
+.v-w02 .sq{animation:w02 3s cubic-bezier(.36,.07,.19,.97) infinite}
+@keyframes w02{
+  0%{transform:translateY(-60px);opacity:0}
+  20%{opacity:1}
+  55%{transform:translateY(0)}
+  62%{transform:translateY(-4px)}
+  68%{transform:translateY(0)}
+  72%{transform:translateY(-1px)}
+  76%{transform:translateY(0)}
+  100%{transform:translateY(0);opacity:1}
+}
+
+/* W03 Individual Spin */
+.v-w03 .sq{animation:w03 var(--dur,4s) linear infinite}
+@keyframes w03{
+  to{transform:rotate(360deg)}
+}
+
+/* W04 Edge Slide */
+.v-w04 .sq{animation:w04 3.5s ease-in-out infinite alternate}
+@keyframes w04{
+  0%{transform:translate(var(--ex,0),var(--ey,0));opacity:.3}
+  100%{transform:translate(0,0);opacity:1}
+}
+
+/* W05 Glitch Burst */
+.v-w05 .sq{animation:w05 5s steps(1) infinite}
+@keyframes w05{
+  0%,68%{transform:translate(0);fill:#0A0A0A}
+  70%{transform:translate(2px,-1px);fill:#FF2A85}
+  72%{transform:translate(-1px,2px);fill:#00D6F0}
+  74%{transform:translate(1px,1px);fill:#B7FF00}
+  76%{transform:translate(-2px,0);fill:#FFE600}
+  78%,100%{transform:translate(0);fill:#0A0A0A}
+}
+
+/* W06 Magnify Wave */
+.v-w06 .sq{animation:w06 3s ease-in-out infinite}
+@keyframes w06{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.5)}
+}
+
+/* W07 Color Storm */
+.v-w07 .sq{animation:w07 6s linear infinite}
+@keyframes w07{
+  0%{fill:#0A0A0A}
+  15%{fill:#FF2A85}
+  30%{fill:#00D6F0}
+  45%{fill:#B7FF00}
+  60%{fill:#FFE600}
+  75%{fill:#E625C5}
+  90%{fill:#FF6B1A}
+  100%{fill:#0A0A0A}
+}
+
+/* W08 Origami */
+.v-w08-bg{perspective:600px}
+.v-w08 svg{
+  animation:w08 5s ease-in-out infinite;
+  transform-origin:center;
+  transform-style:preserve-3d;
+}
+@keyframes w08{
+  0%,100%{transform:rotateY(0deg) rotateX(0deg)}
+  25%{transform:rotateY(180deg) rotateX(0deg)}
+  50%{transform:rotateY(180deg) rotateX(180deg)}
+  75%{transform:rotateY(0deg) rotateX(180deg)}
+}
+
+/* W09 Sketch Trace */
+.v-w09 .sq{
+  fill:#0A0A0A;
+  fill-opacity:0;
+  stroke:#0A0A0A;
+  stroke-width:1.5;
+  stroke-dasharray:40;
+  stroke-dashoffset:40;
+  animation:w09 4s ease-in-out infinite;
+}
+@keyframes w09{
+  0%{stroke-dashoffset:40;fill-opacity:0}
+  35%{stroke-dashoffset:0;fill-opacity:0}
+  50%{stroke-dashoffset:0;fill-opacity:1}
+  85%{stroke-dashoffset:0;fill-opacity:1}
+  100%{stroke-dashoffset:40;fill-opacity:0}
+}
+
+/* W10 Cascading Bounce */
+.v-w10 .sq{animation:w10 2.6s cubic-bezier(.5,1.7,.4,1) infinite}
+@keyframes w10{
+  0%{transform:translateY(-80px) rotate(-180deg);opacity:0}
+  20%{opacity:1}
+  60%{transform:translateY(0) rotate(0deg)}
+  100%{transform:translateY(0) rotate(0deg);opacity:1}
+}
+
+/* W11 Concentric Ripple */
+.v-w11 .sq{animation:w11 2.4s ease-out infinite}
+@keyframes w11{
+  0%{transform:scale(1);fill:#0A0A0A}
+  20%{transform:scale(1.6);fill:#FF2A85}
+  40%{transform:scale(1);fill:#0A0A0A}
+  100%{transform:scale(1);fill:#0A0A0A}
+}
+
+/* W12 Final Form */
+.v-w12 .sq{animation:w12 5.5s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes w12{
+  0%{
+    transform:translate(var(--tx,0),var(--ty,0)) rotate(var(--tr,0)) scale(0);
+    opacity:0;
+  }
+  15%{opacity:0}
+  35%{
+    transform:translate(0,0) rotate(0deg) scale(1);
+    opacity:1;
+  }
+  78%{
+    transform:translate(0,0) rotate(0deg) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:translate(var(--tx,0),var(--ty,0)) rotate(calc(var(--tr,0) * -1)) scale(0);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <span class="hd-t">MentivisOS — Logomark in Motion</span>
+  <span class="hd-c">24 animations · 12 noir · 12 blanc</span>
+</div>
+
+<!-- ═══════ NOIR ═══════ -->
+<p class="sect">Fond noir</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b01"></div></div>
+    <div class="lbl"><span class="ln">B01 Sync Pulse</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b02"></div></div>
+    <div class="lbl"><span class="ln">B02 Column Wave</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b03"></div></div>
+    <div class="lbl"><span class="ln">B03 Radial Bloom</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b04"></div></div>
+    <div class="lbl"><span class="ln">B04 Slow Spin</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b05"></div></div>
+    <div class="lbl"><span class="ln">B05 Sequential</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b06"></div></div>
+    <div class="lbl"><span class="ln">B06 Diagonal</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b07"></div></div>
+    <div class="lbl"><span class="ln">B07 Holographic</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b08"></div></div>
+    <div class="lbl"><span class="ln">B08 Echo Pulse</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b09"></div></div>
+    <div class="lbl"><span class="ln">B09 Particle Drift</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b10"></div></div>
+    <div class="lbl"><span class="ln">B10 Scan Reveal</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b11"></div></div>
+    <div class="lbl"><span class="ln">B11 Quantum</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-black"><div class="lm v-b12"></div></div>
+    <div class="lbl"><span class="ln">B12 Implosion</span><span class="bs">Anim</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════ BLANC ═══════ -->
+<p class="sect">Fond blanc</p>
+<div class="grid">
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w01"></div></div>
+    <div class="lbl"><span class="ln">W01 Heartbeat</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w02"></div></div>
+    <div class="lbl"><span class="ln">W02 Drop Physics</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w03"></div></div>
+    <div class="lbl"><span class="ln">W03 Cell Spin</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w04"></div></div>
+    <div class="lbl"><span class="ln">W04 Edge Slide</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w05"></div></div>
+    <div class="lbl"><span class="ln">W05 Glitch Burst</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w06"></div></div>
+    <div class="lbl"><span class="ln">W06 Magnify Wave</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w07"></div></div>
+    <div class="lbl"><span class="ln">W07 Color Storm</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white v-w08-bg"><div class="lm v-w08"></div></div>
+    <div class="lbl"><span class="ln">W08 Origami</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w09"></div></div>
+    <div class="lbl"><span class="ln">W09 Sketch Trace</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w10"></div></div>
+    <div class="lbl"><span class="ln">W10 Cascading</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w11"></div></div>
+    <div class="lbl"><span class="ln">W11 Ripple</span><span class="bs">Anim</span></div>
+  </div>
+
+  <div class="card">
+    <div class="vis bg-white"><div class="lm v-w12"></div></div>
+    <div class="lbl"><span class="ln">W12 Final Form</span><span class="bs">Anim</span></div>
+  </div>
+
+</div>
+
+<script>
+// SVG template — 17 squares forming the logomark
+const SVG = `<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+  <rect class="sq" data-i="0"  data-x="20"  data-y="20"  x="20"  y="20"  width="10" height="10"/>
+  <rect class="sq" data-i="1"  data-x="100" data-y="20"  x="100" y="20"  width="10" height="10"/>
+  <rect class="sq" data-i="2"  data-x="20"  data-y="40"  x="20"  y="40"  width="10" height="10"/>
+  <rect class="sq" data-i="3"  data-x="40"  data-y="40"  x="40"  y="40"  width="10" height="10"/>
+  <rect class="sq" data-i="4"  data-x="80"  data-y="40"  x="80"  y="40"  width="10" height="10"/>
+  <rect class="sq" data-i="5"  data-x="100" data-y="40"  x="100" y="40"  width="10" height="10"/>
+  <rect class="sq" data-i="6"  data-x="20"  data-y="60"  x="20"  y="60"  width="10" height="10"/>
+  <rect class="sq" data-i="7"  data-x="40"  data-y="60"  x="40"  y="60"  width="10" height="10"/>
+  <rect class="sq" data-i="8"  data-x="60"  data-y="60"  x="60"  y="60"  width="10" height="10"/>
+  <rect class="sq" data-i="9"  data-x="80"  data-y="60"  x="80"  y="60"  width="10" height="10"/>
+  <rect class="sq" data-i="10" data-x="100" data-y="60"  x="100" y="60"  width="10" height="10"/>
+  <rect class="sq" data-i="11" data-x="20"  data-y="80"  x="20"  y="80"  width="10" height="10"/>
+  <rect class="sq" data-i="12" data-x="40"  data-y="80"  x="40"  y="80"  width="10" height="10"/>
+  <rect class="sq" data-i="13" data-x="80"  data-y="80"  x="80"  y="80"  width="10" height="10"/>
+  <rect class="sq" data-i="14" data-x="100" data-y="80"  x="100" y="80"  width="10" height="10"/>
+  <rect class="sq" data-i="15" data-x="20"  data-y="100" x="20"  y="100" width="10" height="10"/>
+  <rect class="sq" data-i="16" data-x="100" data-y="100" x="100" y="100" width="10" height="10"/>
+</svg>`;
+
+document.querySelectorAll('.lm').forEach(el => { el.innerHTML = SVG; });
+
+// Apply per-square stagger / parameters by variant
+document.querySelectorAll('.lm').forEach(lm => {
+  const variant = (Array.from(lm.classList).find(c => /^v-[bw]\d+$/.test(c)) || '').replace('v-','');
+  if (!variant) return;
+  const squares = lm.querySelectorAll('.sq');
+
+  squares.forEach(sq => {
+    const x = parseInt(sq.dataset.x);
+    const y = parseInt(sq.dataset.y);
+    const i = parseInt(sq.dataset.i);
+    const dist = Math.hypot(x - 60, y - 60);
+
+    switch(variant) {
+      case 'b02': // column wave (left to right)
+        sq.style.animationDelay = ((x - 20) / 80 * 1.0).toFixed(3) + 's';
+        break;
+
+      case 'b03': // radial bloom (center outward)
+        sq.style.animationDelay = (dist / 60 * 1.4).toFixed(3) + 's';
+        break;
+
+      case 'b05': // sequential build
+        sq.style.animationDelay = (i * 0.32).toFixed(3) + 's';
+        break;
+
+      case 'b06': // diagonal sweep (top-left to bottom-right)
+        sq.style.animationDelay = ((x + y - 40) / 160 * 1.6).toFixed(3) + 's';
+        break;
+
+      case 'b07': // holographic (radial outward)
+        sq.style.animationDelay = (dist / 60 * 1.2).toFixed(3) + 's';
+        break;
+
+      case 'b08': // echo pulse (radial)
+        sq.style.animationDelay = (dist / 60 * 0.6).toFixed(3) + 's';
+        break;
+
+      case 'b09': { // particle drift (random per square)
+        const dx = (Math.sin(i * 13.7) * 6).toFixed(2);
+        const dy = (Math.cos(i * 11.3) * 6).toFixed(2);
+        const dur = (3 + Math.abs(Math.sin(i * 2.5)) * 2.5).toFixed(2);
+        sq.style.setProperty('--dx', dx + 'px');
+        sq.style.setProperty('--dy', dy + 'px');
+        sq.style.setProperty('--dur', dur + 's');
+        sq.style.animationDelay = (Math.abs(Math.sin(i * 1.7)) * 2).toFixed(2) + 's';
+        break;
+      }
+
+      case 'b10': // scan reveal (top to bottom)
+        sq.style.animationDelay = ((y - 20) / 80 * 0.8).toFixed(3) + 's';
+        break;
+
+      case 'b11': // quantum jitter (random offsets)
+        sq.style.animationDelay = (Math.random() * 0.14).toFixed(3) + 's';
+        break;
+
+      case 'b12': { // implosion (per-square delta to center)
+        const dx = (60 - x).toFixed(0);
+        const dy = (60 - y).toFixed(0);
+        sq.style.setProperty('--dx', dx + 'px');
+        sq.style.setProperty('--dy', dy + 'px');
+        sq.style.animationDelay = (i * 0.04).toFixed(3) + 's';
+        break;
+      }
+
+      case 'w02': // drop (row stagger)
+        sq.style.animationDelay = ((y - 20) / 80 * 0.5).toFixed(3) + 's';
+        break;
+
+      case 'w03': { // individual spin (varying durations)
+        const dur = (3 + (i % 5) * 0.7).toFixed(2);
+        sq.style.setProperty('--dur', dur + 's');
+        sq.style.animationDelay = (i * 0.08).toFixed(3) + 's';
+        break;
+      }
+
+      case 'w04': { // edge slide (from outside-in)
+        const ex = ((x - 60) * 1.5).toFixed(0);
+        const ey = ((y - 60) * 1.5).toFixed(0);
+        sq.style.setProperty('--ex', ex + 'px');
+        sq.style.setProperty('--ey', ey + 'px');
+        sq.style.animationDelay = (i * 0.05).toFixed(3) + 's';
+        break;
+      }
+
+      case 'w05': // glitch (random delays)
+        sq.style.animationDelay = (Math.random() * 4).toFixed(3) + 's';
+        break;
+
+      case 'w06': // magnify wave (diagonal)
+        sq.style.animationDelay = ((x + y - 40) / 160 * 2).toFixed(3) + 's';
+        break;
+
+      case 'w07': // color storm (column wave)
+        sq.style.animationDelay = ((x - 20) / 80 * 1.5).toFixed(3) + 's';
+        break;
+
+      case 'w09': // sketch trace (sequential)
+        sq.style.animationDelay = (i * 0.12).toFixed(3) + 's';
+        break;
+
+      case 'w10': // cascading (row stagger with column variation)
+        sq.style.animationDelay = (((y - 20) / 80 * 0.5) + ((x - 60) * 0.005)).toFixed(3) + 's';
+        break;
+
+      case 'w11': // concentric ripple (radial)
+        sq.style.animationDelay = (dist / 60 * 1.2).toFixed(3) + 's';
+        break;
+
+      case 'w12': { // final form (random initial scatter)
+        const tx = (Math.sin(i * 7.3) * 70).toFixed(0);
+        const ty = (Math.cos(i * 5.7) * 70).toFixed(0);
+        const tr = (Math.sin(i * 3.1) * 270).toFixed(0);
+        sq.style.setProperty('--tx', tx + 'px');
+        sq.style.setProperty('--ty', ty + 'px');
+        sq.style.setProperty('--tr', tr + 'deg');
+        sq.style.animationDelay = (i * 0.04).toFixed(3) + 's';
+        break;
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>

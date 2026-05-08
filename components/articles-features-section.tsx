@@ -80,7 +80,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
             <p
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "clamp(22px,3vw,32px)",
+                fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 300,
                 lineHeight: 1.35,
                 letterSpacing: "-0.01em",

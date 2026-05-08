@@ -38,7 +38,7 @@ export default function IntegrationSection({ lang }: { lang: Locale }) {
         <h2
           className="t-display"
           style={{
-            fontSize: "var(--text-display)",
+            fontSize: "clamp(28px, 4vw, 44px)",
             marginBottom: 48,
           }}
         >
