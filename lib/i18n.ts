@@ -405,8 +405,8 @@ export const translations = {
       title: "Precision, structure, continuite. Les trois constantes du systeme.",
       cards: {
         saddle: {
-          title: "Adaptation",
-          description: "La plateforme s'adapte en temps reel au profil, au rythme et au contexte de chaque apprenant.",
+          title: "Precision",
+          description: "Nous analysons chaque profil avec un diagnostic chiffre, a dix heures pres.",
         },
         hilbert: {
           title: "Structure",
@@ -889,8 +889,8 @@ export const translations = {
       title: "Precision, structure, continuity. The three constants of the system.",
       cards: {
         saddle: {
-          title: "Adaptation",
-          description: "The platform adapts in real time to each learner's profile, pace, and context.",
+          title: "Precision",
+          description: "We analyse each profile with a quantified diagnostic, down to ten hours.",
         },
         hilbert: {
           title: "Structure",

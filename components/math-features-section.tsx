@@ -281,52 +281,58 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
               <div
                 key={i}
                 style={{
+                  background: "#EDEAE3",
+                  borderRadius: 22,
+                  overflow: "hidden",
+                  padding: "32px 28px 28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(18px)",
                   transition: `opacity 0.6s ease ${0.15 * (i + 1)}s, transform 0.6s ease ${0.15 * (i + 1)}s`,
                 }}
               >
-                {/* Visual card — fills 1:1 square */}
+                {/* Visual area */}
                 <div
                   style={{
-                    aspectRatio: "1 / 1",
-                    background: "#EDEAE3",
-                    borderRadius: 22,
-                    padding: "clamp(24px, 6%, 48px)",
+                    width: "100%",
+                    flex: 1,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    overflow: "hidden",
+                    padding: "8px 0 24px",
+                    minHeight: 160,
                   }}
                 >
-                  <div style={{ width: "100%", height: "100%" }}>
+                  <div style={{ width: 160, height: 160 }}>
                     {card.svg}
                   </div>
                 </div>
-                {/* Text outside the card */}
-                <div style={{ padding: "16px 4px 0" }}>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 17,
-                      fontWeight: 500,
-                      color: "var(--text-primary)",
-                      marginBottom: 6,
-                    }}
-                  >
-                    {card.title}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 14,
-                      lineHeight: 1.55,
-                      color: "var(--text-tertiary)",
-                    }}
-                  >
-                    {card.desc}
-                  </p>
-                </div>
+                {/* Text inside card */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 17,
+                    fontWeight: 500,
+                    letterSpacing: "-0.01em",
+                    color: "var(--text-primary)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {card.title}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    lineHeight: 1.55,
+                    color: "var(--text-tertiary)",
+                    maxWidth: 280,
+                  }}
+                >
+                  {card.desc}
+                </p>
               </div>
             ))}
           </div>
