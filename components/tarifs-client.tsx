@@ -478,7 +478,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           {/* Right: Glassmorphism Product Card */}
           <div className="tarifs-product-card" style={{
             position: "relative",
-            width: 320,
+            width: "100%",
+            maxWidth: "100%",
             aspectRatio: "1/1",
             borderRadius: 20,
             overflow: "hidden",
@@ -544,89 +545,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 </div>
               </div>
 
-              {/* Middle: Buttons */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 40 }}>
-                <Link href={`/${lang}`} style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 14px",
-                  background: "rgba(255,255,255,0.1)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  borderRadius: 10,
-                  color: "white",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                }}>
-                  <span style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#7eb8c8",
-                  }} />
-                  LearningOS
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
-                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-                <Link href={`/${lang}`} style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 14px",
-                  background: "rgba(255,255,255,0.1)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  borderRadius: 10,
-                  color: "white",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                }}>
-                  <span style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#96c4a8",
-                  }} />
-                  PipelineOS
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
-                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-                <Link href={`/${lang}`} style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 14px",
-                  background: "rgba(255,255,255,0.1)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  borderRadius: 10,
-                  color: "white",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                }}>
-                  <span style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#a89bc2",
-                  }} />
-                  MentivisAPI
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
-                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-              </div>
-
-              {/* Bottom: Description */}
+              {/* Description - moved above buttons */}
               <p style={{
                 color: "white",
                 fontSize: 15,
@@ -634,10 +553,92 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 lineHeight: 1.5,
                 letterSpacing: "-0.005em",
                 textShadow: "0 1px 6px rgba(0,0,0,0.25)",
-                marginTop: 24,
+                marginTop: 16,
               }}>
                 Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA.
               </p>
+
+              {/* Buttons - with more margin top */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto", paddingTop: 24 }}>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "8px 12px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: "#7eb8c8",
+                  }} />
+                  LearningOS
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "8px 12px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: "#96c4a8",
+                  }} />
+                  PipelineOS
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "8px 12px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: "#a89bc2",
+                  }} />
+                  MentivisAPI
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

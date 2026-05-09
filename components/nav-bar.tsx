@@ -335,35 +335,92 @@ export default function NavBar({ lang }: NavBarProps) {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              <span>{mobileOpen ? "✕" : "☰"}</span>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className={mobileOpen ? 'open' : ''}>
+                <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-top" />
+                <line x1="6" y1="16" x2="26" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-mid" />
+                <line x1="6" y1="22" x2="26" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-bot" />
+              </svg>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Slide Menu */}
-      <div className={`navbar-mobile-slide ${mobileOpen ? 'open' : ''}`}>
-        {/* Header - same design as desktop */}
-        <div className="navbar-mobile-header">
-          <Link href={`/${lang}`} onClick={() => setMobileOpen(false)} className="navbar-logo-link">
-            <img 
-              src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg" 
-              alt="Mentivis" 
-              style={{ height: 28, width: "auto" }}
-            />
-          </Link>
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="navbar-close-btn"
-            aria-label="Fermer"
-          >
-            ✕
-          </button>
+      {/* Mobile Fullscreen Menu - Starts below header */}
+      <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        {/* Scrollable content area */}
+        <div className="navbar-mobile-scrollable">
+          <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
+          
+          {/* Special Offer Component */}
+          <div className="special-offer" style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            margin: "24px 0",
+            padding: 16,
+            background: "rgba(255,255,255,0.6)",
+            borderRadius: 16,
+            border: "1px solid rgba(0,0,0,0.08)",
+          }}>
+            <div style={{
+              width: 64,
+              height: 64,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              flexShrink: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              <span style={{ color: "white", fontSize: 24 }}>🎯</span>
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: "var(--text-primary)",
+                margin: "0 0 4px",
+              }}>Offre LearningOS</p>
+              <p style={{
+                fontSize: 13,
+                color: "var(--text-secondary)",
+                margin: "0 0 8px",
+              }}>-20% la première année</p>
+              <Link 
+                href={`/${lang}`}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: "var(--text-primary)",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                En profiter →
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Menu content with eyebrows and hairlines */}
-        <div className="navbar-mobile-content">
-          <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
+        {/* Sticky bottom buttons */}
+        <div className="navbar-mobile-sticky-bottom">
+          <Link
+            href={`/${lang}/contact`}
+            onClick={() => setMobileOpen(false)}
+            className="mobile-btn-outline"
+          >
+            {t.nav.contact}
+          </Link>
+          <Link
+            href="https://app.mentivisOS.com"
+            onClick={() => setMobileOpen(false)}
+            className="mobile-btn-primary"
+          >
+            {t.nav.login}
+          </Link>
         </div>
       </div>
 
@@ -390,12 +447,33 @@ export default function NavBar({ lang }: NavBarProps) {
 
         .navbar-burger {
           display: none;
-          padding: 8px;
+          padding: 4px;
           background: none;
           border: none;
-          font-size: 20px;
           color: var(--text-primary);
           cursor: pointer;
+        }
+
+        .navbar-burger svg {
+          width: 32px;
+          height: 32px;
+        }
+
+        .navbar-burger line {
+          transition: all 0.3s ease;
+          transform-origin: center;
+        }
+
+        .navbar-burger.open .line-top {
+          transform: translateY(6px) rotate(45deg);
+        }
+
+        .navbar-burger.open .line-mid {
+          opacity: 0;
+        }
+
+        .navbar-burger.open .line-bot {
+          transform: translateY(-6px) rotate(-45deg);
         }
 
         /* Hide contact button on mobile */
@@ -405,52 +483,72 @@ export default function NavBar({ lang }: NavBarProps) {
           }
         }
 
-        /* Mobile slide menu */
-        .navbar-mobile-slide {
+        /* Mobile fullscreen menu - starts below header */
+        .navbar-mobile-menu {
           position: fixed;
-          top: 0;
+          top: 64px;
+          left: 0;
           right: 0;
-          width: 100%;
-          max-width: 420px;
-          height: 100vh;
+          bottom: 0;
           background: #f7f7f4;
-          z-index: 1001;
+          z-index: 1000;
           transform: translateX(100%);
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           flex-direction: column;
-          box-shadow: -4px 0 24px rgba(0,0,0,0.1);
         }
 
-        .navbar-mobile-slide.open {
+        .navbar-mobile-menu.open {
           transform: translateX(0);
         }
 
-        .navbar-mobile-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 20px var(--grid-margin);
-          background: transparent;
-          border-bottom: 1px solid rgba(0,0,0,0.06);
-        }
-
-        .navbar-mobile-content {
+        .navbar-mobile-scrollable {
           flex: 1;
           overflow-y: auto;
-          padding: 0 var(--grid-margin);
+          padding: 20px var(--grid-margin);
           display: flex;
           flex-direction: column;
         }
 
-        .navbar-close-btn {
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 8px;
-          fontSize: 24px;
-          color: var(--text-primary);
-          line-height: 1;
+        .navbar-mobile-sticky-bottom {
+          position: sticky;
+          bottom: 0;
+          display: flex;
+          gap: 12;
+          padding: 16px var(--grid-margin);
+          background: #f7f7f4;
+          border-top: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .mobile-btn-outline {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6;
+          padding: 12px 20px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #0A0A0A;
+          background: #FFFFFF;
+          border: 1px solid rgba(0,0,0,0.12);
+          border-radius: 10;
+          text-decoration: none;
+        }
+
+        .mobile-btn-primary {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6;
+          padding: 12px 20px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #FFFFFF;
+          background: #0A0A0A;
+          border-radius: 10;
+          text-decoration: none;
         }
 
         /* Backdrop */
@@ -596,8 +694,8 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
 
   const navStyle = {
     fontFamily: "var(--font-sans)",
-    fontSize: "14px",
-    fontWeight: 400,
+    fontSize: "17px",
+    fontWeight: 500,
     color: "var(--text-primary)",
     padding: "10px 0",
     textDecoration: "none",
@@ -614,10 +712,10 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
 
   const subItemStyle = {
     fontFamily: "var(--font-sans)",
-    fontSize: "14px",
+    fontSize: "15px",
     fontWeight: 400,
     color: "var(--text-secondary)",
-    padding: "8px 0 8px 16px",
+    padding: "10px 0 10px 20px",
     textDecoration: "none",
     display: "block",
     position: "relative" as const,
@@ -648,7 +746,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -684,7 +782,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -720,7 +818,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
