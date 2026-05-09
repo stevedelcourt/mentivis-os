@@ -9,6 +9,7 @@ export const translations = {
       tarifs: "Tarifs",
       contact: "Contactez-nous",
       login: "Se connecter",
+      cta: "Contactez-nous",
       eyebrows: {
         produits: "PRODUITS",
         workflows: "WORKFLOWS",
@@ -518,6 +519,7 @@ export const translations = {
       tarifs: "Pricing",
       contact: "Contact us",
       login: "Log in",
+      cta: "Contact us",
       eyebrows: {
         produits: "PRODUCTS",
         workflows: "WORKFLOWS",
