@@ -345,7 +345,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
     <section style={{ minHeight: "100vh", paddingTop: 120, paddingBottom: 80, background: "var(--bg-primary)" }}>
       <div className="container" style={{ maxWidth: "var(--container-max)" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div style={{ textAlign: "left", marginBottom: 80 }}>
           <span
             style={{
               display: "inline-block",
@@ -375,8 +375,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           <p
             className="t-lead"
             style={{
-              maxWidth: 480,
-              margin: "0 auto 34px",
+              maxWidth: 560,
+              margin: "0 0 34px",
               fontSize: "var(--text-body)",
             }}
           >
@@ -384,7 +384,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </p>
 
           {/* Product Tabs */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 40 }}>
+          <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
               { key: "learningos", label: "LearningOS" },
               { key: "pipelineos", label: "PipelineOS" },
@@ -412,7 +412,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
 
           {/* Billing Toggle */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
             <div
               style={{
                 display: "inline-flex",
@@ -484,7 +484,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             gridTemplateColumns: `repeat(${currentPlans.length}, 1fr)`,
             gap: 16,
             alignItems: "stretch",
-            marginBottom: 60,
+            marginBottom: 100,
           }}
         >
           {currentPlans.map((plan, idx) => {
@@ -811,11 +811,11 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
         `}</style>
 
         {/* Comparison Table */}
-        <div style={{ marginBottom: 60 }}>
+        <div style={{ marginBottom: 100 }}>
           <h2
             className="t-title"
             style={{
-              textAlign: "center",
+              textAlign: "left",
               marginBottom: 40,
               fontSize: "var(--text-title)",
               fontWeight: 300,
@@ -885,7 +885,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             background: "var(--bg-warm)",
             borderRadius: "var(--r-warm)",
             padding: "56px",
-            marginBottom: 60,
+            marginBottom: 100,
             display: "flex",
             alignItems: "center",
             gap: 56,
@@ -961,11 +961,11 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
         </div>
 
         {/* FAQ Accordion */}
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <div style={{ maxWidth: 800 }}>
           <h2
             className="t-title"
             style={{
-              textAlign: "center",
+              textAlign: "left",
               marginBottom: 40,
               fontSize: "var(--text-title)",
               fontWeight: 300,
