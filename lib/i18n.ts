@@ -493,7 +493,7 @@ export const translations = {
         preference: "Preference",
         preferenceVisio: "Visioconference",
         preferenceOnsite: "Sur site",
-        submit: "Soumettre ma demande de demonstration",
+        submit: "Demander une démo",
         success: "Merci. Nous revenons vers vous sous 48 heures.",
         error: "Une erreur est survenue. Veuillez reessayer.",
       },
