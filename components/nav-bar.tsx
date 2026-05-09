@@ -410,16 +410,15 @@ export default function NavBar({ lang }: NavBarProps) {
         }
 
         .navbar-burger.open .line-top {
-          transform: translateY(3px) rotate(30deg);
+          transform: translateY(6px) rotate(45deg);
         }
 
         .navbar-burger.open .line-mid {
-          opacity: 0.5;
-          transform: scaleX(0.6);
+          opacity: 0;
         }
 
         .navbar-burger.open .line-bot {
-          transform: translateY(-3px) rotate(-30deg);
+          transform: translateY(-6px) rotate(-45deg);
         }
 
         /* Hide contact button on mobile */
@@ -670,9 +669,9 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   };
 
   const accordionContentStyle = (isOpen: boolean) => ({
-    display: "grid",
-    gridTemplateRows: isOpen ? "1fr" : "0fr",
-    transition: "grid-template-rows 0.3s ease",
+    maxHeight: isOpen ? "200px" : "0px",
+    overflow: "hidden",
+    transition: "max-height 0.3s ease",
   });
 
   return (
@@ -700,17 +699,15 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         </span>
       </button>
       <div style={accordionContentStyle(learningOpen)}>
-        <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
-          </Link>
-        </div>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
+        </Link>
       </div>
 
       {/* PipelineOS Section */}
@@ -736,17 +733,15 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         </span>
       </button>
       <div style={accordionContentStyle(pipelineOpen)}>
-        <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
-          </Link>
-        </div>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
+        </Link>
       </div>
 
       {/* MentivisAPI Section */}
@@ -772,17 +767,15 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         </span>
       </button>
       <div style={accordionContentStyle(apiOpen)}>
-        <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
-          </Link>
-        </div>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
+        </Link>
+        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+          {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
+        </Link>
       </div>
 
       {/* Ressources Section */}

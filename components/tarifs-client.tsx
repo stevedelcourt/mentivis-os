@@ -480,12 +480,12 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             position: "relative",
             flex: "0 0 280px",
             width: 280,
-            aspectRatio: "1/1",
+            minHeight: "100%",
             borderRadius: 20,
             overflow: "hidden",
             background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
             boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
-          }}>
+          }}
             {/* Gradient overlay */}
             <div style={{
               position: "absolute",
@@ -516,7 +516,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                   borderRadius: 10,
                   padding: "6px 12px 6px 8px",
                 }}>
-                  <svg width="18" height="18" viewBox="0 0 130 130" fill="none" style={{ flexShrink: 0 }}>
+                  <svg data-logo-svg width="18" height="18" viewBox="0 0 130 130" fill="none" style={{ flexShrink: 0 }}>
                     <rect x="20" y="20" width="10" height="10" fill="white"/>
                     <rect x="100" y="20" width="10" height="10" fill="white"/>
                     <rect x="20" y="40" width="10" height="10" fill="white"/>
@@ -535,7 +535,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     <rect x="20" y="100" width="10" height="10" fill="white"/>
                     <rect x="100" y="100" width="10" height="10" fill="white"/>
                   </svg>
-                  <span style={{
+                  <span data-logo-text style={{
                     color: "white",
                     fontSize: 13,
                     fontWeight: 600,
@@ -546,7 +546,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               </div>
 
               {/* Description - moved above buttons */}
-              <p style={{
+              <p data-desc style={{
                 color: "white",
                 fontSize: 15,
                 fontWeight: 300,
@@ -560,7 +560,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
 
               {/* Buttons - with more margin top */}
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto", paddingTop: 24 }}>
-                <Link href={`/${lang}`} style={{
+                <Link data-btn href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
@@ -586,7 +586,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
-                <Link href={`/${lang}`} style={{
+                <Link data-btn href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
@@ -612,7 +612,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
-                <Link href={`/${lang}`} style={{
+                <Link data-btn href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
@@ -965,15 +965,35 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               max-width: 400px !important;
               margin: 40px auto 0 !important;
               order: 2;
+              flex: none !important;
             }
           }
           @media (max-width: 640px) {
             .tarifs-product-card {
-              width: 280px !important;
-              height: 280px !important;
+              width: 100% !important;
+              max-width: none !important;
+              min-height: auto !important;
+              aspect-ratio: 2/1 !important;
             }
             .tarifs-product-card > div {
-              padding: 20px !important;
+              padding: 16px !important;
+            }
+            .tarifs-product-card [data-logo-svg] {
+              width: 12px !important;
+              height: 12px !important;
+            }
+            .tarifs-product-card [data-logo-text] {
+              font-size: 10px !important;
+            }
+            .tarifs-product-card [data-desc] {
+              font-size: 11px !important;
+            }
+            .tarifs-product-card [data-btn] {
+              padding: 6px 10px !important;
+              font-size: 11px !important;
+            }
+            .tarifs-product-card [data-badge] {
+              padding: 4px 8px !important;
             }
           }
           .tarifs-product-card {
