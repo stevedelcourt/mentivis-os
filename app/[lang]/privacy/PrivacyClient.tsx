@@ -19,12 +19,16 @@ export default function PrivacyClient({ lang }: PrivacyClientProps) {
           },
           {
             title: "Utilisation des données",
-            body: "Les données collectées sont utilisées pour :
-• Fournir et maintenir nos services
-• Vous informer des changements concernant nos services
-• Permettre votre participation aux fonctionnalités interactives de notre plateforme
-• Assurer le service client
-• Détecter et prévenir les problèmes techniques",
+            blocks: [
+              { type: "paragraph" as const, text: "Les données collectées sont utilisées pour :" },
+              { type: "list" as const, items: [
+                "Fournir et maintenir nos services",
+                "Vous informer des changements concernant nos services",
+                "Permettre votre participation aux fonctionnalités interactives",
+                "Assurer le service client",
+                "Détecter et prévenir les problèmes techniques",
+              ]},
+            ],
           },
           {
             title: "Protection des données",
@@ -54,24 +58,28 @@ export default function PrivacyClient({ lang }: PrivacyClientProps) {
         sections: [
           {
             title: "Data Collection",
-            body: "We collect information that you provide directly to us, including when you create your account, use our services, or contact us. This data may include your name, email address, phone number, and billing information.",
+            body: "We collect information you provide directly to us, including when you create your account, use our services, or contact us. This data may include your name, email address, phone number, and billing information.",
           },
           {
-            title: "Use of Data",
-            body: "The collected data is used to:
-• Provide and maintain our services
-• Inform you of changes to our services
-• Enable your participation in interactive features of our platform
-• Provide customer service
-• Detect and prevent technical issues",
+            title: "Data Usage",
+            blocks: [
+              { type: "paragraph" as const, text: "The collected data is used to:" },
+              { type: "list" as const, items: [
+                "Provide and maintain our services",
+                "Notify you about changes to our services",
+                "Enable your participation in interactive features",
+                "Provide customer support",
+                "Detect and prevent technical issues",
+              ]},
+            ],
           },
           {
             title: "Data Protection",
-            body: "The security of your data is important to us. We implement appropriate security measures to protect your personal data against any unauthorized access, modification, disclosure, or destruction.",
+            body: "The security of your data is important to us. We implement appropriate security measures to protect your personal data against unauthorized access, modification, disclosure, or destruction.",
           },
           {
             title: "Data Sharing",
-            body: "We do not sell your personal data. We may share your information with trusted service providers who help us operate our platform, provided they agree to maintain the confidentiality of this information.",
+            body: "We do not sell your personal data. We may share your information with trusted service providers who help us operate our platform, provided they commit to maintaining the confidentiality of this information.",
           },
           {
             title: "Your Rights",
@@ -83,7 +91,7 @@ export default function PrivacyClient({ lang }: PrivacyClientProps) {
           },
           {
             title: "Changes",
-            body: "We reserve the right to modify this privacy policy at any time. Changes will take effect immediately after being posted on this page.",
+            body: "We reserve the right to modify this privacy policy at any time. Changes will take effect immediately upon publication on this page.",
           },
         ],
       };
@@ -91,38 +99,36 @@ export default function PrivacyClient({ lang }: PrivacyClientProps) {
   return (
     <section style={{ paddingTop: 140, paddingBottom: 80 }}>
       <div className="container" style={{ maxWidth: 800 }}>
-        <h1
-          className="t-display"
-          style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}
-        >
+        <h1 className="t-display" style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}>
           {content.title}
         </h1>
-        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>
-          {content.date}
-        </p>
-        {content.sections.map((section, i) => (
+        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>{content.date}</p>
+        {content.sections.map((section: any, i: number) => (
           <div key={i} style={{ marginBottom: 40 }}>
-            <h2
-              style={{
-                fontSize: 22,
-                fontWeight: 500,
-                margin: "0 0 12px",
-                letterSpacing: "-0.5px",
-              }}
-            >
+            <h2 style={{ fontSize: 22, fontWeight: 500, margin: "0 0 12px", letterSpacing: "-0.5px" }}>
               {section.title}
             </h2>
-            <p
-              style={{
-                color: "var(--text-secondary)",
-                fontSize: 16,
-                lineHeight: 1.6,
-                margin: 0,
-                whiteSpace: "pre-line",
-              }}
-            >
-              {section.body}
-            </p>
+            {"body" in section ? (
+              <p style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                {section.body}
+              </p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {section.blocks.map((block: any, j: number) =>
+                  block.type === "paragraph" ? (
+                    <p key={j} style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                      {block.text}
+                    </p>
+                  ) : (
+                    <ul key={j} style={{ margin: 0, paddingLeft: 20, color: "var(--text-secondary)" }}>
+                      {block.items.map((item: string, k: number) => (
+                        <li key={k} style={{ marginBottom: 4 }}>{item}</li>
+                      ))}
+                    </ul>
+                  )
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>

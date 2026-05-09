@@ -15,17 +15,21 @@ export default function CgvClient({ lang }: CgvClientProps) {
         sections: [
           {
             title: "Objet",
-            body: "Les présentes conditions générales de vente régissent la fourniture des services de MentivisOS, plateforme logicielle de gestion pour professionnels du droit. Elles s'appliquent à toute souscription d'abonnement ou achat de services effectué sur notre plateforme.",
+            body: "Les présentes conditions générales de vente régissent la fourniture des services de MentivisOS, plateforme logicielle de gestion pour professionnels. Elles s'appliquent à toute souscription d'abonnement ou achat de services effectué sur notre plateforme.",
           },
           {
             title: "Services proposés",
-            body: "MentivisOS propose des abonnements mensuels ou annuels donnant accès à une suite d'outils de gestion incluant :
-• Gestion de dossiers clients
-• Suivi du temps et des honoraires
-• Génération de factures
-• Gestion documentaire
-• Outils collaboratifs
-• Support technique",
+            blocks: [
+              { type: "paragraph" as const, text: "MentivisOS propose des abonnements mensuels ou annuels donnant accès à une suite d'outils de gestion incluant :" },
+              { type: "list" as const, items: [
+                "Gestion de dossiers clients",
+                "Suivi du temps et des honoraires",
+                "Génération de factures",
+                "Gestion documentaire",
+                "Outils collaboratifs",
+                "Support technique",
+              ]},
+            ],
           },
           {
             title: "Prix et paiement",
@@ -41,64 +45,64 @@ export default function CgvClient({ lang }: CgvClientProps) {
           },
           {
             title: "Obligations du client",
-            body: "En tant que client, vous vous engagez à :
-• Fournir des informations exactes et à jour
-• Maintenir la confidentialité de vos identifiants
-• Ne pas partager votre compte avec des tiers
-• Utiliser les services conformément à leur destination
-• Respecter les droits de propriété intellectuelle",
-          },
-          {
-            title: "Disponibilité des services",
-            body: "Nous nous engageons à mettre en œuvre tous les moyens nécessaires pour assurer la disponibilité de nos services 24h/24 et 7j/7, sauf interruption pour maintenance ou cas de force majeure. Nous nous efforçons de limiter les interruptions et de vous informer préalablement des maintenances planifiées.",
-          },
-          {
-            title: "Propriété intellectuelle",
-            body: "Tous les éléments de la plateforme (logiciels, bases de données, textes, images) sont protégés par le droit de la propriété intellectuelle. L'abonnement ne confère aucun droit de propriété sur le logiciel, qui reste la propriété exclusive de Mentivis SAS.",
+            blocks: [
+              { type: "paragraph" as const, text: "En tant que client, vous vous engagez à :" },
+              { type: "list" as const, items: [
+                "Fournir des informations exactes et à jour",
+                "Maintenir la confidentialité de vos identifiants",
+                "Ne pas partager votre compte avec des tiers",
+                "Utiliser les services conformément à leur destination",
+                "Respecter les droits de propriété intellectuelle",
+              ]},
+            ],
           },
           {
             title: "Responsabilité",
-            body: "Mentivis SAS s'engage à fournir ses services avec professionnalisme et diligence. Notre responsabilité ne saurait être engagée en cas de dommages indirects, pertes de données ou interruption d'activité. Notre responsabilité est limitée au montant des sommes effectivement versées par le client au cours des 12 mois précédents.",
+            body: "Mentivis SAS s'engage à fournir ses services avec diligence et selon les règles de l'art. Notre responsabilité ne saurait être engagée en cas de force majeure, d'utilisation non conforme de nos services, ou de faute du client.",
           },
           {
-            title: "Protection des données",
-            body: "Nous traitons vos données conformément à notre politique de confidentialité. En tant que sous-traitant pour les données de vos clients, nous nous engageons à respecter les obligations du RGPD et à signer avec vous un contrat de sous-traitance si nécessaire.",
+            title: "Propriété intellectuelle",
+            body: "Tous les éléments de notre plateforme (logiciels, designs, textes, images) sont protégés par les droits de propriété intellectuelle. Toute reproduction ou représentation, totale ou partielle, est interdite sans autorisation préalable.",
           },
           {
-            title: "Résiliation",
-            body: "En cas de manquement grave aux présentes conditions, nous nous réservons le droit de résilier l'abonnement avec effet immédiat et sans indemnité. En cas de résiliation pour quelque cause que ce soit, vos données vous seront restituées dans un format standard et supprimées de nos serveurs dans un délai de 30 jours.",
+            title: "Données personnelles",
+            body: "Les données personnelles collectées sont traitées conformément à notre politique de confidentialité. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données.",
           },
           {
-            title: "Droit applicable et juridiction",
-            body: "Les présentes conditions sont soumises au droit français. En cas de litige, une solution amiable sera recherchée préalablement. À défaut, les tribunaux de Paris seront seuls compétents.",
+            title: "Droit applicable",
+            body: "Les présentes conditions générales de vente sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.",
           },
         ],
       }
     : {
-        title: "Terms of Sale",
+        title: "General Terms and Conditions of Sale",
         date: "Last updated: April 27, 2026",
         sections: [
           {
             title: "Purpose",
-            body: "These general terms and conditions govern the provision of MentivisOS services, a management software platform for legal professionals. They apply to any subscription or service purchase made on our platform.",
+            body: "These general terms and conditions of sale govern the provision of MentivisOS services. They apply to any subscription or service purchase made on our platform.",
           },
           {
             title: "Services Offered",
-            body: "MentivisOS offers monthly or annual subscriptions providing access to a suite of management tools including:
-• Client case management
-• Time and billing tracking
-• Invoice generation
-• Document management
-• Collaborative tools
-• Technical support",
+            blocks: [
+              { type: "paragraph" as const, text: "MentivisOS offers monthly or annual subscriptions providing access to a suite of management tools including:" },
+              { type: "list" as const, items: [
+                "Client case management",
+                "Time and billing tracking",
+                "Invoice generation",
+                "Document management",
+                "Collaborative tools",
+                "Technical support",
+              ]},
+            ],
           },
           {
             title: "Pricing and Payment",
-            body: "Our service prices are indicated in euros excluding taxes. Payment is made by automatic monthly or annual debit depending on the chosen option. In case of payment default, we reserve the right to suspend access to services until settlement.",
+            body: "Our service prices are indicated in euros excluding taxes. Payment is made by automatic monthly or annual debit according to the chosen option. In case of payment default, we reserve the right to suspend access to services until regularization.",
           },
           {
             title: "Duration and Renewal",
-            body: "Subscriptions are concluded for an indefinite period with tacit monthly or annual renewal depending on the chosen option. You can cancel your subscription at any time from your client area. Cancellation will take effect at the end of the current period.",
+            body: "Subscriptions are concluded for an indefinite period with tacit monthly or annual renewal according to the chosen option. You may cancel your subscription at any time from your customer account. The cancellation will take effect at the end of the current period.",
           },
           {
             title: "Free Trial",
@@ -106,36 +110,32 @@ export default function CgvClient({ lang }: CgvClientProps) {
           },
           {
             title: "Customer Obligations",
-            body: "As a customer, you agree to:
-• Provide accurate and up-to-date information
-• Maintain the confidentiality of your credentials
-• Not share your account with third parties
-• Use the services in accordance with their purpose
-• Respect intellectual property rights",
-          },
-          {
-            title: "Service Availability",
-            body: "We commit to implementing all necessary means to ensure the availability of our services 24/7, except for maintenance interruptions or force majeure. We strive to limit interruptions and to inform you in advance of scheduled maintenance.",
-          },
-          {
-            title: "Intellectual Property",
-            body: "All elements of the platform (software, databases, texts, images) are protected by intellectual property law. The subscription does not confer any ownership rights over the software, which remains the exclusive property of Mentivis SAS.",
+            blocks: [
+              { type: "paragraph" as const, text: "As a customer, you agree to:" },
+              { type: "list" as const, items: [
+                "Provide accurate and up-to-date information",
+                "Maintain the confidentiality of your credentials",
+                "Not share your account with third parties",
+                "Use the services in accordance with their purpose",
+                "Respect intellectual property rights",
+              ]},
+            ],
           },
           {
             title: "Liability",
-            body: "Mentivis SAS commits to providing its services with professionalism and diligence. Our liability cannot be engaged in case of indirect damages, data loss, or business interruption. Our liability is limited to the amount of sums actually paid by the customer during the previous 12 months.",
+            body: "Mentivis SAS undertakes to provide its services with diligence and in accordance with industry standards. Our liability cannot be engaged in case of force majeure, non-compliant use of our services, or customer fault.",
           },
           {
-            title: "Data Protection",
-            body: "We process your data in accordance with our privacy policy. As a data processor for your client data, we commit to respecting GDPR obligations and to signing a data processing agreement with you if necessary.",
+            title: "Intellectual Property",
+            body: "All elements of our platform (software, designs, texts, images) are protected by intellectual property rights. Any reproduction or representation, total or partial, is prohibited without prior authorization.",
           },
           {
-            title: "Termination",
-            body: "In case of serious breach of these conditions, we reserve the right to terminate the subscription with immediate effect and without compensation. In case of termination for any reason, your data will be returned to you in a standard format and deleted from our servers within 30 days.",
+            title: "Personal Data",
+            body: "Personal data collected is processed in accordance with our privacy policy. You have the right to access, rectify, and delete your data.",
           },
           {
-            title: "Governing Law and Jurisdiction",
-            body: "These conditions are subject to French law. In case of dispute, an amicable solution will be sought beforehand. Failing that, the courts of Paris will have exclusive jurisdiction.",
+            title: "Applicable Law",
+            body: "These general terms and conditions of sale are subject to French law. In case of dispute, French courts will have sole jurisdiction.",
           },
         ],
       };
@@ -143,38 +143,36 @@ export default function CgvClient({ lang }: CgvClientProps) {
   return (
     <section style={{ paddingTop: 140, paddingBottom: 80 }}>
       <div className="container" style={{ maxWidth: 800 }}>
-        <h1
-          className="t-display"
-          style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}
-        >
+        <h1 className="t-display" style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}>
           {content.title}
         </h1>
-        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>
-          {content.date}
-        </p>
-        {content.sections.map((section, i) => (
+        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>{content.date}</p>
+        {content.sections.map((section: any, i: number) => (
           <div key={i} style={{ marginBottom: 40 }}>
-            <h2
-              style={{
-                fontSize: 22,
-                fontWeight: 500,
-                margin: "0 0 12px",
-                letterSpacing: "-0.5px",
-              }}
-            >
+            <h2 style={{ fontSize: 22, fontWeight: 500, margin: "0 0 12px", letterSpacing: "-0.5px" }}>
               {section.title}
             </h2>
-            <p
-              style={{
-                color: "var(--text-secondary)",
-                fontSize: 16,
-                lineHeight: 1.6,
-                margin: 0,
-                whiteSpace: "pre-line",
-              }}
-            >
-              {section.body}
-            </p>
+            {"body" in section ? (
+              <p style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                {section.body}
+              </p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {section.blocks.map((block: any, j: number) =>
+                  block.type === "paragraph" ? (
+                    <p key={j} style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                      {block.text}
+                    </p>
+                  ) : (
+                    <ul key={j} style={{ margin: 0, paddingLeft: 20, color: "var(--text-secondary)" }}>
+                      {block.items.map((item: string, k: number) => (
+                        <li key={k} style={{ marginBottom: 4 }}>{item}</li>
+                      ))}
+                    </ul>
+                  )
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>

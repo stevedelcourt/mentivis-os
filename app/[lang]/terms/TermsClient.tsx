@@ -19,7 +19,7 @@ export default function TermsClient({ lang }: TermsClientProps) {
           },
           {
             title: "Description du service",
-            body: "MentivisOS fournit une plateforme logicielle de gestion pour les cabinets d'avocats et les professionnels du droit. Nos services incluent la gestion de dossiers, le suivi du temps, la facturation et d'autres outils de productivité.",
+            body: "MentivisOS fournit une plateforme logicielle de gestion pour les professionnels. Nos services incluent la gestion de dossiers, le suivi du temps, la facturation et d'autres outils de productivité.",
           },
           {
             title: "Compte utilisateur",
@@ -27,12 +27,16 @@ export default function TermsClient({ lang }: TermsClientProps) {
           },
           {
             title: "Utilisation acceptable",
-            body: "Vous vous engagez à utiliser nos services uniquement à des fins légales et conformément aux présentes conditions. Il est interdit de :
-• Violer les lois applicables
-• Transmettre des virus ou code malveillant
-• Tenter d'accéder sans autorisation à nos systèmes
-• Interférer avec d'autres utilisateurs
-• Utiliser nos services pour du spam ou du harcèlement",
+            blocks: [
+              { type: "paragraph" as const, text: "Vous vous engagez à utiliser nos services uniquement à des fins légales et conformément aux présentes conditions. Il est interdit de :" },
+              { type: "list" as const, items: [
+                "Violer les lois applicables",
+                "Transmettre des virus ou code malveillant",
+                "Tenter d'accéder sans autorisation à nos systèmes",
+                "Interférer avec d'autres utilisateurs",
+                "Utiliser nos services pour du spam ou du harcèlement",
+              ]},
+            ],
           },
           {
             title: "Propriété intellectuelle",
@@ -48,11 +52,11 @@ export default function TermsClient({ lang }: TermsClientProps) {
           },
           {
             title: "Résiliation",
-            body: "Nous pouvons résilier ou suspendre votre accès à nos services immédiatement, sans préavis ni responsabilité, pour quelque raison que ce soit, y compris en cas de violation des présentes conditions.",
+            body: "Nous nous réservons le droit de résilier ou de suspendre votre accès à nos services immédiatement, sans préavis ni responsabilité, pour quelque raison que ce soit, y compris si vous violez les présentes conditions.",
           },
           {
             title: "Droit applicable",
-            body: "Les présentes conditions sont régies par le droit français. Tout litige relatif à ces conditions sera soumis à la compétence exclusive des tribunaux de Paris.",
+            body: "Les présentes conditions sont régies et interprétées conformément aux lois françaises, sans égard aux principes de conflits de lois.",
           },
         ],
       }
@@ -62,24 +66,28 @@ export default function TermsClient({ lang }: TermsClientProps) {
         sections: [
           {
             title: "Acceptance of Terms",
-            body: "By accessing our platform and using our services, you agree to be bound by these terms of use. If you do not accept these terms, please do not use our services.",
+            body: "By accessing our platform and using our services, you agree to be bound by these terms of use. If you do not agree to these terms, please do not use our services.",
           },
           {
             title: "Service Description",
-            body: "MentivisOS provides a management software platform for law firms and legal professionals. Our services include case management, time tracking, billing, and other productivity tools.",
+            body: "MentivisOS provides a management software platform for professionals. Our services include case management, time tracking, invoicing, and other productivity tools.",
           },
           {
             title: "User Account",
-            body: "To access certain services, you must create an account. You are responsible for maintaining the confidentiality of your credentials and all activities performed under your account. You must inform us immediately of any unauthorized use of your account.",
+            body: "To access certain services, you must create an account. You are responsible for maintaining the confidentiality of your credentials and all activities conducted under your account. You must immediately notify us of any unauthorized use of your account.",
           },
           {
             title: "Acceptable Use",
-            body: "You agree to use our services only for lawful purposes and in accordance with these terms. It is prohibited to:
-• Violate applicable laws
-• Transmit viruses or malicious code
-• Attempt to access our systems without authorization
-• Interfere with other users
-• Use our services for spam or harassment",
+            blocks: [
+              { type: "paragraph" as const, text: "You agree to use our services only for lawful purposes and in accordance with these terms. It is prohibited to:" },
+              { type: "list" as const, items: [
+                "Violate applicable laws",
+                "Transmit viruses or malicious code",
+                "Attempt to access our systems without authorization",
+                "Interfere with other users",
+                "Use our services for spam or harassment",
+              ]},
+            ],
           },
           {
             title: "Intellectual Property",
@@ -90,16 +98,16 @@ export default function TermsClient({ lang }: TermsClientProps) {
             body: "To the fullest extent permitted by law, Mentivis SAS shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use our services.",
           },
           {
-            title: "Modification of Terms",
-            body: "We reserve the right to modify these terms at any time. Modifications will take effect upon publication. Your continued use of our services after any modification constitutes your acceptance of the new terms.",
+            title: "Changes to Terms",
+            body: "We reserve the right to modify these terms at any time. Changes will take effect immediately upon posting. Your continued use of our services after any changes constitutes your acceptance of the new terms.",
           },
           {
             title: "Termination",
-            body: "We may terminate or suspend your access to our services immediately, without notice or liability, for any reason whatsoever, including in the event of a breach of these terms.",
+            body: "We reserve the right to terminate or suspend your access to our services immediately, without notice or liability, for any reason, including if you breach these terms.",
           },
           {
             title: "Governing Law",
-            body: "These terms are governed by French law. Any dispute relating to these terms will be subject to the exclusive jurisdiction of the courts of Paris.",
+            body: "These terms shall be governed by and construed in accordance with the laws of France, without regard to conflict of law principles.",
           },
         ],
       };
@@ -107,38 +115,36 @@ export default function TermsClient({ lang }: TermsClientProps) {
   return (
     <section style={{ paddingTop: 140, paddingBottom: 80 }}>
       <div className="container" style={{ maxWidth: 800 }}>
-        <h1
-          className="t-display"
-          style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}
-        >
+        <h1 className="t-display" style={{ fontSize: "clamp(36px, 5vw, 56px)", margin: "0 0 16px" }}>
           {content.title}
         </h1>
-        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>
-          {content.date}
-        </p>
-        {content.sections.map((section, i) => (
+        <p style={{ color: "var(--text-tertiary)", fontSize: 14, marginBottom: 48 }}>{content.date}</p>
+        {content.sections.map((section: any, i: number) => (
           <div key={i} style={{ marginBottom: 40 }}>
-            <h2
-              style={{
-                fontSize: 22,
-                fontWeight: 500,
-                margin: "0 0 12px",
-                letterSpacing: "-0.5px",
-              }}
-            >
+            <h2 style={{ fontSize: 22, fontWeight: 500, margin: "0 0 12px", letterSpacing: "-0.5px" }}>
               {section.title}
             </h2>
-            <p
-              style={{
-                color: "var(--text-secondary)",
-                fontSize: 16,
-                lineHeight: 1.6,
-                margin: 0,
-                whiteSpace: "pre-line",
-              }}
-            >
-              {section.body}
-            </p>
+            {"body" in section ? (
+              <p style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                {section.body}
+              </p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {section.blocks.map((block: any, j: number) =>
+                  block.type === "paragraph" ? (
+                    <p key={j} style={{ color: "var(--text-secondary)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>
+                      {block.text}
+                    </p>
+                  ) : (
+                    <ul key={j} style={{ margin: 0, paddingLeft: 20, color: "var(--text-secondary)" }}>
+                      {block.items.map((item: string, k: number) => (
+                        <li key={k} style={{ marginBottom: 4 }}>{item}</li>
+                      ))}
+                    </ul>
+                  )
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
