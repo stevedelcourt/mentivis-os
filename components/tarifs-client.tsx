@@ -479,7 +479,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           <div className="tarifs-product-card" style={{
             position: "relative",
             width: 320,
-            minWidth: 280,
+            aspectRatio: "1/1",
             borderRadius: 20,
             overflow: "hidden",
             background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
@@ -501,7 +501,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               flexDirection: "column",
               justifyContent: "space-between",
               height: "100%",
-              minHeight: 380,
               padding: "24px",
             }}>
               {/* Top: Logo */}
@@ -631,8 +630,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               <p style={{
                 color: "white",
                 fontSize: 15,
-                fontWeight: 500,
-                lineHeight: 1.4,
+                fontWeight: 300,
+                lineHeight: 1.5,
                 letterSpacing: "-0.005em",
                 textShadow: "0 1px 6px rgba(0,0,0,0.25)",
                 marginTop: 24,
@@ -969,7 +968,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           }
           @media (max-width: 640px) {
             .tarifs-product-card {
-              min-height: 340px !important;
+              width: 280px !important;
+              height: 280px !important;
             }
             .tarifs-product-card > div {
               padding: 20px !important;
