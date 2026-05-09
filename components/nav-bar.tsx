@@ -145,7 +145,7 @@ export default function NavBar({ lang }: NavBarProps) {
             {/* LearningOS */}
             <div
               className="navbar-item"
-              style={{ position: "relative", padding: "20px 0 28px" }}
+              style={{ position: "relative", padding: "20px 0" }}
               onMouseEnter={() => openDropdown("learningOS")}
               onMouseLeave={closeDropdown}
             >
@@ -177,7 +177,7 @@ export default function NavBar({ lang }: NavBarProps) {
             {/* PipelineOS */}
             <div
               className="navbar-item"
-              style={{ position: "relative", padding: "20px 0 28px" }}
+              style={{ position: "relative", padding: "20px 0" }}
               onMouseEnter={() => openDropdown("pipelineOS")}
               onMouseLeave={closeDropdown}
             >
@@ -527,6 +527,40 @@ export default function NavBar({ lang }: NavBarProps) {
           .navbar-links { display: none !important; }
           .navbar-burger { display: block !important; }
         }
+
+        /* Mobile accordion */
+        .accordion-content {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                      opacity 0.25s ease;
+        }
+        .accordion-content.open {
+          max-height: 400px;
+          opacity: 1;
+        }
+        .mobile-nav-item::after,
+        .mobile-sub-item::after {
+          content: '';
+          position: absolute;
+          bottom: 6px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--text-primary);
+          transition: width 0.25s ease;
+        }
+        .mobile-nav-item:hover::after,
+        .mobile-sub-item:hover::after {
+          width: 100%;
+        }
+        .mobile-sub-item::after {
+          left: 16px;
+        }
+        .mobile-nav-link::after {
+          bottom: 8px;
+        }
       `}</style>
     </>
   );
@@ -552,8 +586,9 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
       onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
-        top: "calc(100% - 6px)",
-        left: -200,
+        top: "calc(100% + 2px)",
+        left: "50%",
+        transform: "translateX(-50%)",
         display: "flex",
         gap: 40,
         padding: "28px 32px",
@@ -626,18 +661,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   const [learningOpen, setLearningOpen] = useState(false);
   const [pipelineOpen, setPipelineOpen] = useState(false);
   const [apiOpen, setApiOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-
-  const eyebrowStyle = {
-    fontFamily: "var(--font-sans)",
-    fontSize: "11px",
-    fontWeight: 500,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase" as const,
-    color: "var(--text-tertiary)",
-    padding: "24px 0 8px",
-    borderBottom: "1px solid rgba(0,0,0,0.08)",
-  };
 
   const navStyle = {
     fontFamily: "var(--font-sans)",
@@ -676,7 +699,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setLearningOpen(!learningOpen);
           setPipelineOpen(false);
           setApiOpen(false);
-          setResourcesOpen(false);
         }}
         className="mobile-nav-item"
         style={navStyle}
@@ -783,12 +805,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </Link>
 
       <style>{`
-        .accordion-content {
-          display: none;
-        }
-        .accordion-content.open {
-          display: block;
-        }
         .mobile-nav-item::after,
         .mobile-sub-item::after {
           content: '';
