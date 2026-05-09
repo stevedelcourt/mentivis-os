@@ -261,16 +261,6 @@ export default function NavBar({ lang }: NavBarProps) {
               )}
             </div>
 
-            {/* Entreprise */}
-            <Link
-              href={`/${lang}`}
-              className="t-nav navbar-link"
-              data-active={isActive("/entreprise")}
-              style={{ padding: "20px 0" }}
-            >
-              {t.nav.entreprise}
-            </Link>
-
             {/* Tarifs */}
             <Link
               href={`/${lang}/tarifs`}
@@ -602,7 +592,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
 
   const navStyle = {
     fontFamily: "var(--font-sans)",
-    fontSize: "15px",
+    fontSize: "14px",
     fontWeight: 400,
     color: "var(--text-primary)",
     padding: "10px 0",
@@ -758,15 +748,61 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </Link>
 
       {/* Direct links */}
-      <div style={eyebrowStyle}>{t.nav.entreprise}</div>
-      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
-        <span>Solutions entreprise</span>
-      </Link>
-
       <div style={eyebrowStyle}>{t.nav.tarifs}</div>
       <Link href={`/${lang}/tarifs`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
         <span>Voir les tarifs</span>
       </Link>
+
+      {/* Bottom buttons */}
+      <div style={{ 
+        display: "flex", 
+        gap: 12, 
+        marginTop: 32,
+        paddingTop: 24,
+        borderTop: "1px solid rgba(0,0,0,0.08)"
+      }}>
+        <Link
+          href={`/${lang}/contact`}
+          onClick={onClose}
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+            padding: "10px 16px",
+            fontSize: 13,
+            fontWeight: 500,
+            color: "#0A0A0A",
+            background: "#FFFFFF",
+            border: "1px solid rgba(0,0,0,0.12)",
+            borderRadius: 8,
+            textDecoration: "none",
+          }}
+        >
+          {t.nav.contact}
+        </Link>
+        <Link
+          href="https://app.mentivisOS.com"
+          onClick={onClose}
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+            padding: "10px 16px",
+            fontSize: 13,
+            fontWeight: 500,
+            color: "#FFFFFF",
+            background: "#0A0A0A",
+            borderRadius: 8,
+            textDecoration: "none",
+          }}
+        >
+          {t.nav.login}
+        </Link>
+      </div>
 
       <style>{`
         .mobile-nav-item::after,
