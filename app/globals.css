@@ -103,6 +103,14 @@ body {
   min-height: 100vh;
 }
 
+/* Ensure main content is always visible */
+main {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 100vh;
+}
+
 a {
   color: inherit;
   text-decoration: none;
