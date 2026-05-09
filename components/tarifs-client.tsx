@@ -340,47 +340,49 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   return (
     <section style={{ minHeight: "100vh", paddingTop: 120, paddingBottom: 80, background: "var(--bg-primary)" }}>
       <div className="container" style={{ maxWidth: "var(--container-max)" }}>
-        {/* Header */}
-        <div style={{ textAlign: "left", marginBottom: 80 }}>
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: "var(--text-micro)",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 18,
-            }}
-          >
-            Tarifs
-          </span>
-          <h1
-            className="t-display"
-            style={{
-              fontSize: "var(--text-hero)",
-              fontWeight: 300,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              marginBottom: 14,
-              color: "var(--text-primary)",
-            }}
-          >
-            Opérez la formation<br />de votre entreprise
-          </h1>
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 560,
-              margin: "0 0 34px",
-              fontSize: "var(--text-body)",
-            }}
-          >
-            Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
-          </p>
+        {/* Header with product card */}
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
+          {/* Left: Text content */}
+          <div style={{ flex: 1, minWidth: 300 }}>
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: "var(--text-micro)",
+                fontWeight: 500,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+                marginBottom: 18,
+              }}
+            >
+              Tarifs
+            </span>
+            <h1
+              className="t-display"
+              style={{
+                fontSize: "var(--text-hero)",
+                fontWeight: 300,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.1,
+                marginBottom: 14,
+                color: "var(--text-primary)",
+              }}
+            >
+              Opérez la formation<br />de votre entreprise
+            </h1>
+            <p
+              className="t-lead"
+              style={{
+                maxWidth: 560,
+                margin: "0 0 34px",
+                fontSize: "var(--text-body)",
+              }}
+            >
+              Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
+            </p>
 
-          {/* Product Tabs */}
-          <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
+            {/* Product Tabs */}
+            <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
               { key: "learningos", label: "LearningOS" },
               { key: "pipelineos", label: "PipelineOS" },
@@ -468,12 +470,180 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 >
                   -20%
                 </span>
-              </button>
+               </button>
+             </div>
+           </div>
+         </div>
+ 
+          {/* Right: Glassmorphism Product Card */}
+          <div className="tarifs-product-card" style={{
+            position: "relative",
+            width: 320,
+            minWidth: 280,
+            borderRadius: 20,
+            overflow: "hidden",
+            background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
+            boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+          }}>
+            {/* Gradient overlay */}
+            <div style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 75%)",
+              zIndex: 1,
+            }} />
+            
+            {/* Content */}
+            <div style={{
+              position: "relative",
+              zIndex: 2,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              height: "100%",
+              minHeight: 380,
+              padding: "24px",
+            }}>
+              {/* Top: Logo */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "rgba(255,255,255,0.12)",
+                  backdropFilter: "blur(6px)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: 10,
+                  padding: "6px 12px 6px 8px",
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 130 130" fill="none" style={{ flexShrink: 0 }}>
+                    <rect x="20" y="20" width="10" height="10" fill="white"/>
+                    <rect x="100" y="20" width="10" height="10" fill="white"/>
+                    <rect x="20" y="40" width="10" height="10" fill="white"/>
+                    <rect x="40" y="40" width="10" height="10" fill="white"/>
+                    <rect x="80" y="40" width="10" height="10" fill="white"/>
+                    <rect x="100" y="40" width="10" height="10" fill="white"/>
+                    <rect x="20" y="60" width="10" height="10" fill="white"/>
+                    <rect x="40" y="60" width="10" height="10" fill="white"/>
+                    <rect x="60" y="60" width="10" height="10" fill="white"/>
+                    <rect x="80" y="60" width="10" height="10" fill="white"/>
+                    <rect x="100" y="60" width="10" height="10" fill="white"/>
+                    <rect x="20" y="80" width="10" height="10" fill="white"/>
+                    <rect x="40" y="80" width="10" height="10" fill="white"/>
+                    <rect x="80" y="80" width="10" height="10" fill="white"/>
+                    <rect x="100" y="80" width="10" height="10" fill="white"/>
+                    <rect x="20" y="100" width="10" height="10" fill="white"/>
+                    <rect x="100" y="100" width="10" height="10" fill="white"/>
+                  </svg>
+                  <span style={{
+                    color: "white",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    letterSpacing: "0.04em",
+                    whiteSpace: "nowrap",
+                  }}>MentivisOS</span>
+                </div>
+              </div>
+
+              {/* Middle: Buttons */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 40 }}>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "10px 14px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#7eb8c8",
+                  }} />
+                  LearningOS
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "10px 14px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#96c4a8",
+                  }} />
+                  PipelineOS
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href={`/${lang}`} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "10px 14px",
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 10,
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}>
+                  <span style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#a89bc2",
+                  }} />
+                  MentivisAPI
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Bottom: Description */}
+              <p style={{
+                color: "white",
+                fontSize: 15,
+                fontWeight: 500,
+                lineHeight: 1.4,
+                letterSpacing: "-0.005em",
+                textShadow: "0 1px 6px rgba(0,0,0,0.25)",
+                marginTop: 24,
+              }}>
+                Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA.
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Pricing Cards - ElevenLabs Style */}
+ 
+         {/* Pricing Cards - ElevenLabs Style */}
         <div
           className="pricing-cards-grid"
           style={{
@@ -788,6 +958,33 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               grid-template-columns: 1fr !important;
               gap: 20px !important;
             }
+          }
+          @media (max-width: 1170px) {
+            .tarifs-product-card {
+              width: 100% !important;
+              max-width: 400px !important;
+              margin: 40px auto 0 !important;
+              order: 2;
+            }
+          }
+          @media (max-width: 640px) {
+            .tarifs-product-card {
+              min-height: 340px !important;
+            }
+            .tarifs-product-card > div {
+              padding: 20px !important;
+            }
+          }
+          .tarifs-product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .tarifs-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.3);
+          }
+          .tarifs-product-card a:hover {
+            background: rgba(255,255,255,0.18) !important;
+            border-color: rgba(255,255,255,0.3) !important;
           }
         `}</style>
 

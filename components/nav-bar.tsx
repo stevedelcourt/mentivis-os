@@ -474,7 +474,7 @@ export default function NavBar({ lang }: NavBarProps) {
           to { opacity: 1; }
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1170px) {
           .navbar {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;

@@ -47,20 +47,13 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div
-          className="hero-content-wrapper"
           style={{
-            maxWidth: 1200,
+            maxWidth: 900,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
-            display: "flex",
-            alignItems: "center",
-            gap: 60,
-            flexWrap: "nowrap",
           }}
         >
-          {/* Left: Text content */}
-          <div style={{ flex: 1, minWidth: 300 }}>
           <p
             style={{
               fontFamily: "var(--font-sans)",
@@ -141,160 +134,10 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
           >
             {t.hero.proof}
           </p>
-          </div>
-
-          {/* Right: Product card */}
-          <div className="hero-product-card" style={{
-            position: "relative",
-            borderRadius: 20,
-            padding: 2,
-            minWidth: 240,
-            maxWidth: 300,
-            background: "linear-gradient(135deg, #7eb8c8 0%, #96c4a8 25%, #a89bc2 50%, #d4b896 75%, #c49696 100%)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-          }}>
-            {/* Inner white container */}
-            <div style={{
-              background: "#ffffff",
-              borderRadius: 18,
-              padding: "24px 20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              height: "100%",
-            }}>
-              <Link href={`/${lang}`} className="hero-product-link" style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "12px 16px",
-                color: "var(--text-primary)",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                borderRadius: 12,
-                background: "transparent",
-                transition: "all 0.2s ease",
-                border: "1px solid transparent",
-              }}>
-                <span style={{ 
-                  width: 8, 
-                  height: 8, 
-                  borderRadius: "50%", 
-                  background: "linear-gradient(135deg, #7eb8c8, #a89bc2)",
-                  flexShrink: 0,
-                }} />
-                LearningOS
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link href={`/${lang}`} className="hero-product-link" style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "12px 16px",
-                color: "var(--text-primary)",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                borderRadius: 12,
-                background: "transparent",
-                transition: "all 0.2s ease",
-                border: "1px solid transparent",
-              }}>
-                <span style={{ 
-                  width: 8, 
-                  height: 8, 
-                  borderRadius: "50%", 
-                  background: "linear-gradient(135deg, #96c4a8, #7eb8c8)",
-                  flexShrink: 0,
-                }} />
-                PipelineOS
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link href={`/${lang}`} className="hero-product-link" style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "12px 16px",
-                color: "var(--text-primary)",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                borderRadius: 12,
-                background: "transparent",
-                transition: "all 0.2s ease",
-                border: "1px solid transparent",
-              }}>
-                <span style={{ 
-                  width: 8, 
-                  height: 8, 
-                  borderRadius: "50%", 
-                  background: "linear-gradient(135deg, #a89bc2, #c49696)",
-                  flexShrink: 0,
-                }} />
-                MentivisAPI
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
 
-      <style>{`
-        .hero-content-wrapper {
-          flex-wrap: nowrap !important;
-        }
-        .hero-product-link:hover {
-          background: #f5f3f1 !important;
-          border-color: rgba(0,0,0,0.08) !important;
-        }
-        @media (max-width: 1024px) {
-          .hero-content-wrapper {
-            flex-wrap: wrap !important;
-          }
-          .hero-product-card {
-            width: 100% !important;
-            max-width: none !important;
-            margin-top: 40px;
-            order: 2;
-          }
-          .hero-product-card > div {
-            flex-direction: row !important;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px !important;
-          }
-          .hero-product-link {
-            flex: 1 1 auto;
-            min-width: 140px;
-            max-width: 200px;
-            justify-content: center;
-          }
-        }
-        @media (max-width: 600px) {
-          .hero-product-card {
-            margin-top: 32px;
-          }
-          .hero-product-card > div {
-            padding: 16px !important;
-            gap: 6px !important;
-          }
-          .hero-product-link {
-            font-size: 13px !important;
-            min-width: 120px;
-            padding: 10px 14px !important;
-          }
-        }
-      `}</style>
+
     </section>
   );
 }
