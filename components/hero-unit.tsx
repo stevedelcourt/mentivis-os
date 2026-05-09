@@ -92,7 +92,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href={`/${lang}/demo`}
+              href="https://app.mentivisOS.com"
               className="btn-pill btn-black"
               style={{
                 display: "inline-flex",
@@ -108,7 +108,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               </svg>
             </Link>
             <Link
-              href={`/${lang}/produit`}
+              href={`/${lang}/contact`}
               className="btn-pill btn-warm"
               style={{
                 display: "inline-flex",
