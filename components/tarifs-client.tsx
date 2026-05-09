@@ -11,39 +11,99 @@ interface TarifsClientProps {
 type ProductTab = "learningos" | "pipelineos" | "api";
 type BillingCycle = "monthly" | "yearly";
 
-// Gradient placeholders for each plan - 64x64px rounded squares like ElevenLabs
-const PlanIcon = ({ gradient }: { gradient: string }) => (
-  <div
-    style={{
-      width: 64,
-      height: 64,
-      borderRadius: 16,
-      background: gradient,
-      marginBottom: 20,
-      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-    }}
-  />
-);
+// Hover gradients for each plan (ElevenLabs style)
+const HOVER_GRADIENTS: Record<string, string> = {
+  "Starter": "linear-gradient(135deg, #7eb8c8 0%, #a89bc2 50%, #d4b896 100%)",
+  "Essentiel": "linear-gradient(135deg, #96c4a8 0%, #7eb8c8 50%, #a89bc2 100%)",
+  "Pro": "linear-gradient(135deg, #96c4a8 0%, #7eb8c8 50%, #a89bc2 100%)",
+  "Équipe": "linear-gradient(135deg, #d4b896 0%, #96c4a8 50%, #7eb8c8 100%)",
+  "Entreprise": "linear-gradient(135deg, #a89bc2 0%, #c49696 50%, #d4b896 100%)",
+};
 
 const PLANS = {
   learningos: [
     {
-      name: "Gratuit",
-      description: "Pour découvrir la plateforme et tester les fonctionnalités.",
-      monthlyPrice: 0,
-      yearlyPrice: 0,
-      originalPrice: null,
-      cta: "Commencer gratuitement",
+      name: "Starter",
+      description: "Pour l'apprenant individuel qui pilote son développement.",
+      monthlyPrice: 29,
+      yearlyPrice: 23,
+      originalPrice: 29,
+      cta: "Choisir Starter",
       ctaLink: "https://app.mentivisOS.com",
-      gradient: "var(--module-grad-1)",
+      gradient: "var(--module-grad-2)",
       previousPlan: null,
       features: [
         "1 apprenant",
-        "3 diagnostics IA",
-        "1 programme personnalisé",
-        "Assistant pédagogique basique",
-        "Support par email",
+        "Diagnostics illimités",
+        "Programmes personnalisés illimités",
+        "Assistant pédagogique intégré",
+        "Suivi de progression",
       ],
+      creditLimit: "Illimité",
+      popular: false,
+    },
+    {
+      name: "Essentiel",
+      description: "Pour les PME et équipes RH qui opèrent la formation.",
+      monthlyPrice: 49,
+      yearlyPrice: 39,
+      originalPrice: 49,
+      cta: "Essai gratuit 14 jours",
+      ctaLink: "/demo",
+      gradient: "var(--module-grad-3)",
+      previousPlan: "Starter",
+      features: [
+        "Jusqu'à 10 apprenants",
+        "Tout dans Starter",
+        "Tableau de bord manager",
+        "Rapports de progression",
+        "Support prioritaire",
+      ],
+      creditLimit: "Illimité",
+      popular: true,
+    },
+    {
+      name: "Équipe",
+      description: "Pour les équipes en croissance avec besoins avancés.",
+      monthlyPrice: 199,
+      yearlyPrice: 159,
+      originalPrice: 199,
+      cta: "Essai gratuit 14 jours",
+      ctaLink: "/demo",
+      gradient: "var(--module-grad-4)",
+      previousPlan: "Essentiel",
+      features: [
+        "Jusqu'à 50 apprenants",
+        "Tout dans Essentiel",
+        "Intégration SIRH",
+        "Import/export CSV",
+        "Support prioritaire",
+      ],
+      creditLimit: "Illimité",
+      popular: false,
+    },
+    {
+      name: "Entreprise",
+      description: "Pour les grandes organisations avec besoins avancés.",
+      monthlyPrice: null,
+      yearlyPrice: null,
+      originalPrice: null,
+      cta: "Contacter l'équipe",
+      ctaLink: "/contact",
+      gradient: "var(--module-grad-5)",
+      previousPlan: "Équipe",
+      features: [
+        "Apprenants illimités",
+        "Tout dans Équipe",
+        "API complète",
+        "Workflows personnalisés",
+        "Marque blanche",
+        "CSM dédié · SLA 99,9%",
+      ],
+      creditLimit: "Illimité",
+      popular: false,
+    },
+  ],
       creditLimit: "3 diagnostics/mois",
       popular: false,
     },
@@ -280,15 +340,15 @@ const PLANS = {
 
 const FEATURES_COMPARISON = {
   learningos: [
-    { name: "Apprenants", gratuit: "1", starter: "1", essentiel: "10", equipe: "50", entreprise: "Illimité" },
-    { name: "Diagnostics IA", gratuit: "3/mois", starter: "Illimité", essentiel: "Illimité", equipe: "Illimité", entreprise: "Illimité" },
-    { name: "Programmes personnalisés", gratuit: "1", starter: "Illimité", essentiel: "Illimité", equipe: "Illimité", entreprise: "Illimité" },
-    { name: "Assistant pédagogique", gratuit: "Basique", starter: "Avancé", essentiel: "Avancé", equipe: "Avancé", entreprise: "Avancé" },
-    { name: "Tableau de bord manager", gratuit: "—", starter: "—", essentiel: "✓", equipe: "✓", entreprise: "✓" },
-    { name: "Intégration SIRH", gratuit: "—", starter: "—", essentiel: "—", equipe: "✓", entreprise: "✓" },
-    { name: "API", gratuit: "—", starter: "—", essentiel: "—", equipe: "—", entreprise: "✓" },
-    { name: "Marque blanche", gratuit: "—", starter: "—", essentiel: "—", equipe: "—", entreprise: "✓" },
-    { name: "Support", gratuit: "Email", starter: "Email", essentiel: "Prioritaire", equipe: "Prioritaire", entreprise: "CSM dédié" },
+    { name: "Apprenants", starter: "1", essentiel: "10", equipe: "50", entreprise: "Illimité" },
+    { name: "Diagnostics IA", starter: "Illimité", essentiel: "Illimité", equipe: "Illimité", entreprise: "Illimité" },
+    { name: "Programmes personnalisés", starter: "Illimité", essentiel: "Illimité", equipe: "Illimité", entreprise: "Illimité" },
+    { name: "Assistant pédagogique", starter: "Avancé", essentiel: "Avancé", equipe: "Avancé", entreprise: "Avancé" },
+    { name: "Tableau de bord manager", starter: "—", essentiel: "✓", equipe: "✓", entreprise: "✓" },
+    { name: "Intégration SIRH", starter: "—", essentiel: "—", equipe: "✓", entreprise: "✓" },
+    { name: "API", starter: "—", essentiel: "—", equipe: "—", entreprise: "✓" },
+    { name: "Marque blanche", starter: "—", essentiel: "—", equipe: "—", entreprise: "✓" },
+    { name: "Support", starter: "Email", essentiel: "Prioritaire", equipe: "Prioritaire", entreprise: "CSM dédié" },
   ],
   pipelineos: [
     { name: "Offres d'emploi", gratuit: "3", starter: "10", pro: "Illimité", entreprise: "Illimité" },
@@ -329,12 +389,12 @@ const FAQ_ITEMS = [
     answer: "À la fin des 14 jours, votre abonnement devient actif automatiquement avec le moyen de paiement enregistré. Vous pouvez annuler à tout moment avant la fin de l'essai sans frais.",
   },
   {
-    question: "Proposez-vous des tarifs pour les startups ?",
-    answer: "Oui ! Notre programme startup offre 12 mois d'accès gratuit aux plans Équipe et Pro pour les jeunes entreprises éligibles. Contactez-nous pour postuler.",
+    question: "Proposez-vous des tarifs pour les PME ?",
+    answer: "Oui ! Notre programme petite PME offre 3 mois d'accès gratuit au plan Équipe pour les entreprises de moins de 50 salariés. Contactez-nous pour postuler.",
   },
   {
-    question: "Comment fonctionne le programme startup ?",
-    answer: "Les startups éligibles (moins de 3 ans, levée de fonds inférieure à 5M€) peuvent bénéficier de 12 mois gratuits. Postulez via notre formulaire dédié et notre équipe examinera votre dossier sous 48h.",
+    question: "Comment fonctionne le programme petite PME ?",
+    answer: "Les PME de moins de 50 salariés peuvent bénéficier de 3 mois gratuits au plan Équipe. Postulez via notre formulaire dédié et notre équipe examinera votre dossier sous 48h.",
   },
 ];
 
@@ -513,385 +573,328 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             marginBottom: 60,
           }}
         >
-          {currentPlans.map((plan, idx) => (
-            <div
-              key={plan.name}
-              style={{
-                borderRadius: "var(--r-card)",
-                border: `1px solid ${plan.popular ? "rgba(0,0,0,0.08)" : "var(--border-light)"}`,
-                overflow: "hidden",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                background: "var(--bg-primary)",
-                boxShadow: plan.popular
-                  ? "var(--shadow-card-full), 0 8px 30px rgba(0,0,0,0.08)"
-                  : "var(--shadow-card)",
-              }}
-            >
+          {currentPlans.map((plan, idx) => {
+            const hoverGradient = HOVER_GRADIENTS[plan.name] || "none";
+            const hasHoverEffect = hoverGradient !== "none";
+            
+            return (
               <div
+                key={plan.name}
+                className="pricing-card"
+                data-plan={plan.name}
                 style={{
+                  borderRadius: "var(--r-card)",
+                  border: "1px solid var(--border-light)",
+                  overflow: "hidden",
                   position: "relative",
-                  zIndex: 2,
-                  padding: "28px 24px 28px",
                   display: "flex",
                   flexDirection: "column",
-                  flex: 1,
+                  background: "var(--bg-warm)",
+                  transition: "all 0.3s ease",
+                  cursor: hasHoverEffect ? "pointer" : "default",
                 }}
               >
-                {/* Gradient Icon */}
-                <PlanIcon gradient={plan.gradient} />
-
-                {/* Popular Badge */}
-                {plan.popular && (
-                  <span
+                {/* Hover gradient overlay */}
+                {hasHoverEffect && (
+                  <div
+                    className="pricing-card-gradient"
                     style={{
                       position: "absolute",
-                      top: 20,
-                      right: 20,
-                      display: "inline-block",
-                      fontSize: "var(--text-tiny)",
-                      fontWeight: 600,
-                      letterSpacing: "0.05em",
-                      textTransform: "uppercase",
-                      padding: "4px 10px",
-                      borderRadius: 6,
-                      background: "var(--text-primary)",
-                      color: "var(--bg-primary)",
+                      inset: 0,
+                      background: hoverGradient,
+                      opacity: 0,
+                      transition: "opacity 0.3s ease",
+                      zIndex: 1,
                     }}
-                  >
-                    Populaire
-                  </span>
+                  />
                 )}
-
-                {/* Plan name */}
-                <h3
+                
+                <div
                   style={{
-                    fontSize: "var(--text-heading)",
-                    fontWeight: 500,
-                    letterSpacing: "-0.02em",
-                    marginBottom: 8,
-                    lineHeight: 1.2,
-                    color: "var(--text-primary)",
-                    fontFamily: "var(--font-sans)",
+                    position: "relative",
+                    zIndex: 2,
+                    padding: "28px 24px 28px",
+                    display: "flex",
+                    flexDirection: "column",
+                    flex: 1,
                   }}
                 >
-                  {plan.name}
-                </h3>
+                  {/* Plan name */}
+                  <h3
+                    className="pricing-card-title"
+                    style={{
+                      fontSize: "var(--text-heading)",
+                      fontWeight: 500,
+                      letterSpacing: "-0.02em",
+                      marginBottom: 8,
+                      lineHeight: 1.2,
+                      color: "var(--text-primary)",
+                      fontFamily: "var(--font-sans)",
+                      transition: "color 0.3s ease",
+                    }}
+                  >
+                    {plan.name}
+                  </h3>
 
-                {/* Price with promotional styling */}
-                <div style={{ marginBottom: 16 }}>
-                  {plan.monthlyPrice === null ? (
-                    <div
+                  {/* Popular Badge - below plan name */}
+                  {plan.popular && (
+                    <span
+                      className="pricing-card-badge"
                       style={{
-                        fontSize: "var(--text-body)",
-                        fontWeight: 500,
-                        letterSpacing: "-0.02em",
-                        padding: "10px 0 6px",
-                        color: "var(--text-primary)",
+                        display: "inline-block",
+                        alignSelf: "flex-start",
+                        fontSize: "var(--text-tiny)",
+                        fontWeight: 600,
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                        padding: "4px 10px",
+                        borderRadius: "var(--r-pill)",
+                        background: "var(--text-primary)",
+                        color: "var(--bg-primary)",
+                        marginBottom: 16,
+                        transition: "all 0.3s ease",
                       }}
                     >
-                      Sur devis
-                    </div>
-                  ) : (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      {/* Promotional pricing with strikethrough */}
-                      {billingCycle === "yearly" && plan.originalPrice && (
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      Populaire
+                    </span>
+                  )}
+                  {!plan.popular && <div style={{ marginBottom: 16 }} />}
+
+                  {/* Price with promotional styling */}
+                  <div style={{ marginBottom: 16 }}>
+                    {plan.monthlyPrice === null ? (
+                      <div
+                        className="pricing-card-price"
+                        style={{
+                          fontSize: "var(--text-body)",
+                          fontWeight: 500,
+                          letterSpacing: "-0.02em",
+                          padding: "10px 0 6px",
+                          color: "var(--text-primary)",
+                          transition: "color 0.3s ease",
+                        }}
+                      >
+                        Sur devis
+                      </div>
+                    ) : (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                        {/* Promotional pricing with strikethrough */}
+                        {billingCycle === "yearly" && plan.originalPrice && (
+                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            <span
+                              className="pricing-card-strikethrough"
+                              style={{
+                                fontSize: "var(--text-small)",
+                                color: "var(--text-tertiary)",
+                                textDecoration: "line-through",
+                                transition: "color 0.3s ease",
+                              }}
+                            >
+                              {plan.originalPrice}€
+                            </span>
+                            <span
+                              style={{
+                                fontSize: "var(--text-tiny)",
+                                fontWeight: 600,
+                                background: "var(--bg-warm)",
+                                color: "var(--text-tertiary)",
+                                padding: "2px 6px",
+                                borderRadius: 4,
+                              }}
+                            >
+                              -20%
+                            </span>
+                          </div>
+                        )}
+                        <div style={{ display: "flex", alignItems: "flex-end", gap: 3, lineHeight: 1, marginBottom: 2 }}>
                           <span
+                            className="pricing-card-amount"
                             style={{
-                              fontSize: "var(--text-small)",
-                              color: "var(--text-tertiary)",
-                              textDecoration: "line-through",
+                              fontSize: 42,
+                              fontWeight: 300,
+                              letterSpacing: "-0.04em",
+                              color: "var(--text-primary)",
+                              fontFamily: "var(--font-sans)",
+                              transition: "color 0.3s ease",
                             }}
                           >
-                            {plan.originalPrice}€
+                            {billingCycle === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
                           </span>
                           <span
+                            className="pricing-card-currency"
                             style={{
-                              fontSize: "var(--text-tiny)",
-                              fontWeight: 600,
-                              background: "var(--bg-warm)",
+                              fontSize: "var(--text-body-sm)",
+                              fontWeight: 500,
+                              paddingBottom: 7,
                               color: "var(--text-tertiary)",
-                              padding: "2px 6px",
-                              borderRadius: 4,
+                              transition: "color 0.3s ease",
                             }}
                           >
-                            -20%
+                            €
+                          </span>
+                          <span
+                            className="pricing-card-period"
+                            style={{
+                              fontSize: "var(--text-micro)",
+                              paddingBottom: 9,
+                              letterSpacing: "0.01em",
+                              color: "var(--text-tertiary)",
+                              transition: "color 0.3s ease",
+                            }}
+                          >
+                            /mois
                           </span>
                         </div>
-                      )}
-                      <div style={{ display: "flex", alignItems: "flex-end", gap: 3, lineHeight: 1, marginBottom: 2 }}>
-                        <span
-                          style={{
-                            fontSize: 42,
-                            fontWeight: 300,
-                            letterSpacing: "-0.04em",
-                            color: "var(--text-primary)",
-                            fontFamily: "var(--font-sans)",
-                          }}
-                        >
-                          {billingCycle === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: "var(--text-body-sm)",
-                            fontWeight: 500,
-                            paddingBottom: 7,
-                            color: "var(--text-tertiary)",
-                          }}
-                        >
-                          €
-                        </span>
-                        <span
-                          style={{
-                            fontSize: "var(--text-micro)",
-                            paddingBottom: 9,
-                            letterSpacing: "0.01em",
-                            color: "var(--text-tertiary)",
-                          }}
-                        >
-                          /mois
-                        </span>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
 
-                {/* CTA Button */}
-                <Link
-                  href={plan.ctaLink}
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    fontSize: "var(--text-small)",
-                    fontWeight: 500,
-                    letterSpacing: "0.01em",
-                    padding: "12px 20px",
-                    borderRadius: 10,
-                    textDecoration: "none",
-                    transition: "all 0.15s ease",
-                    marginBottom: 24,
-                    background: plan.popular ? "var(--text-primary)" : "var(--bg-primary)",
-                    color: plan.popular ? "var(--bg-primary)" : "var(--text-primary)",
-                    border: plan.popular ? "none" : "1px solid var(--border-light)",
-                    boxShadow: plan.popular ? "var(--shadow-soft)" : "none",
-                    fontFamily: "var(--font-sans)",
-                  }}
-                >
-                  {plan.cta}
-                </Link>
-
-                {/* Divider */}
-                <div
-                  style={{
-                    height: 1,
-                    marginBottom: 20,
-                    background: "var(--border-light)",
-                  }}
-                />
-
-                {/* "Tout dans [previous], plus:" */}
-                {plan.previousPlan && (
-                  <p
+                  {/* CTA Button - Pill shape, always black */}
+                  <Link
+                    href={plan.ctaLink}
+                    className="pricing-card-cta"
                     style={{
-                      fontSize: "var(--text-micro)",
-                      marginBottom: 12,
-                      lineHeight: 1.5,
-                      color: "var(--text-tertiary)",
+                      display: "block",
+                      textAlign: "center",
+                      fontSize: "var(--text-small)",
+                      fontWeight: 500,
+                      letterSpacing: "0.01em",
+                      padding: "12px 24px",
+                      borderRadius: "var(--r-pill)",
+                      textDecoration: "none",
+                      transition: "all 0.15s ease",
+                      marginBottom: 24,
+                      background: "var(--text-primary)",
+                      color: "var(--bg-primary)",
+                      border: "none",
+                      fontFamily: "var(--font-sans)",
                     }}
                   >
-                    <strong style={{ fontWeight: 500, color: "var(--text-secondary)" }}>
-                      Tout dans {plan.previousPlan}, plus :
-                    </strong>
-                  </p>
-                )}
-                {!plan.previousPlan && (
-                  <p
-                    style={{
-                      fontSize: "var(--text-micro)",
-                      marginBottom: 12,
-                      lineHeight: 1.5,
-                      color: "var(--text-tertiary)",
-                    }}
-                  >
-                    <strong style={{ fontWeight: 500, color: "var(--text-secondary)" }}>
-                      Inclus :
-                    </strong>
-                  </p>
-                )}
+                    {plan.cta}
+                  </Link>
 
-                {/* Features */}
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-                  {plan.features.map((feature, fIdx) => (
-                    <li
-                      key={fIdx}
+                  {/* "Tout dans [previous], plus:" */}
+                  {plan.previousPlan && (
+                    <p
+                      className="pricing-card-includes"
                       style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: 10,
-                        fontSize: "var(--text-small)",
-                        lineHeight: 1.45,
-                        color: "var(--text-secondary)",
-                        fontFamily: "var(--font-sans)",
+                        fontSize: "var(--text-micro)",
+                        marginBottom: 12,
+                        lineHeight: 1.5,
+                        color: "var(--text-tertiary)",
+                        transition: "color 0.3s ease",
                       }}
                     >
-                      <span
-                        style={{
-                          flexShrink: 0,
-                          width: 18,
-                          height: 18,
-                          marginTop: 1,
-                          backgroundSize: 16,
-                          backgroundPosition: "center",
-                          backgroundRepeat: "no-repeat",
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-                        }}
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                      <strong style={{ fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
+                        Tout dans {plan.previousPlan}, plus :
+                      </strong>
+                    </p>
+                  )}
+                  {!plan.previousPlan && (
+                    <p
+                      className="pricing-card-includes"
+                      style={{
+                        fontSize: "var(--text-micro)",
+                        marginBottom: 12,
+                        lineHeight: 1.5,
+                        color: "var(--text-tertiary)",
+                        transition: "color 0.3s ease",
+                      }}
+                    >
+                      <strong style={{ fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
+                        Inclus :
+                      </strong>
+                    </p>
+                  )}
 
-                {/* Credit limit at bottom */}
-                <div
-                  style={{
-                    marginTop: "auto",
-                    paddingTop: 20,
-                    borderTop: "1px solid var(--border-light)",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "var(--text-micro)",
-                      color: "var(--text-tertiary)",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ color: "var(--text-tertiary)" }}>
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
-                      <path d="M12 7v5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                    Limite : {plan.creditLimit}
-                  </p>
+                  {/* Features with dotted separators */}
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", flex: 1 }}>
+                    {plan.features.map((feature, fIdx) => (
+                      <li
+                        key={fIdx}
+                        className="pricing-card-feature"
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 10,
+                          fontSize: "var(--text-small)",
+                          lineHeight: 1.45,
+                          color: "var(--text-secondary)",
+                          fontFamily: "var(--font-sans)",
+                          padding: "10px 0",
+                          borderBottom: fIdx < plan.features.length - 1 ? "1px dotted var(--border-light)" : "none",
+                          transition: "color 0.3s ease, border-color 0.3s ease",
+                        }}
+                      >
+                        <span
+                          className="pricing-card-check"
+                          style={{
+                            flexShrink: 0,
+                            width: 18,
+                            height: 18,
+                            marginTop: 1,
+                            backgroundSize: 16,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                            transition: "background-image 0.3s ease",
+                          }}
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Calculator Section - Dark with warm gradient */}
-        {activeTab === "learningos" && (
-          <div
-            style={{
-              background: "var(--text-primary)",
-              borderRadius: "var(--r-card)",
-              padding: "56px 48px",
-              marginBottom: 60,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* Warm gradient overlay */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(135deg, rgba(168, 155, 194, 0.15) 0%, rgba(212, 160, 160, 0.1) 50%, rgba(150, 196, 168, 0.15) 100%)",
-                pointerEvents: "none",
-              }}
-            />
-            <div style={{ position: "relative", zIndex: 2 }}>
-              <h2
-                style={{
-                  fontSize: "var(--text-title)",
-                  fontWeight: 300,
-                  color: "var(--bg-primary)",
-                  marginBottom: 16,
-                  textAlign: "center",
-                  fontFamily: "var(--font-sans)",
-                }}
-              >
-                Calculez vos besoins
-              </h2>
-              <p
-                style={{
-                  fontSize: "var(--text-body-sm)",
-                  color: "rgba(255,255,255,0.7)",
-                  textAlign: "center",
-                  marginBottom: 40,
-                  maxWidth: 500,
-                  margin: "0 auto 40px",
-                }}
-              >
-                Ajustez le nombre d'apprenants pour trouver le plan adapté à votre organisation.
-              </p>
-
-              <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
-                <label
-                  className="t-caption"
-                  style={{
-                    display: "block",
-                    color: "rgba(255,255,255,0.7)",
-                    marginBottom: 20,
-                    fontSize: "var(--text-body-sm)",
-                  }}
-                >
-                  Nombre d'apprenants : <strong style={{ color: "var(--bg-primary)", fontSize: "var(--text-heading)" }}>{calculatorValue}</strong>
-                </label>
-
-                <input
-                  type="range"
-                  min="1"
-                  max="100"
-                  value={calculatorValue}
-                  onChange={(e) => setCalculatorValue(parseInt(e.target.value))}
-                  style={{
-                    width: "100%",
-                    height: 8,
-                    borderRadius: 4,
-                    background: "rgba(255,255,255,0.15)",
-                    outline: "none",
-                    marginBottom: 40,
-                    cursor: "pointer",
-                    WebkitAppearance: "none",
-                    appearance: "none",
-                  }}
-                />
-
-                <div
-                  style={{
-                    background: "rgba(255,255,255,0.08)",
-                    borderRadius: "var(--r-card)",
-                    padding: "32px",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                  }}
-                >
-                  <p className="t-caption" style={{ color: "rgba(255,255,255,0.6)", marginBottom: 8, fontSize: "var(--text-small)" }}>
-                    Plan recommandé
-                  </p>
-                  <p style={{ fontSize: "var(--text-heading)", fontWeight: 500, color: "var(--bg-primary)", marginBottom: 12, fontFamily: "var(--font-sans)" }}>
-                    {recommendedPlan}
-                  </p>
-                  {calculatedPrice ? (
-                    <div>
-                      <p style={{ fontSize: 44, fontWeight: 300, color: "var(--bg-primary)", fontFamily: "var(--font-sans)", lineHeight: 1 }}>
-                        {calculatedPrice}€
-                      </p>
-                      <p style={{ fontSize: "var(--text-small)", color: "rgba(255,255,255,0.5)", marginTop: 4 }}>
-                        par mois
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="t-lead" style={{ color: "rgba(255,255,255,0.8)" }}>Sur devis</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* CSS for hover effects */}
+        <style jsx>{`
+          .pricing-card:hover .pricing-card-gradient {
+            opacity: 1;
+          }
+          .pricing-card:hover .pricing-card-title,
+          .pricing-card:hover .pricing-card-price,
+          .pricing-card:hover .pricing-card-amount,
+          .pricing-card:hover .pricing-card-currency,
+          .pricing-card:hover .pricing-card-period,
+          .pricing-card:hover .pricing-card-includes,
+          .pricing-card:hover .pricing-card-includes strong,
+          .pricing-card:hover .pricing-card-feature {
+            color: white;
+          }
+          .pricing-card:hover .pricing-card-feature {
+            border-color: rgba(255, 255, 255, 0.3);
+          }
+          .pricing-card:hover .pricing-card-check {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+          }
+          .pricing-card:hover .pricing-card-badge {
+            background: white;
+            color: var(--text-primary);
+          }
+          .pricing-card:hover .pricing-card-strikethrough {
+            color: rgba(255, 255, 255, 0.7);
+          }
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-title,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-price,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-amount,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-currency,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-period,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-includes,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-includes strong,
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-feature {
+            color: inherit;
+          }
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-feature {
+            border-color: var(--border-light);
+          }
+          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-check {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+          }
+        `}</style>
 
         {/* Comparison Table */}
         <div style={{ marginBottom: 60 }}>
@@ -987,7 +990,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 marginBottom: 12,
               }}
             >
-              Programme Startups
+              Programme petite PME
             </span>
             <h2
               className="t-title"
@@ -997,7 +1000,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 fontWeight: 300,
               }}
             >
-              12 mois gratuits
+              3 mois gratuits
             </h2>
             <p
               className="t-lead"
@@ -1006,9 +1009,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 fontSize: "var(--text-body)",
               }}
             >
-              Pour construire, lancer et tester votre solution. Les startups éligibles 
-              (moins de 3 ans, levée inférieure à 5M€) peuvent bénéficier d'un accès gratuit 
-              au plan Équipe pendant 12 mois.
+              Pour découvrir MentivisOS et transformer votre formation. Les PME de moins 
+              de 50 salariés peuvent bénéficier d'un accès gratuit au plan Équipe pendant 3 mois.
             </p>
             <Link
               href="/contact"
@@ -1036,7 +1038,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             }}
           >
             <p className="t-display" style={{ fontSize: 56, marginBottom: 8, color: "var(--text-primary)", fontWeight: 300 }}>
-              12
+              3
             </p>
             <p className="t-caption" style={{ color: "var(--text-tertiary)" }}>
               mois gratuits

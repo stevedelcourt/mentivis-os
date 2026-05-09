@@ -331,17 +331,6 @@ export default function NavBar({ lang }: NavBarProps) {
           
           <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
             <Link
-              href={`/${lang}/contact`}
-              onClick={() => setMobileOpen(false)}
-              className="btn-header-outline"
-              style={{
-                textAlign: "center",
-                padding: "12px 24px",
-              }}
-            >
-              {t.nav.contact}
-            </Link>
-            <Link
               href="https://app.mentivisOS.com"
               onClick={() => setMobileOpen(false)}
               className="btn-header-black"
