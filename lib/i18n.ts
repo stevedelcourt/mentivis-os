@@ -1,18 +1,35 @@
 export const translations = {
   fr: {
     nav: {
-      produit: "Produit",
-      pourQui: "Pour qui",
-      integration: "Integration",
+      learningOS: "LearningOS",
+      pipelineOS: "PipelineOS",
+      mentivisAPI: "MentivisAPI",
       ressources: "Ressources",
-      aPropos: "A propos",
-      connexion: "Connexion",
-      demarrer: "Demarrer",
-      demo: "Demander une demo",
-      produitLinks: ["Comment ca marche", "Le diagnostic", "Le programme", "L'assistant"],
-      pourQuiLinks: ["Individuel", "Corporate", "Formation", "Competences"],
-      integrationLinks: ["Acces direct", "Licence entreprise", "API"],
-      ressourcesLinks: ["Insights", "Guides"],
+      entreprise: "Entreprise",
+      tarifs: "Tarifs",
+      contact: "Contactez-nous",
+      login: "Se connecter",
+      eyebrows: {
+        produits: "PRODUITS",
+        workflows: "WORKFLOWS",
+        workflowsRH: "WORKFLOWS RH & RECRUTEMENT",
+        plateforme: "PLATEFORME",
+        entreprise: "ENTREPRISE",
+      },
+      learningOSMenu: {
+        produits: ["LearningOS", "SkillAgents"],
+        workflows: ["Former collaborateurs", "Formations certifiantes", "Dashboard Entreprise", "OPCO Manager"],
+      },
+      pipelineOSMenu: {
+        produits: ["HumanRessourceOS", "HRAgents"],
+        workflows: ["ATS Pipeline", "Test & Cases pour Recruteurs", "Ranking Engine"],
+      },
+      mentivisAPIMenu: {
+        plateforme: ["Apercu", "Docs", "Developper", "Tarifs API"],
+      },
+      ressourcesMenu: {
+        entreprise: ["News", "A propos", "Securite", "Temoignages clients", "Carrieres"],
+      },
     },
     hero: {
       eyebrow: "Mentivis OS",

@@ -16,8 +16,8 @@ export default function NavBar({ lang }: NavBarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const rafId = useRef<number | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  /* ── scroll: rAF-throttled + passive ── */
   useEffect(() => {
     let lastScrollY = 0;
     const onScroll = () => {
@@ -38,24 +38,21 @@ export default function NavBar({ lang }: NavBarProps) {
     };
   }, []);
 
-  const isActive = (path: string) => pathname.startsWith(`/${lang}${path}`);
-
-  /* ── dropdown: no timer, bridge element catches mouse ── */
   const openDropdown = useCallback((label: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
     setActiveDropdown(label);
   }, []);
 
   const closeDropdown = useCallback(() => {
-    setActiveDropdown(null);
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150);
   }, []);
 
-  const navItems = [
-    { label: t.nav.produit, path: "/produit", dropdown: t.nav.produitLinks },
-    { label: t.nav.pourQui, path: "/pour-qui", dropdown: t.nav.pourQuiLinks },
-    { label: t.nav.integration, path: "/integration", dropdown: t.nav.integrationLinks },
-    { label: t.nav.ressources, path: "/ressources", dropdown: t.nav.ressourcesLinks },
-    { label: t.nav.aPropos, path: "/a-propos", dropdown: null },
-  ];
+  const isActive = (path: string) => pathname.startsWith(`/${lang}${path}`);
 
   return (
     <>
@@ -89,6 +86,7 @@ export default function NavBar({ lang }: NavBarProps) {
             justifyContent: "space-between",
           }}
         >
+          {/* Logo */}
           <Link
             href={`/${lang}`}
             className="navbar-logo"
@@ -97,7 +95,7 @@ export default function NavBar({ lang }: NavBarProps) {
             <img
               src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
               alt="MentivisOS"
-              style={{ height: 36, width: "auto" }}
+              style={{ height: 28, width: "auto" }}
             />
           </Link>
 
@@ -106,58 +104,200 @@ export default function NavBar({ lang }: NavBarProps) {
             className="navbar-links"
             style={{ display: "flex", gap: 32, alignItems: "center" }}
           >
-            {navItems.map((item) => (
-              <div
-                key={item.label}
-                className="navbar-item"
-                style={{ position: "relative", padding: "20px 0" }}
-                onMouseEnter={() => item.dropdown && openDropdown(item.label)}
-                onMouseLeave={closeDropdown}
-              >
-                <Link
-                  href={`/${lang}${item.path}`}
-                  className="t-nav navbar-link"
-                  data-active={isActive(item.path)}
-                >
-                  {item.label}
-                </Link>
+            {/* LearningOS */}
+            <div
+              className="navbar-item"
+              style={{ position: "relative", padding: "20px 0" }}
+              onMouseEnter={() => openDropdown("learningOS")}
+              onMouseLeave={closeDropdown}
+            >
+              <span className="t-nav navbar-link">{t.nav.learningOS}</span>
+              {activeDropdown === "learningOS" && (
+                <MegaMenu
+                  sections={[
+                    {
+                      eyebrow: t.nav.eyebrows.produits,
+                      links: t.nav.learningOSMenu.produits.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                    {
+                      eyebrow: t.nav.eyebrows.workflows,
+                      links: t.nav.learningOSMenu.workflows.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                  ]}
+                  onMouseEnter={() => openDropdown("learningOS")}
+                  onMouseLeave={closeDropdown}
+                />
+              )}
+            </div>
 
-                {/* Invisible hover bridge — catches mouse between link and dropdown */}
-                {item.dropdown && activeDropdown === item.label && (
-                  <div className="navbar-dropdown-bridge" />
-                )}
+            {/* PipelineOS */}
+            <div
+              className="navbar-item"
+              style={{ position: "relative", padding: "20px 0" }}
+              onMouseEnter={() => openDropdown("pipelineOS")}
+              onMouseLeave={closeDropdown}
+            >
+              <span className="t-nav navbar-link">{t.nav.pipelineOS}</span>
+              {activeDropdown === "pipelineOS" && (
+                <MegaMenu
+                  sections={[
+                    {
+                      eyebrow: t.nav.eyebrows.produits,
+                      links: t.nav.pipelineOSMenu.produits.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                    {
+                      eyebrow: t.nav.eyebrows.workflowsRH,
+                      links: t.nav.pipelineOSMenu.workflows.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                  ]}
+                  onMouseEnter={() => openDropdown("pipelineOS")}
+                  onMouseLeave={closeDropdown}
+                />
+              )}
+            </div>
 
-                {/* Dropdown */}
-                {item.dropdown && activeDropdown === item.label && (
-                  <div
-                    className="card navbar-dropdown"
-                    onMouseLeave={closeDropdown}
-                  >
-                    {item.dropdown.map((link) => (
-                      <Link
-                        key={link}
-                        href={`/${lang}${item.path}`}
-                        className="dropdown-link t-caption"
-                      >
-                        {link}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {/* MentivisAPI */}
+            <div
+              className="navbar-item"
+              style={{ position: "relative", padding: "20px 0" }}
+              onMouseEnter={() => openDropdown("mentivisAPI")}
+              onMouseLeave={closeDropdown}
+            >
+              <span className="t-nav navbar-link">{t.nav.mentivisAPI}</span>
+              {activeDropdown === "mentivisAPI" && (
+                <MegaMenu
+                  sections={[
+                    {
+                      eyebrow: t.nav.eyebrows.plateforme,
+                      links: t.nav.mentivisAPIMenu.plateforme.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                  ]}
+                  onMouseEnter={() => openDropdown("mentivisAPI")}
+                  onMouseLeave={closeDropdown}
+                />
+              )}
+            </div>
+
+            {/* Ressources */}
+            <div
+              className="navbar-item"
+              style={{ position: "relative", padding: "20px 0" }}
+              onMouseEnter={() => openDropdown("ressources")}
+              onMouseLeave={closeDropdown}
+            >
+              <span className="t-nav navbar-link">{t.nav.ressources}</span>
+              {activeDropdown === "ressources" && (
+                <MegaMenu
+                  sections={[
+                    {
+                      eyebrow: t.nav.eyebrows.entreprise,
+                      links: [
+                        { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
+                        ...t.nav.ressourcesMenu.entreprise.slice(1).map((label) => ({
+                          label,
+                          href: `/${lang}`,
+                        })),
+                      ],
+                    },
+                  ]}
+                  onMouseEnter={() => openDropdown("ressources")}
+                  onMouseLeave={closeDropdown}
+                />
+              )}
+            </div>
+
+            {/* Entreprise */}
+            <Link
+              href={`/${lang}`}
+              className="t-nav navbar-link"
+              data-active={isActive("/entreprise")}
+              style={{ padding: "20px 0" }}
+            >
+              {t.nav.entreprise}
+            </Link>
+
+            {/* Tarifs */}
+            <Link
+              href={`/${lang}`}
+              className="t-nav navbar-link"
+              data-active={isActive("/tarifs")}
+              style={{ padding: "20px 0" }}
+            >
+              {t.nav.tarifs}
+            </Link>
           </nav>
 
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          {/* Right side CTAs */}
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Link
               href={`/${lang}/demo`}
-              className="btn-pill btn-black navbar-cta"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+              className="btn-header-outline"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "8px 16px",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#0A0A0A",
+                background: "#FFFFFF",
+                border: "1px solid rgba(0,0,0,0.12)",
+                borderRadius: 8,
+                textDecoration: "none",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "rgba(0,0,0,0.25)";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(0,0,0,0.12)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)";
+              }}
             >
-              {t.nav.demarrer}
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              {t.nav.contact}
+            </Link>
+
+            <Link
+              href={`/${lang}/demo`}
+              className="btn-header-black"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "8px 16px",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#FFFFFF",
+                background: "#0A0A0A",
+                borderRadius: 8,
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#222";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#0A0A0A";
+              }}
+            >
+              {t.nav.login}
             </Link>
 
             <button
@@ -174,29 +314,37 @@ export default function NavBar({ lang }: NavBarProps) {
       {/* Mobile overlay */}
       {mobileOpen && (
         <div className="navbar-mobile-overlay">
-          {navItems.map((item, i) => (
+          <MobileMenuItem label={t.nav.learningOS} />
+          <MobileMenuItem label={t.nav.pipelineOS} />
+          <MobileMenuItem label={t.nav.mentivisAPI} />
+          <MobileMenuItem label={t.nav.ressources} href={`/${lang}/blog`} />
+          <MobileMenuItem label={t.nav.entreprise} href={`/${lang}`} />
+          <MobileMenuItem label={t.nav.tarifs} href={`/${lang}`} />
+          
+          <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
             <Link
-              key={item.label}
-              href={`/${lang}${item.path}`}
+              href={`/${lang}/demo`}
               onClick={() => setMobileOpen(false)}
-              className="navbar-mobile-link"
-              style={{ animationDelay: `${i * 40}ms` }}
+              className="btn-header-outline"
+              style={{
+                textAlign: "center",
+                padding: "12px 24px",
+              }}
             >
-              {item.label}
+              {t.nav.contact}
             </Link>
-          ))}
-          <Link
-            href={`/${lang}/demo`}
-            onClick={() => setMobileOpen(false)}
-            className="btn-pill btn-black"
-            style={{
-              marginTop: 12,
-              textAlign: "center",
-              padding: "12px 24px",
-            }}
-          >
-            {t.nav.demarrer}
-          </Link>
+            <Link
+              href={`/${lang}/demo`}
+              onClick={() => setMobileOpen(false)}
+              className="btn-header-black"
+              style={{
+                textAlign: "center",
+                padding: "12px 24px",
+              }}
+            >
+              {t.nav.login}
+            </Link>
+          </div>
         </div>
       )}
 
@@ -206,74 +354,13 @@ export default function NavBar({ lang }: NavBarProps) {
           display: inline-block;
           color: var(--text-secondary);
           transition: color 0.18s ease;
-          padding-bottom: 2px;
-        }
-        .navbar-link::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: -2px;
-          width: 100%;
-          height: 1px;
-          background: var(--text-primary);
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+          cursor: pointer;
         }
         .navbar-link:hover {
           color: var(--text-primary);
         }
-        .navbar-link:hover::after {
-          transform: scaleX(1);
-        }
         .navbar-link[data-active="true"] {
           color: var(--text-primary);
-        }
-        .navbar-link[data-active="true"]::after {
-          transform: scaleX(1);
-        }
-
-        .navbar-dropdown-bridge {
-          position: absolute;
-          top: 100%;
-          left: -12px;
-          right: -12px;
-          height: 24px;
-          background: transparent;
-          z-index: 1000;
-        }
-
-        .navbar-dropdown {
-          position: absolute;
-          top: calc(100% + 20px);
-          left: -12px;
-          padding: 12px 16px;
-          min-width: 220px;
-          z-index: 1001;
-          border-radius: var(--r-card);
-          background: var(--bg-primary);
-          box-shadow: var(--shadow-card-full), var(--shadow-soft);
-          animation: dropdownIn 0.2s ease both;
-        }
-        @keyframes dropdownIn {
-          from { opacity: 0; transform: translateY(-4px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-link {
-          display: block;
-          padding: 8px 0;
-          color: var(--text-secondary);
-          transition: color 0.15s ease;
-        }
-        .dropdown-link:hover {
-          color: var(--text-primary);
-        }
-
-        .navbar-cta {
-          font-size: var(--text-caption);
-          font-weight: 500;
-          padding: 8px 18px;
         }
 
         .navbar-burger {
@@ -296,25 +383,12 @@ export default function NavBar({ lang }: NavBarProps) {
           padding: 80px var(--grid-margin) 40px;
           animation: fadeIn 0.2s ease both;
         }
-        .navbar-mobile-link {
-          font-family: var(--font-sans);
-          font-size: var(--text-heading);
-          font-weight: 300;
-          color: var(--text-primary);
-          padding: 16px 0;
-          border-bottom: 1px solid var(--border-light);
-          animation: fadeInUp 0.4s both;
-        }
+
         @keyframes fadeIn {
           from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
+          to { opacity: 1; }
         }
 
-        /* Mobile: disable expensive blur, reduce shadow */
         @media (max-width: 1024px) {
           .navbar {
             backdrop-filter: none !important;
@@ -326,4 +400,114 @@ export default function NavBar({ lang }: NavBarProps) {
       `}</style>
     </>
   );
+}
+
+// Mega Menu Component
+interface MegaMenuSection {
+  eyebrow: string;
+  links: { label: string; href: string }[];
+}
+
+interface MegaMenuProps {
+  sections: MegaMenuSection[];
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
+
+function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
+  return (
+    <div
+      className="mega-menu"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        position: "absolute",
+        top: "calc(100% + 12px)",
+        left: -200,
+        display: "flex",
+        gap: 40,
+        padding: "28px 32px",
+        minWidth: 520,
+        zIndex: 1001,
+        borderRadius: 16,
+        background: "#FFFFFF",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04)",
+        animation: "megaMenuIn 0.2s ease both",
+      }}
+    >
+      {sections.map((section, idx) => (
+        <div key={idx} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 500,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#777169",
+            }}
+          >
+            {section.eyebrow}
+          </span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {section.links.map((link, linkIdx) => (
+              <Link
+                key={linkIdx}
+                href={link.href}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: "#0A0A0A",
+                  textDecoration: "none",
+                  padding: "4px 0",
+                  transition: "color 0.15s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#777169";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#0A0A0A";
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+      <style>{`
+        @keyframes megaMenuIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// Mobile Menu Item
+interface MobileMenuItemProps {
+  label: string;
+  href?: string;
+}
+
+function MobileMenuItem({ label, href }: MobileMenuItemProps) {
+  const style = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "var(--text-heading)",
+    fontWeight: 300,
+    color: "var(--text-primary)",
+    padding: "16px 0",
+    borderBottom: "1px solid var(--border-light)",
+    textDecoration: "none",
+  };
+
+  if (href) {
+    return (
+      <Link href={href} style={style}>
+        {label}
+      </Link>
+    );
+  }
+
+  return <span style={style}>{label}</span>;
 }
