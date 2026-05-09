@@ -38,6 +38,38 @@ export default function NavBar({ lang }: NavBarProps) {
     };
   }, []);
 
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.dataset.scrollY = String(scrollY);
+    } else {
+      const scrollY = document.body.dataset.scrollY || "0";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      delete document.body.dataset.scrollY;
+      window.scrollTo(0, parseInt(scrollY, 10));
+    }
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const openDropdown = useCallback((label: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -319,27 +351,82 @@ export default function NavBar({ lang }: NavBarProps) {
         </div>
       </header>
 
-      {/* Mobile overlay */}
+      {/* Mobile Fullscreen Menu */}
       {mobileOpen && (
-        <div className="navbar-mobile-overlay">
-          <MobileMenuItem label={t.nav.learningOS} />
-          <MobileMenuItem label={t.nav.pipelineOS} />
-          <MobileMenuItem label={t.nav.mentivisAPI} />
-          <MobileMenuItem label={t.nav.ressources} href={`/${lang}/blog`} />
-          <MobileMenuItem label={t.nav.entreprise} href={`/${lang}`} />
-          <MobileMenuItem label={t.nav.tarifs} href={`/${lang}/tarifs`} />
-          
-          <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="navbar-mobile-fullscreen">
+          {/* Header with logo and close button */}
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "0 16px",
+            position: "relative",
+            top: 12,
+            zIndex: 2,
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+              maxWidth: 1280,
+              background: "#ffffff",
+              borderRadius: 16,
+              padding: "10px 20px",
+              boxShadow: "none",
+            }}>
+              <Link href={`/${lang}`} onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+                <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em" }}>Mentivis</span>
+              </Link>
+              <button
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 8,
+                  fontSize: 24,
+                  color: "var(--text-primary)",
+                  lineHeight: 1,
+                }}
+                aria-label="Fermer"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {/* Menu content */}
+          <div className="navbar-mobile-content">
+            <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
+          </div>
+
+          {/* CTA bottom */}
+          <div style={{
+            padding: "20px",
+            borderTop: "1px solid rgba(0,0,0,0.06)",
+            background: "#f7f7f4",
+          }}>
             <Link
-              href="https://app.mentivisOS.com"
+              href={`/${lang}/contact`}
               onClick={() => setMobileOpen(false)}
-              className="btn-header-black"
               style={{
-                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
                 padding: "12px 24px",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "white",
+                background: "var(--text-primary)",
+                borderRadius: 12,
+                textDecoration: "none",
               }}
             >
-              {t.nav.login}
+              {t.nav.cta || "Contactez-nous"}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
           </div>
         </div>
@@ -370,15 +457,25 @@ export default function NavBar({ lang }: NavBarProps) {
           cursor: pointer;
         }
 
-        .navbar-mobile-overlay {
+        .navbar-mobile-fullscreen {
           position: fixed;
           inset: 0;
-          z-index: 999;
-          background: var(--bg-primary);
+          z-index: 1000;
           display: flex;
           flex-direction: column;
-          padding: 80px var(--grid-margin) 40px;
-          animation: fadeIn 0.2s ease both;
+          height: 100vh;
+          overflow: hidden;
+          background: #f7f7f4;
+        }
+
+        .navbar-mobile-content {
+          flex: 1;
+          overflow: auto;
+          background: #f7f7f4;
+          padding: "0 20px";
+          display: flex;
+          flex-direction: column;
+          marginTop: 20;
         }
 
         @keyframes fadeIn {
@@ -479,6 +576,194 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
         }
       `}</style>
     </div>
+  );
+}
+
+// Mobile Accordion Navigation
+interface MobileAccordionNavProps {
+  t: any;
+  lang: string;
+  onClose: () => void;
+}
+
+function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
+  const [learningOpen, setLearningOpen] = useState(false);
+  const [pipelineOpen, setPipelineOpen] = useState(false);
+  const [apiOpen, setApiOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+
+  const navStyle = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "1.5rem",
+    fontWeight: 300,
+    color: "var(--text-primary)",
+    padding: "20px 0",
+    borderBottom: "1px solid rgba(0,0,0,0.08)",
+    textDecoration: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    background: "none",
+    border: "none",
+    width: "100%",
+    cursor: "pointer",
+    textAlign: "left" as const,
+  };
+
+  const subItemStyle = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "1rem",
+    fontWeight: 400,
+    color: "var(--text-secondary)",
+    padding: "12px 0 12px 20px",
+    textDecoration: "none",
+    display: "block",
+    borderBottom: "1px solid rgba(0,0,0,0.04)",
+  };
+
+  const accordionContentStyle = (isOpen: boolean) => ({
+    display: "grid",
+    gridTemplateRows: isOpen ? "1fr" : "0fr",
+    transition: "grid-template-rows 0.3s ease",
+  });
+
+  return (
+    <>
+      {/* LearningOS Accordion */}
+      <button
+        onClick={() => {
+          setLearningOpen(!learningOpen);
+          setPipelineOpen(false);
+          setApiOpen(false);
+          setResourcesOpen(false);
+        }}
+        style={navStyle}
+      >
+        <span>{t.nav.learningOS}</span>
+        <span style={{
+          transform: learningOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      <div style={accordionContentStyle(learningOpen)}>
+        <div style={{ overflow: "hidden" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[2] || "Coaching intégré"}
+          </Link>
+        </div>
+      </div>
+
+      {/* PipelineOS Accordion */}
+      <button
+        onClick={() => {
+          setPipelineOpen(!pipelineOpen);
+          setLearningOpen(false);
+          setApiOpen(false);
+          setResourcesOpen(false);
+        }}
+        style={navStyle}
+      >
+        <span>{t.nav.pipelineOS}</span>
+        <span style={{
+          transform: pipelineOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      <div style={accordionContentStyle(pipelineOpen)}>
+        <div style={{ overflow: "hidden" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[0] || "Screening IA"}
+          </Link>
+        </div>
+      </div>
+
+      {/* MentivisAPI Accordion */}
+      <button
+        onClick={() => {
+          setApiOpen(!apiOpen);
+          setLearningOpen(false);
+          setPipelineOpen(false);
+          setResourcesOpen(false);
+        }}
+        style={navStyle}
+      >
+        <span>{t.nav.mentivisAPI}</span>
+        <span style={{
+          transform: apiOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      <div style={accordionContentStyle(apiOpen)}>
+        <div style={{ overflow: "hidden" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
+          </Link>
+        </div>
+      </div>
+
+      {/* Ressources Accordion */}
+      <button
+        onClick={() => {
+          setResourcesOpen(!resourcesOpen);
+          setLearningOpen(false);
+          setPipelineOpen(false);
+          setApiOpen(false);
+        }}
+        style={navStyle}
+      >
+        <span>{t.nav.ressources}</span>
+        <span style={{
+          transform: resourcesOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      <div style={accordionContentStyle(resourcesOpen)}>
+        <div style={{ overflow: "hidden" }}>
+          <Link href={`/${lang}/blog`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[0] || "Blog"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[1] || "Documentation"}
+          </Link>
+        </div>
+      </div>
+
+      {/* Direct links */}
+      <Link href={`/${lang}`} onClick={onClose} style={navStyle}>
+        <span>{t.nav.entreprise}</span>
+      </Link>
+      <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
+        <span>{t.nav.tarifs}</span>
+      </Link>
+    </>
   );
 }
 
