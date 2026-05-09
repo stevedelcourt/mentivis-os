@@ -784,14 +784,10 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
 
       <style>{`
         .accordion-content {
-          max-height: 0;
-          overflow: hidden;
-          opacity: 0;
-          transition: max-height 0.4s ease, opacity 0.3s ease;
+          display: none;
         }
         .accordion-content.open {
-          max-height: 500px;
-          opacity: 1;
+          display: block;
         }
         .mobile-nav-item::after,
         .mobile-sub-item::after {
