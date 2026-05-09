@@ -58,20 +58,21 @@ export default function DemoClient({ lang }: { lang: Locale }) {
         </p>
 
         <form onSubmit={handleSubmit}>
-          {/* Row 1: Prénom, nom + Organisation */}
+          {/* Row 1: Prénom + Nom */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label="Prénom / Name" name="fullname" required />
+            <FormField label="Prénom" name="firstname" required />
+            <FormField label="Nom" name="lastname" required />
+          </div>
+
+          {/* Row 2: Organisation + Poste/Role */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
             <FormField label={t.demo.form.organization} name="organization" required />
-          </div>
-
-          {/* Row 2: Poste/Role + Email */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
             <FormField label={t.demo.form.role} name="role" />
-            <FormField label={t.demo.form.email} name="email" type="email" required />
           </div>
 
-          {/* Row 3: Téléphone */}
+          {/* Row 3: Email + Téléphone */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+            <FormField label={t.demo.form.email} name="email" type="email" required />
             <FormField label={t.demo.form.phone} name="phone" type="tel" />
           </div>
 

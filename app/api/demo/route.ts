@@ -47,7 +47,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const {
-      fullname,
+      firstname,
+      lastname,
       organization,
       role,
       objective,
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!fullname || !email) {
+    if (!firstname || !lastname || !email) {
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
         { status: 400 }
@@ -76,7 +77,8 @@ export async function POST(request: NextRequest) {
 
     if (!hubspotPortalId || !hubspotFormId) {
       console.log("[Demo API] HubSpot not configured:", {
-        fullname,
+        firstname,
+        lastname,
         organization,
         role,
         objective,
@@ -95,7 +97,8 @@ export async function POST(request: NextRequest) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fields: [
-            { name: "fullname", value: fullname },
+            { name: "firstname", value: firstname },
+            { name: "lastname", value: lastname },
             { name: "company", value: organization || "" },
             { name: "jobtitle", value: role || "" },
             { name: "message", value: objective || "" },
