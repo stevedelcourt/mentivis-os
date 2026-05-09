@@ -241,7 +241,7 @@ export default function NavBar({ lang }: NavBarProps) {
 
             {/* Tarifs */}
             <Link
-              href={`/${lang}`}
+              href={`/${lang}/tarifs`}
               className="t-nav navbar-link"
               data-active={isActive("/tarifs")}
               style={{ padding: "20px 0" }}
@@ -327,7 +327,7 @@ export default function NavBar({ lang }: NavBarProps) {
           <MobileMenuItem label={t.nav.mentivisAPI} />
           <MobileMenuItem label={t.nav.ressources} href={`/${lang}/blog`} />
           <MobileMenuItem label={t.nav.entreprise} href={`/${lang}`} />
-          <MobileMenuItem label={t.nav.tarifs} href={`/${lang}`} />
+          <MobileMenuItem label={t.nav.tarifs} href={`/${lang}/tarifs`} />
           
           <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
             <Link
