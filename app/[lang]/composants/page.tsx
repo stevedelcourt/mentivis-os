@@ -563,6 +563,8 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
               { name: "Funky Visual Library", file: "mentivisOS_funky_visual_library.html" },
               { name: "Visual Library", file: "mentivisOS_visual_library.html" },
               { name: "Light Visual Library", file: "mentivisOS_light_visual_library.html" },
+              { name: "Tesseract Color", file: "tesseract-color.html" },
+              { name: "Tesseract Clean", file: "tesseract-clean.html" },
             ].map((v) => (
               <a
                 key={v.file}
