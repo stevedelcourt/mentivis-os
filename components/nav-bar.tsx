@@ -419,7 +419,7 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
       onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
-        top: "calc(100% + 12px)",
+        top: "calc(100% + 4px)",
         left: -200,
         display: "flex",
         gap: 40,
