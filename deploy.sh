@@ -28,7 +28,8 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   fi
 
   cd ${APP_DIR}
-  git pull origin main
+  git fetch origin main
+  git reset --hard origin/main
 
   echo "--- Installing dependencies ---"
   npm install

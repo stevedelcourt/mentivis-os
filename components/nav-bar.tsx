@@ -732,7 +732,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setPipelineOpen(!pipelineOpen);
           setLearningOpen(false);
           setApiOpen(false);
-          setResourcesOpen(false);
         }}
         className="mobile-nav-item"
         style={navStyle}
@@ -766,7 +765,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setApiOpen(!apiOpen);
           setLearningOpen(false);
           setPipelineOpen(false);
-          setResourcesOpen(false);
         }}
         className="mobile-nav-item"
         style={navStyle}
