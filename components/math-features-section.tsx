@@ -3,40 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
-// ── GEO 1 — SINE WAVE WITH AMPLITUDE ELLIPSES ──
+// ── GEO 1 — NESTED ROSES ──
 function GeoSineSvg() {
-  const W = 320, H = 220, cx = W / 2, cy = H / 2;
   const S = "#1A1A18";
+  const CX = 160, CY = 110;
+  const τ = Math.PI * 2;
+  const paths: string[] = [];
 
-  // Sine wave path
-  const amp = 58, x0 = 50, x1 = 270;
-  let sineD = "";
-  for (let x = x0; x <= x1; x += 1) {
-    const t = (x - x0) / (x1 - x0);
-    const y = cy + amp * Math.sin(t * Math.PI * 2);
-    sineD += (x === x0 ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(2) + " ";
+  for (let n = 1; n <= 8; n++) {
+    const r0 = (n * 168 * 0.92) / 8;
+    let d = "";
+    for (let i = 0; i <= 720; i++) {
+      const θ = (i / 720) * τ;
+      const r = r0 * Math.abs(Math.cos(n * θ));
+      const x = CX + r * Math.cos(θ);
+      const y = CY - r * Math.sin(θ);
+      d += (i === 0 ? "M" : "L") + `${x.toFixed(2)},${y.toFixed(2)} `;
+    }
+    paths.push(d.trim());
   }
 
   return (
     <svg viewBox="0 0 320 220" style={{ width: "100%", height: "auto", display: "block" }}>
-      {/* Dotted axes */}
-      <line x1={30} y1={cy} x2={290} y2={cy} stroke={S} strokeWidth={0.55} strokeDasharray="2,5" opacity={0.38} />
-      <line x1={cx} y1={18} x2={cx} y2={202} stroke={S} strokeWidth={0.55} strokeDasharray="2,5" opacity={0.38} />
-
-      {/* Two ellipses */}
-      <ellipse cx={90} cy={cy} rx={16} ry={62} fill="none" stroke={S} strokeWidth={1.1} opacity={0.88} />
-      <ellipse cx={230} cy={cy} rx={16} ry={62} fill="none" stroke={S} strokeWidth={1.1} opacity={0.88} />
-
-      {/* Sine wave */}
-      <path d={sineD} fill="none" stroke={S} strokeWidth={1.1} opacity={0.90} />
-
-      {/* Tick marks Y */}
-      {[-60, -30, 30, 60].map((dy) => (
-        <line key={`y-${dy}`} x1={cx - 5} y1={cy + dy} x2={cx + 5} y2={cy + dy} stroke={S} strokeWidth={0.6} opacity={0.32} />
-      ))}
-      {/* Tick marks X */}
-      {[50, 90, 130, 170, 210, 250].map((px) => (
-        <line key={`x-${px}`} x1={px} y1={cy - 5} x2={px} y2={cy + 5} stroke={S} strokeWidth={0.6} opacity={0.32} />
+      {paths.map((d, i) => (
+        <path
+          key={i}
+          d={d}
+          fill="none"
+          stroke={S}
+          strokeWidth={1.1}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity={0.28 + (i + 1) * 0.09}
+        />
       ))}
     </svg>
   );
@@ -260,7 +259,7 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
                 <div
                   key={i}
                   style={{
-                    background: "#EDEAE3",
+                    background: "#f5f5f5",
                     borderRadius: 22,
                     overflow: "hidden",
                     padding: "32px 28px 28px",
