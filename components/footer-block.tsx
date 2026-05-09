@@ -61,7 +61,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           },
           {
             title: t.footer.entreprise,
-            links: [t.nav.aPropos, "L'equipe", "Contact"],
+            links: ["A propos", "L'equipe", "Contact"],
           },
         ].map((col) => (
           <div key={col.title}>
