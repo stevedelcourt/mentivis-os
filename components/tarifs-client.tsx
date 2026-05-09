@@ -485,7 +485,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             overflow: "hidden",
             background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
             boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
-          }}
+          }}>
             {/* Gradient overlay */}
             <div style={{
               position: "absolute",
