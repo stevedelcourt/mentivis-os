@@ -499,6 +499,14 @@ export const translations = {
       },
       pricing: "Pour les organisations qui envisagent un deploiement a plus grande echelle, plusieurs modeles sont proposes : abonnement SaaS par apprenant, licence d'entreprise, couche API pour integration aux systemes existants.",
     },
+    contact: {
+      title: "Contactez-nous",
+      description: "Une question ? Un projet ? Écrivez-nous.",
+      form: {
+        submit: "Envoyer",
+      },
+      pricing: "Réponse sous 24h ouvrées.",
+    },
   },
   en: {
     nav: {
@@ -999,6 +1007,14 @@ export const translations = {
         error: "An error occurred. Please try again.",
       },
       pricing: "For organizations considering a larger-scale deployment, several models are available: SaaS subscription per learner, enterprise license, API layer for integration with existing systems.",
+    },
+    contact: {
+      title: "Contact us",
+      description: "A question? A project? Write to us.",
+      form: {
+        submit: "Send",
+      },
+      pricing: "Response within 24 business hours.",
     },
   },
 };

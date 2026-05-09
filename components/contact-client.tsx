@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
-export default function DemoClient({ lang }: { lang: Locale }) {
+export default function ContactClient({ lang }: { lang: Locale }) {
   const t = getT(lang);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -50,11 +50,11 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             marginBottom: 24,
           }}
         >
-          {t.demo.title}
+          {t.contact?.title || "Contactez-nous"}
         </h1>
 
         <p className="t-lead" style={{ marginBottom: 48 }}>
-          {t.demo.description}
+          {t.contact?.description || "Une question ? Un projet ? Écrivez-nous."}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -75,16 +75,16 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             <FormField label={t.demo.form.phone} name="phone" type="tel" />
           </div>
 
-          {/* Row 4: Objectif de la démonstration */}
+          {/* Row 4: Message */}
           <div style={{ marginBottom: 24 }}>
             <label className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-              Objectif de la démonstration
+              Message
             </label>
             <textarea
               name="objective"
               required
               maxLength={500}
-              placeholder="Décrivez votre besoin..."
+              placeholder="Votre message..."
               rows={4}
               className="form-textarea"
               style={{
@@ -134,7 +134,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
               gap: 6,
             }}
           >
-            {status === "loading" ? "..." : t.demo.form.submit}
+            {status === "loading" ? "..." : (t.contact?.form?.submit || "Envoyer")}
             {status !== "loading" && (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -150,7 +150,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
         </form>
 
         <p className="t-caption" style={{ marginTop: 48, textAlign: "center", color: "var(--text-tertiary)" }}>
-          {t.demo.pricing}
+          {t.contact?.pricing || "Réponse sous 24h ouvrées."}
         </p>
       </div>
 
