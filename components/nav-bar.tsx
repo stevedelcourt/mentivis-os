@@ -346,7 +346,11 @@ export default function NavBar({ lang }: NavBarProps) {
         {/* Header - same design as desktop */}
         <div className="navbar-mobile-header">
           <Link href={`/${lang}`} onClick={() => setMobileOpen(false)} className="navbar-logo-link">
-            <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em" }}>Mentivis</span>
+            <img 
+              src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg" 
+              alt="Mentivis" 
+              style={{ height: 28, width: "auto" }}
+            />
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
