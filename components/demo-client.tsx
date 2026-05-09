@@ -76,10 +76,10 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             <FormField label={t.demo.form.phone} name="phone" type="tel" />
           </div>
 
-          {/* Row 4: Objectif de la démonstration */}
+          {/* Row 4: Demande de démonstration */}
           <div style={{ marginBottom: 24 }}>
             <label className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-              Objectif de la démonstration
+              Demande de démonstration
             </label>
             <textarea
               name="objective"
