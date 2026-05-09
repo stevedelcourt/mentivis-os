@@ -38,8 +38,10 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
 
   echo "--- Copying static assets to standalone ---"
   if [ -d ".next/standalone" ]; then
-    cp -r public/* .next/standalone/public/ 2>/dev/null || true
-    cp -r .next/static .next/standalone/.next/static/ 2>/dev/null || true
+    mkdir -p .next/standalone/public
+    cp -r public/* .next/standalone/public/
+    mkdir -p .next/standalone/.next/static
+    cp -r .next/static .next/standalone/.next/static/
   fi
 
   echo "--- Restarting Passenger ---"

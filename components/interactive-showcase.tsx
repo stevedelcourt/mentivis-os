@@ -280,6 +280,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
         >
           {/* TOP BAR */}
           <div
+            className="showcase-top-bar-desktop"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -364,18 +365,59 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
 
             {/* Title */}
             <div style={{ textAlign: "right", maxWidth: 600 }}>
-              <h2
-                style={{
-                  fontSize: 18,
-                  fontWeight: 500,
-                  color: "#0A0A0A",
-                  marginBottom: 4,
-                  letterSpacing: "-.01em",
-                  lineHeight: 1.2,
-                }}
-              >
-                {prod.title}
-              </h2>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <h2
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 500,
+                    color: "#0A0A0A",
+                    marginBottom: 4,
+                    letterSpacing: "-.01em",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {prod.title}
+                </h2>
+                <button
+                  onClick={() => toggleAudio(activeIdx)}
+                  aria-label={isPlaying && playingOrbIdx === activeIdx ? "Pause" : "Ecouter"}
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: 8,
+                    background: isPlaying && playingOrbIdx === activeIdx ? "rgba(0,0,0,.08)" : "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#777169",
+                    transition: "all .2s ease",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!(isPlaying && playingOrbIdx === activeIdx)) {
+                      (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,.04)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!(isPlaying && playingOrbIdx === activeIdx)) {
+                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                    }
+                  }}
+                >
+                  {isPlaying && playingOrbIdx === activeIdx ? (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="6" y="5" width="5" height="14" rx="1.5" />
+                      <rect x="13" y="5" width="5" height="14" rx="1.5" />
+                    </svg>
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
               <p
                 style={{
                   fontSize: 14,
@@ -386,6 +428,34 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                 {prod.sub}
               </p>
             </div>
+          </div>
+
+          {/* Mobile Product Selector */}
+          <div className="showcase-mobile-product-selector" style={{ display: "none", marginBottom: 20 }}>
+            <select
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 16px",
+                borderRadius: 8,
+                border: "1px solid rgba(0,0,0,.08)",
+                background: "#FFFFFF",
+                fontFamily: "inherit",
+                fontSize: 15,
+                fontWeight: 500,
+                color: "#0A0A0A",
+                cursor: "pointer",
+                appearance: "none",
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777169' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 16px center",
+              }}
+            >
+              <option value="atelier">MentivisAtelier</option>
+              <option value="operate">MentivisOperate</option>
+              <option value="intel">MentivisIntel</option>
+            </select>
           </div>
 
           {/* STAGE */}
@@ -488,7 +558,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                       style={{
                         width: 280,
                         height: 280,
-                        borderRadius: 32,
+                        borderRadius: "50%",
                         position: "relative",
                         overflow: "hidden",
                         transition: "transform .35s cubic-bezier(.34,1.56,.64,1)",
@@ -500,7 +570,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                         style={{
                           position: "absolute",
                           inset: 0,
-                          borderRadius: 32,
+                          borderRadius: "50%",
                           backgroundImage:
                             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
                           backgroundSize: "200px 200px",
@@ -978,6 +1048,12 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
           .showcase-mobile-cta {
             display: flex !important;
             width: 100%;
+          }
+          .showcase-mobile-product-selector {
+            display: block !important;
+          }
+          .showcase-top-bar-desktop {
+            display: none !important;
           }
         }
       `}</style>
