@@ -33,8 +33,8 @@ export const translations = {
     },
     hero: {
       eyebrow: "Mentivis OS",
-      headline: "Une plateforme capable de s'adapter en temps reel aux personnes, aux usages et aux contextes.",
-      subheadline: "Strategie, ingenierie pedagogique, deploiement, conformite, pilotage.\nUn seul operateur. Tous les metiers. Aucun maillon sous-traite.",
+      headline: "MentivisOS forme vos collaborateurs, gère vos recrutements et pilote la montée en compétences de vos équipes.",
+      subheadline: "Un seul système qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecté à vos outils via la Mentivis API. Opérationnel immédiatement, sans refonte de votre organisation.",
       ctaPrimary: "Demarrer gratuitement",
       ctaSecondary: "Contacter l'equipe",
       proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
@@ -534,8 +534,8 @@ export const translations = {
     },
     hero: {
       eyebrow: "Mentivis OS",
-      headline: "A platform capable of adapting in real time to people, uses, and contexts.",
-      subheadline: "Strategy, pedagogical engineering, deployment, compliance, steering.\nOne operator. All disciplines. No outsourced link.",
+      headline: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+      subheadline: "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
       ctaPrimary: "Start for free",
       ctaSecondary: "Contact the team",
       proof: "Used by training departments, CFAs, corporate campuses.",
