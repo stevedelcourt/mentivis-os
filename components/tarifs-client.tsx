@@ -759,7 +759,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     marginTop: "auto",
                     paddingTop: 20,
                     borderTop: "1px solid var(--border-light)",
-                    marginTop: 20,
                   }}
                 >
                   <p
