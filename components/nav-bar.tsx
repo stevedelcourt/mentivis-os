@@ -105,11 +105,9 @@ export default function NavBar({ lang }: NavBarProps) {
           right: 0,
           zIndex: 1000,
           height: 64,
-          background: "rgba(255,255,255,0.98)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          background: "#ffffff",
           borderBottom: "1px solid var(--border-subtle)",
-          transition: "background 0.35s ease, box-shadow 0.35s ease",
+          transition: "box-shadow 0.35s ease",
           boxShadow: "var(--shadow-card)",
           willChange: "transform",
         }}
@@ -302,6 +300,32 @@ export default function NavBar({ lang }: NavBarProps) {
               }}
             >
               {t.nav.contact}
+            </Link>
+
+            <Link
+              href="https://app.mentivisOS.com"
+              className="btn-header-black hide-mobile"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "8px 16px",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#FFFFFF",
+                background: "#0A0A0A",
+                borderRadius: 8,
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#222";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#0A0A0A";
+              }}
+            >
+              {t.nav.login}
             </Link>
 
             <button
