@@ -25,35 +25,26 @@ jobs:
       - name: Build
         run: npx next build --webpack
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Prepare standalone output
+        run: |
+          mkdir -p deploy/public deploy/tmp
+          cp -r .next/standalone/* deploy/
+          cp -r public/* deploy/public/
+          cp server.js deploy/server.js
+          touch deploy/tmp/restart.txt
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: terre.o2switch.net
-          username: sc4bovu7233
-          key: ${{ secrets.O2SWITCH_SSH_KEY }}
-          passphrase: ${{ secrets.O2SWITCH_SSH_PASSPHRASE }}
-          port: 22
-          script: |
-            set -e
-            export PATH="/opt/alt/alt-nodejs20/root/usr/bin:$PATH"
-            APP_DIR="/home/sc4bovu7233/nextapp"
-
-            if [ ! -d "$APP_DIR/.git" ]; then
-              mkdir -p $APP_DIR
-              git clone https://github.com/stevedelcourt/mentivis-os.git $APP_DIR
-            fi
-
-            cd $APP_DIR
-            git pull origin main
-            npm install --omit=dev
-            npx next build --webpack
-
-            # Copy static assets to standalone
-            if [ -d ".next/standalone" ]; then
-              cp -r public/* .next/standalone/public/ 2>/dev/null || true
-              cp -r .next/static .next/standalone/.next/static/ 2>/dev/null || true
-            fi
-
-            mkdir -p tmp
-            touch tmp/restart.txt
-            echo "Deploy complete"
+          server: ${{ secrets.O2SWITCH_FTP_HOST }}
+          username: ${{ secrets.O2SWITCH_FTP_USER }}
+          password: ${{ secrets.O2SWITCH_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./deploy/
+          server-dir: nextapp/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/.cache/**
+            **/.next/cache/**
