@@ -49,7 +49,15 @@ export default function NavBar({ lang }: NavBarProps) {
   const closeDropdown = useCallback(() => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 250);
+  }, []);
+
+  const closeDropdownImmediate = useCallback(() => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
+    setActiveDropdown(null);
   }, []);
 
   const isActive = (path: string) => pathname.startsWith(`/${lang}${path}`);
