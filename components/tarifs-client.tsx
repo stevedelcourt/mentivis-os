@@ -550,30 +550,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     {plan.name}
                   </h3>
 
-                  {/* Popular Badge - below plan name */}
-                  {plan.popular && (
-                    <span
-                      className="pricing-card-badge"
-                      style={{
-                        display: "inline-block",
-                        alignSelf: "flex-start",
-                        fontSize: "var(--text-tiny)",
-                        fontWeight: 600,
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        padding: "4px 10px",
-                        borderRadius: "var(--r-pill)",
-                        background: "var(--text-primary)",
-                        color: "var(--bg-primary)",
-                        marginBottom: 16,
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      Populaire
-                    </span>
-                  )}
-                  {!plan.popular && <div style={{ marginBottom: 16 }} />}
-
                   {/* Price with promotional styling */}
                   <div style={{ marginBottom: 16 }}>
                     {plan.monthlyPrice === null ? (
@@ -785,10 +761,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           .pricing-card:hover .pricing-card-check {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
           }
-          .pricing-card:hover .pricing-card-badge {
-            background: white;
-            color: var(--text-primary);
-          }
           .pricing-card:hover .pricing-card-strikethrough {
             color: rgba(255, 255, 255, 0.7);
           }
@@ -838,16 +810,15 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     Fonctionnalité
                   </th>
                   {currentPlans.map((plan) => (
-                    <th 
+                    <th
                       key={plan.name}
-                      style={{ 
-                        textAlign: "center", 
-                        padding: "16px", 
-                        borderBottom: "1px solid var(--border-light)", 
-                        fontWeight: plan.popular ? 600 : 500, 
-                        fontSize: "var(--text-body-sm)", 
-                        background: plan.popular ? "var(--bg-warm)" : "transparent",
-                        color: plan.popular ? "var(--text-primary)" : "var(--text-secondary)",
+                      style={{
+                        textAlign: "center",
+                        padding: "16px",
+                        borderBottom: "1px solid var(--border-light)",
+                        fontWeight: 500,
+                        fontSize: "var(--text-body-sm)",
+                        color: "var(--text-secondary)",
                         minWidth: 120,
                       }}
                     >
@@ -863,16 +834,14 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                       {row.name}
                     </td>
                     {Object.entries(row).slice(1).map(([key, value], vIdx) => (
-                      <td 
+                      <td
                         key={key}
-                        style={{ 
-                          textAlign: "center", 
-                          padding: "14px 16px", 
-                          borderBottom: "1px solid var(--border-subtle)", 
-                          fontSize: "var(--text-body-sm)", 
+                        style={{
+                          textAlign: "center",
+                          padding: "14px 16px",
+                          borderBottom: "1px solid var(--border-subtle)",
+                          fontSize: "var(--text-body-sm)",
                           color: value === "—" ? "var(--text-tertiary)" : "var(--text-secondary)",
-                          background: currentPlans[vIdx]?.popular ? "var(--bg-warm)" : "transparent",
-                          fontWeight: currentPlans[vIdx]?.popular ? 500 : 400,
                         }}
                       >
                         {value}
