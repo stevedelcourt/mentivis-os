@@ -174,8 +174,28 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   return (
     <main className={styles.wrap}>
       <header className={styles.pageHeader}>
-        <h1 className="t-display" style={{ fontSize: "clamp(32px, 5vw, 56px)" }}>
-          News & <em style={{ fontStyle: "italic", color: "var(--text-tertiary)" }}>points de vue</em>
+        <p
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "#777169",
+            marginBottom: 10,
+          }}
+        >
+          Actualités et analyses
+        </p>
+        <h1
+          className="t-display"
+          style={{
+            fontSize: "clamp(28px, 4vw, 40px)",
+            fontWeight: 300,
+            lineHeight: 1.35,
+            letterSpacing: "-0.01em",
+            color: "#3E3B38",
+          }}
+        >
+          Dernières publications
         </h1>
       </header>
 

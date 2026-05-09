@@ -461,6 +461,7 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
               <Link
                 key={linkIdx}
                 href={link.href}
+                className="mega-menu-link"
                 style={{
                   fontSize: 14,
                   fontWeight: 400,

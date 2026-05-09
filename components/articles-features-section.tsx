@@ -8,27 +8,31 @@ interface ArticlesFeaturesSectionProps {
   lang: Locale;
 }
 
-const ARTICLES = [
+// Real blog posts data (same as BlogIndex)
+const POSTS = [
   {
-    date: "Jan 2026",
-    tag: "Produit",
-    title: "Presentation de MentivisOS 2.0, formation native IA",
-    gradient:
-      "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+    id: "1",
+    slug: "creer-institution-enseignement-superieur",
+    title: "Créer une institution d'enseignement supérieur de zéro : les étapes que personne ne vous dit",
+    tag: "Stratégie",
+    date: "8 mai 2026",
+    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
   },
   {
-    date: "Nov 2025",
-    tag: "Ingenierie",
-    title: "L'assistant pedagogique embarque change le rapport au decrochage",
-    gradient:
-      "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
+    id: "2",
+    slug: "opco-atlas-ia-generative-organismes-formation",
+    title: "OPCO Atlas et l'IA générative: ce que les organismes de formation doivent anticiper",
+    tag: "IA & Formation",
+    date: "2 mai 2026",
+    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
   },
   {
-    date: "Aug 2025",
-    tag: "Partenariats",
-    title: "MentivisOS s'integre aux principaux SIRH et outils OPCO",
-    gradient:
-      "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
+    id: "3",
+    slug: "au-dela-du-powerpoint-grands-cabinets-implementation",
+    title: "Au-delà du PowerPoint: pourquoi les grands cabinets ratent l'implémentation",
+    tag: "Stratégie",
+    date: "24 avr. 2026",
+    gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
   },
 ];
 
@@ -75,8 +79,8 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 marginBottom: 10,
               }}
             >
-              Pas d'articles generiques.
-Des analyses concretes, issues du terrain, documentees en continu.
+              Pas d&apos;articles génériques.
+              Des analyses concrètes, issues du terrain, documentées en continu.
             </p>
             <p
               style={{
@@ -89,11 +93,11 @@ Des analyses concretes, issues du terrain, documentees en continu.
                 maxWidth: 520,
               }}
             >
-              Faire avancer la formation au-dela des catalogues : diagnostic IA, ingenierie pedagogique, et plus encore.
+              Faire avancer la formation au-delà des catalogues : diagnostic IA, ingénierie pédagogique, et plus encore.
             </p>
           </div>
           <Link
-            href={`/${lang}/ressources`}
+            href={`/${lang}/blog`}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -140,35 +144,39 @@ Des analyses concretes, issues du terrain, documentees en continu.
             marginBottom: "var(--section-gap)",
           }}
         >
-          {ARTICLES.map((art, i) => (
-            <div
-              key={i}
+          {POSTS.map((post, i) => (
+            <Link
+              key={post.id}
+              href={`/${lang}/blog/${post.slug}`}
               style={{
                 display: "flex",
                 flexDirection: "column",
                 cursor: "pointer",
-                transition: "transform .45s cubic-bezier(.22,1,.36,1)",
+                textDecoration: "none",
+                color: "inherit",
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(16px)",
+                transition: "opacity 0.6s ease, transform 0.6s ease",
                 transitionDelay: `${0.1 + i * 0.08}s`,
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-              }}
             >
-              {/* Image area */}
+              {/* Image area - 1:1 aspect ratio with colorful gradient */}
               <div
                 style={{
                   position: "relative",
                   width: "100%",
-                  aspectRatio: "16/9",
+                  aspectRatio: "1/1",
                   borderRadius: 18,
                   overflow: "hidden",
                   marginBottom: 14,
-                  background: art.gradient,
+                  background: post.gradient,
+                  transition: "transform .45s cubic-bezier(.22,1,.36,1)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1.02)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
                 }}
               >
                 {/* Wave grid overlay */}
@@ -197,12 +205,12 @@ Des analyses concretes, issues du terrain, documentees en continu.
                     letterSpacing: "0.06em",
                     color: "#0A0A0A",
                     padding: "5px 12px",
-borderRadius: 8,
+                    borderRadius: 8,
                     boxShadow: "rgba(0,0,0,.06) 0 1px 6px",
                     zIndex: 5,
                   }}
                 >
-                  {art.date}
+                  {post.date}
                 </span>
               </div>
 
@@ -217,7 +225,7 @@ borderRadius: 8,
                   marginBottom: 5,
                 }}
               >
-                {art.tag}
+                {post.tag}
               </p>
               <h3
                 style={{
@@ -230,9 +238,9 @@ borderRadius: 8,
                   maxWidth: 320,
                 }}
               >
-                {art.title}
+                {post.title}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
 

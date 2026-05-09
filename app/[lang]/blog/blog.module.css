@@ -87,7 +87,7 @@
 .featImg {
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
 }
 
 .featImgEl {
@@ -197,7 +197,7 @@
 .cardImg {
   border-radius: 10px;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1 / 1;
   margin-bottom: 0.875rem;
 }
 
