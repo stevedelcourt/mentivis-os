@@ -479,6 +479,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
 
         {/* Pricing Cards - ElevenLabs Style */}
         <div
+          className="pricing-cards-grid"
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${currentPlans.length}, 1fr)`,
@@ -784,6 +785,12 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             .tarifs-faq-grid {
               grid-template-columns: 1fr !important;
               gap: 3rem !important;
+            }
+          }
+          @media (max-width: 768px) {
+            .pricing-cards-grid {
+              grid-template-columns: 1fr !important;
+              gap: 20px !important;
             }
           }
         `}</style>
