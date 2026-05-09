@@ -435,7 +435,7 @@ export default function NavBar({ lang }: NavBarProps) {
           left: 0;
           right: 0;
           bottom: 0;
-          background: #f7f7f4;
+          background: #ffffff;
           z-index: 1000;
           transform: translateX(100%);
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -461,7 +461,7 @@ export default function NavBar({ lang }: NavBarProps) {
           display: flex;
           gap: 12;
           padding: 16px var(--grid-margin);
-          background: #f7f7f4;
+          background: #ffffff;
           border-top: 1px solid rgba(0,0,0,0.06);
         }
 
