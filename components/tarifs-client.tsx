@@ -808,6 +808,12 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           .pricing-card[data-plan="Gratuit"]:hover .pricing-card-check {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
           }
+          @media (max-width: 950px) {
+            .tarifs-faq-grid {
+              grid-template-columns: 1fr !important;
+              gap: 3rem !important;
+            }
+          }
         `}</style>
 
         {/* Comparison Table */}
@@ -1138,15 +1144,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @media (max-width: 950px) {
-          .tarifs-faq-grid {
-            grid-template-columns: 1fr !important;
-            gap: 3rem !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
