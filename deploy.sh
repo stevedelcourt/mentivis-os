@@ -31,7 +31,7 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   git pull origin main
 
   echo "--- Installing dependencies ---"
-  npm install --production
+  npm install
 
   echo "--- Building Next.js ---"
   npx next build --webpack
