@@ -47,15 +47,16 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div
+          className="hero-content-wrapper"
           style={{
             maxWidth: 1200,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
             display: "flex",
-            alignItems: "flex-start",
+            alignItems: "center",
             gap: 60,
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
           }}
         >
           {/* Left: Text content */}
@@ -144,95 +145,153 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
 
           {/* Right: Product card */}
           <div className="hero-product-card" style={{
-            background: "#f5f3f1",
-            borderRadius: 24,
-            padding: "32px 28px",
-            minWidth: 220,
-            maxWidth: 280,
-            boxShadow: "0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03)",
+            position: "relative",
+            borderRadius: 20,
+            padding: 2,
+            minWidth: 240,
+            maxWidth: 300,
+            background: "linear-gradient(135deg, #7eb8c8 0%, #96c4a8 25%, #a89bc2 50%, #d4b896 75%, #c49696 100%)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
             display: "flex",
             flexDirection: "column",
-            gap: 20,
+            overflow: "hidden",
           }}>
-            <Link href={`/${lang}`} className="hero-product-link" style={{
+            {/* Inner white container */}
+            <div style={{
+              background: "#ffffff",
+              borderRadius: 18,
+              padding: "24px 20px",
               display: "flex",
-              alignItems: "center",
+              flexDirection: "column",
               gap: 8,
-              color: "var(--text-primary)",
-              fontSize: 15,
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "opacity 0.2s ease",
+              height: "100%",
             }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--module-grad-2)" }} />
-              LearningOS
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.5 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link href={`/${lang}`} className="hero-product-link" style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              color: "var(--text-primary)",
-              fontSize: 15,
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "opacity 0.2s ease",
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--module-grad-3)" }} />
-              PipelineOS
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.5 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link href={`/${lang}`} className="hero-product-link" style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              color: "var(--text-primary)",
-              fontSize: 15,
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "opacity 0.2s ease",
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--integration-grad-1)" }} />
-              MentivisAPI
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.5 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+              <Link href={`/${lang}`} className="hero-product-link" style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "12px 16px",
+                color: "var(--text-primary)",
+                fontSize: 14,
+                fontWeight: 500,
+                textDecoration: "none",
+                borderRadius: 12,
+                background: "transparent",
+                transition: "all 0.2s ease",
+                border: "1px solid transparent",
+              }}>
+                <span style={{ 
+                  width: 8, 
+                  height: 8, 
+                  borderRadius: "50%", 
+                  background: "linear-gradient(135deg, #7eb8c8, #a89bc2)",
+                  flexShrink: 0,
+                }} />
+                LearningOS
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+              <Link href={`/${lang}`} className="hero-product-link" style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "12px 16px",
+                color: "var(--text-primary)",
+                fontSize: 14,
+                fontWeight: 500,
+                textDecoration: "none",
+                borderRadius: 12,
+                background: "transparent",
+                transition: "all 0.2s ease",
+                border: "1px solid transparent",
+              }}>
+                <span style={{ 
+                  width: 8, 
+                  height: 8, 
+                  borderRadius: "50%", 
+                  background: "linear-gradient(135deg, #96c4a8, #7eb8c8)",
+                  flexShrink: 0,
+                }} />
+                PipelineOS
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+              <Link href={`/${lang}`} className="hero-product-link" style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "12px 16px",
+                color: "var(--text-primary)",
+                fontSize: 14,
+                fontWeight: 500,
+                textDecoration: "none",
+                borderRadius: 12,
+                background: "transparent",
+                transition: "all 0.2s ease",
+                border: "1px solid transparent",
+              }}>
+                <span style={{ 
+                  width: 8, 
+                  height: 8, 
+                  borderRadius: "50%", 
+                  background: "linear-gradient(135deg, #a89bc2, #c49696)",
+                  flexShrink: 0,
+                }} />
+                MentivisAPI
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.4 }}>
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
+        .hero-content-wrapper {
+          flex-wrap: nowrap !important;
+        }
         .hero-product-link:hover {
-          opacity: 0.7;
+          background: #f5f3f1 !important;
+          border-color: rgba(0,0,0,0.08) !important;
         }
         @media (max-width: 1024px) {
+          .hero-content-wrapper {
+            flex-wrap: wrap !important;
+          }
           .hero-product-card {
             width: 100% !important;
             max-width: none !important;
+            margin-top: 40px;
+            order: 2;
+          }
+          .hero-product-card > div {
             flex-direction: row !important;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px 24px !important;
-            border-radius: 16px !important;
+            padding: 20px !important;
           }
           .hero-product-link {
             flex: 1 1 auto;
             min-width: 140px;
             max-width: 200px;
+            justify-content: center;
           }
         }
         @media (max-width: 600px) {
           .hero-product-card {
-            gap: 12px !important;
+            margin-top: 32px;
+          }
+          .hero-product-card > div {
+            padding: 16px !important;
+            gap: 6px !important;
           }
           .hero-product-link {
-            font-size: 14px !important;
+            font-size: 13px !important;
             min-width: 120px;
+            padding: 10px 14px !important;
           }
         }
       `}</style>
