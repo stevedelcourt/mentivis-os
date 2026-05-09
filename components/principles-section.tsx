@@ -189,6 +189,42 @@ function ContinuitySVG() {
   );
 }
 
+function NestedRosesSVG() {
+  const S = 168;
+  const CX = 160;
+  const CY = 110;
+  const τ = Math.PI * 2;
+  const paths: string[] = [];
+  for (let n = 1; n <= 8; n++) {
+    const r0 = (n * S * 0.92) / 8;
+    let d = "";
+    for (let i = 0; i <= 720; i++) {
+      const θ = (i / 720) * τ;
+      const r = r0 * Math.abs(Math.cos(n * θ));
+      const x = CX + r * Math.cos(θ);
+      const y = CY - r * Math.sin(θ);
+      d += (i === 0 ? "M" : "L") + `${x.toFixed(2)},${y.toFixed(2)} `;
+    }
+    paths.push(d.trim());
+  }
+  return (
+    <svg viewBox="0 0 320 220" style={{ width: "100%", height: "auto", display: "block" }}>
+      {paths.map((d, i) => (
+        <path
+          key={i}
+          d={d}
+          fill="none"
+          stroke="#0A0A0A"
+          strokeWidth={1.1}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity={0.28 + (i + 1) * 0.09}
+        />
+      ))}
+    </svg>
+  );
+}
+
 export default function PrinciplesSection({ lang }: { lang: Locale }) {
   const t = getT(lang);
   const ref = useRef<HTMLDivElement>(null);
@@ -209,11 +245,11 @@ export default function PrinciplesSection({ lang }: { lang: Locale }) {
 
   const principles = [
     {
-      title: isFr ? "Adaptation" : "Adaptation",
+      title: isFr ? "Précision" : "Precision",
       description: isFr
         ? "La plateforme s'adapte en temps reel au profil, au rythme et au contexte de chaque apprenant."
         : "The platform adapts in real time to each learner's profile, pace, and context.",
-      Visual: SaddleSVG,
+      Visual: NestedRosesSVG,
     },
     {
       title: isFr ? "Structure" : "Structure",
@@ -223,7 +259,7 @@ export default function PrinciplesSection({ lang }: { lang: Locale }) {
       Visual: StructureSVG,
     },
     {
-      title: isFr ? "Continuite" : "Continuity",
+      title: isFr ? "Continuité" : "Continuity",
       description: isFr
         ? "Le suivi ne s'arrete pas au deploiement. Il se mesure et s'affine en continu."
         : "Tracking does not stop at deployment. It is measured and refined continuously.",
@@ -266,7 +302,7 @@ export default function PrinciplesSection({ lang }: { lang: Locale }) {
               <div
                 key={i}
                 style={{
-                  background: "var(--bg-primary)",
+                  background: "#f5f5f5",
                   borderRadius: "var(--r-warm)",
                   boxShadow: "var(--shadow-card-full)",
                   overflow: "hidden",
