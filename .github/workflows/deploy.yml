@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Install dependencies
         run: npm ci
@@ -42,7 +42,7 @@ jobs:
 
             cd $APP_DIR
             git pull origin main
-            npm install --production
+            npm install --omit=dev
             npx next build --webpack
 
             # Copy static assets to standalone
