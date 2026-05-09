@@ -67,7 +67,7 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 |---|---|---|
 | `--bg-primary` | `#ffffff` | Fond de page principal |
 | `--bg-secondary` | `#f5f5f5` | Sections alternées |
-| `--bg-warm` | `#f5f2ef` | Sections chaudes (impact, math, articles) |
+| `--bg-warm` | `#f5f3f1` | Sections chaudes (impact, math, articles) |
 | `--bg-warm-trans` | `rgba(245,242,239,0.8)` | Fond translucide (boutons) |
 | `--bg-near-white` | `#f6f6f6` | Variante légère |
 
@@ -208,7 +208,7 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 |---|---|---|
 | Fond primaire | `#ffffff` | Page principale, cartes |
 | Fond secondaire | `#f5f5f5` | Sections alternées (problem, shifts, CTA) |
-| Fond chaud | `#f5f2ef` | Sections chaudes (impact, math features, articles) |
+| Fond chaud | `#f5f3f1` | Sections chaudes (impact, math features, articles) |
 | Texte primaire | `#000000` | Titres, corps |
 | Texte secondaire | `#4e4e4e` | Descriptions, sous-titres |
 | Texte tertiaire | `#777169` | Eyebrows, captions, légendes |
@@ -523,7 +523,7 @@ Ordre exact des sections sur la homepage :
 - **Fichier** : `components/interactive-showcase.tsx`
 - **Type** : Client (`"use client"`)
 - **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-warm)` (`#f5f2ef`)
+- **Fond** : `var(--bg-warm)` (`#f5f3f1`)
 - **Padding** : `var(--section-gap) 0`
 - **Container** : `.container` (1240px)
 - **Carte principale** : max-width 1180px, fond `#F2EEE7`, radius 32px, padding 36px 40px 28px

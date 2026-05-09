@@ -1,8 +1,8 @@
 :root {
   --bg-primary:      #ffffff;
   --bg-secondary:    #f5f5f5;
-  --bg-warm:         #f5f2ef;
-  --bg-warm-trans:   rgba(245, 242, 239, 0.8);
+  --bg-warm:         #f5f3f1;
+  --bg-warm-trans:   rgba(245, 243, 241, 0.8);
   --bg-near-white:   #f6f6f6;
 
   --text-primary:    #000000;
