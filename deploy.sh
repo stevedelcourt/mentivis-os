@@ -41,7 +41,7 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
     mkdir -p .next/standalone/public
     cp -r public/* .next/standalone/public/
     mkdir -p .next/standalone/.next/static
-    cp -r .next/static .next/standalone/.next/static/
+    cp -r .next/static/* .next/standalone/.next/static/
   fi
 
   echo "--- Restarting Passenger ---"
