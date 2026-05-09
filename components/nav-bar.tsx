@@ -95,7 +95,7 @@ export default function NavBar({ lang }: NavBarProps) {
             <img
               src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
               alt="MentivisOS"
-              style={{ height: 28, width: "auto" }}
+              style={{ height: 36, width: "auto" }}
             />
           </Link>
 
