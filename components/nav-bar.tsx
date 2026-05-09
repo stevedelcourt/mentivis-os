@@ -286,7 +286,7 @@ export default function NavBar({ lang }: NavBarProps) {
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Link
               href={`/${lang}/contact`}
-              className="btn-header-outline"
+              className="btn-header-outline hide-mobile"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -351,86 +351,33 @@ export default function NavBar({ lang }: NavBarProps) {
         </div>
       </header>
 
-      {/* Mobile Fullscreen Menu */}
-      {mobileOpen && (
-        <div className="navbar-mobile-fullscreen">
-          {/* Header with logo and close button */}
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 16px",
-            position: "relative",
-            top: 12,
-            zIndex: 2,
-          }}>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              maxWidth: 1280,
-              background: "#ffffff",
-              borderRadius: 16,
-              padding: "10px 20px",
-              boxShadow: "none",
-            }}>
-              <Link href={`/${lang}`} onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-                <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em" }}>Mentivis</span>
-              </Link>
-              <button
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 8,
-                  fontSize: 24,
-                  color: "var(--text-primary)",
-                  lineHeight: 1,
-                }}
-                aria-label="Fermer"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-
-          {/* Menu content */}
-          <div className="navbar-mobile-content">
-            <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
-          </div>
-
-          {/* CTA bottom */}
-          <div style={{
-            padding: "20px",
-            borderTop: "1px solid rgba(0,0,0,0.06)",
-            background: "#f7f7f4",
-          }}>
-            <Link
-              href={`/${lang}/contact`}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 8,
-                padding: "12px 24px",
-                fontSize: 16,
-                fontWeight: 600,
-                color: "white",
-                background: "var(--text-primary)",
-                borderRadius: 12,
-                textDecoration: "none",
-              }}
-            >
-              {t.nav.cta || "Contactez-nous"}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-          </div>
+      {/* Mobile Slide Menu */}
+      <div className={`navbar-mobile-slide ${mobileOpen ? 'open' : ''}`}>
+        {/* Header - same design as desktop */}
+        <div className="navbar-mobile-header">
+          <Link href={`/${lang}`} onClick={() => setMobileOpen(false)} className="navbar-logo-link">
+            <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em" }}>Mentivis</span>
+          </Link>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="navbar-close-btn"
+            aria-label="Fermer"
+          >
+            ✕
+          </button>
         </div>
-      )}
+
+        {/* Menu content with eyebrows and hairlines */}
+        <div className="navbar-mobile-content">
+          <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
+        </div>
+      </div>
+
+      {/* Overlay backdrop */}
+      <div 
+        className={`navbar-mobile-backdrop ${mobileOpen ? 'visible' : ''}`}
+        onClick={() => setMobileOpen(false)}
+      />
 
       <style>{`
         .navbar-link {
@@ -457,25 +404,75 @@ export default function NavBar({ lang }: NavBarProps) {
           cursor: pointer;
         }
 
-        .navbar-mobile-fullscreen {
+        /* Hide contact button on mobile */
+        @media (max-width: 1024px) {
+          .hide-mobile {
+            display: none !important;
+          }
+        }
+
+        /* Mobile slide menu */
+        .navbar-mobile-slide {
           position: fixed;
-          inset: 0;
-          z-index: 1000;
+          top: 0;
+          right: 0;
+          width: 100%;
+          max-width: 420px;
+          height: 100vh;
+          background: #f7f7f4;
+          z-index: 1001;
+          transform: translateX(100%);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           flex-direction: column;
-          height: 100vh;
-          overflow: hidden;
-          background: #f7f7f4;
+          box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+        }
+
+        .navbar-mobile-slide.open {
+          transform: translateX(0);
+        }
+
+        .navbar-mobile-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 20px var(--grid-margin);
+          background: transparent;
+          border-bottom: 1px solid rgba(0,0,0,0.06);
         }
 
         .navbar-mobile-content {
           flex: 1;
-          overflow: auto;
-          background: #f7f7f4;
-          padding: "0 20px";
+          overflow-y: auto;
+          padding: 0 var(--grid-margin);
           display: flex;
           flex-direction: column;
-          marginTop: 20;
+        }
+
+        .navbar-close-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          fontSize: 24px;
+          color: var(--text-primary);
+          line-height: 1;
+        }
+
+        /* Backdrop */
+        .navbar-mobile-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.3);
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .navbar-mobile-backdrop.visible {
+          opacity: 1;
+          visibility: visible;
         }
 
         @keyframes fadeIn {
@@ -592,13 +589,23 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   const [apiOpen, setApiOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
+  const eyebrowStyle = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "11px",
+    fontWeight: 500,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase" as const,
+    color: "var(--text-tertiary)",
+    padding: "24px 0 8px",
+    borderBottom: "1px solid rgba(0,0,0,0.08)",
+  };
+
   const navStyle = {
     fontFamily: "var(--font-sans)",
-    fontSize: "1.5rem",
-    fontWeight: 300,
+    fontSize: "15px",
+    fontWeight: 400,
     color: "var(--text-primary)",
-    padding: "20px 0",
-    borderBottom: "1px solid rgba(0,0,0,0.08)",
+    padding: "10px 0",
     textDecoration: "none",
     display: "flex",
     alignItems: "center",
@@ -608,17 +615,18 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
     width: "100%",
     cursor: "pointer",
     textAlign: "left" as const,
+    position: "relative" as const,
   };
 
   const subItemStyle = {
     fontFamily: "var(--font-sans)",
-    fontSize: "1rem",
+    fontSize: "14px",
     fontWeight: 400,
     color: "var(--text-secondary)",
-    padding: "12px 0 12px 20px",
+    padding: "8px 0 8px 16px",
     textDecoration: "none",
     display: "block",
-    borderBottom: "1px solid rgba(0,0,0,0.04)",
+    position: "relative" as const,
   };
 
   const accordionContentStyle = (isOpen: boolean) => ({
@@ -629,7 +637,8 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
 
   return (
     <>
-      {/* LearningOS Accordion */}
+      {/* LearningOS Section */}
+      <div style={eyebrowStyle}>{t.nav.learningOS}</div>
       <button
         onClick={() => {
           setLearningOpen(!learningOpen);
@@ -637,33 +646,36 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setApiOpen(false);
           setResourcesOpen(false);
         }}
+        className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.learningOS}</span>
+        <span>{t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}</span>
         <span style={{
           transform: learningOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
+          opacity: 0.5,
         }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
       <div style={accordionContentStyle(learningOpen)}>
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
           </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[2] || "Coaching intégré"}
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[1] || "Dashboard Entreprise"}
           </Link>
         </div>
       </div>
 
-      {/* PipelineOS Accordion */}
+      {/* PipelineOS Section */}
+      <div style={eyebrowStyle}>{t.nav.pipelineOS}</div>
       <button
         onClick={() => {
           setPipelineOpen(!pipelineOpen);
@@ -671,30 +683,36 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setApiOpen(false);
           setResourcesOpen(false);
         }}
+        className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.pipelineOS}</span>
+        <span>{t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}</span>
         <span style={{
           transform: pipelineOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
+          opacity: 0.5,
         }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
       <div style={accordionContentStyle(pipelineOpen)}>
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.produits?.[1] || "HRAgents"}
           </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.workflows?.[0] || "Screening IA"}
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
           </Link>
         </div>
       </div>
 
-      {/* MentivisAPI Accordion */}
+      {/* MentivisAPI Section */}
+      <div style={eyebrowStyle}>{t.nav.mentivisAPI}</div>
       <button
         onClick={() => {
           setApiOpen(!apiOpen);
@@ -702,67 +720,77 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setPipelineOpen(false);
           setResourcesOpen(false);
         }}
+        className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.mentivisAPI}</span>
+        <span>{t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}</span>
         <span style={{
           transform: apiOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
+          opacity: 0.5,
         }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
       <div style={accordionContentStyle(apiOpen)}>
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
           </Link>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
+          </Link>
         </div>
       </div>
 
-      {/* Ressources Accordion */}
-      <button
-        onClick={() => {
-          setResourcesOpen(!resourcesOpen);
-          setLearningOpen(false);
-          setPipelineOpen(false);
-          setApiOpen(false);
-        }}
-        style={navStyle}
-      >
-        <span>{t.nav.ressources}</span>
-        <span style={{
-          transform: resourcesOpen ? "rotate(90deg)" : "rotate(0deg)",
-          transition: "transform 0.2s ease",
-        }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      </button>
-      <div style={accordionContentStyle(resourcesOpen)}>
-        <div style={{ overflow: "hidden" }}>
-          <Link href={`/${lang}/blog`} onClick={onClose} style={subItemStyle}>
-            {t.nav.ressourcesMenu?.entreprise?.[0] || "Blog"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.ressourcesMenu?.entreprise?.[1] || "Documentation"}
-          </Link>
-        </div>
-      </div>
+      {/* Ressources Section */}
+      <div style={eyebrowStyle}>{t.nav.ressources}</div>
+      <Link href={`/${lang}/blog`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+        <span>{t.nav.ressourcesMenu?.entreprise?.[0] || "News"}</span>
+      </Link>
+      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+        <span>{t.nav.ressourcesMenu?.entreprise?.[1] || "À propos"}</span>
+      </Link>
+      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+        <span>{t.nav.ressourcesMenu?.entreprise?.[2] || "Sécurité"}</span>
+      </Link>
 
       {/* Direct links */}
-      <Link href={`/${lang}`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.entreprise}</span>
+      <div style={eyebrowStyle}>{t.nav.entreprise}</div>
+      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+        <span>Solutions entreprise</span>
       </Link>
-      <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.tarifs}</span>
+
+      <div style={eyebrowStyle}>{t.nav.tarifs}</div>
+      <Link href={`/${lang}/tarifs`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+        <span>Voir les tarifs</span>
       </Link>
+
+      <style>{`
+        .mobile-nav-item::after,
+        .mobile-sub-item::after {
+          content: '';
+          position: absolute;
+          bottom: 6px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--text-primary);
+          transition: width 0.25s ease;
+        }
+        .mobile-nav-item:hover::after,
+        .mobile-sub-item:hover::after {
+          width: 100%;
+        }
+        .mobile-sub-item::after {
+          left: 16px;
+        }
+        .mobile-nav-link::after {
+          bottom: 8px;
+        }
+      `}</style>
     </>
   );
 }
