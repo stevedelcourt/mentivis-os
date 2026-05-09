@@ -960,83 +960,193 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
         </div>
 
-        {/* FAQ Accordion */}
-        <div style={{ maxWidth: 800 }}>
-          <h2
-            className="t-title"
-            style={{
-              textAlign: "left",
-              marginBottom: 40,
-              fontSize: "var(--text-title)",
-              fontWeight: 300,
-            }}
-          >
-            Questions fréquentes
-          </h2>
+        {/* FAQ Accordion - HP Style */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+            gap: "clamp(2.5rem, 6vw, 6rem)",
+          }}
+          className="tarifs-faq-grid"
+        >
+          {/* Left intro */}
+          <div>
+            <p
+              className="t-caption"
+              style={{
+                marginBottom: "1.75rem",
+                color: "var(--text-tertiary)",
+                fontWeight: 500,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                fontSize: "var(--text-micro)",
+              }}
+            >
+              FAQ
+            </p>
+            <h2
+              className="t-display"
+              style={{
+                fontSize: "clamp(28px, 4vw, 44px)",
+                fontWeight: 300,
+                lineHeight: 1.08,
+                letterSpacing: "-0.025em",
+                margin: "0 0 1.75rem",
+              }}
+            >
+              Questions fréquentes
+            </h2>
+            <p
+              className="t-lead"
+              style={{
+                fontSize: "0.9375rem",
+                lineHeight: 1.65,
+                color: "var(--text-secondary)",
+                maxWidth: "36ch",
+                margin: 0,
+              }}
+            >
+              Tout ce que vous devez savoir sur nos tarifs et nos plans.
+            </p>
+          </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {FAQ_ITEMS.map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  border: "1px solid var(--border-light)",
-                  borderRadius: "var(--r-card)",
-                  overflow: "hidden",
-                  background: "var(--bg-primary)",
-                }}
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+          {/* Right accordion */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {FAQ_ITEMS.map((item, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <article
+                  key={idx}
                   style={{
-                    width: "100%",
-                    padding: "22px 26px",
-                    background: "transparent",
-                    border: "none",
-                    textAlign: "left",
-                    fontSize: "var(--text-body-sm)",
-                    fontWeight: 500,
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    color: "var(--text-primary)",
-                    fontFamily: "var(--font-sans)",
+                    borderTop: "1px solid var(--border-light)",
+                    transition: "border-color 0.3s ease",
                   }}
                 >
-                  {item.question}
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  <button
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    aria-expanded={isOpen}
+                    type="button"
                     style={{
-                      transform: openFaq === idx ? "rotate(180deg)" : "rotate(0)",
-                      transition: "transform 0.2s ease",
-                      color: "var(--text-tertiary)",
-                      flexShrink: 0,
+                      width: "100%",
+                      background: "transparent",
+                      border: 0,
+                      color: "var(--text-primary)",
+                      fontFamily: "inherit",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      padding: "1.85rem 0",
+                      display: "grid",
+                      gridTemplateColumns: "2.25rem 1fr auto",
+                      alignItems: "center",
+                      gap: "1.5rem",
+                      fontSize: "1.0625rem",
+                      fontWeight: 400,
+                      letterSpacing: "-0.005em",
+                      lineHeight: 1.4,
+                      transition: "color 0.25s ease",
                     }}
                   >
-                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                {openFaq === idx && (
+                    <span
+                      style={{
+                        fontSize: "0.6875rem",
+                        fontWeight: 500,
+                        letterSpacing: "0.12em",
+                        color: isOpen ? "var(--text-primary)" : "var(--text-tertiary)",
+                        fontVariantNumeric: "tabular-nums",
+                        transition: "color 0.3s ease",
+                      }}
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{item.question}</span>
+                    <span
+                      style={{
+                        position: "relative",
+                        width: 14,
+                        height: 14,
+                        flexShrink: 0,
+                        display: "block",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: 0,
+                          width: "100%",
+                          height: 1,
+                          background: isOpen
+                            ? "var(--text-primary)"
+                            : "var(--text-tertiary)",
+                          transform: "translateY(-50%)",
+                          transition:
+                            "background 0.3s ease, transform 0.45s cubic-bezier(0.65, 0, 0.35, 1)",
+                        }}
+                      />
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: "50%",
+                          top: 0,
+                          width: 1,
+                          height: "100%",
+                          background: isOpen
+                            ? "var(--text-primary)"
+                            : "var(--text-tertiary)",
+                          transform: isOpen
+                            ? "translateX(-50%) rotate(90deg)"
+                            : "translateX(-50%)",
+                          transition:
+                            "background 0.3s ease, transform 0.45s cubic-bezier(0.65, 0, 0.35, 1)",
+                        }}
+                      />
+                    </span>
+                  </button>
                   <div
-                    className="t-caption"
                     style={{
-                      padding: "0 26px 22px",
-                      color: "var(--text-secondary)",
-                      fontSize: "var(--text-small)",
-                      lineHeight: 1.6,
+                      display: "grid",
+                      gridTemplateRows: isOpen ? "1fr" : "0fr",
+                      transition:
+                        "grid-template-rows 0.5s cubic-bezier(0.65, 0, 0.35, 1)",
                     }}
                   >
-                    {item.answer}
+                    <div style={{ overflow: "hidden" }}>
+                      <p
+                        style={{
+                          padding: "0 0 2.25rem calc(2.25rem + 1.5rem)",
+                          fontSize: "0.9375rem",
+                          lineHeight: 1.75,
+                          color: "var(--text-secondary)",
+                          maxWidth: "62ch",
+                          fontWeight: 400,
+                          margin: 0,
+                        }}
+                      >
+                        {item.answer}
+                      </p>
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                </article>
+              );
+            })}
+            {/* Bottom border */}
+            <div
+              style={{
+                borderTop: "1px solid var(--border-light)",
+              }}
+            />
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 950px) {
+          .tarifs-faq-grid {
+            grid-template-columns: 1fr !important;
+            gap: 3rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
