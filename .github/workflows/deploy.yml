@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: npx next build --webpack
 
-      - name: Prepare standalone output
+      - name: Deploy via FTP
         run: |
           mkdir -p deploy/public deploy/tmp
           cp -r .next/standalone/* deploy/
@@ -33,18 +33,11 @@ jobs:
           cp server.js deploy/server.js
           touch deploy/tmp/restart.txt
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.O2SWITCH_FTP_HOST }}
-          username: ${{ secrets.O2SWITCH_FTP_USER }}
-          password: ${{ secrets.O2SWITCH_FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./deploy/
-          server-dir: nextapp/
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/.cache/**
-            **/.next/cache/**
+          lftp -f "
+            set ftp:ssl-allow yes
+            set ssl:verify-certificate no
+            open -u ${{ secrets.O2SWITCH_FTP_USER }},${{ secrets.O2SWITCH_FTP_PASSWORD }} ${{ secrets.O2SWITCH_FTP_HOST }}
+            cd nextapp
+            mirror --reverse --delete --verbose --parallel=4 ./deploy/ ./
+            bye
+          "
