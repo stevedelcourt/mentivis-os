@@ -668,12 +668,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
     position: "relative" as const,
   };
 
-  const accordionContentStyle = (isOpen: boolean) => ({
-    maxHeight: isOpen ? "200px" : "0px",
-    overflow: "hidden",
-    transition: "max-height 0.3s ease",
-  });
-
   return (
     <>
       {/* LearningOS Section */}
@@ -698,7 +692,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div style={accordionContentStyle(learningOpen)}>
+      <div className={`accordion-content ${learningOpen ? 'open' : ''}`}>
         <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
           {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
         </Link>
@@ -732,7 +726,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div style={accordionContentStyle(pipelineOpen)}>
+      <div className={`accordion-content ${pipelineOpen ? 'open' : ''}`}>
         <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
           {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
         </Link>
@@ -766,7 +760,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div style={accordionContentStyle(apiOpen)}>
+      <div className={`accordion-content ${apiOpen ? 'open' : ''}`}>
         <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
           {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
         </Link>
@@ -789,6 +783,16 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </Link>
 
       <style>{`
+        .accordion-content {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+        .accordion-content.open {
+          max-height: 500px;
+          opacity: 1;
+        }
         .mobile-nav-item::after,
         .mobile-sub-item::after {
           content: '';
