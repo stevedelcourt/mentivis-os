@@ -105,12 +105,12 @@ export default function NavBar({ lang }: NavBarProps) {
           right: 0,
           zIndex: 1000,
           height: 64,
-          background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.98)",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          background: "rgba(255,255,255,0.98)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border-subtle)",
           transition: "background 0.35s ease, box-shadow 0.35s ease",
-          boxShadow: scrolled ? "var(--shadow-card)" : "none",
+          boxShadow: "var(--shadow-card)",
           willChange: "transform",
         }}
       >
@@ -147,7 +147,7 @@ export default function NavBar({ lang }: NavBarProps) {
             {/* LearningOS */}
             <div
               className="navbar-item"
-              style={{ position: "relative", padding: "20px 0" }}
+              style={{ position: "relative", padding: "20px 0 28px" }}
               onMouseEnter={() => openDropdown("learningOS")}
               onMouseLeave={closeDropdown}
             >
@@ -179,7 +179,7 @@ export default function NavBar({ lang }: NavBarProps) {
             {/* PipelineOS */}
             <div
               className="navbar-item"
-              style={{ position: "relative", padding: "20px 0" }}
+              style={{ position: "relative", padding: "20px 0 28px" }}
               onMouseEnter={() => openDropdown("pipelineOS")}
               onMouseLeave={closeDropdown}
             >
@@ -304,32 +304,6 @@ export default function NavBar({ lang }: NavBarProps) {
               {t.nav.contact}
             </Link>
 
-            <Link
-              href="https://app.mentivisOS.com"
-              className="btn-header-black"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "8px 16px",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#FFFFFF",
-                background: "#0A0A0A",
-                borderRadius: 8,
-                textDecoration: "none",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#222";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#0A0A0A";
-              }}
-            >
-              {t.nav.login}
-            </Link>
-
             <button
               className={`navbar-burger ${mobileOpen ? 'open' : ''}`}
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -412,15 +386,16 @@ export default function NavBar({ lang }: NavBarProps) {
         }
 
         .navbar-burger.open .line-top {
-          transform: translateY(6px) rotate(45deg);
+          transform: translateY(3px) rotate(30deg);
         }
 
         .navbar-burger.open .line-mid {
-          opacity: 0;
+          opacity: 0.5;
+          transform: scaleX(0.6);
         }
 
         .navbar-burger.open .line-bot {
-          transform: translateY(-6px) rotate(-45deg);
+          transform: translateY(-3px) rotate(-30deg);
         }
 
         /* Hide contact button on mobile */
@@ -473,13 +448,13 @@ export default function NavBar({ lang }: NavBarProps) {
           align-items: center;
           justify-content: center;
           gap: 6;
-          padding: 14px 24px;
-          font-size: 15px;
+          padding: 12px 20px;
+          font-size: 14px;
           font-weight: 500;
           color: #0A0A0A;
           background: #FFFFFF;
           border: 1px solid rgba(0,0,0,0.12);
-          border-radius: 9999px;
+          border-radius: 12px;
           text-decoration: none;
           box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
@@ -490,12 +465,12 @@ export default function NavBar({ lang }: NavBarProps) {
           align-items: center;
           justify-content: center;
           gap: 6;
-          padding: 14px 24px;
-          font-size: 15px;
+          padding: 12px 20px;
+          font-size: 14px;
           font-weight: 500;
           color: #FFFFFF;
           background: #0A0A0A;
-          border-radius: 9999px;
+          border-radius: 12px;
           text-decoration: none;
           box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
@@ -554,7 +529,7 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
       onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
-        top: "calc(100% + 4px)",
+        top: "calc(100% - 6px)",
         left: -200,
         display: "flex",
         gap: 40,

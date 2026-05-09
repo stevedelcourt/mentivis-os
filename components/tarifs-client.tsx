@@ -478,8 +478,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           {/* Right: Glassmorphism Product Card */}
           <div className="tarifs-product-card" style={{
             position: "relative",
-            width: "100%",
-            maxWidth: "100%",
+            flex: "0 0 280px",
+            width: 280,
             aspectRatio: "1/1",
             borderRadius: 20,
             overflow: "hidden",
