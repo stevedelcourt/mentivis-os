@@ -120,7 +120,7 @@ export default function MosaicModule({ lang }: { lang: Locale }) {
           <h1 className="t-display" style={{ fontSize: "var(--text-display)", marginBottom: 16 }}>
             {t.modules.mosaic.title}
           </h1>
-          <p className="t-lead" style={{ maxWidth: 600, margin: "0 auto" }}>
+          <p className="t-lead" style={{ maxWidth: 720, margin: "0 auto" }}>
             {t.modules.mosaic.description}
           </p>
         </div>

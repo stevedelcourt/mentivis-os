@@ -75,7 +75,8 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 marginBottom: 10,
               }}
             >
-              Insights & Actualites
+              Pas d'articles generiques.
+Des analyses concretes, issues du terrain, documentees en continu.
             </p>
             <p
               style={{
@@ -85,7 +86,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 lineHeight: 1.35,
                 letterSpacing: "-0.01em",
                 color: "#3E3B38",
-                maxWidth: 380,
+                maxWidth: 520,
               }}
             >
               Faire avancer la formation au-dela des catalogues : diagnostic IA, ingenierie pedagogique, et plus encore.
@@ -105,7 +106,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
               color: "#0A0A0A",
               background: "#FFFFFF",
               border: "1px solid rgba(0,0,0,.07)",
-              borderRadius: 9999,
+              borderRadius: 8,
               padding: "10px 18px",
               textDecoration: "none",
               boxShadow: "rgba(0,0,0,.04) 0 2px 8px",
@@ -196,7 +197,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                     letterSpacing: "0.06em",
                     color: "#0A0A0A",
                     padding: "5px 12px",
-                    borderRadius: 9999,
+borderRadius: 8,
                     boxShadow: "rgba(0,0,0,.06) 0 1px 6px",
                     zIndex: 5,
                   }}

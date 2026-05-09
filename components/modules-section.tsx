@@ -215,7 +215,7 @@ export default function ModulesSection({ lang }: { lang: Locale }) {
               fontSize: 15,
               fontWeight: 400,
               padding: "10px 24px",
-              borderRadius: 9999,
+              borderRadius: 8,
               border: "1px solid #e5e5e5",
               background: "#ffffff",
               color: "#1a1a1a",

@@ -48,7 +48,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div
           style={{
-            maxWidth: 720,
+            maxWidth: 820,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -82,7 +82,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
           <p
             className="t-lead"
             style={{
-              maxWidth: 560,
+              maxWidth: 640,
               whiteSpace: "pre-line",
               marginBottom: 40,
             }}

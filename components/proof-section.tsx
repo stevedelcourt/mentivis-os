@@ -122,7 +122,7 @@ export default function ProofSection({ lang }: { lang: Locale }) {
           style={{
             fontSize: "clamp(20px, 2.5vw, 28px)",
             lineHeight: 1.4,
-            maxWidth: 720,
+            maxWidth: 820,
             marginBottom: 40,
           }}
         >

@@ -95,7 +95,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 fontWeight: 500,
                 letterSpacing: ".005em",
                 padding: "9px 22px",
-                borderRadius: 9999,
+                borderRadius: 8,
                 border: "none",
                 background: activeTab === tab ? "#FFFFFF" : "transparent",
                 color: activeTab === tab ? "#0A0A0A" : "#777169",
@@ -330,7 +330,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                   lineHeight: 1.36,
                   letterSpacing: "-.005em",
                   textShadow: "0 1px 6px rgba(0,0,0,.25)",
-                  maxWidth: 380,
+                  maxWidth: 520,
                 }}
               >
                 {data.cards.b.caption}

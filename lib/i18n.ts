@@ -40,7 +40,7 @@ export const translations = {
       },
     },
     problem: {
-      statement: "Les LMS diffusent du contenu.\nPersonne ne sait si ca comble le bon ecart.",
+      statement: "Les LMS diffusent du contenu.\nPersonne ne sait si ca comble le bon ecart.\nPas de formation standard.\nUn diagnostic exact, calibre sur votre ecart reel, traite en direct.",
       counterpoint: "MentivisOS produit le diagnostic exact, le programme correspondant, et l'accompagnement pour aller au bout.",
     },
     steps: {
@@ -402,7 +402,7 @@ export const translations = {
     },
     mathFeatures: {
       eyebrow: "Principes",
-      title: "Precision, structure, continuite. Les trois constantes du systeme.",
+      title: "Precision, structure, continuite.\nLes trois constantes du systeme.",
       cards: {
         saddle: {
           title: "Precision",
@@ -524,7 +524,7 @@ export const translations = {
       },
     },
     problem: {
-      statement: "LMSs distribute content.\nNo one knows if it fills the right gap.",
+      statement: "LMSs distribute content.\nNo one knows if it fills the right gap.\nNo standard training.\nAn exact diagnostic, calibrated to your real gap, handled live.",
       counterpoint: "MentivisOS produces the exact diagnostic, the corresponding program, and the coaching to see it through.",
     },
     steps: {
@@ -886,7 +886,7 @@ export const translations = {
     },
     mathFeatures: {
       eyebrow: "Principles",
-      title: "Precision, structure, continuity. The three constants of the system.",
+      title: "Precision, structure, continuity.\nThe three constants of the system.",
       cards: {
         saddle: {
           title: "Precision",

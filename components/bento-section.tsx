@@ -172,7 +172,7 @@ export default function BentoSection({ lang }: { lang: Locale }) {
           <button
             style={{
               padding: "12px 28px",
-              borderRadius: 9999,
+              borderRadius: 8,
               background: "#ffffff",
               border: "1px solid #e5e5e5",
               fontSize: 15,

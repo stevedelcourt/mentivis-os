@@ -16,7 +16,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
           style={{
             fontSize: "clamp(28px, 4vw, 44px)",
             whiteSpace: "pre-line",
-            maxWidth: 800,
+            maxWidth: 900,
           }}
         >
           {t.problem.statement}
@@ -24,7 +24,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
         <p
           className="t-lead"
           style={{
-            maxWidth: 600,
+            maxWidth: 720,
             marginTop: 24,
           }}
         >

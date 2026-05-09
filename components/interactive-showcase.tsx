@@ -363,7 +363,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
             </div>
 
             {/* Title */}
-            <div style={{ textAlign: "right", maxWidth: 480 }}>
+            <div style={{ textAlign: "right", maxWidth: 600 }}>
               <h2
                 style={{
                   fontSize: 18,

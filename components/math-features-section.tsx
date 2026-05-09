@@ -237,7 +237,7 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
               style={{
                 fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 300,
-                maxWidth: 480,
+                maxWidth: 680,
                 lineHeight: 1.35,
               }}
             >
