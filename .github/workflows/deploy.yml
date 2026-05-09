@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: npx next build --webpack
 
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
+
       - name: Deploy via FTP
         run: |
           mkdir -p deploy/public deploy/tmp
