@@ -632,7 +632,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   return (
     <>
       {/* LearningOS Section */}
-      <div style={eyebrowStyle}>{t.nav.learningOS}</div>
       <button
         onClick={() => {
           setLearningOpen(!learningOpen);
@@ -643,7 +642,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}</span>
+        <span>{t.nav.learningOS}</span>
         <span style={{
           transform: learningOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
@@ -657,19 +656,18 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       <div style={accordionContentStyle(learningOpen)}>
         <div style={{ overflow: "hidden" }}>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
           </Link>
-          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.learningOSMenu?.workflows?.[1] || "Dashboard Entreprise"}
-          </Link>
         </div>
       </div>
 
       {/* PipelineOS Section */}
-      <div style={eyebrowStyle}>{t.nav.pipelineOS}</div>
       <button
         onClick={() => {
           setPipelineOpen(!pipelineOpen);
@@ -680,7 +678,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}</span>
+        <span>{t.nav.pipelineOS}</span>
         <span style={{
           transform: pipelineOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
@@ -694,7 +692,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       <div style={accordionContentStyle(pipelineOpen)}>
         <div style={{ overflow: "hidden" }}>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.produits?.[1] || "HRAgents"}
+            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
@@ -706,7 +704,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </div>
 
       {/* MentivisAPI Section */}
-      <div style={eyebrowStyle}>{t.nav.mentivisAPI}</div>
       <button
         onClick={() => {
           setApiOpen(!apiOpen);
@@ -717,7 +714,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         className="mobile-nav-item"
         style={navStyle}
       >
-        <span>{t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}</span>
+        <span>{t.nav.mentivisAPI}</span>
         <span style={{
           transform: apiOpen ? "rotate(90deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
@@ -731,6 +728,9 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       <div style={accordionContentStyle(apiOpen)}>
         <div style={{ overflow: "hidden" }}>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
             {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
@@ -740,21 +740,13 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </div>
 
       {/* Ressources Section */}
-      <div style={eyebrowStyle}>{t.nav.ressources}</div>
       <Link href={`/${lang}/blog`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
-        <span>{t.nav.ressourcesMenu?.entreprise?.[0] || "News"}</span>
-      </Link>
-      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
-        <span>{t.nav.ressourcesMenu?.entreprise?.[1] || "À propos"}</span>
-      </Link>
-      <Link href={`/${lang}`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
-        <span>{t.nav.ressourcesMenu?.entreprise?.[2] || "Sécurité"}</span>
+        <span>{t.nav.ressources}</span>
       </Link>
 
-      {/* Direct links */}
-      <div style={eyebrowStyle}>{t.nav.tarifs}</div>
+      {/* Tarifs */}
       <Link href={`/${lang}/tarifs`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
-        <span>Voir les tarifs</span>
+        <span>{t.nav.tarifs}</span>
       </Link>
 
       {/* Bottom buttons */}
