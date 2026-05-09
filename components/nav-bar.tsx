@@ -253,7 +253,7 @@ export default function NavBar({ lang }: NavBarProps) {
           {/* Right side CTAs */}
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Link
-              href={`/${lang}/demo`}
+              href={`/${lang}/contact`}
               className="btn-header-outline"
               style={{
                 display: "inline-flex",
@@ -283,7 +283,7 @@ export default function NavBar({ lang }: NavBarProps) {
             </Link>
 
             <Link
-              href={`/${lang}/demo`}
+              href="https://app.mentivisOS.com"
               className="btn-header-black"
               style={{
                 display: "inline-flex",
@@ -331,7 +331,7 @@ export default function NavBar({ lang }: NavBarProps) {
           
           <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
             <Link
-              href={`/${lang}/demo`}
+              href={`/${lang}/contact`}
               onClick={() => setMobileOpen(false)}
               className="btn-header-outline"
               style={{
@@ -342,7 +342,7 @@ export default function NavBar({ lang }: NavBarProps) {
               {t.nav.contact}
             </Link>
             <Link
-              href={`/${lang}/demo`}
+              href="https://app.mentivisOS.com"
               onClick={() => setMobileOpen(false)}
               className="btn-header-black"
               style={{

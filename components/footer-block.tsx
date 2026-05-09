@@ -82,7 +82,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {col.links.map((link) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
-                    href={`/${lang}`}
+                    href={link === "Contact" ? `/${lang}/contact` : `/${lang}`}
                     className="footer-link t-caption"
                     style={{
                       color: "var(--text-tertiary)",
@@ -122,10 +122,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         <div style={{ display: "flex", gap: 16 }}>
           {[
             { label: "Composants", href: `/${lang}/composants` },
-            { label: "Mentions legales", href: `/${lang}` },
-            { label: "Confidentialite", href: `/${lang}` },
-            { label: "CGU", href: `/${lang}` },
-            { label: "Cookies", href: `/${lang}` },
+            { label: "Mentions legales", href: `/${lang}/legal` },
+            { label: "Confidentialite", href: `/${lang}/privacy` },
+            { label: "CGU", href: `/${lang}/terms` },
+            { label: "CGV", href: `/${lang}/cgv` },
           ].map((item) => (
             <Link
               key={item.label}

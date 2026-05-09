@@ -60,7 +60,7 @@ export default function ContactClient({ lang }: { lang: Locale }) {
         <form onSubmit={handleSubmit}>
           {/* Row 1: Prénom, nom + Organisation */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label="Prénom, nom" name="fullname" required />
+            <FormField label="Prénom / Name" name="fullname" required />
             <FormField label={t.demo.form.organization} name="organization" required />
           </div>
 
