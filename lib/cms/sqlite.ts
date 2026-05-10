@@ -43,7 +43,7 @@ async function createDb(): Promise<SqlJsDb> {
     dbBuffer = fs.readFileSync(DB_PATH);
   }
 
-  const db = new SQL.Database(dbBuffer);
+  const db = new SQL.Database(dbBuffer ? new Uint8Array(dbBuffer) : null);
 
   const wrapper = new SqlJsDb(db, DB_PATH);
 
