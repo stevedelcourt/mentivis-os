@@ -149,7 +149,12 @@ export default function NavBar({ lang }: NavBarProps) {
               onMouseEnter={() => openDropdown("learningOS")}
               onMouseLeave={closeDropdown}
             >
-              <span className="t-nav navbar-link">{t.nav.learningOS}</span>
+              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {t.nav.learningOS}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "learningOS" ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
               {activeDropdown === "learningOS" && (
                 <MegaMenu
                   sections={[
@@ -181,7 +186,12 @@ export default function NavBar({ lang }: NavBarProps) {
               onMouseEnter={() => openDropdown("pipelineOS")}
               onMouseLeave={closeDropdown}
             >
-              <span className="t-nav navbar-link">{t.nav.pipelineOS}</span>
+              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {t.nav.pipelineOS}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "pipelineOS" ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
               {activeDropdown === "pipelineOS" && (
                 <MegaMenu
                   sections={[
@@ -213,13 +223,25 @@ export default function NavBar({ lang }: NavBarProps) {
               onMouseEnter={() => openDropdown("mentivisAPI")}
               onMouseLeave={closeDropdown}
             >
-              <span className="t-nav navbar-link">{t.nav.mentivisAPI}</span>
+              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {t.nav.mentivisAPI}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "mentivisAPI" ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
               {activeDropdown === "mentivisAPI" && (
                 <MegaMenu
                   sections={[
                     {
                       eyebrow: t.nav.eyebrows.plateforme,
                       links: t.nav.mentivisAPIMenu.plateforme.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
+                    },
+                    {
+                      eyebrow: t.nav.eyebrows.workflows,
+                      links: t.nav.mentivisAPIMenu.workflows.map((label) => ({
                         label,
                         href: `/${lang}`,
                       })),
@@ -238,19 +260,21 @@ export default function NavBar({ lang }: NavBarProps) {
               onMouseEnter={() => openDropdown("ressources")}
               onMouseLeave={closeDropdown}
             >
-              <span className="t-nav navbar-link">{t.nav.ressources}</span>
+              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {t.nav.ressources}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "ressources" ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
               {activeDropdown === "ressources" && (
                 <MegaMenu
                   sections={[
                     {
-                      eyebrow: t.nav.eyebrows.entreprise,
-                      links: [
-                        { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
-                        ...t.nav.ressourcesMenu.entreprise.slice(1).map((label) => ({
-                          label,
-                          href: `/${lang}`,
-                        })),
-                      ],
+                      eyebrow: t.nav.eyebrows.initiatives,
+                      links: t.nav.ressourcesMenu.initiatives.map((label) => ({
+                        label,
+                        href: `/${lang}`,
+                      })),
                     },
                   ]}
                   onMouseEnter={() => openDropdown("ressources")}

@@ -16,6 +16,7 @@ export const translations = {
         workflowsRH: "WORKFLOWS RH & RECRUTEMENT",
         plateforme: "PLATEFORME",
         entreprise: "ENTREPRISE",
+        initiatives: "INITIATIVES",
       },
       learningOSMenu: {
         produits: ["LearningOS", "SkillAgents"],
@@ -27,9 +28,10 @@ export const translations = {
       },
       mentivisAPIMenu: {
         plateforme: ["Apercu", "Docs", "Developper", "Tarifs API"],
+        workflows: ["Formation personnalisee automatisee", "Connexion SIRH / ERP / CRM", "Certification & financement OPCO", "Agents IA integres metiers"],
       },
       ressourcesMenu: {
-        entreprise: ["News", "A propos", "Securite", "Temoignages clients", "Carrieres"],
+        initiatives: ["Programme Impact", "Pour Ecoles & Universites", "Programme Affiliation & Ambassadeur", "Partenariats"],
       },
     },
     hero: {
@@ -527,6 +529,7 @@ export const translations = {
         workflowsRH: "HR & RECRUITMENT WORKFLOWS",
         plateforme: "PLATFORM",
         entreprise: "COMPANY",
+        initiatives: "INITIATIVES",
       },
       learningOSMenu: {
         produits: ["LearningOS", "SkillAgents"],
@@ -538,9 +541,10 @@ export const translations = {
       },
       mentivisAPIMenu: {
         plateforme: ["Overview", "Docs", "Develop", "API Pricing"],
+        workflows: ["Automated personalized training", "HRIS / ERP / CRM integration", "Certification & OPCO funding", "Integrated business AI agents"],
       },
       ressourcesMenu: {
-        entreprise: ["News", "About", "Security", "Customer Stories", "Careers"],
+        initiatives: ["Impact Program", "For Schools & Universities", "Affiliate & Ambassador Program", "Partnerships"],
       },
     },
     hero: {
