@@ -18,6 +18,7 @@ MentivisOS is an AI-native pedagogical engine — not an LMS, not a catalog. It 
 - **Styling**: CSS custom properties only, no utility framework
 - **Fonts**: Playfair Display (display), DM Mono (interface), Inter (body) — via next/font
 - **Language**: Bilingual FR/EN, default FR
+- **Database**: SQLite via `sql.js` (pure JS/WASM)
 - **Design system**: See `docs/MentivisOS_design-v2.md`
 
 ---
@@ -50,6 +51,39 @@ Use CSS `:hover` selectors instead. Event handlers on `Link` in server component
 ### 5. Params typing
 
 In Next.js 16, `params` from dynamic routes returns `Promise<{ lang: string }>`, not a specific union type. Cast with `as Locale` after awaiting.
+
+### 6. Database: sql.js only
+
+Use `sql.js` (pure JS/WASM) for SQLite. **Never** use `better-sqlite3` on o2switch — it fails due to missing GLIBC_2.29 and absent gcc.
+
+### 7. Async DB layer
+
+All functions in `lib/cms/db.ts` and `lib/cms/users.ts` are `async`. Always `await` them.
+
+```typescript
+// Correct
+const posts = await getPublishedPosts();
+
+// Wrong — will throw or return a Promise
+const posts = getPublishedPosts();
+```
+
+### 8. Async auth guards
+
+`getAuthUser()`, `requireAuth()`, and `requireRole()` are `async`. Always `await` them in API routes.
+
+```typescript
+// Correct
+const auth = await requireAuth(request);
+if (auth instanceof Response) return auth;
+
+// Wrong
+const auth = requireAuth(request);
+```
+
+### 9. WASM resolution
+
+`sql.js` requires a `.wasm` file at runtime. Next.js `standalone` output does not bundle it. The runtime searches `process.cwd()` and parent directories. Ensure `serverExternalPackages: ["sql.js"]` is in `next.config.ts`.
 
 ---
 
@@ -139,3 +173,23 @@ Env vars: `HUBSPOT_PORTAL_ID`, `HUBSPOT_FORM_ID`, `ALLOWED_ORIGINS`
 - **Remote**: origin → github.com/stevedelcourt/mentivis-os
 - **Branch**: main
 - Push triggers Vercel auto-deploy
+
+## Deployment
+
+### o2switch (Production)
+
+- **Host**: `terre.o2switch.net`
+- **User**: `sc4bovu7233`
+- **App dir**: `/home/sc4bovu7233/nextapp`
+- **Data dir**: `/home/sc4bovu7233/data` (persistent, outside repo)
+- **Script**: `./deploy.sh` — SSH + `git reset --hard` + `npm install` + `npx next build --webpack` + Passenger restart
+- **Process manager**: Passenger (`touch tmp/restart.txt`)
+- **Entry**: `server.js` → `require('./.next/standalone/server.js')`
+- **Constraints**: No gcc, old glibc, shared hosting — only pure JS dependencies
+
+See `docs/infrastructure.md` for full deployment reference.
+
+### Vercel (Preview)
+
+- Auto-deploys on push to `main`
+- Not used for production (o2switch is primary)
