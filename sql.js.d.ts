@@ -20,5 +20,9 @@ declare module "sql.js" {
     locateFile?: (file: string) => string;
   }
 
-  export default function initSqlJs(config?: SqlJsConfig): Promise<typeof Database>;
+  interface SqlJsModule {
+    Database: typeof Database;
+  }
+
+  export default function initSqlJs(config?: SqlJsConfig): Promise<SqlJsModule>;
 }
