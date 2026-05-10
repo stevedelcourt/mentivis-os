@@ -40,6 +40,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
         const res = await fetch("/api/blog/posts");
         if (res.ok) {
           const data = await res.json();
+          // API already sorts, but ensure we take the first 3
           setPosts((data.posts || []).slice(0, 3));
         }
       } catch {

@@ -44,16 +44,22 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   }, []);
 
   const filteredPosts = useMemo(() => {
-    if (activeCategory === "all") return posts;
-    return posts.filter((p) => p.category === activeCategory);
+    let result = posts;
+    if (activeCategory !== "all") {
+      result = posts.filter((p) => p.category === activeCategory);
+    }
+    // Sort: featured first, then by date descending
+    return [...result].sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime();
+    });
   }, [activeCategory, posts]);
 
-  const featuredPost =
-    activeCategory === "all"
-      ? (filteredPosts.find((p) => p.featured) ?? filteredPosts[0])
-      : filteredPosts[0];
+  // Featured post is the first one (API already sorts featured first, but we re-sort for categories)
+  const featuredPost = filteredPosts[0];
 
-  const gridPosts = filteredPosts.filter((p) => p.id !== featuredPost?.id);
+  const gridPosts = filteredPosts.slice(1);
 
   const totalPages = Math.ceil(gridPosts.length / POSTS_PER_PAGE);
   const pagedPosts = gridPosts.slice(

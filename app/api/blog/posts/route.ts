@@ -10,5 +10,12 @@ export async function GET(request: Request) {
     posts = posts.filter((p) => p.category === category);
   }
 
+  // Sort: featured first, then by date descending (latest first)
+  posts.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime();
+  });
+
   return NextResponse.json({ posts });
 }
