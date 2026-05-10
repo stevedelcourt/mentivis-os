@@ -329,8 +329,9 @@ export default function NavBar({ lang }: NavBarProps) {
             </Link>
 
             <button
+              className="navbar-burger"
               style={{
-                display: "block",
+                display: "none",
                 padding: 4,
                 background: "none",
                 border: "none",
@@ -341,20 +342,20 @@ export default function NavBar({ lang }: NavBarProps) {
               aria-label="Toggle menu"
             >
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                <line x1="4" y1="10" x2="28" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                   style={{
                     transition: "all 0.3s ease",
                     transform: mobileOpen ? "translateY(6px) rotate(45deg)" : "none",
                     transformOrigin: "center",
                   }}
                 />
-                <line x1="6" y1="16" x2="26" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                <line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                   style={{
                     transition: "all 0.3s ease",
                     opacity: mobileOpen ? 0 : 1,
                   }}
                 />
-                <line x1="6" y1="22" x2="26" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                <line x1="4" y1="22" x2="28" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                   style={{
                     transition: "all 0.3s ease",
                     transform: mobileOpen ? "translateY(-6px) rotate(-45deg)" : "none",
@@ -583,6 +584,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   const [learningOpen, setLearningOpen] = useState(false);
   const [pipelineOpen, setPipelineOpen] = useState(false);
   const [apiOpen, setApiOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
 
   const navStyle = {
     fontFamily: "var(--font-sans)",
@@ -613,6 +615,16 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
     position: "relative" as const,
   };
 
+  const eyebrowStyle = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "11px",
+    fontWeight: 500,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase" as const,
+    color: "var(--text-tertiary)",
+    padding: "16px 0 6px",
+  };
+
   return (
     <>
       {/* LearningOS Section */}
@@ -637,14 +649,25 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </button>
       {learningOpen && (
         <div style={{ padding: "0 0 10px 0" }}>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.produits}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
+            {t.nav.learningOSMenu?.produits?.[0] || "LearningOS"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
+            {t.nav.learningOSMenu?.produits?.[1] || "SkillAgents"}
           </Link>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.workflows}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[1] || "Formations certifiantes"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[2] || "Dashboard Entreprise"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[3] || "OPCO Manager"}
           </Link>
         </div>
       )}
@@ -671,14 +694,22 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </button>
       {pipelineOpen && (
         <div style={{ padding: "0 0 10px 0" }}>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.produits}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
+            {t.nav.pipelineOSMenu?.produits?.[0] || "HumanRessourceOS"}
           </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.produits?.[1] || "HRAgents"}
+          </Link>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.workflowsRH}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
+            {t.nav.pipelineOSMenu?.workflows?.[1] || "Test & Cases pour Recruteurs"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[2] || "Ranking Engine"}
           </Link>
         </div>
       )}
@@ -705,22 +736,63 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       </button>
       {apiOpen && (
         <div style={{ padding: "0 0 10px 0" }}>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.plateforme}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
+            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "Apercu"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
+            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Docs"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
+            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Developper"}
+          </Link>
+          <Link href={`/${lang}/tarifs`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[3] || "Tarifs API"}
           </Link>
         </div>
       )}
 
       {/* Ressources Section */}
-      <Link href={`/${lang}/blog`} onClick={onClose} style={navStyle}>
+      <button
+        onClick={() => {
+          setResourcesOpen(!resourcesOpen);
+          setLearningOpen(false);
+          setPipelineOpen(false);
+          setApiOpen(false);
+        }}
+        style={navStyle}
+      >
         <span>{t.nav.ressources}</span>
-      </Link>
+        <span style={{
+          transform: resourcesOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+          opacity: 0.5,
+        }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      {resourcesOpen && (
+        <div style={{ padding: "0 0 10px 0" }}>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.entreprise}</span>
+          <Link href={`/${lang}/blog`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[0] || "News"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[1] || "A propos"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[2] || "Securite"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[3] || "Temoignages clients"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.entreprise?.[4] || "Carrieres"}
+          </Link>
+        </div>
+      )}
 
       {/* Tarifs */}
       <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
