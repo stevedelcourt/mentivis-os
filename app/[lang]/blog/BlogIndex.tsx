@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { Post, CATEGORIES } from "@/lib/cms/types";
+import { stripMarkdown } from "@/lib/markdown";
 import styles from "./blog.module.css";
 
 export type CategoryKey =
@@ -153,7 +154,7 @@ function FeaturedCard({ post, lang }: FeaturedCardProps) {
             <span className={styles.date}>{post.date}</span>
           </div>
           <h2 className={styles.featTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
-          <p className={styles.featExcerpt}>{post.excerpt}</p>
+          <p className={styles.featExcerpt}>{stripMarkdown(post.excerpt)}</p>
         </div>
         <Link href={`/${lang}/blog/${post.slug}`} className={styles.featCta}>
           Lire l&apos;article

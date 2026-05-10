@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import styles from "../blog.module.css";
 import { Post } from "@/lib/cms/types";
+import { renderMarkdown } from "@/lib/markdown";
 
 export default function BlogPostPage() {
   const params = useParams();
@@ -116,62 +117,9 @@ export default function BlogPostPage() {
           )}
 
           <div
-            style={{
-              fontSize: 17,
-              lineHeight: 1.8,
-              color: "var(--text-primary)",
-            }}
-          >
-            {post.content.split("\n\n").map((paragraph, idx) => {
-              if (paragraph.startsWith("## ")) {
-                return (
-                  <h2
-                    key={idx}
-                    style={{
-                      fontSize: 24,
-                      fontWeight: 500,
-                      marginTop: 48,
-                      marginBottom: 24,
-                      letterSpacing: "-0.01em",
-                    }}
-                  >
-                    {paragraph.replace("## ", "")}
-                  </h2>
-                );
-              }
-              if (paragraph.startsWith("• ")) {
-                return (
-                  <ul key={idx} style={{ marginBottom: 24, paddingLeft: 24 }}>
-                    {paragraph.split("\n").map((item, i) => (
-                      <li
-                        key={i}
-                        style={{
-                          marginBottom: 8,
-                          color: "var(--text-secondary)",
-                        }}
-                      >
-                        {item.replace("• ", "")}
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-              return (
-                <p
-                  key={idx}
-                  style={{
-                    marginBottom: 24,
-                    color: paragraph.includes("Conclusion")
-                      ? "var(--text-primary)"
-                      : "var(--text-secondary)",
-                    fontWeight: paragraph.includes("Conclusion") ? 500 : 400,
-                  }}
-                >
-                  {paragraph}
-                </p>
-              );
-            })}
-          </div>
+            className="article-body"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+          />
 
           <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid var(--border-light)" }}>
             <p style={{ fontSize: 14, color: "var(--text-tertiary)" }}>
@@ -200,6 +148,93 @@ export default function BlogPostPage() {
           }),
         }}
       />
+
+      <style>{`
+        .article-body {
+          font-size: 17px;
+          line-height: 1.8;
+          color: var(--text-primary);
+        }
+        .article-body h2 {
+          font-size: 24px;
+          font-weight: 500;
+          margin-top: 48px;
+          margin-bottom: 24px;
+          letter-spacing: -0.01em;
+          color: var(--text-primary);
+        }
+        .article-body h3 {
+          font-size: 20px;
+          font-weight: 500;
+          margin-top: 36px;
+          margin-bottom: 16px;
+          letter-spacing: -0.01em;
+          color: var(--text-primary);
+        }
+        .article-body p {
+          margin-bottom: 24px;
+          color: var(--text-secondary);
+        }
+        .article-body p strong,
+        .article-body p b {
+          color: var(--text-primary);
+          font-weight: 500;
+        }
+        .article-body ul,
+        .article-body ol {
+          margin-bottom: 24px;
+          padding-left: 24px;
+        }
+        .article-body li {
+          margin-bottom: 8px;
+          color: var(--text-secondary);
+        }
+        .article-body a {
+          color: var(--text-primary);
+          text-decoration: underline;
+          text-underline-offset: 3px;
+        }
+        .article-body a:hover {
+          color: var(--text-secondary);
+        }
+        .article-body code {
+          font-family: var(--font-mono);
+          font-size: 0.9em;
+          background: var(--bg-secondary);
+          padding: 2px 6px;
+          border-radius: 4px;
+          color: var(--text-primary);
+        }
+        .article-body pre {
+          background: var(--bg-secondary);
+          padding: 16px;
+          border-radius: 8px;
+          overflow-x: auto;
+          margin-bottom: 24px;
+        }
+        .article-body pre code {
+          background: none;
+          padding: 0;
+        }
+        .article-body blockquote {
+          border-left: 3px solid var(--border-light);
+          padding-left: 20px;
+          margin-left: 0;
+          margin-bottom: 24px;
+          color: var(--text-tertiary);
+          font-style: italic;
+        }
+        .article-body img {
+          max-width: 100%;
+          border-radius: 8px;
+          margin-bottom: 24px;
+        }
+        .article-body hr {
+          border: none;
+          border-top: 1px solid var(--border-light);
+          margin: 32px 0;
+        }
+      `}</style>
     </section>
   );
 }
