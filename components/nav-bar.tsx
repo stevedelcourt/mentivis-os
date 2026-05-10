@@ -329,51 +329,124 @@ export default function NavBar({ lang }: NavBarProps) {
             </Link>
 
             <button
-              className={`navbar-burger ${mobileOpen ? 'open' : ''}`}
+              style={{
+                display: "block",
+                padding: 4,
+                background: "none",
+                border: "none",
+                color: "var(--text-primary)",
+                cursor: "pointer",
+              }}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className={mobileOpen ? 'open' : ''}>
-                <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-top" />
-                <line x1="6" y1="16" x2="26" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-mid" />
-                <line x1="6" y1="22" x2="26" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="line-bot" />
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                  style={{
+                    transition: "all 0.3s ease",
+                    transform: mobileOpen ? "translateY(6px) rotate(45deg)" : "none",
+                    transformOrigin: "center",
+                  }}
+                />
+                <line x1="6" y1="16" x2="26" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                  style={{
+                    transition: "all 0.3s ease",
+                    opacity: mobileOpen ? 0 : 1,
+                  }}
+                />
+                <line x1="6" y1="22" x2="26" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                  style={{
+                    transition: "all 0.3s ease",
+                    transform: mobileOpen ? "translateY(-6px) rotate(-45deg)" : "none",
+                    transformOrigin: "center",
+                  }}
+                />
               </svg>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Fullscreen Menu - Starts below header */}
-      <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+      {/* Mobile Fullscreen Menu */}
+      <div style={{
+        position: "fixed",
+        top: 64,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "#ffffff",
+        zIndex: 1000,
+        transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
+        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        display: "flex",
+        flexDirection: "column",
+      }}>
         {/* Scrollable content area */}
-        <div className="navbar-mobile-scrollable">
+        <div style={{
+          flex: 1,
+          overflowY: "auto",
+          padding: "20px var(--grid-margin)",
+          display: "flex",
+          flexDirection: "column",
+        }}>
           <MobileAccordionNav t={t} lang={lang} onClose={() => setMobileOpen(false)} />
         </div>
 
         {/* Sticky bottom buttons */}
-        <div className="navbar-mobile-sticky-bottom">
+        <div style={{
+          position: "sticky",
+          bottom: 0,
+          display: "flex",
+          gap: 12,
+          padding: "16px var(--grid-margin)",
+          background: "#ffffff",
+          borderTop: "1px solid rgba(0,0,0,0.06)",
+        }}>
           <Link
             href={`/${lang}/contact`}
             onClick={() => setMobileOpen(false)}
-            className="mobile-btn-outline"
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              padding: "12px 20px",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#0A0A0A",
+              background: "#FFFFFF",
+              border: "1px solid rgba(0,0,0,0.12)",
+              borderRadius: 12,
+              textDecoration: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            }}
           >
             {t.nav.contact}
           </Link>
           <Link
             href="https://app.mentivisOS.com"
             onClick={() => setMobileOpen(false)}
-            className="mobile-btn-primary"
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              padding: "12px 20px",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#FFFFFF",
+              background: "#0A0A0A",
+              borderRadius: 12,
+              textDecoration: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+            }}
           >
             {t.nav.login}
           </Link>
         </div>
       </div>
-
-      {/* Overlay backdrop */}
-      <div 
-        className={`navbar-mobile-backdrop ${mobileOpen ? 'visible' : ''}`}
-        onClick={() => setMobileOpen(false)}
-      />
 
       <style>{`
         .navbar-link {
@@ -390,133 +463,11 @@ export default function NavBar({ lang }: NavBarProps) {
           color: var(--text-primary);
         }
 
-        .navbar-burger {
-          display: none;
-          padding: 4px;
-          background: none;
-          border: none;
-          color: var(--text-primary);
-          cursor: pointer;
-        }
-
-        .navbar-burger svg {
-          width: 32px;
-          height: 32px;
-        }
-
-        .navbar-burger line {
-          transition: all 0.3s ease;
-          transform-origin: center;
-        }
-
-        .navbar-burger.open .line-top {
-          transform: translateY(6px) rotate(45deg);
-        }
-
-        .navbar-burger.open .line-mid {
-          opacity: 0;
-        }
-
-        .navbar-burger.open .line-bot {
-          transform: translateY(-6px) rotate(-45deg);
-        }
-
         /* Hide contact button on mobile */
         @media (max-width: 1024px) {
           .hide-mobile {
             display: none !important;
           }
-        }
-
-        /* Mobile fullscreen menu - starts below header */
-        .navbar-mobile-menu {
-          position: fixed;
-          top: 64px;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: #ffffff;
-          z-index: 1000;
-          transform: translateX(100%);
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          display: flex;
-          flex-direction: column;
-        }
-
-        .navbar-mobile-menu.open {
-          transform: translateX(0);
-        }
-
-        .navbar-mobile-scrollable {
-          flex: 1;
-          overflow-y: auto;
-          padding: 20px var(--grid-margin);
-          display: flex;
-          flex-direction: column;
-        }
-
-        .navbar-mobile-sticky-bottom {
-          position: sticky;
-          bottom: 0;
-          display: flex;
-          gap: 12;
-          padding: 16px var(--grid-margin);
-          background: #ffffff;
-          border-top: 1px solid rgba(0,0,0,0.06);
-        }
-
-        .mobile-btn-outline {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6;
-          padding: 12px 20px;
-          font-size: 14px;
-          font-weight: 500;
-          color: #0A0A0A;
-          background: #FFFFFF;
-          border: 1px solid rgba(0,0,0,0.12);
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .mobile-btn-primary {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6;
-          padding: 12px 20px;
-          font-size: 14px;
-          font-weight: 500;
-          color: #FFFFFF;
-          background: #0A0A0A;
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-        }
-
-        /* Backdrop */
-        .navbar-mobile-backdrop {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.3);
-          z-index: 1000;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .navbar-mobile-backdrop.visible {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
         }
 
         @media (max-width: 1170px) {
@@ -525,41 +476,12 @@ export default function NavBar({ lang }: NavBarProps) {
             -webkit-backdrop-filter: none !important;
           }
           .navbar-links { display: none !important; }
-          .navbar-burger { display: block !important; }
+          .hide-mobile { display: none !important; }
         }
 
-        /* Mobile accordion */
-        .accordion-content {
-          max-height: 0;
-          overflow: hidden;
-          opacity: 0;
-          transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-                      opacity 0.25s ease;
-        }
-        .accordion-content.open {
-          max-height: 400px;
-          opacity: 1;
-        }
-        .mobile-nav-item::after,
-        .mobile-sub-item::after {
-          content: '';
-          position: absolute;
-          bottom: 6px;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background: var(--text-primary);
-          transition: width 0.25s ease;
-        }
-        .mobile-nav-item:hover::after,
-        .mobile-sub-item:hover::after {
-          width: 100%;
-        }
-        .mobile-sub-item::after {
-          left: 16px;
-        }
-        .mobile-nav-link::after {
-          bottom: 8px;
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
       `}</style>
     </>
@@ -700,7 +622,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setPipelineOpen(false);
           setApiOpen(false);
         }}
-        className="mobile-nav-item"
         style={navStyle}
       >
         <span>{t.nav.learningOS}</span>
@@ -714,17 +635,19 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div className={`accordion-content ${learningOpen ? 'open' : ''}`}>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
-        </Link>
-      </div>
+      {learningOpen && (
+        <div style={{ padding: "0 0 10px 0" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[0] || "Diagnostic adaptatif"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.products?.[1] || "Programmes IA"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.learningOSMenu?.workflows?.[0] || "Former collaborateurs"}
+          </Link>
+        </div>
+      )}
 
       {/* PipelineOS Section */}
       <button
@@ -733,7 +656,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setLearningOpen(false);
           setApiOpen(false);
         }}
-        className="mobile-nav-item"
         style={navStyle}
       >
         <span>{t.nav.pipelineOS}</span>
@@ -747,17 +669,19 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div className={`accordion-content ${pipelineOpen ? 'open' : ''}`}>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
-        </Link>
-      </div>
+      {pipelineOpen && (
+        <div style={{ padding: "0 0 10px 0" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.produits?.[0] || "Sourcing intelligent"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[0] || "ATS Pipeline"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.pipelineOSMenu?.workflows?.[1] || "Screening IA"}
+          </Link>
+        </div>
+      )}
 
       {/* MentivisAPI Section */}
       <button
@@ -766,7 +690,6 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           setLearningOpen(false);
           setPipelineOpen(false);
         }}
-        className="mobile-nav-item"
         style={navStyle}
       >
         <span>{t.nav.mentivisAPI}</span>
@@ -780,51 +703,29 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
           </svg>
         </span>
       </button>
-      <div className={`accordion-content ${apiOpen ? 'open' : ''}`}>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
-        </Link>
-        <Link href={`/${lang}`} onClick={onClose} className="mobile-sub-item" style={subItemStyle}>
-          {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
-        </Link>
-      </div>
+      {apiOpen && (
+        <div style={{ padding: "0 0 10px 0" }}>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "API Documentation"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Webhooks"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Développer"}
+          </Link>
+        </div>
+      )}
 
       {/* Ressources Section */}
-      <Link href={`/${lang}/blog`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+      <Link href={`/${lang}/blog`} onClick={onClose} style={navStyle}>
         <span>{t.nav.ressources}</span>
       </Link>
 
       {/* Tarifs */}
-      <Link href={`/${lang}/tarifs`} onClick={onClose} className="mobile-nav-item mobile-nav-link" style={navStyle}>
+      <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
         <span>{t.nav.tarifs}</span>
       </Link>
-
-      <style>{`
-        .mobile-nav-item::after,
-        .mobile-sub-item::after {
-          content: '';
-          position: absolute;
-          bottom: 6px;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background: var(--text-primary);
-          transition: width 0.25s ease;
-        }
-        .mobile-nav-item:hover::after,
-        .mobile-sub-item:hover::after {
-          width: 100%;
-        }
-        .mobile-sub-item::after {
-          left: 16px;
-        }
-        .mobile-nav-link::after {
-          bottom: 8px;
-        }
-      `}</style>
     </>
   );
 }
