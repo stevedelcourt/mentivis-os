@@ -341,7 +341,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
     <section style={{ minHeight: "100vh", paddingTop: 120, paddingBottom: 80, background: "var(--bg-primary)" }}>
       <div className="container" style={{ maxWidth: "var(--container-max)" }}>
         {/* Hero: Eyebrow + Title + Description */}
-        <div style={{ marginBottom: 60 }}>
+        <div style={{ marginBottom: 24 }}>
           <span
             style={{
               display: "inline-block",
@@ -350,7 +350,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               color: "var(--text-tertiary)",
-              marginBottom: 18,
+              marginBottom: 12,
             }}
           >
             Tarifs
@@ -362,7 +362,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               fontWeight: 300,
               letterSpacing: "-0.02em",
               lineHeight: 1.1,
-              marginBottom: 14,
+              marginBottom: 10,
               color: "var(--text-primary)",
             }}
           >
@@ -481,8 +481,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           {/* Right: Blue glassmorphism card (bottom-aligned with toggle) */}
           <div className="tarifs-product-card" style={{
             position: "relative",
-            width: 280,
-            height: 280,
+            width: 340,
+            height: 340,
             borderRadius: 20,
             overflow: "hidden",
             background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
@@ -1063,7 +1063,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               style={{
                 marginBottom: 12,
                 fontSize: "var(--text-title)",
-                fontWeight: 500,
+                fontWeight: 300,
               }}
             >
               Programme d'essai sans risque
