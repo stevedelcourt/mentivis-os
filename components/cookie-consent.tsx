@@ -192,10 +192,10 @@ export default function CookieConsentBanner({ lang }: Props) {
             const body = modal.querySelector('.pm__body')
             if (body && !body.querySelector('.cc-logo')) {
               const logo = document.createElement('img')
-              logo.src = '/logo-noir.svg'
-              logo.alt = 'Mentivis'
+              logo.src = '/images/MentivisOS/mentivisos-logo-anim-drop.svg'
+              logo.alt = 'MentivisOS'
               logo.className = 'cc-logo'
-              logo.style.cssText = 'height:48px;width:auto;margin-bottom:16px;display:block;'
+              logo.style.cssText = 'height:56px;width:auto;margin-bottom:20px;display:block;'
               body.insertBefore(logo, body.firstChild)
             }
           }
