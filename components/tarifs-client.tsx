@@ -340,8 +340,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   return (
     <section style={{ minHeight: "100vh", paddingTop: 120, paddingBottom: 80, background: "var(--bg-primary)" }}>
       <div className="container" style={{ maxWidth: "var(--container-max)" }}>
-        {/* Header with product card */}
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
+        {/* Hero: Text + Animation */}
+        <div style={{ display: "flex", alignItems: "center", gap: 60, marginBottom: 40, flexWrap: "wrap" }}>
           {/* Left: Text content */}
           <div style={{ flex: 1, minWidth: 300 }}>
             <span
@@ -374,13 +374,32 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               className="t-lead"
               style={{
                 maxWidth: 560,
-                margin: "0 0 34px",
+                margin: "0 0 24px",
                 fontSize: "var(--text-body)",
               }}
             >
               Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
             </p>
+          </div>
 
+          {/* Right: Animation block (1:1, taller than text) */}
+          <div style={{
+            flex: "0 0 340px",
+            width: 340,
+            height: 340,
+          }}>
+            <img 
+              src="/images/pricing-blocks-animated.svg" 
+              alt="" 
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          </div>
+        </div>
+
+        {/* Product Tabs + Billing Toggle + Blue Card row */}
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
+          {/* Left: Tabs + Toggle */}
+          <div style={{ flex: 1, minWidth: 300 }}>
             {/* Product Tabs */}
             <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
@@ -473,9 +492,9 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                </button>
              </div>
            </div>
-         </div>
- 
-          {/* Right: Glassmorphism Product Card */}
+          </div>
+
+          {/* Right: Blue glassmorphism card (bottom-aligned with toggle) */}
           <div className="tarifs-product-card" style={{
             position: "relative",
             width: 280,
@@ -516,7 +535,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA.
               </p>
 
-              {/* Buttons - with more margin top */}
+              {/* Buttons */}
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto", paddingTop: 24 }}>
                 <Link data-btn href={`/${lang}`} style={{
                   display: "flex",
