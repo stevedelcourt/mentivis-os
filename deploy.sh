@@ -28,9 +28,15 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   if [ -f "${APP_DIR}/.env.local" ]; then
     sed -i 's/INTERNAL_TOKEN=.*/INTERNAL_TOKEN=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
     sed -i 's/CMS_AUTH_SECRET=.*/CMS_AUTH_SECRET=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
+    echo "Updated existing .env.local"
+    grep -E 'INTERNAL_TOKEN|CMS_AUTH_SECRET' ${APP_DIR}/.env.local || true
   else
     echo "INTERNAL_TOKEN=RoxanStevenMathias2024" > ${APP_DIR}/.env.local
     echo "CMS_AUTH_SECRET=RoxanStevenMathias2024" >> ${APP_DIR}/.env.local
+    echo "HUBSPOT_PORTAL_ID=49558612" >> ${APP_DIR}/.env.local
+    echo "HUBSPOT_FORM_ID=71a2e6a5-1ebe-46ea-9cdf-fe793b95e935" >> ${APP_DIR}/.env.local
+    echo "ALLOWED_ORIGINS=https://mentivis-os.vercel.app,https://sc4bovu7233.universe.wf,http://localhost:3000" >> ${APP_DIR}/.env.local
+    echo "Created new .env.local"
   fi
 
   if [ ! -d "${APP_DIR}/.git" ]; then
