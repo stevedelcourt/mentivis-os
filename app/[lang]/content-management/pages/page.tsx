@@ -137,7 +137,7 @@ export default function PagesEditorPage() {
   }
 
   return (
-    <div style={{ padding: "40px 24px", maxWidth: 800, margin: "0 auto" }}>
+    <div style={{ padding: "40px 24px 80px", maxWidth: 800, margin: "0 auto" }}>
       {/* Header */}
       <div style={{ marginBottom: 32 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>

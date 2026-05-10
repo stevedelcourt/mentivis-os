@@ -18,6 +18,8 @@ export default function ContentManagementPage() {
   const [filter, setFilter] = useState<"all" | "published" | "draft">("all");
   const [loading, setLoading] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [sortField, setSortField] = useState<"title" | "category" | "date" | "status">("date");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   // Check auth on mount
   useEffect(() => {
@@ -96,7 +98,35 @@ export default function ContentManagementPage() {
     setDeleteId(null);
   };
 
-  const filteredPosts = posts;
+  const handleSort = (field: "title" | "category" | "date" | "status") => {
+    if (sortField === field) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortField(field);
+      setSortDir("asc");
+    }
+  };
+
+  const sortedPosts = [...posts].sort((a, b) => {
+    let cmp = 0;
+    switch (sortField) {
+      case "title":
+        cmp = a.title.localeCompare(b.title);
+        break;
+      case "category":
+        cmp = a.category.localeCompare(b.category);
+        break;
+      case "date":
+        cmp = new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime();
+        break;
+      case "status":
+        cmp = Number(a.published) - Number(b.published);
+        break;
+    }
+    return sortDir === "asc" ? cmp : -cmp;
+  });
+
+  const filteredPosts = sortedPosts;
 
   // Login view
   if (!token) {
@@ -179,8 +209,8 @@ export default function ContentManagementPage() {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Content Management</h1>
-          <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles et contenus</p>
+          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Content Management System CMS</h1>
+          <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles, pages, tarifs et SEO</p>
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
           <Link
@@ -218,7 +248,7 @@ export default function ContentManagementPage() {
       </div>
 
       {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 40, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
+      <div style={{ display: "flex", gap: 4, marginBottom: 70, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
         {[
           { label: "Articles", href: `/${lang}/content-management` },
           { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
@@ -286,16 +316,46 @@ export default function ContentManagementPage() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #F0EBE5" }}>
-                <th style={{ textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Article</th>
-                <th style={{ textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Categorie</th>
-                <th style={{ textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Date</th>
-                <th style={{ textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Statut</th>
-                <th style={{ textAlign: "right", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Actions</th>
+                {[
+                  { key: "title", label: "Article" },
+                  { key: "category", label: "Categorie" },
+                  { key: "date", label: "Date" },
+                  { key: "status", label: "Statut" },
+                  { key: null, label: "Actions" },
+                ].map((col) => (
+                  <th
+                    key={col.label}
+                    onClick={() => col.key && handleSort(col.key as "title" | "category" | "date" | "status")}
+                    style={{
+                      textAlign: col.key ? "left" : "right",
+                      padding: "16px 20px",
+                      fontWeight: 500,
+                      color: sortField === col.key ? "#0A0A0A" : "#777169",
+                      fontSize: 12,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      cursor: col.key ? "pointer" : "default",
+                      userSelect: "none",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {col.label}
+                    {sortField === col.key && (
+                      <span style={{ marginLeft: 6, fontSize: 10 }}>{sortDir === "asc" ? "▲" : "▼"}</span>
+                    )}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {filteredPosts.map((post) => (
-                <tr key={post.id} style={{ borderBottom: "1px solid #F5F3F0" }}>
+                <tr
+                  key={post.id}
+                  style={{
+                    borderBottom: "1px solid #F5F3F0",
+                    borderLeft: post.featured ? "3px solid #2563EB" : "3px solid transparent",
+                  }}
+                >
                   <td style={{ padding: "16px 20px" }}>
                     <div style={{ fontWeight: 500, color: "#0A0A0A", marginBottom: 2 }}>{post.title}</div>
                     <div style={{ fontSize: 12, color: "#A8A29E" }}>/{post.slug}</div>
