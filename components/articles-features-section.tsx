@@ -78,8 +78,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 marginBottom: 10,
               }}
             >
-              Pas d&apos;articles génériques.
-              Des analyses concrètes, issues du terrain, documentées en continu.
+              News et analyses concrètes sur ce qui transforme la formation en entreprise.
             </p>
             <p
               style={{
@@ -92,7 +91,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 maxWidth: 520,
               }}
             >
-              Faire avancer la formation au-delà des catalogues : diagnostic IA, ingénierie pédagogique, et plus encore.
+              News & publications
             </p>
           </div>
           <Link
