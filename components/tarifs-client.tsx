@@ -912,23 +912,12 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           }
           @media (max-width: 1170px) {
             .tarifs-product-card {
-              width: 100% !important;
-              max-width: 400px !important;
-              height: auto !important;
-              margin: 40px auto 0 !important;
-              order: 2;
-              flex: none !important;
+              display: none !important;
             }
           }
           @media (max-width: 640px) {
             .tarifs-product-card {
-              width: 100% !important;
-              max-width: none !important;
-              height: auto !important;
-              aspect-ratio: 2/1 !important;
-            }
-            .tarifs-product-card > div {
-              padding: 16px !important;
+              display: none !important;
             }
           }
           .tarifs-product-card {
