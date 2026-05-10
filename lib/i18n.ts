@@ -31,6 +31,7 @@ export const translations = {
         workflows: ["Formation personnalisee automatisee", "Connexion SIRH / ERP / CRM", "Certification & financement OPCO", "Agents IA integres metiers"],
       },
       ressourcesMenu: {
+        entreprise: ["News", "A propos", "Securite", "Temoignages clients", "Carrieres"],
         initiatives: ["Programme Impact", "Pour Ecoles & Universites", "Programme Affiliation & Ambassadeur", "Partenariats"],
       },
     },
@@ -544,6 +545,7 @@ export const translations = {
         workflows: ["Automated personalized training", "HRIS / ERP / CRM integration", "Certification & OPCO funding", "Integrated business AI agents"],
       },
       ressourcesMenu: {
+        entreprise: ["News", "About", "Security", "Customer Stories", "Careers"],
         initiatives: ["Impact Program", "For Schools & Universities", "Affiliate & Ambassador Program", "Partnerships"],
       },
     },

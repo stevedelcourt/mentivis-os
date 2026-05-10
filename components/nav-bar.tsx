@@ -270,6 +270,16 @@ export default function NavBar({ lang }: NavBarProps) {
                 <MegaMenu
                   sections={[
                     {
+                      eyebrow: t.nav.eyebrows.entreprise,
+                      links: [
+                        { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
+                        ...t.nav.ressourcesMenu.entreprise.slice(1).map((label) => ({
+                          label,
+                          href: `/${lang}`,
+                        })),
+                      ],
+                    },
+                    {
                       eyebrow: t.nav.eyebrows.initiatives,
                       links: t.nav.ressourcesMenu.initiatives.map((label) => ({
                         label,
