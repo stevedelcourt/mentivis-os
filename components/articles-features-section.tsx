@@ -220,28 +220,6 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                     {post.imageTag}
                   </span>
                 )}
-                {/* Date badge */}
-                <span
-                  style={{
-                    position: "absolute",
-                    top: 14,
-                    right: 14,
-                    background: "rgba(255,255,255,.92)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 11,
-                    fontWeight: 400,
-                    letterSpacing: "0.06em",
-                    color: "#0A0A0A",
-                    padding: "5px 12px",
-                    borderRadius: 8,
-                    boxShadow: "rgba(0,0,0,.06) 0 1px 6px",
-                    zIndex: 5,
-                  }}
-                >
-                  {post.date}
-                </span>
               </div>
 
               {/* Card info */}
