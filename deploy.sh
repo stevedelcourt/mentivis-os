@@ -7,6 +7,7 @@ SSH_HOST="${DEPLOY_SSH_HOST:-terre.o2switch.net}"
 SSH_USER="${DEPLOY_SSH_USER:-sc4bovu7233}"
 APP_DIR="/home/${SSH_USER}/nextapp"
 NODE_BIN="/opt/alt/alt-nodejs20/root/usr/bin"
+LIVE_URL="https://sc4bovu7233.universe.wf"
 
 # ── Secrets (must be set in local environment) ──
 : "${INTERNAL_TOKEN:?Environment variable INTERNAL_TOKEN is required}"
@@ -30,7 +31,16 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   node --version
 
   echo "--- Ensuring persistent data directory ---"
-  mkdir -p /home/sc4bovu7233/data/uploads
+  mkdir -p /home/${SSH_USER}/data/uploads
+
+  echo "--- Pre-deploy database backup ---"
+  BACKUP_TS=\$(date +%Y%m%d_%H%M%S)
+  if [ -f /home/${SSH_USER}/data/mentivis.db ]; then
+    cp /home/${SSH_USER}/data/mentivis.db /home/${SSH_USER}/data/mentivis.db.backup.\${BACKUP_TS}
+    echo "Backed up mentivis.db -> mentivis.db.backup.\${BACKUP_TS}"
+  fi
+  # Keep only last 10 backups
+  ls -t /home/${SSH_USER}/data/mentivis.db.backup.* 2>/dev/null | tail -n +11 | xargs rm -f 2>/dev/null || true
 
   echo "--- Writing .env.local ---"
   cat > ${APP_DIR}/.env.local << ENVEOF
@@ -58,21 +68,73 @@ ENVEOF
   echo "--- Building Next.js ---"
   npx next build --webpack
 
-  echo "--- Copying static assets to standalone ---"
+  echo "--- Staging new build ---"
   if [ -d ".next/standalone" ]; then
-    mkdir -p .next/standalone/public
-    cp -r public/* .next/standalone/public/
-    mkdir -p .next/standalone/.next/static
-    cp -r .next/static/* .next/standalone/.next/static/
-    cp .env.local .next/standalone/.env.local
-    echo "Copied .env.local to standalone"
+    rm -rf .next/standalone-new
+    cp -a .next/standalone .next/standalone-new
+    echo "Copied standalone -> standalone-new"
+  else
+    echo "ERROR: .next/standalone not found after build"
+    exit 1
   fi
+
+  echo "--- Atomic swap ---"
+  rm -rf .next/standalone-old
+  if [ -d ".next/standalone" ]; then
+    mv .next/standalone .next/standalone-old
+  fi
+  mv .next/standalone-new .next/standalone
+  echo "Swapped standalone-new -> standalone (old preserved as standalone-old)"
+
+  echo "--- Copying static assets to standalone ---"
+  mkdir -p .next/standalone/public
+  cp -r public/* .next/standalone/public/
+  mkdir -p .next/standalone/.next/static
+  cp -r .next/static/* .next/standalone/.next/static/
+  cp .env.local .next/standalone/.env.local
+  echo "Copied static assets to standalone"
 
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
   touch tmp/restart.txt
 
-  echo "--- Done ---"
+  echo "--- Health check ---"
+  HEALTH_OK=0
+  for i in 1 2 3 4 5; do
+    sleep 2
+    if curl -sfk "${LIVE_URL}/api/health/" > /dev/null 2>&1; then
+      echo "Health check passed (attempt \$i)"
+      HEALTH_OK=1
+      break
+    fi
+    echo "Health check attempt \$i failed, retrying..."
+  done
+
+  if [ "\$HEALTH_OK" -eq 1 ]; then
+    echo "--- Cleaning up old build ---"
+    rm -rf .next/standalone-old
+    echo "Deploy successful"
+  else
+    echo "!!! HEALTH CHECK FAILED !!!"
+    echo "Rolling back to previous build..."
+    rm -rf .next/standalone
+    mv .next/standalone-old .next/standalone
+    touch tmp/restart.txt
+    echo "Rollback complete. Investigate and retry."
+    exit 1
+  fi
 EOF
 
 echo "=== Deploy complete ==="
+
+# ── Rollback Instructions ──
+# If deploy fails and you need manual rollback:
+# ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST}
+# cd /home/sc4bovu7233/nextapp
+# rm -rf .next/standalone
+# mv .next/standalone-old .next/standalone
+# touch tmp/restart.txt
+#
+# To restore database from backup:
+# cp /home/sc4bovu7233/data/mentivis.db.backup.YYYYMMDD_HHMMSS /home/sc4bovu7233/data/mentivis.db
+# touch tmp/restart.txt
