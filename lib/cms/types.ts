@@ -8,6 +8,8 @@ export interface Post {
   date: string;
   dateISO: string;
   imageUrl?: string;
+  imageTag?: string;
+  imageCaption?: string;
   featured: boolean;
   published: boolean;
   createdAt: string;
@@ -17,7 +19,7 @@ export interface Post {
 export type CategoryKey =
   | "strategie"
   | "ia"
-  | "ingenierie"
+  | "annonces"
   | "institutions"
   | "entreprises"
   | "international"
@@ -26,7 +28,7 @@ export type CategoryKey =
 export const CATEGORIES: { key: CategoryKey; label: string }[] = [
   { key: "strategie", label: "Strategie" },
   { key: "ia", label: "IA & Formation" },
-  { key: "ingenierie", label: "Ingenierie pedagogique" },
+  { key: "annonces", label: "Annonces" },
   { key: "institutions", label: "Institutions" },
   { key: "entreprises", label: "Entreprises" },
   { key: "international", label: "International" },

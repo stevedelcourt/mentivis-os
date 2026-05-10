@@ -181,6 +181,39 @@
   }
 }
 
+/* Image overlays */
+.imageTag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.imageCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 20px 16px;
+  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* Article card */
 .card {
   display: flex;

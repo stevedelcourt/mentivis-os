@@ -10,7 +10,7 @@ export type CategoryKey =
   | "all"
   | "strategie"
   | "ia"
-  | "ingenierie"
+  | "annonces"
   | "institutions"
   | "entreprises"
   | "international"
@@ -128,11 +128,16 @@ function FeaturedCard({ post, lang }: FeaturedCardProps) {
 
   return (
     <article className={styles.featured}>
-      <div className={styles.featImg}>
+      <div className={styles.featImg} style={{ position: "relative" }}>
         {post.imageUrl ? (
           <img src={post.imageUrl} alt={post.title} className={styles.featImgEl} />
         ) : (
           <ColorBlock index={post.featured ? 1 : undefined} />
+        )}
+        {post.imageTag && (
+          <span className={styles.imageTag}>
+            {post.imageTag}
+          </span>
         )}
       </div>
       <div className={styles.featContent}>
@@ -164,11 +169,16 @@ function ArticleCard({ post, lang }: ArticleCardProps) {
   return (
     <article className={styles.card}>
       <Link href={`/${lang}/blog/${post.slug}`} className={styles.cardLink}>
-        <div className={styles.cardImg}>
+        <div className={styles.cardImg} style={{ position: "relative" }}>
           {post.imageUrl ? (
             <img src={post.imageUrl} alt={post.title} className={styles.cardImgEl} />
           ) : (
             <ColorBlock index={post.featured ? 1 : undefined} />
+          )}
+          {post.imageTag && (
+            <span className={styles.imageTag}>
+              {post.imageTag}
+            </span>
           )}
         </div>
         <div className={styles.cardMeta}>

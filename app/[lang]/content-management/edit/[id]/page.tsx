@@ -27,6 +27,8 @@ export default function PostEditorPage() {
   const [category, setCategory] = useState("strategie");
   const [date, setDate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageTag, setImageTag] = useState("");
+  const [imageCaption, setImageCaption] = useState("");
   const [featured, setFeatured] = useState(false);
   const [published, setPublished] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -64,6 +66,8 @@ export default function PostEditorPage() {
         setCategory(p.category);
         setDate(p.dateISO);
         setImageUrl(p.imageUrl || "");
+        setImageTag(p.imageTag || "");
+        setImageCaption(p.imageCaption || "");
         setFeatured(p.featured);
         setPublished(p.published);
       }
@@ -134,6 +138,8 @@ export default function PostEditorPage() {
       date: new Date(date).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" }),
       dateISO: date,
       imageUrl: imageUrl || undefined,
+      imageTag: imageTag || undefined,
+      imageCaption: imageCaption || undefined,
       featured,
       published,
     };
@@ -325,12 +331,73 @@ export default function PostEditorPage() {
             </label>
           </div>
           {imageUrl && (
-            <img
-              src={imageUrl}
-              alt="Preview"
-              style={{ marginTop: 12, maxWidth: 200, maxHeight: 120, borderRadius: 8, objectFit: "cover" }}
-            />
+            <div style={{ marginTop: 12, position: "relative", display: "inline-block", borderRadius: 8, overflow: "hidden", maxWidth: 320 }}>
+              <img
+                src={imageUrl}
+                alt="Preview"
+                style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }}
+              />
+              {imageTag && (
+                <span style={{
+                  position: "absolute",
+                  top: 12,
+                  left: 12,
+                  padding: "4px 12px",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: "#fff",
+                  background: "rgba(0,0,0,0.35)",
+                  backdropFilter: "blur(4px)",
+                  borderRadius: 999,
+                  letterSpacing: "0.02em",
+                }}>
+                  {imageTag}
+                </span>
+              )}
+              {imageCaption && (
+                <div style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: "20px 14px 14px",
+                  background: "linear-gradient(transparent, rgba(0,0,0,0.7))",
+                  color: "#fff",
+                  fontSize: 14,
+                  lineHeight: 1.4,
+                  fontWeight: 400,
+                }}>
+                  {imageCaption}
+                </div>
+              )}
+            </div>
           )}
+        </div>
+
+        {/* Image Tag */}
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Badge (haut de l&apos;image)</label>
+          <input
+            type="text"
+            value={imageTag}
+            onChange={(e) => setImageTag(e.target.value)}
+            style={inputStyle}
+            placeholder="ex: MentivisOS"
+          />
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Texte transparent en haut a gauche, visible sur les vignettes du blog</p>
+        </div>
+
+        {/* Image Caption */}
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Legende (bas de l&apos;image)</label>
+          <textarea
+            value={imageCaption}
+            onChange={(e) => setImageCaption(e.target.value)}
+            rows={2}
+            style={{ ...inputStyle, resize: "vertical" }}
+            placeholder="ex: Mentivis presente MentivisOS, l'OS de la formation native IA..."
+          />
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Texte blanc sur degrade sombre en bas de l&apos;image, visible sur la page article</p>
         </div>
 
         {/* Content */}
@@ -384,7 +451,7 @@ Texte final.`}
         </div>
 
         {/* Actions */}
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <button
             type="submit"
             disabled={saving}
@@ -419,6 +486,21 @@ Texte final.`}
               Previsualiser
             </Link>
           )}
+          <Link
+            href={`/${lang}/content-management`}
+            style={{
+              padding: "14px 24px",
+              fontSize: 15,
+              color: "#777169",
+              textDecoration: "none",
+              border: "1px solid #E5E0DA",
+              borderRadius: 10,
+              background: "#FAFAF8",
+              marginLeft: "auto",
+            }}
+          >
+            ← Retour liste articles
+          </Link>
         </div>
       </form>
     </div>

@@ -96,17 +96,23 @@ export default function BlogPostPage() {
           </p>
 
           {post.imageUrl && (
-            <img
-              src={post.imageUrl}
-              alt={post.title}
-              style={{
-                width: "100%",
-                maxHeight: 400,
-                objectFit: "cover",
-                borderRadius: 12,
-                marginBottom: 48,
-              }}
-            />
+            <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", marginBottom: 48 }}>
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                style={{
+                  width: "100%",
+                  maxHeight: 400,
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+              {post.imageCaption && (
+                <div className={styles.imageCaption}>
+                  {post.imageCaption}
+                </div>
+              )}
+            </div>
           )}
 
           <div

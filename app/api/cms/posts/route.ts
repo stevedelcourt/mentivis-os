@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, excerpt, content, category, date, dateISO, imageUrl, featured, published } = body;
+    const { title, excerpt, content, category, date, dateISO, imageUrl, imageTag, imageCaption, featured, published } = body;
 
     if (!title || !excerpt || !content || !category || !date || !dateISO) {
       return NextResponse.json(
@@ -50,6 +50,8 @@ export async function POST(request: Request) {
       date,
       dateISO,
       imageUrl: imageUrl || undefined,
+      imageTag: imageTag || undefined,
+      imageCaption: imageCaption || undefined,
       featured: !!featured,
       published: !!published,
     });
