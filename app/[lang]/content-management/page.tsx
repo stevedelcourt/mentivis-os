@@ -147,8 +147,14 @@ export default function ContentManagementPage() {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
         <div style={{ width: "100%", maxWidth: 400, background: "#fff", borderRadius: 16, padding: "40px 32px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
-          <h1 style={{ fontSize: 24, fontWeight: 500, marginBottom: 8, color: "#0A0A0A" }}>Content Management</h1>
-          <p style={{ fontSize: 14, color: "#777169", marginBottom: 32 }}>MentivisOS — Gestion des contenus</p>
+          <div style={{ marginBottom: 32, textAlign: "center" }}>
+            <img
+              src="/images/MentivisOS/mentivisos-logo-anim-drop.svg"
+              alt="MentivisOS"
+              style={{ height: 56, width: "auto", marginBottom: 12 }}
+            />
+            <p style={{ fontSize: 14, color: "#777169" }}>Gestion des contenus</p>
+          </div>
 
           <form onSubmit={handleLogin} autoComplete="on">
             <div style={{ marginBottom: 20 }}>
