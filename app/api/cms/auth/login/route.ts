@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     }
 
     const expectedPassword = process.env.CMS_AUTH_SECRET || process.env.INTERNAL_TOKEN;
+    console.log("[CMS LOGIN] expected:", expectedPassword?.slice(0, 4) + "...", "received:", password?.slice(0, 4) + "...", "match:", password === expectedPassword);
     if (password !== expectedPassword) {
       return NextResponse.json(
         { error: "Invalid password" },
