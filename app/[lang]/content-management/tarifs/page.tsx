@@ -233,7 +233,7 @@ export default function TarifsEditorPage() {
   return (
     <div style={{ padding: "40px 24px 80px", maxWidth: 1000, margin: "0 auto" }}>
       {/* Header */}
-      <div style={{ marginBottom: 32 }}>
+      <div style={{ marginBottom: 100 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
           <Link
             href={`/${lang}/content-management`}

@@ -251,7 +251,7 @@ export default function PagesEditorPage() {
         </div>
 
         {/* Proof */}
-        <div style={{ marginBottom: 32 }}>
+      <div style={{ marginBottom: 100 }}>
           <label style={labelStyle}>Proof</label>
           <textarea
             value={hero.proof}

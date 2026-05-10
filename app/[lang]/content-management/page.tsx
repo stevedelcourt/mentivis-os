@@ -248,7 +248,7 @@ export default function ContentManagementPage() {
       </div>
 
       {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 70, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
+      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
         {[
           { label: "Articles", href: `/${lang}/content-management` },
           { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
