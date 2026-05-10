@@ -77,6 +77,7 @@ Reference document for the MentivisOS deployment environment, database architect
 - **Persistence:** Survives `git reset --hard` and redeploys (outside repo)
 - **WAL mode:** Attempted on init (best-effort with sql.js)
 - **Auto-save:** Every `INSERT`/`UPDATE`/`DELETE` triggers `fs.writeFileSync()` of the exported database buffer
+- **Backups:** `deploy.sh` creates timestamped backups before every deploy (`mentivis.db.backup.YYYYMMDD_HHMMSS`). Last 10 retained.
 
 ---
 
@@ -117,7 +118,9 @@ Next.js `standalone` output does **not** copy `sql.js` WASM into `.next/standalo
 
 ## Deployment Pipeline
 
-### `deploy.sh` Step-by-Step
+### `deploy.sh` — Zero-Downtime Deploy with Atomic Swap
+
+The deployment script implements an **atomic swap** strategy to ensure the old build continues serving traffic until the new build is fully ready and health-checked.
 
 ```bash
 # 1. Push to GitHub
@@ -126,7 +129,14 @@ git push
 # 2. SSH to o2switch
 ssh -i $SSH_KEY $SSH_USER@$SSH_HOST
 
-# 3. Write .env.local from local environment variables
+# 3. Pre-deploy database backup
+BACKUP_TS=$(date +%Y%m%d_%H%M%S)
+cp /home/sc4bovu7233/data/mentivis.db \
+   /home/sc4bovu7233/data/mentivis.db.backup.${BACKUP_TS}
+# Keep only last 10 backups
+ls -t /home/sc4bovu7233/data/mentivis.db.backup.* | tail -n +11 | xargs rm -f
+
+# 4. Write .env.local from local environment variables
 cat > ${APP_DIR}/.env.local << EOF
 INTERNAL_TOKEN=...
 CMS_AUTH_SECRET=...
@@ -135,30 +145,88 @@ HUBSPOT_FORM_ID=...
 ALLOWED_ORIGINS=...
 EOF
 
-# 4. Ensure persistent data directory exists
+# 5. Ensure persistent data directory exists
 mkdir -p /home/sc4bovu7233/data/uploads
 
-# 5. Update code
+# 6. Update code
 git fetch origin main
 git reset --hard origin/main
 
-# 6. Install dependencies
+# 7. Install dependencies
 npm install
 
-# 7. Build Next.js (webpack only)
+# 8. Build Next.js (webpack only)
 npx next build --webpack
 
-# 8. Copy static assets to standalone output
-if [ -d ".next/standalone" ]; then
-  mkdir -p .next/standalone/public
-  cp -r public/* .next/standalone/public/
-  mkdir -p .next/standalone/.next/static
-  cp -r .next/static/* .next/standalone/.next/static/
-  cp .env.local .next/standalone/.env.local
-fi
+# 9. Stage new build (old build untouched)
+cp -a .next/standalone .next/standalone-new
 
-# 9. Restart Passenger
+# 10. Atomic swap
+mv .next/standalone .next/standalone-old
+mv .next/standalone-new .next/standalone
+
+# 11. Copy static assets to new standalone output
+mkdir -p .next/standalone/public
+cp -r public/* .next/standalone/public/
+mkdir -p .next/standalone/.next/static
+cp -r .next/static/* .next/standalone/.next/static/
+cp .env.local .next/standalone/.env.local
+
+# 12. Restart Passenger
 mkdir -p tmp
+touch tmp/restart.txt
+
+# 13. Health check (5 retries, 2s apart)
+curl -sfk https://sc4bovu7233.universe.wf/api/health/
+
+# 14. Cleanup old build on success
+rm -rf .next/standalone-old
+```
+
+### Zero-Downtime Strategy
+
+| Step | What Happens | Downtime |
+|------|--------------|----------|
+| 1-8 | Build runs in parallel, old server still serving | **0s** |
+| 9 | New build copied to `standalone-new` | **0s** |
+| 10 | Atomic rename: `standalone` → `standalone-old`, `standalone-new` → `standalone` | **0s** |
+| 11-12 | Static assets copied, Passenger restart triggered | **~1-3s** |
+| 13 | Health check confirms new build is responding | **0s** |
+| 14 | Old build removed | **0s** |
+
+**Total estimated downtime:** 1-3 seconds (Passenger restart only).
+
+### Auto-Rollback
+
+If the health check fails after restart, the script automatically rolls back:
+
+```bash
+rm -rf .next/standalone
+mv .next/standalone-old .next/standalone
+touch tmp/restart.txt
+```
+
+This restores the previous working build without manual intervention.
+
+### Manual Rollback
+
+If you need to rollback after a successful deploy:
+
+```bash
+ssh -i id_rsa_sc4 sc4bovu7233@terre.o2switch.net
+cd /home/sc4bovu7233/nextapp
+rm -rf .next/standalone
+mv .next/standalone-old .next/standalone  # if still present
+touch tmp/restart.txt
+```
+
+### Database Rollback
+
+To restore the database from a backup:
+
+```bash
+cp /home/sc4bovu7233/data/mentivis.db.backup.YYYYMMDD_HHMMSS \
+   /home/sc4bovu7233/data/mentivis.db
 touch tmp/restart.txt
 ```
 
@@ -229,6 +297,12 @@ PassengerStartupFile server.js
 
 **Fix:** The project includes a custom `sql.js.d.ts` declaration file at the repo root. Do not remove it.
 
+### Deploy health check fails
+
+**Cause:** New build crashed or API routes are broken.
+**Auto-fix:** `deploy.sh` automatically rolls back to `standalone-old` and restarts Passenger.
+**Manual fix:** Check `ps aux | grep next-server` to see if the process is running. Check Passenger logs if available.
+
 ---
 
 ## Security
@@ -266,3 +340,5 @@ PassengerStartupFile server.js
 - `8c19b64` — Convert Buffer to Uint8Array for sql.js constructor
 - `f29ede5` — Allow Uint8Array in Database constructor declaration
 - `3257b10` — Fix WASM path resolution for standalone builds
+- `75891bf` — Add infrastructure and CMS data layer documentation
+- `0ee73d1` — Zero-downtime deploy with atomic swap, DB backup, and health check
