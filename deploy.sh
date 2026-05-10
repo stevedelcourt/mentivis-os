@@ -21,6 +21,9 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   echo "--- Node version ---"
   node --version
 
+  echo "--- Ensuring persistent data directory ---"
+  mkdir -p /home/sc4bovu7233/data/uploads
+
   if [ ! -d "${APP_DIR}/.git" ]; then
     echo "--- Cloning repo ---"
     mkdir -p ${APP_DIR}
