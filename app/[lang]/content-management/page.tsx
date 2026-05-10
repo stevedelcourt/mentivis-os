@@ -150,11 +150,14 @@ export default function ContentManagementPage() {
           <h1 style={{ fontSize: 24, fontWeight: 500, marginBottom: 8, color: "#0A0A0A" }}>Content Management</h1>
           <p style={{ fontSize: 14, color: "#777169", marginBottom: 32 }}>MentivisOS — Gestion des contenus</p>
 
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} autoComplete="on">
             <div style={{ marginBottom: 20 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Email</label>
+              <label htmlFor="cms-email" style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Email</label>
               <input
+                id="cms-email"
+                name="email"
                 type="email"
+                autoComplete="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="votre@mentivis.com"
@@ -171,10 +174,13 @@ export default function ContentManagementPage() {
               />
             </div>
             <div style={{ marginBottom: 24 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Mot de passe</label>
+              <label htmlFor="cms-password" style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Mot de passe</label>
               <div style={{ position: "relative" }}>
                 <input
+                  id="cms-password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
