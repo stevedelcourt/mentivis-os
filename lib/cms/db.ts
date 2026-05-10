@@ -1,42 +1,44 @@
-import fs from "fs";
-import path from "path";
+import { getDb } from "./sqlite";
 import { Post, PageContent, PricingContent, SeoContent, FormSubmission } from "./types";
 
-const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
-const POSTS_FILE = path.join(DATA_DIR, "posts.json");
+export { generateSlug } from "./utils";
 
-function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-}
-
-function readPosts(): Post[] {
-  ensureDir();
-  if (!fs.existsSync(POSTS_FILE)) {
-    return [];
-  }
-  try {
-    const data = fs.readFileSync(POSTS_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-function writePosts(posts: Post[]) {
-  ensureDir();
-  fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2));
-}
+// ── Posts ──
 
 let postsCache: Post[] | null = null;
 let cacheTime = 0;
-const CACHE_TTL = 5000; // 5 seconds
+const CACHE_TTL = 5000;
+
+function rowToPost(row: any): Post {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    content: row.content,
+    category: row.category,
+    date: row.date,
+    dateISO: row.date_iso,
+    imageUrl: row.image_url,
+    imageTag: row.image_tag,
+    imageCaption: row.image_caption,
+    featured: !!row.featured,
+    published: !!row.published,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function getPostsFromDb(): Post[] {
+  const db = getDb();
+  const rows = db.prepare("SELECT * FROM posts ORDER BY date_iso DESC").all();
+  return rows.map(rowToPost);
+}
 
 function getPosts(): Post[] {
   const now = Date.now();
   if (!postsCache || now - cacheTime > CACHE_TTL) {
-    postsCache = readPosts();
+    postsCache = getPostsFromDb();
     cacheTime = now;
   }
   return postsCache;
@@ -51,76 +53,107 @@ export function getPublishedPosts(): Post[] {
 }
 
 export function getPostBySlug(slug: string): Post | undefined {
-  return getPosts().find((p) => p.slug === slug);
+  const db = getDb();
+  const row = db.prepare("SELECT * FROM posts WHERE slug = ?").get(slug);
+  return row ? rowToPost(row) : undefined;
 }
 
 export function getPostById(id: number): Post | undefined {
-  return getPosts().find((p) => p.id === id);
+  const db = getDb();
+  const row = db.prepare("SELECT * FROM posts WHERE id = ?").get(id);
+  return row ? rowToPost(row) : undefined;
 }
 
 export function createPost(post: Omit<Post, "id" | "createdAt" | "updatedAt">): Post {
-  const posts = readPosts();
-  const newPost: Post = {
-    ...post,
-    id: posts.length > 0 ? Math.max(...posts.map((p) => p.id)) + 1 : 1,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  posts.push(newPost);
-  writePosts(posts);
+  const db = getDb();
+  const now = new Date().toISOString();
+  const result = db.prepare(`
+    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, featured, published, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    post.slug, post.title, post.excerpt, post.content, post.category, post.date, post.dateISO,
+    post.imageUrl || null, post.imageTag || null, post.imageCaption || null,
+    post.featured ? 1 : 0, post.published ? 1 : 0, now, now
+  );
   postsCache = null;
-  return newPost;
+  return { ...post, id: Number(result.lastInsertRowid), createdAt: now, updatedAt: now };
 }
 
 export function updatePost(id: number, updates: Partial<Omit<Post, "id" | "createdAt">>): Post | null {
-  const posts = readPosts();
-  const idx = posts.findIndex((p) => p.id === id);
-  if (idx === -1) return null;
-  posts[idx] = {
-    ...posts[idx],
-    ...updates,
-    updatedAt: new Date().toISOString(),
-  };
-  writePosts(posts);
+  const db = getDb();
+  const existing = getPostById(id);
+  if (!existing) return null;
+
+  const setParts: string[] = [];
+  const values: any[] = [];
+
+  if (updates.slug !== undefined) { setParts.push("slug = ?"); values.push(updates.slug); }
+  if (updates.title !== undefined) { setParts.push("title = ?"); values.push(updates.title); }
+  if (updates.excerpt !== undefined) { setParts.push("excerpt = ?"); values.push(updates.excerpt); }
+  if (updates.content !== undefined) { setParts.push("content = ?"); values.push(updates.content); }
+  if (updates.category !== undefined) { setParts.push("category = ?"); values.push(updates.category); }
+  if (updates.date !== undefined) { setParts.push("date = ?"); values.push(updates.date); }
+  if (updates.dateISO !== undefined) { setParts.push("date_iso = ?"); values.push(updates.dateISO); }
+  if (updates.imageUrl !== undefined) { setParts.push("image_url = ?"); values.push(updates.imageUrl); }
+  if (updates.imageTag !== undefined) { setParts.push("image_tag = ?"); values.push(updates.imageTag); }
+  if (updates.imageCaption !== undefined) { setParts.push("image_caption = ?"); values.push(updates.imageCaption); }
+  if (updates.featured !== undefined) { setParts.push("featured = ?"); values.push(updates.featured ? 1 : 0); }
+  if (updates.published !== undefined) { setParts.push("published = ?"); values.push(updates.published ? 1 : 0); }
+
+  if (setParts.length === 0) return existing;
+
+  const now = new Date().toISOString();
+  setParts.push("updated_at = ?");
+  values.push(now);
+  values.push(id);
+
+  db.prepare(`UPDATE posts SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
   postsCache = null;
-  return posts[idx];
+  return getPostById(id)!;
 }
 
 export function deletePost(id: number): boolean {
-  const posts = readPosts();
-  const idx = posts.findIndex((p) => p.id === id);
-  if (idx === -1) return false;
-  posts.splice(idx, 1);
-  writePosts(posts);
+  const db = getDb();
+  const result = db.prepare("DELETE FROM posts WHERE id = ?").run(id);
   postsCache = null;
-  return true;
+  return result.changes > 0;
 }
 
-export { generateSlug } from "./utils";
+export function searchPosts(query: string): Post[] {
+  const db = getDb();
+  try {
+    const rows = db.prepare(`
+      SELECT posts.* FROM posts
+      JOIN posts_fts ON posts.id = posts_fts.rowid
+      WHERE posts_fts MATCH ?
+      ORDER BY rank
+    `).all(query);
+    return rows.map(rowToPost);
+  } catch {
+    const like = `%${query}%`;
+    const rows = db.prepare("SELECT * FROM posts WHERE title LIKE ? OR content LIKE ? ORDER BY date_iso DESC").all(like, like);
+    return rows.map(rowToPost);
+  }
+}
 
-// ── Generic JSON file helpers ──
+// ── Generic JSON helpers (backward compatibility) ──
 
 export function readJsonFile<T>(filePath: string, fallback: T): T {
-  ensureDir();
-  if (!fs.existsSync(filePath)) {
-    return fallback;
-  }
+  const fs = require("fs");
+  if (!fs.existsSync(filePath)) return fallback;
   try {
-    const data = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(data) as T;
+    return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
   } catch {
     return fallback;
   }
 }
 
 export function writeJsonFile<T>(filePath: string, data: T) {
-  ensureDir();
+  const fs = require("fs");
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
 // ── Pages (Homepage Hero) ──
-
-const PAGES_FILE = path.join(DATA_DIR, "pages.json");
 
 const DEFAULT_PAGES: PageContent = {
   fr: {
@@ -150,16 +183,40 @@ const DEFAULT_PAGES: PageContent = {
 };
 
 export function getPages(): PageContent {
-  return readJsonFile<PageContent>(PAGES_FILE, DEFAULT_PAGES);
+  const db = getDb();
+  const rows = db.prepare("SELECT * FROM pages").all() as any[];
+  if (rows.length === 0) return DEFAULT_PAGES;
+
+  const result: PageContent = {
+    fr: { hero: { eyebrow: "", headline: "", subheadline: "", ctaPrimary: "", ctaPrimaryLink: "", ctaSecondary: "", ctaSecondaryLink: "", proof: "" } },
+    en: { hero: { eyebrow: "", headline: "", subheadline: "", ctaPrimary: "", ctaPrimaryLink: "", ctaSecondary: "", ctaSecondaryLink: "", proof: "" } },
+  };
+
+  for (const row of rows) {
+    const hero = JSON.parse(row.hero_json);
+    if (row.lang === "fr" || row.lang === "en") {
+      (result as any)[row.lang] = { hero };
+    }
+  }
+  return result;
 }
 
 export function savePages(data: PageContent) {
-  writeJsonFile(PAGES_FILE, data);
+  const db = getDb();
+  const now = new Date().toISOString();
+  const stmt = db.prepare(`
+    INSERT INTO pages (lang, page, hero_json, updated_at) VALUES (?, ?, ?, ?)
+    ON CONFLICT(lang, page) DO UPDATE SET hero_json = excluded.hero_json, updated_at = excluded.updated_at
+  `);
+  for (const lang of ["fr", "en"] as const) {
+    const hero = data[lang]?.hero;
+    if (hero) {
+      stmt.run(lang, "homepage", JSON.stringify(hero), now);
+    }
+  }
 }
 
 // ── Pricing ──
-
-const PRICING_FILE = path.join(DATA_DIR, "pricing.json");
 
 const DEFAULT_PRICING: PricingContent = {
   learningos: [
@@ -384,16 +441,31 @@ const DEFAULT_PRICING: PricingContent = {
 };
 
 export function getPricing(): PricingContent {
-  return readJsonFile<PricingContent>(PRICING_FILE, DEFAULT_PRICING);
+  const db = getDb();
+  const rows = db.prepare("SELECT * FROM pricing").all() as any[];
+  if (rows.length === 0) return DEFAULT_PRICING;
+  const result: any = {};
+  for (const row of rows) {
+    result[row.product] = JSON.parse(row.plans_json);
+  }
+  return result as PricingContent;
 }
 
 export function savePricing(data: PricingContent) {
-  writeJsonFile(PRICING_FILE, data);
+  const db = getDb();
+  const now = new Date().toISOString();
+  const stmt = db.prepare(`
+    INSERT INTO pricing (product, plans_json, updated_at) VALUES (?, ?, ?)
+    ON CONFLICT(product) DO UPDATE SET plans_json = excluded.plans_json, updated_at = excluded.updated_at
+  `);
+  for (const product of ["learningos", "pipelineos", "api"] as const) {
+    if (data[product]) {
+      stmt.run(product, JSON.stringify(data[product]), now);
+    }
+  }
 }
 
 // ── SEO / JSON-LD ──
-
-const SEO_FILE = path.join(DATA_DIR, "seo.json");
 
 const DEFAULT_SEO: SeoContent = {
   fr: {
@@ -491,52 +563,95 @@ const DEFAULT_SEO: SeoContent = {
 };
 
 export function getSeo(): SeoContent {
-  return readJsonFile<SeoContent>(SEO_FILE, DEFAULT_SEO);
+  const db = getDb();
+  const rows = db.prepare("SELECT * FROM seo").all() as any[];
+  if (rows.length === 0) return DEFAULT_SEO;
+  const result: any = { fr: {}, en: {} };
+  for (const row of rows) {
+    if (!result[row.lang]) result[row.lang] = {};
+    result[row.lang][row.page] = {
+      title: row.title,
+      description: row.description,
+      jsonLd: JSON.parse(row.json_ld),
+    };
+  }
+  return result as SeoContent;
 }
 
 export function saveSeo(data: SeoContent) {
-  writeJsonFile(SEO_FILE, data);
+  const db = getDb();
+  const stmt = db.prepare(`
+    INSERT INTO seo (lang, page, title, description, json_ld) VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(lang, page) DO UPDATE SET title = excluded.title, description = excluded.description, json_ld = excluded.json_ld
+  `);
+  for (const lang of ["fr", "en"] as const) {
+    for (const page of ["homepage", "tarifs", "blog"] as const) {
+      const pageData = data[lang]?.[page];
+      if (pageData) {
+        stmt.run(lang, page, pageData.title, pageData.description, JSON.stringify(pageData.jsonLd));
+      }
+    }
+  }
 }
 
 // ── Form Submissions ──
 
-const SUBMISSIONS_FILE = path.join(DATA_DIR, "submissions.json");
+function rowToSubmission(row: any): FormSubmission {
+  return {
+    id: row.id,
+    formType: row.form_type,
+    data: JSON.parse(row.data),
+    email: row.email,
+    createdAt: row.created_at,
+    read: !!row.read,
+    notes: row.notes,
+  };
+}
 
 export function getAllSubmissions(): FormSubmission[] {
-  return readJsonFile<FormSubmission[]>(SUBMISSIONS_FILE, []);
+  const db = getDb();
+  const rows = db.prepare("SELECT * FROM submissions ORDER BY created_at DESC").all();
+  return rows.map(rowToSubmission);
 }
 
 export function createSubmission(
   submission: Omit<FormSubmission, "id" | "createdAt">
 ): FormSubmission {
-  const submissions = getAllSubmissions();
-  const newSubmission: FormSubmission = {
-    ...submission,
-    id: submissions.length > 0 ? Math.max(...submissions.map((s) => s.id)) + 1 : 1,
-    createdAt: new Date().toISOString(),
-  };
-  submissions.unshift(newSubmission);
-  writeJsonFile(SUBMISSIONS_FILE, submissions);
-  return newSubmission;
+  const db = getDb();
+  const now = new Date().toISOString();
+  const result = db.prepare(`
+    INSERT INTO submissions (form_type, data, email, created_at, read, notes)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `).run(submission.formType, JSON.stringify(submission.data), submission.email, now, submission.read ? 1 : 0, submission.notes || null);
+  return { ...submission, id: Number(result.lastInsertRowid), createdAt: now };
 }
 
 export function updateSubmission(
   id: number,
   updates: Partial<FormSubmission>
 ): FormSubmission | null {
-  const submissions = getAllSubmissions();
-  const idx = submissions.findIndex((s) => s.id === id);
-  if (idx === -1) return null;
-  submissions[idx] = { ...submissions[idx], ...updates };
-  writeJsonFile(SUBMISSIONS_FILE, submissions);
-  return submissions[idx];
+  const db = getDb();
+  const existing = db.prepare("SELECT * FROM submissions WHERE id = ?").get(id) as any;
+  if (!existing) return null;
+
+  const setParts: string[] = [];
+  const values: any[] = [];
+
+  if (updates.formType !== undefined) { setParts.push("form_type = ?"); values.push(updates.formType); }
+  if (updates.data !== undefined) { setParts.push("data = ?"); values.push(JSON.stringify(updates.data)); }
+  if (updates.email !== undefined) { setParts.push("email = ?"); values.push(updates.email); }
+  if (updates.read !== undefined) { setParts.push("read = ?"); values.push(updates.read ? 1 : 0); }
+  if (updates.notes !== undefined) { setParts.push("notes = ?"); values.push(updates.notes); }
+
+  if (setParts.length === 0) return rowToSubmission(existing);
+
+  values.push(id);
+  db.prepare(`UPDATE submissions SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
+  return rowToSubmission(db.prepare("SELECT * FROM submissions WHERE id = ?").get(id));
 }
 
 export function deleteSubmission(id: number): boolean {
-  const submissions = getAllSubmissions();
-  const idx = submissions.findIndex((s) => s.id === id);
-  if (idx === -1) return false;
-  submissions.splice(idx, 1);
-  writeJsonFile(SUBMISSIONS_FILE, submissions);
-  return true;
+  const db = getDb();
+  const result = db.prepare("DELETE FROM submissions WHERE id = ?").run(id);
+  return result.changes > 0;
 }
