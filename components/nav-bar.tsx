@@ -174,7 +174,7 @@ export default function NavBar({ lang }: NavBarProps) {
               )}
             </div>
 
-            {/* PipelineOS */}
+            {/* TalentOS */}
             <div
               className="navbar-item"
               style={{ position: "relative", padding: "20px 0" }}
@@ -676,7 +676,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         </div>
       )}
 
-      {/* PipelineOS Section */}
+      {/* TalentOS Section */}
       <button
         onClick={() => {
           setPipelineOpen(!pipelineOpen);
