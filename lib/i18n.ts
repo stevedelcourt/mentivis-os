@@ -404,18 +404,14 @@ export const translations = {
       link: "Voir le detail des modes d'integration",
     },
     notLms: {
-      title: "Ce que MentivisOS n'est pas",
-      lms: [
-        "Diffuser du contenu existant",
-        "Tracer la consommation",
-        "Gerer les catalogues",
-        "Produire des rapports de completion",
-      ],
-      mentivos: [
-        "Calculer l'ecart exact entre un profil et un objectif",
-        "Produire le programme correspondant",
-        "Accompagner module par module sans devier du sujet",
-        "Mesurer la faisabilite et le risque avant de commencer",
+      title: "Pourquoi MentivisOS n'est pas une plateforme de formation comme les autres",
+      lmsLabel: "LMS",
+      mentivisLabel: "MentivisOS",
+      rows: [
+        { lms: "Contenu standardise, meme parcours pour tous", mentivis: "Parcours genere par IA, unique pour chaque profil" },
+        { lms: "Mesure de la consommation", mentivis: "Mesure de l'acquisition reelle, competence par competence" },
+        { lms: "Catalogue fige", mentivis: "Programme dynamique recalcule a chaque etape" },
+        { lms: "Rapport de completion", mentivis: "Scoring de faisabilite et analyse de risque avant deploiement" },
       ],
     },
     combination: {
@@ -477,8 +473,8 @@ export const translations = {
       produits: "Produits",
       pourQui: "Pour qui",
       integration: "Integration",
-      ressources: "Ressources",
       entreprise: "Entreprise",
+      contact: "Contact",
       legal: "Legal",
       copyright: "MentivisOS est developpe par Mentivis.",
     },
@@ -917,18 +913,14 @@ export const translations = {
       link: "See integration modes in detail",
     },
     notLms: {
-      title: "What MentivisOS is not",
-      lms: [
-        "Distribute existing content",
-        "Track consumption",
-        "Manage catalogs",
-        "Produce completion reports",
-      ],
-      mentivos: [
-        "Calculate the exact gap between a profile and an objective",
-        "Produce the corresponding program",
-        "Coach module by module without straying from the subject",
-        "Measure feasibility and risk before starting",
+      title: "Why MentivisOS is not like other training platforms",
+      lmsLabel: "LMS",
+      mentivisLabel: "MentivisOS",
+      rows: [
+        { lms: "Standardized content, same path for everyone", mentivis: "AI-generated path, unique for each profile" },
+        { lms: "Consumption measurement", mentivis: "Real acquisition measurement, skill by skill" },
+        { lms: "Static catalog", mentivis: "Dynamic program recalculated at each step" },
+        { lms: "Completion report", mentivis: "Feasibility scoring and risk analysis before deployment" },
       ],
     },
     combination: {
@@ -990,8 +982,8 @@ export const translations = {
       produits: "Products",
       pourQui: "For whom",
       integration: "Integration",
-      ressources: "Resources",
       entreprise: "Company",
+      contact: "Contact",
       legal: "Legal",
       copyright: "MentivisOS is developed by Mentivis.",
     },

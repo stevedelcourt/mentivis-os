@@ -9,7 +9,7 @@ interface ImpactSectionProps {
 
 const TABS_CONTENT: Record<string, { title: string; cards: { a: { caption: string }; b: { caption: string }; e: { tag: string; caption: string } } }> = {
   atelier: {
-    title: "Mettre en avant l'impact mondial de la formation professionnelle IA",
+    title: "Preuves d'impact. Organisations, contextes, résultats.",
     cards: {
       a: { caption: "Mentivis présente MentivisOS, l'OS de la formation native IA, à EdTech France 2025" },
       b: { caption: "Les directeurs formation qui adoptent MentivisOS témoignent d'un diagnostic précis dès le premier jour" },
@@ -17,10 +17,10 @@ const TABS_CONTENT: Record<string, { title: string; cards: { a: { caption: strin
     },
   },
   operate: {
-    title: "Mettre en avant l'impact opérationnel de la gestion de formation IA",
+    title: "Preuves d'impact. Organisations, contextes, résultats.",
     cards: {
-      a: { caption: "MentivisOperate intègre Qualiopi, OPCO et les SIRH dans un seul système cohérent" },
-      b: { caption: "Les organismes de formation qui déploient MentivisOperate divisent leur charge administrative par trois" },
+      a: { caption: "TalentOS intègre Qualiopi, OPCO et les SIRH dans un seul système cohérent" },
+      b: { caption: "Les organismes de formation qui déploient TalentOS divisent leur charge administrative par trois" },
       e: { tag: "Conformité", caption: "MentivisOS remporte le prix de la meilleure solution de pilotage pédagogique aux Trophées de la Formation" },
     },
   },
@@ -118,7 +118,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 }
               }}
             >
-              {tab === "atelier" ? "MentivisAtelier" : "MentivisOperate"}
+              {tab === "atelier" ? "MentivisOS" : "TalentOS"}
             </button>
           ))}
         </div>

@@ -354,9 +354,9 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                   </span>
                   <span>
                     {key === "atelier"
-                      ? "MentivisAtelier"
+                      ? "MentivisOS"
                       : key === "operate"
-                      ? "MentivisOperate"
+                      ? "TalentOS"
                       : "MentivisIntel"}
                   </span>
                 </button>
@@ -452,8 +452,8 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                 backgroundPosition: "right 16px center",
               }}
             >
-              <option value="atelier">MentivisAtelier</option>
-              <option value="operate">MentivisOperate</option>
+              <option value="atelier">MentivisOS</option>
+              <option value="operate">TalentOS</option>
               <option value="intel">MentivisIntel</option>
             </select>
           </div>

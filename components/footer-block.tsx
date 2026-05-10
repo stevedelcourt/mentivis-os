@@ -49,19 +49,23 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         {[
           {
             title: t.footer.produits,
-            links: ["MentivisAtelier", "MentivisOperate", "MentivisIntel", "Tarifs", "API & Integrations"],
+            links: ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"],
           },
           {
             title: t.footer.pourQui,
-            links: ["Individuel", "Corporate", "Formation", "Competences"],
+            links: ["Individuel", "Entreprise", "Formation", "Pipeline RH"],
           },
           {
             title: t.footer.integration,
-            links: ["Acces direct", "Licence entreprise", "API"],
+            links: ["Acces direct", "Licence entreprise", "API", "Developpeurs"],
           },
           {
             title: t.footer.entreprise,
-            links: ["A propos", "L'equipe", "Contact"],
+            links: ["News", "A propos", "L'equipe", "Carrieres", "Securite"],
+          },
+          {
+            title: t.footer.contact,
+            links: ["Contact"],
           },
         ].map((col) => (
           <div key={col.title}>

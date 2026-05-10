@@ -40,72 +40,85 @@ export default function NotLmsSection({ lang }: { lang: Locale }) {
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 48,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.5s ease, transform 0.5s ease",
           }}
         >
-          <div>
-            <h3
+          {/* Table header */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 0,
+              borderBottom: "2px solid var(--text-primary)",
+              marginBottom: 0,
+            }}
+          >
+            <div
               className="t-caption"
               style={{
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 color: "var(--text-tertiary)",
-                marginBottom: 20,
+                padding: "16px 0",
+                fontSize: 12,
               }}
             >
-              LMS
-            </h3>
-            <ul>
-              {t.notLms.lms.map((item) => (
-                <li
-                  key={item}
-                  className="t-caption"
-                  style={{
-                    padding: "10px 0",
-                    borderBottom: `1px solid var(--border-light)`,
-                    color: "var(--text-tertiary)",
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3
+              {t.notLms.lmsLabel}
+            </div>
+            <div
               className="t-caption"
               style={{
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 color: "var(--text-primary)",
-                marginBottom: 20,
+                padding: "16px 0",
+                fontSize: 12,
               }}
             >
-              Mentivis OS
-            </h3>
-            <ul>
-              {t.notLms.mentivos.map((item) => (
-                <li
-                  key={item}
-                  className="t-caption"
-                  style={{
-                    padding: "10px 0",
-                    borderBottom: `1px solid var(--border-light)`,
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+              {t.notLms.mentivisLabel}
+            </div>
           </div>
+
+          {/* Table rows */}
+          {t.notLms.rows.map((row, idx) => (
+            <div
+              key={idx}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 0,
+                borderBottom: "1px solid var(--border-light)",
+              }}
+            >
+              <div
+                className="t-caption"
+                style={{
+                  padding: "20px 24px 20px 0",
+                  color: "var(--text-tertiary)",
+                  fontSize: 15,
+                  lineHeight: 1.5,
+                }}
+              >
+                {row.lms}
+              </div>
+              <div
+                className="t-caption"
+                style={{
+                  padding: "20px 0 20px 24px",
+                  color: "var(--text-primary)",
+                  fontSize: 15,
+                  lineHeight: 1.5,
+                  fontWeight: 450,
+                }}
+              >
+                {row.mentivis}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
