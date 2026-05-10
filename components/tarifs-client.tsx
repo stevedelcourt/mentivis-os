@@ -1019,13 +1019,14 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
         >
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 2fr",
-              gap: "clamp(2.5rem, 6vw, 6rem)",
+              display: "flex",
+              alignItems: "center",
+              gap: 60,
+              flexWrap: "wrap",
             }}
           >
-            {/* Left intro */}
-            <div>
+            {/* Left: All text content */}
+            <div style={{ flex: 1, minWidth: 300 }}>
               <p
                 className="t-caption"
                 style={{
@@ -1057,17 +1058,13 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                   fontSize: "0.9375rem",
                   lineHeight: 1.65,
                   color: "var(--text-secondary)",
-                  maxWidth: "36ch",
-                  margin: 0,
+                  maxWidth: "48ch",
+                  margin: "0 0 1.75rem",
                 }}
               >
                 Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation.
               </p>
-            </div>
-
-            {/* Right content */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: 16 }}>
                 <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Pour expérimenter, déployer et évaluer
@@ -1083,12 +1080,18 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               </ul>
               <Link
                 href={`/${lang}/demo`}
-                className="btn-pill btn-black"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  width: "fit-content",
+                  padding: "12px 20px",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: "#FFFFFF",
+                  background: "#0A0A0A",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
                 }}
               >
                 En savoir plus
@@ -1096,6 +1099,19 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                   <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
+            </div>
+
+            {/* Right: SVG Animation */}
+            <div style={{
+              flex: "0 0 380px",
+              width: 380,
+              height: 380,
+            }}>
+              <img 
+                src="/images/pricing-blocks-animated.svg" 
+                alt="" 
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
             </div>
           </div>
         </div>
