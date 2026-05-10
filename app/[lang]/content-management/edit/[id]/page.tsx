@@ -205,12 +205,29 @@ export default function PostEditorPage() {
     <div style={{ padding: "40px 24px", maxWidth: 800, margin: "0 auto" }}>
       {/* Header */}
       <div style={{ marginBottom: 32 }}>
-        <Link
-          href={`/${lang}/content-management`}
-          style={{ fontSize: 13, color: "#777169", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4, marginBottom: 16 }}
-        >
-          ← Retour au tableau de bord
-        </Link>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+          <Link
+            href={`/${lang}/content-management`}
+            style={{ fontSize: 13, color: "#777169", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
+          >
+            ← Retour au tableau de bord
+          </Link>
+          <Link
+            href={`/${lang}/content-management`}
+            style={{
+              padding: "8px 16px",
+              fontSize: 13,
+              fontWeight: 500,
+              color: "#777169",
+              textDecoration: "none",
+              border: "1px solid #E5E0DA",
+              borderRadius: 8,
+              background: "#FAFAF8",
+            }}
+          >
+            ← Retour liste articles
+          </Link>
+        </div>
         <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A" }}>
           {isNew ? "Nouvel article" : "Modifier l'article"}
         </h1>
@@ -486,21 +503,6 @@ Texte final.`}
               Previsualiser
             </Link>
           )}
-          <Link
-            href={`/${lang}/content-management`}
-            style={{
-              padding: "14px 24px",
-              fontSize: 15,
-              color: "#777169",
-              textDecoration: "none",
-              border: "1px solid #E5E0DA",
-              borderRadius: 10,
-              background: "#FAFAF8",
-              marginLeft: "auto",
-            }}
-          >
-            ← Retour liste articles
-          </Link>
         </div>
       </form>
     </div>
