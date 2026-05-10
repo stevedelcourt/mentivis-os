@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createSubmission } from "@/lib/cms/db";
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "https://mentivis-os.vercel.app,http://localhost:3000").split(",");
 
@@ -56,6 +57,7 @@ export async function POST(request: NextRequest) {
       phone,
       consent,
       honeypot,
+      formType,
     } = body;
 
     if (honeypot) {
@@ -70,6 +72,27 @@ export async function POST(request: NextRequest) {
         { success: false, error: "Missing required fields" },
         { status: 400 }
       );
+    }
+
+    // Always persist locally as backup
+    try {
+      createSubmission({
+        formType: formType === "contact" ? "contact" : "demo",
+        data: {
+          firstname,
+          lastname,
+          organization: organization || null,
+          role: role || null,
+          objective: objective || null,
+          email,
+          phone: phone || null,
+          consent: consent || false,
+        },
+        email,
+        read: false,
+      });
+    } catch (err) {
+      console.error("[Demo API] Local persistence failed:", err);
     }
 
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;

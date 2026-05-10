@@ -14,6 +14,7 @@ export default function PostEditorPage() {
   const isNew = id === "new";
 
   const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -36,11 +37,17 @@ export default function PostEditorPage() {
   // Auth check
   useEffect(() => {
     const stored = localStorage.getItem("cms_token");
+    const storedRole = localStorage.getItem("cms_role");
     if (!stored) {
       router.push(`/${lang}/content-management`);
       return;
     }
+    if (storedRole !== "god" && storedRole !== "editorial") {
+      router.push(`/${lang}/content-management`);
+      return;
+    }
     setToken(stored);
+    setRole(storedRole);
   }, [lang, router]);
 
   // Load existing post

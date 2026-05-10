@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
-import { requireAuth } from "@/lib/cms/auth";
+import { requireRole } from "@/lib/cms/auth";
 
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
@@ -11,7 +11,7 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "im
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function POST(request: Request) {
-  const auth = requireAuth(request);
+  const auth = requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {

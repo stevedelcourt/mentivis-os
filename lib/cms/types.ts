@@ -89,3 +89,29 @@ export interface SeoContent {
   fr: Record<string, SeoPageData>;
   en: Record<string, SeoPageData>;
 }
+
+// ── Form Submissions ──
+
+export interface FormSubmission {
+  id: number;
+  formType: "demo" | "contact";
+  data: Record<string, string | boolean | number | null>;
+  email: string;
+  createdAt: string;
+  read: boolean;
+  notes?: string;
+}
+
+// ── Users & Roles ──
+
+export type UserRole = "god" | "editorial" | "tarifs";
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  passwordHash: string;
+  role: UserRole;
+  active: boolean;
+  createdAt: string;
+}

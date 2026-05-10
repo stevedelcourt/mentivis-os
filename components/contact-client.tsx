@@ -118,6 +118,7 @@ export default function ContactClient({ lang }: { lang: Locale }) {
             </label>
           </div>
 
+          <input type="hidden" name="formType" value="contact" />
           <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
 
           <button

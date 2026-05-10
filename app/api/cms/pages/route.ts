@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getPages, savePages } from "@/lib/cms/db";
-import { requireAuth } from "@/lib/cms/auth";
+import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
   const auth = requireAuth(request);
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  const auth = requireAuth(request);
+  const auth = requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   try {

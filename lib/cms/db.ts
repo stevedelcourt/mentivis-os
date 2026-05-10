@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { Post, PageContent, PricingContent, SeoContent } from "./types";
+import { Post, PageContent, PricingContent, SeoContent, FormSubmission } from "./types";
 
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const POSTS_FILE = path.join(DATA_DIR, "posts.json");
@@ -496,4 +496,47 @@ export function getSeo(): SeoContent {
 
 export function saveSeo(data: SeoContent) {
   writeJsonFile(SEO_FILE, data);
+}
+
+// ── Form Submissions ──
+
+const SUBMISSIONS_FILE = path.join(DATA_DIR, "submissions.json");
+
+export function getAllSubmissions(): FormSubmission[] {
+  return readJsonFile<FormSubmission[]>(SUBMISSIONS_FILE, []);
+}
+
+export function createSubmission(
+  submission: Omit<FormSubmission, "id" | "createdAt">
+): FormSubmission {
+  const submissions = getAllSubmissions();
+  const newSubmission: FormSubmission = {
+    ...submission,
+    id: submissions.length > 0 ? Math.max(...submissions.map((s) => s.id)) + 1 : 1,
+    createdAt: new Date().toISOString(),
+  };
+  submissions.unshift(newSubmission);
+  writeJsonFile(SUBMISSIONS_FILE, submissions);
+  return newSubmission;
+}
+
+export function updateSubmission(
+  id: number,
+  updates: Partial<FormSubmission>
+): FormSubmission | null {
+  const submissions = getAllSubmissions();
+  const idx = submissions.findIndex((s) => s.id === id);
+  if (idx === -1) return null;
+  submissions[idx] = { ...submissions[idx], ...updates };
+  writeJsonFile(SUBMISSIONS_FILE, submissions);
+  return submissions[idx];
+}
+
+export function deleteSubmission(id: number): boolean {
+  const submissions = getAllSubmissions();
+  const idx = submissions.findIndex((s) => s.id === id);
+  if (idx === -1) return false;
+  submissions.splice(idx, 1);
+  writeJsonFile(SUBMISSIONS_FILE, submissions);
+  return true;
 }

@@ -11,6 +11,7 @@ export default function ContentManagementPage() {
   const router = useRouter();
 
   const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,11 +23,17 @@ export default function ContentManagementPage() {
   const [sortField, setSortField] = useState<"title" | "category" | "date" | "status">("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
+  const canEditPosts = role === "god" || role === "editorial";
+
   // Check auth on mount
   useEffect(() => {
     const stored = localStorage.getItem("cms_token");
+    const storedRole = localStorage.getItem("cms_role");
     if (stored) {
       setToken(stored);
+    }
+    if (storedRole) {
+      setRole(storedRole);
     }
   }, []);
 
@@ -40,7 +47,9 @@ export default function ContentManagementPage() {
       });
       if (res.status === 401) {
         localStorage.removeItem("cms_token");
+        localStorage.removeItem("cms_role");
         setToken(null);
+        setRole(null);
         return;
       }
       const data = await res.json();
@@ -68,7 +77,9 @@ export default function ContentManagementPage() {
       const data = await res.json();
       if (data.success && data.token) {
         localStorage.setItem("cms_token", data.token);
+        localStorage.setItem("cms_role", data.role || "god");
         setToken(data.token);
+        setRole(data.role || "god");
       } else {
         setLoginError(data.error || "Erreur de connexion");
       }
@@ -79,7 +90,9 @@ export default function ContentManagementPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("cms_token");
+    localStorage.removeItem("cms_role");
     setToken(null);
+    setRole(null);
     setPosts([]);
   };
 
@@ -249,23 +262,41 @@ export default function ContentManagementPage() {
           <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles, pages, tarifs et SEO</p>
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link
-            href={`/${lang}/content-management/edit/new`}
-            style={{
-              padding: "10px 20px",
-              fontSize: 14,
-              fontWeight: 500,
-              color: "#fff",
-              background: "#0A0A0A",
-              borderRadius: 10,
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-          >
-            + Nouvel article
-          </Link>
+          {role && (
+            <span
+              style={{
+                padding: "4px 10px",
+                fontSize: 12,
+                fontWeight: 500,
+                borderRadius: 999,
+                background: role === "god" ? "#0A0A0A" : role === "editorial" ? "#E3F2FD" : "#FFF3E0",
+                color: role === "god" ? "#fff" : role === "editorial" ? "#1565C0" : "#E65100",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
+              {role === "god" ? "God" : role === "editorial" ? "Editorial" : "Tarifs"}
+            </span>
+          )}
+          {canEditPosts && (
+            <Link
+              href={`/${lang}/content-management/edit/new`}
+              style={{
+                padding: "10px 20px",
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#fff",
+                background: "#0A0A0A",
+                borderRadius: 10,
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              + Nouvel article
+            </Link>
+          )}
           <button
             onClick={handleLogout}
             style={{
@@ -284,12 +315,14 @@ export default function ContentManagementPage() {
       </div>
 
       {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
+      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5", flexWrap: "wrap" }}>
         {[
           { label: "Articles", href: `/${lang}/content-management` },
           { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
           { label: "Tarifs", href: `/${lang}/content-management/tarifs` },
           { label: "SEO / JSON-LD", href: `/${lang}/content-management/seo` },
+          { label: "Soumissions", href: `/${lang}/content-management/soumissions` },
+          ...(role === "god" ? [{ label: "Parametres", href: `/${lang}/content-management/settings` }] : []),
         ].map((tab) => (
           <Link
             key={tab.label}
@@ -436,34 +469,38 @@ export default function ContentManagementPage() {
                       >
                         Voir
                       </Link>
-                      <Link
-                        href={`/${lang}/content-management/edit/${post.id}`}
-                        style={{
-                          padding: "6px 12px",
-                          fontSize: 12,
-                          color: "#0A0A0A",
-                          textDecoration: "none",
-                          border: "1px solid #E5E0DA",
-                          borderRadius: 8,
-                          background: "#FAFAF8",
-                        }}
-                      >
-                        Modifier
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(post.id)}
-                        style={{
-                          padding: "6px 12px",
-                          fontSize: 12,
-                          color: "#c45c4a",
-                          border: "1px solid #F5E0DC",
-                          borderRadius: 8,
-                          background: "#FEF2F0",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Supprimer
-                      </button>
+                      {canEditPosts && (
+                        <>
+                          <Link
+                            href={`/${lang}/content-management/edit/${post.id}`}
+                            style={{
+                              padding: "6px 12px",
+                              fontSize: 12,
+                              color: "#0A0A0A",
+                              textDecoration: "none",
+                              border: "1px solid #E5E0DA",
+                              borderRadius: 8,
+                              background: "#FAFAF8",
+                            }}
+                          >
+                            Modifier
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(post.id)}
+                            style={{
+                              padding: "6px 12px",
+                              fontSize: 12,
+                              color: "#c45c4a",
+                              border: "1px solid #F5E0DC",
+                              borderRadius: 8,
+                              background: "#FEF2F0",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Supprimer
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>

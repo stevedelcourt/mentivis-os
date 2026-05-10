@@ -118,6 +118,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             </label>
           </div>
 
+          <input type="hidden" name="formType" value="demo" />
           <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
 
           <button

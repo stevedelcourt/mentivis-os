@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAllPosts, createPost } from "@/lib/cms/db";
 import { generateSlug } from "@/lib/cms/utils";
-import { requireAuth } from "@/lib/cms/auth";
+import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
   const auth = requireAuth(request);
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const auth = requireAuth(request);
+  const auth = requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {

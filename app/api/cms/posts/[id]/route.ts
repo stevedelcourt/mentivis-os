@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getPostById, updatePost, deletePost } from "@/lib/cms/db";
-import { requireAuth } from "@/lib/cms/auth";
+import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(
   request: Request,
@@ -22,7 +22,7 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireAuth(request);
+  const auth = requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {
@@ -42,7 +42,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireAuth(request);
+  const auth = requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
