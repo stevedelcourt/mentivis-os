@@ -340,50 +340,47 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   return (
     <section style={{ minHeight: "100vh", paddingTop: 120, paddingBottom: 80, background: "var(--bg-primary)" }}>
       <div className="container" style={{ maxWidth: "var(--container-max)" }}>
-        {/* Hero: Eyebrow + Title + Description */}
-        <div style={{ marginBottom: 24 }}>
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: "var(--text-micro)",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 12,
-            }}
-          >
-            Tarifs
-          </span>
-          <h1
-            className="t-display"
-            style={{
-              fontSize: "var(--text-hero)",
-              fontWeight: 300,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              marginBottom: 10,
-              color: "var(--text-primary)",
-            }}
-          >
-            Opérez la formation<br />de votre entreprise
-          </h1>
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 560,
-              margin: 0,
-              fontSize: "var(--text-body)",
-            }}
-          >
-            Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
-          </p>
-        </div>
-
-        {/* Product Tabs + Billing Toggle + Blue Card row */}
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
-          {/* Left: Tabs + Toggle */}
+        {/* Single row: Text + Blue Card */}
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
+          {/* Left: All text content */}
           <div style={{ flex: 1, minWidth: 300 }}>
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: "var(--text-micro)",
+                fontWeight: 500,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+                marginBottom: 12,
+              }}
+            >
+              Tarifs
+            </span>
+            <h1
+              className="t-display"
+              style={{
+                fontSize: "var(--text-hero)",
+                fontWeight: 300,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.1,
+                marginBottom: 14,
+                color: "var(--text-primary)",
+              }}
+            >
+              Opérez la formation<br />de votre entreprise
+            </h1>
+            <p
+              className="t-lead"
+              style={{
+                maxWidth: 560,
+                margin: "0 0 34px",
+                fontSize: "var(--text-body)",
+              }}
+            >
+              Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
+            </p>
+
             {/* Product Tabs */}
             <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
@@ -478,7 +475,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
            </div>
           </div>
 
-          {/* Right: Blue glassmorphism card (bottom-aligned with toggle) */}
+          {/* Right: Blue glassmorphism card */}
           <div className="tarifs-product-card" style={{
             position: "relative",
             width: 340,
@@ -487,15 +484,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             overflow: "hidden",
             background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #ec4899 70%, #f97316 100%)",
             boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+            flexShrink: 0,
           }}>
-            {/* Gradient overlay */}
-            <div style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 75%)",
-              zIndex: 1,
-            }} />
-            
             {/* Content */}
             <div style={{
               position: "relative",
@@ -504,41 +494,40 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               flexDirection: "column",
               justifyContent: "space-between",
               height: "100%",
-              padding: "24px",
+              padding: "28px",
             }}>
               {/* Description */}
-              <p data-desc style={{
+              <p style={{
                 color: "white",
                 fontSize: 15,
                 fontWeight: 300,
                 lineHeight: 1.5,
                 letterSpacing: "-0.005em",
-                textShadow: "0 1px 6px rgba(0,0,0,0.25)",
                 marginTop: 0,
               }}>
                 Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA.
               </p>
 
               {/* Buttons */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto", paddingTop: 24 }}>
-                <Link data-btn href={`/${lang}`} style={{
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <Link href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  padding: "8px 12px",
+                  padding: "10px 14px",
                   background: "rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.2)",
                   borderRadius: 10,
                   color: "white",
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 500,
                   textDecoration: "none",
                   transition: "all 0.2s ease",
                 }}>
                   <span style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "#7eb8c8",
                   }} />
@@ -547,24 +536,24 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
-                <Link data-btn href={`/${lang}`} style={{
+                <Link href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  padding: "8px 12px",
+                  padding: "10px 14px",
                   background: "rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.2)",
                   borderRadius: 10,
                   color: "white",
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 500,
                   textDecoration: "none",
                   transition: "all 0.2s ease",
                 }}>
                   <span style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "#96c4a8",
                   }} />
@@ -573,24 +562,24 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
-                <Link data-btn href={`/${lang}`} style={{
+                <Link href={`/${lang}`} style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  padding: "8px 12px",
+                  padding: "10px 14px",
                   background: "rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.2)",
                   borderRadius: 10,
                   color: "white",
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 500,
                   textDecoration: "none",
                   transition: "all 0.2s ease",
                 }}>
                   <span style={{
-                    width: 5,
-                    height: 5,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "#a89bc2",
                   }} />
@@ -940,13 +929,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             .tarifs-product-card > div {
               padding: 16px !important;
             }
-            .tarifs-product-card [data-desc] {
-              font-size: 11px !important;
-            }
-            .tarifs-product-card [data-btn] {
-              padding: 6px 10px !important;
-              font-size: 11px !important;
-            }
           }
           .tarifs-product-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1024,101 +1006,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
-
-        {/* Programme d'essai sans risque - No background */}
-        <div
-          style={{
-            background: "transparent",
-            borderRadius: "var(--r-warm)",
-            padding: "56px 0",
-            marginBottom: 100,
-            display: "flex",
-            alignItems: "center",
-            gap: 60,
-            flexWrap: "wrap",
-          }}
-        >
-          {/* Left: Text block */}
-          <div style={{ flex: 1, minWidth: 300 }}>
-            <span
-              style={{
-                display: "inline-block",
-                fontSize: 12,
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "var(--text-tertiary)",
-                background: "var(--bg-warm)",
-                padding: "4px 12px",
-                borderRadius: 6,
-                marginBottom: 16,
-              }}
-            >
-              1 semaine gratuite
-            </span>
-            <h2
-              className="t-title"
-              style={{
-                marginBottom: 12,
-                fontSize: "var(--text-title)",
-                fontWeight: 300,
-              }}
-            >
-              Programme d'essai sans risque
-            </h2>
-            <p
-              className="t-lead"
-              style={{
-                marginBottom: 28,
-                fontSize: "var(--text-body)",
-              }}
-            >
-              Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation, sans engagement ni risque opérationnel.
-            </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 12 }}>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Pour expérimenter, déployer et évaluer
-              </li>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Accès complet à la plateforme
-              </li>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Accompagnement à l'intégration inclus
-              </li>
-            </ul>
-            <a
-              href={`/${lang}/demo`}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                fontSize: 15,
-                fontWeight: 500,
-                color: "var(--text-primary)",
-                textDecoration: "none",
-              }}
-            >
-              En savoir plus
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </a>
-          </div>
-
-          {/* Right: Animation block (1:1) */}
-          <div style={{
-            flex: "0 0 380px",
-            width: 380,
-            height: 380,
-          }}>
-            <img 
-              src="/images/pricing-blocks-animated.svg" 
-              alt="" 
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
           </div>
         </div>
 
