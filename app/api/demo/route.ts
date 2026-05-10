@@ -15,7 +15,7 @@ function getIp(request: NextRequest): string {
 export async function POST(request: NextRequest) {
   const ip = getIp(request);
 
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, 5, 60_000)) {
     return NextResponse.json(
       { success: false, error: "Too many requests. Try again later." },
       { status: 429 }
