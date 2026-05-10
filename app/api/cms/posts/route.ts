@@ -4,13 +4,13 @@ import { generateSlug } from "@/lib/cms/utils";
 import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
-  const auth = requireAuth(request);
+  const auth = await requireAuth(request);
   if (auth instanceof Response) return auth;
 
   const { searchParams } = new URL(request.url);
   const status = searchParams.get("status"); // "published", "draft", or null for all
 
-  let posts = getAllPosts();
+  let posts = await getAllPosts();
   if (status === "published") posts = posts.filter((p) => p.published);
   if (status === "draft") posts = posts.filter((p) => !p.published);
 
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const auth = requireRole(request, ["god", "editorial"]);
+  const auth = await requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     }
 
     const slug = generateSlug(title);
-    const posts = getAllPosts();
+    const posts = await getAllPosts();
     let uniqueSlug = slug;
     let counter = 1;
     while (posts.some((p) => p.slug === uniqueSlug)) {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       counter++;
     }
 
-    const post = createPost({
+    const post = await createPost({
       slug: uniqueSlug,
       title,
       excerpt,

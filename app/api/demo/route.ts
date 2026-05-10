@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 
     // Always persist locally as backup
     try {
-      createSubmission({
+      await createSubmission({
         formType: formType === "contact" ? "contact" : "demo",
         data: {
           firstname,

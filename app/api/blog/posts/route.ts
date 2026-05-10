@@ -5,7 +5,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category");
 
-  let posts = getPublishedPosts();
+  let posts = await getPublishedPosts();
   if (category && category !== "all") {
     posts = posts.filter((p) => p.category === category);
   }

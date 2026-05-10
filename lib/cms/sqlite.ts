@@ -1,24 +1,139 @@
 import fs from "fs";
 import path from "path";
-import Database from "better-sqlite3";
+import type { Database } from "sql.js";
 
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const DB_PATH = path.join(DATA_DIR, "mentivis.db");
 
-let db: Database.Database | null = null;
+let dbPromise: Promise<SqlJsDb> | null = null;
 
-export function getDb(): Database.Database {
-  if (!db) {
-    db = new Database(DB_PATH);
-    db.pragma("journal_mode = WAL");
-    initDatabase(db);
-    migrateFromJson(db);
+async function initSqlJsWithWasm() {
+  const { default: initSqlJs } = await import("sql.js");
+
+  const possiblePaths = [
+    path.join(process.cwd(), "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(__dirname, "..", "..", "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(__dirname, "..", "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(__dirname, "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(__dirname, "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+  ];
+
+  for (const wasmPath of possiblePaths) {
+    if (fs.existsSync(wasmPath)) {
+      const wasmBinary = fs.readFileSync(wasmPath);
+      return initSqlJs({ wasmBinary });
+    }
   }
-  return db;
+
+  return initSqlJs();
 }
 
-function initDatabase(db: Database.Database) {
-  // Posts
+export async function getDb(): Promise<SqlJsDb> {
+  if (!dbPromise) {
+    dbPromise = createDb();
+  }
+  return dbPromise;
+}
+
+async function createDb(): Promise<SqlJsDb> {
+  const SQL = await initSqlJsWithWasm();
+
+  let dbBuffer: Buffer | null = null;
+  if (fs.existsSync(DB_PATH)) {
+    dbBuffer = fs.readFileSync(DB_PATH);
+  }
+
+  const db = new SQL.Database(dbBuffer);
+
+  const wrapper = new SqlJsDb(db, DB_PATH);
+
+  try {
+    wrapper.exec("PRAGMA journal_mode = WAL;");
+  } catch {
+    // WAL mode is best-effort in sql.js
+  }
+
+  wrapper.autoSave = false;
+  initDatabase(wrapper);
+  migrateFromJson(wrapper);
+  wrapper.autoSave = true;
+  wrapper.save();
+
+  return wrapper;
+}
+
+export class SqlJsDb {
+  autoSave = true;
+
+  constructor(private db: Database, private dbPath: string) {}
+
+  exec(sql: string) {
+    this.db.exec(sql);
+    if (this.autoSave) {
+      this.save();
+    }
+  }
+
+  prepare(sql: string) {
+    const db = this.db;
+    const self = this;
+
+    return {
+      get: (...params: any[]) => {
+        const stmt = db.prepare(sql);
+        stmt.bind(params);
+        let result: any = undefined;
+        if (stmt.step()) {
+          result = stmt.getAsObject();
+        }
+        stmt.free();
+        return result;
+      },
+      all: (...params: any[]) => {
+        const stmt = db.prepare(sql);
+        stmt.bind(params);
+        const results: any[] = [];
+        while (stmt.step()) {
+          results.push(stmt.getAsObject());
+        }
+        stmt.free();
+        return results;
+      },
+      run: (...params: any[]) => {
+        const stmt = db.prepare(sql);
+        stmt.bind(params);
+        stmt.step();
+        stmt.free();
+
+        const rowidStmt = db.prepare("SELECT last_insert_rowid() as lastInsertRowid");
+        rowidStmt.step();
+        const rowidResult = rowidStmt.getAsObject();
+        rowidStmt.free();
+
+        const changesStmt = db.prepare("SELECT changes() as changes");
+        changesStmt.step();
+        const changesResult = changesStmt.getAsObject();
+        changesStmt.free();
+
+        if (self.autoSave) {
+          self.save();
+        }
+
+        return {
+          lastInsertRowid: Number(rowidResult.lastInsertRowid),
+          changes: Number(changesResult.changes),
+        };
+      },
+    };
+  }
+
+  save() {
+    const data = this.db.export();
+    fs.writeFileSync(this.dbPath, Buffer.from(data));
+  }
+}
+
+function initDatabase(db: SqlJsDb) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,7 +154,6 @@ function initDatabase(db: Database.Database) {
     );
   `);
 
-  // Optional FTS5
   try {
     db.exec(`
       CREATE VIRTUAL TABLE IF NOT EXISTS posts_fts USING fts5(
@@ -62,7 +176,6 @@ function initDatabase(db: Database.Database) {
     // FTS5 not available — skip full-text search
   }
 
-  // Users
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +188,6 @@ function initDatabase(db: Database.Database) {
     );
   `);
 
-  // Submissions
   db.exec(`
     CREATE TABLE IF NOT EXISTS submissions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -88,7 +200,6 @@ function initDatabase(db: Database.Database) {
     );
   `);
 
-  // Pages
   db.exec(`
     CREATE TABLE IF NOT EXISTS pages (
       lang TEXT NOT NULL,
@@ -99,7 +210,6 @@ function initDatabase(db: Database.Database) {
     );
   `);
 
-  // Pricing
   db.exec(`
     CREATE TABLE IF NOT EXISTS pricing (
       product TEXT PRIMARY KEY,
@@ -108,7 +218,6 @@ function initDatabase(db: Database.Database) {
     );
   `);
 
-  // SEO
   db.exec(`
     CREATE TABLE IF NOT EXISTS seo (
       lang TEXT NOT NULL,
@@ -121,9 +230,9 @@ function initDatabase(db: Database.Database) {
   `);
 }
 
-function migrateFromJson(db: Database.Database) {
+function migrateFromJson(db: SqlJsDb) {
   const postCount = db.prepare("SELECT COUNT(*) as count FROM posts").get() as { count: number };
-  if (postCount.count > 0) return; // Already migrated
+  if (postCount.count > 0) return;
 
   const files = {
     posts: path.join(DATA_DIR, "posts.json"),
@@ -134,7 +243,6 @@ function migrateFromJson(db: Database.Database) {
     seo: path.join(DATA_DIR, "seo.json"),
   };
 
-  // Migrate posts
   if (fs.existsSync(files.posts)) {
     try {
       const posts = JSON.parse(fs.readFileSync(files.posts, "utf-8")) as any[];
@@ -153,7 +261,6 @@ function migrateFromJson(db: Database.Database) {
     } catch {}
   }
 
-  // Migrate users
   if (fs.existsSync(files.users)) {
     try {
       const users = JSON.parse(fs.readFileSync(files.users, "utf-8")) as any[];
@@ -168,7 +275,6 @@ function migrateFromJson(db: Database.Database) {
     } catch {}
   }
 
-  // Migrate submissions
   if (fs.existsSync(files.submissions)) {
     try {
       const submissions = JSON.parse(fs.readFileSync(files.submissions, "utf-8")) as any[];
@@ -183,7 +289,6 @@ function migrateFromJson(db: Database.Database) {
     } catch {}
   }
 
-  // Migrate pages
   if (fs.existsSync(files.pages)) {
     try {
       const pages = JSON.parse(fs.readFileSync(files.pages, "utf-8")) as any;
@@ -197,7 +302,6 @@ function migrateFromJson(db: Database.Database) {
     } catch {}
   }
 
-  // Migrate pricing
   if (fs.existsSync(files.pricing)) {
     try {
       const pricing = JSON.parse(fs.readFileSync(files.pricing, "utf-8")) as any;
@@ -211,7 +315,6 @@ function migrateFromJson(db: Database.Database) {
     } catch {}
   }
 
-  // Migrate SEO
   if (fs.existsSync(files.seo)) {
     try {
       const seo = JSON.parse(fs.readFileSync(files.seo, "utf-8")) as any;

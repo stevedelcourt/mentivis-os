@@ -4,10 +4,10 @@ import { getAllUsers, createUser, hashPassword } from "@/lib/cms/users";
 import { UserRole } from "@/lib/cms/types";
 
 export async function GET(request: Request) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
-  const users = getAllUsers().map((u) => ({
+  const users = (await getAllUsers()).map((u) => ({
     id: u.id,
     email: u.email,
     name: u.name,
@@ -20,7 +20,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   try {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const users = getAllUsers();
+    const users = await getAllUsers();
     if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
       return NextResponse.json(
         { error: "User already exists" },
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await hashPassword(password);
-    const user = createUser({
+    const user = await createUser({
       email,
       name: name || email.split("@")[0],
       passwordHash,

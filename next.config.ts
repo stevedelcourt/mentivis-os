@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
   },
+  serverExternalPackages: ["sql.js"],
   experimental: {
     cpus: 2,
   },

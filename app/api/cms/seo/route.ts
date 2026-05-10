@@ -4,15 +4,15 @@ import { requireAuth, requireRole } from "@/lib/cms/auth";
 import { SeoPageData } from "@/lib/cms/types";
 
 export async function GET(request: Request) {
-  const auth = requireAuth(request);
+  const auth = await requireAuth(request);
   if (auth instanceof Response) return auth;
 
-  const seo = getSeo();
+  const seo = await getSeo();
   return NextResponse.json({ seo });
 }
 
 export async function PUT(request: Request) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   try {
@@ -23,13 +23,13 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Missing lang, page, or data" }, { status: 400 });
     }
 
-    const seo = getSeo();
+    const seo = await getSeo();
     if (!seo[lang as "fr" | "en"]) {
       return NextResponse.json({ error: "Invalid lang" }, { status: 400 });
     }
 
     seo[lang as "fr" | "en"][page] = data;
-    saveSeo(seo);
+    await saveSeo(seo);
 
     return NextResponse.json({ success: true, seo: seo[lang as "fr" | "en"][page] });
   } catch {

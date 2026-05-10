@@ -5,6 +5,6 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const lang = searchParams.get("lang") || "fr";
 
-  const pages = getPages();
+  const pages = await getPages();
   return NextResponse.json({ page: pages[lang as "fr" | "en"] || pages.fr });
 }

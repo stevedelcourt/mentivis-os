@@ -37,28 +37,28 @@ function rowToUser(row: any): User {
   };
 }
 
-export function getAllUsers(): User[] {
-  const db = getDb();
+export async function getAllUsers(): Promise<User[]> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM users ORDER BY created_at DESC").all();
   return rows.map(rowToUser);
 }
 
-export function getUserByEmail(email: string): User | undefined {
-  const db = getDb();
+export async function getUserByEmail(email: string): Promise<User | undefined> {
+  const db = await getDb();
   const row = db.prepare("SELECT * FROM users WHERE email = ? COLLATE NOCASE AND active = 1").get(email);
   return row ? rowToUser(row) : undefined;
 }
 
-export function getUserById(id: number): User | undefined {
-  const db = getDb();
+export async function getUserById(id: number): Promise<User | undefined> {
+  const db = await getDb();
   const row = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
   return row ? rowToUser(row) : undefined;
 }
 
-export function createUser(
+export async function createUser(
   user: Omit<User, "id" | "createdAt">
-): User {
-  const db = getDb();
+): Promise<User> {
+  const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
     INSERT INTO users (email, name, password_hash, role, active, created_at)
@@ -67,12 +67,12 @@ export function createUser(
   return { ...user, id: Number(result.lastInsertRowid), createdAt: now };
 }
 
-export function updateUser(
+export async function updateUser(
   id: number,
   updates: Partial<Omit<User, "id" | "createdAt">>
-): User | null {
-  const db = getDb();
-  const existing = getUserById(id);
+): Promise<User | null> {
+  const db = await getDb();
+  const existing = await getUserById(id);
   if (!existing) return null;
 
   const setParts: string[] = [];
@@ -88,21 +88,21 @@ export function updateUser(
 
   values.push(id);
   db.prepare(`UPDATE users SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
-  return getUserById(id)!;
+  return (await getUserById(id))!;
 }
 
-export function deleteUser(id: number): boolean {
-  const db = getDb();
+export async function deleteUser(id: number): Promise<boolean> {
+  const db = await getDb();
   const result = db.prepare("DELETE FROM users WHERE id = ?").run(id);
   return result.changes > 0;
 }
 
 export async function seedDefaultUsers(sharedPassword: string) {
-  const db = getDb();
+  const db = await getDb();
   const count = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
   if (count.count === 0) {
     const passwordHash = await hashPassword(sharedPassword);
-    createUser({
+    await createUser({
       email: "steven.delcourt@mentivis.com",
       name: "Steven Delcourt",
       passwordHash,

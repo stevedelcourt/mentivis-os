@@ -6,7 +6,7 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireAuth(request);
+  const auth = await requireAuth(request);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
@@ -15,7 +15,7 @@ export async function GET(
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
-  const submissions = getAllSubmissions();
+  const submissions = await getAllSubmissions();
   const submission = submissions.find((s) => s.id === submissionId);
   if (!submission) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -28,7 +28,7 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
@@ -45,7 +45,7 @@ export async function PUT(
     if (typeof read === "boolean") updates.read = read;
     if (typeof notes === "string") updates.notes = notes;
 
-    const submission = updateSubmission(submissionId, updates);
+    const submission = await updateSubmission(submissionId, updates);
     if (!submission) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -60,7 +60,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
@@ -69,7 +69,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
-  const success = deleteSubmission(submissionId);
+  const success = await deleteSubmission(submissionId);
   if (!success) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

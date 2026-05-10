@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Try per-user authentication first
-    const user = getUserByEmail(email);
+    const user = await getUserByEmail(email);
     if (user) {
       const { valid, migratedHash } = await verifyPassword(password, user.passwordHash);
       if (!valid) {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
       // Auto-migrate legacy SHA-256 hash to bcrypt
       if (migratedHash) {
-        updateUser(user.id, { passwordHash: migratedHash });
+        await updateUser(user.id, { passwordHash: migratedHash });
       }
 
       const token = createToken(user.email, user.role);

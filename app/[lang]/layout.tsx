@@ -17,7 +17,7 @@ export default async function LangLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const seo = getSeo();
+  const seo = await getSeo();
   const homepageSeo = seo[lang as "fr" | "en"]?.homepage;
 
   return (

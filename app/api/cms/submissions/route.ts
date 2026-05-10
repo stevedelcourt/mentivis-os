@@ -3,14 +3,14 @@ import { getAllSubmissions } from "@/lib/cms/db";
 import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
-  const auth = requireAuth(request);
+  const auth = await requireAuth(request);
   if (auth instanceof Response) return auth;
 
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type"); // "demo", "contact", or null for all
   const status = searchParams.get("status"); // "read", "unread", or null for all
 
-  let submissions = getAllSubmissions();
+  let submissions = await getAllSubmissions();
 
   if (type) {
     submissions = submissions.filter((s) => s.formType === type);

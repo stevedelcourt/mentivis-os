@@ -6,11 +6,11 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireAuth(request);
+  const auth = await requireAuth(request);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
-  const post = getPostById(parseInt(id));
+  const post = await getPostById(parseInt(id));
   if (!post) {
     return NextResponse.json({ error: "Post not found" }, { status: 404 });
   }
@@ -22,13 +22,13 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god", "editorial"]);
+  const auth = await requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {
     const { id } = await params;
     const body = await request.json();
-    const post = updatePost(parseInt(id), body);
+    const post = await updatePost(parseInt(id), body);
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
@@ -42,11 +42,11 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god", "editorial"]);
+  const auth = await requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
-  const success = deletePost(parseInt(id));
+  const success = await deletePost(parseInt(id));
   if (!success) {
     return NextResponse.json({ error: "Post not found" }, { status: 404 });
   }

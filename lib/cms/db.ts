@@ -29,43 +29,44 @@ function rowToPost(row: any): Post {
   };
 }
 
-function getPostsFromDb(): Post[] {
-  const db = getDb();
+async function getPostsFromDb(): Promise<Post[]> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM posts ORDER BY date_iso DESC").all();
   return rows.map(rowToPost);
 }
 
-function getPosts(): Post[] {
+async function getPosts(): Promise<Post[]> {
   const now = Date.now();
   if (!postsCache || now - cacheTime > CACHE_TTL) {
-    postsCache = getPostsFromDb();
+    postsCache = await getPostsFromDb();
     cacheTime = now;
   }
   return postsCache;
 }
 
-export function getAllPosts(): Post[] {
+export async function getAllPosts(): Promise<Post[]> {
   return getPosts();
 }
 
-export function getPublishedPosts(): Post[] {
-  return getPosts().filter((p) => p.published);
+export async function getPublishedPosts(): Promise<Post[]> {
+  const posts = await getPosts();
+  return posts.filter((p) => p.published);
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  const db = getDb();
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  const db = await getDb();
   const row = db.prepare("SELECT * FROM posts WHERE slug = ?").get(slug);
   return row ? rowToPost(row) : undefined;
 }
 
-export function getPostById(id: number): Post | undefined {
-  const db = getDb();
+export async function getPostById(id: number): Promise<Post | undefined> {
+  const db = await getDb();
   const row = db.prepare("SELECT * FROM posts WHERE id = ?").get(id);
   return row ? rowToPost(row) : undefined;
 }
 
-export function createPost(post: Omit<Post, "id" | "createdAt" | "updatedAt">): Post {
-  const db = getDb();
+export async function createPost(post: Omit<Post, "id" | "createdAt" | "updatedAt">): Promise<Post> {
+  const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
     INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, featured, published, created_at, updated_at)
@@ -79,9 +80,9 @@ export function createPost(post: Omit<Post, "id" | "createdAt" | "updatedAt">): 
   return { ...post, id: Number(result.lastInsertRowid), createdAt: now, updatedAt: now };
 }
 
-export function updatePost(id: number, updates: Partial<Omit<Post, "id" | "createdAt">>): Post | null {
-  const db = getDb();
-  const existing = getPostById(id);
+export async function updatePost(id: number, updates: Partial<Omit<Post, "id" | "createdAt">>): Promise<Post | null> {
+  const db = await getDb();
+  const existing = await getPostById(id);
   if (!existing) return null;
 
   const setParts: string[] = [];
@@ -109,18 +110,18 @@ export function updatePost(id: number, updates: Partial<Omit<Post, "id" | "creat
 
   db.prepare(`UPDATE posts SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
   postsCache = null;
-  return getPostById(id)!;
+  return (await getPostById(id))!;
 }
 
-export function deletePost(id: number): boolean {
-  const db = getDb();
+export async function deletePost(id: number): Promise<boolean> {
+  const db = await getDb();
   const result = db.prepare("DELETE FROM posts WHERE id = ?").run(id);
   postsCache = null;
   return result.changes > 0;
 }
 
-export function searchPosts(query: string): Post[] {
-  const db = getDb();
+export async function searchPosts(query: string): Promise<Post[]> {
+  const db = await getDb();
   try {
     const rows = db.prepare(`
       SELECT posts.* FROM posts
@@ -182,8 +183,8 @@ const DEFAULT_PAGES: PageContent = {
   },
 };
 
-export function getPages(): PageContent {
-  const db = getDb();
+export async function getPages(): Promise<PageContent> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM pages").all() as any[];
   if (rows.length === 0) return DEFAULT_PAGES;
 
@@ -201,8 +202,8 @@ export function getPages(): PageContent {
   return result;
 }
 
-export function savePages(data: PageContent) {
-  const db = getDb();
+export async function savePages(data: PageContent) {
+  const db = await getDb();
   const now = new Date().toISOString();
   const stmt = db.prepare(`
     INSERT INTO pages (lang, page, hero_json, updated_at) VALUES (?, ?, ?, ?)
@@ -440,8 +441,8 @@ const DEFAULT_PRICING: PricingContent = {
   ],
 };
 
-export function getPricing(): PricingContent {
-  const db = getDb();
+export async function getPricing(): Promise<PricingContent> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM pricing").all() as any[];
   if (rows.length === 0) return DEFAULT_PRICING;
   const result: any = {};
@@ -451,8 +452,8 @@ export function getPricing(): PricingContent {
   return result as PricingContent;
 }
 
-export function savePricing(data: PricingContent) {
-  const db = getDb();
+export async function savePricing(data: PricingContent) {
+  const db = await getDb();
   const now = new Date().toISOString();
   const stmt = db.prepare(`
     INSERT INTO pricing (product, plans_json, updated_at) VALUES (?, ?, ?)
@@ -562,8 +563,8 @@ const DEFAULT_SEO: SeoContent = {
   },
 };
 
-export function getSeo(): SeoContent {
-  const db = getDb();
+export async function getSeo(): Promise<SeoContent> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM seo").all() as any[];
   if (rows.length === 0) return DEFAULT_SEO;
   const result: any = { fr: {}, en: {} };
@@ -578,8 +579,8 @@ export function getSeo(): SeoContent {
   return result as SeoContent;
 }
 
-export function saveSeo(data: SeoContent) {
-  const db = getDb();
+export async function saveSeo(data: SeoContent) {
+  const db = await getDb();
   const stmt = db.prepare(`
     INSERT INTO seo (lang, page, title, description, json_ld) VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(lang, page) DO UPDATE SET title = excluded.title, description = excluded.description, json_ld = excluded.json_ld
@@ -608,16 +609,16 @@ function rowToSubmission(row: any): FormSubmission {
   };
 }
 
-export function getAllSubmissions(): FormSubmission[] {
-  const db = getDb();
+export async function getAllSubmissions(): Promise<FormSubmission[]> {
+  const db = await getDb();
   const rows = db.prepare("SELECT * FROM submissions ORDER BY created_at DESC").all();
   return rows.map(rowToSubmission);
 }
 
-export function createSubmission(
+export async function createSubmission(
   submission: Omit<FormSubmission, "id" | "createdAt">
-): FormSubmission {
-  const db = getDb();
+): Promise<FormSubmission> {
+  const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
     INSERT INTO submissions (form_type, data, email, created_at, read, notes)
@@ -626,11 +627,11 @@ export function createSubmission(
   return { ...submission, id: Number(result.lastInsertRowid), createdAt: now };
 }
 
-export function updateSubmission(
+export async function updateSubmission(
   id: number,
   updates: Partial<FormSubmission>
-): FormSubmission | null {
-  const db = getDb();
+): Promise<FormSubmission | null> {
+  const db = await getDb();
   const existing = db.prepare("SELECT * FROM submissions WHERE id = ?").get(id) as any;
   if (!existing) return null;
 
@@ -650,8 +651,8 @@ export function updateSubmission(
   return rowToSubmission(db.prepare("SELECT * FROM submissions WHERE id = ?").get(id));
 }
 
-export function deleteSubmission(id: number): boolean {
-  const db = getDb();
+export async function deleteSubmission(id: number): Promise<boolean> {
+  const db = await getDb();
   const result = db.prepare("DELETE FROM submissions WHERE id = ?").run(id);
   return result.changes > 0;
 }

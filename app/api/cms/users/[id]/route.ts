@@ -7,7 +7,7 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
@@ -28,7 +28,7 @@ export async function PUT(
       updates.passwordHash = await hashPassword(password);
     }
 
-    const user = updateUser(userId, updates);
+    const user = await updateUser(userId, updates);
     if (!user) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -53,7 +53,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const auth = requireRole(request, ["god"]);
+  const auth = await requireRole(request, ["god"]);
   if (auth instanceof Response) return auth;
 
   const { id } = await params;
@@ -62,14 +62,15 @@ export async function DELETE(
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
-  const user = getAllUsers().find((u) => u.id === userId);
+  const users = await getAllUsers();
+  const user = users.find((u) => u.id === userId);
   if (!user) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   // Prevent deleting the last god user
   if (user.role === "god") {
-    const gods = getAllUsers().filter((u) => u.role === "god" && u.active);
+    const gods = users.filter((u) => u.role === "god" && u.active);
     if (gods.length <= 1) {
       return NextResponse.json(
         { error: "Cannot delete the last god user" },
@@ -78,7 +79,7 @@ export async function DELETE(
     }
   }
 
-  const success = deleteUser(userId);
+  const success = await deleteUser(userId);
   if (!success) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

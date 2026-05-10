@@ -11,7 +11,7 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "im
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function POST(request: Request) {
-  const auth = requireRole(request, ["god", "editorial"]);
+  const auth = await requireRole(request, ["god", "editorial"]);
   if (auth instanceof Response) return auth;
 
   try {

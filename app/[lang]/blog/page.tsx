@@ -14,7 +14,7 @@ export default async function BlogPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const seo = getSeo();
+  const seo = await getSeo();
   const blogSeo = seo[lang as "fr" | "en"]?.blog;
 
   return (

@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function TarifsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const seo = getSeo();
+  const seo = await getSeo();
   const tarifsSeo = seo[lang as "fr" | "en"]?.tarifs;
 
   return (
