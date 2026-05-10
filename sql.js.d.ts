@@ -1,6 +1,6 @@
 declare module "sql.js" {
   export class Database {
-    constructor(data?: number[] | null);
+    constructor(data?: number[] | Uint8Array | null);
     run(sql: string): void;
     exec(sql: string): { columns: string[]; values: any[][] }[];
     prepare(sql: string): Statement;
