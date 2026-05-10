@@ -338,7 +338,7 @@ export default function NavBar({ lang }: NavBarProps) {
 
             <Link
               href="https://app.mentivisOS.com"
-              className="btn-header-black hide-mobile"
+              className="btn-header-black"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

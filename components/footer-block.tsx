@@ -9,6 +9,12 @@ interface FooterBlockProps {
 export default function FooterBlock({ lang }: FooterBlockProps) {
   const t = getT(lang);
 
+  const openCookiePrefs = () => {
+    if (typeof window !== "undefined" && (window as unknown as { CookieConsent?: { showPreferences: () => void } }).CookieConsent) {
+      (window as unknown as { CookieConsent: { showPreferences: () => void } }).CookieConsent.showPreferences();
+    }
+  };
+
   return (
     <footer
       style={{
@@ -21,18 +27,33 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         className="container"
         style={{
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
+          gridTemplateColumns: "1.4fr 1fr 1fr",
           gap: 40,
         }}
       >
+        {/* Column 1 — Brand */}
         <div>
-          <div style={{ marginBottom: 16 }}>
-            <img
-              src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
-              alt="MentivisOS"
-              style={{ height: 24, width: "auto", opacity: 0.7 }}
-            />
+          <div style={{ marginBottom: 12 }}>
+            <Link href={`/${lang}`} style={{ textDecoration: "none", display: "inline-block" }}>
+              <img
+                src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
+                alt="MentivisOS"
+                style={{ height: 24, width: "auto", opacity: 0.7 }}
+              />
+            </Link>
           </div>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              fontWeight: 500,
+              color: "var(--text-primary)",
+              marginBottom: 8,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Compétences. Pas clics.
+          </p>
           <p
             className="t-caption"
             style={{
@@ -46,29 +67,15 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           <LogomarkMotion />
         </div>
 
-        {[
-          {
-            title: t.footer.produits,
-            links: ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"],
-          },
-          {
-            title: t.footer.pourQui,
-            links: ["Individuel", "Entreprise", "Formation", "Pipeline RH"],
-          },
-          {
-            title: t.footer.integration,
-            links: ["Acces direct", "Licence entreprise", "API", "Developpeurs"],
-          },
-          {
-            title: t.footer.entreprise,
-            links: ["News", "A propos", "L'equipe", "Carrieres", "Securite"],
-          },
-          {
-            title: t.footer.contact,
-            links: ["Contact"],
-          },
-        ].map((col) => (
-          <div key={col.title}>
+        {/* Column 2 — Produits + PourQui + Integration */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 24,
+          }}
+        >
+          <div>
             <h4
               style={{
                 fontFamily: "var(--font-sans)",
@@ -80,17 +87,15 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 marginBottom: 16,
               }}
             >
-              {col.title}
+              {t.footer.produits}
             </h4>
             <ul>
-              {col.links.map((link) => (
+              {["LearningOS", "TalentOS", "Mentivis API", "Tarifs"].map((link) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
-                    href={link === "Contact" ? `/${lang}/contact` : `/${lang}`}
+                    href={`/${lang}`}
                     className="footer-link t-caption"
-                    style={{
-                      color: "var(--text-tertiary)",
-                    }}
+                    style={{ color: "var(--text-tertiary)" }}
                   >
                     {link}
                   </Link>
@@ -98,9 +103,102 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               ))}
             </ul>
           </div>
-        ))}
+          <div>
+            <h4
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "var(--text-micro)",
+                fontWeight: 500,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+                marginBottom: 16,
+              }}
+            >
+              {t.footer.pourQui}
+            </h4>
+            <ul>
+              {["Individuel", "Entreprise", "Formation", "Pipeline RH"].map((link) => (
+                <li key={link} style={{ marginBottom: 8 }}>
+                  <Link
+                    href={`/${lang}`}
+                    className="footer-link t-caption"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Column 3 — Entreprise (with Contact) */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 24,
+          }}
+        >
+          <div>
+            <h4
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "var(--text-micro)",
+                fontWeight: 500,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+                marginBottom: 16,
+              }}
+            >
+              {t.footer.entreprise}
+            </h4>
+            <ul>
+              {["News", "A propos", "L'equipe", "Carrieres", "Securite"].map((link) => (
+                <li key={link} style={{ marginBottom: 8 }}>
+                  <Link
+                    href={link === "News" ? `/${lang}/blog` : `/${lang}`}
+                    className="footer-link t-caption"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "var(--text-micro)",
+                fontWeight: 500,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+                marginBottom: 16,
+              }}
+            >
+              {t.footer.contact}
+            </h4>
+            <ul>
+              <li style={{ marginBottom: 8 }}>
+                <Link
+                  href={`/${lang}/contact`}
+                  className="footer-link t-caption"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
+      {/* Bottom bar */}
       <div
         className="container"
         style={{
@@ -121,11 +219,11 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             color: "var(--text-tertiary)",
           }}
         >
-          {t.footer.copyright} &copy; {new Date().getFullYear()} Mentivis.
+          {/* intentionally empty — copyright removed */}
         </span>
-        <div style={{ display: "flex", gap: 16 }}>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
-            { label: "Composants", href: `/${lang}/composants` },
+            { label: "CMS", href: `/${lang}/content-management` },
             { label: "Mentions legales", href: `/${lang}/legal` },
             { label: "Confidentialite", href: `/${lang}/privacy` },
             { label: "CGU", href: `/${lang}/terms` },
@@ -144,6 +242,21 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={openCookiePrefs}
+            className="footer-link"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "var(--text-micro)",
+              color: "var(--text-tertiary)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            Cookies
+          </button>
         </div>
       </div>
 
@@ -151,9 +264,11 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         .footer-link:hover { color: var(--text-primary) !important; }
         @media (max-width: 1024px) {
           footer > .container:first-of-type { grid-template-columns: 1fr 1fr !important; }
+          footer > .container:first-of-type > div:first-child { grid-column: 1 / -1; }
         }
         @media (max-width: 768px) {
           footer > .container:first-of-type { grid-template-columns: 1fr !important; }
+          footer > .container:first-of-type > div:first-child { grid-column: auto; }
           footer > .container:last-of-type {
             flex-direction: column !important;
             align-items: flex-start !important;
