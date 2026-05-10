@@ -380,93 +380,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </p>
         </div>
 
-        {/* Programme d'essai sans risque + Animation */}
-        <div style={{ display: "flex", alignItems: "center", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
-          {/* Left: Text block */}
-          <div style={{ flex: 1, minWidth: 300 }}>
-            <span
-              style={{
-                display: "inline-block",
-                fontSize: 12,
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "var(--text-tertiary)",
-                background: "var(--bg-warm)",
-                padding: "4px 12px",
-                borderRadius: 6,
-                marginBottom: 16,
-              }}
-            >
-              1 semaine gratuite
-            </span>
-            <h2
-              style={{
-                fontSize: "var(--text-title)",
-                fontWeight: 500,
-                letterSpacing: "-0.01em",
-                lineHeight: 1.2,
-                marginBottom: 12,
-                color: "var(--text-primary)",
-              }}
-            >
-              Programme d'essai sans risque
-            </h2>
-            <p
-              style={{
-                fontSize: "var(--text-body)",
-                lineHeight: 1.6,
-                color: "var(--text-secondary)",
-                marginBottom: 24,
-              }}
-            >
-              Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation, sans engagement ni risque opérationnel.
-            </p>
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 12 }}>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Pour expérimenter, déployer et évaluer
-              </li>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Accès complet à la plateforme
-              </li>
-              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Accompagnement à l'intégration inclus
-              </li>
-            </ul>
-            <a
-              href={`/${lang}/demo`}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                fontSize: 15,
-                fontWeight: 500,
-                color: "var(--text-primary)",
-                textDecoration: "none",
-              }}
-            >
-              En savoir plus
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </a>
-          </div>
-
-          {/* Right: Animation block (1:1, taller than text) */}
-          <div style={{
-            flex: "0 0 380px",
-            width: 380,
-            height: 380,
-          }}>
-            <img 
-              src="/images/pricing-blocks-animated.svg" 
-              alt="" 
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
-          </div>
-        </div>
-
         {/* Product Tabs + Billing Toggle + Blue Card row */}
         <div style={{ display: "flex", alignItems: "flex-end", gap: 60, marginBottom: 80, flexWrap: "wrap" }}>
           {/* Left: Tabs + Toggle */}
@@ -1114,42 +1027,46 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
         </div>
 
-        {/* Startup Program - Warm background */}
+        {/* Programme d'essai sans risque - No background */}
         <div
           style={{
-            background: "var(--bg-warm)",
+            background: "transparent",
             borderRadius: "var(--r-warm)",
-            padding: "56px",
+            padding: "56px 0",
             marginBottom: 100,
             display: "flex",
             alignItems: "center",
-            gap: 56,
+            gap: 60,
             flexWrap: "wrap",
           }}
         >
+          {/* Left: Text block */}
           <div style={{ flex: 1, minWidth: 300 }}>
             <span
               style={{
                 display: "inline-block",
-                fontSize: "var(--text-micro)",
-                fontWeight: 500,
-                letterSpacing: "0.18em",
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 color: "var(--text-tertiary)",
-                marginBottom: 12,
+                background: "var(--bg-warm)",
+                padding: "4px 12px",
+                borderRadius: 6,
+                marginBottom: 16,
               }}
             >
-              Programme petite PME
+              1 semaine gratuite
             </span>
             <h2
               className="t-title"
               style={{
-                marginBottom: 16,
+                marginBottom: 12,
                 fontSize: "var(--text-title)",
-                fontWeight: 300,
+                fontWeight: 500,
               }}
             >
-              3 mois gratuits
+              Programme d'essai sans risque
             </h2>
             <p
               className="t-lead"
@@ -1158,40 +1075,50 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 fontSize: "var(--text-body)",
               }}
             >
-              Pour découvrir MentivisOS et transformer votre formation. Les PME de moins 
-              de 50 salariés peuvent bénéficier d'un accès gratuit au plan Équipe pendant 3 mois.
+              Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation, sans engagement ni risque opérationnel.
             </p>
-            <Link
-              href="/contact"
-              className="btn-pill btn-black"
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 12 }}>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Pour expérimenter, déployer et évaluer
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Accès complet à la plateforme
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-primary)" }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Accompagnement à l'intégration inclus
+              </li>
+            </ul>
+            <a
+              href={`/${lang}/demo`}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
+                fontSize: 15,
+                fontWeight: 500,
+                color: "var(--text-primary)",
+                textDecoration: "none",
               }}
             >
-              Postuler au programme
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+              En savoir plus
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
           </div>
-          <div
-            style={{
-              background: "var(--bg-primary)",
-              borderRadius: "var(--r-card)",
-              padding: "40px",
-              textAlign: "center",
-              minWidth: 220,
-              boxShadow: "var(--shadow-card)",
-            }}
-          >
-            <p className="t-display" style={{ fontSize: 56, marginBottom: 8, color: "var(--text-primary)", fontWeight: 300 }}>
-              3
-            </p>
-            <p className="t-caption" style={{ color: "var(--text-tertiary)" }}>
-              mois gratuits
-            </p>
+
+          {/* Right: Animation block (1:1) */}
+          <div style={{
+            flex: "0 0 380px",
+            width: 380,
+            height: 380,
+          }}>
+            <img 
+              src="/images/pricing-blocks-animated.svg" 
+              alt="" 
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
           </div>
         </div>
 

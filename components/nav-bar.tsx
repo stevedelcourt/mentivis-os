@@ -509,8 +509,9 @@ function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
       onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
-        top: "calc(100% + 4px)",
-        left: 0,
+        top: "100%",
+        left: "50%",
+        transform: "translateX(-50%)",
         display: "flex",
         gap: 40,
         padding: "28px 32px",
@@ -637,12 +638,12 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       >
         <span>{t.nav.learningOS}</span>
         <span style={{
-          transform: learningOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transform: learningOpen ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
@@ -682,12 +683,12 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       >
         <span>{t.nav.pipelineOS}</span>
         <span style={{
-          transform: pipelineOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transform: pipelineOpen ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
@@ -724,12 +725,12 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       >
         <span>{t.nav.mentivisAPI}</span>
         <span style={{
-          transform: apiOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transform: apiOpen ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
@@ -763,12 +764,12 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
       >
         <span>{t.nav.ressources}</span>
         <span style={{
-          transform: resourcesOpen ? "rotate(90deg)" : "rotate(0deg)",
+          transform: resourcesOpen ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>
