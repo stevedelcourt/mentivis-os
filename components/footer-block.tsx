@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import LogomarkMotion from "./logomark-motion";
+import CookieButton from "./cookie-button";
 
 interface FooterBlockProps {
   lang: Locale;
@@ -8,12 +9,6 @@ interface FooterBlockProps {
 
 export default function FooterBlock({ lang }: FooterBlockProps) {
   const t = getT(lang);
-
-  const openCookiePrefs = () => {
-    if (typeof window !== "undefined" && (window as unknown as { CookieConsent?: { showPreferences: () => void } }).CookieConsent) {
-      (window as unknown as { CookieConsent: { showPreferences: () => void } }).CookieConsent.showPreferences();
-    }
-  };
 
   return (
     <footer
@@ -242,21 +237,15 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {item.label}
             </Link>
           ))}
-          <button
-            onClick={openCookiePrefs}
+          <CookieButton
+            label="Cookies"
             className="footer-link"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "var(--text-micro)",
               color: "var(--text-tertiary)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
             }}
-          >
-            Cookies
-          </button>
+          />
         </div>
       </div>
 
