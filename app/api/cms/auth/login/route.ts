@@ -59,10 +59,9 @@ export async function POST(request: Request) {
     // Fallback login: treat as god (backward compatibility)
     const token = createToken(email, "god");
     return NextResponse.json({ success: true, token, email, role: "god" });
-  } catch (err: any) {
-    console.error("[CMS Login] Error:", err?.message || err);
+  } catch {
     return NextResponse.json(
-      { error: "Invalid request", details: err?.message || String(err) },
+      { error: "Invalid request" },
       { status: 400 }
     );
   }

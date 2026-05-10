@@ -12,6 +12,8 @@ async function initSqlJsWithWasm() {
 
   const possiblePaths = [
     path.join(process.cwd(), "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(process.cwd(), "..", "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(process.cwd(), "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
     path.join(__dirname, "..", "..", "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
     path.join(__dirname, "..", "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
     path.join(__dirname, "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
