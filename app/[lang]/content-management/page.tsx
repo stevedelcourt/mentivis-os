@@ -177,7 +177,7 @@ export default function ContentManagementPage() {
   return (
     <div style={{ padding: "40px 24px", maxWidth: 1200, margin: "0 auto" }}>
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 40 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 64 }}>
         <div>
           <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Content Management</h1>
           <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles et contenus</p>

@@ -503,6 +503,21 @@ Texte final.`}
               Previsualiser
             </Link>
           )}
+          <Link
+            href={`/${lang}/content-management`}
+            style={{
+              padding: "14px 24px",
+              fontSize: 15,
+              color: "#777169",
+              textDecoration: "none",
+              border: "1px solid #E5E0DA",
+              borderRadius: 10,
+              background: "#FAFAF8",
+              marginLeft: "auto",
+            }}
+          >
+            ← Retour liste articles
+          </Link>
         </div>
       </form>
     </div>
