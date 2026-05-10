@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { CmsRole } from "@/hooks/useCmsAuth";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 
 export const CMS_TABS = [
   { label: "Articles", href: "content-management" },
@@ -47,15 +48,20 @@ export function CmsNavTabs({
   lang: string;
   role: CmsRole | null;
 }) {
+  const isMobile = useIsMobile();
   return (
     <div
+      className="cms-nav-scroll"
       style={{
         display: "flex",
         gap: 4,
-        marginBottom: 100,
+        marginBottom: isMobile ? 40 : 100,
         paddingBottom: 16,
         borderBottom: "1px solid #F0EBE5",
-        flexWrap: "wrap",
+        overflowX: "auto",
+        WebkitOverflowScrolling: "touch",
+        scrollbarWidth: "none",
+        flexWrap: isMobile ? "nowrap" : "wrap",
       }}
     >
       {CMS_TABS.filter((t) => !t.godOnly || role === "god").map((tab) => (
@@ -70,6 +76,8 @@ export function CmsNavTabs({
             background: "#F5F3F0",
             borderRadius: 8,
             textDecoration: "none",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
           }}
         >
           {tab.label}
@@ -108,14 +116,20 @@ export function CmsAlert({
       {onDismiss && (
         <button
           onClick={onDismiss}
+          className="cms-touch-target"
           style={{
             background: "transparent",
             border: "none",
             cursor: "pointer",
-            fontSize: 16,
+            fontSize: 20,
             lineHeight: 1,
             color: "inherit",
-            padding: 0,
+            padding: 8,
+            minWidth: 44,
+            minHeight: 44,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
           aria-label="Fermer"
         >
@@ -177,6 +191,7 @@ export function CmsBackLink({
         display: "inline-flex",
         alignItems: "center",
         gap: 4,
+        padding: "8px 0",
       }}
     >
       {label}
@@ -223,32 +238,34 @@ export function CmsLayout({
   onDismissError,
   onDismissSuccess,
 }: CmsLayoutProps) {
+  const isMobile = useIsMobile();
+
   if (!token) {
     return <CmsLoading message="Redirection..." />;
   }
 
   return (
-    <div style={{ padding: "40px 24px", maxWidth, margin: "0 auto" }}>
+    <div style={{ padding: isMobile ? "24px 16px" : "40px 24px", maxWidth, margin: "0 auto" }}>
       {/* Header */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: "flex-start",
           marginBottom: 24,
           flexWrap: "wrap",
           gap: 12,
         }}
       >
-        <div>
-          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h1 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>
             {title}
           </h1>
           {subtitle && (
             <p style={{ fontSize: 14, color: "#777169" }}>{subtitle}</p>
           )}
         </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           {role && <RoleBadge role={role} />}
           {extraActions}
           {showBack && (

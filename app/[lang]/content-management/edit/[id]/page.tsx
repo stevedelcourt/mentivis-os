@@ -7,7 +7,7 @@ import { CATEGORIES } from "@/lib/cms/types";
 import { generateSlug } from "@/lib/cms/utils";
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
-import { CmsLoading } from "@/components/cms/CmsLayout";
+import { CmsLayout, CmsLoading } from "@/components/cms/CmsLayout";
 
 export default function PostEditorPage() {
   const params = useParams();
@@ -190,37 +190,14 @@ export default function PostEditorPage() {
   }
 
   return (
-    <div style={{ padding: "40px 24px", maxWidth: 800, margin: "0 auto" }}>
-      {/* Header */}
-      <div style={{ marginBottom: 100 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-          <Link
-            href={`/${lang}/content-management`}
-            style={{ fontSize: 13, color: "#777169", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
-          >
-            ← Retour au tableau de bord
-          </Link>
-          <Link
-            href={`/${lang}/content-management`}
-            style={{
-              padding: "8px 16px",
-              fontSize: 13,
-              fontWeight: 500,
-              color: "#777169",
-              textDecoration: "none",
-              border: "1px solid #E5E0DA",
-              borderRadius: 8,
-              background: "#FAFAF8",
-            }}
-          >
-            ← Retour liste articles
-          </Link>
-        </div>
-        <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A" }}>
-          {isNew ? "Nouvel article" : "Modifier l'article"}
-        </h1>
-      </div>
-
+    <CmsLayout
+      lang={lang}
+      token={token}
+      role={role}
+      title={isNew ? "Nouvel article" : "Modifier l'article"}
+      maxWidth={800}
+      showNav={false}
+    >
       {error && (
         <div style={{ padding: "12px 16px", background: "#FEF2F0", borderRadius: 10, marginBottom: 20, color: "#c45c4a", fontSize: 14 }}>
           {error}
@@ -275,7 +252,7 @@ export default function PostEditorPage() {
         </div>
 
         {/* Two columns: Category + Date */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
+        <div className="cms-grid-2" style={{ marginBottom: 20 }}>
           <div>
             <label style={labelStyle}>Categorie *</label>
             <select
@@ -304,8 +281,8 @@ export default function PostEditorPage() {
         {/* Featured image */}
         <div style={{ marginBottom: 20 }}>
           <label style={labelStyle}>Image a la une</label>
-          <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-            <div style={{ flex: 1 }}>
+          <div style={{ display: "flex", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
               <input
                 type="text"
                 value={imageUrl}
@@ -336,7 +313,7 @@ export default function PostEditorPage() {
             </label>
           </div>
           {imageUrl && (
-            <div style={{ marginTop: 12, position: "relative", display: "inline-block", borderRadius: 8, overflow: "hidden", maxWidth: 320 }}>
+            <div style={{ marginTop: 12, position: "relative", display: "inline-block", borderRadius: 8, overflow: "hidden", maxWidth: "100%" }}>
               <img
                 src={imageUrl}
                 alt="Preview"
@@ -422,13 +399,13 @@ export default function PostEditorPage() {
         </div>
 
         {/* Toggles */}
-        <div style={{ display: "flex", gap: 24, marginBottom: 32 }}>
+        <div style={{ display: "flex", gap: 24, marginBottom: 32, flexWrap: "wrap" }}>
           <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
             <input
               type="checkbox"
               checked={featured}
               onChange={(e) => setFeatured(e.target.checked)}
-              style={{ width: 18, height: 18 }}
+              style={{ width: 22, height: 22 }}
             />
             Article a la une
           </label>
@@ -437,14 +414,14 @@ export default function PostEditorPage() {
               type="checkbox"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
-              style={{ width: 18, height: 18 }}
+              style={{ width: 22, height: 22 }}
             />
             Publier immediatement
           </label>
         </div>
 
-        {/* Actions */}
-        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+        {/* Actions - sticky on mobile */}
+        <div className="cms-sticky-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <button
             type="submit"
             disabled={saving}
@@ -492,11 +469,11 @@ export default function PostEditorPage() {
               marginLeft: "auto",
             }}
           >
-            ← Retour liste articles
+            ← Retour
           </Link>
         </div>
       </form>
-    </div>
+    </CmsLayout>
   );
 }
 

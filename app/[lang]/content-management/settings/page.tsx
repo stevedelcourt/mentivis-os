@@ -148,11 +148,11 @@ export default function SettingsPage() {
       <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", marginBottom: 40 }}>
         <h2 style={{ fontSize: 20, fontWeight: 500, color: "#0A0A0A", marginBottom: 20 }}>Inviter un utilisateur</h2>
         <form onSubmit={handleInvite}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+          <div className="cms-grid-2" style={{ marginBottom: 16 }}>
             <div><label style={labelStyle}>Email *</label><input type="email" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} required style={inputStyle} placeholder="nom@mentivis.com" /></div>
             <div><label style={labelStyle}>Nom</label><input type="text" value={inviteName} onChange={(e) => setInviteName(e.target.value)} style={inputStyle} placeholder="Prenom Nom" /></div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+          <div className="cms-grid-2" style={{ marginBottom: 16 }}>
             <div>
               <label style={labelStyle}>Role *</label>
               <select value={inviteRole} onChange={(e) => setInviteRole(e.target.value as "editorial" | "tarifs" | "god")} style={inputStyle}>
@@ -176,7 +176,7 @@ export default function SettingsPage() {
       ) : users.length === 0 ? (
         <p style={{ color: "#777169" }}>Aucun utilisateur.</p>
       ) : (
-        <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+        <div className="cms-table-scroll" style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #F0EBE5" }}>

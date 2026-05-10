@@ -286,7 +286,7 @@ export default function ContentManagementPage() {
           </Link>
         </div>
       ) : (
-        <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+        <div className="cms-table-scroll" style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #F0EBE5" }}>
@@ -363,13 +363,16 @@ export default function ContentManagementPage() {
                       <Link
                         href={`/${lang}/blog/${post.slug}`}
                         target="_blank"
+                        className="cms-touch-target"
                         style={{
-                          padding: "6px 12px",
+                          padding: "10px 16px",
                           fontSize: 12,
                           color: "#777169",
                           textDecoration: "none",
                           border: "1px solid #E5E0DA",
                           borderRadius: 8,
+                          display: "inline-flex",
+                          alignItems: "center",
                         }}
                       >
                         Voir
@@ -378,22 +381,26 @@ export default function ContentManagementPage() {
                         <>
                           <Link
                             href={`/${lang}/content-management/edit/${post.id}`}
+                            className="cms-touch-target"
                             style={{
-                              padding: "6px 12px",
+                              padding: "10px 16px",
                               fontSize: 12,
                               color: "#0A0A0A",
                               textDecoration: "none",
                               border: "1px solid #E5E0DA",
                               borderRadius: 8,
                               background: "#FAFAF8",
+                              display: "inline-flex",
+                              alignItems: "center",
                             }}
                           >
                             Modifier
                           </Link>
                           <button
                             onClick={() => handleDelete(post.id)}
+                            className="cms-touch-target"
                             style={{
-                              padding: "6px 12px",
+                              padding: "10px 16px",
                               fontSize: 12,
                               color: "#c45c4a",
                               border: "1px solid #F5E0DC",

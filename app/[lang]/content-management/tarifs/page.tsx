@@ -158,17 +158,17 @@ export default function TarifsEditorPage() {
           {currentPlans.map((plan, planIndex) => (
             <div key={planIndex} style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", marginBottom: 32 }}>
               <h2 style={{ fontSize: 20, fontWeight: 500, color: "#0A0A0A", marginBottom: 20 }}>{plan.name || `Plan ${planIndex + 1}`}</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+              <div className="cms-grid-2" style={{ marginBottom: 16 }}>
                 <div><label style={labelStyle}>Nom *</label><input type="text" value={plan.name} onChange={(e) => updatePlan(activeTab, planIndex, "name", e.target.value)} required style={inputStyle} /></div>
                 <div><label style={labelStyle}>Bouton CTA *</label><input type="text" value={plan.cta} onChange={(e) => updatePlan(activeTab, planIndex, "cta", e.target.value)} required style={inputStyle} /></div>
               </div>
               <div style={{ marginBottom: 16 }}><label style={labelStyle}>Description *</label><textarea value={plan.description} onChange={(e) => updatePlan(activeTab, planIndex, "description", e.target.value)} required rows={3} style={{ ...inputStyle, resize: "vertical" }} /></div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
+              <div className="cms-grid-3" style={{ marginBottom: 16 }}>
                 <div><label style={labelStyle}>Prix mensuel</label><input type="number" value={plan.monthlyPrice ?? ""} onChange={(e) => updatePlan(activeTab, planIndex, "monthlyPrice", e.target.value === "" ? null : Number(e.target.value))} style={inputStyle} placeholder="Laisser vide si sur devis" /></div>
                 <div><label style={labelStyle}>Prix annuel</label><input type="number" value={plan.yearlyPrice ?? ""} onChange={(e) => updatePlan(activeTab, planIndex, "yearlyPrice", e.target.value === "" ? null : Number(e.target.value))} style={inputStyle} placeholder="Laisser vide si sur devis" /></div>
                 <div><label style={labelStyle}>Frais de mise en service</label><input type="number" value={plan.setupFee ?? ""} onChange={(e) => updatePlan(activeTab, planIndex, "setupFee", e.target.value === "" ? null : Number(e.target.value))} style={inputStyle} placeholder="Laisser vide si sur devis" /></div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+              <div className="cms-grid-2" style={{ marginBottom: 16 }}>
                 <div><label style={labelStyle}>Lien CTA</label><input type="text" value={plan.ctaLink} onChange={(e) => updatePlan(activeTab, planIndex, "ctaLink", e.target.value)} style={inputStyle} /></div>
                 <div><label style={labelStyle}>Limite / credits</label><input type="text" value={plan.creditLimit} onChange={(e) => updatePlan(activeTab, planIndex, "creditLimit", e.target.value)} style={inputStyle} /></div>
               </div>
@@ -187,7 +187,7 @@ export default function TarifsEditorPage() {
               </div>
             </div>
           ))}
-          <div style={{ display: "flex", gap: 12, alignItems: "center", marginTop: 40, flexWrap: "wrap" }}>
+          <div className="cms-sticky-actions" style={{ display: "flex", gap: 12, alignItems: "center", marginTop: 40, flexWrap: "wrap" }}>
             <button type="submit" disabled={saving} style={{ padding: "14px 28px", fontSize: 15, fontWeight: 500, color: "#fff", background: "#0A0A0A", border: "none", borderRadius: 10, cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.6 : 1 }}>
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>

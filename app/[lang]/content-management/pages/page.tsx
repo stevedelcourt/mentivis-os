@@ -214,7 +214,7 @@ export default function PagesEditorPage() {
           </div>
 
           {/* Proof */}
-          <div style={{ marginBottom: 100 }}>
+          <div style={{ marginBottom: 40 }}>
             <label style={labelStyle}>Proof</label>
             <textarea
               value={hero.proof}
@@ -226,7 +226,7 @@ export default function PagesEditorPage() {
           </div>
 
           {/* Actions */}
-          <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <div className="cms-sticky-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
             <button
               type="submit"
               disabled={saving}

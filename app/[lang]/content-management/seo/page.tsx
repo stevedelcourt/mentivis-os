@@ -159,7 +159,7 @@ export default function SeoEditorPage() {
       {error && <CmsAlert type="error" message={error} onDismiss={() => setError("")} />}
       {saveSuccess && <CmsAlert type="success" message="SEO enregistre avec succes !" onDismiss={() => setSaveSuccess(false)} />}
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 24 }}>
+      <div className="cms-grid-2" style={{ marginBottom: 24 }}>
         <div>
           <label style={labelStyle}>Langue</label>
           <div style={{ display: "flex", gap: 8 }}>
@@ -194,7 +194,7 @@ export default function SeoEditorPage() {
             {jsonError && <p style={{ fontSize: 13, color: "#c45c4a", marginTop: 8 }}>{jsonError}</p>}
             <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>JSON brut. Sera parse cote serveur. Verifiez la validite avant d&apos;enregistrer.</p>
           </div>
-          <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <div className="cms-sticky-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
             <button type="submit" disabled={saving || !!jsonError} style={{ padding: "14px 28px", fontSize: 15, fontWeight: 500, color: "#fff", background: "#0A0A0A", border: "none", borderRadius: 10, cursor: saving || jsonError ? "not-allowed" : "pointer", opacity: saving || jsonError ? 0.6 : 1 }}>
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
