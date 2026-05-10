@@ -58,7 +58,7 @@ export const translations = {
       },
     },
     problem: {
-      statement: "Les LMS diffusent du contenu.\nPersonne ne sait si ca comble le bon ecart.\nPas de formation standard.\nUn diagnostic exact, calibre sur votre ecart reel, traite en direct.",
+      statement: "Les systèmes autonomes de montée en compétences diffusent du contenu.\nPersonne ne sait si ca comble le bon ecart.\nPas de formation standard.\nUn diagnostic exact, calibre sur votre ecart reel, traite en direct.",
       counterpoint: "MentivisOS produit le diagnostic exact, le programme correspondant, et l'accompagnement pour aller au bout.",
     },
     steps: {
@@ -71,12 +71,12 @@ export const translations = {
       step2: {
         number: "02",
         title: "Le diagnostic",
-        body: "Score de couverture, risque residuel, duree estimee, modules identifies, ordre d'apprentissage. En moins d'une minute.",
+        body: "Score de couverture, risque residuel, duree estimee, parcours adaptatifs identifies, ordre d'apprentissage. En moins d'une minute.",
       },
       step3: {
         number: "03",
         title: "Le programme se construit",
-        body: "Theorie, pratique, evaluation. Module par module. Un assistant pedagogique embarque qui ne sort jamais du sujet.",
+        body: "Theorie, pratique, evaluation. Parcours par parcours. Un assistant pedagogique embarque qui ne sort jamais du sujet.",
       },
       link: "Voir le detail du moteur pedagogique",
     },
@@ -88,14 +88,14 @@ export const translations = {
         coverage: "Score de couverture : 84 / 100",
         risk: "Risque residuel : 22",
         duration: "Duree estimee : 70 heures - 7 semaines a 10h/semaine",
-        modules: "Modules identifies : 7",
+        modules: "Parcours adaptatifs identifies : 7",
         ordering: "Ordonnancement : fondations avioniques > surete > normes DO-178C, ARINC, AFDX > IA embarquee certifiee",
       },
       honesty: "Six a douze mois de consolidation en entreprise pour atteindre l'autonomie operationnelle.",
       editorial: "C'est l'honnetete du dispositif qui frappe autant que sa precision.",
     },
     modules: {
-      title: "Les modules",
+      title: "Les parcours adaptatifs",
       subtitle: "Un moteur unique. Six dimensions. Zero maillon sous-traite.",
       cognitive: {
         title: "Diagnostic cognitif",
@@ -103,7 +103,7 @@ export const translations = {
       },
       engagement: {
         title: "Accompagnement embarque",
-        description: "Un assistant pedagogique qui ne sort jamais du sujet. Module par module, jusqu'au bout.",
+        description: "Un assistant pedagogique qui ne sort jamais du sujet. Parcours par parcours, jusqu'au bout.",
       },
       collaboration: {
         title: "Pilotage collectif",
@@ -160,7 +160,7 @@ export const translations = {
         cta: "Commencer",
       },
       adaptive: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Adaptive Intelligence",
         description: "Une couche d'orchestration temps reel qui adapte continuellement l'experience d'apprentissage, les workflows, le contenu et l'assistance selon l'utilisateur et le contexte operationnel.",
         capabilitiesTitle: "Capacites principales",
@@ -208,7 +208,8 @@ export const translations = {
           gaps: "Detecte les ecarts entre competences attendues et observees",
         },
         intelligenceTitle: "Systeme d'intelligence",
-        intelligenceDescription: "Le module combine :",
+        intelligenceDescription: "Le parcours adaptatif combine :",
+
         intelligence: {
           behavioral: "Analytique comportementale",
           predictive: "Modeles predictifs",
@@ -227,10 +228,10 @@ export const translations = {
           alignment: "Alignement continu entre education et realite operationnelle",
         },
         positioningTitle: "Positionnement",
-        positioning: "Pas une couche LMS statique.\nUn systeme adaptatif vivant capable d'evoluer a chaque interaction selon l'apprenant, l'organisation et l'environnement en temps reel.",
+        positioning: "Pas une couche statique.\nUn systeme adaptatif vivant capable d'evoluer a chaque interaction selon l'apprenant, l'organisation et l'environnement en temps reel.",
       },
       visual: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Visual Intelligence Layer",
         description: "Un systeme de communication visuelle modulaire concu pour creer des interfaces adaptatives, immersives et IA-natives via des images generees en CSS et un rendu visuel procedural.",
         capabilitiesTitle: "Capacites principales",
@@ -298,7 +299,7 @@ export const translations = {
         implementation: "La couche visuelle doit prioriser les images generees en CSS et le rendu procedural plutot que les assets d'image statiques traditionnels whenever possible. Cela permet une adaptation dynamique, des temps de chargement reduits, une coherence visuelle et une personnalisation temps reel sur toute la plateforme.",
       },
       mosaic: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Adaptive Design System",
         description: "Un systeme de conception modulaire qui cree des interfaces adaptables, immersives et natives IA a travers une mise en page editoriale basee sur des cartes.",
         tabs: {
@@ -395,7 +396,7 @@ export const translations = {
       },
       api: {
         title: "API",
-        body: "Connexion LMS, SIRH, ATS. Documentation disponible.",
+        body: "Connexion systeme, SIRH, ATS. Documentation disponible.",
       },
       link: "Voir le detail des modes d'integration",
     },
@@ -442,20 +443,20 @@ export const translations = {
       lead: "Reponses concises aux questions les plus posees par les directions formation et les operateurs.",
       items: [
         {
-          question: "Quelle est la difference avec un LMS classique ?",
-          answer: "Un LMS diffuse du contenu et trace la consommation. MentivisOS calcule l'ecart exact entre un profil et un objectif, produit le programme correspondant, et accompagne l'apprenant module par module sans devier du sujet. Ce n'est pas un catalogue. C'est un moteur.",
+          question: "Quelle est la difference avec un systeme classique ?",
+          answer: "Un systeme classique diffuse du contenu et trace la consommation. MentivisOS calcule l'ecart exact entre un profil et un objectif, produit le programme correspondant, et accompagne l'apprenant parcours par parcours sans devier du sujet. Ce n'est pas un catalogue. C'est un moteur.",
         },
         {
           question: "Combien de temps prend le diagnostic ?",
-          answer: "Le diagnostic complet — score de couverture, risque residuel, duree estimee, modules identifies et ordonnancement — est produit en moins d'une minute a partir du profil et de l'objectif declares.",
+          answer: "Le diagnostic complet — score de couverture, risque residuel, duree estimee, parcours adaptatifs identifies et ordonnancement — est produit en moins d'une minute a partir du profil et de l'objectif declares.",
         },
         {
           question: "Les donnees sont-elles securisees ?",
           answer: "Oui. Hebergement europeen, donnees maitrisees, conformite RGPD. Aucune compromission. Les modeles d'IA sont deployes dans des environnements controles et les donnees ne quittent pas l'infrastructure du client lors des deploiements on-premise.",
         },
         {
-          question: "Faut-il changer de LMS pour utiliser MentivisOS ?",
-          answer: "Non. MentivisOS s'integre aux systemes existants via API. Trois modes sont disponibles : acces direct par apprenant, licence entreprise avec referentiels personnalises, ou connexion API a votre LMS, SIRH ou ATS existant.",
+          question: "Faut-il changer de systeme pour utiliser MentivisOS ?",
+          answer: "Non. MentivisOS s'integre aux systemes existants via API. Trois modes sont disponibles : acces direct par apprenant, licence entreprise avec referentiels personnalises, ou connexion API a votre systeme existant, SIRH ou ATS.",
         },
         {
           question: "Qui concoit les parcours ?",
@@ -568,7 +569,7 @@ export const translations = {
       },
     },
     problem: {
-      statement: "LMSs distribute content.\nNo one knows if it fills the right gap.\nNo standard training.\nAn exact diagnostic, calibrated to your real gap, handled live.",
+      statement: "Legacy systems distribute content.\nNo one knows if it fills the right gap.\nNo standard training.\nAn exact diagnostic, calibrated to your real gap, handled live.",
       counterpoint: "MentivisOS produces the exact diagnostic, the corresponding program, and the coaching to see it through.",
     },
     steps: {
@@ -598,7 +599,7 @@ export const translations = {
         coverage: "Coverage score: 84 / 100",
         risk: "Residual risk: 22",
         duration: "Estimated duration: 70 hours - 7 weeks at 10h/week",
-        modules: "Modules identified: 7",
+        modules: "Adaptive paths identified: 7",
         ordering: "Ordering: avionics foundations > safety > DO-178C, ARINC, AFDX standards > certified embedded AI",
       },
       honesty: "Six to twelve months of on-the-job consolidation to reach operational autonomy.",
@@ -670,7 +671,7 @@ export const translations = {
         cta: "Get started",
       },
       adaptive: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Adaptive Intelligence",
         description: "A real-time orchestration layer that continuously adapts the learning experience, workflows, content, and assistance according to the individual user and operational context.",
         capabilitiesTitle: "Core capabilities",
@@ -737,10 +738,10 @@ export const translations = {
           alignment: "Continuous alignment between education and operational reality",
         },
         positioningTitle: "Positioning",
-        positioning: "Not a static LMS layer.\nA living adaptive system capable of evolving every interaction according to the learner, the organization, and the environment in real time.",
+        positioning: "Not a static layer.\nA living adaptive system capable of evolving every interaction according to the learner, the organization, and the environment in real time.",
       },
       visual: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Visual Intelligence Layer",
         description: "A modular visual communication system designed to create adaptive, immersive, and AI-native interfaces through dynamic CSS-generated imagery and procedural visual rendering.",
         capabilitiesTitle: "Core capabilities",
@@ -808,7 +809,7 @@ export const translations = {
         implementation: "The visual layer must prioritize CSS-generated imagery and procedural rendering instead of traditional static image assets whenever possible. This enables dynamic adaptation, lower load times, visual consistency, and real-time personalization across the platform.",
       },
       mosaic: {
-        eyebrow: "Module",
+        eyebrow: "Parcours adaptatif",
         title: "Adaptive Design System",
         description: "A modular design system that creates adaptable, immersive, and AI-native interfaces through an editorial card-based layout.",
         tabs: {
@@ -905,7 +906,7 @@ export const translations = {
       },
       api: {
         title: "API",
-        body: "LMS, HRIS, ATS connection. Documentation available.",
+        body: "System, HRIS, ATS connection. Documentation available.",
       },
       link: "See integration modes in detail",
     },
@@ -952,8 +953,8 @@ export const translations = {
       lead: "Concise answers to the most common questions asked by training departments and operators.",
       items: [
         {
-          question: "What is the difference from a classic LMS?",
-          answer: "An LMS distributes content and tracks consumption. MentivisOS calculates the exact gap between a profile and an objective, produces the corresponding program, and coaches the learner module by module without straying from the subject. It is not a catalog. It is an engine.",
+          question: "What is the difference from a classic system?",
+          answer: "A classic system distributes content and tracks consumption. MentivisOS calculates the exact gap between a profile and an objective, produces the corresponding program, and coaches the learner path by path without straying from the subject. It is not a catalog. It is an engine.",
         },
         {
           question: "How long does the diagnostic take?",
@@ -964,8 +965,8 @@ export const translations = {
           answer: "Yes. European hosting, controlled data, GDPR compliance. No compromises. AI models are deployed in controlled environments and data never leaves the client's infrastructure for on-premise deployments.",
         },
         {
-          question: "Do we need to change LMS to use MentivisOS?",
-          answer: "No. MentivisOS integrates with existing systems via API. Three modes are available: direct learner access, enterprise license with customized frameworks, or API connection to your existing LMS, HRIS, or ATS.",
+          question: "Do we need to change system to use MentivisOS?",
+          answer: "No. MentivisOS integrates with existing systems via API. Three modes are available: direct learner access, enterprise license with customized frameworks, or API connection to your existing system, HRIS, or ATS.",
         },
         {
           question: "Who designs the learning paths?",
