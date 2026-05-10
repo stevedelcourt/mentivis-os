@@ -61,6 +61,8 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
     cp -r public/* .next/standalone/public/
     mkdir -p .next/standalone/.next/static
     cp -r .next/static/* .next/standalone/.next/static/
+    cp .env.local .next/standalone/.env.local
+    echo "Copied .env.local to standalone"
   fi
 
   echo "--- Restarting Passenger ---"
