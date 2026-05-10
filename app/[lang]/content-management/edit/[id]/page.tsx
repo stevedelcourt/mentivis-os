@@ -318,7 +318,7 @@ export default function PostEditorPage() {
               {uploadingImage ? "Upload..." : "Uploader"}
               <input
                 type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
                 onChange={handleImageUpload}
                 style={{ display: "none" }}
               />

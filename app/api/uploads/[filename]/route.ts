@@ -10,6 +10,7 @@ const MIME_TYPES: Record<string, string> = {
   png: "image/png",
   webp: "image/webp",
   gif: "image/gif",
+  avif: "image/avif",
 };
 
 export async function GET(

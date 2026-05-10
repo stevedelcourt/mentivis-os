@@ -7,7 +7,7 @@ import { requireAuth } from "@/lib/cms/auth";
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function POST(request: Request) {
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: "Invalid file type. Allowed: jpg, png, webp, gif" },
+        { error: "Invalid file type. Allowed: jpg, png, webp, gif, avif" },
         { status: 400 }
       );
     }
