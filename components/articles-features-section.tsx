@@ -3,42 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
+import { Post } from "@/lib/cms/types";
 
 interface ArticlesFeaturesSectionProps {
   lang: Locale;
 }
 
-// Real blog posts data (same as BlogIndex)
-const POSTS = [
-  {
-    id: "1",
-    slug: "creer-institution-enseignement-superieur",
-    title: "Créer une institution d'enseignement supérieur de zéro : les étapes que personne ne vous dit",
-    tag: "Stratégie",
-    date: "8 mai 2026",
-    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
-  },
-  {
-    id: "2",
-    slug: "opco-atlas-ia-generative-organismes-formation",
-    title: "OPCO Atlas et l'IA générative: ce que les organismes de formation doivent anticiper",
-    tag: "IA & Formation",
-    date: "2 mai 2026",
-    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
-  },
-  {
-    id: "3",
-    slug: "au-dela-du-powerpoint-grands-cabinets-implementation",
-    title: "Au-delà du PowerPoint: pourquoi les grands cabinets ratent l'implémentation",
-    tag: "Stratégie",
-    date: "24 avr. 2026",
-    gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
-  },
+const GRADIENTS = [
+  "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+  "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
+  "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
+  "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 38%, #4D9AAF 72%, #6DB0BF 100%)",
+  "linear-gradient(135deg, #4A1A6C 0%, #7A2D9F 38%, #9F4DAF 72%, #BF6DBF 100%)",
+  "linear-gradient(135deg, #6C3A1A 0%, #9F5D2D 38%, #AF7D4D 72%, #BF9D6D 100%)",
 ];
 
 export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const el = ref.current;
@@ -49,6 +32,21 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
     );
     observer.observe(el);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const res = await fetch("/api/blog/posts");
+        if (res.ok) {
+          const data = await res.json();
+          setPosts((data.posts || []).slice(0, 3));
+        }
+      } catch {
+        setPosts([]);
+      }
+    }
+    loadPosts();
   }, []);
 
   return (
@@ -144,7 +142,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
             marginBottom: "var(--section-gap)",
           }}
         >
-          {POSTS.map((post, i) => (
+          {posts.length > 0 ? posts.map((post, i) => (
             <Link
               key={post.id}
               href={`/${lang}/blog/${post.slug}`}
@@ -160,7 +158,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 transitionDelay: `${0.1 + i * 0.08}s`,
               }}
             >
-              {/* Image area - 1:1 aspect ratio with colorful gradient */}
+              {/* Image area - 1:1 aspect ratio with image or gradient */}
               <div
                 style={{
                   position: "relative",
@@ -169,7 +167,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                   borderRadius: 18,
                   overflow: "hidden",
                   marginBottom: 14,
-                  background: post.gradient,
+                  background: post.imageUrl ? undefined : GRADIENTS[i % GRADIENTS.length],
                   transition: "transform .45s cubic-bezier(.22,1,.36,1)",
                 }}
                 onMouseEnter={(e) => {
@@ -179,23 +177,55 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                   (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
                 }}
               >
-                {/* Wave grid overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M0 50 Q25 40,50 50 T100 50' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.8'/%3E%3Cpath d='M0 30 Q25 20,50 30 T100 30' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.8'/%3E%3Cpath d='M0 70 Q25 60,50 70 T100 70' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.8'/%3E%3C/svg%3E")`,
-                    backgroundSize: "100px 100px",
-                    opacity: 0.6,
-                    mixBlendMode: "overlay",
-                  }}
-                />
+                {post.imageUrl ? (
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  />
+                ) : (
+                  <>
+                    {/* Wave grid overlay */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M0 50 Q25 40,50 50 T100 50' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.8'/%3E%3Cpath d='M0 30 Q25 20,50 30 T100 30' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.8'/%3E%3Cpath d='M0 70 Q25 60,50 70 T100 70' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.8'/%3E%3C/svg%3E")`,
+                        backgroundSize: "100px 100px",
+                        opacity: 0.6,
+                        mixBlendMode: "overlay",
+                      }}
+                    />
+                  </>
+                )}
+                {/* Image tag badge */}
+                {post.imageTag && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: 14,
+                      left: 14,
+                      padding: "4px 12px",
+                      fontSize: 12,
+                      fontWeight: 500,
+                      color: "#fff",
+                      background: "rgba(0,0,0,0.35)",
+                      backdropFilter: "blur(4px)",
+                      WebkitBackdropFilter: "blur(4px)",
+                      borderRadius: 999,
+                      letterSpacing: "0.02em",
+                      zIndex: 5,
+                    }}
+                  >
+                    {post.imageTag}
+                  </span>
+                )}
                 {/* Date badge */}
                 <span
                   style={{
                     position: "absolute",
                     top: 14,
-                    left: 14,
+                    right: 14,
                     background: "rgba(255,255,255,.92)",
                     backdropFilter: "blur(8px)",
                     WebkitBackdropFilter: "blur(8px)",
@@ -225,7 +255,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                   marginBottom: 5,
                 }}
               >
-                {post.tag}
+                {post.category}
               </p>
               <h3
                 style={{
@@ -241,7 +271,11 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 {post.title}
               </h3>
             </Link>
-          ))}
+          )) : (
+            <p style={{ gridColumn: "1 / -1", color: "#A8A39A", fontSize: 14, padding: "40px 0" }}>
+              Aucun article publie pour le moment.
+            </p>
+          )}
         </div>
 
       </div>
