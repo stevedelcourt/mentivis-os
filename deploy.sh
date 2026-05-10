@@ -24,6 +24,15 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   echo "--- Ensuring persistent data directory ---"
   mkdir -p /home/sc4bovu7233/data/uploads
 
+  echo "--- Updating CMS password ---"
+  if [ -f "${APP_DIR}/.env.local" ]; then
+    sed -i 's/INTERNAL_TOKEN=.*/INTERNAL_TOKEN=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
+    sed -i 's/CMS_AUTH_SECRET=.*/CMS_AUTH_SECRET=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
+  else
+    echo "INTERNAL_TOKEN=RoxanStevenMathias2024" > ${APP_DIR}/.env.local
+    echo "CMS_AUTH_SECRET=RoxanStevenMathias2024" >> ${APP_DIR}/.env.local
+  fi
+
   if [ ! -d "${APP_DIR}/.git" ]; then
     echo "--- Cloning repo ---"
     mkdir -p ${APP_DIR}
