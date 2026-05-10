@@ -3,8 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { Post, CATEGORIES } from "@/lib/cms/types";
+import { CATEGORIES } from "@/lib/cms/types";
 import { generateSlug } from "@/lib/cms/utils";
+import { useCmsAuth } from "@/hooks/useCmsAuth";
+import { useCmsFetch } from "@/hooks/useCmsFetch";
+import { CmsLoading } from "@/components/cms/CmsLayout";
 
 export default function PostEditorPage() {
   const params = useParams();
@@ -13,8 +16,9 @@ export default function PostEditorPage() {
   const id = params.id as string;
   const isNew = id === "new";
 
-  const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const { token, role, isReady } = useCmsAuth();
+  const { cmsFetch } = useCmsFetch(token);
+
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -34,32 +38,25 @@ export default function PostEditorPage() {
   const [published, setPublished] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
 
-  // Auth check
+  // Auth guard
   useEffect(() => {
-    const stored = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role");
-    if (!stored) {
+    if (!isReady) return;
+    if (!token) {
       router.push(`/${lang}/content-management`);
       return;
     }
-    if (storedRole !== "god" && storedRole !== "editorial") {
+    if (role !== "god" && role !== "editorial") {
       router.push(`/${lang}/content-management`);
-      return;
     }
-    setToken(stored);
-    setRole(storedRole);
-  }, [lang, router]);
+  }, [isReady, token, role, lang, router]);
 
   // Load existing post
   const loadPost = useCallback(async () => {
     if (isNew || !token) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/cms/posts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await cmsFetch(`/api/cms/posts/${id}`);
       if (res.status === 401) {
-        localStorage.removeItem("cms_token");
         router.push(`/${lang}/content-management`);
         return;
       }
@@ -83,7 +80,7 @@ export default function PostEditorPage() {
     } finally {
       setLoading(false);
     }
-  }, [id, isNew, token, lang, router]);
+  }, [id, isNew, token, lang, router, cmsFetch]);
 
   useEffect(() => {
     loadPost();
@@ -111,9 +108,8 @@ export default function PostEditorPage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await fetch("/api/cms/upload", {
+      const res = await cmsFetch("/api/cms/upload", {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
       const data = await res.json();
@@ -154,21 +150,15 @@ export default function PostEditorPage() {
     try {
       let res;
       if (isNew) {
-        res = await fetch("/api/cms/posts", {
+        res = await cmsFetch("/api/cms/posts", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
       } else {
-        res = await fetch(`/api/cms/posts/${id}`, {
+        res = await cmsFetch(`/api/cms/posts/${id}`, {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
       }
@@ -177,7 +167,6 @@ export default function PostEditorPage() {
       if (data.success) {
         setSaveSuccess(true);
         if (isNew) {
-          // Redirect to edit page after creation
           setTimeout(() => {
             router.push(`/${lang}/content-management/edit/${data.post.id}`);
           }, 500);
@@ -193,19 +182,11 @@ export default function PostEditorPage() {
   };
 
   if (!token) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Redirection...</p>
-      </div>
-    );
+    return <CmsLoading message="Redirection..." />;
   }
 
   if (loading) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Chargement...</p>
-      </div>
-    );
+    return <CmsLoading />;
   }
 
   return (
@@ -433,19 +414,7 @@ export default function PostEditorPage() {
             required
             rows={20}
             style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }}
-            placeholder={`## Premier titre
-
-Texte du paragraphe.
-
-## Deuxieme titre
-
-• Premier element de liste
-• Deuxieme element
-• Troisieme element
-
-## Conclusion
-
-Texte final.`}
+            placeholder={`## Premier titre\n\nTexte du paragraphe.\n\n## Deuxieme titre\n\n• Premier element de liste\n• Deuxieme element\n• Troisieme element\n\n## Conclusion\n\nTexte final.`}
           />
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
             Utilisez ## pour les titres et • pour les listes

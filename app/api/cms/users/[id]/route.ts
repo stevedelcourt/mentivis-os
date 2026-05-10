@@ -25,7 +25,7 @@ export async function PUT(
     if (["god", "editorial", "tarifs"].includes(role)) updates.role = role;
     if (typeof active === "boolean") updates.active = active;
     if (typeof password === "string" && password.length > 0) {
-      updates.passwordHash = hashPassword(password);
+      updates.passwordHash = await hashPassword(password);
     }
 
     const user = updateUser(userId, updates);

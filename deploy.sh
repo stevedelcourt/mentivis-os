@@ -1,11 +1,19 @@
 #!/bin/bash
 set -e
 
-SSH_KEY="/Users/stv/Documents/zed/OS_sc4/id_rsa_sc4"
-SSH_HOST="terre.o2switch.net"
-SSH_USER="sc4bovu7233"
+# ── Configuration ──
+SSH_KEY="${DEPLOY_SSH_KEY:-/Users/stv/Documents/zed/OS_sc4/id_rsa_sc4}"
+SSH_HOST="${DEPLOY_SSH_HOST:-terre.o2switch.net}"
+SSH_USER="${DEPLOY_SSH_USER:-sc4bovu7233}"
 APP_DIR="/home/${SSH_USER}/nextapp"
 NODE_BIN="/opt/alt/alt-nodejs20/root/usr/bin"
+
+# ── Secrets (must be set in local environment) ──
+: "${INTERNAL_TOKEN:?Environment variable INTERNAL_TOKEN is required}"
+: "${CMS_AUTH_SECRET:?Environment variable CMS_AUTH_SECRET is required}"
+: "${HUBSPOT_PORTAL_ID:?Environment variable HUBSPOT_PORTAL_ID is required}"
+: "${HUBSPOT_FORM_ID:?Environment variable HUBSPOT_FORM_ID is required}"
+: "${ALLOWED_ORIGINS:?Environment variable ALLOWED_ORIGINS is required}"
 
 chmod 600 "$SSH_KEY"
 
@@ -24,20 +32,15 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << EOF
   echo "--- Ensuring persistent data directory ---"
   mkdir -p /home/sc4bovu7233/data/uploads
 
-  echo "--- Updating CMS password ---"
-  if [ -f "${APP_DIR}/.env.local" ]; then
-    sed -i 's/INTERNAL_TOKEN=.*/INTERNAL_TOKEN=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
-    sed -i 's/CMS_AUTH_SECRET=.*/CMS_AUTH_SECRET=RoxanStevenMathias2024/' ${APP_DIR}/.env.local
-    echo "Updated existing .env.local"
-    grep -E 'INTERNAL_TOKEN|CMS_AUTH_SECRET' ${APP_DIR}/.env.local || true
-  else
-    echo "INTERNAL_TOKEN=RoxanStevenMathias2024" > ${APP_DIR}/.env.local
-    echo "CMS_AUTH_SECRET=RoxanStevenMathias2024" >> ${APP_DIR}/.env.local
-    echo "HUBSPOT_PORTAL_ID=49558612" >> ${APP_DIR}/.env.local
-    echo "HUBSPOT_FORM_ID=71a2e6a5-1ebe-46ea-9cdf-fe793b95e935" >> ${APP_DIR}/.env.local
-    echo "ALLOWED_ORIGINS=https://mentivis-os.vercel.app,https://sc4bovu7233.universe.wf,http://localhost:3000" >> ${APP_DIR}/.env.local
-    echo "Created new .env.local"
-  fi
+  echo "--- Writing .env.local ---"
+  cat > ${APP_DIR}/.env.local << ENVEOF
+INTERNAL_TOKEN=${INTERNAL_TOKEN}
+CMS_AUTH_SECRET=${CMS_AUTH_SECRET}
+HUBSPOT_PORTAL_ID=${HUBSPOT_PORTAL_ID}
+HUBSPOT_FORM_ID=${HUBSPOT_FORM_ID}
+ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+ENVEOF
+  echo "Written .env.local"
 
   if [ ! -d "${APP_DIR}/.git" ]; then
     echo "--- Cloning repo ---"

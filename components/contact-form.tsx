@@ -3,8 +3,16 @@
 import { useState } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
-export default function DemoClient({ lang }: { lang: Locale }) {
+export type ContactFormMode = "contact" | "demo";
+
+interface ContactFormProps {
+  lang: Locale;
+  mode?: ContactFormMode;
+}
+
+export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
   const t = getT(lang);
+  const isContact = mode === "contact";
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,11 +58,11 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             marginBottom: 24,
           }}
         >
-          {t.demo.title}
+          {isContact ? (t.contact?.title || "Contactez-nous") : t.demo.title}
         </h1>
 
         <p className="t-lead" style={{ marginBottom: 48 }}>
-          {t.demo.description}
+          {isContact ? (t.contact?.description || "Une question ? Un projet ? Écrivez-nous.") : t.demo.description}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -76,16 +84,16 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             <FormField label={t.demo.form.phone} name="phone" type="tel" />
           </div>
 
-          {/* Row 4: Demande de démonstration */}
+          {/* Row 4: Message / Demande */}
           <div style={{ marginBottom: 24 }}>
             <label className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-              Demande de démonstration
+              {isContact ? "Message" : "Demande de démonstration"}
             </label>
             <textarea
               name="objective"
               required
               maxLength={500}
-              placeholder="Décrivez votre besoin..."
+              placeholder={isContact ? "Votre message..." : "Décrivez votre besoin..."}
               rows={4}
               className="form-textarea"
               style={{
@@ -105,10 +113,10 @@ export default function DemoClient({ lang }: { lang: Locale }) {
           {/* Consent checkbox */}
           <div style={{ marginBottom: 32 }}>
             <label className="t-caption" style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer" }}>
-              <input 
-                type="checkbox" 
-                name="consent" 
-                value="yes" 
+              <input
+                type="checkbox"
+                name="consent"
+                value="yes"
                 required
                 style={{ marginTop: 2 }}
               />
@@ -118,7 +126,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
             </label>
           </div>
 
-          <input type="hidden" name="formType" value="demo" />
+          <input type="hidden" name="formType" value={mode} />
           <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
 
           <button
@@ -136,7 +144,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
               gap: 6,
             }}
           >
-            {status === "loading" ? "..." : t.demo.form.submit}
+            {status === "loading" ? "..." : (isContact ? (t.contact?.form?.submit || "Envoyer") : t.demo.form.submit)}
             {status !== "loading" && (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -152,7 +160,7 @@ export default function DemoClient({ lang }: { lang: Locale }) {
         </form>
 
         <p className="t-caption" style={{ marginTop: 48, textAlign: "center", color: "var(--text-tertiary)" }}>
-          {t.demo.pricing}
+          {isContact ? (t.contact?.pricing || "Réponse sous 24h ouvrées.") : t.demo.pricing}
         </p>
       </div>
 

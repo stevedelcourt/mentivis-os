@@ -1,17 +1,19 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback, Fragment } from "react";
+import { useParams } from "next/navigation";
 import { FormSubmission } from "@/lib/cms/types";
+import { useCmsAuth } from "@/hooks/useCmsAuth";
+import { useCmsFetch } from "@/hooks/useCmsFetch";
+import { CmsLayout, CmsLoading } from "@/components/cms/CmsLayout";
 
 export default function SubmissionsPage() {
   const params = useParams();
-  const router = useRouter();
   const lang = params.lang as string;
 
-  const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const { token, role } = useCmsAuth();
+  const { cmsFetch } = useCmsFetch(token);
+
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [loading, setLoading] = useState(false);
   const [typeFilter, setTypeFilter] = useState<"all" | "demo" | "contact">("all");
@@ -21,18 +23,6 @@ export default function SubmissionsPage() {
 
   const canManage = role === "god";
 
-  // Auth check
-  useEffect(() => {
-    const stored = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role");
-    if (!stored) {
-      router.push(`/${lang}/content-management`);
-      return;
-    }
-    setToken(stored);
-    setRole(storedRole);
-  }, [lang, router]);
-
   const fetchSubmissions = useCallback(async () => {
     if (!token) return;
     setLoading(true);
@@ -40,15 +30,8 @@ export default function SubmissionsPage() {
       const qs = new URLSearchParams();
       if (typeFilter !== "all") qs.set("type", typeFilter);
       if (statusFilter !== "all") qs.set("status", statusFilter);
-      const res = await fetch(`/api/cms/submissions?${qs.toString()}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.status === 401) {
-        localStorage.removeItem("cms_token");
-        localStorage.removeItem("cms_role");
-        router.push(`/${lang}/content-management`);
-        return;
-      }
+      const res = await cmsFetch(`/api/cms/submissions?${qs.toString()}`);
+      if (res.status === 401) return;
       const data = await res.json();
       setSubmissions(data.submissions || []);
     } catch {
@@ -56,7 +39,7 @@ export default function SubmissionsPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, typeFilter, statusFilter, lang, router]);
+  }, [token, typeFilter, statusFilter, cmsFetch]);
 
   useEffect(() => {
     fetchSubmissions();
@@ -64,12 +47,9 @@ export default function SubmissionsPage() {
 
   const handleMarkRead = async (id: number, read: boolean) => {
     try {
-      const res = await fetch(`/api/cms/submissions/${id}`, {
+      const res = await cmsFetch(`/api/cms/submissions/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ read }),
       });
       if (res.ok) fetchSubmissions();
@@ -82,12 +62,9 @@ export default function SubmissionsPage() {
     const notes = noteInputs[id];
     if (notes === undefined) return;
     try {
-      const res = await fetch(`/api/cms/submissions/${id}`, {
+      const res = await cmsFetch(`/api/cms/submissions/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notes }),
       });
       if (res.ok) {
@@ -106,10 +83,7 @@ export default function SubmissionsPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Supprimer cette soumission ?")) return;
     try {
-      const res = await fetch(`/api/cms/submissions/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await cmsFetch(`/api/cms/submissions/${id}`, { method: "DELETE" });
       if (res.ok) fetchSubmissions();
     } catch {
       alert("Erreur lors de la suppression");
@@ -128,83 +102,17 @@ export default function SubmissionsPage() {
   };
 
   if (!token) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Redirection...</p>
-      </div>
-    );
+    return <CmsLoading message="Redirection..." />;
   }
 
   return (
-    <div style={{ padding: "40px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Soumissions</h1>
-          <p style={{ fontSize: 14, color: "#777169" }}>Demandes de demo et formulaires de contact</p>
-        </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          {role && (
-            <span
-              style={{
-                padding: "4px 10px",
-                fontSize: 12,
-                fontWeight: 500,
-                borderRadius: 999,
-                background: role === "god" ? "#0A0A0A" : role === "editorial" ? "#E3F2FD" : "#FFF3E0",
-                color: role === "god" ? "#fff" : role === "editorial" ? "#1565C0" : "#E65100",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
-            >
-              {role === "god" ? "God" : role === "editorial" ? "Editorial" : "Tarifs"}
-            </span>
-          )}
-          <Link
-            href={`/${lang}/content-management`}
-            style={{
-              padding: "10px 20px",
-              fontSize: 14,
-              color: "#777169",
-              textDecoration: "none",
-              border: "1px solid #E5E0DA",
-              borderRadius: 10,
-              background: "#FAFAF8",
-            }}
-          >
-            ← Retour au tableau de bord
-          </Link>
-        </div>
-      </div>
-
-      {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5", flexWrap: "wrap" }}>
-        {[
-          { label: "Articles", href: `/${lang}/content-management` },
-          { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
-          { label: "Tarifs", href: `/${lang}/content-management/tarifs` },
-          { label: "SEO / JSON-LD", href: `/${lang}/content-management/seo` },
-          { label: "Soumissions", href: `/${lang}/content-management/soumissions` },
-          ...(role === "god" ? [{ label: "Parametres", href: `/${lang}/content-management/settings` }] : []),
-        ].map((tab) => (
-          <Link
-            key={tab.label}
-            href={tab.href}
-            style={{
-              padding: "8px 16px",
-              fontSize: 14,
-              fontWeight: 500,
-              color: "#0A0A0A",
-              background: "#F5F3F0",
-              borderRadius: 8,
-              textDecoration: "none",
-            }}
-          >
-            {tab.label}
-          </Link>
-        ))}
-      </div>
-
+    <CmsLayout
+      lang={lang}
+      token={token}
+      role={role}
+      title="Soumissions"
+      subtitle="Demandes de demo et formulaires de contact"
+    >
       {!canManage && (
         <div style={{ padding: "12px 16px", background: "#FFF3E0", borderRadius: 10, marginBottom: 20, color: "#E65100", fontSize: 14 }}>
           Lecture seule — Vous n&apos;avez pas les droits de modification sur cette section.
@@ -257,7 +165,7 @@ export default function SubmissionsPage() {
 
       {/* Table */}
       {loading ? (
-        <p style={{ textAlign: "center", color: "#777169", padding: 40 }}>Chargement...</p>
+        <CmsLoading message="Chargement..." />
       ) : submissions.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
           <p style={{ color: "#777169" }}>Aucune soumission</p>
@@ -278,9 +186,8 @@ export default function SubmissionsPage() {
             </thead>
             <tbody>
               {submissions.map((s) => (
-                <>
+                <Fragment key={s.id}>
                   <tr
-                    key={s.id}
                     style={{
                       borderBottom: "1px solid #F5F3F0",
                       borderLeft: s.read ? "3px solid transparent" : "3px solid #2563EB",
@@ -453,13 +360,13 @@ export default function SubmissionsPage() {
                       </td>
                     </tr>
                   )}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>
         </div>
       )}
-    </div>
+    </CmsLayout>
   );
 }
 

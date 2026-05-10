@@ -1,26 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSubmission } from "@/lib/cms/db";
+import { checkRateLimit, cleanupRateLimits } from "@/lib/rate-limit";
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "https://mentivis-os.vercel.app,http://localhost:3000").split(",");
 
-const rateLimit = new Map<string, { count: number; resetAt: number }>();
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimit.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    rateLimit.set(ip, { count: 1, resetAt: now + 60_000 });
-    return true;
-  }
-
-  entry.count++;
-  return entry.count <= 5;
-}
-
 function getIp(request: NextRequest): string {
   return (
-    request.headers.get("x-forwarded-for") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
     "unknown"
   );

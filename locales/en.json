@@ -1,0 +1,562 @@
+{
+  "nav": {
+    "learningOS": "LearningOS",
+    "pipelineOS": "TalentOS",
+    "mentivisAPI": "MentivisAPI",
+    "ressources": "Resources",
+    "entreprise": "Enterprise",
+    "tarifs": "Pricing",
+    "contact": "Contact us",
+    "login": "Log in",
+    "cta": "Contact us",
+    "eyebrows": {
+      "produits": "PRODUCTS",
+      "workflows": "WORKFLOWS",
+      "workflowsRH": "HR & RECRUITMENT WORKFLOWS",
+      "plateforme": "PLATFORM",
+      "entreprise": "COMPANY",
+      "initiatives": "INITIATIVES"
+    },
+    "learningOSMenu": {
+      "produits": [
+        "LearningOS",
+        "SkillAgents"
+      ],
+      "workflows": [
+        "Train employees",
+        "Certified training",
+        "Enterprise Dashboard",
+        "OPCO Manager"
+      ]
+    },
+    "pipelineOSMenu": {
+      "produits": [
+        "TalentOS",
+        "HRAgents"
+      ],
+      "workflows": [
+        "ATS Pipeline",
+        "Tests & Cases for Recruiters",
+        "Ranking Engine"
+      ]
+    },
+    "mentivisAPIMenu": {
+      "plateforme": [
+        "Overview",
+        "Docs",
+        "Develop",
+        "API Pricing"
+      ],
+      "workflows": [
+        "Automated personalized training",
+        "HRIS / ERP / CRM integration",
+        "Certification & OPCO funding",
+        "Integrated business AI agents"
+      ]
+    },
+    "ressourcesMenu": {
+      "entreprise": [
+        "News",
+        "About",
+        "Security",
+        "Customer Stories",
+        "Careers"
+      ],
+      "initiatives": [
+        "Impact Program",
+        "For Schools & Universities",
+        "Affiliate & Ambassador Program",
+        "Partnerships"
+      ]
+    }
+  },
+  "hero": {
+    "eyebrow": "Mentivis OS",
+    "headline": "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+    "subheadline": "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
+    "ctaPrimary": "Start for free",
+    "ctaSecondary": "Contact the team",
+    "proof": "Used by training departments, CFAs, corporate campuses."
+  },
+  "products": {
+    "atelier": {
+      "number": "01",
+      "name": "MentivisAtelier",
+      "descriptor": "Design"
+    },
+    "operate": {
+      "number": "02",
+      "name": "MentivisOperate",
+      "descriptor": "Deploy"
+    },
+    "intel": {
+      "number": "03",
+      "name": "MentivisIntel",
+      "descriptor": "Steer"
+    }
+  },
+  "problem": {
+    "statement": "Legacy systems distribute content.\nNo one knows if it fills the right gap.\nNo standard training.\nAn exact diagnostic, calibrated to your real gap, handled live.",
+    "counterpoint": "MentivisOS produces the exact diagnostic, the corresponding program, and the coaching to see it through."
+  },
+  "steps": {
+    "title": "The engine in three steps",
+    "step1": {
+      "number": "01",
+      "title": "You declare your objective",
+      "body": "Profile, current situation, time constraints, target framework."
+    },
+    "step2": {
+      "number": "02",
+      "title": "The diagnostic",
+      "body": "Coverage score, residual risk, estimated duration, identified modules, learning order. In under a minute."
+    },
+    "step3": {
+      "number": "03",
+      "title": "The program builds itself",
+      "body": "Theory, practice, assessment. Module by module. An embedded pedagogical assistant that never strays from the subject."
+    },
+    "link": "See the pedagogical engine in detail"
+  },
+  "proof": {
+    "situation": "An automotive embedded systems engineer declares their intention to move into critical aeronautics, with an embedded AI component.",
+    "outputs": {
+      "title": "MentivisOS output in under a minute",
+      "feasibility": "Feasibility: demanding",
+      "coverage": "Coverage score: 84 / 100",
+      "risk": "Residual risk: 22",
+      "duration": "Estimated duration: 70 hours - 7 weeks at 10h/week",
+      "modules": "Adaptive paths identified: 7",
+      "ordering": "Ordering: avionics foundations > safety > DO-178C, ARINC, AFDX standards > certified embedded AI"
+    },
+    "honesty": "Six to twelve months of on-the-job consolidation to reach operational autonomy.",
+    "editorial": "It's the honesty of the system that strikes as much as its precision."
+  },
+  "modules": {
+    "title": "Modules",
+    "subtitle": "One engine. Six dimensions. Zero outsourced links.",
+    "cognitive": {
+      "title": "Cognitive diagnostic",
+      "description": "Coverage score, residual risk, estimated duration. The exact diagnostic before starting."
+    },
+    "engagement": {
+      "title": "Embedded coaching",
+      "description": "A pedagogical assistant that never strays from the subject. Module by module, all the way."
+    },
+    "collaboration": {
+      "title": "Collective steering",
+      "description": "Common language for training departments. One path per profile, fine-grained tracking."
+    },
+    "analytics": {
+      "title": "Measurement and proof",
+      "description": "Feasibility, gaps, progress. Numbers that enable decisions, not assumptions."
+    },
+    "security": {
+      "title": "Compliance and sovereignty",
+      "description": "European hosting, controlled data, GDPR compliance. No compromises."
+    },
+    "platform": {
+      "title": "Intelligent scheduling",
+      "description": "The program builds itself automatically. Theory, practice, assessment. In the right order."
+    },
+    "bento": {
+      "agents": {
+        "title": "Omnichannel Agents",
+        "body": "Agents listen, read, and interact like humans, via phone, chat, email, or WhatsApp.",
+        "chat": {
+          "user1": "Can I get a refund?",
+          "agent": "Of course. Could you share your order number please?",
+          "user2": "It's EL4543490",
+          "agent2": "Thank you. I've started the refund process for the order.",
+          "success": "Refund processed"
+        }
+      },
+      "analytics": {
+        "title": "Analytics",
+        "body": "Easily measure success rates and customer experience metrics, and optimize your journeys over time.",
+        "chart": {
+          "title": "Resolution rate",
+          "value": "83.4%",
+          "v1": "V1: 75.10%",
+          "v2": "V2: 62.65%",
+          "dateStart": "Aug 17",
+          "dateEnd": "Aug 24"
+        }
+      },
+      "tests": {
+        "title": "Tests",
+        "body": "Simulate real conversations to verify agents react as expected before deployment."
+      },
+      "guardrails": {
+        "title": "Guardrails",
+        "body": "Define clear behavior and compliance rules to ensure agent responses respect policy."
+      },
+      "workflows": {
+        "title": "Workflows",
+        "body": "Manage complex conversations, apply business logic, and connect securely to your systems."
+      },
+      "cta": "Get started"
+    },
+    "adaptive": {
+      "eyebrow": "Parcours adaptatif",
+      "title": "Adaptive Intelligence",
+      "description": "A real-time orchestration layer that continuously adapts the learning experience, workflows, content, and assistance according to the individual user and operational context.",
+      "capabilitiesTitle": "Core capabilities",
+      "personalization": {
+        "title": "Dynamic personalization of learning paths",
+        "skillLevel": "Skill level",
+        "role": "Role and profession",
+        "behavioral": "Behavioral patterns",
+        "performance": "Performance signals",
+        "engagement": "Engagement rhythm",
+        "cognitive": "Cognitive load",
+        "objectives": "Objectives and certifications"
+      },
+      "context": {
+        "title": "Context-aware adaptation",
+        "device": "Device",
+        "location": "Location",
+        "language": "Language",
+        "time": "Time constraints",
+        "environment": "Work environment",
+        "priorities": "Business priorities",
+        "regulatory": "Regulatory requirements"
+      },
+      "optimization": {
+        "title": "Continuous optimization engine",
+        "sequencing": "Modifies sequencing of modules",
+        "difficulty": "Adjusts difficulty in real time",
+        "recommendations": "Recommends next actions",
+        "remediation": "Surfaces remediation or acceleration paths",
+        "reorganization": "Reorganizes content according to observed outcomes"
+      },
+      "ai": {
+        "title": "AI-native interaction layer",
+        "copilots": "Conversational copilots",
+        "tutoring": "Adaptive tutoring",
+        "recommendations": "Contextual recommendations",
+        "multimodal": "Multimodal assistance",
+        "intervention": "Proactive intervention triggers"
+      },
+      "sync": {
+        "title": "Operational synchronization",
+        "workflows": "Connects learning with real workflows",
+        "tools": "Integrates business tools and data",
+        "events": "Adapts training to live operational events",
+        "gaps": "Detects gaps between expected and observed competencies"
+      },
+      "intelligenceTitle": "Intelligence system",
+      "intelligenceDescription": "The module combines:",
+      "intelligence": {
+        "behavioral": "Behavioral analytics",
+        "predictive": "Predictive models",
+        "competency": "Competency mapping",
+        "telemetry": "Workflow telemetry",
+        "semantic": "Semantic content understanding",
+        "reinforcement": "Reinforcement feedback loops"
+      },
+      "outcomesTitle": "Outcomes",
+      "outcomes": {
+        "completion": "Higher completion rates",
+        "acquisition": "Faster competency acquisition",
+        "fatigue": "Reduced training fatigue",
+        "retention": "Improved retention",
+        "progression": "Personalized progression at scale",
+        "alignment": "Continuous alignment between education and operational reality"
+      },
+      "positioningTitle": "Positioning",
+      "positioning": "Not a static layer.\nA living adaptive system capable of evolving every interaction according to the learner, the organization, and the environment in real time."
+    },
+    "visual": {
+      "eyebrow": "Parcours adaptatif",
+      "title": "Visual Intelligence Layer",
+      "description": "A modular visual communication system designed to create adaptive, immersive, and AI-native interfaces through dynamic CSS-generated imagery and procedural visual rendering.",
+      "capabilitiesTitle": "Core capabilities",
+      "cssVisuals": {
+        "title": "CSS-generated visual environments",
+        "gradients": "Gradients",
+        "mesh": "Mesh backgrounds",
+        "textures": "Procedural textures",
+        "patterns": "Animated patterns",
+        "overlays": "Adaptive overlays",
+        "depth": "Depth simulations",
+        "light": "Responsive light systems"
+      },
+      "adaptation": {
+        "title": "Real-time visual adaptation",
+        "context": "Adjusts visuals according to context",
+        "density": "Adapts interface density and contrast",
+        "atmosphere": "Changes visual atmosphere depending on workflow or user state",
+        "backgrounds": "Generates lightweight responsive backgrounds without static assets"
+      },
+      "performance": {
+        "title": "Performance-first rendering",
+        "bitmap": "No heavy bitmap dependency",
+        "vector": "Scalable vector and CSS-driven compositions",
+        "gpu": "Optimized GPU animations",
+        "bandwidth": "Low-bandwidth visual systems",
+        "theme": "Instant theme generation"
+      },
+      "ai": {
+        "title": "AI-native interface behavior",
+        "cards": "Contextual cards",
+        "layouts": "Adaptive layouts",
+        "prioritization": "Intelligent content prioritization",
+        "orchestration": "Dynamic component orchestration",
+        "transitions": "Fluid transitions between states"
+      },
+      "design": {
+        "title": "Design system orchestration",
+        "primitives": "Reusable visual primitives",
+        "tokens": "Token-driven styling",
+        "procedural": "Procedural UI generation",
+        "blocks": "Responsive modular blocks",
+        "motion": "Synchronized motion language"
+      },
+      "technicalTitle": "Technical approach",
+      "technicalDescription": "The system relies heavily on:",
+      "technical": {
+        "css": "CSS procedural graphics",
+        "gradients": "Layered gradients",
+        "svg": "SVG integration",
+        "shaders": "Shader-inspired effects",
+        "motion": "Motion-based interaction",
+        "rendering": "Adaptive rendering logic"
+      },
+      "outcomesTitle": "Outcomes",
+      "outcomes": {
+        "interfaces": "Lightweight but premium interfaces",
+        "identity": "Highly scalable visual identity",
+        "performance": "Faster rendering performance",
+        "aesthetics": "Consistent AI-native aesthetics",
+        "assets": "Reduced dependency on static assets",
+        "personalization": "Easier real-time personalization"
+      },
+      "implementationTitle": "Implementation note",
+      "implementation": "The visual layer must prioritize CSS-generated imagery and procedural rendering instead of traditional static image assets whenever possible. This enables dynamic adaptation, lower load times, visual consistency, and real-time personalization across the platform."
+    },
+    "mosaic": {
+      "eyebrow": "Parcours adaptatif",
+      "title": "Adaptive Design System",
+      "description": "A modular design system that creates adaptable, immersive, and AI-native interfaces through an editorial card-based layout.",
+      "tabs": {
+        "all": "All",
+        "design": "Design",
+        "content": "Content",
+        "media": "Media",
+        "interaction": "Interaction"
+      },
+      "heroCard": {
+        "title": "Adaptive Design",
+        "subtitle": "Interfaces that evolve with the user"
+      },
+      "cards": {
+        "card1": {
+          "title": "Typography",
+          "body": "Fluid and responsive type system"
+        },
+        "card2": {
+          "title": "Color System",
+          "body": "Dynamic and accessible palettes"
+        },
+        "card3": {
+          "title": "Spacing",
+          "body": "Coherent visual rhythm"
+        },
+        "card4": {
+          "title": "Components",
+          "body": "Reusable modular blocks"
+        },
+        "card5": {
+          "title": "Motion",
+          "body": "Contextual and subtle animations"
+        },
+        "card6": {
+          "title": "Accessibility",
+          "body": "WCAG AA compliant by default"
+        }
+      },
+      "placeholder": "Coming soon"
+    }
+  },
+  "segments": {
+    "title": "For whom",
+    "individuel": {
+      "title": "Individual",
+      "body": "Professionals in retraining or upskilling. The exact program that fills the gap. Not the closest catalog."
+    },
+    "corporate": {
+      "title": "Corporate",
+      "body": "Training departments and L&D of large groups. One path per profile. Fine-grained steering. The end of the one-size-fits-all curriculum."
+    },
+    "formation": {
+      "title": "Training",
+      "body": "Schools, CFAs, retraining operators, OPCOs. A degree framework instantiated as an operational path in a few days."
+    },
+    "competences": {
+      "title": "Skills",
+      "body": "ESNs and skills consulting firms. Prescription becomes operational. The gap is quantified. The path is generated."
+    }
+  },
+  "shifts": {
+    "title": "Four shifts for training departments",
+    "shift1": {
+      "number": "01",
+      "title": "The end of the one-size-fits-all curriculum",
+      "body": "A cohort of fifteen colleagues no longer takes the same course. Each receives the sequence they're missing, in the order that suits them."
+    },
+    "shift2": {
+      "number": "02",
+      "title": "Gap visibility",
+      "body": "A common language to steer upskilling at organizational scale. Quantified diagnostics enable fine-grained management."
+    },
+    "shift3": {
+      "number": "03",
+      "title": "Attention retention",
+      "body": "The embedded pedagogical assistant is a concrete antidote to dropout, the historical plague of distance learning."
+    },
+    "shift4": {
+      "number": "04",
+      "title": "Deployment speed",
+      "body": "A degree framework instantiated in days, not months. Training teams stop being content publishers and become pedagogical architects again."
+    }
+  },
+  "integration": {
+    "title": "Three integration modes",
+    "direct": {
+      "title": "Direct access per learner",
+      "body": "Operational in 24h. Zero infrastructure."
+    },
+    "license": {
+      "title": "Enterprise license",
+      "body": "Customized skill frameworks. Mentivis onboarding."
+    },
+    "api": {
+      "title": "API",
+      "body": "System, HRIS, ATS connection. Documentation available."
+    },
+    "link": "See integration modes in detail"
+  },
+  "notLms": {
+    "title": "Why MentivisOS is not like other training platforms",
+    "lmsLabel": "LMS",
+    "mentivisLabel": "MentivisOS",
+    "rows": [
+      {
+        "lms": "Standardized content, same path for everyone",
+        "mentivis": "AI-generated path, unique for each profile"
+      },
+      {
+        "lms": "Consumption measurement",
+        "mentivis": "Real acquisition measurement, skill by skill"
+      },
+      {
+        "lms": "Static catalog",
+        "mentivis": "Dynamic program recalculated at each step"
+      },
+      {
+        "lms": "Completion report",
+        "mentivis": "Feasibility scoring and risk analysis before deployment"
+      }
+    ]
+  },
+  "combination": {
+    "body": "Mentivis is not a tech startup discovering education.\nThe firm has been designing and operating training programs for years.\nThis domain expertise permeates MentivisOS in every detail.\nThe AI's breakdown respects proven pedagogical sequencing principles.\nContent generation is never delivered raw.",
+    "link": "Learn more about Mentivis"
+  },
+  "mathFeatures": {
+    "eyebrow": "Principles",
+    "title": "Precision, structure, continuity.\nThe three constants of the system.",
+    "cards": {
+      "saddle": {
+        "title": "Precision",
+        "description": "We analyse each profile with a quantified diagnostic, down to ten hours."
+      },
+      "hilbert": {
+        "title": "Structure",
+        "description": "Every program is architected according to the canons of pedagogical engineering."
+      },
+      "mobius": {
+        "title": "Continuity",
+        "description": "Tracking does not stop at deployment. It is measured and refined continuously."
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Everything you need to know before getting started.",
+    "lead": "Concise answers to the most common questions asked by training departments and operators.",
+    "items": [
+      {
+        "question": "What is the difference from a classic system?",
+        "answer": "A classic system distributes content and tracks consumption. MentivisOS calculates the exact gap between a profile and an objective, produces the corresponding program, and coaches the learner path by path without straying from the subject. It is not a catalog. It is an engine."
+      },
+      {
+        "question": "How long does the diagnostic take?",
+        "answer": "The complete diagnostic — coverage score, residual risk, estimated duration, identified modules, and ordering — is produced in under a minute from the declared profile and objective."
+      },
+      {
+        "question": "Is the data secure?",
+        "answer": "Yes. European hosting, controlled data, GDPR compliance. No compromises. AI models are deployed in controlled environments and data never leaves the client's infrastructure for on-premise deployments."
+      },
+      {
+        "question": "Do we need to change system to use MentivisOS?",
+        "answer": "No. MentivisOS integrates with existing systems via API. Three modes are available: direct learner access, enterprise license with customized frameworks, or API connection to your existing system, HRIS, or ATS."
+      },
+      {
+        "question": "Who designs the learning paths?",
+        "answer": "Paths are generated by AI but validated by Mentivis pedagogical engineers. Content generation is never delivered raw. Every sequence is verified against the canons of pedagogical engineering."
+      }
+    ]
+  },
+  "finalCta": {
+    "headline": "No standard demo.\nA real case from your organization, handled live.",
+    "button": "Request a demo",
+    "subline": "Prepared in a few days. Video conference or on-site."
+  },
+  "footer": {
+    "tagline": "Every training discipline. End to end.",
+    "produits": "Products",
+    "pourQui": "For whom",
+    "integration": "Integration",
+    "entreprise": "Company",
+    "contact": "Contact",
+    "legal": "Legal",
+    "copyright": "MentivisOS is developed by Mentivis."
+  },
+  "demo": {
+    "title": "No standard demo.\nA real case from your organization, handled live.",
+    "description": "A MentivisOS demo is conducted by a Mentivis pedagogical consultant. It's prepared in a few days from an objective or profile representative of your situation. It's conducted via video conference or on-site.",
+    "form": {
+      "firstName": "First and last name",
+      "organization": "Organization",
+      "role": "Role / Title",
+      "segment": "Segment",
+      "segmentOptions": [
+        "Individual",
+        "Corporate",
+        "Training",
+        "Skills"
+      ],
+      "objective": "Demo objective",
+      "objectivePlaceholder": "Describe your situation in a few words...",
+      "email": "Professional email",
+      "phone": "Phone (optional)",
+      "preference": "Preference",
+      "preferenceVisio": "Video conference",
+      "preferenceOnsite": "On-site",
+      "submit": "Submit my demo request",
+      "success": "Thank you. We'll get back to you within 48 hours.",
+      "error": "An error occurred. Please try again."
+    },
+    "pricing": "For organizations considering a larger-scale deployment, several models are available: SaaS subscription per learner, enterprise license, API layer for integration with existing systems."
+  },
+  "contact": {
+    "title": "Contact us",
+    "description": "A question? A project? Write to us.",
+    "form": {
+      "submit": "Send"
+    },
+    "pricing": "Response within 24 business hours."
+  }
+}

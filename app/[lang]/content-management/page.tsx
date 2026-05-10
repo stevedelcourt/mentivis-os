@@ -2,56 +2,39 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Post } from "@/lib/cms/types";
+import { useCmsAuth } from "@/hooks/useCmsAuth";
+import { useCmsFetch } from "@/hooks/useCmsFetch";
+import { CmsLayout } from "@/components/cms/CmsLayout";
 
 export default function ContentManagementPage() {
   const params = useParams();
   const lang = params.lang as string;
-  const router = useRouter();
 
-  const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const { token, role, isReady, logout } = useCmsAuth();
+  const { cmsFetch } = useCmsFetch(token, logout);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [filter, setFilter] = useState<"all" | "published" | "draft">("all");
   const [loading, setLoading] = useState(false);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [sortField, setSortField] = useState<"title" | "category" | "date" | "status">("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const canEditPosts = role === "god" || role === "editorial";
-
-  // Check auth on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role");
-    if (stored) {
-      setToken(stored);
-    }
-    if (storedRole) {
-      setRole(storedRole);
-    }
-  }, []);
 
   // Fetch posts when authenticated
   const fetchPosts = useCallback(async () => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/cms/posts?status=${filter}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.status === 401) {
-        localStorage.removeItem("cms_token");
-        localStorage.removeItem("cms_role");
-        setToken(null);
-        setRole(null);
-        return;
-      }
+      const res = await cmsFetch(`/api/cms/posts?status=${filter}`);
+      if (res.status === 401) return; // handled by useCmsFetch
       const data = await res.json();
       setPosts(data.posts || []);
     } catch {
@@ -59,7 +42,7 @@ export default function ContentManagementPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, filter]);
+  }, [token, filter, cmsFetch]);
 
   useEffect(() => {
     fetchPosts();
@@ -78,8 +61,8 @@ export default function ContentManagementPage() {
       if (data.success && data.token) {
         localStorage.setItem("cms_token", data.token);
         localStorage.setItem("cms_role", data.role || "god");
-        setToken(data.token);
-        setRole(data.role || "god");
+        // Force reload to pick up new auth state
+        window.location.href = `/${lang}/content-management`;
       } else {
         setLoginError(data.error || "Erreur de connexion");
       }
@@ -88,28 +71,16 @@ export default function ContentManagementPage() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("cms_token");
-    localStorage.removeItem("cms_role");
-    setToken(null);
-    setRole(null);
-    setPosts([]);
-  };
-
   const handleDelete = async (id: number) => {
     if (!confirm("Supprimer cet article ? Cette action est irreversible.")) return;
     try {
-      const res = await fetch(`/api/cms/posts/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await cmsFetch(`/api/cms/posts/${id}`, { method: "DELETE" });
       if (res.ok) {
         fetchPosts();
       }
     } catch {
       alert("Erreur lors de la suppression");
     }
-    setDeleteId(null);
   };
 
   const handleSort = (field: "title" | "category" | "date" | "status") => {
@@ -140,8 +111,6 @@ export default function ContentManagementPage() {
     return sortDir === "asc" ? cmp : -cmp;
   });
 
-  const filteredPosts = sortedPosts;
-
   // Login view
   if (!token) {
     return (
@@ -158,7 +127,7 @@ export default function ContentManagementPage() {
 
           <form onSubmit={handleLogin} autoComplete="on">
             <div style={{ marginBottom: 20 }}>
-              <label htmlFor="cms-email" style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Email</label>
+              <label htmlFor="cms-email" style={labelStyle}>Email</label>
               <input
                 id="cms-email"
                 name="email"
@@ -168,19 +137,11 @@ export default function ContentManagementPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="votre@mentivis.com"
                 required
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  fontSize: 15,
-                  border: "1px solid #E5E0DA",
-                  borderRadius: 10,
-                  background: "#FAFAF8",
-                  outline: "none",
-                }}
+                style={inputStyle}
               />
             </div>
             <div style={{ marginBottom: 24 }}>
-              <label htmlFor="cms-password" style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 }}>Mot de passe</label>
+              <label htmlFor="cms-password" style={labelStyle}>Mot de passe</label>
               <div style={{ position: "relative" }}>
                 <input
                   id="cms-password"
@@ -190,16 +151,7 @@ export default function ContentManagementPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  style={{
-                    width: "100%",
-                    padding: "12px 44px 12px 14px",
-                    fontSize: 15,
-                    border: "1px solid #E5E0DA",
-                    borderRadius: 10,
-                    background: "#FAFAF8",
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
+                  style={{ ...inputStyle, padding: "12px 44px 12px 14px" }}
                 />
                 <button
                   type="button"
@@ -266,94 +218,35 @@ export default function ContentManagementPage() {
 
   // Dashboard view
   return (
-    <div style={{ padding: "40px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Content Management System CMS</h1>
-          <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles, pages, tarifs et SEO</p>
-        </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          {role && (
-            <span
-              style={{
-                padding: "4px 10px",
-                fontSize: 12,
-                fontWeight: 500,
-                borderRadius: 999,
-                background: role === "god" ? "#0A0A0A" : role === "editorial" ? "#E3F2FD" : "#FFF3E0",
-                color: role === "god" ? "#fff" : role === "editorial" ? "#1565C0" : "#E65100",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
-            >
-              {role === "god" ? "God" : role === "editorial" ? "Editorial" : "Tarifs"}
-            </span>
-          )}
-          {canEditPosts && (
-            <Link
-              href={`/${lang}/content-management/edit/new`}
-              style={{
-                padding: "10px 20px",
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#fff",
-                background: "#0A0A0A",
-                borderRadius: 10,
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              + Nouvel article
-            </Link>
-          )}
-          <button
-            onClick={handleLogout}
-            style={{
-              padding: "10px 16px",
-              fontSize: 14,
-              color: "#777169",
-              background: "transparent",
-              border: "1px solid #E5E0DA",
-              borderRadius: 10,
-              cursor: "pointer",
-            }}
-          >
-            Deconnexion
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5", flexWrap: "wrap" }}>
-        {[
-          { label: "Articles", href: `/${lang}/content-management` },
-          { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
-          { label: "Tarifs", href: `/${lang}/content-management/tarifs` },
-          { label: "SEO / JSON-LD", href: `/${lang}/content-management/seo` },
-          { label: "Soumissions", href: `/${lang}/content-management/soumissions` },
-          ...(role === "god" ? [{ label: "Parametres", href: `/${lang}/content-management/settings` }] : []),
-        ].map((tab) => (
+    <CmsLayout
+      lang={lang}
+      token={token}
+      role={role}
+      title="Content Management System CMS"
+      subtitle="Gestion des articles, pages, tarifs et SEO"
+      showBack={false}
+      extraActions={
+        canEditPosts ? (
           <Link
-            key={tab.label}
-            href={tab.href}
+            href={`/${lang}/content-management/edit/new`}
             style={{
-              padding: "8px 16px",
+              padding: "10px 20px",
               fontSize: 14,
               fontWeight: 500,
-              color: "#0A0A0A",
-              background: "#F5F3F0",
-              borderRadius: 8,
+              color: "#fff",
+              background: "#0A0A0A",
+              borderRadius: 10,
               textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
             }}
           >
-            {tab.label}
+            + Nouvel article
           </Link>
-        ))}
-      </div>
-
+        ) : undefined
+      }
+    >
       {/* Filters */}
       <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
         {(["all", "published", "draft"] as const).map((f) => (
@@ -375,14 +268,14 @@ export default function ContentManagementPage() {
           </button>
         ))}
         <span style={{ marginLeft: "auto", fontSize: 13, color: "#777169", alignSelf: "center" }}>
-          {filteredPosts.length} article{filteredPosts.length !== 1 ? "s" : ""}
+          {sortedPosts.length} article{sortedPosts.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {/* Posts table */}
       {loading ? (
         <p style={{ textAlign: "center", color: "#777169", padding: 40 }}>Chargement...</p>
-      ) : filteredPosts.length === 0 ? (
+      ) : sortedPosts.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
           <p style={{ color: "#777169", marginBottom: 16 }}>Aucun article</p>
           <Link
@@ -429,7 +322,7 @@ export default function ContentManagementPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredPosts.map((post) => (
+              {sortedPosts.map((post) => (
                 <tr
                   key={post.id}
                   style={{
@@ -521,6 +414,25 @@ export default function ContentManagementPage() {
           </table>
         </div>
       )}
-    </div>
+    </CmsLayout>
   );
 }
+
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  fontSize: 13,
+  fontWeight: 500,
+  color: "#3E3B38",
+  marginBottom: 6,
+};
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "12px 14px",
+  fontSize: 15,
+  border: "1px solid #E5E0DA",
+  borderRadius: 10,
+  background: "#FAFAF8",
+  outline: "none",
+  boxSizing: "border-box",
+};

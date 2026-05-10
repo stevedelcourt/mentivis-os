@@ -1,7 +1,7 @@
 import { Locale } from "@/lib/i18n";
-import DemoClient from "@/components/demo-client";
+import ContactForm from "@/components/contact-form";
 
 export default async function DemoPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  return <DemoClient lang={lang as Locale} />;
+  return <ContactForm lang={lang as Locale} mode="demo" />;
 }

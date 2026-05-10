@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import { useCmsAuth } from "@/hooks/useCmsAuth";
+import { useCmsFetch } from "@/hooks/useCmsFetch";
+import { CmsLayout, CmsLoading, CmsAlert } from "@/components/cms/CmsLayout";
 
 interface UserItem {
   id: number;
@@ -12,15 +14,6 @@ interface UserItem {
   active: boolean;
   createdAt: string;
 }
-
-const TABS = [
-  { label: "Articles", href: "content-management" },
-  { label: "Pages (HP)", href: "content-management/pages" },
-  { label: "Tarifs", href: "content-management/tarifs" },
-  { label: "SEO / JSON-LD", href: "content-management/seo" },
-  { label: "Soumissions", href: "content-management/soumissions" },
-  { label: "Parametres", href: "content-management/settings", godOnly: true },
-];
 
 const ROLE_LABELS: Record<string, string> = {
   god: "God",
@@ -39,8 +32,9 @@ export default function SettingsPage() {
   const router = useRouter();
   const lang = params.lang as string;
 
-  const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const { token, role, isReady } = useCmsAuth();
+  const { cmsFetch } = useCmsFetch(token);
+
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<UserItem[]>([]);
   const [error, setError] = useState("");
@@ -53,31 +47,20 @@ export default function SettingsPage() {
   const [invitePassword, setInvitePassword] = useState("");
   const [inviting, setInviting] = useState(false);
 
+  // Auth guard
   useEffect(() => {
-    const stored = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role");
-    if (!stored) {
-      router.push(`/${lang}/content-management`);
-      return;
-    }
-    setToken(stored);
-    setRole(storedRole);
-    if (storedRole !== "god") {
-      // Non-god users shouldn't be here
+    if (!isReady) return;
+    if (!token || role !== "god") {
       router.push(`/${lang}/content-management`);
     }
-  }, [lang, router]);
+  }, [isReady, token, role, lang, router]);
 
   const fetchUsers = useCallback(async () => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch("/api/cms/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await cmsFetch("/api/cms/users");
       if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem("cms_token");
-        localStorage.removeItem("cms_role");
         router.push(`/${lang}/content-management`);
         return;
       }
@@ -88,7 +71,7 @@ export default function SettingsPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, lang, router]);
+  }, [token, lang, router, cmsFetch]);
 
   useEffect(() => {
     fetchUsers();
@@ -101,9 +84,9 @@ export default function SettingsPage() {
     setError("");
     setSuccess("");
     try {
-      const res = await fetch("/api/cms/users", {
+      const res = await cmsFetch("/api/cms/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: inviteEmail, name: inviteName, password: invitePassword, role: inviteRole }),
       });
       const data = await res.json();
@@ -127,10 +110,7 @@ export default function SettingsPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Supprimer cet utilisateur ?")) return;
     try {
-      const res = await fetch(`/api/cms/users/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await cmsFetch(`/api/cms/users/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (res.ok && data.success) {
         setSuccess("Utilisateur supprime.");
@@ -149,35 +129,20 @@ export default function SettingsPage() {
   };
 
   if (!token || role !== "god") {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>{role !== "god" ? "Acces refuse..." : "Redirection..."}</p>
-      </div>
-    );
+    return <CmsLoading message={role !== "god" ? "Acces refuse..." : "Redirection..."} />;
   }
 
   return (
-    <div style={{ padding: "40px 24px", maxWidth: 1000, margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Parametres</h1>
-          <p style={{ fontSize: 14, color: "#777169" }}>Gestion des utilisateurs et droits d&apos;acces</p>
-        </div>
-        <Link href={`/${lang}/content-management`} style={{ padding: "10px 20px", fontSize: 14, color: "#777169", textDecoration: "none", border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8" }}>
-          ← Retour au tableau de bord
-        </Link>
-      </div>
-
-      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5", flexWrap: "wrap" }}>
-        {TABS.filter((t) => !t.godOnly || role === "god").map((tab) => (
-          <Link key={tab.label} href={`/${lang}/${tab.href}`} style={{ padding: "8px 16px", fontSize: 14, fontWeight: 500, color: "#0A0A0A", background: "#F5F3F0", borderRadius: 8, textDecoration: "none" }}>
-            {tab.label}
-          </Link>
-        ))}
-      </div>
-
-      {error && <div style={{ padding: "12px 16px", background: "#FEF2F0", borderRadius: 10, marginBottom: 20, color: "#c45c4a", fontSize: 14 }}>{error}</div>}
-      {success && <div style={{ padding: "12px 16px", background: "#E8F5E9", borderRadius: 10, marginBottom: 20, color: "#2E7D32", fontSize: 14 }}>{success}</div>}
+    <CmsLayout
+      lang={lang}
+      token={token}
+      role={role}
+      title="Parametres"
+      subtitle="Gestion des utilisateurs et droits d'acces"
+      maxWidth={1000}
+    >
+      {error && <CmsAlert type="error" message={error} onDismiss={() => setError("")} />}
+      {success && <CmsAlert type="success" message={success} onDismiss={() => setSuccess("")} />}
 
       {/* Invite form */}
       <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", marginBottom: 40 }}>
@@ -257,7 +222,7 @@ export default function SettingsPage() {
           </table>
         </div>
       )}
-    </div>
+    </CmsLayout>
   );
 }
 

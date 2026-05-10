@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createToken, isAuthorizedEmail } from "@/lib/cms/auth";
-import { getUserByEmail, hashPassword, seedDefaultUsers } from "@/lib/cms/users";
+import { getUserByEmail, verifyPassword, seedDefaultUsers, updateUser } from "@/lib/cms/users";
 
 export async function POST(request: Request) {
   try {
@@ -25,18 +25,25 @@ export async function POST(request: Request) {
 
     // Seed default god user if no users exist yet
     if (sharedPassword) {
-      seedDefaultUsers(sharedPassword);
+      await seedDefaultUsers(sharedPassword);
     }
 
     // Try per-user authentication first
     const user = getUserByEmail(email);
     if (user) {
-      if (hashPassword(password) !== user.passwordHash) {
+      const { valid, migratedHash } = await verifyPassword(password, user.passwordHash);
+      if (!valid) {
         return NextResponse.json(
           { error: "Invalid password" },
           { status: 401 }
         );
       }
+
+      // Auto-migrate legacy SHA-256 hash to bcrypt
+      if (migratedHash) {
+        updateUser(user.id, { passwordHash: migratedHash });
+      }
+
       const token = createToken(user.email, user.role);
       return NextResponse.json({ success: true, token, email: user.email, role: user.role });
     }

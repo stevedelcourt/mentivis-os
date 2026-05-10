@@ -100,7 +100,7 @@ export { generateSlug } from "./utils";
 
 // ── Generic JSON file helpers ──
 
-function readJsonFile<T>(filePath: string, fallback: T): T {
+export function readJsonFile<T>(filePath: string, fallback: T): T {
   ensureDir();
   if (!fs.existsSync(filePath)) {
     return fallback;
@@ -113,7 +113,7 @@ function readJsonFile<T>(filePath: string, fallback: T): T {
   }
 }
 
-function writeJsonFile<T>(filePath: string, data: T) {
+export function writeJsonFile<T>(filePath: string, data: T) {
   ensureDir();
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }

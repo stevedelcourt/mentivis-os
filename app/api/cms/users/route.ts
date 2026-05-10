@@ -49,10 +49,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const passwordHash = await hashPassword(password);
     const user = createUser({
       email,
       name: name || email.split("@")[0],
-      passwordHash: hashPassword(password),
+      passwordHash,
       role: role as UserRole,
       active: true,
     });

@@ -2,7 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useCmsAuth } from "@/hooks/useCmsAuth";
+import { useCmsFetch } from "@/hooks/useCmsFetch";
+import { CmsLayout, CmsLoading, CmsAlert, CmsReadOnlyBanner } from "@/components/cms/CmsLayout";
 
 interface HeroData {
   eyebrow: string;
@@ -26,22 +29,13 @@ const defaultHero: HeroData = {
   proof: "",
 };
 
-const TABS = [
-  { label: "Articles", href: "content-management" },
-  { label: "Pages (HP)", href: "content-management/pages" },
-  { label: "Tarifs", href: "content-management/tarifs" },
-  { label: "SEO / JSON-LD", href: "content-management/seo" },
-  { label: "Soumissions", href: "content-management/soumissions" },
-  { label: "Parametres", href: "content-management/settings", godOnly: true },
-];
-
 export default function PagesEditorPage() {
   const params = useParams();
-  const router = useRouter();
   const lang = params.lang as string;
 
-  const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const { token, role } = useCmsAuth();
+  const { cmsFetch } = useCmsFetch(token);
+
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -51,32 +45,13 @@ export default function PagesEditorPage() {
 
   const canEdit = role === "god";
 
-  // Auth check
-  useEffect(() => {
-    const stored = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role");
-    if (!stored) {
-      router.push(`/${lang}/content-management`);
-      return;
-    }
-    setToken(stored);
-    setRole(storedRole);
-  }, [lang, router]);
-
   // Load page content
   const loadPage = useCallback(async () => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/cms/pages?lang=${lang}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.status === 401) {
-        localStorage.removeItem("cms_token");
-        localStorage.removeItem("cms_role");
-        router.push(`/${lang}/content-management`);
-        return;
-      }
+      const res = await cmsFetch(`/api/cms/pages?lang=${lang}`);
+      if (res.status === 401) return;
       const data = await res.json();
       if (data.page?.hero) {
         setHero({
@@ -95,7 +70,7 @@ export default function PagesEditorPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, lang, router]);
+  }, [token, lang, cmsFetch]);
 
   useEffect(() => {
     loadPage();
@@ -113,12 +88,9 @@ export default function PagesEditorPage() {
     setSaveSuccess(false);
 
     try {
-      const res = await fetch("/api/cms/pages", {
+      const res = await cmsFetch("/api/cms/pages", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ lang, hero }),
       });
 
@@ -136,92 +108,24 @@ export default function PagesEditorPage() {
   };
 
   if (!token) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Redirection...</p>
-      </div>
-    );
+    return <CmsLoading message="Redirection..." />;
   }
 
   if (loading) {
-    return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Chargement...</p>
-      </div>
-    );
+    return <CmsLoading />;
   }
 
   return (
-    <div style={{ padding: "40px 24px 80px", maxWidth: 800, margin: "0 auto" }}>
-      {/* Header */}
-      <div style={{ marginBottom: 32 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-          <Link
-            href={`/${lang}/content-management`}
-            style={{ fontSize: 13, color: "#777169", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
-          >
-            ← Retour au tableau de bord
-          </Link>
-          {role && (
-            <span
-              style={{
-                padding: "4px 10px",
-                fontSize: 12,
-                fontWeight: 500,
-                borderRadius: 999,
-                background: role === "god" ? "#0A0A0A" : role === "editorial" ? "#E3F2FD" : "#FFF3E0",
-                color: role === "god" ? "#fff" : role === "editorial" ? "#1565C0" : "#E65100",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
-            >
-              {role === "god" ? "God" : role === "editorial" ? "Editorial" : "Tarifs"}
-            </span>
-          )}
-        </div>
-        <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A" }}>
-          Page d&apos;accueil — Hero
-        </h1>
-      </div>
-
-      {/* Navigation tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 100, paddingBottom: 16, borderBottom: "1px solid #F0EBE5", flexWrap: "wrap" }}>
-        {TABS.filter((t) => !t.godOnly || role === "god").map((tab) => (
-          <Link
-            key={tab.label}
-            href={`/${lang}/${tab.href}`}
-            style={{
-              padding: "8px 16px",
-              fontSize: 14,
-              fontWeight: 500,
-              color: "#0A0A0A",
-              background: "#F5F3F0",
-              borderRadius: 8,
-              textDecoration: "none",
-            }}
-          >
-            {tab.label}
-          </Link>
-        ))}
-      </div>
-
-      {!canEdit && (
-        <div style={{ padding: "12px 16px", background: "#FFF3E0", borderRadius: 10, marginBottom: 20, color: "#E65100", fontSize: 14 }}>
-          Lecture seule — Vous n&apos;avez pas les droits de modification sur cette section.
-        </div>
-      )}
-
-      {error && (
-        <div style={{ padding: "12px 16px", background: "#FEF2F0", borderRadius: 10, marginBottom: 20, color: "#c45c4a", fontSize: 14 }}>
-          {error}
-        </div>
-      )}
-
-      {saveSuccess && (
-        <div style={{ padding: "12px 16px", background: "#E8F5E9", borderRadius: 10, marginBottom: 20, color: "#2E7D32", fontSize: 14 }}>
-          Page enregistree avec succes !
-        </div>
-      )}
+    <CmsLayout
+      lang={lang}
+      token={token}
+      role={role}
+      title="Page d'accueil — Hero"
+      maxWidth={800}
+    >
+      {!canEdit && <CmsReadOnlyBanner />}
+      {error && <CmsAlert type="error" message={error} onDismiss={() => setError("")} />}
+      {saveSuccess && <CmsAlert type="success" message="Page enregistree avec succes !" onDismiss={() => setSaveSuccess(false)} />}
 
       {canEdit ? (
         <form onSubmit={handleSave}>
@@ -397,7 +301,7 @@ export default function PagesEditorPage() {
           </Link>
         </div>
       )}
-    </div>
+    </CmsLayout>
   );
 }
 
