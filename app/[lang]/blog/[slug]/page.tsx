@@ -180,6 +180,26 @@ export default function BlogPostPage() {
           </div>
         </article>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            image: post.imageUrl,
+            datePublished: post.dateISO,
+            dateModified: post.updatedAt,
+            author: { "@type": "Organization", name: "MentivisOS" },
+            publisher: { "@type": "Organization", name: "MentivisOS" },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": typeof window !== "undefined" ? window.location.href : "",
+            },
+          }),
+        }}
+      />
     </section>
   );
 }

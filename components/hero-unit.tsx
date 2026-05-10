@@ -9,13 +9,39 @@ interface HeroUnitProps {
   lang: Locale;
 }
 
+interface HeroData {
+  eyebrow: string;
+  headline: string;
+  subheadline: string;
+  ctaPrimary: string;
+  ctaPrimaryLink: string;
+  ctaSecondary: string;
+  ctaSecondaryLink: string;
+  proof: string;
+}
+
 export default function HeroUnit({ lang }: HeroUnitProps) {
   const t = getT(lang);
   const [visible, setVisible] = useState(false);
+  const [hero, setHero] = useState<HeroData | null>(null);
 
   useEffect(() => {
     setVisible(true);
-  }, []);
+    async function loadHero() {
+      try {
+        const res = await fetch(`/api/pages?lang=${lang}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.page?.hero) {
+            setHero(data.page.hero);
+          }
+        }
+      } catch {
+        // Fallback to i18n
+      }
+    }
+    loadHero();
+  }, [lang]);
 
   return (
     <section
@@ -65,7 +91,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               marginBottom: 24,
             }}
           >
-            {t.hero.eyebrow}
+            {hero?.eyebrow || t.hero.eyebrow}
           </p>
 
           <h1
@@ -76,7 +102,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               lineHeight: 1.1,
             }}
           >
-            {t.hero.headline}
+            {hero?.headline || t.hero.headline}
           </h1>
 
           <p
@@ -87,12 +113,12 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               lineHeight: 1.6,
             }}
           >
-            {t.hero.subheadline}
+            {hero?.subheadline || t.hero.subheadline}
           </p>
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href="https://app.mentivisOS.com"
+              href={hero?.ctaPrimaryLink || "https://app.mentivisOS.com"}
               className="btn-pill btn-black"
               style={{
                 display: "inline-flex",
@@ -102,13 +128,13 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 padding: "12px 20px",
               }}
             >
-              {t.hero.ctaPrimary}
+              {hero?.ctaPrimary || t.hero.ctaPrimary}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
             <Link
-              href={`/${lang}/contact`}
+              href={hero?.ctaSecondaryLink || `/${lang}/contact`}
               className="btn-pill btn-warm"
               style={{
                 display: "inline-flex",
@@ -118,7 +144,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 padding: "12px 20px",
               }}
             >
-              {t.hero.ctaSecondary}
+              {hero?.ctaSecondary || t.hero.ctaSecondary}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -132,7 +158,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               color: "var(--text-tertiary)",
             }}
           >
-            {t.hero.proof}
+            {hero?.proof || t.hero.proof}
           </p>
         </div>
       </div>

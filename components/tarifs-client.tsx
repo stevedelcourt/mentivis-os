@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
+import { PricingPlan } from "@/lib/cms/types";
 
 interface TarifsClientProps {
   lang: Locale;
@@ -20,10 +21,8 @@ const HOVER_GRADIENTS: Record<string, string> = {
   "Entreprise": "linear-gradient(135deg, #a89bc2 0%, #c49696 50%, #d4b896 100%)",
 };
 
-// New strategic pricing: LearningOS < TalentOS < MentivisAPI
-// Setup fees included for enterprise positioning
-
-const PLANS = {
+// Fallback plans (used if CMS has no data)
+const FALLBACK_PLANS = {
   learningos: [
     {
       name: "Starter",
@@ -315,8 +314,28 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
   const [calculatorValue, setCalculatorValue] = useState(10);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [cmsPricing, setCmsPricing] = useState<Record<string, PricingPlan[]>>({});
 
-  const currentPlans = PLANS[activeTab];
+  useEffect(() => {
+    async function loadPricing() {
+      try {
+        const res = await fetch("/api/pricing");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.pricing) {
+            setCmsPricing(data.pricing);
+          }
+        }
+      } catch {
+        // Fallback to hardcoded
+      }
+    }
+    loadPricing();
+  }, []);
+
+  const currentPlans = cmsPricing[activeTab]?.length > 0
+    ? cmsPricing[activeTab]
+    : FALLBACK_PLANS[activeTab];
 
   const recommendedPlan = useMemo(() => {
     if (activeTab === "learningos") {

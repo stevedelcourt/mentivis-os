@@ -177,7 +177,7 @@ export default function ContentManagementPage() {
   return (
     <div style={{ padding: "40px 24px", maxWidth: 1200, margin: "0 auto" }}>
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 64 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 28, fontWeight: 500, color: "#0A0A0A", marginBottom: 4 }}>Content Management</h1>
           <p style={{ fontSize: 14, color: "#777169" }}>Gestion des articles et contenus</p>
@@ -215,6 +215,32 @@ export default function ContentManagementPage() {
             Deconnexion
           </button>
         </div>
+      </div>
+
+      {/* Navigation tabs */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 40, paddingBottom: 16, borderBottom: "1px solid #F0EBE5" }}>
+        {[
+          { label: "Articles", href: `/${lang}/content-management` },
+          { label: "Pages (HP)", href: `/${lang}/content-management/pages` },
+          { label: "Tarifs", href: `/${lang}/content-management/tarifs` },
+          { label: "SEO / JSON-LD", href: `/${lang}/content-management/seo` },
+        ].map((tab) => (
+          <Link
+            key={tab.label}
+            href={tab.href}
+            style={{
+              padding: "8px 16px",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#0A0A0A",
+              background: "#F5F3F0",
+              borderRadius: 8,
+              textDecoration: "none",
+            }}
+          >
+            {tab.label}
+          </Link>
+        ))}
       </div>
 
       {/* Filters */}
