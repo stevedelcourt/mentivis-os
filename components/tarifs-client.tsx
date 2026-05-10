@@ -1009,6 +1009,97 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
         </div>
 
+        {/* Programme d'essai sans risque */}
+        <div
+          style={{
+            marginBottom: 100,
+            padding: "0 0 80px",
+            borderBottom: "1px solid var(--border-light)",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 2fr",
+              gap: "clamp(2.5rem, 6vw, 6rem)",
+            }}
+          >
+            {/* Left intro */}
+            <div>
+              <p
+                className="t-caption"
+                style={{
+                  marginBottom: "1.75rem",
+                  color: "var(--text-tertiary)",
+                  fontWeight: 500,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  fontSize: "var(--text-micro)",
+                }}
+              >
+                Essai gratuit
+              </p>
+              <h2
+                className="t-display"
+                style={{
+                  fontSize: "clamp(28px, 4vw, 44px)",
+                  fontWeight: 300,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.025em",
+                  margin: "0 0 1.75rem",
+                }}
+              >
+                Programme d'essai sans risque
+              </h2>
+              <p
+                className="t-lead"
+                style={{
+                  fontSize: "0.9375rem",
+                  lineHeight: 1.65,
+                  color: "var(--text-secondary)",
+                  maxWidth: "36ch",
+                  margin: 0,
+                }}
+              >
+                Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation.
+              </p>
+            </div>
+
+            {/* Right content */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+                <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Pour expérimenter, déployer et évaluer
+                </li>
+                <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Accès complet à la plateforme
+                </li>
+                <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Accompagnement à l'intégration inclus
+                </li>
+              </ul>
+              <Link
+                href={`/${lang}/demo`}
+                className="btn-pill btn-black"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  width: "fit-content",
+                }}
+              >
+                En savoir plus
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* FAQ Accordion - HP Style */}
         <div
           style={{
