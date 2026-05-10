@@ -331,7 +331,6 @@ export default function NavBar({ lang }: NavBarProps) {
             <button
               className="navbar-burger"
               style={{
-                display: "none",
                 padding: 4,
                 background: "none",
                 border: "none",
@@ -478,6 +477,11 @@ export default function NavBar({ lang }: NavBarProps) {
           }
           .navbar-links { display: none !important; }
           .hide-mobile { display: none !important; }
+          .navbar-burger { display: block !important; }
+        }
+
+        .navbar-burger {
+          display: none;
         }
 
         @keyframes fadeIn {
