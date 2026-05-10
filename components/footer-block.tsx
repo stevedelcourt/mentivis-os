@@ -128,68 +128,43 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           </div>
         </div>
 
-        {/* Column 3 — Entreprise (with Contact) */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 24,
-          }}
-        >
-          <div>
-            <h4
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "var(--text-micro)",
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--text-tertiary)",
-                marginBottom: 16,
-              }}
-            >
-              {t.footer.entreprise}
-            </h4>
-            <ul>
-              {["News", "A propos", "L'equipe", "Carrieres", "Securite"].map((link) => (
-                <li key={link} style={{ marginBottom: 8 }}>
-                  <Link
-                    href={link === "News" ? `/${lang}/blog` : `/${lang}`}
-                    className="footer-link t-caption"
-                    style={{ color: "var(--text-tertiary)" }}
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "var(--text-micro)",
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--text-tertiary)",
-                marginBottom: 16,
-              }}
-            >
-              {t.footer.contact}
-            </h4>
-            <ul>
-              <li style={{ marginBottom: 8 }}>
+        {/* Column 3 — Entreprise (with Contact under Sécurité) */}
+        <div>
+          <h4
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "var(--text-micro)",
+              fontWeight: 500,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "var(--text-tertiary)",
+              marginBottom: 16,
+            }}
+          >
+            {t.footer.entreprise}
+          </h4>
+          <ul>
+            {["News", "A propos", "L'equipe", "Carrieres", "Securite"].map((link) => (
+              <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={`/${lang}/contact`}
+                  href={link === "News" ? `/${lang}/blog` : `/${lang}`}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >
-                  Contact
+                  {link}
                 </Link>
               </li>
-            </ul>
-          </div>
+            ))}
+            <li style={{ marginBottom: 8 }}>
+              <Link
+                href={`/${lang}/contact`}
+                className="footer-link t-caption"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
 
