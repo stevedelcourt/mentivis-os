@@ -2,7 +2,7 @@ export const translations = {
   fr: {
     nav: {
       learningOS: "LearningOS",
-      pipelineOS: "PipelineOS",
+      pipelineOS: "TalentOS",
       mentivisAPI: "MentivisAPI",
       ressources: "Ressources",
       entreprise: "Entreprise",
@@ -22,7 +22,7 @@ export const translations = {
         workflows: ["Former collaborateurs", "Formations certifiantes", "Dashboard Entreprise", "OPCO Manager"],
       },
       pipelineOSMenu: {
-        produits: ["HumanRessourceOS", "HRAgents"],
+        produits: ["TalentOS", "HRAgents"],
         workflows: ["ATS Pipeline", "Test & Cases pour Recruteurs", "Ranking Engine"],
       },
       mentivisAPIMenu: {
@@ -513,7 +513,7 @@ export const translations = {
   en: {
     nav: {
       learningOS: "LearningOS",
-      pipelineOS: "PipelineOS",
+      pipelineOS: "TalentOS",
       mentivisAPI: "MentivisAPI",
       ressources: "Resources",
       entreprise: "Enterprise",
@@ -533,7 +533,7 @@ export const translations = {
         workflows: ["Train employees", "Certified training", "Enterprise Dashboard", "OPCO Manager"],
       },
       pipelineOSMenu: {
-        produits: ["HumanRessourceOS", "HRAgents"],
+        produits: ["TalentOS", "HRAgents"],
         workflows: ["ATS Pipeline", "Tests & Cases for Recruiters", "Ranking Engine"],
       },
       mentivisAPIMenu: {

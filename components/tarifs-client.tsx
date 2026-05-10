@@ -20,7 +20,7 @@ const HOVER_GRADIENTS: Record<string, string> = {
   "Entreprise": "linear-gradient(135deg, #a89bc2 0%, #c49696 50%, #d4b896 100%)",
 };
 
-// New strategic pricing: LearningOS < PipelineOS < MentivisAPI
+// New strategic pricing: LearningOS < TalentOS < MentivisAPI
 // Setup fees included for enterprise positioning
 
 const PLANS = {
@@ -386,7 +386,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
               { key: "learningos", label: "LearningOS" },
-              { key: "pipelineos", label: "PipelineOS" },
+              { key: "pipelineos", label: "TalentOS" },
               { key: "api", label: "MentivisAPI" },
             ].map((tab) => (
               <button
@@ -558,7 +558,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     borderRadius: "50%",
                     background: "#96c4a8",
                   }} />
-                  PipelineOS
+                  TalentOS
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

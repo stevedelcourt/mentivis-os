@@ -700,7 +700,7 @@ function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
         <div style={{ padding: "0 0 10px 0" }}>
           <span style={eyebrowStyle}>{t.nav.eyebrows.produits}</span>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.pipelineOSMenu?.produits?.[0] || "HumanRessourceOS"}
+            {t.nav.pipelineOSMenu?.produits?.[0] || "TalentOS"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.pipelineOSMenu?.produits?.[1] || "HRAgents"}
