@@ -22,10 +22,8 @@ const SECTORS: Sector[] = [
     id: "entreprises",
     title: "Entreprises & Réseaux",
     members: [
-      "Entreprises", "ETI", "Groupes internationaux", "Campus d'entreprise",
-      "Réseaux de franchises", "ESN et sociétés technologiques", "Industries multi-sites",
-      "Réseaux de distribution", "Logistique et transport", "Immobilier et construction",
-      "Retail et hospitality", "Acteurs de la santé"
+      "Entreprises", "ETI", "Grands Groupes", "PME", "ESN",
+      "Campus d'entreprise", "Franchises", "Santé"
     ],
     advantages: [
       "Parcours générés par IA, calibrés par métier",
