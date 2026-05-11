@@ -29,7 +29,10 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
   const t = getT(locale);
   const a = t.ambassadors;
 
-  const hero = useVisible();
+  // Hero animates on mount immediately
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  useEffect(() => { setHeroLoaded(true); }, []);
+
   const who = useVisible();
   const how = useVisible();
   const cta = useVisible();
@@ -40,13 +43,17 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
     transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
   });
 
+  const hoverCard = {
+    transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease",
+    cursor: "default",
+  } as React.CSSProperties;
+
   return (
     <main style={{ background: "#ffffff" }}>
-      {/* HERO */}
+      {/* HERO — animates on load */}
       <section
-        ref={hero.ref}
         className="section"
-        style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionStyle(hero.visible) }}
+        style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionStyle(heroLoaded) }}
       >
         <div className="container">
           <div
@@ -68,6 +75,9 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   textTransform: "uppercase",
                   color: "#777169",
                   marginBottom: 20,
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
                 }}
               >
                 {a.hero.eyebrow}
@@ -81,6 +91,9 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   letterSpacing: "-0.02em",
                   color: "#0A0A0A",
                   marginBottom: 24,
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
                 }}
               >
                 {a.hero.headline}
@@ -91,6 +104,9 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   lineHeight: 1.65,
                   color: "#3a3a3a",
                   marginBottom: 16,
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s",
                 }}
               >
                 {a.hero.body}
@@ -101,6 +117,9 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   lineHeight: 1.6,
                   color: "#777169",
                   marginBottom: 8,
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s",
                 }}
               >
                 {a.hero.commission}
@@ -111,14 +130,27 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   fontWeight: 500,
                   color: "#0A0A0A",
                   marginBottom: 36,
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s",
                 }}
               >
                 {a.hero.rate}
               </p>
 
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 12,
+                  flexWrap: "wrap",
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s",
+                }}
+              >
                 <Link
                   href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
+                  className="ambassadors-btn-primary"
                   style={{
                     background: "#0A0A0A",
                     color: "#ffffff",
@@ -127,13 +159,14 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                     fontSize: 14,
                     fontWeight: 500,
                     textDecoration: "none",
-                    transition: "all 0.25s ease",
+                    transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
                   }}
                 >
                   {a.hero.ctaJoin}
                 </Link>
                 <Link
                   href={`/${locale}/demo`}
+                  className="ambassadors-btn-secondary"
                   style={{
                     background: "transparent",
                     color: "#0A0A0A",
@@ -143,7 +176,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                     fontSize: 14,
                     fontWeight: 500,
                     textDecoration: "none",
-                    transition: "all 0.25s ease",
+                    transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
                   }}
                 >
                   {a.hero.ctaPresentation}
@@ -163,6 +196,9 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                opacity: heroLoaded ? 1 : 0,
+                transform: heroLoaded ? "scale(1)" : "scale(0.96)",
+                transition: "opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s",
               }}
             >
               <TesseractColorCanvas />
@@ -220,6 +256,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
               {a.who.profiles.map((profile: string, i: number) => (
                 <div
                   key={profile}
+                  className="ambassadors-profile-card"
                   style={{
                     background: "#ffffff",
                     borderRadius: 12,
@@ -231,6 +268,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                     opacity: who.visible ? 1 : 0,
                     transform: who.visible ? "translateY(0)" : "translateY(12px)",
                     transition: `opacity 0.5s ease ${0.1 + i * 0.05}s, transform 0.5s ease ${0.1 + i * 0.05}s`,
+                    ...hoverCard,
                   }}
                 >
                   {profile}
@@ -328,6 +366,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                   opacity: how.visible ? 1 : 0,
                   transform: how.visible ? "translateY(0)" : "translateY(16px)",
                   transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s`,
+                  ...hoverCard,
                 }}
               >
                 <span
@@ -388,6 +427,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           </h2>
           <Link
             href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
+            className="ambassadors-btn-primary"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -399,7 +439,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
               fontSize: 15,
               fontWeight: 500,
               textDecoration: "none",
-              transition: "all 0.25s ease",
+              transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
             }}
           >
             {a.hero.ctaJoin}
@@ -411,6 +451,25 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
       </section>
 
       <style>{`
+        .ambassadors-btn-primary:hover {
+          background: #333333 !important;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .ambassadors-btn-secondary:hover {
+          border-color: rgba(0,0,0,0.25) !important;
+          background: rgba(0,0,0,0.02) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .ambassadors-profile-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.06);
+        }
+        .ambassadors-step:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
         @media (max-width: 768px) {
           .ambassadors-hero-grid {
             grid-template-columns: 1fr !important;
@@ -430,6 +489,16 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           }
           .ambassadors-step > span {
             font-size: 22px !important;
+          }
+          .ambassadors-profile-card:hover,
+          .ambassadors-step:hover {
+            transform: none !important;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.04) !important;
+          }
+          .ambassadors-btn-primary:hover,
+          .ambassadors-btn-secondary:hover {
+            transform: none !important;
+            box-shadow: none !important;
           }
           details > summary::-webkit-details-marker {
             display: none;
