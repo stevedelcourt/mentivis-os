@@ -26,7 +26,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <MathFeaturesSection lang={locale} />
       <ModulesSection lang={locale} />
       <ProblemSection lang={locale} />
-      <ProofSection lang={locale} />
+      {/* <ProofSection lang={locale} /> */}
       <ShiftsSection lang={locale} />
       <IntegrationSection lang={locale} />
       <NotLmsSection lang={locale} />
