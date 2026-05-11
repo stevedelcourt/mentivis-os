@@ -3,10 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
-import TesseractColorCanvas from "./tesseract-color-canvas";
-import RoseCanvas from "./rose-canvas";
-import PricingBlocksSVG from "./pricing-blocks-svg";
-import TunnelAnimation from "./tunnel-animation";
 
 interface SectorShowcaseProps {
   lang: Locale;
@@ -20,7 +16,6 @@ interface Sector {
   gradient: string;
   accent: string;
   tag: string;
-  visual: "tesseract" | "rose" | "pricing" | "tunnel";
   orbClass: string;
 }
 
@@ -43,7 +38,6 @@ const SECTORS: Sector[] = [
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 50%, #B02050 100%)",
     accent: "#7030A0",
     tag: "8 types d'organisations",
-    visual: "tesseract",
     orbClass: "sector-orb-purple",
   },
   {
@@ -63,8 +57,7 @@ const SECTORS: Sector[] = [
     gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
     accent: "#607020",
     tag: "5 organismes de formation",
-    visual: "rose",
-    orbClass: "sector-orb-sage",
+    orbClass: "sector-orb-amber",
   },
   {
     id: "public",
@@ -83,7 +76,6 @@ const SECTORS: Sector[] = [
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 50%, #D08840 100%)",
     accent: "#C05828",
     tag: "5 acteurs institutionnels",
-    visual: "pricing",
     orbClass: "sector-orb-rust",
   },
   {
@@ -103,7 +95,6 @@ const SECTORS: Sector[] = [
     gradient: "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 50%, #4D9AAF 100%)",
     accent: "#2D7A9F",
     tag: "4 fédérations métiers",
-    visual: "tunnel",
     orbClass: "sector-orb-sky",
   },
 ];
@@ -293,7 +284,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
           </div>
 
-          {/* Right Box — Orb Gradient Card with Visual */}
+          {/* Right Box — Orb Gradient Card */}
           <div
             className={sector.orbClass}
             style={{
@@ -322,12 +313,6 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             >
               {sector.tag}
             </div>
-
-            {/* Visual */}
-            {sector.visual === "tesseract" && <TesseractColorCanvas />}
-            {sector.visual === "rose" && <RoseCanvas />}
-            {sector.visual === "pricing" && <PricingBlocksSVG />}
-            {sector.visual === "tunnel" && <TunnelAnimation />}
           </div>
         </div>
 
@@ -397,13 +382,12 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             radial-gradient(ellipse 44% 44% at 80% 22%,#B0A0E0 0%,transparent 50%),
             #DCC8E8;
         }
-        .sector-orb-sage {
+        .sector-orb-amber {
           background:
-            radial-gradient(ellipse 62% 56% at 38% 30%,#7090A8 0%,transparent 58%),
-            radial-gradient(ellipse 56% 62% at 64% 54%,#8898A0 0%,transparent 56%),
-            radial-gradient(ellipse 66% 52% at 48% 82%,#909862 0%,transparent 56%),
-            radial-gradient(ellipse 48% 40% at 75% 22%,#88A8B0 0%,transparent 52%),
-            #B8C8B0;
+            radial-gradient(ellipse 64% 58% at 36% 28%,#F0C25C 0%,transparent 56%),
+            radial-gradient(ellipse 58% 64% at 66% 54%,#E89868 0%,transparent 60%),
+            radial-gradient(ellipse 68% 50% at 50% 84%,#F0D098 0%,transparent 56%),
+            #F4D8B0;
         }
         .sector-orb-rust {
           background:
