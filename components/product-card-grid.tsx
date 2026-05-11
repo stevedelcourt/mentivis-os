@@ -36,86 +36,100 @@ const CARDS: ProductCard[] = [
 
 export default function ProductCardGrid({ lang }: ProductCardGridProps) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: 16,
-        marginTop: 48,
-      }}
-    >
-      {CARDS.map((card, i) => (
-        <Link
-          key={i}
-          href={`/${lang}${card.href}`}
-          style={{
-            display: "block",
-            textDecoration: "none",
-            color: "inherit",
-            cursor: "pointer",
-          }}
-        >
-          <div
+    <div className="product-card-grid-wrapper">
+      <p
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: 11,
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "#777169",
+          marginBottom: 20,
+        }}
+      >
+        Modules
+      </p>
+      <div className="product-card-grid">
+        {CARDS.map((card, i) => (
+          <Link
+            key={i}
+            href={`/${lang}${card.href}`}
+            className="product-card-link"
             style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: "16/9",
-              borderRadius: 18,
-              overflow: "hidden",
-              background: card.gradient,
-              transition: "transform .45s cubic-bezier(.22,1,.36,1)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+              cursor: "pointer",
             }}
           >
-            {/* Tag */}
-            <span
+            <div
+              className="product-card"
               style={{
-                position: "absolute",
-                top: 14,
-                left: 14,
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                fontWeight: 400,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#ffffff",
-                zIndex: 2,
+                position: "relative",
+                width: "100%",
+                aspectRatio: "16/9",
+                borderRadius: 18,
+                overflow: "hidden",
+                background: card.gradient,
+                transition: "transform .45s cubic-bezier(.22,1,.36,1)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
               }}
             >
-              {card.tag}
-            </span>
+              {/* Tag */}
+              <span
+                style={{
+                  position: "absolute",
+                  top: 14,
+                  left: 14,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  fontWeight: 400,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#ffffff",
+                  zIndex: 2,
+                }}
+              >
+                {card.tag}
+              </span>
 
-            {/* Title */}
-            <span
-              style={{
-                position: "absolute",
-                bottom: 14,
-                left: 14,
-                right: 14,
-                fontFamily: "var(--font-sans)",
-                fontSize: 16,
-                fontWeight: 500,
-                lineHeight: 1.38,
-                letterSpacing: "-0.005em",
-                color: "#ffffff",
-                zIndex: 2,
-                textAlign: "left",
-              }}
-            >
-              {card.title}
-            </span>
-          </div>
-        </Link>
-      ))}
+              {/* Title */}
+              <span
+                style={{
+                  position: "absolute",
+                  bottom: 14,
+                  left: 14,
+                  right: 14,
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 16,
+                  fontWeight: 500,
+                  lineHeight: 1.38,
+                  letterSpacing: "-0.005em",
+                  color: "#ffffff",
+                  zIndex: 2,
+                  textAlign: "left",
+                }}
+              >
+                {card.title}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
 
       <style>{`
+        .product-card-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
         @media (max-width: 768px) {
-          div[style*="grid-template-columns: repeat(3, 1fr)"] {
+          .product-card-grid {
             grid-template-columns: 1fr !important;
           }
         }

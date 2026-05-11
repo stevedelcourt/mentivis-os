@@ -15,7 +15,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
     <footer
       style={{
         borderTop: `1px solid var(--border-light)`,
-        padding: "64px 0 32px",
+        padding: "64px 0 80px",
         background: "var(--bg-secondary)",
       }}
     >
