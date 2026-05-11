@@ -1,6 +1,7 @@
 import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
+import TesseractColorCanvas from "@/components/tesseract-color-canvas";
 
 export default async function AmbassadorsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -13,94 +14,120 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
       {/* HERO */}
       <section className="section" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
         <div className="container">
-          <p
+          <div
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#777169",
-              marginBottom: 20,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 48,
+              alignItems: "center",
             }}
           >
-            {a.hero.eyebrow}
-          </p>
-          <h1
-            className="t-display"
-            style={{
-              fontSize: "clamp(32px, 5vw, 56px)",
-              fontWeight: 300,
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              color: "#0A0A0A",
-              marginBottom: 24,
-            }}
-          >
-            {a.hero.headline}
-          </h1>
-          <p
-            style={{
-              fontSize: 17,
-              lineHeight: 1.65,
-              color: "#3a3a3a",
-              marginBottom: 16,
-            }}
-          >
-            {a.hero.body}
-          </p>
-          <p
-            style={{
-              fontSize: 15,
-              lineHeight: 1.6,
-              color: "#777169",
-              marginBottom: 8,
-            }}
-          >
-            {a.hero.commission}
-          </p>
-          <p
-            style={{
-              fontSize: 15,
-              fontWeight: 500,
-              color: "#0A0A0A",
-              marginBottom: 36,
-            }}
-          >
-            {a.hero.rate}
-          </p>
+            {/* Left: Text */}
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "#777169",
+                  marginBottom: 20,
+                }}
+              >
+                {a.hero.eyebrow}
+              </p>
+              <h1
+                className="t-display"
+                style={{
+                  fontSize: "clamp(32px, 5vw, 56px)",
+                  fontWeight: 300,
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.02em",
+                  color: "#0A0A0A",
+                  marginBottom: 24,
+                }}
+              >
+                {a.hero.headline}
+              </h1>
+              <p
+                style={{
+                  fontSize: 17,
+                  lineHeight: 1.65,
+                  color: "#3a3a3a",
+                  marginBottom: 16,
+                }}
+              >
+                {a.hero.body}
+              </p>
+              <p
+                style={{
+                  fontSize: 15,
+                  lineHeight: 1.6,
+                  color: "#777169",
+                  marginBottom: 8,
+                }}
+              >
+                {a.hero.commission}
+              </p>
+              <p
+                style={{
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: "#0A0A0A",
+                  marginBottom: 36,
+                }}
+              >
+                {a.hero.rate}
+              </p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link
-              href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <Link
+                  href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
+                  style={{
+                    background: "#0A0A0A",
+                    color: "#ffffff",
+                    borderRadius: 8,
+                    padding: "12px 24px",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    transition: "all 0.25s ease",
+                  }}
+                >
+                  {a.hero.ctaJoin}
+                </Link>
+                <Link
+                  href={`/${locale}/demo`}
+                  style={{
+                    background: "transparent",
+                    color: "#0A0A0A",
+                    border: "1px solid rgba(0,0,0,0.12)",
+                    borderRadius: 8,
+                    padding: "12px 24px",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    transition: "all 0.25s ease",
+                  }}
+                >
+                  {a.hero.ctaPresentation}
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Tesseract */}
+            <div
               style={{
-                background: "#0A0A0A",
-                color: "#ffffff",
-                borderRadius: 8,
-                padding: "12px 24px",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "all 0.25s ease",
+                position: "relative",
+                width: "100%",
+                aspectRatio: "1 / 1",
+                borderRadius: 24,
+                overflow: "hidden",
+                background: "#f5f5f5",
               }}
             >
-              {a.hero.ctaJoin}
-            </Link>
-            <Link
-              href={`/${locale}/demo`}
-              style={{
-                background: "transparent",
-                color: "#0A0A0A",
-                border: "1px solid rgba(0,0,0,0.12)",
-                borderRadius: 8,
-                padding: "12px 24px",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "all 0.25s ease",
-              }}
-            >
-              {a.hero.ctaPresentation}
-            </Link>
+              <TesseractColorCanvas />
+            </div>
           </div>
         </div>
       </section>
@@ -402,6 +429,9 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
 
       <style>{`
         @media (max-width: 768px) {
+          .container > div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+          }
           .container > div[style*="grid-template-columns: repeat(2, 1fr)"] {
             grid-template-columns: 1fr !important;
           }
