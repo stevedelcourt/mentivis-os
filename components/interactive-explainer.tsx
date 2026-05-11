@@ -319,48 +319,17 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                     fontFamily: "inherit",
                   }}
                 >
-                  {key === "api" ? (
-                    <img
-                      src="/images/MentivisOS/mentivisos-logomark-noir.svg"
-                      alt=""
-                      style={{
-                        display: "block",
-                        width: 16,
-                        height: 16,
-                        borderRadius: 4,
-                        flexShrink: 0,
-                      }}
-                    />
-                  ) : (
-                    <span
-                      style={{
-                        display: "block",
-                        width: 16,
-                        height: 16,
-                        borderRadius: 4,
-                        position: "relative",
-                        overflow: "hidden",
-                        flexShrink: 0,
-                        background:
-                          key === "os"
-                            ? "radial-gradient(ellipse at 30% 30%,#E8726A,#F0A080 60%,#FFD0B0)"
-                            : "radial-gradient(ellipse at 30% 30%,#6058A8,#8878C0 60%,#D88060)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: 4,
-                          backgroundImage:
-                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-                          backgroundSize: "30px 30px",
-                          opacity: 0.18,
-                          mixBlendMode: "multiply",
-                        }}
-                      />
-                    </span>
-                  )}
+                  <img
+                    src="/images/MentivisOS/mentivisos-logomark-noir.svg"
+                    alt=""
+                    style={{
+                      display: "block",
+                      width: 16,
+                      height: 16,
+                      borderRadius: 4,
+                      flexShrink: 0,
+                    }}
+                  />
                   <span>
                     {key === "os"
                       ? "MentivisOS"
