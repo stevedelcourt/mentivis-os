@@ -13,6 +13,7 @@ import NotLmsSection from "@/components/not-lms-section";
 import ImpactSection from "@/components/impact-section";
 import CombinationSection from "@/components/combination-section";
 import InteractiveShowcase from "@/components/interactive-showcase";
+import InteractiveExplainer from "@/components/interactive-explainer";
 import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
@@ -32,6 +33,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <ShiftsSection lang={locale} />
       <IntegrationSection lang={locale} />
       <NotLmsSection lang={locale} />
+      <InteractiveExplainer lang={locale} />
       <InteractiveShowcase lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />
