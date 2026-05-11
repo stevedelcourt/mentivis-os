@@ -61,6 +61,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {t.footer.tagline}
           </p>
           <LogomarkMotion />
+          <ProductCardGrid lang={lang} />
         </div>
 
         {/* Column 2 — Produits + PourQui + Integration */}
@@ -166,10 +167,6 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               </Link>
             </li>
           </ul>
-        </div>
-        {/* Product Cards — span full width inside footer grid */}
-        <div style={{ gridColumn: "1 / -1", marginTop: 40 }}>
-          <ProductCardGrid lang={lang} />
         </div>
       </div>
 

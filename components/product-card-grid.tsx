@@ -36,19 +36,7 @@ const CARDS: ProductCard[] = [
 
 export default function ProductCardGrid({ lang }: ProductCardGridProps) {
   return (
-    <div className="product-card-grid-wrapper">
-      <p
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: 11,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "#777169",
-          marginBottom: 20,
-        }}
-      >
-        Modules
-      </p>
+    <div className="product-card-grid-wrapper" style={{ marginTop: 32 }}>
       <div className="product-card-grid">
         {CARDS.map((card, i) => (
           <Link
