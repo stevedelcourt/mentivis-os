@@ -12,7 +12,7 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
     <main style={{ background: "#ffffff" }}>
       {/* HERO */}
       <section className="section" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
-        <div className="container" style={{ maxWidth: 800 }}>
+        <div className="container">
           <p
             style={{
               fontFamily: "var(--font-mono)",
@@ -43,7 +43,6 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
               fontSize: 17,
               lineHeight: 1.65,
               color: "#3a3a3a",
-              maxWidth: 640,
               marginBottom: 16,
             }}
           >
@@ -54,7 +53,6 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
               fontSize: 15,
               lineHeight: 1.6,
               color: "#777169",
-              maxWidth: 640,
               marginBottom: 8,
             }}
           >
@@ -65,7 +63,6 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
               fontSize: 15,
               fontWeight: 500,
               color: "#0A0A0A",
-              maxWidth: 640,
               marginBottom: 36,
             }}
           >
