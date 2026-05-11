@@ -3,6 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
+import TesseractCanvas from "./tesseract-canvas";
+import RoseCanvas from "./rose-canvas";
+import PricingBlocksSVG from "./pricing-blocks-svg";
+import TunnelAnimation from "./tunnel-animation";
 
 interface SectorShowcaseProps {
   lang: Locale;
@@ -15,6 +19,8 @@ interface Sector {
   advantages: string[];
   gradient: string;
   accent: string;
+  tag: string;
+  visual: "tesseract" | "rose" | "pricing" | "tunnel";
 }
 
 const SECTORS: Sector[] = [
@@ -35,6 +41,8 @@ const SECTORS: Sector[] = [
     ],
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 50%, #B02050 100%)",
     accent: "#7030A0",
+    tag: "8 types d'organisations",
+    visual: "tesseract",
   },
   {
     id: "formation",
@@ -52,6 +60,8 @@ const SECTORS: Sector[] = [
     ],
     gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
     accent: "#607020",
+    tag: "5 organismes de formation",
+    visual: "rose",
   },
   {
     id: "public",
@@ -69,6 +79,8 @@ const SECTORS: Sector[] = [
     ],
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 50%, #D08840 100%)",
     accent: "#C05828",
+    tag: "5 acteurs institutionnels",
+    visual: "pricing",
   },
   {
     id: "professionnels",
@@ -86,6 +98,8 @@ const SECTORS: Sector[] = [
     ],
     gradient: "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 50%, #4D9AAF 100%)",
     accent: "#2D7A9F",
+    tag: "4 fédérations métiers",
+    visual: "tunnel",
   },
 ];
 
@@ -282,7 +296,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
           </div>
 
-          {/* Right Box — Illustration */}
+          {/* Right Box — Grey Card with Visual */}
           <div
             style={{
               position: "relative",
@@ -292,89 +306,34 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               opacity: animating ? 0.6 : 1,
               transform: animating ? "scale(0.98)" : "scale(1)",
               transition: "opacity 0.25s ease, transform 0.25s ease",
-              background: sector.gradient,
+              background: "#f5f5f5",
             }}
           >
-            {/* Abstract shape */}
+            {/* Colored tag */}
             <div
               style={{
                 position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                top: 20,
+                left: 20,
+                zIndex: 10,
+                padding: "5px 12px",
+                borderRadius: 999,
+                background: sector.accent,
+                fontFamily: "var(--font-sans)",
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#ffffff",
+                letterSpacing: "0.02em",
               }}
             >
-              <div
-                style={{
-                  width: 200,
-                  height: 200,
-                  borderRadius: "50%",
-                  background: "rgba(255,255,255,0.08)",
-                  position: "absolute",
-                  top: "10%",
-                  right: "15%",
-                }}
-              />
-              <div
-                style={{
-                  width: 140,
-                  height: 140,
-                  borderRadius: 28,
-                  background: "rgba(255,255,255,0.06)",
-                  position: "absolute",
-                  bottom: "20%",
-                  left: "20%",
-                  transform: "rotate(15deg)",
-                }}
-              />
-              <div
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: 16,
-                  background: "rgba(255,255,255,0.1)",
-                  position: "absolute",
-                  top: "40%",
-                  left: "40%",
-                  transform: "rotate(-10deg)",
-                }}
-              />
+              {sector.tag}
             </div>
 
-            {/* Bottom label */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 24,
-                left: 24,
-                right: 24,
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.6)",
-                  marginBottom: 6,
-                }}
-              >
-                {sector.members.length} types d'organisations
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 18,
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  lineHeight: 1.3,
-                }}
-              >
-                {sector.title}
-              </p>
-            </div>
+            {/* Visual */}
+            {sector.visual === "tesseract" && <TesseractCanvas />}
+            {sector.visual === "rose" && <RoseCanvas />}
+            {sector.visual === "pricing" && <PricingBlocksSVG />}
+            {sector.visual === "tunnel" && <TunnelAnimation />}
           </div>
         </div>
 
