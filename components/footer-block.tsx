@@ -225,7 +225,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         </div>
       </div>
 
-      <ProductCardGrid lang={lang} />
+      <div className="container" style={{ marginTop: 48 }}>
+        <ProductCardGrid lang={lang} />
+      </div>
 
       <style>{`
         .footer-link:hover { color: var(--text-primary) !important; }
