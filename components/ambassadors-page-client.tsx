@@ -83,7 +83,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                 {a.hero.eyebrow}
               </p>
               <h1
-                className="t-display"
+                className="t-display ambassadors-shimmer"
                 style={{
                   fontSize: "clamp(32px, 5vw, 56px)",
                   fontWeight: 300,
@@ -186,10 +186,11 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
             {/* Right: Tesseract */}
             <div
+              className="ambassadors-tesseract-wrap"
               style={{
                 position: "relative",
                 width: "100%",
-                minHeight: 520,
+                minHeight: 600,
                 borderRadius: 24,
                 overflow: "hidden",
                 background: "#ffffff",
@@ -451,10 +452,43 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
       </section>
 
       <style>{`
+        @keyframes ambassadors-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+        @keyframes ambassadors-shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes ambassadors-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(10,10,10,0.15); }
+          50% { box-shadow: 0 0 0 8px rgba(10,10,10,0); }
+        }
+        .ambassadors-tesseract-wrap {
+          animation: ambassadors-float 6s ease-in-out infinite;
+        }
+        .ambassadors-shimmer {
+          background: linear-gradient(
+            90deg,
+            #0A0A0A 0%,
+            #0A0A0A 40%,
+            #777169 50%,
+            #0A0A0A 60%,
+            #0A0A0A 100%
+          );
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: ambassadors-shimmer 4s linear infinite;
+        }
         .ambassadors-btn-primary:hover {
           background: #333333 !important;
           transform: translateY(-1px);
           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .ambassadors-btn-primary {
+          animation: ambassadors-pulse 2.5s ease-in-out infinite;
         }
         .ambassadors-btn-secondary:hover {
           border-color: rgba(0,0,0,0.25) !important;
@@ -477,6 +511,17 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           }
           .ambassadors-hero-grid > div:last-child {
             min-height: 300px !important;
+          }
+          .ambassadors-tesseract-wrap {
+            animation: none !important;
+          }
+          .ambassadors-shimmer {
+            background: none !important;
+            -webkit-text-fill-color: #0A0A0A !important;
+            animation: none !important;
+          }
+          .ambassadors-btn-primary {
+            animation: none !important;
           }
           .ambassadors-two-col {
             grid-template-columns: 1fr !important;

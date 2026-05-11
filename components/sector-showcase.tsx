@@ -55,7 +55,7 @@ const SECTORS: Sector[] = [
       "Workflows pédagogiques automatisés"
     ],
     gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
-    accent: "#607020",
+    accent: "#B07820",
     tag: "5 organismes de formation",
     orbClass: "sector-orb-amber",
   },

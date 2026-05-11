@@ -8,10 +8,12 @@ interface TesseractColorCanvasProps {
 
 export default function TesseractColorCanvas({ className = "" }: TesseractColorCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const wrapper = wrapperRef.current;
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!wrapper || !canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -108,10 +110,11 @@ export default function TesseractColorCanvas({ className = "" }: TesseractColorC
 
     const c = canvas;
     const g = ctx;
+    const w = wrapper;
     let DPR = 1;
     function resize() {
       DPR = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = c.getBoundingClientRect();
+      const rect = w.getBoundingClientRect();
       const size = Math.min(rect.width, rect.height);
       c.style.width = size + "px";
       c.style.height = size + "px";
@@ -122,7 +125,7 @@ export default function TesseractColorCanvas({ className = "" }: TesseractColorC
 
     resize();
     const ro = new ResizeObserver(resize);
-    ro.observe(c);
+    ro.observe(w);
 
     let animId: number;
 
@@ -201,17 +204,25 @@ export default function TesseractColorCanvas({ className = "" }: TesseractColorC
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={wrapperRef}
       className={className}
       style={{
         position: "absolute",
         inset: 0,
-        width: "100%",
-        height: "100%",
-        display: "block",
-        pointerEvents: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
       }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          display: "block",
+          pointerEvents: "none",
+        }}
+      />
+    </div>
   );
 }
