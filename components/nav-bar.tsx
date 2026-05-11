@@ -283,9 +283,9 @@ export default function NavBar({ lang }: NavBarProps) {
                     },
                     {
                       eyebrow: t.nav.eyebrows.initiatives,
-                      links: t.nav.ressourcesMenu.initiatives.map((label) => ({
+                      links: t.nav.ressourcesMenu.initiatives.map((label, i) => ({
                         label,
-                        href: `/${lang}`,
+                        href: i === 2 ? `/${lang}/ambassadors` : `/${lang}`,
                       })),
                     },
                   ]}

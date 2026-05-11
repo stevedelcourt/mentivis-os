@@ -220,6 +220,19 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.entreprise?.[4] || "Carrieres"}
           </Link>
+          <span style={eyebrowStyle}>{t.nav.eyebrows.initiatives}</span>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.initiatives?.[0] || "Programme Impact"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.initiatives?.[1] || "Pour Ecoles & Universites"}
+          </Link>
+          <Link href={`/${lang}/ambassadors`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.initiatives?.[2] || "Programme Affiliation & Ambassadeur"}
+          </Link>
+          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+            {t.nav.ressourcesMenu?.initiatives?.[3] || "Partenariats"}
+          </Link>
         </div>
       )}
 

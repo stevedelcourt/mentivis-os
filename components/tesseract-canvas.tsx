@@ -117,7 +117,7 @@ export default function TesseractCanvas({ className = "" }: TesseractCanvasProps
         const p2 = P[j];
         const tw = Math.max(0, Math.min(1, (w + 1) * 0.5));
         const alpha = lerp(0.07, 0.82, tw);
-        const lw = lerp(0.3, 2.0, tw);
+        const lw = lerp(0.8, 4.0, Math.pow(tw, 1.5));
 
         g.save();
         g.lineWidth = lw;
