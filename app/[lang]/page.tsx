@@ -6,6 +6,7 @@ import ModulesSection from "@/components/modules-section";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
+import EngineShowcase from "@/components/engine-showcase";
 import ShiftsSection from "@/components/shifts-section";
 import IntegrationSection from "@/components/integration-section";
 import NotLmsSection from "@/components/not-lms-section";
@@ -26,6 +27,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <MathFeaturesSection lang={locale} />
       <ModulesSection lang={locale} />
       <ProblemSection lang={locale} />
+      <EngineShowcase lang={locale} />
       {/* <ProofSection lang={locale} /> */}
       <ShiftsSection lang={locale} />
       <IntegrationSection lang={locale} />
