@@ -169,6 +169,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         </div>
       </div>
 
+      <div className="container" style={{ marginTop: 48 }}>
+        <ProductCardGrid lang={lang} />
+      </div>
+
       {/* Bottom bar */}
       <div
         className="container"
@@ -223,10 +227,6 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             }}
           />
         </div>
-      </div>
-
-      <div className="container" style={{ marginTop: 48 }}>
-        <ProductCardGrid lang={lang} />
       </div>
 
       <style>{`
