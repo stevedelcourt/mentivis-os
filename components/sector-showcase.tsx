@@ -44,6 +44,7 @@ const SECTORS: Sector[] = [
     accent: "#7030A0",
     tag: "8 types d'organisations",
     visual: "tesseract",
+    orbClass: "sector-orb-purple",
   },
   {
     id: "formation",
@@ -63,6 +64,7 @@ const SECTORS: Sector[] = [
     accent: "#607020",
     tag: "5 organismes de formation",
     visual: "rose",
+    orbClass: "sector-orb-sage",
   },
   {
     id: "public",
@@ -82,6 +84,7 @@ const SECTORS: Sector[] = [
     accent: "#C05828",
     tag: "5 acteurs institutionnels",
     visual: "pricing",
+    orbClass: "sector-orb-rust",
   },
   {
     id: "professionnels",
@@ -101,6 +104,7 @@ const SECTORS: Sector[] = [
     accent: "#2D7A9F",
     tag: "4 fédérations métiers",
     visual: "tunnel",
+    orbClass: "sector-orb-sky",
   },
 ];
 
