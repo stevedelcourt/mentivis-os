@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -11,6 +11,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MentivisOS — Le moteur pédagogique natif IA",
   description: "Un moteur qui produit le diagnostic, le programme et l'accompagnement. Pas un LMS. Pas un catalogue.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
