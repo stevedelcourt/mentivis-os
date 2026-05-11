@@ -249,7 +249,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
   const prod = PRODUCTS[product];
 
   return (
-    <section ref={sectionRef} className="section" style={{ background: "var(--bg-warm)" }}>
+    <section ref={sectionRef} className="section" style={{ background: "#ffffff" }}>
       <audio
         ref={audioRef}
         src="/sounds/bacri.mp3"

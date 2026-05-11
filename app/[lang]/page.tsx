@@ -3,7 +3,6 @@ import HeroUnit from "@/components/hero-unit";
 import InteractiveExplainer from "@/components/interactive-explainer";
 import BentoSection from "@/components/bento-section";
 import MathFeaturesSection from "@/components/math-features-section";
-import ModulesSection from "@/components/modules-section";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
@@ -25,7 +24,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <InteractiveExplainer lang={locale} />
       <BentoSection lang={locale} />
       <MathFeaturesSection lang={locale} />
-      <ModulesSection lang={locale} />
       <ProblemSection lang={locale} />
       {/* <ProofSection lang={locale} /> */}
       <ShiftsSection lang={locale} />
