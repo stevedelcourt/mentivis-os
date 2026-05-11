@@ -574,7 +574,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                         animation: pulsingIdx === i ? "explainerOrbPulse 1.4s cubic-bezier(.22,1,.36,1)" : "none",
                       }}
                     >
-                      {/* Step number badge */}
+                      {/* Step + category badge */}
                       <span
                         style={{
                           position: "absolute",
@@ -592,27 +592,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                           zIndex: 5,
                         }}
                       >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {/* Category badge */}
-                      <span
-                        style={{
-                          position: "absolute",
-                          bottom: 14,
-                          right: 14,
-                          padding: "4px 12px",
-                          fontSize: 12,
-                          fontWeight: 500,
-                          color: "#ffffff",
-                          background: "rgba(0, 0, 0, 0.35)",
-                          backdropFilter: "blur(4px)",
-                          WebkitBackdropFilter: "blur(4px)",
-                          borderRadius: 999,
-                          letterSpacing: "0.02em",
-                          zIndex: 5,
-                        }}
-                      >
-                        {CATEGORY_LABELS[product]}
+                        {String(i + 1).padStart(2, "0")} · {CATEGORY_LABELS[product]}
                       </span>
                       {/* Grain overlay */}
                       <span
