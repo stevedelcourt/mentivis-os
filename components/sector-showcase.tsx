@@ -110,7 +110,6 @@ const SECTORS: Sector[] = [
 
 export default function SectorShowcase({ lang }: SectorShowcaseProps) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [animating, setAnimating] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -126,12 +125,8 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
   }, []);
 
   const selectSector = (idx: number) => {
-    if (idx === activeIdx || animating) return;
-    setAnimating(true);
-    setTimeout(() => {
-      setActiveIdx(idx);
-      setTimeout(() => setAnimating(false), 50);
-    }, 250);
+    if (idx === activeIdx) return;
+    setActiveIdx(idx);
   };
 
   const sector = SECTORS[activeIdx];
@@ -218,9 +213,6 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               background: "#f8f8f8",
               borderRadius: 24,
               padding: "36px 32px",
-              opacity: animating ? 0 : 1,
-              transform: animating ? "translateY(8px)" : "translateY(0)",
-              transition: "opacity 0.25s ease, transform 0.25s ease",
             }}
           >
             <p
@@ -301,17 +293,14 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
           </div>
 
-          {/* Right Box — Grey Card with Visual */}
+          {/* Right Box — Orb Gradient Card with Visual */}
           <div
+            className={sector.orbClass}
             style={{
               position: "relative",
               borderRadius: 24,
               overflow: "hidden",
               minHeight: 360,
-              opacity: animating ? 0.6 : 1,
-              transform: animating ? "scale(0.98)" : "scale(1)",
-              transition: "opacity 0.25s ease, transform 0.25s ease",
-              background: "#f5f5f5",
             }}
           >
             {/* Colored tag */}
@@ -400,6 +389,36 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
       </div>
 
       <style>{`
+        .sector-orb-purple {
+          background:
+            radial-gradient(ellipse 70% 60% at 35% 28%,#7A6CC4 0%,transparent 58%),
+            radial-gradient(ellipse 56% 56% at 65% 42%,#A89AD8 0%,transparent 56%),
+            radial-gradient(ellipse 62% 66% at 54% 78%,#F0B090 0%,transparent 58%),
+            radial-gradient(ellipse 44% 44% at 80% 22%,#B0A0E0 0%,transparent 50%),
+            #DCC8E8;
+        }
+        .sector-orb-sage {
+          background:
+            radial-gradient(ellipse 62% 56% at 38% 30%,#7090A8 0%,transparent 58%),
+            radial-gradient(ellipse 56% 62% at 64% 54%,#8898A0 0%,transparent 56%),
+            radial-gradient(ellipse 66% 52% at 48% 82%,#909862 0%,transparent 56%),
+            radial-gradient(ellipse 48% 40% at 75% 22%,#88A8B0 0%,transparent 52%),
+            #B8C8B0;
+        }
+        .sector-orb-rust {
+          background:
+            radial-gradient(ellipse 66% 58% at 36% 26%,#D85838 0%,transparent 58%),
+            radial-gradient(ellipse 58% 66% at 66% 52%,#E87858 0%,transparent 60%),
+            radial-gradient(ellipse 70% 48% at 52% 82%,#F09060 0%,transparent 56%),
+            #E8B898;
+        }
+        .sector-orb-sky {
+          background:
+            radial-gradient(ellipse 64% 58% at 36% 28%,#5688C8 0%,transparent 58%),
+            radial-gradient(ellipse 58% 64% at 66% 54%,#88B0D8 0%,transparent 60%),
+            radial-gradient(ellipse 68% 50% at 50% 84%,#A0C0E8 0%,transparent 56%),
+            #C0D8F0;
+        }
         @media (max-width: 768px) {
           .container > div:nth-child(2) {
             grid-template-columns: 1fr !important;
