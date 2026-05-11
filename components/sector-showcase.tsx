@@ -21,6 +21,7 @@ interface Sector {
   accent: string;
   tag: string;
   visual: "tesseract" | "rose" | "pricing" | "tunnel";
+  orbClass: string;
 }
 
 const SECTORS: Sector[] = [

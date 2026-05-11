@@ -50,6 +50,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
       >
         <div className="container">
           <div
+            className="ambassadors-hero-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -237,6 +238,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
           {/* Two columns */}
           <div
+            className="ambassadors-two-col"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
@@ -310,6 +312,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {a.how.steps.map((step: { num: string; title: string; body: string }, i: number) => (
               <div
+                className="ambassadors-step"
                 key={step.num}
                 style={{
                   display: "grid",
@@ -406,11 +409,25 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
       <style>{`
         @media (max-width: 768px) {
-          .container > div[style*="grid-template-columns: 1fr 1fr"] {
+          .ambassadors-hero-grid {
             grid-template-columns: 1fr !important;
+            gap: 32px !important;
           }
-          .container > div[style*="grid-template-columns: repeat(2, 1fr)"] {
+          .ambassadors-hero-grid > div:last-child {
+            min-height: 280px !important;
+            order: -1;
+          }
+          .ambassadors-two-col {
             grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .ambassadors-step {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+            padding: 20px 24px !important;
+          }
+          .ambassadors-step > span {
+            font-size: 22px !important;
           }
           details > summary::-webkit-details-marker {
             display: none;
