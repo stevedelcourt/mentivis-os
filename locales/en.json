@@ -621,6 +621,7 @@
     },
     "faq": {
       "title": "Frequently asked questions",
+      "subtitle": "How the program works, access conditions, collaboration model and remuneration terms explained clearly and directly.",
       "items": [
         {
           "q": "Who can join the program?",
@@ -653,6 +654,18 @@
         {
           "q": "Why join MentivisOS now?",
           "a": "AI, skills, continuous training and organizational transformation are becoming priorities in most sectors. MentivisOS positions itself as an operational infrastructure capable of connecting training, recruitment, automation, upskilling, and strategic talent management."
+        },
+        {
+          "q": "Transparency",
+          "a": "Each introduced opportunity is clearly tracked between parties. Exchanges, commercial stages and signatures are communicated transparently to ensure smooth and lasting collaboration."
+        },
+        {
+          "q": "A simple contractual framework",
+          "a": "Each Ambassador signs a business introducer contract defining: the scope of introductions, collaboration terms, commission conditions, confidentiality rules, and payment terms. The program is designed to remain simple to activate and light to manage."
+        },
+        {
+          "q": "Commission billing and payment",
+          "a": "Commissions are paid after signature and collection of the relevant contracts. Depending on the partner's status: direct billing via company, independent status, or other compatible structure. Administrative and calendar terms are specified upon entry into the program."
         }
       ]
     }

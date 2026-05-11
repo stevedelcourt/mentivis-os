@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getT, Locale } from "@/lib/i18n";
 
 export type ContactFormMode = "contact" | "demo";
@@ -13,6 +14,8 @@ interface ContactFormProps {
 export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
   const t = getT(lang);
   const isContact = mode === "contact";
+  const searchParams = useSearchParams();
+  const subjectParam = searchParams.get("subject");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -127,6 +130,7 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
           </div>
 
           <input type="hidden" name="formType" value={mode} />
+          {subjectParam && <input type="hidden" name="subject" value={subjectParam} />}
           <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
 
           <button

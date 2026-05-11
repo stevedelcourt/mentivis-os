@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
-import TesseractCanvas from "./tesseract-canvas";
+import TesseractColorCanvas from "./tesseract-color-canvas";
 import RoseCanvas from "./rose-canvas";
 import PricingBlocksSVG from "./pricing-blocks-svg";
 import TunnelAnimation from "./tunnel-animation";
@@ -330,7 +330,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
 
             {/* Visual */}
-            {sector.visual === "tesseract" && <TesseractCanvas />}
+            {sector.visual === "tesseract" && <TesseractColorCanvas />}
             {sector.visual === "rose" && <RoseCanvas />}
             {sector.visual === "pricing" && <PricingBlocksSVG />}
             {sector.visual === "tunnel" && <TunnelAnimation />}

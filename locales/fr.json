@@ -621,6 +621,7 @@
     },
     "faq": {
       "title": "Questions fréquentes",
+      "subtitle": "Le fonctionnement du programme, les conditions d'accès, le modèle de collaboration et les modalités de rémunération expliqués de manière claire et directe.",
       "items": [
         {
           "q": "Qui peut rejoindre le programme ?",
@@ -653,6 +654,18 @@
         {
           "q": "Pourquoi rejoindre MentivisOS maintenant ?",
           "a": "Les sujets IA, compétences, formation continue et transformation des organisations deviennent prioritaires dans la plupart des secteurs. MentivisOS se positionne comme une infrastructure opérationnelle capable de connecter formation, recrutement, automatisation, montée en compétences, et pilotage stratégique des talents."
+        },
+        {
+          "q": "Transparence",
+          "a": "Chaque opportunité introduite fait l'objet d'un suivi clair entre les parties. Les échanges, étapes commerciales et signatures sont communiqués de manière transparente afin d'assurer une collaboration fluide et durable."
+        },
+        {
+          "q": "Un cadre contractuel simple",
+          "a": "Chaque Ambassador signe un contrat d'apporteur d'affaires définissant : le périmètre des introductions, les modalités de collaboration, les conditions de commissionnement, les règles de confidentialité, et les conditions de versement. Le programme est conçu pour rester simple à activer et léger à gérer."
+        },
+        {
+          "q": "Facturation et versement des commissions",
+          "a": "Les commissions sont versées après signature et encaissement des contrats concernés. Selon le statut du partenaire : facturation directe via société, statut indépendant, ou autre structure compatible. Les modalités administratives et calendaires sont précisées dès l'entrée dans le programme."
         }
       ]
     }

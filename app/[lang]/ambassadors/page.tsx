@@ -71,7 +71,7 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link
-              href={`/${locale}/contact`}
+              href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
               style={{
                 background: "#0A0A0A",
                 color: "#ffffff",
@@ -282,6 +282,18 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
       {/* FAQ */}
       <section className="section" style={{ background: "#f8f8f8" }}>
         <div className="container" style={{ maxWidth: 800 }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#777169",
+              marginBottom: 12,
+            }}
+          >
+            FAQ
+          </p>
           <h2
             style={{
               fontSize: "clamp(24px, 3vw, 36px)",
@@ -289,11 +301,21 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
               lineHeight: 1.2,
               letterSpacing: "-0.02em",
               color: "#0A0A0A",
-              marginBottom: 36,
+              marginBottom: 12,
             }}
           >
             {a.faq.title}
           </h2>
+          <p
+            style={{
+              fontSize: 15,
+              lineHeight: 1.6,
+              color: "#777169",
+              marginBottom: 36,
+            }}
+          >
+            {a.faq.subtitle}
+          </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {a.faq.items.map((item: { q: string; a: string }, i: number) => (
@@ -355,7 +377,7 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
             {a.hero.headline}
           </h2>
           <Link
-            href={`/${locale}/contact`}
+            href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
             style={{
               display: "inline-flex",
               alignItems: "center",
