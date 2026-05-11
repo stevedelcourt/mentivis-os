@@ -156,10 +156,13 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
               style={{
                 position: "relative",
                 width: "100%",
-                minHeight: 440,
+                minHeight: 520,
                 borderRadius: 24,
                 overflow: "hidden",
                 background: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <TesseractColorCanvas />
@@ -414,8 +417,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
             gap: 32px !important;
           }
           .ambassadors-hero-grid > div:last-child {
-            min-height: 280px !important;
-            order: -1;
+            min-height: 300px !important;
           }
           .ambassadors-two-col {
             grid-template-columns: 1fr !important;
