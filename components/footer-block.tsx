@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import LogomarkMotion from "./logomark-motion";
 import CookieButton from "./cookie-button";
-import ProductCardGrid from "./product-card-grid";
 
 interface FooterBlockProps {
   lang: Locale;
@@ -61,7 +60,6 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {t.footer.tagline}
           </p>
           <LogomarkMotion />
-          <ProductCardGrid lang={lang} />
         </div>
 
         {/* Column 2 — Produits + PourQui + Integration */}

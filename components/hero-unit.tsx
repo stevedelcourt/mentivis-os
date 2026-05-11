@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import TopoLines from "@/components/topo-lines";
+import ProductCardGrid from "@/components/product-card-grid";
 
 interface HeroUnitProps {
   lang: Locale;
@@ -161,8 +162,11 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             {hero?.proof || t.hero.proof}
           </p>
         </div>
-      </div>
 
+        <div style={{ marginTop: 64 }}>
+          <ProductCardGrid lang={lang} />
+        </div>
+      </div>
 
     </section>
   );
