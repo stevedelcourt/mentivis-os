@@ -2,6 +2,7 @@ import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
 import TesseractColorCanvas from "@/components/tesseract-color-canvas";
+import AmbassadorsFaq from "@/components/ambassadors-faq";
 
 export default async function AmbassadorsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -307,86 +308,12 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
       </section>
 
       {/* FAQ */}
-      <section className="section" style={{ background: "#f8f8f8" }}>
-        <div className="container" style={{ maxWidth: 800 }}>
-          <p
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#777169",
-              marginBottom: 12,
-            }}
-          >
-            FAQ
-          </p>
-          <h2
-            style={{
-              fontSize: "clamp(24px, 3vw, 36px)",
-              fontWeight: 300,
-              lineHeight: 1.2,
-              letterSpacing: "-0.02em",
-              color: "#0A0A0A",
-              marginBottom: 12,
-            }}
-          >
-            {a.faq.title}
-          </h2>
-          <p
-            style={{
-              fontSize: 15,
-              lineHeight: 1.6,
-              color: "#777169",
-              marginBottom: 36,
-            }}
-          >
-            {a.faq.subtitle}
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {a.faq.items.map((item: { q: string; a: string }, i: number) => (
-              <details
-                key={i}
-                style={{
-                  background: "#ffffff",
-                  borderRadius: 12,
-                  padding: "20px 24px",
-                  boxShadow: "0 0 0 1px rgba(0,0,0,0.04)",
-                  cursor: "pointer",
-                }}
-              >
-                <summary
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    color: "#0A0A0A",
-                    listStyle: "none",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  {item.q}
-                  <span style={{ color: "#c8c8c8", fontSize: 20, marginLeft: 16 }}>+</span>
-                </summary>
-                <p
-                  style={{
-                    fontSize: 14,
-                    lineHeight: 1.6,
-                    color: "#3a3a3a",
-                    marginTop: 12,
-                    paddingTop: 12,
-                    borderTop: "1px solid rgba(0,0,0,0.06)",
-                  }}
-                >
-                  {item.a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <AmbassadorsFaq
+        eyebrow="FAQ"
+        title={a.faq.title}
+        lead={a.faq.subtitle}
+        items={a.faq.items}
+      />
 
       {/* Bottom CTA */}
       <section className="section">
