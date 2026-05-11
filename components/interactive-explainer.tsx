@@ -80,6 +80,34 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
   const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const wasPlayingRef = useRef(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const visitedTabs = useRef<Set<string>>(new Set());
+  const spinning = useRef(false);
+
+  const spinToFirst = useCallback(() => {
+    if (spinning.current) return;
+    spinning.current = true;
+    const steps = [5, 4, 3, 2, 1, 0];
+    let step = 0;
+    const tick = () => {
+      if (step >= steps.length) {
+        spinning.current = false;
+        return;
+      }
+      setActiveIdx(steps[step]);
+      step += 1;
+      setTimeout(tick, 55);
+    };
+    tick();
+  }, []);
+
+  useEffect(() => {
+    // Spin on first mount
+    const timer = setTimeout(() => {
+      visitedTabs.current.add("os");
+      spinToFirst();
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [spinToFirst]);
 
   const fadeVolume = useCallback((target: number, duration = 400) => {
     const audio = audioRef.current;
@@ -290,7 +318,15 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
               {(["os", "talent", "api"] as const).map((key) => (
                 <button
                   key={key}
-                  onClick={() => { setProduct(key); setActiveIdx(0); }}
+                  onClick={() => {
+                    setProduct(key);
+                    if (visitedTabs.current.has(key)) {
+                      setActiveIdx(0);
+                    } else {
+                      visitedTabs.current.add(key);
+                      spinToFirst();
+                    }
+                  }}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -403,7 +439,16 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
           <div className="explainer-mobile-product-selector" style={{ display: "none", marginBottom: 20 }}>
             <select
               value={product}
-              onChange={(e) => { setProduct(e.target.value); setActiveIdx(0); }}
+              onChange={(e) => {
+                const key = e.target.value;
+                setProduct(key);
+                if (visitedTabs.current.has(key)) {
+                  setActiveIdx(0);
+                } else {
+                  visitedTabs.current.add(key);
+                  spinToFirst();
+                }
+              }}
               style={{
                 width: "100%",
                 padding: "12px 16px",
