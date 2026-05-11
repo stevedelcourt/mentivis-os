@@ -822,8 +822,8 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: 14,
-                fontWeight: 400,
-                color: "#777169",
+                fontWeight: 500,
+                color: "#0A0A0A",
                 lineHeight: 1.45,
                 margin: 0,
               }}
