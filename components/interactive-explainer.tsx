@@ -50,6 +50,12 @@ const PRODUCTS: Record<string, { title: string; sub: string }> = {
   },
 };
 
+const CATEGORY_LABELS: Record<string, string> = {
+  os: "Former",
+  talent: "Recruter",
+  api: "Intégrer",
+};
+
 const FEATURES = [
   "Diagnostic IA",
   "Programme adaptatif",
@@ -313,36 +319,48 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                     fontFamily: "inherit",
                   }}
                 >
-                  <span
-                    style={{
-                      display: "block",
-                      width: 16,
-                      height: 16,
-                      borderRadius: 4,
-                      position: "relative",
-                      overflow: "hidden",
-                      flexShrink: 0,
-                      background:
-                        key === "os"
-                          ? "radial-gradient(ellipse at 30% 30%,#E8726A,#F0A080 60%,#FFD0B0)"
-                          : key === "talent"
-                          ? "radial-gradient(ellipse at 30% 30%,#6058A8,#8878C0 60%,#D88060)"
-                          : "radial-gradient(ellipse at 30% 30%,#4F8068,#7A9880 60%,#B0C098)",
-                    }}
-                  >
-                    <span
+                  {key === "api" ? (
+                    <img
+                      src="/images/MentivisOS/mentivisos-logomark-noir.svg"
+                      alt=""
                       style={{
-                        position: "absolute",
-                        inset: 0,
+                        display: "block",
+                        width: 16,
+                        height: 16,
                         borderRadius: 4,
-                        backgroundImage:
-                          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-                        backgroundSize: "30px 30px",
-                        opacity: 0.18,
-                        mixBlendMode: "multiply",
+                        flexShrink: 0,
                       }}
                     />
-                  </span>
+                  ) : (
+                    <span
+                      style={{
+                        display: "block",
+                        width: 16,
+                        height: 16,
+                        borderRadius: 4,
+                        position: "relative",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                        background:
+                          key === "os"
+                            ? "radial-gradient(ellipse at 30% 30%,#E8726A,#F0A080 60%,#FFD0B0)"
+                            : "radial-gradient(ellipse at 30% 30%,#6058A8,#8878C0 60%,#D88060)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          borderRadius: 4,
+                          backgroundImage:
+                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                          backgroundSize: "30px 30px",
+                          opacity: 0.18,
+                          mixBlendMode: "multiply",
+                        }}
+                      />
+                    </span>
+                  )}
                   <span>
                     {key === "os"
                       ? "MentivisOS"
@@ -556,6 +574,46 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                         animation: pulsingIdx === i ? "explainerOrbPulse 1.4s cubic-bezier(.22,1,.36,1)" : "none",
                       }}
                     >
+                      {/* Step number badge */}
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: 14,
+                          left: 14,
+                          padding: "4px 12px",
+                          fontSize: 12,
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          background: "rgba(0, 0, 0, 0.35)",
+                          backdropFilter: "blur(4px)",
+                          WebkitBackdropFilter: "blur(4px)",
+                          borderRadius: 999,
+                          letterSpacing: "0.02em",
+                          zIndex: 5,
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {/* Category badge */}
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: 14,
+                          right: 14,
+                          padding: "4px 12px",
+                          fontSize: 12,
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          background: "rgba(0, 0, 0, 0.35)",
+                          backdropFilter: "blur(4px)",
+                          WebkitBackdropFilter: "blur(4px)",
+                          borderRadius: 999,
+                          letterSpacing: "0.02em",
+                          zIndex: 5,
+                        }}
+                      >
+                        {CATEGORY_LABELS[product]}
+                      </span>
                       {/* Grain overlay */}
                       <span
                         style={{
