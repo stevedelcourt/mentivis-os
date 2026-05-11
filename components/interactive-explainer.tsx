@@ -8,38 +8,32 @@ interface InteractiveExplainerProps {
   lang: Locale;
 }
 
-const ORBS = [
-  {
-    grad: "explainer-orb-1",
-    title: "Profil et objectif",
-    desc: "Profil, situation actuelle, contraintes de temps, référentiel visé.",
-  },
-  {
-    grad: "explainer-orb-2",
-    title: "Diagnostic IA",
-    desc: "Score de couverture, risque résiduel, durée estimée. Moins d'une minute.",
-  },
-  {
-    grad: "explainer-orb-3",
-    title: "Modules générés",
-    desc: "Découpage, ordonnancement critique, profondeur ajustée au profil.",
-  },
-  {
-    grad: "explainer-orb-4",
-    title: "Programme calibré",
-    desc: "Théorie, projet pratique, évaluation. Module par module.",
-  },
-  {
-    grad: "explainer-orb-5",
-    title: "Assistant embarqué",
-    desc: "Accompagnement intégré qui ne sort jamais du sujet.",
-  },
-  {
-    grad: "explainer-orb-6",
-    title: "Bilan d'impact",
-    desc: "Mesure des acquis, ajustement continu, reporting clair.",
-  },
-];
+const ORBS_BY_PRODUCT: Record<string, Array<{ grad: string; title: string; desc: string }>> = {
+  os: [
+    { grad: "explainer-orb-1", title: "Profil et objectif", desc: "Profil, situation actuelle, contraintes de temps, référentiel visé." },
+    { grad: "explainer-orb-2", title: "Diagnostic IA", desc: "Score de couverture, risque résiduel, durée estimée. Moins d'une minute." },
+    { grad: "explainer-orb-3", title: "Modules générés", desc: "Découpage, ordonnancement critique, profondeur ajustée au profil." },
+    { grad: "explainer-orb-4", title: "Programme calibré", desc: "Théorie, projet pratique, évaluation. Module par module." },
+    { grad: "explainer-orb-5", title: "Assistant embarqué", desc: "Accompagnement intégré qui ne sort jamais du sujet." },
+    { grad: "explainer-orb-6", title: "Bilan d'impact", desc: "Mesure des acquis, ajustement continu, reporting clair." },
+  ],
+  talent: [
+    { grad: "explainer-orb-1", title: "Profil candidat", desc: "Compétences, expérience, objectifs de carrière." },
+    { grad: "explainer-orb-2", title: "Fiche de poste", desc: "Référentiel métier, exigences techniques, culture d'équipe." },
+    { grad: "explainer-orb-3", title: "Tests métier", desc: "Cas pratiques, scoring technique, validation des acquis." },
+    { grad: "explainer-orb-4", title: "Adéquation générée", desc: "Score de fit, risque d'erreur, temps d'intégration estimé." },
+    { grad: "explainer-orb-5", title: "Pipeline structuré", desc: "Ordonnancement des étapes, suivi par profil, décision data." },
+    { grad: "explainer-orb-6", title: "Onboarding ciblé", desc: "Parcours d'intégration personnalisé selon les écarts identifiés." },
+  ],
+  api: [
+    { grad: "explainer-orb-1", title: "Connexion système", desc: "SIRH, ERP, ATS. Sans refonte d'organisation." },
+    { grad: "explainer-orb-2", title: "Flux de données", desc: "Profils, parcours, résultats. Unifié en temps réel." },
+    { grad: "explainer-orb-3", title: "Automatisation", desc: "Déclencheurs métier, workflows personnalisés." },
+    { grad: "explainer-orb-4", title: "Certification & OPCO", desc: "Conformité Qualiopi, justificatifs financiers générés." },
+    { grad: "explainer-orb-5", title: "Agents intégrés", desc: "Agents IA métier connectés à vos outils existants." },
+    { grad: "explainer-orb-6", title: "Évolutivité", desc: "API documentée, versioning stable, support technique." },
+  ],
+};
 
 const PRODUCTS: Record<string, { title: string; sub: string }> = {
   os: {
@@ -131,13 +125,15 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
     }
   }, [isPlaying, playingOrbIdx, fadeVolume]);
 
+  const orbs = ORBS_BY_PRODUCT[product];
+
   const handlePrev = useCallback(() => {
-    setActiveIdx((prev) => (prev - 1 + ORBS.length) % ORBS.length);
-  }, []);
+    setActiveIdx((prev) => (prev - 1 + orbs.length) % orbs.length);
+  }, [orbs.length]);
 
   const handleNext = useCallback(() => {
-    setActiveIdx((prev) => (prev + 1) % ORBS.length);
-  }, []);
+    setActiveIdx((prev) => (prev + 1) % orbs.length);
+  }, [orbs.length]);
 
   const handleOrbClick = useCallback(
     (idx: number, isPlay: boolean) => {
@@ -239,7 +235,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
   }, [handlePrev, handleNext]);
 
   const getPos = (idx: number) => {
-    const total = ORBS.length;
+    const total = orbs.length;
     let diff = idx - activeIdx;
     if (diff > total / 2) diff -= total;
     if (diff < -total / 2) diff += total;
@@ -297,7 +293,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
               {(["os", "talent", "api"] as const).map((key) => (
                 <button
                   key={key}
-                  onClick={() => setProduct(key)}
+                  onClick={() => { setProduct(key); setActiveIdx(0); }}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -429,7 +425,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
           <div className="explainer-mobile-product-selector" style={{ display: "none", marginBottom: 20 }}>
             <select
               value={product}
-              onChange={(e) => setProduct(e.target.value)}
+              onChange={(e) => { setProduct(e.target.value); setActiveIdx(0); }}
               style={{
                 width: "100%",
                 padding: "12px 16px",
@@ -516,7 +512,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 justifyContent: "center",
               }}
             >
-              {ORBS.map((orb, i) => {
+              {orbs.map((orb, i) => {
                 const pos = getPos(i);
                 const posStyle = POS_STYLES[pos] || POS_STYLES[3];
                 return (
