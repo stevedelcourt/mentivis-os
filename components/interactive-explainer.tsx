@@ -285,7 +285,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
             width: "100%",
             maxWidth: 1180,
             margin: "0 auto",
-            background: "#F2EEE7",
+            background: "#f5f3f1",
             borderRadius: 32,
             padding: "clamp(20px, 4vw, 36px) clamp(16px, 4vw, 40px) clamp(16px, 3vw, 28px)",
             position: "relative",
