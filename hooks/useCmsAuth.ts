@@ -12,6 +12,22 @@ export interface CmsAuth {
   logout: () => void;
 }
 
+function decodeTokenRole(token: string | null): CmsRole | null {
+  if (!token) return null;
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 2) return null;
+    const payload = JSON.parse(atob(parts[0].replace(/-/g, "+").replace(/_/g, "/")));
+    const role = payload.role;
+    if (role === "god" || role === "editorial" || role === "tarifs") {
+      return role;
+    }
+  } catch {
+    // ignore decode errors
+  }
+  return null;
+}
+
 export function useCmsAuth(): CmsAuth {
   const params = useParams();
   const router = useRouter();
@@ -23,7 +39,16 @@ export function useCmsAuth(): CmsAuth {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("cms_token");
-    const storedRole = localStorage.getItem("cms_role") as CmsRole | null;
+    let storedRole = localStorage.getItem("cms_role") as CmsRole | null;
+
+    // Fallback: decode role from token if localStorage role is missing
+    if (storedToken && !storedRole) {
+      storedRole = decodeTokenRole(storedToken);
+      if (storedRole) {
+        localStorage.setItem("cms_role", storedRole);
+      }
+    }
+
     setToken(storedToken);
     setRole(storedRole);
     setIsReady(true);
