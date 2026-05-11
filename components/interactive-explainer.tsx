@@ -56,14 +56,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   api: "Intégrer",
 };
 
-const FEATURES = [
-  "Diagnostic IA",
-  "Programme adaptatif",
-  "Assistant pédagogique",
-  "Conformité Qualiopi",
-  "Tableau de bord",
-];
-
 const POS_STYLES: Record<number, React.CSSProperties> = {
   [-3]: { transform: "translate(-50%, -50%) translateX(-600px) scale(0.25)", opacity: 0, pointerEvents: "none" as const },
   [-2]: { transform: "translate(-50%, -50%) translateX(-420px) scale(0.42)", opacity: 0.55, zIndex: 1 },
@@ -78,7 +70,6 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
   const t = getT(lang);
   const [activeIdx, setActiveIdx] = useState(2);
   const [product, setProduct] = useState("os");
-  const [activeFeature, setActiveFeature] = useState(0);
   const [pulsingIdx, setPulsingIdx] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playingOrbIdx, setPlayingOrbIdx] = useState<number | null>(null);
@@ -827,56 +818,18 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
               gap: 24,
             }}
           >
-            <nav className="explainer-features-nav" style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
-              {FEATURES.map((f, i) => (
-                <button
-                  key={f}
-                  onClick={() => setActiveFeature(i)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    fontFamily: "inherit",
-                    fontSize: 14,
-                    color: activeFeature === i ? "#0A0A0A" : "#777169",
-                    cursor: "pointer",
-                    padding: "8px 0",
-                    position: "relative",
-                    transition: "color .2s ease",
-                    fontWeight: activeFeature === i ? 500 : 400,
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
-                  }}
-                  onMouseEnter={(e) => {
-                    if (activeFeature !== i) {
-                      (e.currentTarget as HTMLButtonElement).style.color = "#3A3A3A";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeFeature !== i) {
-                      (e.currentTarget as HTMLButtonElement).style.color = "#777169";
-                    }
-                  }}
-                >
-                  {f.split(" ").map((word, wi) => (
-                    <span
-                      key={wi}
-                      style={
-                        activeFeature === i && wi === f.split(" ").length - 1
-                          ? {
-                              background: "#A0C4FF",
-                              color: "#0A0A0A",
-                              padding: "0 1px",
-                            }
-                          : undefined
-                      }
-                    >
-                      {word}
-                      {wi < f.split(" ").length - 1 ? " " : ""}
-                    </span>
-                  ))}
-                </button>
-              ))}
-            </nav>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                fontWeight: 400,
+                color: "#777169",
+                lineHeight: 1.45,
+                margin: 0,
+              }}
+            >
+              Le système opérationnel des compétences, du recrutement à l'impact
+            </p>
             <Link
               href={`/${lang}/demo`}
               className="explainer-cta-link"
