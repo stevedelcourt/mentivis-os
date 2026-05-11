@@ -1,7 +1,7 @@
 import { Locale } from "@/lib/i18n";
 import HeroUnit from "@/components/hero-unit";
 import InteractiveExplainer from "@/components/interactive-explainer";
-import BentoSection from "@/components/bento-section";
+import SectorShowcase from "@/components/sector-showcase";
 import MathFeaturesSection from "@/components/math-features-section";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
@@ -22,10 +22,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     <>
       <HeroUnit lang={locale} />
       <InteractiveExplainer lang={locale} />
-      <BentoSection lang={locale} />
       <MathFeaturesSection lang={locale} />
       <ProblemSection lang={locale} />
-      {/* <ProofSection lang={locale} /> */}
+      <SectorShowcase lang={locale} />
       <ShiftsSection lang={locale} />
       <IntegrationSection lang={locale} />
       <NotLmsSection lang={locale} />
