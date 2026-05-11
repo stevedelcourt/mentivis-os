@@ -107,8 +107,8 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                 </span>
               </div>
             </Link>
-          );
-        })}
+          ))
+        }
       </div>
 
       <style>{`
