@@ -558,5 +558,103 @@
       "submit": "Send"
     },
     "pricing": "Response within 24 business hours."
+  },
+  "ambassadors": {
+    "hero": {
+      "eyebrow": "MentivisOS Ambassadors",
+      "headline": "Recommend. Connect. Grow.",
+      "body": "The MentivisOS Ambassadors program brings together a select circle of professionals capable of opening the right doors in training, HR, campus, CFA and skills transformation sectors.",
+      "commission": "Each qualified introduction that leads to a signed project earns a commission on generated contracts.",
+      "rate": "Up to 10% remuneration depending on the type of mission and level of involvement.",
+      "ctaJoin": "Join the program",
+      "ctaPresentation": "Request a private presentation"
+    },
+    "who": {
+      "title": "A program designed for well-connected profiles",
+      "subtitle": "MentivisOS Ambassadors is for professionals who already operate among decision-makers.",
+      "profilesTitle": "Relevant profiles",
+      "profiles": [
+        "Executives and former executives",
+        "Independent consultants",
+        "HR and training experts",
+        "School / EdTech / OPCO networks",
+        "Specialized business introducers",
+        "Consulting firms",
+        "Innovation and AI ecosystems",
+        "Digital transformation leaders",
+        "Influential alumni and sector networks"
+      ],
+      "notSellerTitle": "You don't need to sell software",
+      "notSellerBody": "Your role is not to give technical demos. Mentivis handles: strategic meetings, demonstrations, technical responses, commercial proposals, project scoping, delivery. You open a relevant relationship. We operate the rest.",
+      "whyTitle": "Why the program works",
+      "whyBody": "MentivisOS addresses immediate needs: AI upskilling, pedagogical automation, recruitment and talent pipeline, certifying training, OPCO management, corporate campus, rapid team adaptation. Organizations seek concrete and operational solutions, not another LMS platform."
+    },
+    "how": {
+      "title": "How it works",
+      "steps": [
+        {
+          "num": "01",
+          "title": "Profile validation",
+          "body": "Each application is reviewed individually to ensure network consistency and quality of introductions. The program prioritizes: network quality, understanding of business challenges, sector credibility, ability to identify real needs."
+        },
+        {
+          "num": "02",
+          "title": "Ambassador resources access",
+          "body": "Once accepted, you receive: MentivisOS presentation access, private materials, use cases, talking points, a dedicated contact, clear visibility on offers."
+        },
+        {
+          "num": "03",
+          "title": "Introduction",
+          "body": "You identify: a company, a campus, a training organization, a network, or an institution with a need compatible with MentivisOS. You then make a qualified introduction to the Mentivis team."
+        },
+        {
+          "num": "04",
+          "title": "Qualification and closing",
+          "body": "Mentivis takes over: needs analysis, demonstration, strategy, pricing, contracting, deployment. You stay informed of the deal's progress."
+        },
+        {
+          "num": "05",
+          "title": "Commissioning",
+          "body": "When a contract is signed and paid, a commission is paid according to the partnership terms. Up to 10% on generated contracts."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "Who can join the program?",
+          "a": "The program is open to professionals with a qualified network in enterprise, HR, training, higher education, innovation or digital transformation sectors."
+        },
+        {
+          "q": "Is this a public affiliation program?",
+          "a": "No. Applications are reviewed individually and integrations happen progressively."
+        },
+        {
+          "q": "Do I need to sell the solution myself?",
+          "a": "No. Mentivis manages the entire commercial and operational cycle."
+        },
+        {
+          "q": "What type of organizations can be recommended?",
+          "a": "Companies, multi-site groups, CFA, schools, universities, corporate campuses, training networks, public institutions, organizations undergoing AI transformation."
+        },
+        {
+          "q": "How does remuneration work?",
+          "a": "A commission is paid on contracts actually signed and collected. The level depends on contract type, scope, role played in the introduction, and partnership framework."
+        },
+        {
+          "q": "Can I track my introductions?",
+          "a": "Yes. Transparent tracking of opportunities and their progress is provided."
+        },
+        {
+          "q": "Is it compatible with another activity?",
+          "a": "Yes. The program is designed to work alongside a main activity, existing firm or network."
+        },
+        {
+          "q": "Why join MentivisOS now?",
+          "a": "AI, skills, continuous training and organizational transformation are becoming priorities in most sectors. MentivisOS positions itself as an operational infrastructure capable of connecting training, recruitment, automation, upskilling, and strategic talent management."
+        }
+      ]
+    }
   }
 }
