@@ -169,8 +169,8 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                 padding: "16px 20px",
                 borderRadius: 12,
                 border: "1.5px solid",
-                borderColor: activeIdx === i ? s.accent : "rgba(0,0,0,0.08)",
-                background: activeIdx === i ? s.accent : "transparent",
+                borderColor: activeIdx === i ? "#757676" : "rgba(0,0,0,0.08)",
+                background: activeIdx === i ? "#757676" : "transparent",
                 color: activeIdx === i ? "#ffffff" : "#3a3a3a",
                 fontFamily: "var(--font-sans)",
                 fontSize: 14,
@@ -256,12 +256,12 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                       width: 20,
                       height: 20,
                       borderRadius: "50%",
-                      background: sector.accent,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      marginTop: 1,
+                    background: "#757676",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    marginTop: 1,
                     }}
                   >
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -284,34 +284,42 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
           </div>
 
-          {/* Right Box — Orb Gradient Card */}
+          {/* Right Box — Flat Card */}
           <div
-            className={sector.orbClass}
             style={{
-              position: "relative",
+              background: "#f5f5f5",
               borderRadius: 24,
-              overflow: "hidden",
               minHeight: 360,
+              position: "relative",
             }}
           >
-            {/* Colored tag */}
+            {/* Glass tag */}
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                background: "rgba(117, 118, 118, 0.08)",
+                backdropFilter: "blur(6px)",
+                border: "1px solid rgba(117, 118, 118, 0.18)",
+                borderRadius: 10,
+                padding: "6px 12px 6px 8px",
                 position: "absolute",
                 top: 20,
                 left: 20,
-                zIndex: 10,
-                padding: "5px 12px",
-                borderRadius: 999,
-                background: sector.accent,
-                fontFamily: "var(--font-sans)",
-                fontSize: 12,
-                fontWeight: 500,
-                color: "#ffffff",
-                letterSpacing: "0.02em",
               }}
             >
-              {sector.tag}
+              <span
+                style={{
+                  color: "#757676",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: "0.04em",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                MentivisOS
+              </span>
             </div>
           </div>
         </div>
@@ -374,35 +382,6 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
       </div>
 
       <style>{`
-        .sector-orb-purple {
-          background:
-            radial-gradient(ellipse 70% 60% at 35% 28%,#7A6CC4 0%,transparent 58%),
-            radial-gradient(ellipse 56% 56% at 65% 42%,#A89AD8 0%,transparent 56%),
-            radial-gradient(ellipse 62% 66% at 54% 78%,#F0B090 0%,transparent 58%),
-            radial-gradient(ellipse 44% 44% at 80% 22%,#B0A0E0 0%,transparent 50%),
-            #DCC8E8;
-        }
-        .sector-orb-amber {
-          background:
-            radial-gradient(ellipse 64% 58% at 36% 28%,#F0C25C 0%,transparent 56%),
-            radial-gradient(ellipse 58% 64% at 66% 54%,#E89868 0%,transparent 60%),
-            radial-gradient(ellipse 68% 50% at 50% 84%,#F0D098 0%,transparent 56%),
-            #F4D8B0;
-        }
-        .sector-orb-rust {
-          background:
-            radial-gradient(ellipse 66% 58% at 36% 26%,#D85838 0%,transparent 58%),
-            radial-gradient(ellipse 58% 66% at 66% 52%,#E87858 0%,transparent 60%),
-            radial-gradient(ellipse 70% 48% at 52% 82%,#F09060 0%,transparent 56%),
-            #E8B898;
-        }
-        .sector-orb-sky {
-          background:
-            radial-gradient(ellipse 64% 58% at 36% 28%,#5688C8 0%,transparent 58%),
-            radial-gradient(ellipse 58% 64% at 66% 54%,#88B0D8 0%,transparent 60%),
-            radial-gradient(ellipse 68% 50% at 50% 84%,#A0C0E8 0%,transparent 56%),
-            #C0D8F0;
-        }
         @media (max-width: 768px) {
           .container > div:nth-child(2) {
             grid-template-columns: 1fr !important;
