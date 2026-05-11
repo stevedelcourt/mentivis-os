@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import LogomarkMotion from "./logomark-motion";
 import CookieButton from "./cookie-button";
+import ProductCardGrid from "./product-card-grid";
 
 interface FooterBlockProps {
   lang: Locale;
@@ -223,6 +224,8 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           />
         </div>
       </div>
+
+      <ProductCardGrid lang={lang} />
 
       <style>{`
         .footer-link:hover { color: var(--text-primary) !important; }
