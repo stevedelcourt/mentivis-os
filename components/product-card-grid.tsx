@@ -223,18 +223,21 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
                 }}
               >
-                {/* SVG Illustration — right side */}
+                {/* SVG Illustration — right side, full height with padding */}
                 <div
                   style={{
                     position: "absolute",
                     right: 16,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: 90,
-                    height: "auto",
+                    top: 16,
+                    bottom: 16,
+                    width: "auto",
+                    maxWidth: "45%",
                     opacity: 0.35,
                     zIndex: 1,
                     pointerEvents: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <Visual color="#ffffff" />
@@ -264,7 +267,7 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                     position: "absolute",
                     bottom: 14,
                     left: 14,
-                    right: 120,
+                    right: "45%",
                     fontFamily: "var(--font-sans)",
                     fontSize: 16,
                     fontWeight: 500,
