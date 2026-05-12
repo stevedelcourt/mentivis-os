@@ -445,6 +445,15 @@
       }
     ]
   },
+  "impact": {
+    "eyebrow": "MENTIVIS OS",
+    "title": "L'expertise pedagogique avant la technologie",
+    "body": [
+      "MentivisOS n'a pas ete concu par une start-up decouvrant le secteur de la formation. Le systeme est porte par un cabinet qui concoit, structure et opere des dispositifs pedagogiques depuis plusieurs annees.",
+      "Cette experience metier change profondement la logique de l'IA utilisee dans la plateforme. Les parcours generes respectent les realites operationnelles de l'apprentissage : progression, sequencage, acquisition des competences, charge cognitive et adaptation aux contextes metiers.",
+      "L'IA ne produit pas du contenu brut. Elle s'appuie sur une architecture pedagogique pensee pour etre exploitable, coherente et deployable a grande echelle."
+    ]
+  },
   "shifts": {
     "title": "Quatre deplacements pour les directions formation",
     "shift1": {

@@ -445,6 +445,15 @@
       }
     ]
   },
+  "impact": {
+    "eyebrow": "MENTIVIS OS",
+    "title": "Pedagogical expertise before technology",
+    "body": [
+      "MentivisOS was not designed by a startup discovering the training sector. The system is driven by a firm that has been designing, structuring and operating pedagogical programs for several years.",
+      "This professional experience fundamentally changes the logic of the AI used in the platform. The generated pathways respect the operational realities of learning: progression, sequencing, skill acquisition, cognitive load and adaptation to business contexts.",
+      "The AI does not produce raw content. It relies on a pedagogical architecture designed to be usable, coherent and deployable at scale."
+    ]
+  },
   "shifts": {
     "title": "Four shifts for training departments",
     "shift1": {

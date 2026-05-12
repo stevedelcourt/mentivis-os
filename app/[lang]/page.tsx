@@ -6,7 +6,6 @@ import TransformationTimeline from "@/components/transformation-timeline";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
-import ShiftsSection from "@/components/shifts-section";
 
 import ImpactSection from "@/components/impact-section";
 import CombinationSection from "@/components/combination-section";
@@ -24,7 +23,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <SectorShowcase lang={locale} />
       <MathFeaturesSection lang={locale} />
       <TransformationTimeline lang={locale} />
-      <ShiftsSection lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />
       <FaqSection lang={locale} />
