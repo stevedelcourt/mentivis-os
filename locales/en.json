@@ -402,47 +402,44 @@
     }
   },
   "timeline": {
-    "eyebrow": "How organisations scale with MentivisOS",
-    "events": [
+    "eyebrow": "Before / After MentivisOS",
+    "dividerLeft": "Before",
+    "dividerRight": "After transformation",
+    "stages": [
       {
-        "title": "Creation of Mentivis",
-        "desc": "Founded in Marseille as a full-stack pedagogical engineering and educational strategy firm.",
-        "date": "2019"
+        "label": "Disorganised",
+        "title": "Fragmented",
+        "desc": "Teams work in silos. Knowledge is scattered across documents, emails and individuals. Training still relies on manual coordination."
       },
       {
-        "title": "First institutional contracts",
-        "desc": "Training project deployments for ministries, large corporations, and certification bodies.",
-        "date": "2020"
+        "label": "Under tension",
+        "title": "Under pressure",
+        "desc": "Growth creates complexity. Hiring slows the organisation. Managers spend more and more time aligning and training teams."
       },
       {
-        "title": "International degree model",
-        "desc": "Development of a binational curriculum: study abroad, completion, and degree in France.",
-        "date": "2021"
+        "label": "Complexified",
+        "title": "Tool stacking",
+        "desc": "The organisation accumulates platforms, LMSs, spreadsheets and disconnected workflows. Every new tool adds a layer of operational friction."
       },
       {
-        "title": "La Boite Immo Campus",
-        "desc": "Launch of a national real estate training network, combining proprietary schools and a ten-year franchise network.",
-        "date": "2022"
+        "label": "Limited",
+        "title": "Bottleneck",
+        "desc": "The organisation can no longer scale effectively. Training quality becomes uneven. Knowledge circulates too slowly to keep up with growth."
       },
       {
-        "title": "AI Institute by Mentivis",
-        "desc": "Creation of an integrated training offering for AI professions and applications.",
-        "date": "2023"
+        "label": "In transition",
+        "title": "AI experimentation",
+        "desc": "Teams begin testing AI. Initiatives appear across different departments. But usage remains fragmented and difficult to industrialise."
       },
       {
-        "title": "OPCO Atlas - Generative AI",
-        "desc": "Tender response on the impact of generative AI in vocational training and assessment.",
-        "date": "2024"
+        "label": "Unified",
+        "title": "MentivisOS integration",
+        "desc": "MentivisOS unifies training, recruitment, skills and internal systems in a single infrastructure. The organisation shifts from reactive logic to continuous adaptive capacity."
       },
       {
-        "title": "Marius AI",
-        "desc": "Launch of the applied AI division: generative market research agents and societal simulations.",
-        "date": "2024"
-      },
-      {
-        "title": "International expansion",
-        "desc": "Deployment of Mentivis pedagogical engineering on African, Middle Eastern, and European markets.",
-        "date": "2025"
+        "label": "Adaptive",
+        "title": "Autonomous learning organisation",
+        "desc": "Training becomes continuous. Knowledge circulates automatically. Teams upskill faster without proportionally increasing operational load. The organisation becomes a living system capable of evolving permanently."
       }
     ]
   },
