@@ -175,6 +175,19 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               }}
             />
 
+            {/* Vertical accent line at divider */}
+            <div
+              style={{
+                position: "absolute",
+                left: "75%",
+                top: -8,
+                bottom: -8,
+                width: 1,
+                background: "rgba(26,22,22,0.08)",
+                zIndex: 1,
+              }}
+            />
+
             {/* Tick marks */}
             <div
               ref={rowRef}
@@ -187,42 +200,57 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                 zIndex: 2,
               }}
             >
-              {stages.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => activate(i)}
-                  aria-label={`${stages[i].label}, ${stages[i].title}`}
-                  style={{
-                    width: 1,
-                    height: i === active ? 16 : 6,
-                    background: i === active ? "#1A1616" : "rgba(26,22,22,0.2)",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                    transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
-                    flexShrink: 0,
-                  }}
-                  onMouseEnter={(e) => {
-                    if (i !== active) {
-                      (e.target as HTMLElement).style.height = "12px";
-                      (e.target as HTMLElement).style.background = "rgba(26,22,22,0.5)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (i !== active) {
-                      (e.target as HTMLElement).style.height = "6px";
-                      (e.target as HTMLElement).style.background = "rgba(26,22,22,0.2)";
-                    }
-                  }}
-                />
-              ))}
+              {stages.map((_, i) => {
+                const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
+                return (
+                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+                    <span style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 10,
+                      color: i === active ? "#1A1616" : "#8A7D70",
+                      letterSpacing: "0.08em",
+                      fontWeight: i === active ? 500 : 400,
+                      transition: "color 0.3s ease",
+                      marginBottom: 6,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <button
+                      onClick={() => activate(i)}
+                      aria-label={`${stages[i].label}, ${stages[i].title}`}
+                      style={{
+                        width: 1,
+                        height: i === active ? 16 : 6,
+                        background: tickColor,
+                        border: "none",
+                        padding: 0,
+                        cursor: "pointer",
+                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
+                        flexShrink: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = "12px";
+                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = "6px";
+                          (e.target as HTMLElement).style.background = tickColor;
+                        }
+                      }}
+                    />
+                  </div>
+                );
+              })}
             </div>
 
             {/* Divider badge */}
             <div
               style={{
                 position: "absolute",
-                left: "calc(71.4% - 40px)",
+                left: "calc(75% - 40px)",
                 top: -22,
                 display: "flex",
                 alignItems: "center",
@@ -291,7 +319,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: 16,
+                    gap: 0,
                     cursor: "pointer",
                     zIndex,
                     transition: "margin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -301,97 +329,108 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                   }}
                   onClick={() => activate(i)}
                 >
-                  {/* Orb + satellites wrapper */}
+                  {/* Float wrapper */}
                   <div
+                    className={!isActive ? `float-orb float-delay-${i}` : undefined}
                     style={{
                       position: "relative",
                       width: size,
                       height: size,
-                      transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      transform: `scale(${scale})`,
+                      marginBottom: 12,
                     }}
                   >
-                    {/* Satellite 1 */}
+                    {/* Scale wrapper */}
                     <div
-                      className={`satellite sat-${i}-1`}
-                      style={{
-                        position: "absolute",
-                        width: 10,
-                        height: 10,
-                        borderRadius: "50%",
-                        background: config.satColors[0],
-                        boxShadow: `0 0 8px ${config.satColors[0]}80`,
-                        top: "50%",
-                        left: "50%",
-                        marginTop: -5,
-                        marginLeft: -5,
-                        zIndex: 2,
-                      }}
-                    />
-                    {/* Satellite 2 */}
-                    <div
-                      className={`satellite sat-${i}-2`}
-                      style={{
-                        position: "absolute",
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        background: config.satColors[1] || config.satColors[0],
-                        boxShadow: `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
-                        top: "50%",
-                        left: "50%",
-                        marginTop: -4,
-                        marginLeft: -4,
-                        zIndex: 2,
-                      }}
-                    />
-
-                    {/* Main orb */}
-                    <div
-                      className={`atmosphere-orb orb-${i + 1}`}
                       style={{
                         position: "absolute",
                         inset: 0,
-                        borderRadius: "50%",
-                        overflow: "hidden",
-                        background: config.base,
-                        boxShadow: isActive
-                          ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px ${config.blobs[0].c}60, 0 0 60px ${config.blobs[1].c}30`
-                          : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
-                        transition: "box-shadow 0.4s ease",
-                        zIndex: 3,
+                        transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                        transform: `scale(${scale})`,
+                        transformOrigin: "center top",
                       }}
                     >
-                      {config.blobs.map((blob, bi) => (
-                        <div
-                          key={bi}
-                          className={`orb-blob blob-${i + 1}-${bi + 1}`}
-                          style={{
-                            position: "absolute",
-                            width: `${blob.s}%`,
-                            height: `${blob.s}%`,
-                            borderRadius: "50%",
-                            background: blob.c,
-                            filter: "blur(20px)",
-                            top: `${blob.y + 50}%`,
-                            left: `${blob.x + 50}%`,
-                            transform: "translate(-50%, -50%)",
-                          }}
-                        />
-                      ))}
-                      {/* Noise */}
+                      {/* Satellite 1 */}
                       <div
+                        className={`satellite sat-${i}-1`}
+                        style={{
+                          position: "absolute",
+                          width: 10,
+                          height: 10,
+                          borderRadius: "50%",
+                          background: config.satColors[0],
+                          boxShadow: `0 0 8px ${config.satColors[0]}80`,
+                          top: "50%",
+                          left: "50%",
+                          marginTop: -5,
+                          marginLeft: -5,
+                          zIndex: 2,
+                        }}
+                      />
+                      {/* Satellite 2 */}
+                      <div
+                        className={`satellite sat-${i}-2`}
+                        style={{
+                          position: "absolute",
+                          width: 8,
+                          height: 8,
+                          borderRadius: "50%",
+                          background: config.satColors[1] || config.satColors[0],
+                          boxShadow: `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
+                          top: "50%",
+                          left: "50%",
+                          marginTop: -4,
+                          marginLeft: -4,
+                          zIndex: 2,
+                        }}
+                      />
+
+                      {/* Main orb */}
+                      <div
+                        className={`atmosphere-orb orb-${i + 1}`}
                         style={{
                           position: "absolute",
                           inset: 0,
                           borderRadius: "50%",
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                          backgroundSize: "60px 60px",
-                          opacity: 0.15,
-                          mixBlendMode: "overlay",
-                          pointerEvents: "none",
+                          overflow: "hidden",
+                          background: config.base,
+                          boxShadow: isActive
+                            ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px ${config.blobs[0].c}60, 0 0 60px ${config.blobs[1].c}30`
+                            : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
+                          transition: "box-shadow 0.4s ease",
+                          zIndex: 3,
                         }}
-                      />
+                      >
+                        {config.blobs.map((blob, bi) => (
+                          <div
+                            key={bi}
+                            className={`orb-blob blob-${i + 1}-${bi + 1}`}
+                            style={{
+                              position: "absolute",
+                              width: `${blob.s}%`,
+                              height: `${blob.s}%`,
+                              borderRadius: "50%",
+                              background: blob.c,
+                              filter: "blur(20px)",
+                              top: `${blob.y + 50}%`,
+                              left: `${blob.x + 50}%`,
+                              transform: "translate(-50%, -50%)",
+                            }}
+                          />
+                        ))}
+                        {/* Noise */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            borderRadius: "50%",
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                            backgroundSize: "60px 60px",
+                            opacity: 0.15,
+                            mixBlendMode: "overlay",
+                            pointerEvents: "none",
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -399,8 +438,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                   <span
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: 12,
-                      fontWeight: isActive ? 500 : 400,
+                      fontSize: 15,
+                      fontWeight: isActive ? 600 : 400,
                       color: isActive ? "#1A1616" : "#8A7D70",
                       letterSpacing: "0.02em",
                       textAlign: "center",
@@ -425,6 +464,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               transition: "opacity 0.3s ease, transform 0.3s ease",
             }}
           >
+            {/* Delimiter */}
+            <div style={{
+              width: 100,
+              height: 1,
+              background: "rgba(26,22,22,0.1)",
+              marginBottom: 24,
+            }} />
             <h3
               style={{
                 fontFamily: "var(--font-sans)",
@@ -455,6 +501,22 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
       </div>
 
       <style>{`
+        /* --- Orb float animation --- */
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .float-orb {
+          animation: float 5s ease-in-out infinite;
+        }
+        .float-delay-0 { animation-delay: 0s; }
+        .float-delay-1 { animation-delay: 0.7s; }
+        .float-delay-2 { animation-delay: 1.4s; }
+        .float-delay-3 { animation-delay: 2.1s; }
+        .float-delay-4 { animation-delay: 2.8s; }
+        .float-delay-5 { animation-delay: 3.5s; }
+        .float-delay-6 { animation-delay: 4.2s; }
+
         /* --- Blob drift animations --- */
         @keyframes drift1-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-8px)} 33%{transform:translate(-50%,-50%) translate(8px,4px)} 66%{transform:translate(-50%,-50%) translate(-4px,12px)} }
         @keyframes drift1-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,12px)} 50%{transform:translate(-50%,-50%) translate(-12px,-8px)} }
