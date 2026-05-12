@@ -518,15 +518,15 @@
     "cards": {
       "saddle": {
         "title": "Precision",
-        "description": "Nous ne travaillons pas a l'intuition. Chaque intervention commence par une phase de diagnostic quantifiee : analyse des besoins reels, mesure des ecarts, evaluation de la capacite organisationnelle a absorber le changement. Ce que vous recevez n'est pas un cahier des charges. C'est une image fidele de votre situation, traduite en plan d'action."
+        "description": "Chaque intervention commence par un diagnostic quantifie et une analyse reelle des besoins. Nous transformons cette lecture terrain en plan d'action operationnel."
       },
       "hilbert": {
         "title": "Structure",
-        "description": "L'ingenierie pedagogique n'est pas un supplement d'ame. C'est le fondement de chaque dispositif que nous concevons. Objectifs operationnels definis avant le contenu, sequencage des acquisitions valide par les experts metiers, architecture modulaire adaptable a chaque contexte d'usage. Nous construisons des systemes, pas des catalogues."
+        "description": "Nous concevons des systemes pedagogiques structures, modulaires et alignes sur les usages metiers. Pas des catalogues de formation."
       },
       "mobius": {
         "title": "Continuite",
-        "description": "Les organisations qui nous font confiance ne cherchent pas une prestation ponctuelle. Elles cherchent un operateur qui reste engage apres la livraison. Chez Mentivis, le deploiement n'est pas une fin. C'est le debut de la phase de mesure, d'ajustement et d'optimisation qui transforme un projet en capacite durable."
+        "description": "Le deploiement n'est jamais une finalite. Nous mesurons, ajustons et optimisons pour transformer chaque projet en capacite durable."
       }
     }
   },
