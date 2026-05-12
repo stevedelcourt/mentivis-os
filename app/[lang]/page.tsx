@@ -1,6 +1,5 @@
 import { Locale } from "@/lib/i18n";
 import HeroUnit from "@/components/hero-unit";
-import InteractiveExplainer from "@/components/interactive-explainer";
 import SectorShowcase from "@/components/sector-showcase";
 import MathFeaturesSection from "@/components/math-features-section";
 import CTABlock from "@/components/cta-block";
@@ -23,7 +22,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <ProblemSection lang={locale} />
       <SectorShowcase lang={locale} />
       <MathFeaturesSection lang={locale} />
-      <InteractiveExplainer lang={locale} />
       <ShiftsSection lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />
