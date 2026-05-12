@@ -300,7 +300,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               alignItems: "center",
               marginBottom: 56,
               position: "relative",
-              minHeight: 260,
+              minHeight: 320,
               padding: "20px 0",
             }}
           >
@@ -331,13 +331,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                 >
                   {/* Float wrapper */}
                   <div
-                    className={!isActive ? `float-orb float-delay-${i}` : undefined}
+                    className={`float-orb float-delay-${i}`}
                     style={{
                       position: "relative",
                       width: size,
-                      height: isActive ? Math.round(size * 1.35) : size,
-                      marginBottom: 12,
-                      transition: "height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                      height: size,
+                      marginBottom: isActive ? Math.round(size * 0.35) + 20 : 20,
+                      transition: "margin-bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     }}
                   >
                     {/* Scale wrapper */}
