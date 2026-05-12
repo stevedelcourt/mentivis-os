@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
-import TesseractCanvas from "@/components/tesseract-canvas";
+import TesseractColorCanvas from "@/components/tesseract-color-canvas";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 
 function useVisible(threshold = 0.1) {
@@ -217,7 +217,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
                 transition: "opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s",
               }}
             >
-              <TesseractCanvas />
+              <TesseractColorCanvas />
             </div>
           </div>
         </div>
@@ -532,7 +532,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
             min-height: 300px !important;
           }
           .ambassadors-tesseract-wrap {
-            animation: none !important;
+            display: none !important;
           }
           .ambassadors-shimmer {
             background: none !important;

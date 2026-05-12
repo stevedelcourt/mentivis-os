@@ -22,8 +22,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <HeroUnit lang={locale} />
       <ProblemSection lang={locale} />
       <SectorShowcase lang={locale} />
-      <InteractiveExplainer lang={locale} />
       <MathFeaturesSection lang={locale} />
+      <InteractiveExplainer lang={locale} />
       <ShiftsSection lang={locale} />
       <NotLmsSection lang={locale} />
       <ImpactSection lang={locale} />

@@ -15,19 +15,19 @@ interface ProductCardGridProps {
 
 const CARDS: ProductCard[] = [
   {
-    tag: "MENTIVIS OS",
+    tag: "MentivisOS",
     title: "Intelligence de formation",
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
     href: "/",
   },
   {
-    tag: "TALENT OS",
+    tag: "TalentOS",
     title: "Talent Pipeline IA",
     gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
     href: "/",
   },
   {
-    tag: "MENTIVIS API",
+    tag: "Mentivis API",
     title: "Connecté à votre écosystème",
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
     href: "/",
@@ -68,23 +68,54 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
                 }}
               >
-                {/* Tag */}
-                <span
+                {/* Glass tag */}
+                <div
                   style={{
                     position: "absolute",
                     top: 14,
                     left: 14,
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    fontWeight: 400,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "#ffffff",
                     zIndex: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    background: "rgba(255,255,255,0.12)",
+                    backdropFilter: "blur(6px)",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    borderRadius: 10,
+                    padding: "6px 12px 6px 8px",
                   }}
                 >
-                  {card.tag}
-                </span>
+                  <svg width="18" height="18" viewBox="0 0 130 130" fill="none">
+                    <rect x="20" y="20" width="10" height="10" fill="white"/>
+                    <rect x="100" y="20" width="10" height="10" fill="white"/>
+                    <rect x="20" y="40" width="10" height="10" fill="white"/>
+                    <rect x="40" y="40" width="10" height="10" fill="white"/>
+                    <rect x="80" y="40" width="10" height="10" fill="white"/>
+                    <rect x="100" y="40" width="10" height="10" fill="white"/>
+                    <rect x="20" y="60" width="10" height="10" fill="white"/>
+                    <rect x="40" y="60" width="10" height="10" fill="white"/>
+                    <rect x="60" y="60" width="10" height="10" fill="white"/>
+                    <rect x="80" y="60" width="10" height="10" fill="white"/>
+                    <rect x="100" y="60" width="10" height="10" fill="white"/>
+                    <rect x="20" y="80" width="10" height="10" fill="white"/>
+                    <rect x="40" y="80" width="10" height="10" fill="white"/>
+                    <rect x="80" y="80" width="10" height="10" fill="white"/>
+                    <rect x="100" y="80" width="10" height="10" fill="white"/>
+                    <rect x="20" y="100" width="10" height="10" fill="white"/>
+                    <rect x="100" y="100" width="10" height="10" fill="white"/>
+                  </svg>
+                  <span
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      letterSpacing: "0.04em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {card.tag}
+                  </span>
+                </div>
 
                 {/* Title */}
                 <span
