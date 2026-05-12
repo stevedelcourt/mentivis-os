@@ -1,6 +1,7 @@
 import { Locale } from "@/lib/i18n";
 import HeroUnit from "@/components/hero-unit";
 import MathFeaturesSection from "@/components/math-features-section";
+import MentivisTimeline from "@/components/mentivis-timeline";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
@@ -20,6 +21,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <HeroUnit lang={locale} />
       <ProblemSection lang={locale} />
       <MathFeaturesSection lang={locale} />
+      <MentivisTimeline lang={locale} />
       <ShiftsSection lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />

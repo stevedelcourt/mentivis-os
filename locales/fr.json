@@ -401,6 +401,51 @@
       "body": "ESN et cabinets de conseil en gestion de competences. La prescription devient operationnelle. L'ecart se chiffre. Le parcours se genere."
     }
   },
+  "timeline": {
+    "eyebrow": "Comment les organisations evoluent avec MentivisOS",
+    "events": [
+      {
+        "title": "Creation de Mentivis",
+        "desc": "Fondation a Marseille d'un cabinet full-stack d'ingenierie pedagogique et de strategie educative.",
+        "date": "2019"
+      },
+      {
+        "title": "Premiers contrats institutionnels",
+        "desc": "Deploiement de projets de formation pour des ministeres, grandes entreprises et organismes certificateurs.",
+        "date": "2020"
+      },
+      {
+        "title": "Modele diplome international",
+        "desc": "Developpement du cursus binational : parcours a l'etranger, finalisation et diplome en France.",
+        "date": "2021"
+      },
+      {
+        "title": "La Boite Immo Campus",
+        "desc": "Lancement du reseau national de formation immobiliere, combinant ecoles propres et reseau de franchises sur dix ans.",
+        "date": "2022"
+      },
+      {
+        "title": "Institut de l'IA by Mentivis",
+        "desc": "Creation d'une offre integree de formation aux metiers et usages de l'intelligence artificielle.",
+        "date": "2023"
+      },
+      {
+        "title": "OPCO Atlas - IA Generative",
+        "desc": "Reponse a appel d'offre sur l'impact de l'IA generative dans la formation professionnelle et l'evaluation.",
+        "date": "2024"
+      },
+      {
+        "title": "Marius IA",
+        "desc": "Lancement du pole IA applique : agents generatifs de recherche de marche et simulations societales.",
+        "date": "2024"
+      },
+      {
+        "title": "Expansion internationale",
+        "desc": "Deploiement de l'ingenierie pedagogique Mentivis sur les marches africains, moyen-orientaux et europeens.",
+        "date": "2025"
+      }
+    ]
+  },
   "shifts": {
     "title": "Quatre deplacements pour les directions formation",
     "shift1": {

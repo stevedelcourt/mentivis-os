@@ -401,6 +401,51 @@
       "body": "ESNs and skills consulting firms. Prescription becomes operational. The gap is quantified. The path is generated."
     }
   },
+  "timeline": {
+    "eyebrow": "How organisations scale with MentivisOS",
+    "events": [
+      {
+        "title": "Creation of Mentivis",
+        "desc": "Founded in Marseille as a full-stack pedagogical engineering and educational strategy firm.",
+        "date": "2019"
+      },
+      {
+        "title": "First institutional contracts",
+        "desc": "Training project deployments for ministries, large corporations, and certification bodies.",
+        "date": "2020"
+      },
+      {
+        "title": "International degree model",
+        "desc": "Development of a binational curriculum: study abroad, completion, and degree in France.",
+        "date": "2021"
+      },
+      {
+        "title": "La Boite Immo Campus",
+        "desc": "Launch of a national real estate training network, combining proprietary schools and a ten-year franchise network.",
+        "date": "2022"
+      },
+      {
+        "title": "AI Institute by Mentivis",
+        "desc": "Creation of an integrated training offering for AI professions and applications.",
+        "date": "2023"
+      },
+      {
+        "title": "OPCO Atlas - Generative AI",
+        "desc": "Tender response on the impact of generative AI in vocational training and assessment.",
+        "date": "2024"
+      },
+      {
+        "title": "Marius AI",
+        "desc": "Launch of the applied AI division: generative market research agents and societal simulations.",
+        "date": "2024"
+      },
+      {
+        "title": "International expansion",
+        "desc": "Deployment of Mentivis pedagogical engineering on African, Middle Eastern, and European markets.",
+        "date": "2025"
+      }
+    ]
+  },
   "shifts": {
     "title": "Four shifts for training departments",
     "shift1": {
