@@ -240,6 +240,7 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
                 maxWidth: 680,
                 lineHeight: 1.35,
                 marginBottom: 20,
+                whiteSpace: "pre-line",
               }}
             >
               {mt.title}
@@ -268,12 +269,11 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
             {cards.map((card, i) => {
               const Visual = card.Visual;
               return (
-                <div
+                  <div
                   key={i}
                   style={{
                     background: "#f5f5f5",
                     borderRadius: 22,
-                    overflow: "hidden",
                     padding: "32px 28px 28px",
                     display: "flex",
                     flexDirection: "column",
@@ -292,10 +292,10 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
                       alignItems: "center",
                       justifyContent: "center",
                       padding: "8px 0 24px",
-                      minHeight: 160,
+                      minHeight: 220,
                     }}
                   >
-                    <div style={{ width: "100%", maxWidth: 300 }}>
+                    <div style={{ width: "100%" }}>
                       <Visual />
                     </div>
                   </div>

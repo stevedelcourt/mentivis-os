@@ -13,34 +13,42 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
     return (
       <section
         style={{
-          background: "#ffffff",
+          background: "#f5f5f5",
           padding: "var(--section-gap) 0",
         }}
       >
         <div className="container">
-          <h2
-            className="t-display"
+          <div
             style={{
-              fontSize: "clamp(28px, 4vw, 44px)",
-              whiteSpace: "pre-line",
-              marginBottom: 24,
+              background: "#ffffff",
+              borderRadius: 24,
+              padding: "48px 44px",
             }}
           >
-            {t.finalCta.headline}
-          </h2>
-          <p className="t-lead" style={{ marginBottom: 40 }}>
-            {t.finalCta.subline}
-          </p>
-          <Link
-            href={`/${lang}/demo`}
-            className="btn-pill btn-warm"
-            style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-          >
-            {t.finalCta.button}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-              <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
+            <h2
+              className="t-display"
+              style={{
+                fontSize: "clamp(28px, 4vw, 44px)",
+                whiteSpace: "pre-line",
+                marginBottom: 24,
+              }}
+            >
+              {t.finalCta.headline}
+            </h2>
+            <p className="t-lead" style={{ marginBottom: 40 }}>
+              {t.finalCta.subline}
+            </p>
+            <Link
+              href={`/${lang}/demo`}
+              className="btn-pill btn-warm"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              {t.finalCta.button}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     );

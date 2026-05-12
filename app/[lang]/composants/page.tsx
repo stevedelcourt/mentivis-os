@@ -4,6 +4,7 @@ import { ChartMockup } from "@/components/chart-mockup";
 import { ModuleCard } from "@/components/module-card";
 import TopoLines from "@/components/topo-lines";
 import FaqSection from "@/components/faq-section";
+import InteractiveExplainer from "@/components/interactive-explainer";
 
 export const metadata = {
   title: "Composants — MentivisOS",
@@ -107,6 +108,20 @@ const COMPONENTS: ComponentDef[] = [
         <div style={{ width: 40, height: 40, borderRadius: "50%", background: "radial-gradient(circle,#7A6CC4,#DCC8E8)", opacity: 0.6, transform: "scale(0.7)" }} />
         <div style={{ width: 56, height: 56, borderRadius: "50%", background: "radial-gradient(circle,#FF6878,#FFC8B8)", opacity: 1 }} />
         <div style={{ width: 40, height: 40, borderRadius: "50%", background: "radial-gradient(circle,#7090A8,#B8C8B0)", opacity: 0.6, transform: "scale(0.7)" }} />
+      </div>
+    ),
+  },
+  {
+    name: "InteractiveExplainer",
+    file: "interactive-explainer.tsx",
+    desc: "Vitrine produit interactive avec orbs, tabs et audio",
+    category: "Interactive",
+    color: "#7A6CC4",
+    preview: (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: 16 }}>
+        <div style={{ width: 48, height: 48, borderRadius: 12, background: "radial-gradient(circle,#7A6CC4,#DCC8E8)" }} />
+        <div style={{ width: 48, height: 48, borderRadius: 12, background: "radial-gradient(circle,#F0C25C,#F4D8B0)" }} />
+        <div style={{ width: 48, height: 48, borderRadius: 12, background: "radial-gradient(circle,#FF6878,#FFC8B8)" }} />
       </div>
     ),
   },
