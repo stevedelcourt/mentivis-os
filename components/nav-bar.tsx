@@ -377,7 +377,6 @@ export default function NavBar({ lang }: NavBarProps) {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              <div className="burger-ring" />
               <svg width="32" height="32" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
                 <line className="burger-line burger-top" x1="18" y1="34" x2="82" y2="34" />
                 <line className="burger-line burger-mid" x1="18" y1="50" x2="82" y2="50" />
@@ -464,7 +463,7 @@ export default function NavBar({ lang }: NavBarProps) {
               boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
             }}
           >
-            {t.nav.login}
+            Login
           </Link>
         </div>
       </div>
@@ -533,20 +532,6 @@ export default function NavBar({ lang }: NavBarProps) {
         }
         .is-open .burger-bot {
           transform: translateY(-16px) rotate(-45deg);
-        }
-
-        .burger-ring {
-          position: absolute;
-          inset: -4px;
-          border-radius: 50%;
-          border: 1px solid rgba(0,0,0,0.06);
-          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                      border-color 0.3s ease;
-          pointer-events: none;
-        }
-        .navbar-burger:hover .burger-ring {
-          transform: scale(1.15);
-          border-color: rgba(0,0,0,0.12);
         }
 
         @keyframes fadeIn {
