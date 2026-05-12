@@ -300,7 +300,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               alignItems: "center",
               marginBottom: 56,
               position: "relative",
-              minHeight: 220,
+              minHeight: 260,
               padding: "20px 0",
             }}
           >
@@ -335,8 +335,9 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                     style={{
                       position: "relative",
                       width: size,
-                      height: size,
+                      height: isActive ? Math.round(size * 1.35) : size,
                       marginBottom: 12,
+                      transition: "height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     }}
                   >
                     {/* Scale wrapper */}
