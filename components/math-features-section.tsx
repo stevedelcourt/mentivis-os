@@ -235,10 +235,9 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
             <h2
               className="t-display"
               style={{
-                fontSize: "clamp(28px, 4vw, 44px)",
+                fontSize: "clamp(32px, 5vw, 52px)",
                 fontWeight: 300,
-                maxWidth: 680,
-                lineHeight: 1.35,
+                lineHeight: 1.2,
                 marginBottom: 20,
                 whiteSpace: "pre-line",
               }}
