@@ -96,8 +96,10 @@
     }
   },
   "problem": {
-    "statement": "Les systèmes autonomes de montée en compétences diffusent du contenu.\nPersonne ne sait si ca comble le bon ecart.\nPas de formation standard.\nUn diagnostic exact, calibre sur votre ecart reel, traite en direct.",
-    "counterpoint": "MentivisOS produit le diagnostic exact, le programme correspondant, et l'accompagnement pour aller au bout."
+    "title": "L'infrastructure que le marché attendait.",
+    "subheader": "MentivisOS réunit ce qu'aucun LMS, aucun outil IA et aucun cabinet conseil ne peut offrir seul : la capacité de construire, déployer et opérer la transformation des compétences d'un bout à l'autre.",
+    "body": "Chaque profil génère son propre parcours. Chaque étape est réévaluée. Chaque compétence est mesurée en tant que telle, pas comme proxy d'une heure passée en ligne. Et avant tout déploiement, le système produit une analyse de faisabilité et un scoring de risque, parce que la vraie question n'est pas \"le collaborateur a-t-il terminé le module\" mais \"l'organisation est-elle réellement en capacité de transformer ce qu'elle a appris\".",
+    "tagline": "C'est ce que désigne le positionnement : le système d'exploitation IA pour la transformation des compétences."
   },
   "steps": {
     "title": "Le moteur en trois etapes",

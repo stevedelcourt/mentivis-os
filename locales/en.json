@@ -96,8 +96,10 @@
     }
   },
   "problem": {
-    "statement": "Legacy systems distribute content.\nNo one knows if it fills the right gap.\nNo standard training.\nAn exact diagnostic, calibrated to your real gap, handled live.",
-    "counterpoint": "MentivisOS produces the exact diagnostic, the corresponding program, and the coaching to see it through."
+    "title": "The infrastructure the market was waiting for.",
+    "subheader": "MentivisOS brings together what no LMS, no AI tool, and no consulting firm can offer alone: the ability to build, deploy, and operate skills transformation end to end.",
+    "body": "Each profile generates its own path. Each step is reassessed. Each skill is measured as such, not as a proxy for hours spent online. And before any deployment, the system produces a feasibility analysis and risk scoring, because the real question isn't \"did the employee complete the module\" but \"is the organization truly capable of transforming what was learned\".",
+    "tagline": "This is what the positioning means: the AI operating system for skills transformation."
   },
   "steps": {
     "title": "The engine in three steps",

@@ -20,9 +20,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <HeroUnit lang={locale} />
+      <ProblemSection lang={locale} />
       <InteractiveExplainer lang={locale} />
       <MathFeaturesSection lang={locale} />
-      <ProblemSection lang={locale} />
       <SectorShowcase lang={locale} />
       <ShiftsSection lang={locale} />
       <NotLmsSection lang={locale} />
