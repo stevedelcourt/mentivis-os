@@ -365,38 +365,23 @@ export default function NavBar({ lang }: NavBarProps) {
             </Link>
 
             <button
-              className="navbar-burger"
+              className={`navbar-burger${mobileOpen ? " is-open" : ""}`}
               style={{
                 padding: 4,
                 background: "none",
                 border: "none",
                 color: "var(--text-primary)",
                 cursor: "pointer",
+                position: "relative",
               }}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <line x1="4" y1="10" x2="28" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                  style={{
-                    transition: "all 0.3s ease",
-                    transform: mobileOpen ? "translateY(6px) rotate(45deg)" : "none",
-                    transformOrigin: "center",
-                  }}
-                />
-                <line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                  style={{
-                    transition: "all 0.3s ease",
-                    opacity: mobileOpen ? 0 : 1,
-                  }}
-                />
-                <line x1="4" y1="22" x2="28" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                  style={{
-                    transition: "all 0.3s ease",
-                    transform: mobileOpen ? "translateY(-6px) rotate(-45deg)" : "none",
-                    transformOrigin: "center",
-                  }}
-                />
+              <div className="burger-ring" />
+              <svg width="32" height="32" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
+                <line className="burger-line burger-top" x1="18" y1="34" x2="82" y2="34" />
+                <line className="burger-line burger-mid" x1="18" y1="50" x2="82" y2="50" />
+                <line className="burger-line burger-bot" x1="18" y1="66" x2="82" y2="66" />
               </svg>
             </button>
           </div>
@@ -518,6 +503,50 @@ export default function NavBar({ lang }: NavBarProps) {
 
         .navbar-burger {
           display: none;
+          position: relative;
+        }
+
+        .burger-line {
+          fill: none;
+          stroke: var(--text-primary);
+          stroke-width: 6;
+          stroke-linecap: round;
+          transform-box: fill-box;
+          transform-origin: center;
+          transition: stroke 0.3s ease;
+        }
+        .burger-top,
+        .burger-bot {
+          transition: transform 0.52s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.3s ease;
+        }
+        .burger-mid {
+          transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+                      opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+                      stroke 0.3s ease;
+        }
+        .is-open .burger-top {
+          transform: translateY(16px) rotate(45deg);
+        }
+        .is-open .burger-mid {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        .is-open .burger-bot {
+          transform: translateY(-16px) rotate(-45deg);
+        }
+
+        .burger-ring {
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          border: 1px solid rgba(0,0,0,0.06);
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                      border-color 0.3s ease;
+          pointer-events: none;
+        }
+        .navbar-burger:hover .burger-ring {
+          transform: scale(1.15);
+          border-color: rgba(0,0,0,0.12);
         }
 
         @keyframes fadeIn {
