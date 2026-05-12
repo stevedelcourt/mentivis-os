@@ -7,175 +7,310 @@ interface TransformationTimelineProps {
   lang: Locale;
 }
 
-const ORB_SIZES = [64, 80, 96, 112, 104, 136, 152];
+const ORB_SIZES = [72, 88, 104, 120, 112, 144, 160];
 
 const ORB_CONFIGS = [
-  { base: "rgba(30,30,36,0.55)", blobs: [{c:"rgba(60,80,100,0.7)",x:-25,y:-20,s:110},{c:"rgba(50,40,40,0.6)",x:20,y:25,s:90},{c:"rgba(40,60,50,0.55)",x:0,y:-15,s:80}], satColors:["#6a7a8a","#5a6a7a"] },
-  { base: "rgba(42,31,26,0.55)", blobs: [{c:"rgba(180,80,40,0.7)",x:-20,y:-25,s:100},{c:"rgba(140,70,30,0.6)",x:25,y:10,s:95},{c:"rgba(200,120,60,0.5)",x:-10,y:20,s:85}], satColors:["#c4542a","#d48440"] },
-  { base: "rgba(42,32,24,0.55)", blobs: [{c:"rgba(180,80,40,0.65)",x:-25,y:-15,s:105},{c:"rgba(80,110,50,0.6)",x:20,y:25,s:90},{c:"rgba(110,80,130,0.55)",x:10,y:-25,s:95}], satColors:["#c4542a","#7a5a8a"] },
-  { base: "rgba(42,24,24,0.55)", blobs: [{c:"rgba(180,40,40,0.7)",x:-20,y:-20,s:115},{c:"rgba(120,30,30,0.6)",x:25,y:15,s:95},{c:"rgba(80,20,20,0.55)",x:0,y:25,s:85}], satColors:["#c43030","#8a2020"] },
-  { base: "rgba(30,26,46,0.55)", blobs: [{c:"rgba(200,130,30,0.7)",x:-25,y:-15,s:105},{c:"rgba(20,180,160,0.6)",x:20,y:25,s:90},{c:"rgba(180,120,60,0.55)",x:-10,y:-25,s:95}], satColors:["#d48820","#14b8a6"] },
-  { base: "rgba(26,26,62,0.55)", blobs: [{c:"rgba(20,180,160,0.7)",x:-20,y:-20,s:100},{c:"rgba(240,110,180,0.6)",x:25,y:15,s:95},{c:"rgba(70,100,200,0.55)",x:-5,y:25,s:90}], satColors:["#14b8a6","#f472b6"] },
-  { base: "rgba(26,26,78,0.55)", blobs: [{c:"rgba(20,180,160,0.75)",x:-25,y:-20,s:110},{c:"rgba(240,110,180,0.65)",x:20,y:25,s:100},{c:"rgba(200,130,30,0.6)",x:0,y:-20,s:95}], satColors:["#14b8a6","#f472b6","#d48820"] },
+  {
+    base: "#080810",
+    blobs: [
+      { c: "hsla(210,70%,55%,0.92)", x: -20, y: -15, s: 110 },
+      { c: "hsla(200,60%,40%,0.85)", x: 15, y: 20, s: 95 },
+      { c: "hsla(230,50%,30%,0.75)", x: 0, y: -20, s: 85 },
+    ],
+    satColors: ["#6ab0e0", "#4a90c0"],
+  },
+  {
+    base: "#120804",
+    blobs: [
+      { c: "hsla(20,90%,60%,0.92)", x: -15, y: -20, s: 105 },
+      { c: "hsla(15,85%,50%,0.88)", x: 20, y: 10, s: 100 },
+      { c: "hsla(25,80%,40%,0.78)", x: -10, y: 20, s: 90 },
+    ],
+    satColors: ["#f07030", "#e8a040"],
+  },
+  {
+    base: "#100a04",
+    blobs: [
+      { c: "hsla(20,90%,55%,0.9)", x: -20, y: -10, s: 110 },
+      { c: "hsla(100,60%,45%,0.85)", x: 15, y: 20, s: 95 },
+      { c: "hsla(270,50%,55%,0.8)", x: 10, y: -20, s: 100 },
+    ],
+    satColors: ["#f07030", "#a070d0"],
+  },
+  {
+    base: "#100404",
+    blobs: [
+      { c: "hsla(0,90%,55%,0.92)", x: -15, y: -15, s: 115 },
+      { c: "hsla(350,80%,45%,0.88)", x: 20, y: 15, s: 100 },
+      { c: "hsla(340,70%,35%,0.78)", x: 0, y: 25, s: 90 },
+    ],
+    satColors: ["#f04040", "#d02050"],
+  },
+  {
+    base: "#080410",
+    blobs: [
+      { c: "hsla(35,95%,60%,0.92)", x: -20, y: -15, s: 110 },
+      { c: "hsla(170,85%,50%,0.88)", x: 15, y: 20, s: 95 },
+      { c: "hsla(30,80%,45%,0.82)", x: -5, y: -25, s: 100 },
+    ],
+    satColors: ["#f0a030", "#20d0b0"],
+  },
+  {
+    base: "#040414",
+    blobs: [
+      { c: "hsla(170,90%,55%,0.95)", x: -15, y: -15, s: 105 },
+      { c: "hsla(320,85%,65%,0.9)", x: 20, y: 10, s: 100 },
+      { c: "hsla(230,75%,55%,0.85)", x: -5, y: 25, s: 95 },
+    ],
+    satColors: ["#20e0c0", "#f080d0"],
+  },
+  {
+    base: "#040420",
+    blobs: [
+      { c: "hsla(175,95%,60%,0.96)", x: -20, y: -15, s: 115 },
+      { c: "hsla(330,90%,70%,0.92)", x: 15, y: 20, s: 105 },
+      { c: "hsla(45,90%,55%,0.88)", x: 0, y: -25, s: 100 },
+    ],
+    satColors: ["#30f0d0", "#f090e0", "#f0c040"],
+  },
 ];
 
 export default function TransformationTimeline({ lang }: TransformationTimelineProps) {
   const t = getT(lang);
   const stages = t.timeline.stages;
   const [active, setActive] = useState<number>(0);
-  const [hovered, setHovered] = useState<number | null>(null);
   const [fade, setFade] = useState<boolean>(true);
   const rowRef = useRef<HTMLDivElement>(null);
-  const orbRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [meshLines, setMeshLines] = useState<Array<{x1:number;y1:number;x2:number;y2:number}>>([]);
 
   const activate = (i: number) => {
     if (i === active) return;
     setFade(false);
-    setTimeout(() => { setActive(i); setFade(true); }, 200);
-  };
-
-  const calcMesh = useCallback((i: number) => {
-    const src = orbRefs.current[i];
-    const row = rowRef.current;
-    if (!src || !row) return;
-    const sR = src.getBoundingClientRect();
-    const rR = row.getBoundingClientRect();
-    const lines: Array<{x1:number;y1:number;x2:number;y2:number}> = [];
-    for (let j = 0; j < 7; j++) {
-      if (j === i) continue;
-      const tgt = orbRefs.current[j];
-      if (!tgt) continue;
-      const tR = tgt.getBoundingClientRect();
-      lines.push({
-        x1: sR.left + sR.width/2 - rR.left,
-        y1: sR.top + sR.height/2 - rR.top,
-        x2: tR.left + tR.width/2 - rR.left,
-        y2: tR.top + tR.height/2 - rR.top,
-      });
-    }
-    setMeshLines(lines);
-  }, []);
-
-  const handleEnter = (i: number) => {
-    setHovered(i);
-    calcMesh(i);
-  };
-  const handleLeave = () => {
-    setHovered(null);
-    setMeshLines([]);
+    setTimeout(() => {
+      setActive(i);
+      setFade(true);
+    }, 200);
   };
 
   const activeStage = stages[active];
+
+  // Calculate dynamic spacing based on active orb
+  const getOrbMargin = (i: number) => {
+    if (active === i) return 0;
+    // Neighbors of active get extra space
+    if (Math.abs(active - i) === 1) return 12;
+    return 0;
+  };
 
   return (
     <section style={{ background: "#ffffff", padding: "var(--section-gap) 0" }}>
       <div className="container">
         {/* Header */}
         <div style={{ maxWidth: 640, marginBottom: 48 }}>
-          <p className="t-caption" style={{ fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16 }}>
+          <p
+            className="t-caption"
+            style={{
+              fontWeight: 500,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--text-tertiary)",
+              marginBottom: 16,
+            }}
+          >
             {t.timeline.eyebrow}
           </p>
-          <h2 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 300, lineHeight: 1.2, marginBottom: 20 }}>
+          <h2
+            className="t-display"
+            style={{
+              fontSize: "clamp(28px, 4vw, 44px)",
+              fontWeight: 300,
+              lineHeight: 1.2,
+              marginBottom: 20,
+            }}
+          >
             {t.timeline.title}
           </h2>
-          <p style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--text-secondary)" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 16,
+              lineHeight: 1.7,
+              color: "var(--text-secondary)",
+            }}
+          >
             {t.timeline.description}
           </p>
         </div>
 
         {/* Card */}
-        <div style={{ background: "#f5f3f1", borderRadius: 24, padding: "clamp(32px, 4vw, 48px) clamp(20px, 3vw, 40px)", position: "relative", boxShadow: "inset 0 0 0 0.5px rgba(26,22,22,0.1)" }}>
+        <div
+          style={{
+            background: "#f5f3f1",
+            borderRadius: 24,
+            padding: "clamp(40px, 5vw, 64px) clamp(24px, 4vw, 48px)",
+            position: "relative",
+            boxShadow: "inset 0 0 0 0.5px rgba(26,22,22,0.1)",
+            overflow: "hidden",
+          }}
+        >
+          {/* Measurement bar with divider badge */}
+          <div
+            style={{
+              position: "relative",
+              height: 14,
+              marginBottom: 56,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {/* Horizontal line */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: "50%",
+                height: 1,
+                background: "rgba(26,22,22,0.08)",
+                transform: "translateY(-50%)",
+              }}
+            />
 
-          {/* Measurement bar */}
-          <div style={{ position: "relative", height: 9, marginBottom: 40, marginTop: 8 }}>
-            <div style={{ position: "absolute", inset: 0, background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 9 9\'%3E%3Crect width=\'0.5\' height=\'9\' fill=\'%231A1616\' opacity=\'0.12\'/%3E%3Crect width=\'0.5\' x=\'8.5\' height=\'9\' fill=\'%231A1616\' opacity=\'0.12\'/%3E%3C/svg%3E") center top / 9px 9px' }} />
-            {stages.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => activate(i)}
-                aria-label={`${stages[i].label}, ${stages[i].title}`}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: `${(i / 6) * 100}%`,
-                  width: 1,
-                  height: 9,
-                  marginTop: -4.5,
-                  background: "#1A1616",
-                  border: "none",
-                  padding: 0,
-                  cursor: "pointer",
-                  transformOrigin: "center center",
-                  transform: i === active ? "translateX(-50%) scaleY(14)" : "translateX(-50%) scaleY(1)",
-                  opacity: i === active ? 1 : 0.25,
-                  transition: "transform 340ms cubic-bezier(0.34, 1.18, 0.64, 1), opacity 220ms ease",
-                }}
-                onMouseEnter={(e) => { if (i !== active) { (e.target as HTMLElement).style.opacity = "0.6"; (e.target as HTMLElement).style.transform = "translateX(-50%) scaleY(4)"; } }}
-                onMouseLeave={(e) => { if (i !== active) { (e.target as HTMLElement).style.opacity = "0.25"; (e.target as HTMLElement).style.transform = "translateX(-50%) scaleY(1)"; } }}
-              />
-            ))}
+            {/* Tick marks */}
+            <div
+              ref={rowRef}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              {stages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => activate(i)}
+                  aria-label={`${stages[i].label}, ${stages[i].title}`}
+                  style={{
+                    width: 1,
+                    height: i === active ? 16 : 6,
+                    background: i === active ? "#1A1616" : "rgba(26,22,22,0.2)",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (i !== active) {
+                      (e.target as HTMLElement).style.height = "12px";
+                      (e.target as HTMLElement).style.background = "rgba(26,22,22,0.5)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (i !== active) {
+                      (e.target as HTMLElement).style.height = "6px";
+                      (e.target as HTMLElement).style.background = "rgba(26,22,22,0.2)";
+                    }
+                  }}
+                />
+              ))}
+            </div>
+
             {/* Divider badge */}
-            <div style={{ position: "absolute", left: "calc(5 / 6 * 100% - 3px)", top: -20, transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 500, color: "#8A7D70", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.timeline.dividerLeft}</span>
-              <span style={{ width: 16, height: 1, background: "#8A7D70", opacity: 0.4 }} />
-              <span style={{ fontSize: 9, fontWeight: 500, color: "#8A7D70", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.timeline.dividerRight}</span>
+            <div
+              style={{
+                position: "absolute",
+                left: "calc(71.4% - 40px)",
+                top: -22,
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                background: "#f5f3f1",
+                padding: "2px 8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 500,
+                  color: "#8A7D70",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {t.timeline.dividerLeft}
+              </span>
+              <span
+                style={{
+                  width: 20,
+                  height: 1,
+                  background: "#8A7D70",
+                  opacity: 0.4,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 500,
+                  color: "#8A7D70",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {t.timeline.dividerRight}
+              </span>
             </div>
           </div>
 
           {/* Orb row */}
           <div
-            ref={rowRef}
-            className="constellation-row"
-            style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "clamp(6px, 1.2vw, 12px)", marginBottom: 48, position: "relative", minHeight: 200 }}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 56,
+              position: "relative",
+              minHeight: 220,
+              padding: "20px 0",
+            }}
           >
-            {/* Wider gap at divider */}
-            <style>{`
-              .constellation-row > *:nth-child(5) { margin-right: 24px; }
-              @media (max-width: 768px) {
-                .constellation-row > *:nth-child(5) { margin-right: 12px; }
-              }
-            `}</style>
-
-            {/* Mesh overlay */}
-            {meshLines.length > 0 && (
-              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 5 }}>
-                {meshLines.map((ln, li) => (
-                  <line key={li} x1={ln.x1} y1={ln.y1} x2={ln.x2} y2={ln.y2} stroke="rgba(26,22,22,0.06)" strokeWidth={1} />
-                ))}
-              </svg>
-            )}
-
             {stages.map((stage, i) => {
               const isActive = i === active;
-              const isHovered = i === hovered;
-              const scale = isActive ? 1.3 : isHovered ? 1.15 : 1;
-              const zIndex = isActive ? 10 : isHovered ? 8 : 1;
+              const scale = isActive ? 1.35 : 1;
+              const zIndex = isActive ? 10 : 1;
               const config = ORB_CONFIGS[i];
               const size = ORB_SIZES[i];
+              const margin = getOrbMargin(i);
 
               return (
                 <div
                   key={i}
-                  ref={(el) => { orbRefs.current[i] = el; }}
-                  className="constellation-orb-wrapper"
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: 14,
+                    gap: 16,
                     cursor: "pointer",
                     zIndex,
-                    transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                    transform: `scale(${scale})`,
-                    position: "relative",
+                    transition: "margin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    marginLeft: margin,
+                    marginRight: margin,
+                    flexShrink: 0,
                   }}
                   onClick={() => activate(i)}
-                  onMouseEnter={() => handleEnter(i)}
-                  onMouseLeave={handleLeave}
                 >
                   {/* Orb + satellites wrapper */}
-                  <div style={{ position: "relative", width: size, height: size }}>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: size,
+                      height: size,
+                      transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                      transform: `scale(${scale})`,
+                    }}
+                  >
                     {/* Satellite 1 */}
                     <div
                       className={`satellite sat-${i}-1`}
@@ -185,11 +320,12 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                         height: 10,
                         borderRadius: "50%",
                         background: config.satColors[0],
-                        boxShadow: `0 0 6px ${config.satColors[0]}60`,
+                        boxShadow: `0 0 8px ${config.satColors[0]}80`,
                         top: "50%",
                         left: "50%",
                         marginTop: -5,
                         marginLeft: -5,
+                        zIndex: 2,
                       }}
                     />
                     {/* Satellite 2 */}
@@ -201,11 +337,12 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                         height: 8,
                         borderRadius: "50%",
                         background: config.satColors[1] || config.satColors[0],
-                        boxShadow: `0 0 4px ${config.satColors[1] || config.satColors[0]}50`,
+                        boxShadow: `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
                         top: "50%",
                         left: "50%",
                         marginTop: -4,
                         marginLeft: -4,
+                        zIndex: 2,
                       }}
                     />
 
@@ -218,12 +355,11 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                         borderRadius: "50%",
                         overflow: "hidden",
                         background: config.base,
-                        backdropFilter: "blur(4px)",
-                        WebkitBackdropFilter: "blur(4px)",
                         boxShadow: isActive
-                          ? `inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 20px ${config.blobs[0].c}40, 0 0 40px ${config.blobs[1].c}20`
-                          : `inset 0 0 0 1px rgba(255,255,255,0.08)`,
+                          ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px ${config.blobs[0].c}60, 0 0 60px ${config.blobs[1].c}30`
+                          : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
                         transition: "box-shadow 0.4s ease",
+                        zIndex: 3,
                       }}
                     >
                       {config.blobs.map((blob, bi) => (
@@ -236,7 +372,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                             height: `${blob.s}%`,
                             borderRadius: "50%",
                             background: blob.c,
-                            filter: "blur(16px)",
+                            filter: "blur(20px)",
                             top: `${blob.y + 50}%`,
                             left: `${blob.x + 50}%`,
                             transform: "translate(-50%, -50%)",
@@ -245,17 +381,15 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                       ))}
                       {/* Noise */}
                       <div
-                        className={`noise-layer ${isHovered ? "noise-active" : ""}`}
                         style={{
                           position: "absolute",
                           inset: 0,
                           borderRadius: "50%",
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                          backgroundSize: "80px 80px",
-                          opacity: isHovered ? 0.2 : 0.12,
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                          backgroundSize: "60px 60px",
+                          opacity: 0.15,
                           mixBlendMode: "overlay",
                           pointerEvents: "none",
-                          transition: "opacity 0.4s ease",
                         }}
                       />
                     </div>
@@ -265,13 +399,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                   <span
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: isActive ? 500 : 400,
                       color: isActive ? "#1A1616" : "#8A7D70",
                       letterSpacing: "0.02em",
                       textAlign: "center",
                       transition: "color 0.3s ease, font-weight 0.3s ease",
-                      whiteSpace: "nowrap",
+                      lineHeight: 1.3,
                     }}
                   >
                     {stage.label}
@@ -322,33 +456,33 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
 
       <style>{`
         /* --- Blob drift animations --- */
-        @keyframes drift1-1 { 0%,100%{transform:translate(-50%,-50%) translate(-15px,-10px)} 33%{transform:translate(-50%,-50%) translate(10px,5px)} 66%{transform:translate(-50%,-50%) translate(-5px,15px)} }
-        @keyframes drift1-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,15px)} 50%{transform:translate(-50%,-50%) translate(-15px,-10px)} }
-        @keyframes drift1-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,0)} 50%{transform:translate(-50%,-50%) translate(8px,-12px)} }
+        @keyframes drift1-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-8px)} 33%{transform:translate(-50%,-50%) translate(8px,4px)} 66%{transform:translate(-50%,-50%) translate(-4px,12px)} }
+        @keyframes drift1-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,12px)} 50%{transform:translate(-50%,-50%) translate(-12px,-8px)} }
+        @keyframes drift1-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,0)} 50%{transform:translate(-50%,-50%) translate(6px,-10px)} }
 
-        @keyframes drift2-1 { 0%,100%{transform:translate(-50%,-50%) translate(-10px,-15px)} 25%{transform:translate(-50%,-50%) translate(12px,8px)} 50%{transform:translate(-50%,-50%) translate(-8px,12px)} 75%{transform:translate(-50%,-50%) translate(5px,-10px)} }
-        @keyframes drift2-2 { 0%,100%{transform:translate(-50%,-50%) translate(15px,5px)} 50%{transform:translate(-50%,-50%) translate(-12px,-8px)} }
-        @keyframes drift2-3 { 0%,100%{transform:translate(-50%,-50%) translate(-5px,10px)} 50%{transform:translate(-50%,-50%) translate(10px,-5px)} }
+        @keyframes drift2-1 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,-12px)} 25%{transform:translate(-50%,-50%) translate(10px,6px)} 50%{transform:translate(-50%,-50%) translate(-6px,10px)} 75%{transform:translate(-50%,-50%) translate(4px,-8px)} }
+        @keyframes drift2-2 { 0%,100%{transform:translate(-50%,-50%) translate(12px,4px)} 50%{transform:translate(-50%,-50%) translate(-10px,-6px)} }
+        @keyframes drift2-3 { 0%,100%{transform:translate(-50%,-50%) translate(-4px,8px)} 50%{transform:translate(-50%,-50%) translate(8px,-4px)} }
 
-        @keyframes drift3-1 { 0%,100%{transform:translate(-50%,-50%) translate(-20px,-5px)} 33%{transform:translate(-50%,-50%) translate(15px,10px)} 66%{transform:translate(-50%,-50%) translate(-10px,20px)} }
-        @keyframes drift3-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,-20px)} 50%{transform:translate(-50%,-50%) translate(-15px,15px)} }
-        @keyframes drift3-3 { 0%,100%{transform:translate(-50%,-50%) translate(5px,15px)} 50%{transform:translate(-50%,-50%) translate(-20px,-10px)} }
+        @keyframes drift3-1 { 0%,100%{transform:translate(-50%,-50%) translate(-16px,-4px)} 33%{transform:translate(-50%,-50%) translate(12px,8px)} 66%{transform:translate(-50%,-50%) translate(-8px,16px)} }
+        @keyframes drift3-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-16px)} 50%{transform:translate(-50%,-50%) translate(-12px,12px)} }
+        @keyframes drift3-3 { 0%,100%{transform:translate(-50%,-50%) translate(4px,12px)} 50%{transform:translate(-50%,-50%) translate(-16px,-8px)} }
 
-        @keyframes drift4-1 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 20%{transform:translate(-50%,-50%) scale(1.15) translate(-5px,-5px)} 40%{transform:translate(-50%,-50%) scale(0.9) translate(5px,5px)} 60%{transform:translate(-50%,-50%) scale(1.1) translate(-8px,3px)} 80%{transform:translate(-50%,-50%) scale(0.95) translate(3px,-8px)} }
-        @keyframes drift4-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,10px)} 50%{transform:translate(-50%,-50%) translate(-15px,-15px)} }
-        @keyframes drift4-3 { 0%,100%{transform:translate(-50%,-50%) translate(-10px,15px)} 50%{transform:translate(-50%,-50%) translate(15px,-10px)} }
+        @keyframes drift4-1 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 20%{transform:translate(-50%,-50%) scale(1.12) translate(-4px,-4px)} 40%{transform:translate(-50%,-50%) scale(0.92) translate(4px,4px)} 60%{transform:translate(-50%,-50%) scale(1.08) translate(-6px,2px)} 80%{transform:translate(-50%,-50%) scale(0.96) translate(2px,-6px)} }
+        @keyframes drift4-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,8px)} 50%{transform:translate(-50%,-50%) translate(-12px,-12px)} }
+        @keyframes drift4-3 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,12px)} 50%{transform:translate(-50%,-50%) translate(12px,-8px)} }
 
-        @keyframes drift5-1 { 0%,100%{transform:translate(-50%,-50%) translate(-15px,-15px) scale(1)} 50%{transform:translate(-50%,-50%) translate(15px,10px) scale(1.2)} }
-        @keyframes drift5-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,-10px) scale(1)} 50%{transform:translate(-50%,-50%) translate(-10px,15px) scale(1.3)} }
-        @keyframes drift5-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,10px)} 50%{transform:translate(-50%,-50%) translate(10px,-20px)} }
+        @keyframes drift5-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-12px) scale(1)} 50%{transform:translate(-50%,-50%) translate(12px,8px) scale(1.15)} }
+        @keyframes drift5-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-8px) scale(1)} 50%{transform:translate(-50%,-50%) translate(-8px,12px) scale(1.25)} }
+        @keyframes drift5-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,8px)} 50%{transform:translate(-50%,-50%) translate(8px,-16px)} }
 
-        @keyframes drift6-1 { 0%,100%{transform:translate(-50%,-50%) translate(-10px,-8px)} 50%{transform:translate(-50%,-50%) translate(10px,8px)} }
-        @keyframes drift6-2 { 0%,100%{transform:translate(-50%,-50%) translate(12px,-5px)} 50%{transform:translate(-50%,-50%) translate(-8px,12px)} }
-        @keyframes drift6-3 { 0%,100%{transform:translate(-50%,-50%) translate(-5px,10px)} 50%{transform:translate(-50%,-50%) translate(5px,-10px)} }
+        @keyframes drift6-1 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,-6px)} 50%{transform:translate(-50%,-50%) translate(8px,6px)} }
+        @keyframes drift6-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,-4px)} 50%{transform:translate(-50%,-50%) translate(-6px,10px)} }
+        @keyframes drift6-3 { 0%,100%{transform:translate(-50%,-50%) translate(-4px,8px)} 50%{transform:translate(-50%,-50%) translate(4px,-8px)} }
 
-        @keyframes drift7-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-10px)} 50%{transform:translate(-50%,-50%) translate(12px,10px)} }
-        @keyframes drift7-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,-12px)} 50%{transform:translate(-50%,-50%) translate(-10px,12px)} }
-        @keyframes drift7-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,8px)} 50%{transform:translate(-50%,-50%) translate(8px,-8px)} }
+        @keyframes drift7-1 { 0%,100%{transform:translate(-50%,-50%) translate(-10px,-8px)} 50%{transform:translate(-50%,-50%) translate(10px,8px)} }
+        @keyframes drift7-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-10px)} 50%{transform:translate(-50%,-50%) translate(-8px,10px)} }
+        @keyframes drift7-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,6px)} 50%{transform:translate(-50%,-50%) translate(6px,-6px)} }
 
         .blob-1-1 { animation: drift1-1 12s ease-in-out infinite; }
         .blob-1-2 { animation: drift1-2 15s ease-in-out infinite; }
@@ -373,13 +507,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
         .blob-7-3 { animation: drift7-3 13s ease-in-out infinite; }
 
         /* --- Satellite orbits --- */
-        @keyframes orbitA { 0%{transform:translate(-50%,-50%) rotate(0deg) translateX(42px) rotate(0deg)} 100%{transform:translate(-50%,-50%) rotate(360deg) translateX(42px) rotate(-360deg)} }
-        @keyframes orbitB { 0%{transform:translate(-50%,-50%) rotate(180deg) translateX(54px) rotate(-180deg)} 100%{transform:translate(-50%,-50%) rotate(540deg) translateX(54px) rotate(-540deg)} }
-        @keyframes orbitC { 0%{transform:translate(-50%,-50%) rotate(90deg) translateX(38px) rotate(-90deg)} 100%{transform:translate(-50%,-50%) rotate(450deg) translateX(38px) rotate(-450deg)} }
-        @keyframes orbitD { 0%{transform:translate(-50%,-50%) rotate(270deg) translateX(48px) rotate(-270deg)} 100%{transform:translate(-50%,-50%) rotate(630deg) translateX(48px) rotate(-630deg)} }
-        @keyframes orbitE { 0%{transform:translate(-50%,-50%) rotate(45deg) translateX(50px) rotate(-45deg)} 100%{transform:translate(-50%,-50%) rotate(405deg) translateX(50px) rotate(-405deg)} }
-        @keyframes orbitF { 0%{transform:translate(-50%,-50%) rotate(135deg) translateX(58px) rotate(-135deg)} 100%{transform:translate(-50%,-50%) rotate(495deg) translateX(58px) rotate(-495deg)} }
-        @keyframes orbitG { 0%{transform:translate(-50%,-50%) rotate(315deg) translateX(64px) rotate(-315deg)} 100%{transform:translate(-50%,-50%) rotate(675deg) translateX(64px) rotate(-675deg)} }
+        @keyframes orbitA { 0%{transform:translate(-50%,-50%) rotate(0deg) translateX(48px) rotate(0deg)} 100%{transform:translate(-50%,-50%) rotate(360deg) translateX(48px) rotate(-360deg)} }
+        @keyframes orbitB { 0%{transform:translate(-50%,-50%) rotate(180deg) translateX(60px) rotate(-180deg)} 100%{transform:translate(-50%,-50%) rotate(540deg) translateX(60px) rotate(-540deg)} }
+        @keyframes orbitC { 0%{transform:translate(-50%,-50%) rotate(90deg) translateX(44px) rotate(-90deg)} 100%{transform:translate(-50%,-50%) rotate(450deg) translateX(44px) rotate(-450deg)} }
+        @keyframes orbitD { 0%{transform:translate(-50%,-50%) rotate(270deg) translateX(54px) rotate(-270deg)} 100%{transform:translate(-50%,-50%) rotate(630deg) translateX(54px) rotate(-630deg)} }
+        @keyframes orbitE { 0%{transform:translate(-50%,-50%) rotate(45deg) translateX(56px) rotate(-45deg)} 100%{transform:translate(-50%,-50%) rotate(405deg) translateX(56px) rotate(-405deg)} }
+        @keyframes orbitF { 0%{transform:translate(-50%,-50%) rotate(135deg) translateX(64px) rotate(-135deg)} 100%{transform:translate(-50%,-50%) rotate(495deg) translateX(64px) rotate(-495deg)} }
+        @keyframes orbitG { 0%{transform:translate(-50%,-50%) rotate(315deg) translateX(70px) rotate(-315deg)} 100%{transform:translate(-50%,-50%) rotate(675deg) translateX(70px) rotate(-675deg)} }
 
         .sat-0-1 { animation: orbitA 5s linear infinite; }
         .sat-0-2 { animation: orbitB 7s linear infinite; }
@@ -395,15 +529,6 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
         .sat-5-2 { animation: orbitF 8s linear infinite; }
         .sat-6-1 { animation: orbitG 7s linear infinite; }
         .sat-6-2 { animation: orbitA 9s linear infinite; }
-
-        /* Noise shift on hover */
-        @keyframes noiseShift {
-          0% { background-position: 0 0; }
-          100% { background-position: 80px 80px; }
-        }
-        .noise-active {
-          animation: noiseShift 8s linear infinite;
-        }
 
         @media (max-width: 768px) {
           .constellation-row {
