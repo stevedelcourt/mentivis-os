@@ -42,6 +42,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
             </p>
             <Link
               href={`/${lang}/contact`}
+              className="problem-cta"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -55,12 +56,6 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
                 padding: "12px 24px",
                 textDecoration: "none",
                 transition: "all 0.25s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#333";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#1a1a1a";
               }}
             >
               {t.problem.cta}
@@ -97,6 +92,9 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
         </div>
       </div>
       <style>{`
+        .problem-cta:hover {
+          background: #333 !important;
+        }
         @media (max-width: 768px) {
           .problem-grid {
             grid-template-columns: 1fr !important;
