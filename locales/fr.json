@@ -402,7 +402,9 @@
     }
   },
   "timeline": {
-    "eyebrow": "Avant / Apres MentivisOS",
+    "eyebrow": "MENTIVIS OS",
+    "title": "Transformer votre structure en organisation apprenante",
+    "description": "Centralisez les connaissances, automatisez la montee en competences et alignez formation, operations et IA dans un systeme unique capable d'evoluer avec votre organisation.",
     "dividerLeft": "Avant",
     "dividerRight": "Apres transformation",
     "stages": [
