@@ -468,20 +468,21 @@
     "link": "Learn more about Mentivis"
   },
   "mathFeatures": {
-    "eyebrow": "Principles",
-    "title": "Precision, structure, continuity.\nThe three constants of the system.",
+    "eyebrow": "OUR APPROACH",
+    "title": "A method built for organizations that cannot afford to fail.",
+    "subheader": "Mentivis works with institutions, companies and administrations whose training projects involve public budgets, regulatory obligations and strong social expectations. Our method is equal to these constraints.",
     "cards": {
       "saddle": {
         "title": "Precision",
-        "description": "We analyse each profile with a quantified diagnostic, down to ten hours."
+        "description": "We do not work on intuition. Every intervention begins with a quantified diagnostic phase: analysis of real needs, measurement of gaps, assessment of the organization's capacity to absorb change. What you receive is not a specification document. It is an accurate picture of your situation, translated into an action plan."
       },
       "hilbert": {
         "title": "Structure",
-        "description": "Every program is architected according to the canons of pedagogical engineering."
+        "description": "Pedagogical engineering is not a nice-to-have. It is the foundation of every program we design. Operational objectives defined before content, validated sequencing of acquisitions by domain experts, modular architecture adaptable to each usage context. We build systems, not catalogs."
       },
       "mobius": {
         "title": "Continuity",
-        "description": "Tracking does not stop at deployment. It is measured and refined continuously."
+        "description": "The organizations that trust us are not looking for a one-off service. They are looking for an operator that remains engaged after delivery. At Mentivis, deployment is not an end. It is the beginning of the measurement, adjustment and optimization phase that turns a project into lasting capability."
       }
     }
   },

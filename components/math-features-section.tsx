@@ -239,10 +239,22 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
                 fontWeight: 300,
                 maxWidth: 680,
                 lineHeight: 1.35,
+                marginBottom: 20,
               }}
             >
               {mt.title}
             </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 16,
+                lineHeight: 1.7,
+                color: "var(--text-secondary)",
+                maxWidth: 720,
+              }}
+            >
+              {mt.subheader}
+            </p>
           </div>
 
           <div
@@ -306,7 +318,6 @@ export default function MathFeaturesSection({ lang }: { lang: Locale }) {
                       fontSize: 14,
                       lineHeight: 1.55,
                       color: "var(--text-tertiary)",
-                      maxWidth: 280,
                     }}
                   >
                     {card.desc}
