@@ -491,24 +491,36 @@
     "lead": "Reponses concises aux questions les plus posees par les directions formation et les operateurs.",
     "items": [
       {
-        "question": "Quelle est la difference avec un systeme classique ?",
-        "answer": "Un systeme classique diffuse du contenu et trace la consommation. MentivisOS calcule l'ecart exact entre un profil et un objectif, produit le programme correspondant, et accompagne l'apprenant parcours par parcours sans devier du sujet. Ce n'est pas un catalogue. C'est un moteur."
+        "question": "MentivisOS est-il un LMS ?",
+        "answer": "Non. Un LMS diffuse des contenus et enregistre des completions. MentivisOS construit, deploie, adapte et mesure la transformation reelle des competences dans une organisation. C'est un systeme d'exploitation pedagogique, pas une bibliotheque de modules."
       },
       {
-        "question": "Combien de temps prend le diagnostic ?",
-        "answer": "Le diagnostic complet — score de couverture, risque residuel, duree estimee, parcours adaptatifs identifies et ordonnancement — est produit en moins d'une minute a partir du profil et de l'objectif declares."
+        "question": "Qu'est-ce qui distingue MentivisOS des outils IA de formation ?",
+        "answer": "La plupart des outils IA generent des contenus. MentivisOS orchestre l'ensemble du cycle : diagnostic de faisabilite, generation de parcours personnalises, mesure competence par competence, recalcul dynamique a chaque etape, et analyse de risque avant deploiement. L'IA n'est pas la fonctionnalite. C'est l'infrastructure."
       },
       {
-        "question": "Les donnees sont-elles securisees ?",
-        "answer": "Oui. Hebergement europeen, donnees maitrisees, conformite RGPD. Aucune compromission. Les modeles d'IA sont deployes dans des environnements controles et les donnees ne quittent pas l'infrastructure du client lors des deploiements on-premise."
+        "question": "Comment MentivisOS mesure-t-il la performance ?",
+        "answer": "Pas par la consommation. Pas par le taux de completion. MentivisOS mesure l'acquisition reelle, competence par competence, et ajuste les parcours en fonction des ecarts detectes. Ce que vous pilotez, c'est la capacite effective de vos equipes, pas leur presence dans un module."
       },
       {
-        "question": "Faut-il changer de systeme pour utiliser MentivisOS ?",
-        "answer": "Non. MentivisOS s'integre aux systemes existants via API. Trois modes sont disponibles : acces direct par apprenant, licence entreprise avec referentiels personnalises, ou connexion API a votre systeme existant, SIRH ou ATS."
+        "question": "A quels types d'organisations MentivisOS s'adresse-t-il ?",
+        "answer": "Entreprises engagees dans une transformation IA, universites et grandes ecoles, groupes hospitaliers, organismes de formation, OPCOs, administrations publiques. MentivisOS est concu pour les organisations qui ont besoin d'operationnaliser la montee en competences a grande echelle, avec des contraintes de conformite, de gouvernance et d'integration."
       },
       {
-        "question": "Qui concoit les parcours ?",
-        "answer": "Les parcours sont generes par l'IA mais valides par des ingenieurs pedagogiques de Mentivis. La generation de contenu n'est jamais livree brute. Chaque sequence est verifiee contre les canons de l'ingenierie pedagogique."
+        "question": "Quelle est la position de MentivisOS sur la souverainete des donnees ?",
+        "answer": "MentivisOS est concu pour un hebergement souverain europeen, conforme aux exigences RGPD et aux politiques de donnees des institutions publiques et parapubliques. Vos donnees de competences, vos contenus et vos parcours restent sous votre controle, sur l'infrastructure de votre choix."
+      },
+      {
+        "question": "Comment se deroule un deploiement ?",
+        "answer": "Tout deploiement commence par un diagnostic de transformation : cartographie des competences, analyse des infrastructures existantes, evaluation de la maturite IA, scoring de faisabilite. MentivisOS est ensuite deploye par unite, par departement ou par campus sur un cycle pilote de 90 jours avant toute generalisation. Mentivis assure l'implementation de bout en bout."
+      },
+      {
+        "question": "Quel est le role de Mentivis ?",
+        "answer": "Mentivis est l'operateur derriere MentivisOS. Ce n'est pas un editeur qui livre un logiciel et vous laisse seul. Mentivis concoit, developpe et opere les projets de transformation pedagogique de bout en bout, avec une expertise accumulee aupres d'institutions, d'entreprises et de ministeres en France et a l'international."
+      },
+      {
+        "question": "Par ou commencer ?",
+        "answer": "Par un diagnostic. Nous auditons votre systeme de competences actuel, identifions les ecarts, evaluons votre maturite IA et produisons un plan de deploiement avec scoring de faisabilite. C'est le point d'entree naturel avant toute decision d'investissement."
       }
     ]
   },
