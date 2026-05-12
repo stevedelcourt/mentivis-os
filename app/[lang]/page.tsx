@@ -7,7 +7,7 @@ import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
 import ShiftsSection from "@/components/shifts-section";
-import NotLmsSection from "@/components/not-lms-section";
+
 import ImpactSection from "@/components/impact-section";
 import CombinationSection from "@/components/combination-section";
 import ArticlesFeaturesSection from "@/components/articles-features-section";
@@ -25,7 +25,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <MathFeaturesSection lang={locale} />
       <InteractiveExplainer lang={locale} />
       <ShiftsSection lang={locale} />
-      <NotLmsSection lang={locale} />
       <ImpactSection lang={locale} />
       <CombinationSection lang={locale} />
       <FaqSection lang={locale} />
