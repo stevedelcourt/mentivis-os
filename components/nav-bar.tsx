@@ -361,7 +361,7 @@ export default function NavBar({ lang }: NavBarProps) {
                 e.currentTarget.style.background = "#0A0A0A";
               }}
             >
-              {t.nav.login}
+              Login
             </Link>
 
             <button

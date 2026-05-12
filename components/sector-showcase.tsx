@@ -17,6 +17,7 @@ interface Sector {
   accent: string;
   tag: string;
   orbClass: string;
+  image: string;
 }
 
 const SECTORS: Sector[] = [
@@ -39,6 +40,7 @@ const SECTORS: Sector[] = [
     accent: "#7030A0",
     tag: "8 types d'organisations",
     orbClass: "sector-orb-purple",
+    image: "/images/formation.avif",
   },
   {
     id: "formation",
@@ -58,6 +60,7 @@ const SECTORS: Sector[] = [
     accent: "#B07820",
     tag: "5 organismes de formation",
     orbClass: "sector-orb-amber",
+    image: "/images/student.avif",
   },
   {
     id: "public",
@@ -77,6 +80,7 @@ const SECTORS: Sector[] = [
     accent: "#C05828",
     tag: "5 acteurs institutionnels",
     orbClass: "sector-orb-rust",
+    image: "/images/ministere.avif",
   },
   {
     id: "professionnels",
@@ -96,6 +100,7 @@ const SECTORS: Sector[] = [
     accent: "#2D7A9F",
     tag: "4 fédérations métiers",
     orbClass: "sector-orb-sky",
+    image: "/images/workers.avif",
   },
 ];
 
@@ -284,15 +289,26 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
             </div>
           </div>
 
-          {/* Right Box — Flat Card */}
+          {/* Right Box — Image Card */}
           <div
             style={{
-              background: "#f5f5f5",
-              borderRadius: 24,
-              minHeight: 360,
               position: "relative",
+              borderRadius: 24,
+              overflow: "hidden",
+              minHeight: 360,
             }}
           >
+            <img
+              src={sector.image}
+              alt={sector.title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                position: "absolute",
+                inset: 0,
+              }}
+            />
             {/* Glass tag */}
             <div
               style={{
