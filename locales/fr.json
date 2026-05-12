@@ -78,6 +78,11 @@
     "ctaSecondary": "Contacter l'equipe",
     "proof": "Utilise par les directions de la formation, les CFA, les campus d'entreprise."
   },
+  "productCards": {
+    "card1": "Génère des parcours structurés adaptés à chaque profil et contexte métier.",
+    "card2": "Transforme les besoins de recrutement en flux continu de compétences qualifiées.",
+    "card3": "Connecte MentivisOS à vos outils, données et infrastructures existantes."
+  },
   "products": {
     "atelier": {
       "number": "01",

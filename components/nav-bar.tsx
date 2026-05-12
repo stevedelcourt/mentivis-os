@@ -364,6 +364,34 @@ export default function NavBar({ lang }: NavBarProps) {
               Login
             </Link>
 
+            {/* Language switcher */}
+            <Link
+              href={pathname.replace(/^\/(fr|en)/, `/${lang === "fr" ? "en" : "fr"}`)}
+              className="hide-mobile"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 32,
+                height: 32,
+                fontSize: 13,
+                fontWeight: 500,
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                color: "var(--text-secondary)",
+                textDecoration: "none",
+                transition: "color 0.18s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--text-primary)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--text-secondary)";
+              }}
+            >
+              {lang === "fr" ? "EN" : "FR"}
+            </Link>
+
             <button
               className={`navbar-burger${mobileOpen ? " is-open" : ""}`}
               style={{

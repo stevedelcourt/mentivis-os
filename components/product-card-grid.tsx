@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { getT, Locale } from "@/lib/i18n";
 
 interface ProductCard {
   tag: string;
@@ -10,7 +11,7 @@ interface ProductCard {
 }
 
 interface ProductCardGridProps {
-  lang: string;
+  lang: Locale;
 }
 
 const CARDS: ProductCard[] = [
@@ -34,13 +35,16 @@ const CARDS: ProductCard[] = [
   },
 ];
 
+const DESCRIPTION_KEYS = ["card1", "card2", "card3"] as const;
+
 export default function ProductCardGrid({ lang }: ProductCardGridProps) {
+  const t = getT(lang);
   return (
     <div className="product-card-grid-wrapper" style={{ marginTop: 32 }}>
       <div className="product-card-grid">
         {CARDS.map((card, i) => (
+          <div key={i} style={{ display: "flex", flexDirection: "column" }}>
             <Link
-              key={i}
               href={`/${lang}${card.href}`}
               className="product-card-link"
               style={{
@@ -138,8 +142,21 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                 </span>
               </div>
             </Link>
-          ))
-        }
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                fontWeight: 300,
+                color: "#8A7D70",
+                lineHeight: 1.5,
+                marginTop: 12,
+                marginBottom: 0,
+              }}
+            >
+              {t.productCards[DESCRIPTION_KEYS[i]]}
+            </p>
+          </div>
+        ))}
       </div>
 
       <style>{`
