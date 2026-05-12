@@ -61,7 +61,6 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
               </div>
               <SuperButton
                 href={`/${lang}/demo?subject=demo`}
-                label={lang === "fr" ? "Start !" : "Start !"}
               />
             </div>
           </div>

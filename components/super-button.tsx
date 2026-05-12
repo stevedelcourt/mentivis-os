@@ -5,10 +5,9 @@ import { useState } from "react";
 
 interface SuperButtonProps {
   href: string;
-  label: string;
 }
 
-export default function SuperButton({ href, label }: SuperButtonProps) {
+export default function SuperButton({ href }: SuperButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -41,11 +40,11 @@ export default function SuperButton({ href, label }: SuperButtonProps) {
           width: "100%",
           height: "100%",
           transition: "transform 0.15s ease",
-          transform: isPressed ? "translateY(2px)" : "translateY(0)",
+          transform: isPressed ? "translateY(8px)" : "translateY(0)",
         }}
       />
 
-      {/* Middle layer — shifts on hover, presses on click */}
+      {/* Middle layer — shifts DOWN on hover, presses DEEP on click */}
       <img
         src="/images/button/middle.svg"
         alt=""
@@ -56,14 +55,14 @@ export default function SuperButton({ href, label }: SuperButtonProps) {
           height: "100%",
           transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
           transform: isPressed
-            ? "translateY(4px) scale(0.98)"
+            ? "translateY(12px) scale(0.96)"
             : isHovered
-            ? "translateY(-3px) translateX(-2px) scale(1.02)"
+            ? "translateY(4px) scale(1.01)"
             : "translateY(0) scale(1)",
         }}
       />
 
-      {/* Top layer — frame, subtle shift on press */}
+      {/* Top layer — frame, shifts down on press */}
       <img
         src="/images/button/top.svg"
         alt=""
@@ -73,35 +72,9 @@ export default function SuperButton({ href, label }: SuperButtonProps) {
           width: "100%",
           height: "100%",
           transition: "transform 0.15s ease",
-          transform: isPressed ? "translateY(1px)" : "translateY(0)",
+          transform: isPressed ? "translateY(6px)" : "translateY(0)",
         }}
       />
-
-      {/* Text overlay */}
-      <span
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "var(--font-sans)",
-          fontSize: 18,
-          fontWeight: 600,
-          color: "#1A1616",
-          letterSpacing: "0.02em",
-          zIndex: 10,
-          transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          transform: isPressed
-            ? "translateY(4px)"
-            : isHovered
-            ? "translateY(-3px) translateX(-2px)"
-            : "translateY(0)",
-          pointerEvents: "none",
-        }}
-      >
-        {label}
-      </span>
     </Link>
   );
 }
