@@ -8,10 +8,17 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
     <section
       style={{
         padding: "var(--section-gap) 0",
-        background: "var(--bg-secondary)",
+        background: "#ffffff",
       }}
     >
       <div className="container">
+        <div
+          style={{
+            background: "#f5f5f5",
+            borderRadius: 24,
+            padding: "48px 44px",
+          }}
+        >
         <div
           className="problem-grid"
           style={{
@@ -89,6 +96,7 @@ export default function ProblemSection({ lang }: { lang: Locale }) {
               {t.problem.tagline}
             </p>
           </div>
+        </div>
         </div>
       </div>
       <style>{`
