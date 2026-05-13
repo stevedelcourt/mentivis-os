@@ -221,10 +221,11 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           <div className="orb-row">
             {/* Wave lines behind orbs */}
             <div className="wave-container">
-              <div className="wave-line" />
-              <div className="wave-line" />
-              <div className="wave-line" />
-              <div className="wave-line" />
+              <svg className="wave-svg" viewBox="0 0 1200 260" preserveAspectRatio="none">
+                <path d="M0,65 Q150,45 300,65 T600,65 T900,65 T1200,65" fill="none" stroke="rgba(26,22,22,0.18)" strokeWidth="1.5" />
+                <path d="M0,130 Q150,110 300,130 T600,130 T900,130 T1200,130" fill="none" stroke="rgba(26,22,22,0.14)" strokeWidth="1.5" />
+                <path d="M0,195 Q150,175 300,195 T600,195 T900,195 T1200,195" fill="none" stroke="rgba(26,22,22,0.10)" strokeWidth="1.5" />
+              </svg>
             </div>
 
             {stages.map((stage, i) => {
@@ -543,46 +544,12 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           overflow: hidden;
           pointer-events: none;
         }
-        .wave-line {
+        .wave-svg {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          border: 1px solid rgba(26,22,22,0.10);
-          border-radius: 30%;
-          animation: wave-rotate 22s linear infinite;
-        }
-        .wave-line:nth-child(1) {
-          width: 90%;
-          height: 140%;
-          animation-duration: 22s;
-          opacity: 0.18;
-          border-radius: 24%;
-        }
-        .wave-line:nth-child(2) {
-          width: 85%;
-          height: 130%;
-          animation-duration: 24s;
-          opacity: 0.12;
-          border-radius: 32%;
-        }
-        .wave-line:nth-child(3) {
-          width: 95%;
-          height: 150%;
-          animation-duration: 20s;
-          opacity: 0.15;
-          border-radius: 28%;
-        }
-        .wave-line:nth-child(4) {
-          width: 80%;
-          height: 125%;
-          animation-duration: 26s;
-          opacity: 0.10;
-          border-radius: 36%;
-        }
-        @keyframes wave-rotate {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to { transform: translate(-50%, -50%) rotate(360deg); }
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.55;
         }
 
         /* --- Orb column & hover --- */
