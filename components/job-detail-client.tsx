@@ -8,6 +8,55 @@ import { Job } from "@/lib/cms/types";
 import CTABlock from "@/components/cta-block";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 
+function renderMarkdown(text: string): string {
+  const lines = text.split("\n");
+  let html = "";
+  let inList = false;
+
+  for (const rawLine of lines) {
+    const line = rawLine.trimEnd();
+    const trimmed = line.trimStart();
+
+    // Heading ##
+    if (trimmed.startsWith("## ")) {
+      if (inList) { html += "</ul>"; inList = false; }
+      html += `<h3 style="font-size:22px;font-weight:500;color:#0A0A0A;margin:32px 0 16px;line-height:1.3;">${escapeHtml(trimmed.slice(3))}</h3>`;
+      continue;
+    }
+    if (trimmed.startsWith("# ")) {
+      if (inList) { html += "</ul>"; inList = false; }
+      html += `<h2 style="font-size:28px;font-weight:500;color:#0A0A0A;margin:40px 0 20px;line-height:1.2;">${escapeHtml(trimmed.slice(2))}</h2>`;
+      continue;
+    }
+
+    // Bullet list
+    const bulletMatch = trimmed.match(/^(•|\*|\-)\s+(.*)$/);
+    if (bulletMatch) {
+      if (!inList) { html += '<ul style="margin:8px 0 16px 20px;padding:0;list-style:disc;">'; inList = true; }
+      html += `<li style="font-size:15px;line-height:1.7;color:#3E3B38;margin-bottom:6px;">${escapeHtml(bulletMatch[2])}</li>`;
+      continue;
+    }
+
+    if (inList) { html += "</ul>"; inList = false; }
+
+    if (trimmed === "") {
+      html += '<div style="height:8px;"></div>';
+    } else {
+      html += `<p style="font-size:15px;line-height:1.7;color:#3E3B38;margin-bottom:12px;">${escapeHtml(line)}</p>`;
+    }
+  }
+
+  if (inList) html += "</ul>";
+  return html;
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -278,15 +327,9 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     {t.careers.detail.about}
                   </h2>
                   <div
-                    style={{
-                      fontSize: 15,
-                      lineHeight: 1.7,
-                      color: "#3E3B38",
-                      whiteSpace: "pre-line",
-                    }}
-                  >
-                    {job.description}
-                  </div>
+                    style={{ fontSize: 15, lineHeight: 1.7, color: "#3E3B38" }}
+                    dangerouslySetInnerHTML={{ __html: renderMarkdown(job.description) }}
+                  />
 
                   {job.whyJoin && (
                     <>
@@ -302,15 +345,9 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         {t.careers.detail.whyJoin}
                       </h2>
                       <div
-                        style={{
-                          fontSize: 15,
-                          lineHeight: 1.7,
-                          color: "#3E3B38",
-                          whiteSpace: "pre-line",
-                        }}
-                      >
-                        {job.whyJoin}
-                      </div>
+                        style={{ fontSize: 15, lineHeight: 1.7, color: "#3E3B38" }}
+                        dangerouslySetInnerHTML={{ __html: renderMarkdown(job.whyJoin) }}
+                      />
                     </>
                   )}
 
