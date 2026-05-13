@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
 interface TransformationTimelineProps {
@@ -8,6 +8,7 @@ interface TransformationTimelineProps {
 }
 
 const ORB_SIZES = [72, 88, 104, 120, 112, 144, 160];
+const MOBILE_ORB_SIZE = 160;
 
 const ORB_CONFIGS = [
   {
@@ -105,6 +106,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
   const [fade, setFade] = useState<boolean>(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const navLock = useRef(false);
 
   const activate = (i: number) => {
     if (i === active || isTransitioning) return;
@@ -116,6 +119,31 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
       setFade(true);
       setTimeout(() => setIsTransitioning(false), 500);
     }, 200);
+  };
+
+  const handlePrev = useCallback(() => {
+    setActive((prev) => (prev - 1 + stages.length) % stages.length);
+  }, [stages.length]);
+
+  const handleNext = useCallback(() => {
+    setActive((prev) => (prev + 1) % stages.length);
+  }, [stages.length]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current.x;
+    const dy = e.changedTouches[0].clientY - touchStart.current.y;
+    touchStart.current = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (navLock.current) return;
+    navLock.current = true;
+    setTimeout(() => { navLock.current = false; }, 600);
+    if (dx < 0) handleNext();
+    else handlePrev();
   };
 
   const activeStage = stages[active];
@@ -217,7 +245,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             </div>
           </div>
 
-          {/* Orb row */}
+          {/* Desktop orb row */}
           <div className="orb-row">
             {/* Wave lines behind orbs */}
             <div className="wave-container">
@@ -375,6 +403,107 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile orb swiper (hidden on desktop) */}
+          <div
+            className="mobile-timeline-swiper"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            {/* Pagination dots */}
+            <div className="mobile-timeline-dots">
+              {stages.map((_, i) => (
+                <button
+                  key={i}
+                  className={`mobile-timeline-dot ${i === active ? "mobile-timeline-dot-active" : ""}`}
+                  onClick={() => activate(i)}
+                  aria-label={`${stages[i].label}`}
+                />
+              ))}
+            </div>
+
+            {/* Single centered orb */}
+            {(() => {
+              const config = ORB_CONFIGS[active];
+              const driftAnims = BLOB_DRIFTS[active];
+              const sat1Params = SAT_PARAMS[active * 2] || SAT_PARAMS[0];
+              const sat2Params = SAT_PARAMS[active * 2 + 1] || SAT_PARAMS[1];
+              return (
+                <div className="mobile-timeline-orb-wrapper">
+                  <div className="float-orb float-delay-0" style={{ position: "relative", width: MOBILE_ORB_SIZE, height: MOBILE_ORB_SIZE }}>
+                    <div className="orb-ring" style={{ opacity: 1 }} />
+                    <div style={{ position: "absolute", inset: 0, transform: "scale(1.2)", transformOrigin: "center top" }}>
+                      <div
+                        className="satellite"
+                        style={{
+                          background: config.satColors[0],
+                          width: 10,
+                          height: 10,
+                          marginTop: -5,
+                          marginLeft: -5,
+                          animation: `orbit ${sat1Params[2]}s linear infinite`,
+                          ['--orbit-r' as string]: `${sat1Params[1]}px`,
+                          ['--orbit-a' as string]: `${sat1Params[0]}deg`,
+                        }}
+                      />
+                      <div
+                        className="satellite"
+                        style={{
+                          background: config.satColors[1] || config.satColors[0],
+                          width: 8,
+                          height: 8,
+                          marginTop: -4,
+                          marginLeft: -4,
+                          animation: `orbit ${sat2Params[2]}s linear infinite`,
+                          ['--orbit-r' as string]: `${sat2Params[1]}px`,
+                          ['--orbit-a' as string]: `${sat2Params[0]}deg`,
+                        }}
+                      />
+                      <div
+                        className="atmosphere-orb orb-active"
+                        style={{ background: config.base }}
+                      >
+                        {config.blobs.map((blob, bi) => (
+                          <div
+                            key={bi}
+                            className="orb-blob"
+                            style={{
+                              width: `${blob.s}%`,
+                              height: `${blob.s}%`,
+                              background: blob.c,
+                              top: `${blob.y + 50}%`,
+                              left: `${blob.x + 50}%`,
+                              animation: driftAnims[bi],
+                            }}
+                          />
+                        ))}
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            borderRadius: "50%",
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                            backgroundSize: "60px 60px",
+                            opacity: 0.15,
+                            mixBlendMode: "overlay",
+                            pointerEvents: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <span className="orb-label orb-label-active" style={{ marginTop: 16 }}>
+                    {stages[active].label}
+                  </span>
+                </div>
+              );
+            })()}
+
+            {/* Swipe hint */}
+            <p className="mobile-timeline-hint">
+              {lang === "fr" ? "Glissez pour naviguer" : "Swipe to navigate"}
+            </p>
           </div>
 
           {/* Divider line */}
@@ -679,14 +808,58 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           100% { transform: translate(-50%, -50%) rotate(calc(var(--orbit-a) + 360deg)) translateX(var(--orbit-r)) rotate(calc(var(--orbit-a) * -1 - 360deg)); }
         }
 
+        /* --- Mobile timeline swiper (hidden on desktop) --- */
+        .mobile-timeline-swiper {
+          display: none;
+        }
+
         @media (max-width: 768px) {
           .orb-row {
-            flex-wrap: wrap;
-            gap: 20px;
-            min-height: auto;
+            display: none;
           }
-          .orb-column {
-            flex: 0 0 calc(25% - 15px);
+          .measurement-bar {
+            display: none;
+          }
+          .mobile-timeline-swiper {
+            display: block;
+            padding: 24px 0 16px;
+            touch-action: pan-y;
+          }
+          .mobile-timeline-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+          }
+          .mobile-timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: rgba(26,22,22,0.15);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+          }
+          .mobile-timeline-dot-active {
+            background: #1A1616;
+            transform: scale(1.2);
+          }
+          .mobile-timeline-orb-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+          }
+          .mobile-timeline-hint {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: #A8A39A;
+            text-align: center;
+            margin: 16px 0 0;
+            letter-spacing: 0.04em;
           }
           .wave-container {
             display: none;
