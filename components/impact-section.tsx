@@ -140,7 +140,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         aspectRatio: "1 / 1",
       };
       if (i === 0) cardStyle.alignSelf = "end";
-      if (i === 1) cardStyle.alignSelf = "start";
+      if (i === 1) { cardStyle.alignSelf = "start"; cardStyle.marginTop = `calc(42% + ${GAP}px)`; }
       if (i === 2) cardStyle.alignSelf = "end";
       return (
         <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={cardStyle}>
