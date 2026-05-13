@@ -140,7 +140,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         aspectRatio: "1 / 1",
       };
       if (i === 0) cardStyle.alignSelf = "end";
-      if (i === 1) { cardStyle.alignSelf = "start"; cardStyle.marginTop = `calc(42% + ${GAP}px)`; }
+      if (i === 1) { cardStyle.alignSelf = "start"; cardStyle.transform = `translateY(calc(42% + ${GAP}px))`; }
       if (i === 2) cardStyle.alignSelf = "end";
       return (
         <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={cardStyle}>
@@ -271,7 +271,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
               .impact-card > * { position: relative; z-index: 2; }
               .impact-card:hover {
-                transform: translateY(-4px);
+                transform: scale(1.02);
                 box-shadow: 0 16px 40px rgba(0,0,0,.15);
               }
 
