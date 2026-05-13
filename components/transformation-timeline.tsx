@@ -548,7 +548,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          border: 1px solid rgba(26,22,22,0.04);
+          border: 1px solid rgba(26,22,22,0.10);
           border-radius: 30%;
           animation: wave-rotate 22s linear infinite;
         }
@@ -556,28 +556,28 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           width: 90%;
           height: 140%;
           animation-duration: 22s;
-          opacity: 0.06;
+          opacity: 0.18;
           border-radius: 24%;
         }
         .wave-line:nth-child(2) {
           width: 85%;
           height: 130%;
           animation-duration: 24s;
-          opacity: 0.04;
+          opacity: 0.12;
           border-radius: 32%;
         }
         .wave-line:nth-child(3) {
           width: 95%;
           height: 150%;
           animation-duration: 20s;
-          opacity: 0.05;
+          opacity: 0.15;
           border-radius: 28%;
         }
         .wave-line:nth-child(4) {
           width: 80%;
           height: 125%;
           animation-duration: 26s;
-          opacity: 0.03;
+          opacity: 0.10;
           border-radius: 36%;
         }
         @keyframes wave-rotate {
@@ -595,7 +595,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           flex-shrink: 0;
         }
         .orb-column:hover .satellite {
-          box-shadow: 0 0 12px currentColor;
+          opacity: 0.9;
         }
         .orb-column:hover .atmosphere-orb:not(.orb-active) {
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 20px rgba(255,255,255,0.1);
@@ -638,8 +638,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           left: 50%;
           border-radius: 50%;
           z-index: 2;
-          transition: box-shadow 0.3s ease;
-          box-shadow: 0 0 8px currentColor;
+          transition: opacity 0.3s ease;
+          opacity: 0.55;
         }
 
         /* --- Atmosphere orb --- */
