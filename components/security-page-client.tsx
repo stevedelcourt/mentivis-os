@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { Locale } from "@/lib/i18n";
+import CTABlock from "@/components/cta-block";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -127,7 +127,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const principles = useVisible();
   const protections = useVisible();
   const infrastructure = useVisible();
-  const report = useVisible();
   const faq = useVisible();
 
   const sectionAnim = (visible: boolean, delay = 0): React.CSSProperties => ({
@@ -190,9 +189,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       { label: "Sauvegarde", value: "Backup quotidien chiffre, retention 30 jours, restauration testee mensuellement" },
       { label: "Disponibilite", value: "99.9% uptime SLA, deploiement zero-downtime, bascule automatique" },
     ],
-    reportTitle: "Signaler un probleme",
-    reportBody: "Si vous trouvez un contenu qui vous semble problematique et que vous pensez qu'il a ete cree avec MentivisOS, ou si vous avez une question de securite, contactez notre equipe.",
-    reportCta: "Contacter l'equipe securite",
     faqTitle: "Questions frequentes",
   } : {
     metaTitle: "Security — MentivisOS",
@@ -219,9 +215,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       { label: "Backup", value: "Daily encrypted backup, 30-day retention, monthly restore testing" },
       { label: "Availability", value: "99.9% uptime SLA, zero-downtime deployment, automatic failover" },
     ],
-    reportTitle: "Report a problem",
-    reportBody: "If you find content that seems problematic and believe it was created with MentivisOS, or if you have a security question, contact our team.",
-    reportCta: "Contact security team",
     faqTitle: "Frequently asked questions",
   };
 
@@ -446,47 +439,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
         </div>
       </section>
 
-      {/* ── REPORT ── */}
-      <section id="report" ref={report.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(report.visible, 0.2) }}>
-        <div className="container" style={{ maxWidth: 800 }}>
-          <div
-            style={{
-              padding: "40px 36px",
-              background: "#0A0A0A",
-              borderRadius: 20,
-              textAlign: "center",
-            }}
-          >
-            <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 300, color: "#fff", margin: "0 0 16px" }}>
-              {H.reportTitle}
-            </h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 520, margin: "0 auto 24px" }}>
-              {H.reportBody}
-            </p>
-            <a
-              href="mailto:legal@mentivis.com"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "14px 28px",
-                fontSize: 15,
-                fontWeight: 500,
-                color: "#0A0A0A",
-                background: "#fff",
-                borderRadius: 10,
-                textDecoration: "none",
-                transition: "background 0.15s, transform 0.15s",
-              }}
-            >
-              {H.reportCta}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
+      <CTABlock lang={lang} variant="final" />
 
       {/* ── FAQ ── */}
       <section id="faq" ref={faq.ref} className="section" style={{ paddingTop: 100, paddingBottom: 120, ...sectionAnim(faq.visible, 0.25) }}>

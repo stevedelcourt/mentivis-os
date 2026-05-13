@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { Locale } from "@/lib/i18n";
+import CTABlock from "@/components/cta-block";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -139,7 +139,6 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   const approche = useVisible();
   const signatures = useVisible();
   const valeurs = useVisible();
-  const cta = useVisible();
 
   const sectionAnim = (visible: boolean, delay = 0): React.CSSProperties => ({
     opacity: visible ? 1 : 0,
@@ -159,6 +158,12 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     histoireBody3: "Un choix des l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent reellement.",
     equipeTitle: "L'equipe",
     equipeSub: "Les fondateurs",
+    approcheTitle: "Notre approche",
+    approcheSub: "Quatre blocs integres. Un seul objectif. Un systeme viable, finance, activable rapidement.",
+    signaturesTitle: "Ce qui nous distingue",
+    signaturesSub: "Quatre signatures.",
+    valeursTitle: "Nos valeurs",
+    valeursSub: "Cinq regles de fonctionnement.",
   } : {
     equipeSub: "The founders",
     approcheTitle: "Our approach",
@@ -167,10 +172,6 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     signaturesSub: "Four signatures.",
     valeursTitle: "Our values",
     valeursSub: "Five operating rules.",
-    ctaTitle: "Have a training project to structure?",
-    ctaBody: "First no-obligation discussion, analysis of your needs and clear positioning on our ability to support you.",
-    ctaPrimary: "Start for free",
-    ctaSecondary: "Contact the team",
   };
 
   const approach = isFr ? APPROACH_FR : APPROACH_EN;
@@ -432,66 +433,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section ref={cta.ref} className="section" style={{ paddingTop: 100, paddingBottom: 120, ...sectionAnim(cta.visible, 0.3) }}>
-        <div className="container" style={{ maxWidth: 700 }}>
-          <div
-            style={{
-              padding: "48px 40px",
-              background: "#0A0A0A",
-              borderRadius: 20,
-              textAlign: "center",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "clamp(24px, 3vw, 32px)",
-                fontWeight: 300,
-                color: "#fff",
-                margin: "0 0 12px",
-              }}
-            >
-              {H.ctaTitle}
-            </h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", maxWidth: 480, margin: "0 auto 28px" }}>
-              {H.ctaBody}
-            </p>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <Link
-                href="https://app.mentivisOS.com"
-                style={{
-                  padding: "14px 28px",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: "#0A0A0A",
-                  background: "#fff",
-                  borderRadius: 10,
-                  textDecoration: "none",
-                  transition: "background 0.15s",
-                }}
-              >
-                {H.ctaPrimary}
-              </Link>
-              <Link
-                href={`/${lang}/contact`}
-                style={{
-                  padding: "14px 28px",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: "#fff",
-                  background: "rgba(255,255,255,0.1)",
-                  borderRadius: 10,
-                  textDecoration: "none",
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  transition: "background 0.15s",
-                }}
-              >
-                {H.ctaSecondary}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTABlock lang={lang} variant="final" />
 
       <style>{`
         .section-title {
