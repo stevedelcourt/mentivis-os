@@ -37,7 +37,6 @@ export default function JobEditorPage() {
   const [location, setLocation] = useState("");
   const [type, setType] = useState<JobType>("cdi");
   const [department, setDepartment] = useState("");
-  const [salary, setSalary] = useState("");
   const [description, setDescription] = useState("");
   const [whyJoin, setWhyJoin] = useState("");
   const [published, setPublished] = useState(false);
@@ -70,7 +69,6 @@ export default function JobEditorPage() {
         setLocation(j.location);
         setType(j.type);
         setDepartment(j.department);
-        setSalary(j.salary);
         setDescription(j.description);
         setWhyJoin(j.whyJoin);
         setPublished(j.published);
@@ -105,7 +103,6 @@ export default function JobEditorPage() {
       location,
       type,
       department,
-      salary,
       description,
       whyJoin,
       published,
@@ -201,28 +198,16 @@ export default function JobEditorPage() {
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>L'URL de l'offre : /carrieres/{slug}</p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
-          <div>
-            <label style={labelStyle}>Lieu *</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-              style={inputStyle}
-              placeholder="ex: Paris ou Remote"
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>Salaire</label>
-            <input
-              type="text"
-              value={salary}
-              onChange={(e) => setSalary(e.target.value)}
-              style={inputStyle}
-              placeholder="ex: 45-65k€ ou A discuter"
-            />
-          </div>
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Lieu *</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+            style={inputStyle}
+            placeholder="ex: Paris ou Remote"
+          />
         </div>
 
         <div style={{ marginBottom: 20 }}>

@@ -343,7 +343,6 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                         <span>{job.department}</span>
                         <span>{job.location}</span>
                         <span>{typeLabel(job.type)}</span>
-                        <span>{job.salary}</span>
                       </div>
                     </div>
                     <span

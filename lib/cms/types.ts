@@ -127,7 +127,6 @@ export interface Job {
   location: string;
   type: JobType;
   department: string;
-  salary: string;
   description: string;
   whyJoin: string;
   published: boolean;

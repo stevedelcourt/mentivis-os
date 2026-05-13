@@ -23,9 +23,9 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, location, type, department, salary, description, whyJoin, published } = body;
+    const { title, location, type, department, description, whyJoin, published } = body;
 
-    if (!title || !location || !type || !department || !salary || !description || !whyJoin) {
+    if (!title || !location || !type || !department || !description || !whyJoin) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -47,7 +47,6 @@ export async function POST(request: Request) {
       location,
       type,
       department,
-      salary,
       description,
       whyJoin,
       published: !!published,

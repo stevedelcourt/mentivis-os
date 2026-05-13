@@ -212,7 +212,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
               <span>{job.department}</span>
               <span>{job.location}</span>
               <span>{typeLabel(job.type)}</span>
-              <span>{job.salary}</span>
             </div>
           </div>
         </div>
@@ -380,14 +379,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         </p>
                         <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
                           {job.location}
-                        </p>
-                      </div>
-                      <div>
-                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                          {t.careers.detail.salary}
-                        </p>
-                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                          {job.salary}
                         </p>
                       </div>
                       <div>

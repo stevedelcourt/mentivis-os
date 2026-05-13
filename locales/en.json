@@ -680,7 +680,6 @@
       "allDepartments": "All",
       "type": "Type",
       "location": "Location",
-      "salary": "Salary",
       "apply": "Apply",
       "readMore": "View position"
     },
@@ -693,7 +692,6 @@
       "department": "Department",
       "type": "Type",
       "location": "Location",
-      "salary": "Salary",
       "reference": "Reference"
     },
     "tabs": {

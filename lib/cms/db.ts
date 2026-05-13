@@ -671,7 +671,6 @@ function rowToJob(row: any): Job {
     location: row.location,
     type: row.type as JobType,
     department: row.department,
-    salary: row.salary,
     description: row.description,
     whyJoin: row.why_join,
     published: !!row.published,
@@ -722,10 +721,10 @@ export async function createJob(job: Omit<Job, "id" | "reference" | "createdAt" 
   const now = new Date().toISOString();
   const reference = await getNextJobReference();
   const result = db.prepare(`
-    INSERT INTO jobs (slug, reference, title, location, type, department, salary, description, why_join, published, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO jobs (slug, reference, title, location, type, department, description, why_join, published, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    job.slug, reference, job.title, job.location, job.type, job.department, job.salary,
+    job.slug, reference, job.title, job.location, job.type, job.department,
     job.description, job.whyJoin, job.published ? 1 : 0, now, now
   );
   return { ...job, id: Number(result.lastInsertRowid), reference, createdAt: now, updatedAt: now };
@@ -744,7 +743,6 @@ export async function updateJob(id: number, updates: Partial<Omit<Job, "id" | "r
   if (updates.location !== undefined) { setParts.push("location = ?"); values.push(updates.location); }
   if (updates.type !== undefined) { setParts.push("type = ?"); values.push(updates.type); }
   if (updates.department !== undefined) { setParts.push("department = ?"); values.push(updates.department); }
-  if (updates.salary !== undefined) { setParts.push("salary = ?"); values.push(updates.salary); }
   if (updates.description !== undefined) { setParts.push("description = ?"); values.push(updates.description); }
   if (updates.whyJoin !== undefined) { setParts.push("why_join = ?"); values.push(updates.whyJoin); }
   if (updates.published !== undefined) { setParts.push("published = ?"); values.push(updates.published ? 1 : 0); }

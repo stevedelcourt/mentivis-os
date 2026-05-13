@@ -241,7 +241,6 @@ function initDatabase(db: SqlJsDb) {
       location TEXT NOT NULL,
       type TEXT NOT NULL CHECK(type IN ('cdi', 'cdd', 'freelance', 'stage', 'alternance')),
       department TEXT NOT NULL,
-      salary TEXT NOT NULL,
       description TEXT NOT NULL,
       why_join TEXT NOT NULL,
       published INTEGER DEFAULT 0,
