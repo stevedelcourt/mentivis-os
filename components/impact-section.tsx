@@ -109,13 +109,15 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const showFallback = postsLoaded && activePosts.every((p) => p === null);
 
   function ghostStyle(pos: CSSProperties, col: string, row: string): CSSProperties {
-    return {
+    const style: CSSProperties = {
       ...pos,
       aspectRatio: "1 / 1",
       width: "50%",
       justifySelf: col === "1" ? "end" : "start",
       alignSelf: row === "1" ? "end" : "start",
     };
+    if (row === "1") style.transform = `translateY(calc(84% + ${GAP}px))`;
+    return style;
   }
 
   function renderGrid(cards: (Post | null)[], tab: "clients" | "partenariat") {
