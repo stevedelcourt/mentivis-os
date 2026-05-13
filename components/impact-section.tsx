@@ -122,8 +122,9 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         return <div key={`e-${i}`} className="impact-card impact-ghost" style={item.pos} />;
       }
       const hasImage = !!post.imageUrl;
+      const extra = i === 0 ? { alignSelf: "end" as const } : {};
       return (
-        <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={{ ...item.pos, ...bgStyle(post, gradient) }}>
+        <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={{ ...item.pos, ...bgStyle(post, gradient), ...extra }}>
           {i === 0 && <span className="impact-tag">{tag}</span>}
           <span className="impact-card-title">{post.title}</span>
         </Link>
