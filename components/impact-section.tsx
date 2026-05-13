@@ -13,25 +13,16 @@ const CARD_GRADIENTS = [
 
 const GAP = 12;
 
-interface LayoutItem {
-  pos: CSSProperties;
-  ghost?: boolean;
-}
-
-const LAYOUTS: Record<string, LayoutItem[]> = {
+const LAYOUTS: Record<string, { pos: CSSProperties }[]> = {
   clients: [
-    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "2", gridRow: "1" } },
     { pos: { gridColumn: "1", gridRow: "1" } },
-    { pos: { gridColumn: "3", gridRow: "2" } },
-    { pos: { gridColumn: "3", gridRow: "1" }, ghost: true },
-    { pos: { gridColumn: "1", gridRow: "2" }, ghost: true },
+    { pos: { gridColumn: "3", gridRow: "1" } },
   ],
   partenariat: [
-    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "2", gridRow: "1" } },
     { pos: { gridColumn: "3", gridRow: "1" } },
-    { pos: { gridColumn: "1", gridRow: "2" } },
-    { pos: { gridColumn: "1", gridRow: "1" }, ghost: true },
-    { pos: { gridColumn: "3", gridRow: "2" }, ghost: true },
+    { pos: { gridColumn: "1", gridRow: "1" } },
   ],
 };
 
@@ -108,41 +99,20 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const activePosts = activeTab === "clients" ? clientsCards : partenariatCards;
   const showFallback = postsLoaded && activePosts.every((p) => p === null);
 
-  function ghostStyle(pos: CSSProperties, col: string, row: string): CSSProperties {
-    const style: CSSProperties = {
-      ...pos,
-      aspectRatio: "1 / 1",
-      width: "50%",
-      justifySelf: col === "1" ? "end" : "start",
-      alignSelf: row === "1" ? "end" : "start",
-    };
-    if (row === "1") style.transform = `translateY(calc(84% + ${GAP}px))`;
-    return style;
-  }
-
   function renderGrid(cards: (Post | null)[], tab: "clients" | "partenariat") {
     const layout = LAYOUTS[tab];
     const tag = tab === "clients" ? t.impact.tabs.clients : t.impact.tabs.partnerships;
     return layout.map((item, i) => {
-      const col = item.pos.gridColumn as string;
-      const row = item.pos.gridRow as string;
-      if (item.ghost) {
-        return <div key={`g-${i}`} className="impact-card impact-ghost" style={ghostStyle(item.pos, col, row)} />;
-      }
-      const idx = i < 3 ? i : 0;
-      const post = cards[idx];
-      const gradient = CARD_GRADIENTS[idx % CARD_GRADIENTS.length];
-      if (!post) {
-        return <div key={`e-${i}`} className="impact-card impact-ghost" style={ghostStyle(item.pos, col, row)} />;
-      }
+      const post = cards[i];
+      if (!post) return <div key={`e-${i}`} className="impact-card impact-empty" style={item.pos} />;
+      const gradient = CARD_GRADIENTS[i % CARD_GRADIENTS.length];
       const hasImage = !!post.imageUrl;
       const cardStyle: CSSProperties = {
         ...item.pos,
         ...bgStyle(post, gradient),
         aspectRatio: "1 / 1",
       };
-      if (i === 0) cardStyle.alignSelf = "end";
-      if (i === 1) { cardStyle.alignSelf = "start"; cardStyle.transform = `translateY(calc(42% + ${GAP}px))`; }
+      if (i === 1) cardStyle.alignSelf = "start";
       if (i === 2) cardStyle.alignSelf = "end";
       return (
         <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={cardStyle}>
@@ -223,7 +193,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 grid-area: 1/1;
                 display: grid;
                 grid-template-columns: 1fr 1.58fr 1fr;
-                grid-template-rows: auto auto;
+                grid-template-rows: auto;
                 gap: ${GAP}px;
                 opacity: 0;
                 visibility: hidden;
@@ -250,7 +220,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.38s ease;
                 isolation: isolate;
               }
-              .impact-grid[data-active="true"] .impact-card:not(.impact-ghost) {
+              .impact-grid[data-active="true"] .impact-card {
                 animation: cardIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
               }
               .impact-grid[data-active="true"] .impact-card:nth-child(1) { animation-delay: 0s; }
@@ -273,16 +243,15 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
               .impact-card > * { position: relative; z-index: 2; }
               .impact-card:hover {
-                transform: scale(1.02);
+                transform: translateY(-4px);
                 box-shadow: 0 16px 40px rgba(0,0,0,.15);
               }
-
-              .impact-ghost {
+              .impact-empty {
                 background: #f0f0f0;
                 cursor: default;
               }
-              .impact-ghost::before { display: none; }
-              .impact-ghost:hover { transform: none !important; box-shadow: none !important; }
+              .impact-empty::before { display: none; }
+              .impact-empty:hover { transform: none !important; box-shadow: none !important; }
 
               .impact-tag {
                 position: absolute;
