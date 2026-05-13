@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAllJobs, createJob } from "@/lib/cms/db";
-import { generateSlug } from "@/lib/cms/utils";
+import { generateJobUrlId } from "@/lib/cms/utils";
 import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
@@ -32,13 +32,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const slug = generateSlug(title);
     const jobs = await getAllJobs();
-    let uniqueSlug = slug;
-    let counter = 1;
+    let uniqueSlug = generateJobUrlId();
     while (jobs.some((j) => j.slug === uniqueSlug)) {
-      uniqueSlug = `${slug}-${counter}`;
-      counter++;
+      uniqueSlug = generateJobUrlId();
     }
 
     const job = await createJob({

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { JobType } from "@/lib/cms/types";
-import { generateSlug } from "@/lib/cms/utils";
+
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
 import { CmsLayout, CmsLoading } from "@/components/cms/CmsLayout";
@@ -84,12 +84,6 @@ export default function JobEditorPage() {
     loadJob();
   }, [loadJob]);
 
-  useEffect(() => {
-    if (isNew && title && !slug) {
-      setSlug(generateSlug(title));
-    }
-  }, [title, isNew, slug]);
-
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!token) return;
@@ -99,7 +93,6 @@ export default function JobEditorPage() {
 
     const payload = {
       title,
-      slug: slug || generateSlug(title),
       location,
       type,
       department,
@@ -186,17 +179,25 @@ export default function JobEditorPage() {
           />
         </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Slug</label>
-          <input
-            type="text"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            style={inputStyle}
-            placeholder="ingenieur-ia"
-          />
-          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>L'URL de l'offre : /carrieres/{slug}</p>
-        </div>
+        {slug && (
+          <div style={{ marginBottom: 20 }}>
+            <label style={labelStyle}>URL publique</label>
+            <div
+              style={{
+                ...inputStyle,
+                background: "#F0F0F0",
+                color: "#777169",
+                fontFamily: "monospace",
+                fontSize: 13,
+              }}
+            >
+              /carrieres/{slug}
+            </div>
+            <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
+              URL generee automatiquement — non modifiable
+            </p>
+          </div>
+        )}
 
         <div style={{ marginBottom: 20 }}>
           <label style={labelStyle}>Lieu *</label>
