@@ -139,6 +139,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         ...bgStyle(post, gradient),
         aspectRatio: "1 / 1",
       };
+      if (i === 0) cardStyle.alignSelf = "end";
       if (i === 1) cardStyle.alignSelf = "start";
       if (i === 2) cardStyle.alignSelf = "end";
       return (
