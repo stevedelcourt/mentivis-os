@@ -5,7 +5,8 @@
 ### Port 3001
 **Problem**: Port 3000 permanently occupied by lsphp/Passenger error server, causing EADDRINUSE.
 **Decision**: Set PORT=3001 in server.js, deploy.sh, and .env.local.
-**Status**: ✅ Deployed
+**Update (2026-05-13)**: Changed `server.js` from `process.env.PORT || '3001'` to `process.env.PORT = '3001'` to override any Passenger-injected PORT value. Added startup logging for visibility.
+**Status**: ✅ Fixed
 
 ### Homepage Reordering
 **Problem**: Homepage had 15+ sections, narrative was unfocused.

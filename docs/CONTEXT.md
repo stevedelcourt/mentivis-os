@@ -15,6 +15,8 @@ HeroUnit → ProblemSection → SectorShowcase → MathFeaturesSection → Trans
 - [x] TransformationTimeline visual polish (6 fixes done, deployed)
 - [x] ProductCard descriptions below cards (done, deployed)
 - [x] Language switcher in navbar (done, deployed)
+- [x] Passenger PORT propagation fix (forced PORT=3001 in server.js, deployed)
+- [x] Verify HTTPS health check after deploy — passed on first attempt
 - [ ] Future: SectorShowcase content refinement
 - [ ] Future: MathFeaturesSection copy polish
 

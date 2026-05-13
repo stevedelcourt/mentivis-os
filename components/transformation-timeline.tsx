@@ -91,7 +91,10 @@ const SAT_PARAMS = [
   [0, 48, 5], [180, 60, 7],
   [90, 44, 4], [270, 54, 6],
   [45, 56, 3.5], [135, 64, 5.5],
-  [315, 70, 7],
+  [315, 70, 7], [225, 52, 6],
+  [30, 68, 4.5], [210, 58, 5],
+  [120, 72, 6.5], [300, 50, 4],
+  [60, 66, 5.5], [240, 62, 7],
 ];
 
 export default function TransformationTimeline({ lang }: TransformationTimelineProps) {
@@ -245,8 +248,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               const size = ORB_SIZES[i];
               const margin = getOrbMargin(i);
               const driftAnims = BLOB_DRIFTS[i];
-              const sat1Params = SAT_PARAMS[i * 2];
-              const sat2Params = SAT_PARAMS[i * 2 + 1] || SAT_PARAMS[0];
+              const sat1Params = SAT_PARAMS[i * 2] || SAT_PARAMS[0];
+              const sat2Params = SAT_PARAMS[i * 2 + 1] || SAT_PARAMS[1];
 
               return (
                 <div
