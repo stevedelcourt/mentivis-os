@@ -57,6 +57,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [honeypot, setHoneypot] = useState("");
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
+  const [cvFile, setCvFile] = useState<File | null>(null);
 
   const heroV = useVisible(0.2);
 
@@ -90,20 +91,23 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
     if (!job || honeypot) return;
     setFormState("loading");
 
+    const formData = new FormData();
+    formData.append("jobReference", job.reference);
+    formData.append("jobTitle", job.title);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("linkedin", linkedin);
+    formData.append("message", message);
+    if (cvFile) {
+      formData.append("cv", cvFile);
+    }
+
     try {
       const res = await fetch("/api/job-applications", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          jobReference: job.reference,
-          jobTitle: job.title,
-          firstName,
-          lastName,
-          email,
-          phone,
-          linkedin,
-          message,
-        }),
+        body: formData,
       });
       if (res.ok) {
         setFormState("success");
@@ -113,6 +117,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         setPhone("");
         setLinkedin("");
         setMessage("");
+        setCvFile(null);
       } else {
         setFormState("error");
       }
@@ -502,6 +507,42 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         style={inputStyle}
                         placeholder="https://linkedin.com/in/..."
                       />
+                    </div>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={labelStyle}>CV (PDF, max 6 Mo)</label>
+                      <label
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 12,
+                          padding: "12px 14px",
+                          border: "1px dashed #E5E0DA",
+                          borderRadius: 10,
+                          background: "#FAFAF8",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <input
+                          type="file"
+                          accept=".pdf,application/pdf"
+                          onChange={(e) => setCvFile(e.target.files?.[0] || null)}
+                          style={{ display: "none" }}
+                        />
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17 8 12 3 7 8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span style={{ fontSize: 14, color: cvFile ? "#0A0A0A" : "#A8A29E" }}>
+                          {cvFile ? cvFile.name : "Choisir un fichier PDF"}
+                        </span>
+                      </label>
+                      {cvFile && cvFile.size > 6 * 1024 * 1024 && (
+                        <p style={{ fontSize: 12, color: "#c45c4a", marginTop: 4 }}>
+                          Fichier trop volumineux (max 6 Mo)
+                        </p>
+                      )}
                     </div>
 
                     <div style={{ marginBottom: 24 }}>

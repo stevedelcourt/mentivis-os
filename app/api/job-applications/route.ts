@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 import { createJobApplication } from "@/lib/cms/db";
 import { checkRateLimit } from "@/lib/rate-limit";
+
+const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
+const CVS_DIR = path.join(DATA_DIR, "cvs");
 
 const ALLOWED_ORIGINS = [
   "https://sc4bovu7233.universe.wf",
@@ -8,12 +13,24 @@ const ALLOWED_ORIGINS = [
   "http://localhost:3000",
 ];
 
+const MAX_FILE_SIZE = 6 * 1024 * 1024; // 6MB
+
 function getIp(request: NextRequest): string {
   return (
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
     "unknown"
   );
+}
+
+function sanitizeFilename(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
 }
 
 export async function POST(request: NextRequest) {
@@ -28,11 +45,45 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
-    const { jobReference, jobTitle, firstName, lastName, email, phone, linkedin, message } = body;
+    const formData = await request.formData();
+
+    const jobReference = formData.get("jobReference") as string;
+    const jobTitle = formData.get("jobTitle") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const linkedin = formData.get("linkedin") as string;
+    const message = formData.get("message") as string;
+    const file = formData.get("cv") as File | null;
 
     if (!jobReference || !jobTitle || !firstName || !lastName || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    let cvUrl: string | undefined;
+
+    if (file && file.size > 0) {
+      if (file.type !== "application/pdf") {
+        return NextResponse.json({ error: "Only PDF files are allowed" }, { status: 400 });
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        return NextResponse.json({ error: "File too large. Max 6MB" }, { status: 400 });
+      }
+
+      const safeLastName = sanitizeFilename(lastName);
+      const safeFirstName = sanitizeFilename(firstName);
+      const filename = `${safeLastName}-${safeFirstName}-cv.pdf`;
+
+      if (!fs.existsSync(CVS_DIR)) {
+        fs.mkdirSync(CVS_DIR, { recursive: true });
+      }
+
+      const buffer = Buffer.from(await file.arrayBuffer());
+      fs.writeFileSync(path.join(CVS_DIR, filename), buffer);
+
+      cvUrl = `/api/cvs/${filename}`;
     }
 
     await createJobApplication({
@@ -44,6 +95,7 @@ export async function POST(request: NextRequest) {
       phone: phone || "",
       linkedin: linkedin || "",
       message,
+      cvUrl,
       read: false,
     });
 

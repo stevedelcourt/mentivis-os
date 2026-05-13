@@ -777,6 +777,7 @@ function rowToJobApplication(row: any): JobApplication {
     phone: row.phone,
     linkedin: row.linkedin,
     message: row.message,
+    cvUrl: row.cv_url || undefined,
     createdAt: row.created_at,
     read: !!row.read,
     notes: row.notes,
@@ -801,12 +802,12 @@ export async function createJobApplication(
   const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
-    INSERT INTO job_applications (job_reference, job_title, first_name, last_name, email, phone, linkedin, message, created_at, read, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO job_applications (job_reference, job_title, first_name, last_name, email, phone, linkedin, message, cv_url, created_at, read, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     application.jobReference, application.jobTitle, application.firstName, application.lastName,
     application.email, application.phone || null, application.linkedin || null, application.message,
-    now, application.read ? 1 : 0, application.notes || null
+    application.cvUrl || null, now, application.read ? 1 : 0, application.notes || null
   );
   return { ...application, id: Number(result.lastInsertRowid), createdAt: now };
 }

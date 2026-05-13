@@ -307,6 +307,7 @@ function runMigrations(db: SqlJsDb) {
         phone TEXT,
         linkedin TEXT,
         message TEXT NOT NULL,
+        cv_url TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         read INTEGER DEFAULT 0,
         notes TEXT
@@ -314,6 +315,12 @@ function runMigrations(db: SqlJsDb) {
     `);
   } catch {
     // Table already exists
+  }
+
+  try {
+    db.exec("ALTER TABLE job_applications ADD COLUMN cv_url TEXT");
+  } catch {
+    // Column already exists
   }
 }
 

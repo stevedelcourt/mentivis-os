@@ -256,6 +256,23 @@ export default function CandidaturesPage() {
                               <span style={{ fontSize: 12, color: "#A8A29E" }}>LinkedIn</span>
                               <p style={{ fontSize: 14, color: "#3E3B38", marginTop: 2 }}>{a.linkedin || "—"}</p>
                             </div>
+                            <div>
+                              <span style={{ fontSize: 12, color: "#A8A29E" }}>CV</span>
+                              <p style={{ fontSize: 14, marginTop: 2 }}>
+                                {a.cvUrl ? (
+                                  <a
+                                    href={a.cvUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: "#2563EB", textDecoration: "underline" }}
+                                  >
+                                    Telecharger le CV
+                                  </a>
+                                ) : (
+                                  <span style={{ color: "#A8A29E" }}>—</span>
+                                )}
+                              </p>
+                            </div>
                           </div>
                           <div style={{ marginBottom: 16 }}>
                             <span style={{ fontSize: 12, color: "#A8A29E", display: "block", marginBottom: 6 }}>Message</span>

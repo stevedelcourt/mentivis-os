@@ -38,19 +38,62 @@ export default function JobEditorPage() {
   const [type, setType] = useState<JobType>("cdi");
   const [department, setDepartment] = useState("");
   const [description, setDescription] = useState("");
-  const [whyJoin, setWhyJoin] = useState(`## Notre culture
+  const [whyJoin, setWhyJoin] = useState(`About MentivisOS
 
-• Autonomie et responsabilite : nous recrutons des adultes, pas de micro-management
-• Impact reel : chaque projet transforme directement la maniere dont les equipes apprennent
-• Equipe et techno : IA, edtech, automatisation — des sujets a la pointe
-• Bienveillance et exigence : un environnement ou chacun donne le meilleur de lui-meme
+MentivisOS is the AI operating system for education, training, and workforce transformation.
 
-## Ce que nous offrons
+Created by Mentivis, a consulting and educational engineering firm specialized in learning systems, digital transformation, and AI-driven institutional strategy, MentivisOS helps organizations design, operate, and scale modern learning ecosystems.
 
-• Culture innovante : participez a la construction d'une infrastructure de formation native IA
-• Trajectoires de croissance : comptez sur de nombreuses opportunites d'impact au-dela de votre role
-• Collaboration a distance : documentation reflechie, communication efficace, reunions minimisees
-• Flexibilite : teletravail complet avec possibilite de coworking`);
+We work with schools, universities, corporate academies, training providers, companies, and public institutions facing the same challenge: how to continuously develop skills and talent in an AI-shaped world.
+
+MentivisOS combines strategic consulting, pedagogical expertise, operational execution, and artificial intelligence into one integrated system designed for real-world deployment.
+
+Today, MentivisOS supports educational and workforce initiatives across higher education, vocational training, corporate learning, and institutional transformation projects in France and internationally.
+
+Our ecosystem is built around three core dimensions:
+
+• MentivisOS Intelligence powers educational operations, pedagogy, governance, automation, and AI-enhanced learning experiences.
+• TalentOS connects recruitment, onboarding, upskilling, and talent pipeline management into a unified intelligence layer.
+• Marius AI delivers AI-powered guidance, support, tutoring, automation, and knowledge access for learners, educators, managers, and institutions.
+
+Everything we build is grounded in operational reality. We are not a generic SaaS platform. We are educators, strategists, technologists, and operators working directly with institutions and organizations navigating transformation.
+
+How we work
+
+Education-native
+Our foundation comes from years of experience in education, training, institutional strategy, and pedagogical engineering.
+
+AI-first
+We integrate AI across the full lifecycle of learning and workforce development - curriculum design, admissions, student support, training delivery, evaluation, administration, recruitment, and strategic decision-making.
+
+Built for implementation
+We focus on execution, adoption, governance, and measurable outcomes, not just recommendations or concepts.
+
+Interdisciplinary teams
+Our work combines expertise in pedagogy, AI, strategy, operations, communication, technology, and institutional management.
+
+Human-centered transformation
+We believe AI should strengthen human capabilities, improve access to education, and help institutions adapt responsibly to technological change.
+
+What we offer
+
+Intelligent learning infrastructure
+One ecosystem to manage education, training, talent development, AI support, and operational workflows.
+
+Institutional transformation
+Strategic and operational support for organizations adapting to AI, digital transformation, and changing workforce dynamics.
+
+Workforce and talent acceleration
+Tools and systems to recruit, train, retain, and evolve talent pipelines at scale.
+
+AI acculturation
+Through initiatives such as ICIA - Institut Collectif de l'Intelligence Artificielle, we contribute to large-scale AI literacy and public education.
+
+Adaptive ecosystems
+Flexible infrastructures designed to evolve continuously alongside technological, economic, and societal shifts.
+
+Long-term partnerships
+We work alongside institutions and organizations to co-build sustainable educational and workforce models over time.`);
   const [published, setPublished] = useState(false);
 
   useEffect(() => {

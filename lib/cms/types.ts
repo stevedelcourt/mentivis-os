@@ -144,6 +144,7 @@ export interface JobApplication {
   phone: string;
   linkedin: string;
   message: string;
+  cvUrl?: string;
   createdAt: string;
   read: boolean;
   notes?: string;
