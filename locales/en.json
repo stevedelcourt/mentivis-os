@@ -414,37 +414,37 @@
     "dividerRight": "After transformation",
     "stages": [
       {
-        "label": "Disorganised",
-        "title": "Fragmented",
+        "label": "Disorganization",
+        "title": "Fragmented knowledge",
         "desc": "Teams work in silos. Knowledge is scattered across documents, emails and individuals. Training still relies on manual coordination."
       },
       {
-        "label": "Under tension",
-        "title": "Under pressure",
+        "label": "Tension",
+        "title": "Operational tension",
         "desc": "Growth creates complexity. Hiring slows the organisation. Managers spend more and more time aligning and training teams."
       },
       {
-        "label": "Complexified",
-        "title": "Tool stacking",
+        "label": "Complexity",
+        "title": "Tool fragmentation",
         "desc": "The organisation accumulates platforms, LMSs, spreadsheets and disconnected workflows. Every new tool adds a layer of operational friction."
       },
       {
-        "label": "Limited",
-        "title": "Bottleneck",
+        "label": "Limitations",
+        "title": "Operational brake",
         "desc": "The organisation can no longer scale effectively. Training quality becomes uneven. Knowledge circulates too slowly to keep up with growth."
       },
       {
-        "label": "In transition",
+        "label": "Mutation",
         "title": "AI experimentation",
         "desc": "Teams begin testing AI. Initiatives appear across different departments. But usage remains fragmented and difficult to industrialise."
       },
       {
-        "label": "Unified",
+        "label": "Unification",
         "title": "MentivisOS integration",
         "desc": "MentivisOS unifies training, recruitment, skills and internal systems in a single infrastructure. The organisation shifts from reactive logic to continuous adaptive capacity."
       },
       {
-        "label": "Adaptive",
+        "label": "Adaptation",
         "title": "Autonomous learning organisation",
         "desc": "Training becomes continuous. Knowledge circulates automatically. Teams upskill faster without proportionally increasing operational load. The organisation becomes a living system capable of evolving permanently."
       }

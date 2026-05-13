@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
 interface TransformationTimelineProps {
@@ -79,24 +79,28 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
   const t = getT(lang);
   const stages = t.timeline.stages;
   const [active, setActive] = useState<number>(0);
+  const [prevActive, setPrevActive] = useState<number>(0);
   const [fade, setFade] = useState<boolean>(true);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
 
   const activate = (i: number) => {
-    if (i === active) return;
+    if (i === active || isTransitioning) return;
+    setIsTransitioning(true);
+    setPrevActive(active);
     setFade(false);
     setTimeout(() => {
       setActive(i);
       setFade(true);
+      setTimeout(() => setIsTransitioning(false), 500);
     }, 200);
   };
 
   const activeStage = stages[active];
 
-  // Calculate dynamic spacing based on active orb
   const getOrbMargin = (i: number) => {
     if (active === i) return 0;
-    // Neighbors of active get extra space
     if (Math.abs(active - i) === 1) return 12;
     return 0;
   };
@@ -152,153 +156,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             overflow: "hidden",
           }}
         >
-          {/* Measurement bar with divider badge */}
-          <div
-            style={{
-              position: "relative",
-              height: 14,
-              marginBottom: 56,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {/* Horizontal line */}
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: "50%",
-                height: 1,
-                background: "rgba(26,22,22,0.08)",
-                transform: "translateY(-50%)",
-              }}
-            />
-
-            {/* Vertical accent line at divider */}
-            <div
-              style={{
-                position: "absolute",
-                left: "75%",
-                top: -8,
-                bottom: -8,
-                width: 1,
-                background: "rgba(26,22,22,0.08)",
-                zIndex: 1,
-              }}
-            />
-
-            {/* Tick marks */}
-            <div
-              ref={rowRef}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                position: "relative",
-                zIndex: 2,
-              }}
-            >
-              {stages.map((_, i) => {
-                const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
-                return (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
-                    <span style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 10,
-                      color: i === active ? "#1A1616" : "#8A7D70",
-                      letterSpacing: "0.08em",
-                      fontWeight: i === active ? 500 : 400,
-                      transition: "color 0.3s ease",
-                      marginBottom: 6,
-                    }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <button
-                      onClick={() => activate(i)}
-                      aria-label={`${stages[i].label}, ${stages[i].title}`}
-                      style={{
-                        width: 1,
-                        height: i === active ? 16 : 6,
-                        background: tickColor,
-                        border: "none",
-                        padding: 0,
-                        cursor: "pointer",
-                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
-                        flexShrink: 0,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = "12px";
-                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = "6px";
-                          (e.target as HTMLElement).style.background = tickColor;
-                        }
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Divider badge */}
-            <div
-              style={{
-                position: "absolute",
-                left: "calc(75% - 40px)",
-                top: -22,
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-                background: "#f5f3f1",
-                padding: "2px 8px",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 500,
-                  color: "#8A7D70",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {t.timeline.dividerLeft}
-              </span>
-              <span
-                style={{
-                  width: 20,
-                  height: 1,
-                  background: "#8A7D70",
-                  opacity: 0.4,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 500,
-                  color: "#8A7D70",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {t.timeline.dividerRight}
-              </span>
-            </div>
-          </div>
-
           {/* Orb row */}
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: 56,
+              marginBottom: 40,
               position: "relative",
               minHeight: 320,
               padding: "20px 0",
@@ -306,8 +170,23 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           >
             {stages.map((stage, i) => {
               const isActive = i === active;
-              const scale = isActive ? 1.35 : 1;
-              const zIndex = isActive ? 10 : 1;
+              const isHovered = hovered === i;
+              const wasActive = i === prevActive && isTransitioning;
+              
+              // Staggered scale logic
+              let scale = 1;
+              let scaleTransition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
+              if (isActive && !isTransitioning) {
+                scale = 1.35;
+              } else if (isActive && isTransitioning) {
+                scale = 1.35;
+                scaleTransition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s";
+              } else if (wasActive) {
+                scale = 1;
+                scaleTransition = "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)";
+              }
+              
+              const zIndex = isActive ? 10 : isHovered ? 5 : 1;
               const config = ORB_CONFIGS[i];
               const size = ORB_SIZES[i];
               const margin = getOrbMargin(i);
@@ -328,6 +207,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                     flexShrink: 0,
                   }}
                   onClick={() => activate(i)}
+                  onMouseEnter={() => setHovered(i)}
+                  onMouseLeave={() => setHovered(null)}
                 >
                   {/* Float wrapper */}
                   <div
@@ -340,12 +221,30 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                       transition: "margin-bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     }}
                   >
+                    {/* Outer ring (active only) */}
+                    {isActive && (
+                      <div
+                        className="orb-ring"
+                        style={{
+                          position: "absolute",
+                          inset: "-25%",
+                          borderRadius: "50%",
+                          border: "1px solid rgba(255,255,255,0.25)",
+                          transform: `scale(${isTransitioning && wasActive ? 1 : 1})`,
+                          opacity: isTransitioning && wasActive ? 0 : 1,
+                          transition: "opacity 0.3s ease, transform 0.4s ease",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    )}
+                    
                     {/* Scale wrapper */}
                     <div
+                      className={isTransitioning && isActive ? "orb-pulse" : undefined}
                       style={{
                         position: "absolute",
                         inset: 0,
-                        transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                        transition: scaleTransition,
                         transform: `scale(${scale})`,
                         transformOrigin: "center top",
                       }}
@@ -359,12 +258,15 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                           height: 10,
                           borderRadius: "50%",
                           background: config.satColors[0],
-                          boxShadow: `0 0 8px ${config.satColors[0]}80`,
+                          boxShadow: isHovered && !isActive
+                            ? `0 0 12px ${config.satColors[0]}B0`
+                            : `0 0 8px ${config.satColors[0]}80`,
                           top: "50%",
                           left: "50%",
                           marginTop: -5,
                           marginLeft: -5,
                           zIndex: 2,
+                          transition: "box-shadow 0.3s ease",
                         }}
                       />
                       {/* Satellite 2 */}
@@ -376,12 +278,15 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                           height: 8,
                           borderRadius: "50%",
                           background: config.satColors[1] || config.satColors[0],
-                          boxShadow: `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
+                          boxShadow: isHovered && !isActive
+                            ? `0 0 10px ${config.satColors[1] || config.satColors[0]}90`
+                            : `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
                           top: "50%",
                           left: "50%",
                           marginTop: -4,
                           marginLeft: -4,
                           zIndex: 2,
+                          transition: "box-shadow 0.3s ease",
                         }}
                       />
 
@@ -395,9 +300,11 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                           overflow: "hidden",
                           background: config.base,
                           boxShadow: isActive
-                            ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px ${config.blobs[0].c}60, 0 0 60px ${config.blobs[1].c}30`
-                            : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
-                          transition: "box-shadow 0.4s ease",
+                            ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 40px ${config.blobs[0].c}70, 0 0 80px ${config.blobs[1].c}40`
+                            : isHovered
+                              ? `inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 20px ${config.blobs[0].c}50`
+                              : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
+                          transition: "box-shadow 0.3s ease",
                           zIndex: 3,
                         }}
                       >
@@ -441,11 +348,12 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                       fontFamily: "var(--font-sans)",
                       fontSize: 15,
                       fontWeight: isActive ? 600 : 400,
-                      color: isActive ? "#1A1616" : "#8A7D70",
+                      color: isActive ? "#1A1616" : isHovered ? "#6A5D50" : "#8A7D70",
                       letterSpacing: "0.02em",
                       textAlign: "center",
                       transition: "color 0.3s ease, font-weight 0.3s ease",
                       lineHeight: 1.3,
+                      cursor: "pointer",
                     }}
                   >
                     {stage.label}
@@ -455,23 +363,173 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             })}
           </div>
 
-          {/* Stage text panel */}
+          {/* Measurement bar — DESCENDED, between orbs and AVANT/APRES */}
+          <div
+            style={{
+              position: "relative",
+              height: 14,
+              marginBottom: 48,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {/* Horizontal track */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: "50%",
+                height: 1,
+                background: "rgba(26,22,22,0.06)",
+                transform: "translateY(-50%)",
+              }}
+            />
+            
+            {/* Progress fill */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                width: `${(active / 6) * 100}%`,
+                top: "50%",
+                height: 1,
+                background: "rgba(26,22,22,0.12)",
+                transform: "translateY(-50%)",
+                transition: "width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                zIndex: 1,
+              }}
+            />
+
+            {/* Tick marks */}
+            <div
+              ref={rowRef}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              {stages.map((_, i) => {
+                const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
+                const isPassed = i <= active;
+                return (
+                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+                    <span style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 10,
+                      color: i === active ? "#1A1616" : "#8A7D70",
+                      letterSpacing: "0.08em",
+                      fontWeight: i === active ? 500 : 400,
+                      transition: "color 0.3s ease",
+                      marginBottom: 6,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <button
+                      onClick={() => activate(i)}
+                      aria-label={`${stages[i].label}, ${stages[i].title}`}
+                      style={{
+                        width: 1,
+                        height: i === active ? 16 : isPassed ? 10 : 6,
+                        background: isPassed ? (i === active ? "#1A1616" : "#8A7D70") : tickColor,
+                        border: "none",
+                        padding: 0,
+                        cursor: "pointer",
+                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
+                        flexShrink: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = "12px";
+                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = isPassed ? "10px" : "6px";
+                          (e.target as HTMLElement).style.background = isPassed ? "#8A7D70" : tickColor;
+                        }
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* AVANT / APRES vertical divider */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 0,
+              marginBottom: 48,
+              position: "relative",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 10,
+                fontWeight: 500,
+                color: "#8A7D70",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                paddingRight: 16,
+              }}
+            >
+              {t.timeline.dividerLeft}
+            </span>
+            <div
+              style={{
+                width: 1,
+                height: 24,
+                background: "rgba(26,22,22,0.1)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 10,
+                fontWeight: 500,
+                color: "#8A7D70",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                paddingLeft: 16,
+              }}
+            >
+              {t.timeline.dividerRight}
+            </span>
+          </div>
+
+          {/* Full-width horizontal line above text panel */}
+          <div
+            style={{
+              width: "100%",
+              height: 1,
+              background: "rgba(26,22,22,0.1)",
+              marginBottom: 40,
+            }}
+          />
+
+          {/* Stage text panel — FIXED HEIGHT, vertically centered */}
           <div
             style={{
               maxWidth: 560,
-              minHeight: 120,
+              height: 220,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
               opacity: fade ? 1 : 0,
               transform: fade ? "translateY(0)" : "translateY(8px)",
               transition: "opacity 0.3s ease, transform 0.3s ease",
             }}
           >
-            {/* Delimiter */}
-            <div style={{
-              width: 100,
-              height: 1,
-              background: "rgba(26,22,22,0.1)",
-              marginBottom: 24,
-            }} />
             <h3
               style={{
                 fontFamily: "var(--font-sans)",
@@ -502,13 +560,13 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
       </div>
 
       <style>{`
-        /* --- Orb float animation --- */
+        /* --- Orb float animation (bigger amplitude) --- */
         @keyframes float {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
+          50% { transform: translateY(-10px); }
         }
         .float-orb {
-          animation: float 5s ease-in-out infinite;
+          animation: float 6s ease-in-out infinite;
         }
         .float-delay-0 { animation-delay: 0s; }
         .float-delay-1 { animation-delay: 0.7s; }
@@ -517,6 +575,16 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
         .float-delay-4 { animation-delay: 2.8s; }
         .float-delay-5 { animation-delay: 3.5s; }
         .float-delay-6 { animation-delay: 4.2s; }
+
+        /* --- Pulse on activation --- */
+        @keyframes orbPulse {
+          0% { transform: scale(1.0); }
+          50% { transform: scale(1.35); }
+          100% { transform: scale(1.35); }
+        }
+        .orb-pulse {
+          animation: orbPulse 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
 
         /* --- Blob drift animations --- */
         @keyframes drift1-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-8px)} 33%{transform:translate(-50%,-50%) translate(8px,4px)} 66%{transform:translate(-50%,-50%) translate(-4px,12px)} }
@@ -592,6 +660,11 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
         .sat-5-2 { animation: orbitF 8s linear infinite; }
         .sat-6-1 { animation: orbitG 7s linear infinite; }
         .sat-6-2 { animation: orbitA 9s linear infinite; }
+
+        /* --- Hover speed boost for satellites --- */
+        .satellite:hover {
+          animation-duration: 0.7s !important;
+        }
 
         @media (max-width: 768px) {
           .constellation-row {

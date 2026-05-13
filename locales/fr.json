@@ -414,37 +414,37 @@
     "dividerRight": "Apres transformation",
     "stages": [
       {
-        "label": "Desorganisee",
-        "title": "Fragmentee",
+        "label": "Desorganisation",
+        "title": "Connaissances fragmentees",
         "desc": "Les equipes travaillent en silos. Les connaissances sont dispersees entre documents, emails et individus. La formation repose encore sur de la coordination manuelle."
       },
       {
-        "label": "Sous tension",
-        "title": "Sous pression",
+        "label": "Tension",
+        "title": "Tension operationnelle",
         "desc": "La croissance cree de la complexite. Les recrutements ralentissent l'organisation. Les managers passent de plus en plus de temps a aligner et former les equipes."
       },
       {
-        "label": "Complexifiee",
-        "title": "Empilement d'outils",
+        "label": "Complexite",
+        "title": "Fragmentation des outils",
         "desc": "L'organisation accumule plateformes, LMS, tableurs et workflows deconnectes. Chaque nouvel outil ajoute une couche de friction operationnelle."
       },
       {
-        "label": "Limitee",
-        "title": "Goulot d'etranglement",
+        "label": "Limitations",
+        "title": "Frein operationnel",
         "desc": "L'organisation ne peut plus scaler efficacement. La qualite de formation devient inegale. Les savoirs circulent trop lentement pour suivre la croissance."
       },
       {
-        "label": "En mutation",
+        "label": "Mutation",
         "title": "Experimentation IA",
         "desc": "Les equipes commencent a tester l'IA. Des initiatives apparaissent dans differents services. Mais les usages restent fragmentes et difficilement industrialisables."
       },
       {
-        "label": "Unifiee",
+        "label": "Unification",
         "title": "Integration MentivisOS",
         "desc": "MentivisOS unifie formation, recrutement, competences et systemes internes dans une infrastructure unique. L'organisation passe d'une logique reactive a une capacite d'adaptation continue."
       },
       {
-        "label": "Adaptative",
+        "label": "Adaptation",
         "title": "Organisation apprenante autonome",
         "desc": "La formation devient continue. Les connaissances circulent automatiquement. Les equipes montent en competence plus vite sans augmenter proportionnellement la charge operationnelle. L'organisation devient un systeme vivant capable d'evoluer en permanence."
       }
