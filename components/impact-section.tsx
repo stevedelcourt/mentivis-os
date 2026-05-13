@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, type CSSProperties } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import { Post } from "@/lib/cms/types";
@@ -12,8 +12,28 @@ const CARD_GRADIENTS = [
 ];
 
 const GAP = 12;
-const COLS = 3;
-const ROWS = 3;
+
+interface LayoutItem {
+  pos: CSSProperties;
+  ghost?: boolean;
+}
+
+const LAYOUTS: Record<string, LayoutItem[]> = {
+  clients: [
+    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "1", gridRow: "1" } },
+    { pos: { gridColumn: "3", gridRow: "2" } },
+    { pos: { gridColumn: "3", gridRow: "1" }, ghost: true },
+    { pos: { gridColumn: "1", gridRow: "2" }, ghost: true },
+  ],
+  partenariat: [
+    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "3", gridRow: "1" } },
+    { pos: { gridColumn: "1", gridRow: "2" } },
+    { pos: { gridColumn: "1", gridRow: "1" }, ghost: true },
+    { pos: { gridColumn: "3", gridRow: "2" }, ghost: true },
+  ],
+};
 
 interface ImpactSectionProps {
   lang: Locale;
@@ -54,9 +74,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [gridHeight, setGridHeight] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -68,19 +86,6 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    function squarify() {
-      const el = stackRef.current;
-      if (!el) return;
-      const W = el.getBoundingClientRect().width;
-      const cell = (W - GAP * (COLS - 1)) / COLS;
-      setGridHeight(Math.round(ROWS * cell + GAP * (ROWS - 1)));
-    }
-    squarify();
-    window.addEventListener("resize", squarify);
-    return () => window.removeEventListener("resize", squarify);
-  }, [postsLoaded, visible]);
 
   useEffect(() => {
     fetch("/api/blog/posts")
@@ -103,15 +108,27 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const activePosts = activeTab === "clients" ? clientsCards : partenariatCards;
   const showFallback = postsLoaded && activePosts.every((p) => p === null);
 
-  function Card({ post, gradient, gridPos, tag }: { post: Post | null; gradient: string; gridPos: React.CSSProperties; tag?: string }) {
-    if (!post) return <div className="impact-card impact-ghost" style={gridPos} />;
-    const hasImage = !!post.imageUrl;
-    return (
-      <Link href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={{ ...gridPos, ...bgStyle(post, gradient) }}>
-        {tag && <span className="impact-tag">{tag}</span>}
-        <span className="impact-card-title">{post.title}</span>
-      </Link>
-    );
+  function renderGrid(cards: (Post | null)[], tab: "clients" | "partenariat") {
+    const layout = LAYOUTS[tab];
+    const tag = tab === "clients" ? t.impact.tabs.clients : t.impact.tabs.partnerships;
+    return layout.map((item, i) => {
+      if (item.ghost) {
+        return <div key={`g-${i}`} className="impact-card impact-ghost" style={item.pos} />;
+      }
+      const idx = i < 3 ? i : 0;
+      const post = cards[idx];
+      const gradient = CARD_GRADIENTS[idx % CARD_GRADIENTS.length];
+      if (!post) {
+        return <div key={`e-${i}`} className="impact-card impact-ghost" style={item.pos} />;
+      }
+      const hasImage = !!post.imageUrl;
+      return (
+        <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={{ ...item.pos, ...bgStyle(post, gradient) }}>
+          {i === 0 && <span className="impact-tag">{tag}</span>}
+          <span className="impact-card-title">{post.title}</span>
+        </Link>
+      );
+    });
   }
 
   return (
@@ -173,29 +190,34 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
             </p>
           </div>
         ) : (
-          <div ref={stackRef} className="impact-stack">
+          <div className="impact-stack">
             <style>{`
               .impact-stack {
+                display: grid;
                 position: relative;
                 width: 100%;
-                height: ${gridHeight || 480}px;
               }
               .impact-grid {
-                position: absolute;
-                inset: 0;
+                grid-area: 1/1;
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(3, 1fr);
+                grid-template-columns: 1fr 2.5fr 1fr;
+                grid-template-rows: auto auto;
                 gap: ${GAP}px;
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 0.38s ease, visibility 0.38s ease;
+                pointer-events: none;
               }
               .impact-grid[data-active="true"] {
                 opacity: 1;
                 visibility: visible;
+                pointer-events: auto;
               }
 
+              .impact-card,
+              .impact-ghost {
+                min-height: 120px;
+              }
               .impact-card {
                 position: relative;
                 border-radius: 20px;
@@ -210,14 +232,12 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.38s ease;
                 isolation: isolate;
               }
-              .impact-grid[data-active="true"] .impact-card {
+              .impact-grid[data-active="true"] .impact-card:not(.impact-ghost) {
                 animation: cardIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
               }
               .impact-grid[data-active="true"] .impact-card:nth-child(1) { animation-delay: 0s; }
               .impact-grid[data-active="true"] .impact-card:nth-child(2) { animation-delay: 0.06s; }
               .impact-grid[data-active="true"] .impact-card:nth-child(3) { animation-delay: 0.12s; }
-              .impact-grid[data-active="true"] .impact-card:nth-child(4) { animation-delay: 0s; }
-              .impact-grid[data-active="true"] .impact-card:nth-child(5) { animation-delay: 0s; }
 
               .impact-card:active {
                 transform: scale(0.98);
@@ -270,51 +290,44 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               @media (max-width: 900px) {
-                .impact-stack { height: auto !important; }
+                .impact-stack { display: block; }
                 .impact-grid {
+                  display: grid;
                   position: relative;
-                  inset: auto;
-                  opacity: 1 !important;
-                  visibility: visible !important;
-                  height: auto;
+                  grid-area: auto;
                   grid-template-columns: 1fr 1fr;
                   grid-template-rows: auto auto auto;
+                  gap: ${GAP}px;
+                  opacity: 1 !important;
+                  visibility: visible !important;
                   transition: none;
+                  pointer-events: auto;
                 }
                 .impact-grid[data-active="false"] { display: none; }
                 .impact-card { animation: cardIn 0.5s backwards; }
-                .impact-card:nth-child(1) { grid-column: 1/2 !important; grid-row: 1/2 !important; aspect-ratio: 1; }
-                .impact-card:nth-child(2) { grid-column: 2/3 !important; grid-row: 1/2 !important; aspect-ratio: 1; }
-                .impact-card:nth-child(3) { grid-column: 1/3 !important; grid-row: 2/3 !important; aspect-ratio: 2; }
+                .impact-card:nth-child(1),
+                .impact-card:nth-child(2),
+                .impact-card:nth-child(3) { min-height: 140px; }
+                .impact-card:nth-child(1) { grid-column: 1/3 !important; grid-row: 1/2 !important; }
+                .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
+                .impact-card:nth-child(3) { grid-column: 2/3 !important; grid-row: 2/3 !important; }
                 .impact-card:nth-child(4),
                 .impact-card:nth-child(5) { display: none; }
               }
               @media (max-width: 520px) {
-                .impact-grid { grid-template-columns: 1fr; }
-                .impact-card:nth-child(1) { grid-column: 1/2 !important; grid-row: 1/2 !important; aspect-ratio: 0.9; }
-                .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; aspect-ratio: 0.9; }
-                .impact-card:nth-child(3) { grid-column: 1/2 !important; grid-row: 3/4 !important; aspect-ratio: 0.9; }
-                .impact-card:nth-child(4),
-                .impact-card:nth-child(5) { display: none; }
+                .impact-grid { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+                .impact-card:nth-child(1) { grid-column: 1/2 !important; grid-row: 1/2 !important; }
+                .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
+                .impact-card:nth-child(3) { grid-column: 1/2 !important; grid-row: 3/4 !important; }
               }
             `}</style>
 
-            {/* Grid A — Cas clients (big left) */}
             <div className="impact-grid" data-active={activeTab === "clients"}>
-              <Card post={clientsCards[0]} gradient={CARD_GRADIENTS[0]} gridPos={{ gridColumn: "1/3", gridRow: "1/3" }} tag={t.impact.tabs.clients} />
-              <Card post={clientsCards[1]} gradient={CARD_GRADIENTS[1]} gridPos={{ gridColumn: "3/4", gridRow: "1/2" }} />
-              <Card post={clientsCards[2]} gradient={CARD_GRADIENTS[2]} gridPos={{ gridColumn: "3/4", gridRow: "2/3" }} />
-              <div className="impact-card impact-ghost" style={{ gridColumn: "1/2", gridRow: "3/4" }} />
-              <div className="impact-card impact-ghost" style={{ gridColumn: "2/3", gridRow: "3/4" }} />
+              {renderGrid(clientsCards, "clients")}
             </div>
 
-            {/* Grid B — Partenariats (big right) */}
             <div className="impact-grid" data-active={activeTab === "partenariat"}>
-              <div className="impact-card impact-ghost" style={{ gridColumn: "1/2", gridRow: "1/2" }} />
-              <Card post={partenariatCards[0]} gradient={CARD_GRADIENTS[0]} gridPos={{ gridColumn: "2/4", gridRow: "1/3" }} tag={t.impact.tabs.partnerships} />
-              <Card post={partenariatCards[1]} gradient={CARD_GRADIENTS[1]} gridPos={{ gridColumn: "1/2", gridRow: "2/3" }} />
-              <Card post={partenariatCards[2]} gradient={CARD_GRADIENTS[2]} gridPos={{ gridColumn: "1/2", gridRow: "3/4" }} />
-              <div className="impact-card impact-ghost" style={{ gridColumn: "2/3", gridRow: "3/4" }} />
+              {renderGrid(partenariatCards, "partenariat")}
             </div>
           </div>
         )}
