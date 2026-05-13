@@ -139,8 +139,8 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         ...bgStyle(post, gradient),
         aspectRatio: "1 / 1",
       };
-      if (i === 1) { cardStyle.alignSelf = "start"; cardStyle.marginTop = "calc(21% + 6px)"; }
-      if (i === 2) { cardStyle.alignSelf = "end"; cardStyle.marginBottom = "calc(21% + 6px)"; }
+      if (i === 1) cardStyle.alignSelf = "start";
+      if (i === 2) cardStyle.alignSelf = "end";
       return (
         <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={cardStyle}>
           {i === 0 && <span className="impact-tag">{tag}</span>}
