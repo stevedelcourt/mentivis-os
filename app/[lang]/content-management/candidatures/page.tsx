@@ -19,6 +19,8 @@ export default function CandidaturesPage() {
   const [statusFilter, setStatusFilter] = useState<"all" | "read" | "unread">("all");
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [noteInputs, setNoteInputs] = useState<Record<number, string>>({});
+  const [hubspotSent, setHubspotSent] = useState<Record<number, boolean>>({});
+  const [hubspotSending, setHubspotSending] = useState<Record<number, boolean>>({});
 
   const canManage = role === "god";
 
@@ -85,6 +87,25 @@ export default function CandidaturesPage() {
       if (res.ok) fetchApplications();
     } catch {
       alert("Erreur lors de la suppression");
+    }
+  };
+
+  const handleSendToHubSpot = async (id: number) => {
+    setHubspotSending((prev) => ({ ...prev, [id]: true }));
+    try {
+      const res = await cmsFetch(`/api/cms/job-applications/${id}/send-to-hubspot`, {
+        method: "POST",
+      });
+      if (res.ok) {
+        setHubspotSent((prev) => ({ ...prev, [id]: true }));
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || "Erreur lors de l'envoi vers HubSpot");
+      }
+    } catch {
+      alert("Erreur reseau");
+    } finally {
+      setHubspotSending((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -316,6 +337,40 @@ export default function CandidaturesPage() {
                                   Enregistrer
                                 </button>
                               </div>
+                            </div>
+                          )}
+                          {canManage && (
+                            <div style={{ marginTop: 16 }}>
+                              <button
+                                onClick={() => handleSendToHubSpot(a.id)}
+                                disabled={hubspotSending[a.id] || hubspotSent[a.id]}
+                                style={{
+                                  padding: "10px 16px",
+                                  fontSize: 13,
+                                  fontWeight: 500,
+                                  borderRadius: 10,
+                                  border: "none",
+                                  cursor: hubspotSending[a.id] || hubspotSent[a.id] ? "not-allowed" : "pointer",
+                                  background: hubspotSent[a.id] ? "#E8F5E9" : "#2563EB",
+                                  color: hubspotSent[a.id] ? "#2E7D32" : "#fff",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: 8,
+                                }}
+                              >
+                                {hubspotSent[a.id] ? (
+                                  <>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                      <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    Envoye vers HubSpot
+                                  </>
+                                ) : hubspotSending[a.id] ? (
+                                  "Envoi..."
+                                ) : (
+                                  "Envoyer vers HubSpot"
+                                )}
+                              </button>
                             </div>
                           )}
                         </div>
