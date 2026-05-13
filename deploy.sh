@@ -63,8 +63,13 @@ ENVEOF
   git fetch origin main
   git reset --hard origin/main
 
-  echo "--- Installing dependencies ---"
-  npm install
+  # Check if dependencies changed
+  if git diff --name-only HEAD~1 HEAD | grep -q "package-lock.json"; then
+    echo "--- Installing dependencies ---"
+    npm install
+  else
+    echo "--- Skipping npm install (no dependency changes) ---"
+  fi
 
   echo "--- Building Next.js ---"
   npx next build --webpack
