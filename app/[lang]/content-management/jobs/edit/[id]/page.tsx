@@ -38,7 +38,19 @@ export default function JobEditorPage() {
   const [type, setType] = useState<JobType>("cdi");
   const [department, setDepartment] = useState("");
   const [description, setDescription] = useState("");
-  const [whyJoin, setWhyJoin] = useState("");
+  const [whyJoin, setWhyJoin] = useState(`## Notre culture
+
+• Autonomie et responsabilite : nous recrutons des adultes, pas de micro-management
+• Impact reel : chaque projet transforme directement la maniere dont les equipes apprennent
+• Equipe et techno : IA, edtech, automatisation — des sujets a la pointe
+• Bienveillance et exigence : un environnement ou chacun donne le meilleur de lui-meme
+
+## Ce que nous offrons
+
+• Culture innovante : participez a la construction d'une infrastructure de formation native IA
+• Trajectoires de croissance : comptez sur de nombreuses opportunites d'impact au-dela de votre role
+• Collaboration a distance : documentation reflechie, communication efficace, reunions minimisees
+• Flexibilite : teletravail complet avec possibilite de coworking`);
   const [published, setPublished] = useState(false);
 
   useEffect(() => {
