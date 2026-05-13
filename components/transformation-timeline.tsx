@@ -75,13 +75,31 @@ const ORB_CONFIGS = [
   },
 ];
 
+// Consolidated blob drift patterns — 3 shared keyframes instead of 21
+const BLOB_DRIFTS = [
+  ["drift-a 12s ease-in-out infinite", "drift-b 15s ease-in-out infinite", "drift-c 10s ease-in-out infinite"],
+  ["drift-b 8s steps(10) infinite", "drift-c 6s steps(8) infinite", "drift-a 9s steps(12) infinite"],
+  ["drift-c 7s steps(8) infinite", "drift-a 9s steps(10) infinite", "drift-b 11s steps(6) infinite"],
+  ["drift-a 4s ease-in-out infinite", "drift-b 13s ease-in-out infinite", "drift-c 11s ease-in-out infinite"],
+  ["drift-b 10s ease-in-out infinite", "drift-c 12s ease-in-out infinite", "drift-a 8s ease-in-out infinite"],
+  ["drift-c 14s ease-in-out infinite", "drift-a 16s ease-in-out infinite", "drift-b 12s ease-in-out infinite"],
+  ["drift-a 15s ease-in-out infinite", "drift-b 18s ease-in-out infinite", "drift-c 13s ease-in-out infinite"],
+];
+
+// Satellite orbit params: [startAngleDeg, radiusPx, durationS]
+const SAT_PARAMS = [
+  [0, 48, 5], [180, 60, 7],
+  [90, 44, 4], [270, 54, 6],
+  [45, 56, 3.5], [135, 64, 5.5],
+  [315, 70, 7],
+];
+
 export default function TransformationTimeline({ lang }: TransformationTimelineProps) {
   const t = getT(lang);
   const stages = t.timeline.stages;
   const [active, setActive] = useState<number>(0);
   const [prevActive, setPrevActive] = useState<number>(0);
   const [fade, setFade] = useState<boolean>(true);
-  const [hovered, setHovered] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
 
@@ -156,142 +174,39 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             overflow: "hidden",
           }}
         >
-          {/* AVANT / APRES — at top */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 0,
-              marginBottom: 16,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 10,
-                fontWeight: 500,
-                color: "#8A7D70",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                paddingRight: 16,
-              }}
-            >
-              {t.timeline.dividerLeft}
-            </span>
-            <div
-              style={{
-                width: 1,
-                height: 24,
-                background: "rgba(26,22,22,0.1)",
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 10,
-                fontWeight: 500,
-                color: "#8A7D70",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                paddingLeft: 16,
-              }}
-            >
-              {t.timeline.dividerRight}
-            </span>
+          {/* AVANT / APRES */}
+          <div className="timeline-divider">
+            <span className="timeline-divider-label">{t.timeline.dividerLeft}</span>
+            <div className="timeline-divider-line" />
+            <span className="timeline-divider-label">{t.timeline.dividerRight}</span>
           </div>
 
-          {/* Measurement bar — below AVANT/APRES */}
-          <div
-            style={{
-              position: "relative",
-              height: 14,
-              marginBottom: 12,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {/* Horizontal track */}
+          {/* Measurement bar */}
+          <div className="measurement-bar">
+            <div className="measurement-track" />
             <div
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: "50%",
-                height: 1,
-                background: "rgba(26,22,22,0.06)",
-                transform: "translateY(-50%)",
-              }}
+              className="measurement-progress"
+              style={{ width: `${(active / 6) * 100}%` }}
             />
-            
-            {/* Progress fill */}
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                width: `${(active / 6) * 100}%`,
-                top: "50%",
-                height: 1,
-                background: "rgba(26,22,22,0.12)",
-                transform: "translateY(-50%)",
-                transition: "width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                zIndex: 1,
-              }}
-            />
-
-            {/* Tick marks */}
             <div
               ref={rowRef}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                position: "relative",
-                zIndex: 2,
-              }}
+              className="measurement-ticks"
             >
               {stages.map((_, i) => {
                 const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
                 const isPassed = i <= active;
                 return (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
-                    <span style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 10,
-                      color: i === active ? "#1A1616" : "#8A7D70",
-                      letterSpacing: "0.08em",
-                      fontWeight: i === active ? 500 : 400,
-                      transition: "color 0.3s ease",
-                      marginBottom: 6,
-                    }}>
+                  <div key={i} className="tick-wrapper">
+                    <span className={`tick-number ${i === active ? "tick-active" : ""}`}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <button
                       onClick={() => activate(i)}
                       aria-label={`${stages[i].label}, ${stages[i].title}`}
-                      style={{
-                        width: 1,
-                        height: i === active ? 16 : isPassed ? 10 : 6,
-                        background: isPassed ? (i === active ? "#1A1616" : "#8A7D70") : tickColor,
-                        border: "none",
-                        padding: 0,
-                        cursor: "pointer",
-                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
-                        flexShrink: 0,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = "12px";
-                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = isPassed ? "10px" : "6px";
-                          (e.target as HTMLElement).style.background = isPassed ? "#8A7D70" : tickColor;
-                        }
-                      }}
+                      className={`tick-mark ${isPassed ? "tick-passed" : ""} ${i === active ? "tick-current" : ""}`}
+                      style={{ background: i === active ? "#1A1616" : tickColor }}
+                      data-passed={isPassed}
+                      data-tickcolor={tickColor}
                     />
                   </div>
                 );
@@ -299,24 +214,20 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             </div>
           </div>
 
-          {/* Orb row — below measurement bar */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 12,
-              position: "relative",
-              minHeight: 260,
-              padding: "10px 0",
-            }}
-          >
+          {/* Orb row */}
+          <div className="orb-row">
+            {/* Wave lines behind orbs */}
+            <div className="wave-container">
+              <div className="wave-line" />
+              <div className="wave-line" />
+              <div className="wave-line" />
+              <div className="wave-line" />
+            </div>
+
             {stages.map((stage, i) => {
               const isActive = i === active;
-              const isHovered = hovered === i;
               const wasActive = i === prevActive && isTransitioning;
               
-              // Staggered scale logic
               let scale = 1;
               let scaleTransition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
               if (isActive && !isTransitioning) {
@@ -329,29 +240,25 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                 scaleTransition = "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)";
               }
               
-              const zIndex = isActive ? 10 : isHovered ? 5 : 1;
+              const zIndex = isActive ? 10 : 1;
               const config = ORB_CONFIGS[i];
               const size = ORB_SIZES[i];
               const margin = getOrbMargin(i);
+              const driftAnims = BLOB_DRIFTS[i];
+              const sat1Params = SAT_PARAMS[i * 2];
+              const sat2Params = SAT_PARAMS[i * 2 + 1] || SAT_PARAMS[0];
 
               return (
                 <div
                   key={i}
+                  className="orb-column"
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: 0,
-                    cursor: "pointer",
                     zIndex,
                     transition: "margin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     marginLeft: margin,
                     marginRight: margin,
-                    flexShrink: 0,
                   }}
                   onClick={() => activate(i)}
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
                 >
                   {/* Float wrapper */}
                   <div
@@ -369,14 +276,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                       <div
                         className="orb-ring"
                         style={{
-                          position: "absolute",
-                          inset: "-25%",
-                          borderRadius: "50%",
-                          border: "1px solid rgba(255,255,255,0.25)",
-                          transform: `scale(${isTransitioning && wasActive ? 1 : 1})`,
                           opacity: isTransitioning && wasActive ? 0 : 1,
-                          transition: "opacity 0.3s ease, transform 0.4s ease",
-                          pointerEvents: "none",
                         }}
                       />
                     )}
@@ -394,77 +294,54 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                     >
                       {/* Satellite 1 */}
                       <div
-                        className={`satellite sat-${i}-1`}
+                        className="satellite"
                         style={{
-                          position: "absolute",
+                          background: config.satColors[0],
                           width: 10,
                           height: 10,
-                          borderRadius: "50%",
-                          background: config.satColors[0],
-                          boxShadow: isHovered && !isActive
-                            ? `0 0 12px ${config.satColors[0]}B0`
-                            : `0 0 8px ${config.satColors[0]}80`,
-                          top: "50%",
-                          left: "50%",
                           marginTop: -5,
                           marginLeft: -5,
-                          zIndex: 2,
-                          transition: "box-shadow 0.3s ease",
+                          animation: `orbit ${sat1Params[2]}s linear infinite`,
+                          ['--orbit-r' as string]: `${sat1Params[1]}px`,
+                          ['--orbit-a' as string]: `${sat1Params[0]}deg`,
                         }}
                       />
                       {/* Satellite 2 */}
                       <div
-                        className={`satellite sat-${i}-2`}
+                        className="satellite"
                         style={{
-                          position: "absolute",
+                          background: config.satColors[1] || config.satColors[0],
                           width: 8,
                           height: 8,
-                          borderRadius: "50%",
-                          background: config.satColors[1] || config.satColors[0],
-                          boxShadow: isHovered && !isActive
-                            ? `0 0 10px ${config.satColors[1] || config.satColors[0]}90`
-                            : `0 0 6px ${config.satColors[1] || config.satColors[0]}60`,
-                          top: "50%",
-                          left: "50%",
                           marginTop: -4,
                           marginLeft: -4,
-                          zIndex: 2,
-                          transition: "box-shadow 0.3s ease",
+                          animation: `orbit ${sat2Params[2]}s linear infinite`,
+                          ['--orbit-r' as string]: `${sat2Params[1]}px`,
+                          ['--orbit-a' as string]: `${sat2Params[0]}deg`,
                         }}
                       />
 
                       {/* Main orb */}
                       <div
-                        className={`atmosphere-orb orb-${i + 1}`}
+                        className={`atmosphere-orb orb-${i + 1} ${isActive ? "orb-active" : ""}`}
                         style={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: "50%",
-                          overflow: "hidden",
                           background: config.base,
                           boxShadow: isActive
                             ? `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 40px ${config.blobs[0].c}70, 0 0 80px ${config.blobs[1].c}40`
-                            : isHovered
-                              ? `inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 20px ${config.blobs[0].c}50`
-                              : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
-                          transition: "box-shadow 0.3s ease",
-                          zIndex: 3,
+                            : `inset 0 0 0 1px rgba(255,255,255,0.1)`,
                         }}
                       >
                         {config.blobs.map((blob, bi) => (
                           <div
                             key={bi}
-                            className={`orb-blob blob-${i + 1}-${bi + 1}`}
+                            className="orb-blob"
                             style={{
-                              position: "absolute",
                               width: `${blob.s}%`,
                               height: `${blob.s}%`,
-                              borderRadius: "50%",
                               background: blob.c,
-                              filter: "blur(20px)",
                               top: `${blob.y + 50}%`,
                               left: `${blob.x + 50}%`,
-                              transform: "translate(-50%, -50%)",
+                              animation: driftAnims[bi],
                             }}
                           />
                         ))}
@@ -487,17 +364,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
 
                   {/* Label */}
                   <span
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 15,
-                      fontWeight: isActive ? 600 : 400,
-                      color: isActive ? "#1A1616" : isHovered ? "#6A5D50" : "#8A7D70",
-                      letterSpacing: "0.02em",
-                      textAlign: "center",
-                      transition: "color 0.3s ease, font-weight 0.3s ease",
-                      lineHeight: 1.3,
-                      cursor: "pointer",
-                    }}
+                    className={`orb-label ${isActive ? "orb-label-active" : ""}`}
                   >
                     {stage.label}
                   </span>
@@ -506,7 +373,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             })}
           </div>
 
-          {/* Divider line — just above text panel */}
+          {/* Divider line */}
           <div
             style={{
               width: "100%",
@@ -517,7 +384,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             }}
           />
 
-          {/* Stage text panel — FIXED HEIGHT, vertically centered */}
+          {/* Stage text panel */}
           <div
             style={{
               maxWidth: 560,
@@ -560,7 +427,240 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
       </div>
 
       <style>{`
-        /* --- Orb float animation (bigger amplitude) --- */
+        /* --- Layout classes --- */
+        .timeline-divider {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0;
+          margin-bottom: 16px;
+        }
+        .timeline-divider-label {
+          font-family: var(--font-sans);
+          font-size: 10px;
+          font-weight: 500;
+          color: #8A7D70;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          padding: 0 16px;
+        }
+        .timeline-divider-line {
+          width: 1px;
+          height: 24px;
+          background: rgba(26,22,22,0.1);
+        }
+
+        .measurement-bar {
+          position: relative;
+          height: 14px;
+          margin-bottom: 12px;
+          display: flex;
+          align-items: center;
+        }
+        .measurement-track {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 50%;
+          height: 1px;
+          background: rgba(26,22,22,0.06);
+          transform: translateY(-50%);
+        }
+        .measurement-progress {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          height: 1px;
+          background: rgba(26,22,22,0.12);
+          transform: translateY(-50%);
+          transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+          z-index: 1;
+        }
+        .measurement-ticks {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          position: relative;
+          z-index: 2;
+        }
+        .tick-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+        }
+        .tick-number {
+          font-family: var(--font-sans);
+          font-size: 10px;
+          color: #8A7D70;
+          letter-spacing: 0.08em;
+          font-weight: 400;
+          transition: color 0.3s ease;
+          margin-bottom: 6px;
+        }
+        .tick-number.tick-active {
+          color: #1A1616;
+          font-weight: 500;
+        }
+        .tick-mark {
+          width: 1px;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: all 340ms cubic-bezier(0.34, 1.18, 0.64, 1);
+          flex-shrink: 0;
+          height: 6px;
+        }
+        .tick-mark.tick-passed {
+          height: 10px;
+        }
+        .tick-mark.tick-current {
+          height: 16px;
+        }
+        .tick-mark:hover:not(.tick-current) {
+          height: 12px !important;
+        }
+
+        .orb-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          position: relative;
+          min-height: 260px;
+          padding: 10px 0;
+        }
+
+        /* --- Wave lines --- */
+        .wave-container {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .wave-line {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: 1px solid rgba(26,22,22,0.04);
+          border-radius: 30%;
+          animation: wave-rotate 22s linear infinite;
+        }
+        .wave-line:nth-child(1) {
+          width: 90%;
+          height: 140%;
+          animation-duration: 22s;
+          opacity: 0.06;
+          border-radius: 24%;
+        }
+        .wave-line:nth-child(2) {
+          width: 85%;
+          height: 130%;
+          animation-duration: 24s;
+          opacity: 0.04;
+          border-radius: 32%;
+        }
+        .wave-line:nth-child(3) {
+          width: 95%;
+          height: 150%;
+          animation-duration: 20s;
+          opacity: 0.05;
+          border-radius: 28%;
+        }
+        .wave-line:nth-child(4) {
+          width: 80%;
+          height: 125%;
+          animation-duration: 26s;
+          opacity: 0.03;
+          border-radius: 36%;
+        }
+        @keyframes wave-rotate {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* --- Orb column & hover --- */
+        .orb-column {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          cursor: pointer;
+          flex-shrink: 0;
+        }
+        .orb-column:hover .satellite {
+          box-shadow: 0 0 12px currentColor;
+        }
+        .orb-column:hover .atmosphere-orb:not(.orb-active) {
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 20px rgba(255,255,255,0.1);
+        }
+        .orb-column:hover .orb-label:not(.orb-label-active) {
+          color: #6A5D50;
+        }
+
+        /* --- Orb label --- */
+        .orb-label {
+          font-family: var(--font-sans);
+          font-size: 15px;
+          font-weight: 400;
+          color: #8A7D70;
+          letter-spacing: 0.02em;
+          text-align: center;
+          transition: color 0.3s ease, font-weight 0.3s ease;
+          line-height: 1.3;
+          cursor: pointer;
+        }
+        .orb-label-active {
+          font-weight: 600;
+          color: #1A1616;
+        }
+
+        /* --- Orb ring --- */
+        .orb-ring {
+          position: absolute;
+          inset: -25%;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.25);
+          transition: opacity 0.3s ease, transform 0.4s ease;
+          pointer-events: none;
+        }
+
+        /* --- Satellite --- */
+        .satellite {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border-radius: 50%;
+          z-index: 2;
+          transition: box-shadow 0.3s ease;
+          box-shadow: 0 0 8px currentColor;
+        }
+
+        /* --- Atmosphere orb --- */
+        .atmosphere-orb {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          overflow: hidden;
+          transition: box-shadow 0.3s ease;
+          z-index: 3;
+        }
+        .orb-active {
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 40px rgba(255,255,255,0.2), 0 0 80px rgba(255,255,255,0.1);
+        }
+
+        /* --- Orb blob --- */
+        .orb-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(20px);
+          transform: translate(-50%, -50%);
+        }
+
+        /* --- Float animation --- */
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
@@ -586,94 +686,40 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           animation: orbPulse 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        /* --- Blob drift animations --- */
-        @keyframes drift1-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-8px)} 33%{transform:translate(-50%,-50%) translate(8px,4px)} 66%{transform:translate(-50%,-50%) translate(-4px,12px)} }
-        @keyframes drift1-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,12px)} 50%{transform:translate(-50%,-50%) translate(-12px,-8px)} }
-        @keyframes drift1-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,0)} 50%{transform:translate(-50%,-50%) translate(6px,-10px)} }
+        /* --- Consolidated blob drift patterns (3 instead of 21) --- */
+        @keyframes drift-a {
+          0%, 100% { transform: translate(-50%, -50%) translate(-12px, -8px); }
+          50% { transform: translate(-50%, -50%) translate(8px, 4px); }
+        }
+        @keyframes drift-b {
+          0%, 100% { transform: translate(-50%, -50%) translate(8px, 12px); }
+          33% { transform: translate(-50%, -50%) translate(-4px, 8px); }
+          66% { transform: translate(-50%, -50%) translate(12px, -4px); }
+        }
+        @keyframes drift-c {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); }
+          25% { transform: translate(-50%, -50%) scale(1.08) translate(-4px, -4px); }
+          50% { transform: translate(-50%, -50%) scale(0.96) translate(4px, 4px); }
+          75% { transform: translate(-50%, -50%) scale(1.04) translate(-2px, 2px); }
+        }
 
-        @keyframes drift2-1 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,-12px)} 25%{transform:translate(-50%,-50%) translate(10px,6px)} 50%{transform:translate(-50%,-50%) translate(-6px,10px)} 75%{transform:translate(-50%,-50%) translate(4px,-8px)} }
-        @keyframes drift2-2 { 0%,100%{transform:translate(-50%,-50%) translate(12px,4px)} 50%{transform:translate(-50%,-50%) translate(-10px,-6px)} }
-        @keyframes drift2-3 { 0%,100%{transform:translate(-50%,-50%) translate(-4px,8px)} 50%{transform:translate(-50%,-50%) translate(8px,-4px)} }
-
-        @keyframes drift3-1 { 0%,100%{transform:translate(-50%,-50%) translate(-16px,-4px)} 33%{transform:translate(-50%,-50%) translate(12px,8px)} 66%{transform:translate(-50%,-50%) translate(-8px,16px)} }
-        @keyframes drift3-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-16px)} 50%{transform:translate(-50%,-50%) translate(-12px,12px)} }
-        @keyframes drift3-3 { 0%,100%{transform:translate(-50%,-50%) translate(4px,12px)} 50%{transform:translate(-50%,-50%) translate(-16px,-8px)} }
-
-        @keyframes drift4-1 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 20%{transform:translate(-50%,-50%) scale(1.12) translate(-4px,-4px)} 40%{transform:translate(-50%,-50%) scale(0.92) translate(4px,4px)} 60%{transform:translate(-50%,-50%) scale(1.08) translate(-6px,2px)} 80%{transform:translate(-50%,-50%) scale(0.96) translate(2px,-6px)} }
-        @keyframes drift4-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,8px)} 50%{transform:translate(-50%,-50%) translate(-12px,-12px)} }
-        @keyframes drift4-3 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,12px)} 50%{transform:translate(-50%,-50%) translate(12px,-8px)} }
-
-        @keyframes drift5-1 { 0%,100%{transform:translate(-50%,-50%) translate(-12px,-12px) scale(1)} 50%{transform:translate(-50%,-50%) translate(12px,8px) scale(1.15)} }
-        @keyframes drift5-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-8px) scale(1)} 50%{transform:translate(-50%,-50%) translate(-8px,12px) scale(1.25)} }
-        @keyframes drift5-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,8px)} 50%{transform:translate(-50%,-50%) translate(8px,-16px)} }
-
-        @keyframes drift6-1 { 0%,100%{transform:translate(-50%,-50%) translate(-8px,-6px)} 50%{transform:translate(-50%,-50%) translate(8px,6px)} }
-        @keyframes drift6-2 { 0%,100%{transform:translate(-50%,-50%) translate(10px,-4px)} 50%{transform:translate(-50%,-50%) translate(-6px,10px)} }
-        @keyframes drift6-3 { 0%,100%{transform:translate(-50%,-50%) translate(-4px,8px)} 50%{transform:translate(-50%,-50%) translate(4px,-8px)} }
-
-        @keyframes drift7-1 { 0%,100%{transform:translate(-50%,-50%) translate(-10px,-8px)} 50%{transform:translate(-50%,-50%) translate(10px,8px)} }
-        @keyframes drift7-2 { 0%,100%{transform:translate(-50%,-50%) translate(8px,-10px)} 50%{transform:translate(-50%,-50%) translate(-8px,10px)} }
-        @keyframes drift7-3 { 0%,100%{transform:translate(-50%,-50%) translate(0,6px)} 50%{transform:translate(-50%,-50%) translate(6px,-6px)} }
-
-        .blob-1-1 { animation: drift1-1 12s ease-in-out infinite; }
-        .blob-1-2 { animation: drift1-2 15s ease-in-out infinite; }
-        .blob-1-3 { animation: drift1-3 10s ease-in-out infinite; }
-        .blob-2-1 { animation: drift2-1 8s steps(10) infinite; }
-        .blob-2-2 { animation: drift2-2 6s steps(8) infinite; }
-        .blob-2-3 { animation: drift2-3 9s steps(12) infinite; }
-        .blob-3-1 { animation: drift3-1 7s steps(8) infinite; }
-        .blob-3-2 { animation: drift3-2 9s steps(10) infinite; }
-        .blob-3-3 { animation: drift3-3 11s steps(6) infinite; }
-        .blob-4-1 { animation: drift4-1 4s ease-in-out infinite; }
-        .blob-4-2 { animation: drift4-2 13s ease-in-out infinite; }
-        .blob-4-3 { animation: drift4-3 11s ease-in-out infinite; }
-        .blob-5-1 { animation: drift5-1 10s ease-in-out infinite; }
-        .blob-5-2 { animation: drift5-2 12s ease-in-out infinite; }
-        .blob-5-3 { animation: drift5-3 8s ease-in-out infinite; }
-        .blob-6-1 { animation: drift6-1 14s ease-in-out infinite; }
-        .blob-6-2 { animation: drift6-2 16s ease-in-out infinite; }
-        .blob-6-3 { animation: drift6-3 12s ease-in-out infinite; }
-        .blob-7-1 { animation: drift7-1 15s ease-in-out infinite; }
-        .blob-7-2 { animation: drift7-2 18s ease-in-out infinite; }
-        .blob-7-3 { animation: drift7-3 13s ease-in-out infinite; }
-
-        /* --- Satellite orbits --- */
-        @keyframes orbitA { 0%{transform:translate(-50%,-50%) rotate(0deg) translateX(48px) rotate(0deg)} 100%{transform:translate(-50%,-50%) rotate(360deg) translateX(48px) rotate(-360deg)} }
-        @keyframes orbitB { 0%{transform:translate(-50%,-50%) rotate(180deg) translateX(60px) rotate(-180deg)} 100%{transform:translate(-50%,-50%) rotate(540deg) translateX(60px) rotate(-540deg)} }
-        @keyframes orbitC { 0%{transform:translate(-50%,-50%) rotate(90deg) translateX(44px) rotate(-90deg)} 100%{transform:translate(-50%,-50%) rotate(450deg) translateX(44px) rotate(-450deg)} }
-        @keyframes orbitD { 0%{transform:translate(-50%,-50%) rotate(270deg) translateX(54px) rotate(-270deg)} 100%{transform:translate(-50%,-50%) rotate(630deg) translateX(54px) rotate(-630deg)} }
-        @keyframes orbitE { 0%{transform:translate(-50%,-50%) rotate(45deg) translateX(56px) rotate(-45deg)} 100%{transform:translate(-50%,-50%) rotate(405deg) translateX(56px) rotate(-405deg)} }
-        @keyframes orbitF { 0%{transform:translate(-50%,-50%) rotate(135deg) translateX(64px) rotate(-135deg)} 100%{transform:translate(-50%,-50%) rotate(495deg) translateX(64px) rotate(-495deg)} }
-        @keyframes orbitG { 0%{transform:translate(-50%,-50%) rotate(315deg) translateX(70px) rotate(-315deg)} 100%{transform:translate(-50%,-50%) rotate(675deg) translateX(70px) rotate(-675deg)} }
-
-        .sat-0-1 { animation: orbitA 5s linear infinite; }
-        .sat-0-2 { animation: orbitB 7s linear infinite; }
-        .sat-1-1 { animation: orbitC 4s linear infinite; }
-        .sat-1-2 { animation: orbitD 6s linear infinite; }
-        .sat-2-1 { animation: orbitE 3.5s linear infinite; }
-        .sat-2-2 { animation: orbitF 5.5s linear infinite; }
-        .sat-3-1 { animation: orbitA 4.5s linear infinite; }
-        .sat-3-2 { animation: orbitB 6.5s linear infinite; }
-        .sat-4-1 { animation: orbitC 5s linear infinite; }
-        .sat-4-2 { animation: orbitD 7s linear infinite; }
-        .sat-5-1 { animation: orbitE 6s linear infinite; }
-        .sat-5-2 { animation: orbitF 8s linear infinite; }
-        .sat-6-1 { animation: orbitG 7s linear infinite; }
-        .sat-6-2 { animation: orbitA 9s linear infinite; }
-
-        /* --- Hover speed boost for satellites --- */
-        .satellite:hover {
-          animation-duration: 0.7s !important;
+        /* --- Consolidated satellite orbit (1 instead of 7) --- */
+        @keyframes orbit {
+          0% { transform: translate(-50%, -50%) rotate(var(--orbit-a)) translateX(var(--orbit-r)) rotate(calc(var(--orbit-a) * -1)); }
+          100% { transform: translate(-50%, -50%) rotate(calc(var(--orbit-a) + 360deg)) translateX(var(--orbit-r)) rotate(calc(var(--orbit-a) * -1 - 360deg)); }
         }
 
         @media (max-width: 768px) {
-          .constellation-row {
+          .orb-row {
             flex-wrap: wrap;
-            gap: 20px !important;
-            min-height: auto !important;
+            gap: 20px;
+            min-height: auto;
           }
-          .constellation-orb-wrapper {
+          .orb-column {
             flex: 0 0 calc(25% - 15px);
+          }
+          .wave-container {
+            display: none;
           }
         }
       `}</style>
