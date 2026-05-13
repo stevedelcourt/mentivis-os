@@ -251,32 +251,58 @@ export default function PostEditorPage() {
           />
         </div>
 
-        {/* Two columns: Category + Date */}
-        <div className="cms-grid-2" style={{ marginBottom: 20 }}>
-          <div>
-            <label style={labelStyle}>Categorie *</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-              style={inputStyle}
-            >
-              {CATEGORIES.map((cat) => (
-                <option key={cat.key} value={cat.key}>{cat.label}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label style={labelStyle}>Date *</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              style={inputStyle}
-            />
+        {/* Categories checkboxes */}
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Categories *</label>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {CATEGORIES.map((cat) => {
+              const checked = category.split(",").map(s => s.trim()).includes(cat.key);
+              return (
+                <label
+                  key={cat.key}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    cursor: "pointer",
+                    padding: "8px 14px",
+                    borderRadius: 8,
+                    background: checked ? "#0A0A0A" : "#F0F0F0",
+                    color: checked ? "#fff" : "#3E3B38",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    transition: "all 0.15s",
+                    userSelect: "none",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => {
+                      const current = category ? category.split(",").filter(Boolean) : [];
+                      const next = checked
+                        ? current.filter(k => k !== cat.key)
+                        : [...current, cat.key];
+                      setCategory(next.join(","));
+                    }}
+                    style={{ display: "none" }}
+                  />
+                  {cat.label}
+                </label>
+              );
+            })}
           </div>
         </div>
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Date *</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+            style={inputStyle}
+          />
+          </div>
 
         {/* Featured image */}
         <div style={{ marginBottom: 20 }}>

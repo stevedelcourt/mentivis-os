@@ -7,7 +7,7 @@ export async function GET(request: Request) {
 
   let posts = await getPublishedPosts();
   if (category && category !== "all") {
-    posts = posts.filter((p) => p.category === category);
+    posts = posts.filter((p) => p.category.split(",").includes(category));
   }
 
   // Sort: featured first, then by date descending (latest first)

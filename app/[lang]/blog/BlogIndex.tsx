@@ -12,10 +12,9 @@ export type CategoryKey =
   | "strategie"
   | "ia"
   | "annonces"
-  | "institutions"
-  | "entreprises"
-  | "international"
-  | "cas";
+  | "cas"
+  | "clients"
+  | "partenariat";
 
 const POSTS_PER_PAGE = 6;
 
@@ -47,7 +46,7 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   const filteredPosts = useMemo(() => {
     let result = posts;
     if (activeCategory !== "all") {
-      result = posts.filter((p) => p.category === activeCategory);
+      result = posts.filter((p) => p.category.split(",").includes(activeCategory));
     }
     // Sort: featured first, then by date descending
     return [...result].sort((a, b) => {
@@ -131,7 +130,7 @@ interface FeaturedCardProps {
 
 function FeaturedCard({ post, lang }: FeaturedCardProps) {
   const categoryLabel =
-    CATEGORIES.find((c) => c.key === post.category)?.label ?? post.category;
+    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
 
   return (
     <article className={styles.featured}>
@@ -171,7 +170,7 @@ interface ArticleCardProps {
 
 function ArticleCard({ post, lang }: ArticleCardProps) {
   const categoryLabel =
-    CATEGORIES.find((c) => c.key === post.category)?.label ?? post.category;
+    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
 
   return (
     <article className={styles.card}>

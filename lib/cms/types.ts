@@ -20,19 +20,17 @@ export type CategoryKey =
   | "strategie"
   | "ia"
   | "annonces"
-  | "institutions"
-  | "entreprises"
-  | "international"
-  | "cas";
+  | "cas"
+  | "clients"
+  | "partenariat";
 
 export const CATEGORIES: { key: CategoryKey; label: string }[] = [
   { key: "strategie", label: "Strategie" },
   { key: "ia", label: "IA & Formation" },
   { key: "annonces", label: "Annonces" },
-  { key: "institutions", label: "Institutions" },
-  { key: "entreprises", label: "Entreprises" },
-  { key: "international", label: "International" },
   { key: "cas", label: "Etudes de cas" },
+  { key: "clients", label: "Clients" },
+  { key: "partenariat", label: "Partenariats" },
 ];
 
 // ── Homepage Hero ──

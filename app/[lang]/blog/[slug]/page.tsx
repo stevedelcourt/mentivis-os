@@ -67,7 +67,7 @@ export default function BlogPostPage() {
         <article style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ marginBottom: 24 }}>
             <span className={styles.badge} style={{ marginRight: 12 }}>
-              {post.category}
+              {post.category.split(",")[0]}
             </span>
             <span className={styles.date}>{post.date}</span>
           </div>
@@ -123,7 +123,7 @@ export default function BlogPostPage() {
 
           <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid var(--border-light)" }}>
             <p style={{ fontSize: 14, color: "var(--text-tertiary)" }}>
-              Cet article a ete publie le {post.date} dans la categorie {post.category}.
+              Cet article a ete publie le {post.date} dans la categorie {post.category.split(",")[0]}.
             </p>
           </div>
         </article>
