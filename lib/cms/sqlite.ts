@@ -57,6 +57,7 @@ async function createDb(): Promise<SqlJsDb> {
 
   wrapper.autoSave = false;
   initDatabase(wrapper);
+  runMigrations(wrapper);
   migrateFromJson(wrapper);
   wrapper.autoSave = true;
   wrapper.save();
@@ -232,6 +233,14 @@ function initDatabase(db: SqlJsDb) {
   `);
 }
 
+function runMigrations(db: SqlJsDb) {
+  try {
+    db.exec("ALTER TABLE posts ADD COLUMN gradient_id INTEGER");
+  } catch {
+    // Column already exists
+  }
+}
+
 function migrateFromJson(db: SqlJsDb) {
   const postCount = db.prepare("SELECT COUNT(*) as count FROM posts").get() as { count: number };
   if (postCount.count > 0) return;
@@ -249,13 +258,14 @@ function migrateFromJson(db: SqlJsDb) {
     try {
       const posts = JSON.parse(fs.readFileSync(files.posts, "utf-8")) as any[];
       const insert = db.prepare(`
-        INSERT INTO posts (id, slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, featured, published, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO posts (id, slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
       for (const p of posts) {
         insert.run(
           p.id, p.slug, p.title, p.excerpt, p.content, p.category, p.date, p.dateISO,
           p.imageUrl || null, p.imageTag || null, p.imageCaption || null,
+          p.gradientId ?? null,
           p.featured ? 1 : 0, p.published ? 1 : 0, p.createdAt, p.updatedAt
         );
       }

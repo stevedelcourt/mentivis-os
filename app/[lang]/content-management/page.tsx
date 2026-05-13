@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Post } from "@/lib/cms/types";
+import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
 import { CmsLayout } from "@/components/cms/CmsLayout";
@@ -331,8 +332,34 @@ export default function ContentManagementPage() {
                   }}
                 >
                   <td style={{ padding: "16px 20px" }}>
-                    <div style={{ fontWeight: 500, color: "#0A0A0A", marginBottom: 2 }}>{post.title}</div>
-                    <div style={{ fontSize: 12, color: "#A8A29E" }}>/{post.slug}</div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: 6,
+                          flexShrink: 0,
+                          overflow: "hidden",
+                          background: post.imageUrl
+                            ? undefined
+                            : (post.gradientId
+                              ? (GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "#E5E0DA")
+                              : "#E5E0DA"),
+                        }}
+                      >
+                        {post.imageUrl && (
+                          <img
+                            src={post.imageUrl}
+                            alt=""
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 500, color: "#0A0A0A", marginBottom: 2 }}>{post.title}</div>
+                        <div style={{ fontSize: 12, color: "#A8A29E" }}>/{post.slug}</div>
+                      </div>
+                    </div>
                   </td>
                   <td style={{ padding: "16px 20px", color: "#3E3B38" }}>
                     {post.category}

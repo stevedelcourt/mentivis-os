@@ -22,6 +22,7 @@ function rowToPost(row: any): Post {
     imageUrl: row.image_url,
     imageTag: row.image_tag,
     imageCaption: row.image_caption,
+    gradientId: row.gradient_id,
     featured: !!row.featured,
     published: !!row.published,
     createdAt: row.created_at,
@@ -69,11 +70,12 @@ export async function createPost(post: Omit<Post, "id" | "createdAt" | "updatedA
   const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
-    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, featured, published, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     post.slug, post.title, post.excerpt, post.content, post.category, post.date, post.dateISO,
     post.imageUrl || null, post.imageTag || null, post.imageCaption || null,
+    post.gradientId ?? null,
     post.featured ? 1 : 0, post.published ? 1 : 0, now, now
   );
   postsCache = null;
@@ -98,6 +100,7 @@ export async function updatePost(id: number, updates: Partial<Omit<Post, "id" | 
   if (updates.imageUrl !== undefined) { setParts.push("image_url = ?"); values.push(updates.imageUrl); }
   if (updates.imageTag !== undefined) { setParts.push("image_tag = ?"); values.push(updates.imageTag); }
   if (updates.imageCaption !== undefined) { setParts.push("image_caption = ?"); values.push(updates.imageCaption); }
+  if (updates.gradientId !== undefined) { setParts.push("gradient_id = ?"); values.push(updates.gradientId); }
   if (updates.featured !== undefined) { setParts.push("featured = ?"); values.push(updates.featured ? 1 : 0); }
   if (updates.published !== undefined) { setParts.push("published = ?"); values.push(updates.published ? 1 : 0); }
 

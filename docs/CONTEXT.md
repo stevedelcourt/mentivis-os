@@ -10,21 +10,19 @@ HeroUnit → ProblemSection → SectorShowcase → MathFeaturesSection → Trans
 - **Homepage stripped**: Removed 6 legacy sections, focused 9-section narrative
 - **InteractiveExplainer**: Moved to /composants page
 - **Menu reorg**: Swapped Entreprise/Ressources, hid MentivisAPI; final order: LearningOS | TalentOS | Entreprise | Tarifs
-- **Multi-tag categories**: `category` field stores comma-separated values (e.g. `"cas,clients"`), filtered via `.includes()`
-- **ImpactSection**: Final 3×2 CSS Grid layout — Big square centered spanning 2 rows, 2 medium squares (1fr each), 2 ghost squares (50% width) tucked in diagonal corners mid-height of Big. All cards `aspect-ratio: 1/1`. MedA `align-self: start`, MedE `align-self: end`. Two layouts (clients/partenariat) mirror-flip left/right columns. Tabs with crossfade via `grid-area: 1/1`.
+- **Multi-tag categories**: `category` field stores comma-separated values, filtered via `.includes()`
+- **ImpactSection**: Final layout — 3 columns × 1 row CSS Grid (`1fr 1.58fr 1fr`). Big in col 2, MedA `align-self: start` (top = Big top), MedE `align-self: end` (bottom = Big bottom). All `aspect-ratio: 1/1`. No ghosts, no translateY, no margins, no calc. Tabs with crossfade via `grid-area: 1/1`. Hover `translateY(-4px)`. Hidden on mobile (< 768px).
 
 ## Active Tasks
-- [x] TransformationTimeline visual polish (6 fixes done, deployed)
-- [x] ProductCard descriptions below cards (done, deployed)
-- [x] Language switcher in navbar (done, deployed)
-- [x] Passenger PORT propagation fix (forced PORT=3001 in server.js, deployed)
-- [x] Menu reorganization (multi-phase, deployed)
-- [x] Multi-tag category system (types, API, BlogIndex, slug, CMS editor — 8 files)
-- [x] ImpactSection — final layout (Big square centered, MedA start/MedE end, ghosts 50% tucked mid-height)
+- [x] TransformationTimeline visual polish
+- [x] ProductCard descriptions below cards
+- [x] Language switcher in navbar
+- [x] Menu reorganization (multi-phase)
+- [x] Multi-tag category system
+- [x] ImpactSection — final 3×1 grid, no ghosts, pure align-self
 - [ ] Future: SectorShowcase content refinement
 - [ ] Future: MathFeaturesSection copy polish
 - [ ] Future: Add CMS content tagged `clients`/`cas`/`partenariat`
-- [ ] Future: Orb connection arc SVG bezier curve
 
 ## Component Inventory
 
@@ -44,7 +42,7 @@ HeroUnit → ProblemSection → SectorShowcase → MathFeaturesSection → Trans
 - `SectorShowcase` — 4-tab sector showcase with .avif images
 - `MathFeaturesSection` — NOTRE APPROCHE, 3 cards (Precision/Structure/Continuité)
 - `TransformationTimeline` — 7-stage orb constellation, measurement bar, divider
-- `ImpactSection` — 3×2 CSS Grid, 1fr 1.58fr 1fr columns, Big square centered, MedA start/MedE end, ghosts 50% tucked mid-height, tabbed (clients/partenariat) with crossfade
+- `ImpactSection` — 3×1 CSS Grid, 1fr 1.58fr 1fr, Big center, MedA start/MedE end, all square, no ghosts, tabbed with crossfade
 - `FaqSection` — 8-question accordion
 - `CTABlock` — white rounded card + SuperButton
 - `ArticlesFeaturesSection` — blog/articles grid

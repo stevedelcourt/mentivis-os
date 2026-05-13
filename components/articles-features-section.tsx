@@ -4,19 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { Post } from "@/lib/cms/types";
+import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 
 interface ArticlesFeaturesSectionProps {
   lang: Locale;
 }
 
-const GRADIENTS = [
-  "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
-  "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
-  "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
-  "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 38%, #4D9AAF 72%, #6DB0BF 100%)",
-  "linear-gradient(135deg, #4A1A6C 0%, #7A2D9F 38%, #9F4DAF 72%, #BF6DBF 100%)",
-  "linear-gradient(135deg, #6C3A1A 0%, #9F5D2D 38%, #AF7D4D 72%, #BF9D6D 100%)",
-];
+function getGradientCss(post: Post): string {
+  if (post.gradientId) {
+    const found = GRADIENT_PATTERNS.find(g => g.id === post.gradientId);
+    if (found) return found.css;
+  }
+  return GRADIENT_PATTERNS[post.id % GRADIENT_PATTERNS.length].css;
+}
 
 export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -167,7 +167,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                   borderRadius: 18,
                   overflow: "hidden",
                   marginBottom: 14,
-                  background: post.imageUrl ? undefined : GRADIENTS[i % GRADIENTS.length],
+                  background: post.imageUrl ? undefined : getGradientCss(post),
                   transition: "transform .45s cubic-bezier(.22,1,.36,1)",
                 }}
                 onMouseEnter={(e) => {

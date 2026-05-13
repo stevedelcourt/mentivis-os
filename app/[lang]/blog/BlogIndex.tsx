@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { Post, CATEGORIES } from "@/lib/cms/types";
+import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { stripMarkdown } from "@/lib/markdown";
 import styles from "./blog.module.css";
 
@@ -128,9 +129,15 @@ interface FeaturedCardProps {
   lang: Locale;
 }
 
+function getGradientCss(post: Post): string | undefined {
+  if (post.gradientId) return GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css;
+  return undefined;
+}
+
 function FeaturedCard({ post, lang }: FeaturedCardProps) {
   const categoryLabel =
     CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
+  const gradCss = getGradientCss(post);
 
   return (
     <article className={styles.featured}>
@@ -138,7 +145,7 @@ function FeaturedCard({ post, lang }: FeaturedCardProps) {
         {post.imageUrl ? (
           <img src={post.imageUrl} alt={post.title} className={styles.featImgEl} />
         ) : (
-          <ColorBlock index={post.featured ? 1 : undefined} />
+          <div style={{ width: "100%", height: "100%", background: gradCss ?? "var(--bg-warm)" }} />
         )}
         {post.imageTag && (
           <span className={styles.imageTag}>
@@ -171,6 +178,7 @@ interface ArticleCardProps {
 function ArticleCard({ post, lang }: ArticleCardProps) {
   const categoryLabel =
     CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
+  const gradCss = getGradientCss(post);
 
   return (
     <article className={styles.card}>
@@ -179,7 +187,7 @@ function ArticleCard({ post, lang }: ArticleCardProps) {
           {post.imageUrl ? (
             <img src={post.imageUrl} alt={post.title} className={styles.cardImgEl} />
           ) : (
-            <ColorBlock index={post.featured ? 1 : undefined} />
+            <div style={{ width: "100%", height: "100%", background: gradCss ?? "var(--bg-warm)" }} />
           )}
           {post.imageTag && (
             <span className={styles.imageTag}>

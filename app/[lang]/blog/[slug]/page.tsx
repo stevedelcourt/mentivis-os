@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import styles from "../blog.module.css";
 import { Post } from "@/lib/cms/types";
+import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { renderMarkdown } from "@/lib/markdown";
 
 export default function BlogPostPage() {
@@ -96,7 +97,7 @@ export default function BlogPostPage() {
             {post.excerpt}
           </p>
 
-          {post.imageUrl && (
+          {post.imageUrl ? (
             <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", marginBottom: 48 }}>
               <img
                 src={post.imageUrl}
@@ -114,7 +115,17 @@ export default function BlogPostPage() {
                 </div>
               )}
             </div>
-          )}
+          ) : post.gradientId ? (
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: "2/1",
+                borderRadius: 12,
+                marginBottom: 48,
+                background: GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "var(--bg-warm)",
+              }}
+            />
+          ) : null}
 
           <div
             className="article-body"

@@ -33,32 +33,20 @@ SectorShowcase
 MathFeaturesSection
 TransformationTimeline
 ├── AtmosphereOrb (×7) — glassmorphism orbs with blob gradients
-│   ├── Orb 1: Désorganisée (blue) → Orb 7: Adaptative (teal-pink-gold)
 ├── Satellite (×14) — 2 per orb, orbiting
 ├── MeasurementBar — 7 ticks with step numbers
 └── StageTextPanel — title + description (left-aligned)
 
-ImpactSection — 3×2 CSS Grid use‑cases
+ImpactSection — 3×1 CSS Grid, 3 use‑cases layout
 ├── Tabs: Clients | Partenariat (pill toggle)
-├── Layout A (clients):
-│   ┌─────────┐ ┌──────────────┐ ┌──────┐
-│   │ MedA ↑  │ │   Big ██     │ │Ghost │
-│   │         │ │   (carré)    │ │ →↓  │
-│   ├─────────┤ │   centré     │ └──────┘
-│   │Ghost ←↓│ │              │ ┌─────────┐
-│   └─────────┘ │              │ │ MedE ↓ │
-│               └──────────────┘ └─────────┘
-├── Layout B (partenariat): mirror-flip of cols 1 & 3
-├── Grid: 3 cols (1fr 1.58fr 1fr) × 2 rows (auto auto), gap 12px
+├── Grid: 3 cols (1fr 1.58fr 1fr) × 1 row (auto), gap 12px
 ├── All cards: aspect-ratio 1/1
-├── Big (i=0): col 2, row 1/3, centered (no explicit align-self)
-├── MedA (i=1): col 1/3 row 1, align-self start
-├── MedE (i=2): col 3/1 row 2, align-self end
-├── Ghosts (i=3,4): width 50%, aspect-ratio 1/1
-│   ├── justifySelf: end (col 1) / start (col 3) — tucked toward Big
-│   └── alignSelf: end (row 1) / start (row 2) — mid-height of Big
-├── Image overlay: transparent 66% → rgba(0,0,0,.75) (lower third)
-└── Mobile: <900px 2-col stacked, <520px 1-col
+├── Big (i=0): col 2, fills row height (1.58W)
+├── MedA (i=1): col 1 (clients) / col 3 (partenariat), align-self start → top = Big top
+├── MedE (i=2): col 3 (clients) / col 1 (partenariat), align-self end → bottom = Big bottom
+├── Image overlay: transparent 66% → rgba(0,0,0,.75) (lower third, photo cards)
+├── Hover: translateY(-4px)
+└── Mobile: hidden < 768px
 
 FaqSection — 8 Q&A accordion
 CTABlock

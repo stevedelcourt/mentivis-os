@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { CATEGORIES } from "@/lib/cms/types";
+import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { generateSlug } from "@/lib/cms/utils";
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
@@ -34,6 +35,7 @@ export default function PostEditorPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [imageTag, setImageTag] = useState("");
   const [imageCaption, setImageCaption] = useState("");
+  const [gradientId, setGradientId] = useState<number | undefined>(undefined);
   const [featured, setFeatured] = useState(false);
   const [published, setPublished] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -72,6 +74,7 @@ export default function PostEditorPage() {
         setImageUrl(p.imageUrl || "");
         setImageTag(p.imageTag || "");
         setImageCaption(p.imageCaption || "");
+        setGradientId(p.gradientId || undefined);
         setFeatured(p.featured);
         setPublished(p.published);
       }
@@ -143,6 +146,7 @@ export default function PostEditorPage() {
       imageUrl: imageUrl || undefined,
       imageTag: imageTag || undefined,
       imageCaption: imageCaption || undefined,
+      gradientId: gradientId ?? null,
       featured,
       published,
     };
@@ -406,6 +410,52 @@ export default function PostEditorPage() {
             placeholder="ex: Mentivis presente MentivisOS, l'OS de la formation native IA..."
           />
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Texte blanc sur degrade sombre en bas de l&apos;image, visible sur la page article</p>
+        </div>
+
+        {/* Gradient picker */}
+        <div style={{ marginBottom: 20 }}>
+          <label style={labelStyle}>Fond degrade (alternative a l&apos;image)</label>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
+            <button
+              type="button"
+              onClick={() => setGradientId(undefined)}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                border: gradientId === undefined ? "2px solid #0A0A0A" : "1px solid #E5E0DA",
+                background: "#fff",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 18,
+                color: "#777169",
+              }}
+              title="Aucun"
+            >
+              ∅
+            </button>
+            {GRADIENT_PATTERNS.map((g) => (
+              <button
+                key={g.id}
+                type="button"
+                onClick={() => setGradientId(g.id)}
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 10,
+                  border: gradientId === g.id ? "2px solid #0A0A0A" : "1px solid #E5E0DA",
+                  background: g.css,
+                  cursor: "pointer",
+                }}
+                title={g.name}
+              />
+            ))}
+          </div>
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
+            Utilise un motif de fond si l&apos;article n&apos;a pas d&apos;image a la une
+          </p>
         </div>
 
         {/* Content */}

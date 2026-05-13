@@ -10,6 +10,7 @@ export interface Post {
   imageUrl?: string;
   imageTag?: string;
   imageCaption?: string;
+  gradientId?: number;
   featured: boolean;
   published: boolean;
   createdAt: string;
