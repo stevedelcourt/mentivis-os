@@ -453,7 +453,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               <div className="mobile-timeline-viewport">
                 <div
                   className="mobile-timeline-track"
-                  style={{ transform: `translateX(${(-active * 65) + 17.5}%)` }}
+                  style={{ transform: `translateX(${(-active * 72) + 14}%)` }}
                 >
                   {stages.map((stage, i) => {
                     const isActive = i === active;
@@ -532,7 +532,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                             </div>
                           </div>
                         </div>
-                        <span className={`orb-label ${isActive ? "orb-label-active" : ""}`} style={{ marginTop: 20, display: "block", transition: "opacity 0.4s ease, color 0.4s ease" }}>
+                        <span className={`orb-label ${isActive ? "orb-label-active" : ""}`} style={{ marginTop: 45, display: "block", transition: "opacity 0.4s ease, color 0.4s ease" }}>
                           {stage.label}
                         </span>
                       </div>
@@ -568,6 +568,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
 
           {/* Stage text panel */}
           <div
+            className="timeline-text-panel"
             style={{
               maxWidth: 560,
               height: 180,
@@ -871,7 +872,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           }
           .mobile-timeline-swiper {
             display: block;
-            padding: 24px 0 16px;
+            padding: 24px 0 0;
             touch-action: pan-y;
             opacity: 0;
             transform: translateX(40px);
@@ -886,7 +887,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
           }
           .mobile-timeline-dot {
             width: 8px;
@@ -903,17 +904,16 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             transform: scale(1.2);
           }
           .mobile-timeline-stage {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
             position: relative;
-            min-height: 300px;
-            margin-bottom: 24px;
+            min-height: 280px;
+            margin-bottom: 0;
           }
           .mobile-timeline-chevron {
-            width: 36px;
-            height: 36px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: none;
             background: rgba(0,0,0,0.04);
@@ -921,35 +921,40 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
             z-index: 20;
             transition: background 0.2s ease;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
           }
+          .mobile-timeline-chevron-left {
+            left: 4px;
+          }
+          .mobile-timeline-chevron-right {
+            right: 4px;
+          }
           .mobile-timeline-chevron:active {
             background: rgba(0,0,0,0.1);
           }
           .mobile-timeline-viewport {
-            flex: 1;
+            width: 100%;
             overflow: hidden;
             position: relative;
-            min-height: 260px;
+            min-height: 280px;
           }
           .mobile-timeline-track {
             display: flex;
             align-items: center;
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            min-height: 260px;
+            min-height: 280px;
           }
           .mobile-timeline-slot {
-            flex: 0 0 65%;
+            flex: 0 0 72%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0.35;
-            transform: scale(0.75);
+            transform: scale(0.72);
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
           }
           .mobile-timeline-slot-active {
@@ -971,6 +976,14 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             overflow: hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
+          }
+          .mobile-timeline-divider {
+            margin-top: 32px !important;
+            margin-bottom: 20px !important;
+          }
+          .timeline-text-panel {
+            height: auto !important;
+            padding: 8px 0 16px;
           }
           .wave-container {
             display: none;
