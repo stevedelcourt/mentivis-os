@@ -696,6 +696,10 @@
       "salary": "Salaire",
       "reference": "Reference"
     },
+    "tabs": {
+      "description": "Description",
+      "apply": "Candidature"
+    },
     "form": {
       "title": "Candidature spontanee",
       "subtitle": "Vous ne trouvez pas d'offre correspondant a votre profil ? Envoyez-nous quand meme votre candidature.",

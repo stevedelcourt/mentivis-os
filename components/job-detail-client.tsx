@@ -56,10 +56,10 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [honeypot, setHoneypot] = useState("");
+  const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
 
   const heroV = useVisible(0.2);
-  const infoV = useVisible(0.1);
-  const formV = useVisible(0.1);
+  const contentV = useVisible(0.1);
 
   useEffect(() => {
     async function fetchJob() {
@@ -218,55 +218,68 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         </div>
       </section>
 
-      {/* Info + Description */}
+      {/* Tabs + Content */}
       <section style={{ padding: "20px 0 40px" }}>
         <div className="container">
           <div
-            ref={infoV.ref}
+            ref={contentV.ref}
             style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr",
-              gap: 48,
-              opacity: infoV.visible ? 1 : 0,
-              transform: infoV.visible ? "translateY(0)" : "translateY(20px)",
+              opacity: contentV.visible ? 1 : 0,
+              transform: contentV.visible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.6s ease, transform 0.6s ease",
             }}
           >
-            {/* Left: Description */}
-            <div>
-              <h2
-                style={{
-                  fontSize: 22,
-                  fontWeight: 500,
-                  color: "#0A0A0A",
-                  marginBottom: 20,
-                }}
-              >
-                {t.careers.detail.about}
-              </h2>
+            {/* Tabs */}
+            <div
+              style={{
+                display: "flex",
+                gap: 4,
+                marginBottom: 32,
+                borderBottom: "1px solid #F0EBE5",
+              }}
+            >
+              {(["description", "apply"] as const).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    padding: "12px 24px",
+                    fontSize: 15,
+                    fontWeight: 500,
+                    border: "none",
+                    borderBottom: activeTab === tab ? "2px solid #0A0A0A" : "2px solid transparent",
+                    background: "transparent",
+                    color: activeTab === tab ? "#0A0A0A" : "#777169",
+                    cursor: "pointer",
+                    marginBottom: -1,
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  {tab === "description" ? t.careers.tabs.description : t.careers.tabs.apply}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            {activeTab === "description" ? (
               <div
                 style={{
-                  fontSize: 15,
-                  lineHeight: 1.7,
-                  color: "#3E3B38",
-                  whiteSpace: "pre-line",
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr",
+                  gap: 48,
                 }}
               >
-                {job.description}
-              </div>
-
-              {job.whyJoin && (
-                <>
+                {/* Left: Description */}
+                <div>
                   <h2
                     style={{
                       fontSize: 22,
                       fontWeight: 500,
                       color: "#0A0A0A",
-                      marginTop: 40,
                       marginBottom: 20,
                     }}
                   >
-                    {t.careers.detail.whyJoin}
+                    {t.careers.detail.about}
                   </h2>
                   <div
                     style={{
@@ -276,250 +289,279 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       whiteSpace: "pre-line",
                     }}
                   >
-                    {job.whyJoin}
+                    {job.description}
                   </div>
-                </>
-              )}
-            </div>
 
-            {/* Right: Info box */}
-            <div>
-              <div
-                style={{
-                  background: "#FAFAF8",
-                  borderRadius: 16,
-                  padding: "24px",
-                  position: "sticky",
-                  top: 24,
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: 16,
-                    fontWeight: 500,
-                    color: "#0A0A0A",
-                    marginBottom: 20,
-                  }}
-                >
-                  {t.careers.detail.info}
-                </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                  <div>
-                    <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                      {t.careers.detail.department}
-                    </p>
-                    <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                      {job.department}
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                      {t.careers.detail.type}
-                    </p>
-                    <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                      {typeLabel(job.type)}
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                      {t.careers.detail.location}
-                    </p>
-                    <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                      {job.location}
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                      {t.careers.detail.salary}
-                    </p>
-                    <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                      {job.salary}
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
-                      {t.careers.detail.reference}
-                    </p>
-                    <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
-                      {job.reference}
-                    </p>
+                  {job.whyJoin && (
+                    <>
+                      <h2
+                        style={{
+                          fontSize: 22,
+                          fontWeight: 500,
+                          color: "#0A0A0A",
+                          marginTop: 40,
+                          marginBottom: 20,
+                        }}
+                      >
+                        {t.careers.detail.whyJoin}
+                      </h2>
+                      <div
+                        style={{
+                          fontSize: 15,
+                          lineHeight: 1.7,
+                          color: "#3E3B38",
+                          whiteSpace: "pre-line",
+                        }}
+                      >
+                        {job.whyJoin}
+                      </div>
+                    </>
+                  )}
+
+                  <button
+                    onClick={() => setActiveTab("apply")}
+                    style={{
+                      marginTop: 32,
+                      padding: "14px 28px",
+                      fontSize: 15,
+                      fontWeight: 500,
+                      color: "#fff",
+                      background: "#0A0A0A",
+                      border: "none",
+                      borderRadius: 10,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {t.careers.detail.apply}
+                  </button>
+                </div>
+
+                {/* Right: Info box */}
+                <div>
+                  <div
+                    style={{
+                      background: "#FAFAF8",
+                      borderRadius: 16,
+                      padding: "24px",
+                      position: "sticky",
+                      top: 24,
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 500,
+                        color: "#0A0A0A",
+                        marginBottom: 20,
+                      }}
+                    >
+                      {t.careers.detail.info}
+                    </h3>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      <div>
+                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
+                          {t.careers.detail.department}
+                        </p>
+                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
+                          {job.department}
+                        </p>
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
+                          {t.careers.detail.type}
+                        </p>
+                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
+                          {typeLabel(job.type)}
+                        </p>
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
+                          {t.careers.detail.location}
+                        </p>
+                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
+                          {job.location}
+                        </p>
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
+                          {t.careers.detail.salary}
+                        </p>
+                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
+                          {job.salary}
+                        </p>
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4 }}>
+                          {t.careers.detail.reference}
+                        </p>
+                        <p style={{ fontSize: 14, color: "#3E3B38", fontWeight: 500 }}>
+                          {job.reference}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Application Form */}
-      <section id="apply" style={{ padding: isMobile ? "40px 0" : "60px 0", background: "#FAFAF8" }}>
-        <div className="container">
-          <div
-            ref={formV.ref}
-            style={{
-              maxWidth: 600,
-              margin: "0 auto",
-              opacity: formV.visible ? 1 : 0,
-              transform: formV.visible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.6s ease, transform 0.6s ease",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: 22,
-                fontWeight: 500,
-                color: "#0A0A0A",
-                marginBottom: 8,
-                textAlign: "center",
-              }}
-            >
-              {t.careers.detail.apply}
-            </h2>
-            <p
-              style={{
-                fontSize: 14,
-                color: "#777169",
-                marginBottom: 32,
-                textAlign: "center",
-              }}
-            >
-              {t.careers.form.subtitle}
-            </p>
-
-            {formState === "success" ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: "40px 24px",
-                  background: "#fff",
-                  borderRadius: 16,
-                }}
-              >
-                <p style={{ fontSize: 18, color: "#0A0A0A", marginBottom: 8 }}>
-                  {t.careers.form.success}
-                </p>
-                <Link
-                  href={`/${urlLang}/carrieres`}
-                  style={{
-                    color: "#0A0A0A",
-                    textDecoration: "underline",
-                    fontSize: 14,
-                  }}
-                >
-                  {t.careers.detail.back}
-                </Link>
               </div>
             ) : (
-              <form
-                onSubmit={handleSubmit}
-                style={{ background: "#fff", padding: "32px", borderRadius: 16 }}
-              >
-                {/* Honeypot */}
-                <div style={{ display: "none" }}>
-                  <input
-                    type="text"
-                    name="honeypot"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
-                  <div>
-                    <label style={labelStyle}>{t.careers.form.firstName}</label>
-                    <input
-                      type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                      style={inputStyle}
-                    />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>{t.careers.form.lastName}</label>
-                    <input
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      required
-                      style={inputStyle}
-                    />
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: 16 }}>
-                  <label style={labelStyle}>{t.careers.form.email}</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    style={inputStyle}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 16 }}>
-                  <label style={labelStyle}>{t.careers.form.phone}</label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    style={inputStyle}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 16 }}>
-                  <label style={labelStyle}>{t.careers.form.linkedin}</label>
-                  <input
-                    type="url"
-                    value={linkedin}
-                    onChange={(e) => setLinkedin(e.target.value)}
-                    style={inputStyle}
-                    placeholder="https://linkedin.com/in/..."
-                  />
-                </div>
-
-                <div style={{ marginBottom: 24 }}>
-                  <label style={labelStyle}>{t.careers.form.message}</label>
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                    rows={5}
-                    style={{ ...inputStyle, resize: "vertical" }}
-                    placeholder={t.careers.form.messagePlaceholder}
-                  />
-                </div>
-
-                {formState === "error" && (
-                  <p style={{ color: "#c45c4a", fontSize: 14, marginBottom: 16 }}>
-                    {t.careers.form.error}
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={formState === "loading"}
+              <div style={{ maxWidth: 600, margin: "0 auto" }}>
+                <h2
                   style={{
-                    width: "100%",
-                    padding: "14px",
-                    fontSize: 15,
+                    fontSize: 22,
                     fontWeight: 500,
-                    color: "#fff",
-                    background: "#0A0A0A",
-                    border: "none",
-                    borderRadius: 10,
-                    cursor: formState === "loading" ? "not-allowed" : "pointer",
-                    opacity: formState === "loading" ? 0.6 : 1,
+                    color: "#0A0A0A",
+                    marginBottom: 8,
+                    textAlign: "center",
                   }}
                 >
-                  {formState === "loading"
-                    ? "Envoi..."
-                    : t.careers.form.submit}
-                </button>
-              </form>
+                  {t.careers.detail.apply}
+                </h2>
+                <p
+                  style={{
+                    fontSize: 14,
+                    color: "#777169",
+                    marginBottom: 32,
+                    textAlign: "center",
+                  }}
+                >
+                  {t.careers.form.subtitle}
+                </p>
+
+                {formState === "success" ? (
+                  <div
+                    style={{
+                      textAlign: "center",
+                      padding: "40px 24px",
+                      background: "#fff",
+                      borderRadius: 16,
+                    }}
+                  >
+                    <p style={{ fontSize: 18, color: "#0A0A0A", marginBottom: 8 }}>
+                      {t.careers.form.success}
+                    </p>
+                    <Link
+                      href={`/${urlLang}/carrieres`}
+                      style={{
+                        color: "#0A0A0A",
+                        textDecoration: "underline",
+                        fontSize: 14,
+                      }}
+                    >
+                      {t.careers.detail.back}
+                    </Link>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={handleSubmit}
+                    style={{ background: "#fff", padding: "32px", borderRadius: 16 }}
+                  >
+                    {/* Honeypot */}
+                    <div style={{ display: "none" }}>
+                      <input
+                        type="text"
+                        name="honeypot"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+                      <div>
+                        <label style={labelStyle}>{t.careers.form.firstName}</label>
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                          style={inputStyle}
+                        />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>{t.careers.form.lastName}</label>
+                        <input
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                          style={inputStyle}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={labelStyle}>{t.careers.form.email}</label>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        style={inputStyle}
+                      />
+                    </div>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={labelStyle}>{t.careers.form.phone}</label>
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        style={inputStyle}
+                      />
+                    </div>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={labelStyle}>{t.careers.form.linkedin}</label>
+                      <input
+                        type="url"
+                        value={linkedin}
+                        onChange={(e) => setLinkedin(e.target.value)}
+                        style={inputStyle}
+                        placeholder="https://linkedin.com/in/..."
+                      />
+                    </div>
+
+                    <div style={{ marginBottom: 24 }}>
+                      <label style={labelStyle}>{t.careers.form.message}</label>
+                      <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        required
+                        rows={5}
+                        style={{ ...inputStyle, resize: "vertical" }}
+                        placeholder={t.careers.form.messagePlaceholder}
+                      />
+                    </div>
+
+                    {formState === "error" && (
+                      <p style={{ color: "#c45c4a", fontSize: 14, marginBottom: 16 }}>
+                        {t.careers.form.error}
+                      </p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={formState === "loading"}
+                      style={{
+                        width: "100%",
+                        padding: "14px",
+                        fontSize: 15,
+                        fontWeight: 500,
+                        color: "#fff",
+                        background: "#0A0A0A",
+                        border: "none",
+                        borderRadius: 10,
+                        cursor: formState === "loading" ? "not-allowed" : "pointer",
+                        opacity: formState === "loading" ? 0.6 : 1,
+                      }}
+                    >
+                      {formState === "loading"
+                        ? "Envoi..."
+                        : t.careers.form.submit}
+                    </button>
+                  </form>
+                )}
+              </div>
             )}
           </div>
         </div>

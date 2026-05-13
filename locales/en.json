@@ -696,6 +696,10 @@
       "salary": "Salary",
       "reference": "Reference"
     },
+    "tabs": {
+      "description": "Description",
+      "apply": "Apply"
+    },
     "form": {
       "title": "Spontaneous application",
       "subtitle": "Can't find a position that matches your profile? Send us your application anyway.",
