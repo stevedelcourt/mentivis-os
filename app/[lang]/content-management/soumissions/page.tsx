@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, Fragment } from "react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
-import { FormSubmission } from "@/lib/cms/types";
+import { FormSubmission, JobApplication } from "@/lib/cms/types";
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
 import { CmsLayout, CmsLoading } from "@/components/cms/CmsLayout";
@@ -14,10 +15,13 @@ export default function SubmissionsPage() {
   const { token, role } = useCmsAuth();
   const { cmsFetch } = useCmsFetch(token);
 
+  const [view, setView] = useState<"forms" | "jobs">("forms");
+
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [loading, setLoading] = useState(false);
   const [typeFilter, setTypeFilter] = useState<"all" | "demo" | "contact">("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "read" | "unread">("all");
+  const [applications, setApplications] = useState<JobApplication[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [noteInputs, setNoteInputs] = useState<Record<number, string>>({});
 
@@ -111,8 +115,38 @@ export default function SubmissionsPage() {
       token={token}
       role={role}
       title="Soumissions"
-      subtitle="Demandes de demo et formulaires de contact"
+      subtitle="Demandes de demo, formulaires de contact et candidatures"
     >
+      <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
+        <Link
+          href={`/${lang}/content-management/soumissions`}
+          style={{
+            padding: "10px 20px",
+            fontSize: 14,
+            fontWeight: 500,
+            borderRadius: 10,
+            textDecoration: "none",
+            background: "#0A0A0A",
+            color: "#fff",
+          }}
+        >
+          Formulaires ({submissions.length})
+        </Link>
+        <Link
+          href={`/${lang}/content-management/candidatures`}
+          style={{
+            padding: "10px 20px",
+            fontSize: 14,
+            fontWeight: 500,
+            borderRadius: 10,
+            textDecoration: "none",
+            background: "#E5E0DA",
+            color: "#3E3B38",
+          }}
+        >
+          Candidatures
+        </Link>
+      </div>
       {!canManage && (
         <div style={{ padding: "12px 16px", background: "#FFF3E0", borderRadius: 10, marginBottom: 20, color: "#E65100", fontSize: 14 }}>
           Lecture seule — Vous n&apos;avez pas les droits de modification sur cette section.

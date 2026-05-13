@@ -32,9 +32,15 @@ export default function CandidaturesPage() {
       if (statusFilter !== "all") qs.set("status", statusFilter);
       const res = await cmsFetch(`/api/cms/job-applications?${qs.toString()}`);
       if (res.status === 401) return;
+      if (!res.ok) {
+        console.error("[Candidatures] API error:", res.status, await res.text());
+        setApplications([]);
+        return;
+      }
       const data = await res.json();
       setApplications(data.applications || []);
-    } catch {
+    } catch (err) {
+      console.error("[Candidatures] Fetch error:", err);
       setApplications([]);
     } finally {
       setLoading(false);
