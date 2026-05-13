@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { getT, Locale } from "@/lib/i18n";
 
 interface TransformationTimelineProps {
@@ -105,9 +105,22 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
   const [prevActive, setPrevActive] = useState<number>(0);
   const [fade, setFade] = useState<boolean>(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [visibleMobile, setVisibleMobile] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const navLock = useRef(false);
+
+  useEffect(() => {
+    const el = mobileRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisibleMobile(true); },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const activate = (i: number) => {
     if (i === active || isTransitioning) return;
@@ -407,7 +420,8 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
 
           {/* Mobile orb swiper (hidden on desktop) */}
           <div
-            className="mobile-timeline-swiper"
+            ref={mobileRef}
+            className={`mobile-timeline-swiper ${visibleMobile ? "mobile-timeline-visible" : ""}`}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
@@ -423,87 +437,255 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
               ))}
             </div>
 
-            {/* Single centered orb */}
-            {(() => {
-              const config = ORB_CONFIGS[active];
-              const driftAnims = BLOB_DRIFTS[active];
-              const sat1Params = SAT_PARAMS[active * 2] || SAT_PARAMS[0];
-              const sat2Params = SAT_PARAMS[active * 2 + 1] || SAT_PARAMS[1];
-              return (
-                <div className="mobile-timeline-orb-wrapper">
-                  <div className="float-orb float-delay-0" style={{ position: "relative", width: MOBILE_ORB_SIZE, height: MOBILE_ORB_SIZE }}>
-                    <div className="orb-ring" style={{ opacity: 1 }} />
-                    <div style={{ position: "absolute", inset: 0, transform: "scale(1.2)", transformOrigin: "center top" }}>
-                      <div
-                        className="satellite"
-                        style={{
-                          background: config.satColors[0],
-                          width: 10,
-                          height: 10,
-                          marginTop: -5,
-                          marginLeft: -5,
-                          animation: `orbit ${sat1Params[2]}s linear infinite`,
-                          ['--orbit-r' as string]: `${sat1Params[1]}px`,
-                          ['--orbit-a' as string]: `${sat1Params[0]}deg`,
-                        }}
-                      />
-                      <div
-                        className="satellite"
-                        style={{
-                          background: config.satColors[1] || config.satColors[0],
-                          width: 8,
-                          height: 8,
-                          marginTop: -4,
-                          marginLeft: -4,
-                          animation: `orbit ${sat2Params[2]}s linear infinite`,
-                          ['--orbit-r' as string]: `${sat2Params[1]}px`,
-                          ['--orbit-a' as string]: `${sat2Params[0]}deg`,
-                        }}
-                      />
-                      <div
-                        className="atmosphere-orb orb-active"
-                        style={{ background: config.base }}
-                      >
-                        {config.blobs.map((blob, bi) => (
-                          <div
-                            key={bi}
-                            className="orb-blob"
-                            style={{
-                              width: `${blob.s}%`,
-                              height: `${blob.s}%`,
-                              background: blob.c,
-                              top: `${blob.y + 50}%`,
-                              left: `${blob.x + 50}%`,
-                              animation: driftAnims[bi],
-                            }}
-                          />
-                        ))}
+            {/* 3-up orb stage with chevrons */}
+            <div className="mobile-timeline-stage">
+              {/* Prev chevron */}
+              <button
+                className="mobile-timeline-chevron"
+                onClick={handlePrev}
+                aria-label="Précédent"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 6l-6 6 6 6" stroke="#1A1616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+
+              {/* Orb container */}
+              <div className="mobile-timeline-orb-container">
+                {/* Prev orb */}
+                {(() => {
+                  const idx = (active - 1 + stages.length) % stages.length;
+                  const config = ORB_CONFIGS[idx];
+                  const driftAnims = BLOB_DRIFTS[idx];
+                  const sat1Params = SAT_PARAMS[idx * 2] || SAT_PARAMS[0];
+                  const sat2Params = SAT_PARAMS[idx * 2 + 1] || SAT_PARAMS[1];
+                  const size = ORB_SIZES[idx];
+                  return (
+                    <div className="mobile-timeline-side-orb mobile-timeline-orb-prev">
+                      <div className="float-orb float-delay-1" style={{ position: "relative", width: size, height: size }}>
                         <div
+                          className="satellite"
                           style={{
-                            position: "absolute",
-                            inset: 0,
-                            borderRadius: "50%",
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                            backgroundSize: "60px 60px",
-                            opacity: 0.15,
-                            mixBlendMode: "overlay",
-                            pointerEvents: "none",
+                            background: config.satColors[0],
+                            width: 10,
+                            height: 10,
+                            marginTop: -5,
+                            marginLeft: -5,
+                            animation: `orbit ${sat1Params[2]}s linear infinite`,
+                            ['--orbit-r' as string]: `${sat1Params[1]}px`,
+                            ['--orbit-a' as string]: `${sat1Params[0]}deg`,
                           }}
                         />
+                        <div
+                          className="satellite"
+                          style={{
+                            background: config.satColors[1] || config.satColors[0],
+                            width: 8,
+                            height: 8,
+                            marginTop: -4,
+                            marginLeft: -4,
+                            animation: `orbit ${sat2Params[2]}s linear infinite`,
+                            ['--orbit-r' as string]: `${sat2Params[1]}px`,
+                            ['--orbit-a' as string]: `${sat2Params[0]}deg`,
+                          }}
+                        />
+                        <div className="atmosphere-orb" style={{ background: config.base }}>
+                          {config.blobs.map((blob, bi) => (
+                            <div
+                              key={bi}
+                              className="orb-blob"
+                              style={{
+                                width: `${blob.s}%`,
+                                height: `${blob.s}%`,
+                                background: blob.c,
+                                top: `${blob.y + 50}%`,
+                                left: `${blob.x + 50}%`,
+                                animation: driftAnims[bi],
+                              }}
+                            />
+                          ))}
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              borderRadius: "50%",
+                              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                              backgroundSize: "60px 60px",
+                              opacity: 0.15,
+                              mixBlendMode: "overlay",
+                              pointerEvents: "none",
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <span className="orb-label orb-label-active" style={{ marginTop: 16 }}>
-                    {stages[active].label}
-                  </span>
-                </div>
-              );
-            })()}
+                  );
+                })()}
 
-            {/* Swipe hint */}
-            <p className="mobile-timeline-hint">
-              {lang === "fr" ? "Glissez pour naviguer" : "Swipe to navigate"}
-            </p>
+                {/* Current orb */}
+                {(() => {
+                  const idx = active;
+                  const config = ORB_CONFIGS[idx];
+                  const driftAnims = BLOB_DRIFTS[idx];
+                  const sat1Params = SAT_PARAMS[idx * 2] || SAT_PARAMS[0];
+                  const sat2Params = SAT_PARAMS[idx * 2 + 1] || SAT_PARAMS[1];
+                  const size = ORB_SIZES[idx];
+                  return (
+                    <div className="mobile-timeline-center-orb">
+                      <div className="float-orb float-delay-0" style={{ position: "relative", width: size, height: size }}>
+                        <div className="orb-ring" style={{ opacity: 1 }} />
+                        <div style={{ position: "absolute", inset: 0, transform: "scale(1.2)", transformOrigin: "center top" }}>
+                          <div
+                            className="satellite"
+                            style={{
+                              background: config.satColors[0],
+                              width: 10,
+                              height: 10,
+                              marginTop: -5,
+                              marginLeft: -5,
+                              animation: `orbit ${sat1Params[2]}s linear infinite`,
+                              ['--orbit-r' as string]: `${sat1Params[1]}px`,
+                              ['--orbit-a' as string]: `${sat1Params[0]}deg`,
+                            }}
+                          />
+                          <div
+                            className="satellite"
+                            style={{
+                              background: config.satColors[1] || config.satColors[0],
+                              width: 8,
+                              height: 8,
+                              marginTop: -4,
+                              marginLeft: -4,
+                              animation: `orbit ${sat2Params[2]}s linear infinite`,
+                              ['--orbit-r' as string]: `${sat2Params[1]}px`,
+                              ['--orbit-a' as string]: `${sat2Params[0]}deg`,
+                            }}
+                          />
+                          <div
+                            className="atmosphere-orb orb-active"
+                            style={{
+                              background: config.base,
+                              boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 40px ${config.blobs[0].c}70, 0 0 80px ${config.blobs[1].c}40`,
+                            }}
+                          >
+                            {config.blobs.map((blob, bi) => (
+                              <div
+                                key={bi}
+                                className="orb-blob"
+                                style={{
+                                  width: `${blob.s}%`,
+                                  height: `${blob.s}%`,
+                                  background: blob.c,
+                                  top: `${blob.y + 50}%`,
+                                  left: `${blob.x + 50}%`,
+                                  animation: driftAnims[bi],
+                                }}
+                              />
+                            ))}
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                borderRadius: "50%",
+                                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                                backgroundSize: "60px 60px",
+                                opacity: 0.15,
+                                mixBlendMode: "overlay",
+                                pointerEvents: "none",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <span className="orb-label orb-label-active" style={{ marginTop: 20, display: "block" }}>
+                        {stages[idx].label}
+                      </span>
+                    </div>
+                  );
+                })()}
+
+                {/* Next orb */}
+                {(() => {
+                  const idx = (active + 1) % stages.length;
+                  const config = ORB_CONFIGS[idx];
+                  const driftAnims = BLOB_DRIFTS[idx];
+                  const sat1Params = SAT_PARAMS[idx * 2] || SAT_PARAMS[0];
+                  const sat2Params = SAT_PARAMS[idx * 2 + 1] || SAT_PARAMS[1];
+                  const size = ORB_SIZES[idx];
+                  return (
+                    <div className="mobile-timeline-side-orb mobile-timeline-orb-next">
+                      <div className="float-orb float-delay-2" style={{ position: "relative", width: size, height: size }}>
+                        <div
+                          className="satellite"
+                          style={{
+                            background: config.satColors[0],
+                            width: 10,
+                            height: 10,
+                            marginTop: -5,
+                            marginLeft: -5,
+                            animation: `orbit ${sat1Params[2]}s linear infinite`,
+                            ['--orbit-r' as string]: `${sat1Params[1]}px`,
+                            ['--orbit-a' as string]: `${sat1Params[0]}deg`,
+                          }}
+                        />
+                        <div
+                          className="satellite"
+                          style={{
+                            background: config.satColors[1] || config.satColors[0],
+                            width: 8,
+                            height: 8,
+                            marginTop: -4,
+                            marginLeft: -4,
+                            animation: `orbit ${sat2Params[2]}s linear infinite`,
+                            ['--orbit-r' as string]: `${sat2Params[1]}px`,
+                            ['--orbit-a' as string]: `${sat2Params[0]}deg`,
+                          }}
+                        />
+                        <div className="atmosphere-orb" style={{ background: config.base }}>
+                          {config.blobs.map((blob, bi) => (
+                            <div
+                              key={bi}
+                              className="orb-blob"
+                              style={{
+                                width: `${blob.s}%`,
+                                height: `${blob.s}%`,
+                                background: blob.c,
+                                top: `${blob.y + 50}%`,
+                                left: `${blob.x + 50}%`,
+                                animation: driftAnims[bi],
+                              }}
+                            />
+                          ))}
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              borderRadius: "50%",
+                              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                              backgroundSize: "60px 60px",
+                              opacity: 0.15,
+                              mixBlendMode: "overlay",
+                              pointerEvents: "none",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Next chevron */}
+              <button
+                className="mobile-timeline-chevron"
+                onClick={handleNext}
+                aria-label="Suivant"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="#1A1616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Divider line */}
@@ -822,15 +1004,22 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           }
           .mobile-timeline-swiper {
             display: block;
-            padding: 24px 0 16px;
+            padding: 24px 0 8px;
             touch-action: pan-y;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+          }
+          .mobile-timeline-swiper.mobile-timeline-visible {
+            opacity: 1;
+            transform: translateX(0);
           }
           .mobile-timeline-dots {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
           }
           .mobile-timeline-dot {
             width: 8px;
@@ -846,20 +1035,62 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             background: #1A1616;
             transform: scale(1.2);
           }
-          .mobile-timeline-orb-wrapper {
+          .mobile-timeline-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            min-height: 280px;
+          }
+          .mobile-timeline-chevron {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0,0,0,0.04);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 20;
+            transition: background 0.2s ease;
+            padding: 0;
+          }
+          .mobile-timeline-chevron:active {
+            background: rgba(0,0,0,0.1);
+          }
+          .mobile-timeline-orb-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex: 1;
+            min-height: 260px;
+            max-width: 320px;
+          }
+          .mobile-timeline-center-orb {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 220px;
+            z-index: 10;
+            position: relative;
           }
-          .mobile-timeline-hint {
-            font-family: var(--font-sans);
-            font-size: 12px;
-            color: #A8A39A;
-            text-align: center;
-            margin: 16px 0 0;
-            letter-spacing: 0.04em;
+          .mobile-timeline-side-orb {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) scale(0.55);
+            opacity: 0.4;
+            z-index: 1;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          }
+          .mobile-timeline-orb-prev {
+            left: -5%;
+          }
+          .mobile-timeline-orb-next {
+            right: -5%;
           }
           .wave-container {
             display: none;
