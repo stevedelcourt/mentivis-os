@@ -108,23 +108,39 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const activePosts = activeTab === "clients" ? clientsCards : partenariatCards;
   const showFallback = postsLoaded && activePosts.every((p) => p === null);
 
+  function ghostStyle(pos: CSSProperties, col: string, row: string): CSSProperties {
+    return {
+      ...pos,
+      aspectRatio: "1 / 1",
+      width: "50%",
+      justifySelf: col === "1" ? "end" : "start",
+      alignSelf: row === "1" ? "end" : "start",
+    };
+  }
+
   function renderGrid(cards: (Post | null)[], tab: "clients" | "partenariat") {
     const layout = LAYOUTS[tab];
     const tag = tab === "clients" ? t.impact.tabs.clients : t.impact.tabs.partnerships;
     return layout.map((item, i) => {
+      const col = item.pos.gridColumn as string;
+      const row = item.pos.gridRow as string;
       if (item.ghost) {
-        return <div key={`g-${i}`} className="impact-card impact-ghost" style={item.pos} />;
+        return <div key={`g-${i}`} className="impact-card impact-ghost" style={ghostStyle(item.pos, col, row)} />;
       }
       const idx = i < 3 ? i : 0;
       const post = cards[idx];
       const gradient = CARD_GRADIENTS[idx % CARD_GRADIENTS.length];
       if (!post) {
-        return <div key={`e-${i}`} className="impact-card impact-ghost" style={item.pos} />;
+        return <div key={`e-${i}`} className="impact-card impact-ghost" style={ghostStyle(item.pos, col, row)} />;
       }
       const hasImage = !!post.imageUrl;
-      const cardStyle: CSSProperties = { ...item.pos, ...bgStyle(post, gradient) };
-      if (i !== 0) cardStyle.aspectRatio = "1 / 1";
-      if (i === 2 || i === 4) cardStyle.alignSelf = "end";
+      const cardStyle: CSSProperties = {
+        ...item.pos,
+        ...bgStyle(post, gradient),
+        aspectRatio: "1 / 1",
+      };
+      if (i === 1) cardStyle.alignSelf = "start";
+      if (i === 2) cardStyle.alignSelf = "end";
       return (
         <Link key={`p-${i}`} href={`/${lang}/blog/${post.slug}`} className={`impact-card${hasImage ? " has-image" : ""}`} style={cardStyle}>
           {i === 0 && <span className="impact-tag">{tag}</span>}
@@ -259,8 +275,6 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               .impact-ghost {
-                width: 60%;
-                justify-self: center;
                 background: #f0f0f0;
                 cursor: default;
               }
