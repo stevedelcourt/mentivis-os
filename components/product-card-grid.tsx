@@ -145,7 +145,7 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
             <p
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: 300,
                 color: "#8A7D70",
                 lineHeight: 1.5,
