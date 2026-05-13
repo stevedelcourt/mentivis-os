@@ -493,54 +493,69 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
                       <div>
-                        <label style={labelStyle}>{t.careers.form.firstName}</label>
+                        <label htmlFor="firstName" style={labelStyle}>{t.careers.form.firstName}</label>
                         <input
+                          id="firstName"
+                          name="firstName"
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
                           required
+                          autoComplete="given-name"
                           style={inputStyle}
                         />
                       </div>
                       <div>
-                        <label style={labelStyle}>{t.careers.form.lastName}</label>
+                        <label htmlFor="lastName" style={labelStyle}>{t.careers.form.lastName}</label>
                         <input
+                          id="lastName"
+                          name="lastName"
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
                           required
+                          autoComplete="family-name"
                           style={inputStyle}
                         />
                       </div>
                     </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle}>{t.careers.form.email}</label>
+                      <label htmlFor="email" style={labelStyle}>{t.careers.form.email}</label>
                       <input
+                        id="email"
+                        name="email"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        autoComplete="email"
                         style={inputStyle}
                       />
                     </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle}>{t.careers.form.phone}</label>
+                      <label htmlFor="phone" style={labelStyle}>{t.careers.form.phone}</label>
                       <input
+                        id="phone"
+                        name="phone"
                         type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
+                        autoComplete="tel"
                         style={inputStyle}
                       />
                     </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle}>{t.careers.form.linkedin}</label>
+                      <label htmlFor="linkedin" style={labelStyle}>{t.careers.form.linkedin}</label>
                       <input
+                        id="linkedin"
+                        name="linkedin"
                         type="url"
                         value={linkedin}
                         onChange={(e) => setLinkedin(e.target.value)}
+                        autoComplete="url"
                         style={inputStyle}
                         placeholder="https://linkedin.com/in/..."
                       />
@@ -583,12 +598,15 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     </div>
 
                     <div style={{ marginBottom: 24 }}>
-                      <label style={labelStyle}>{t.careers.form.message}</label>
+                      <label htmlFor="message" style={labelStyle}>{t.careers.form.message}</label>
                       <textarea
+                        id="message"
+                        name="message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         required
                         rows={5}
+                        autoComplete="off"
                         style={{ ...inputStyle, resize: "vertical" }}
                         placeholder={t.careers.form.messagePlaceholder}
                       />

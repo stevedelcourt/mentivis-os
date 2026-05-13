@@ -71,31 +71,33 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
         <form onSubmit={handleSubmit}>
           {/* Row 1: Prénom + Nom */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label="Prénom" name="firstname" required />
-            <FormField label="Nom" name="lastname" required />
+            <FormField label="Prénom" name="firstname" required autoComplete="given-name" />
+            <FormField label="Nom" name="lastname" required autoComplete="family-name" />
           </div>
 
           {/* Row 2: Organisation + Poste/Role */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label={t.demo.form.organization} name="organization" required />
-            <FormField label={t.demo.form.role} name="role" />
+            <FormField label={t.demo.form.organization} name="organization" required autoComplete="organization" />
+            <FormField label={t.demo.form.role} name="role" autoComplete="organization-title" />
           </div>
 
           {/* Row 3: Email + Téléphone */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label={t.demo.form.email} name="email" type="email" required />
-            <FormField label={t.demo.form.phone} name="phone" type="tel" />
+            <FormField label={t.demo.form.email} name="email" type="email" required autoComplete="email" />
+            <FormField label={t.demo.form.phone} name="phone" type="tel" autoComplete="tel" />
           </div>
 
           {/* Row 4: Message / Demande */}
           <div style={{ marginBottom: 24 }}>
-            <label className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
+            <label htmlFor="objective" className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
               {isContact ? "Message" : "Demande de démonstration"}
             </label>
             <textarea
+              id="objective"
               name="objective"
               required
               maxLength={500}
+              autoComplete="off"
               placeholder={isContact ? "Votre message..." : "Décrivez votre besoin..."}
               rows={4}
               className="form-textarea"
@@ -184,16 +186,18 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
   );
 }
 
-function FormField({ label, name, type = "text", required = false }: { label: string; name: string; type?: string; required?: boolean }) {
+function FormField({ label, name, type = "text", required = false, autoComplete }: { label: string; name: string; type?: string; required?: boolean; autoComplete?: string }) {
   return (
     <div>
-      <label className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
+      <label htmlFor={name} className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
         {label}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
         required={required}
+        autoComplete={autoComplete}
         className="form-input"
         style={{
           width: "100%",
