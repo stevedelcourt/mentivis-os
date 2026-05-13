@@ -59,7 +59,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
 
   const heroV = useVisible(0.2);
-  const contentV = useVisible(0.1);
 
   useEffect(() => {
     async function fetchJob() {
@@ -220,14 +219,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       {/* Tabs + Content */}
       <section style={{ padding: "20px 0 40px" }}>
         <div className="container">
-          <div
-            ref={contentV.ref}
-            style={{
-              opacity: contentV.visible ? 1 : 0,
-              transform: contentV.visible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.6s ease, transform 0.6s ease",
-            }}
-          >
+          <div>
             {/* Tabs */}
             <div
               style={{
