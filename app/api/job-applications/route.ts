@@ -117,6 +117,7 @@ export async function POST(request: NextRequest) {
             { name: "message", value: message },
             { name: "jobtitle", value: `${jobTitle} (${jobReference})` },
             { name: "company", value: linkedin || "" },
+            { name: "lien_cv", value: cvUrl || "" },
           ],
           context: {
             pageUri: "https://sc4bovu7233.universe.wf/carrieres",

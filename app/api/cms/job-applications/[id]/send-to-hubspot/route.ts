@@ -42,6 +42,7 @@ export async function POST(
             { name: "message", value: application.message },
             { name: "jobtitle", value: `${application.jobTitle} (${application.jobReference})` },
             { name: "company", value: application.linkedin || "" },
+            { name: "lien_cv", value: application.cvUrl || "" },
           ],
           context: {
             pageUri: request.url,
