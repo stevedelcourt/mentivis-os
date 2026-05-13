@@ -144,79 +144,25 @@ export default function NavBar({ lang }: NavBarProps) {
             className="navbar-links"
             style={{ display: "flex", gap: 32, alignItems: "center" }}
           >
-            {/* LearningOS */}
-            <div
-              className="navbar-item"
-              style={{ position: "relative", padding: "20px 0" }}
-              onMouseEnter={() => openDropdown("learningOS")}
-              onMouseLeave={closeDropdown}
+            {/* LearningOS — plain link, dropdown reserved for future evolution */}
+            <Link
+              href={`/${lang}`}
+              className="t-nav navbar-link"
+              data-active={isActive("") && pathname === `/${lang}`}
+              style={{ padding: "20px 0" }}
             >
-              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                {t.nav.learningOS}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "learningOS" ? "rotate(180deg)" : "rotate(0deg)" }}>
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-              {activeDropdown === "learningOS" && (
-                <MegaMenu
-                  sections={[
-                    {
-                      eyebrow: t.nav.eyebrows.produits,
-                      links: t.nav.learningOSMenu.produits.map((label) => ({
-                        label,
-                        href: `/${lang}`,
-                      })),
-                    },
-                    {
-                      eyebrow: t.nav.eyebrows.workflows,
-                      links: t.nav.learningOSMenu.workflows.map((label) => ({
-                        label,
-                        href: `/${lang}`,
-                      })),
-                    },
-                  ]}
-                  onMouseEnter={() => openDropdown("learningOS")}
-                  onMouseLeave={closeDropdown}
-                />
-              )}
-            </div>
+              {t.nav.learningOS}
+            </Link>
 
-            {/* TalentOS */}
-            <div
-              className="navbar-item"
-              style={{ position: "relative", padding: "20px 0" }}
-              onMouseEnter={() => openDropdown("pipelineOS")}
-              onMouseLeave={closeDropdown}
+            {/* TalentOS — plain link, dropdown reserved for future evolution */}
+            <Link
+              href={`/${lang}`}
+              className="t-nav navbar-link"
+              data-active={isActive("") && pathname === `/${lang}`}
+              style={{ padding: "20px 0" }}
             >
-              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                {t.nav.pipelineOS}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "pipelineOS" ? "rotate(180deg)" : "rotate(0deg)" }}>
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-              {activeDropdown === "pipelineOS" && (
-                <MegaMenu
-                  sections={[
-                    {
-                      eyebrow: t.nav.eyebrows.produits,
-                      links: t.nav.pipelineOSMenu.produits.map((label) => ({
-                        label,
-                        href: `/${lang}`,
-                      })),
-                    },
-                    {
-                      eyebrow: t.nav.eyebrows.workflowsRH,
-                      links: t.nav.pipelineOSMenu.workflows.map((label) => ({
-                        label,
-                        href: `/${lang}`,
-                      })),
-                    },
-                  ]}
-                  onMouseEnter={() => openDropdown("pipelineOS")}
-                  onMouseLeave={closeDropdown}
-                />
-              )}
-            </div>
+              {t.nav.pipelineOS}
+            </Link>
 
             {/* Entreprise (was Ressources) */}
             <div
@@ -258,34 +204,7 @@ export default function NavBar({ lang }: NavBarProps) {
               )}
             </div>
 
-            {/* Resources */}
-            <div
-              className="navbar-item"
-              style={{ position: "relative", padding: "20px 0" }}
-              onMouseEnter={() => openDropdown("resources")}
-              onMouseLeave={closeDropdown}
-            >
-              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                Resources
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "resources" ? "rotate(180deg)" : "rotate(0deg)" }}>
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-              {activeDropdown === "resources" && (
-                <MegaMenu
-                  sections={[
-                    {
-                      eyebrow: t.nav.eyebrows.entreprise,
-                      links: [
-                        { label: t.nav.resourcesMenu?.blog || "News", href: `/${lang}/blog` },
-                      ],
-                    },
-                  ]}
-                  onMouseEnter={() => openDropdown("resources")}
-                  onMouseLeave={closeDropdown}
-                />
-              )}
-            </div>
+            {/* Resources — hidden for now, reserved for future evolution */}
 
             {/* Tarifs */}
             <Link
