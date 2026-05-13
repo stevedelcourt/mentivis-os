@@ -324,7 +324,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       marginBottom: 20,
                     }}
                   >
-                    {t.careers.detail.about}
+                    {job.title}
                   </h2>
                   <div
                     style={{ fontSize: 15, lineHeight: 1.7, color: "#3E3B38" }}
