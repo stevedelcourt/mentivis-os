@@ -12,7 +12,7 @@ interface MobileAccordionNavProps {
 export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
   const [learningOpen, setLearningOpen] = useState(false);
   const [pipelineOpen, setPipelineOpen] = useState(false);
-  const [apiOpen, setApiOpen] = useState(false);
+  const [entrepriseOpen, setEntrepriseOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
   const navStyle = {
@@ -61,7 +61,8 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         onClick={() => {
           setLearningOpen(!learningOpen);
           setPipelineOpen(false);
-          setApiOpen(false);
+          setEntrepriseOpen(false);
+          setResourcesOpen(false);
         }}
         style={navStyle}
       >
@@ -106,7 +107,8 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         onClick={() => {
           setPipelineOpen(!pipelineOpen);
           setLearningOpen(false);
-          setApiOpen(false);
+          setEntrepriseOpen(false);
+          setResourcesOpen(false);
         }}
         style={navStyle}
       >
@@ -143,18 +145,19 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         </div>
       )}
 
-      {/* MentivisAPI Section */}
+      {/* Entreprise Section */}
       <button
         onClick={() => {
-          setApiOpen(!apiOpen);
+          setEntrepriseOpen(!entrepriseOpen);
           setLearningOpen(false);
           setPipelineOpen(false);
+          setResourcesOpen(false);
         }}
         style={navStyle}
       >
-        <span>{t.nav.mentivisAPI}</span>
+        <span>{t.nav.entreprise}</span>
         <span style={{
-          transform: apiOpen ? "rotate(180deg)" : "rotate(0deg)",
+          transform: entrepriseOpen ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform 0.2s ease",
           opacity: 0.5,
         }}>
@@ -163,46 +166,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           </svg>
         </span>
       </button>
-      {apiOpen && (
-        <div style={{ padding: "0 0 10px 0" }}>
-          <span style={eyebrowStyle}>{t.nav.eyebrows.plateforme}</span>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[0] || "Apercu"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[1] || "Docs"}
-          </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[2] || "Developper"}
-          </Link>
-          <Link href={`/${lang}/tarifs`} onClick={onClose} style={subItemStyle}>
-            {t.nav.mentivisAPIMenu?.plateforme?.[3] || "Tarifs API"}
-          </Link>
-        </div>
-      )}
-
-      {/* Ressources Section */}
-      <button
-        onClick={() => {
-          setResourcesOpen(!resourcesOpen);
-          setLearningOpen(false);
-          setPipelineOpen(false);
-          setApiOpen(false);
-        }}
-        style={navStyle}
-      >
-        <span>{t.nav.ressources}</span>
-        <span style={{
-          transform: resourcesOpen ? "rotate(180deg)" : "rotate(0deg)",
-          transition: "transform 0.2s ease",
-          opacity: 0.5,
-        }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      </button>
-      {resourcesOpen && (
+      {entrepriseOpen && (
         <div style={{ padding: "0 0 10px 0" }}>
           <span style={eyebrowStyle}>{t.nav.eyebrows.entreprise}</span>
           <Link href={`/${lang}/blog`} onClick={onClose} style={subItemStyle}>
@@ -232,6 +196,35 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.initiatives?.[3] || "Partenariats"}
+          </Link>
+        </div>
+      )}
+
+      {/* Ressources Section */}
+      <button
+        onClick={() => {
+          setResourcesOpen(!resourcesOpen);
+          setLearningOpen(false);
+          setPipelineOpen(false);
+          setEntrepriseOpen(false);
+        }}
+        style={navStyle}
+      >
+        <span>{t.nav.ressources}</span>
+        <span style={{
+          transform: resourcesOpen ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+          opacity: 0.5,
+        }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      {resourcesOpen && (
+        <div style={{ padding: "0 0 10px 0" }}>
+          <Link href={`/${lang}/blog`} onClick={onClose} style={subItemStyle}>
+            {t.nav.resourcesMenu?.blog || "News"}
           </Link>
         </div>
       )}

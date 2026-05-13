@@ -68,6 +68,9 @@
         "Programme Affiliation & Ambassadeur",
         "Partenariats"
       ]
+    },
+    "resourcesMenu": {
+      "blog": "News"
     }
   },
   "hero": {

@@ -32,7 +32,8 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
           display: "flex",
           gap: 40,
           padding: "28px 32px",
-          minWidth: 520,
+          minWidth: "fit-content",
+          maxWidth: 640,
           borderRadius: 16,
           background: "#FFFFFF",
           boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04)",
@@ -65,6 +66,7 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
                     textDecoration: "none",
                     padding: "4px 0",
                     transition: "color 0.15s ease",
+                    whiteSpace: "nowrap",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = "#777169";
