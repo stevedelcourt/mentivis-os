@@ -186,7 +186,7 @@ export default function NavBar({ lang }: NavBarProps) {
                         { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
                         ...t.nav.ressourcesMenu.entreprise.slice(1).map((label) => ({
                           label,
-                          href: label === "Securite" || label === "Security" ? `/${lang}/security` : label === "A propos" || label === "About" ? `/${lang}/about` : `/${lang}`,
+                          href: label === "Securite" || label === "Security" ? `/${lang}/security` : label === "A propos" || label === "About" ? `/${lang}/about` : label === "Temoignages clients" || label === "Customer Stories" ? `/${lang}/blog?category=cas` : `/${lang}`,
                         })),
                       ],
                     },

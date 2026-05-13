@@ -29,6 +29,17 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
   const [page, setPage] = useState(1);
 
+  // Read initial category from URL search params
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("category");
+      if (cat && ["strategie", "ia", "annonces", "cas", "clients", "partenariat"].includes(cat)) {
+        setActiveCategory(cat as CategoryKey);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     async function loadPosts() {
       try {
