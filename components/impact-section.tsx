@@ -12,6 +12,8 @@ const CARD_GRADIENTS = [
 ];
 
 const GAP = 12;
+const COLS = 3;
+const ROWS = 2;
 
 interface LayoutItem {
   pos: CSSProperties;
@@ -74,7 +76,9 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [gridHeight, setGridHeight] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -86,6 +90,19 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    function squarify() {
+      const el = stackRef.current;
+      if (!el) return;
+      const W = el.getBoundingClientRect().width;
+      const cell = (W - GAP * (COLS - 1)) / COLS;
+      setGridHeight(Math.round(ROWS * cell + GAP * (ROWS - 1)));
+    }
+    squarify();
+    window.addEventListener("resize", squarify);
+    return () => window.removeEventListener("resize", squarify);
+  }, [postsLoaded, visible]);
 
   useEffect(() => {
     fetch("/api/blog/posts")
@@ -190,34 +207,28 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
             </p>
           </div>
         ) : (
-          <div className="impact-stack">
+          <div ref={stackRef} className="impact-stack" style={{ height: gridHeight || 480 }}>
             <style>{`
               .impact-stack {
-                display: grid;
                 position: relative;
                 width: 100%;
               }
               .impact-grid {
-                grid-area: 1/1;
+                position: absolute;
+                inset: 0;
                 display: grid;
                 grid-template-columns: 1fr 2.5fr 1fr;
-                grid-template-rows: auto auto;
+                grid-template-rows: 1fr 1fr;
                 gap: ${GAP}px;
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 0.38s ease, visibility 0.38s ease;
-                pointer-events: none;
               }
               .impact-grid[data-active="true"] {
                 opacity: 1;
                 visibility: visible;
-                pointer-events: auto;
               }
 
-              .impact-card,
-              .impact-ghost {
-                min-height: 120px;
-              }
               .impact-card {
                 position: relative;
                 border-radius: 20px;
@@ -290,24 +301,22 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               @media (max-width: 900px) {
-                .impact-stack { display: block; }
+                .impact-stack { height: auto !important; }
                 .impact-grid {
-                  display: grid;
                   position: relative;
-                  grid-area: auto;
-                  grid-template-columns: 1fr 1fr;
-                  grid-template-rows: auto auto auto;
-                  gap: ${GAP}px;
+                  inset: auto;
                   opacity: 1 !important;
                   visibility: visible !important;
+                  height: auto;
+                  grid-template-columns: 1fr 1fr;
+                  grid-template-rows: auto auto auto;
                   transition: none;
-                  pointer-events: auto;
                 }
                 .impact-grid[data-active="false"] { display: none; }
                 .impact-card { animation: cardIn 0.5s backwards; }
                 .impact-card:nth-child(1),
                 .impact-card:nth-child(2),
-                .impact-card:nth-child(3) { min-height: 140px; }
+                .impact-card:nth-child(3) { aspect-ratio: 1; }
                 .impact-card:nth-child(1) { grid-column: 1/3 !important; grid-row: 1/2 !important; }
                 .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
                 .impact-card:nth-child(3) { grid-column: 2/3 !important; grid-row: 2/3 !important; }
