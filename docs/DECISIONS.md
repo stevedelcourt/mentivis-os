@@ -1,5 +1,38 @@
 # Decision Log
 
+## 2026-05-13
+
+### Menu Reorganisation
+**Problem**: Nav order confusing (Ressources before Entreprise), MentivisAPI not needed in nav.
+**Decision**: Swapped Entreprise/Ressources, hid MentivisAPI. Final order: LearningOS | TalentOS | Entreprise | Tarifs. Desktop: plain links for LearningOS/TalentOS, mega-menu for Entreprise. Mobile: accordion for Entreprise only, plain links for others.
+**Status**: ✅ Deployed
+
+### Multi-Tag Categories
+**Problem**: Posts needed to appear in multiple category filters (e.g. both "cas" and "clients").
+**Decision**: Store comma-separated values in `category` field (e.g. `"cas,clients"`), filter via `.includes()`.
+**Files**: types.ts, db.ts, route.ts, BlogIndex.tsx, slug page, CMS editor — 8 files total.
+**Status**: ✅ Deployed
+
+### ImpactSection — Final Layout
+**Problem**: Previous iterations used absolute positioning + JS height calculation (`squarify()`), then overlapping absolute grids, then CSS grid with `align-self: stretch` on Big and margins on mediums — none matched the required visual.
+**Decision**: Final approach — pure CSS Grid with no JS, no margins, no calc:
+- `grid-template-columns: 1fr 1.58fr 1fr`
+- `grid-template-rows: auto auto`
+- `gap: 12px`
+- All cards `aspect-ratio: 1/1` (no stretch ever)
+- Big: col 2, row 1/3, centered (no explicit align-self)
+- MedA: col 1/3 row 1, `align-self: start`
+- MedE: col 3/1 row 2, `align-self: end`
+- Ghosts: `width: 50%`, `aspect-ratio: 1/1`, tucked toward Big via `justify-self: end/start`, mid-height via `align-self: end/start`
+- Two layouts (clients/partenariat) mirror-flip cols 1 & 3
+- Crossfade via `grid-area: 1/1` on two overlapping `.impact-grid` divs
+- Image overlay: `transparent 66% → rgba(0,0,0,.75)` (lower third only)
+- Mobile: `<900px` 2-col, `<520px` 1-col
+
+**Key insight**: MedA aligns with Big's top (both at row 1 start), MedE aligns with Big's bottom (both at row 2 end). Ghosts sit at midpoint via opposing row edges. No math needed — the grid auto-rows + alignment handles it intrinsically.
+**Committed**: 568dbeb
+**Status**: ✅ Deployed and verified
+
 ## 2026-05-12
 
 ### Port 3001
@@ -44,7 +77,7 @@
 ### ImpactSection Simplification
 **Problem**: Bento grid was over-engineered.
 **Decision**: Simplified to text-only block emphasizing pedagogical expertise.
-**Status**: ✅ Deployed
+**Status**: ✅ Deployed (replaced by final layout on 2026-05-13)
 
 ### InteractiveExplainer Relocation
 **Problem**: Too heavy for homepage load.

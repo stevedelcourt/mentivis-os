@@ -160,10 +160,10 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
       }}
     >
       <div className="container">
-        <p className="t-caption" style={{ fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16, textAlign: "center" }}>
+        <p className="t-caption" style={{ fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16, textAlign: "left" }}>
           {t.impact.eyebrow}
         </p>
-        <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 300, lineHeight: 1.2, textAlign: "center", marginBottom: 40 }}>
+        <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 300, lineHeight: 1.2, textAlign: "left", marginBottom: 40 }}>
           {t.impact.title}
         </h2>
 
@@ -304,34 +304,8 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 to { opacity: 1; transform: none; }
               }
 
-              @media (max-width: 900px) {
-                .impact-stack { display: block; }
-                .impact-grid {
-                  display: grid;
-                  position: relative;
-                  grid-area: auto;
-                  grid-template-columns: 1fr 1fr;
-                  grid-template-rows: auto auto auto;
-                  gap: ${GAP}px;
-                  opacity: 1 !important;
-                  visibility: visible !important;
-                  transition: none;
-                  pointer-events: auto;
-                }
-                .impact-grid[data-active="false"] { display: none; }
-                .impact-card { animation: cardIn 0.5s backwards; }
-                .impact-card:nth-child(1) { grid-column: 1/3 !important; grid-row: 1/2 !important; }
-                .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
-                .impact-card:nth-child(3) { grid-column: 2/3 !important; grid-row: 2/3 !important; }
-                .impact-card:nth-child(4),
-                .impact-card:nth-child(5) { display: none; }
-                .impact-ghost { width: 100%; }
-              }
-              @media (max-width: 520px) {
-                .impact-grid { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-                .impact-card:nth-child(1) { grid-column: 1/2 !important; grid-row: 1/2 !important; }
-                .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
-                .impact-card:nth-child(3) { grid-column: 1/2 !important; grid-row: 3/4 !important; }
+              @media (max-width: 768px) {
+                .impact-section { display: none; }
               }
             `}</style>
 

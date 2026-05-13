@@ -4,11 +4,15 @@
 ```
 NavBar
 ├── MegaMenu (desktop dropdowns)
-│   ├── learningOS → produits, workflows
-│   ├── pipelineOS → produits, workflowsRH
-│   ├── mentivisAPI → plateforme, workflows
-│   └── ressources → entreprise (blog), initiatives (ambassadors)
+│   ├── LearningOS → produits, workflows
+│   ├── TalentOS → produits, workflowsRH
+│   ├── Entreprise → Ressources (blog), Ambassadeurs
+│   └── Tarifs → plain link
 ├── MobileAccordionNav (mobile fullscreen)
+│   ├── LearningOS → plain link
+│   ├── TalentOS → plain link
+│   ├── Entreprise → accordion (blog, ambassadors)
+│   └── Tarifs → plain link
 └── LanguageSwitcher (FR/EN toggle)
 ```
 
@@ -29,17 +33,33 @@ SectorShowcase
 MathFeaturesSection
 TransformationTimeline
 ├── AtmosphereOrb (×7) — glassmorphism orbs with blob gradients
-│   ├── Orb 1: Désorganisée (blue)
-│   ├── Orb 2: Sous tension (orange)
-│   ├── Orb 3: Complexifiée (orange-green-purple)
-│   ├── Orb 4: Limitée (red)
-│   ├── Orb 5: En mutation (orange-teal)
-│   ├── Orb 6: Unifiée (teal-pink-blue)
-│   └── Orb 7: Adaptative (teal-pink-gold)
+│   ├── Orb 1: Désorganisée (blue) → Orb 7: Adaptative (teal-pink-gold)
 ├── Satellite (×14) — 2 per orb, orbiting
 ├── MeasurementBar — 7 ticks with step numbers
 └── StageTextPanel — title + description (left-aligned)
-ImpactSection
+
+ImpactSection — 3×2 CSS Grid use‑cases
+├── Tabs: Clients | Partenariat (pill toggle)
+├── Layout A (clients):
+│   ┌─────────┐ ┌──────────────┐ ┌──────┐
+│   │ MedA ↑  │ │   Big ██     │ │Ghost │
+│   │         │ │   (carré)    │ │ →↓  │
+│   ├─────────┤ │   centré     │ └──────┘
+│   │Ghost ←↓│ │              │ ┌─────────┐
+│   └─────────┘ │              │ │ MedE ↓ │
+│               └──────────────┘ └─────────┘
+├── Layout B (partenariat): mirror-flip of cols 1 & 3
+├── Grid: 3 cols (1fr 1.58fr 1fr) × 2 rows (auto auto), gap 12px
+├── All cards: aspect-ratio 1/1
+├── Big (i=0): col 2, row 1/3, centered (no explicit align-self)
+├── MedA (i=1): col 1/3 row 1, align-self start
+├── MedE (i=2): col 3/1 row 2, align-self end
+├── Ghosts (i=3,4): width 50%, aspect-ratio 1/1
+│   ├── justifySelf: end (col 1) / start (col 3) — tucked toward Big
+│   └── alignSelf: end (row 1) / start (row 2) — mid-height of Big
+├── Image overlay: transparent 66% → rgba(0,0,0,.75) (lower third)
+└── Mobile: <900px 2-col stacked, <520px 1-col
+
 FaqSection — 8 Q&A accordion
 CTABlock
 └── SuperButton — 3-layer SVG (bottom/middle/top)
