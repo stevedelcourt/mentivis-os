@@ -7,6 +7,8 @@ import { useIsMobile } from "@/hooks/useMediaQuery";
 
 export const CMS_TABS = [
   { label: "Articles", href: "content-management" },
+  { label: "Offres d'emploi", href: "content-management/jobs" },
+  { label: "Candidatures", href: "content-management/candidatures" },
   { label: "Pages (HP)", href: "content-management/pages" },
   { label: "Tarifs", href: "content-management/tarifs" },
   { label: "SEO / JSON-LD", href: "content-management/seo" },

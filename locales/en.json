@@ -641,6 +641,77 @@
     },
     "pricing": "Response within 24 business hours."
   },
+  "careers": {
+    "meta": {
+      "title": "Careers — MentivisOS",
+      "description": "Join the MentivisOS team and help build the operating system for AI-native training."
+    },
+    "hero": {
+      "eyebrow": "Careers",
+      "headline": "Let's build the future of training together",
+      "subheadline": "Join a team that is rethinking how organizations train, recruit and develop their talent.",
+      "cta": "View openings"
+    },
+    "whyJoin": {
+      "title": "Why join us?",
+      "cards": [
+        {
+          "title": "Real impact",
+          "body": "Every project we build directly transforms how teams learn and grow."
+        },
+        {
+          "title": "Team & tech",
+          "body": "AI, edtech, automation — we work on cutting-edge subjects with modern tools and talented people."
+        },
+        {
+          "title": "Autonomy & trust",
+          "body": "We hire responsible adults. No micro-management, clear objectives and the freedom to achieve them."
+        },
+        {
+          "title": "Culture & values",
+          "body": "Kindness, excellence, transparency. We build an environment where everyone can give their best."
+        }
+      ]
+    },
+    "list": {
+      "title": "Open positions",
+      "empty": "No open positions at the moment. Come back soon or send us a spontaneous application.",
+      "departments": "Departments",
+      "allDepartments": "All",
+      "type": "Type",
+      "location": "Location",
+      "salary": "Salary",
+      "apply": "Apply",
+      "readMore": "View position"
+    },
+    "detail": {
+      "apply": "Apply",
+      "about": "About this position",
+      "whyJoin": "Why join us",
+      "back": "← View all positions",
+      "info": "Information",
+      "department": "Department",
+      "type": "Type",
+      "location": "Location",
+      "salary": "Salary",
+      "reference": "Reference"
+    },
+    "form": {
+      "title": "Spontaneous application",
+      "subtitle": "Can't find a position that matches your profile? Send us your application anyway.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "linkedin": "LinkedIn (optional)",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about yourself, your background and what motivates you to join MentivisOS...",
+      "submit": "Send my application",
+      "success": "Thank you! We will get back to you shortly.",
+      "error": "An error occurred. Please try again.",
+      "subject": "Application %s - %s"
+    }
+  },
   "ambassadors": {
     "hero": {
       "eyebrow": "MentivisOS Ambassadors",

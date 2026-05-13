@@ -114,3 +114,38 @@ export interface User {
   active: boolean;
   createdAt: string;
 }
+
+// ── Jobs ──
+
+export type JobType = "cdi" | "cdd" | "freelance" | "stage" | "alternance";
+
+export interface Job {
+  id: number;
+  slug: string;
+  reference: string;
+  title: string;
+  location: string;
+  type: JobType;
+  department: string;
+  salary: string;
+  description: string;
+  whyJoin: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface JobApplication {
+  id: number;
+  jobReference: string;
+  jobTitle: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+  notes?: string;
+}

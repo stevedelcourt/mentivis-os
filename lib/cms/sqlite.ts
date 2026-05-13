@@ -231,6 +231,41 @@ function initDatabase(db: SqlJsDb) {
       PRIMARY KEY (lang, page)
     );
   `);
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS jobs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      slug TEXT UNIQUE NOT NULL,
+      reference TEXT UNIQUE NOT NULL,
+      title TEXT NOT NULL,
+      location TEXT NOT NULL,
+      type TEXT NOT NULL CHECK(type IN ('cdi', 'cdd', 'freelance', 'stage', 'alternance')),
+      department TEXT NOT NULL,
+      salary TEXT NOT NULL,
+      description TEXT NOT NULL,
+      why_join TEXT NOT NULL,
+      published INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS job_applications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      job_reference TEXT NOT NULL,
+      job_title TEXT NOT NULL,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT,
+      linkedin TEXT,
+      message TEXT NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      read INTEGER DEFAULT 0,
+      notes TEXT
+    );
+  `);
 }
 
 function runMigrations(db: SqlJsDb) {

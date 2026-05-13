@@ -641,6 +641,77 @@
     },
     "pricing": "Réponse sous 24h ouvrées."
   },
+  "careers": {
+    "meta": {
+      "title": "Carrières — MentivisOS",
+      "description": "Rejoignez l'équipe MentivisOS et participez à la construction du système d'exploitation de la formation native IA."
+    },
+    "hero": {
+      "eyebrow": "Carrieres",
+      "headline": "Construisons l'avenir de la formation ensemble",
+      "subheadline": "Rejoignez une equipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
+      "cta": "Voir les postes"
+    },
+    "whyJoin": {
+      "title": "Pourquoi nous rejoindre ?",
+      "cards": [
+        {
+          "title": "Impact reel",
+          "body": "Chaque projet que nous construisons transforme directement la maniere dont les equipes apprennent et evoluent."
+        },
+        {
+          "title": "Equipe et techno",
+          "body": "IA, edtech, automatisation — nous travaillons sur des sujets a la pointe avec des outils modernes et une equipe de talent."
+        },
+        {
+          "title": "Autonomie et confiance",
+          "body": "Nous recrutons des adultes responsables. Pas de micro-management, des objectifs clairs et la liberte de les atteindre."
+        },
+        {
+          "title": "Culture et valeurs",
+          "body": "Bienveillance, exigence, transparence. Nous construisons un environnement ou chacun peut donner le meilleur de lui-meme."
+        }
+      ]
+    },
+    "list": {
+      "title": "Postes ouverts",
+      "empty": "Aucune offre ouverte pour le moment. Revenez bientot ou envoyez-nous une candidature spontanee.",
+      "departments": "Departements",
+      "allDepartments": "Tous",
+      "type": "Type",
+      "location": "Lieu",
+      "salary": "Salaire",
+      "apply": "Postuler",
+      "readMore": "Voir l'offre"
+    },
+    "detail": {
+      "apply": "Postuler",
+      "about": "A propos de ce poste",
+      "whyJoin": "Pourquoi nous rejoindre",
+      "back": "← Voir toutes les offres",
+      "info": "Informations",
+      "department": "Departement",
+      "type": "Type",
+      "location": "Lieu",
+      "salary": "Salaire",
+      "reference": "Reference"
+    },
+    "form": {
+      "title": "Candidature spontanee",
+      "subtitle": "Vous ne trouvez pas d'offre correspondant a votre profil ? Envoyez-nous quand meme votre candidature.",
+      "firstName": "Prenom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Telephone (optionnel)",
+      "linkedin": "LinkedIn (optionnel)",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-nous de vous, de votre parcours et de ce qui vous motive a rejoindre MentivisOS...",
+      "submit": "Envoyer ma candidature",
+      "success": "Merci ! Nous reviendrons vers vous rapidement.",
+      "error": "Une erreur est survenue. Veuillez reessayer.",
+      "subject": "Candidature %s - %s"
+    }
+  },
   "ambassadors": {
     "hero": {
       "eyebrow": "MentivisOS Ambassadors",

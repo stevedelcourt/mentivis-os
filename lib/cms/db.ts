@@ -1,5 +1,5 @@
 import { getDb } from "./sqlite";
-import { Post, PageContent, PricingContent, SeoContent, FormSubmission } from "./types";
+import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType } from "./types";
 
 export { generateSlug } from "./utils";
 
@@ -657,5 +657,185 @@ export async function updateSubmission(
 export async function deleteSubmission(id: number): Promise<boolean> {
   const db = await getDb();
   const result = db.prepare("DELETE FROM submissions WHERE id = ?").run(id);
+  return result.changes > 0;
+}
+
+// ── Jobs ──
+
+function rowToJob(row: any): Job {
+  return {
+    id: row.id,
+    slug: row.slug,
+    reference: row.reference,
+    title: row.title,
+    location: row.location,
+    type: row.type as JobType,
+    department: row.department,
+    salary: row.salary,
+    description: row.description,
+    whyJoin: row.why_join,
+    published: !!row.published,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export async function getAllJobs(): Promise<Job[]> {
+  const db = await getDb();
+  const rows = db.prepare("SELECT * FROM jobs ORDER BY created_at DESC").all();
+  return rows.map(rowToJob);
+}
+
+export async function getPublishedJobs(): Promise<Job[]> {
+  const db = await getDb();
+  const rows = db.prepare("SELECT * FROM jobs WHERE published = 1 ORDER BY created_at DESC").all();
+  return rows.map(rowToJob);
+}
+
+export async function getJobBySlug(slug: string): Promise<Job | undefined> {
+  const db = await getDb();
+  const row = db.prepare("SELECT * FROM jobs WHERE slug = ?").get(slug);
+  return row ? rowToJob(row) : undefined;
+}
+
+export async function getJobById(id: number): Promise<Job | undefined> {
+  const db = await getDb();
+  const row = db.prepare("SELECT * FROM jobs WHERE id = ?").get(id);
+  return row ? rowToJob(row) : undefined;
+}
+
+export async function getNextJobReference(): Promise<string> {
+  const db = await getDb();
+  const row = db.prepare("SELECT reference FROM jobs ORDER BY id DESC LIMIT 1").get() as { reference: string } | undefined;
+  if (!row) return "REF-2026-001";
+  const match = row.reference.match(/REF-(\d+)-(\d+)/);
+  if (!match) return "REF-2026-001";
+  const year = match[1];
+  const num = parseInt(match[2], 10);
+  const currentYear = new Date().getFullYear().toString();
+  if (year !== currentYear) return `REF-${currentYear}-001`;
+  return `REF-${currentYear}-${String(num + 1).padStart(3, "0")}`;
+}
+
+export async function createJob(job: Omit<Job, "id" | "reference" | "createdAt" | "updatedAt">): Promise<Job> {
+  const db = await getDb();
+  const now = new Date().toISOString();
+  const reference = await getNextJobReference();
+  const result = db.prepare(`
+    INSERT INTO jobs (slug, reference, title, location, type, department, salary, description, why_join, published, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    job.slug, reference, job.title, job.location, job.type, job.department, job.salary,
+    job.description, job.whyJoin, job.published ? 1 : 0, now, now
+  );
+  return { ...job, id: Number(result.lastInsertRowid), reference, createdAt: now, updatedAt: now };
+}
+
+export async function updateJob(id: number, updates: Partial<Omit<Job, "id" | "reference" | "createdAt">>): Promise<Job | null> {
+  const db = await getDb();
+  const existing = await getJobById(id);
+  if (!existing) return null;
+
+  const setParts: string[] = [];
+  const values: any[] = [];
+
+  if (updates.slug !== undefined) { setParts.push("slug = ?"); values.push(updates.slug); }
+  if (updates.title !== undefined) { setParts.push("title = ?"); values.push(updates.title); }
+  if (updates.location !== undefined) { setParts.push("location = ?"); values.push(updates.location); }
+  if (updates.type !== undefined) { setParts.push("type = ?"); values.push(updates.type); }
+  if (updates.department !== undefined) { setParts.push("department = ?"); values.push(updates.department); }
+  if (updates.salary !== undefined) { setParts.push("salary = ?"); values.push(updates.salary); }
+  if (updates.description !== undefined) { setParts.push("description = ?"); values.push(updates.description); }
+  if (updates.whyJoin !== undefined) { setParts.push("why_join = ?"); values.push(updates.whyJoin); }
+  if (updates.published !== undefined) { setParts.push("published = ?"); values.push(updates.published ? 1 : 0); }
+
+  if (setParts.length === 0) return existing;
+
+  const now = new Date().toISOString();
+  setParts.push("updated_at = ?");
+  values.push(now);
+  values.push(id);
+
+  db.prepare(`UPDATE jobs SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
+  return (await getJobById(id))!;
+}
+
+export async function deleteJob(id: number): Promise<boolean> {
+  const db = await getDb();
+  const result = db.prepare("DELETE FROM jobs WHERE id = ?").run(id);
+  return result.changes > 0;
+}
+
+// ── Job Applications ──
+
+function rowToJobApplication(row: any): JobApplication {
+  return {
+    id: row.id,
+    jobReference: row.job_reference,
+    jobTitle: row.job_title,
+    firstName: row.first_name,
+    lastName: row.last_name,
+    email: row.email,
+    phone: row.phone,
+    linkedin: row.linkedin,
+    message: row.message,
+    createdAt: row.created_at,
+    read: !!row.read,
+    notes: row.notes,
+  };
+}
+
+export async function getAllJobApplications(): Promise<JobApplication[]> {
+  const db = await getDb();
+  const rows = db.prepare("SELECT * FROM job_applications ORDER BY created_at DESC").all();
+  return rows.map(rowToJobApplication);
+}
+
+export async function getJobApplicationById(id: number): Promise<JobApplication | undefined> {
+  const db = await getDb();
+  const row = db.prepare("SELECT * FROM job_applications WHERE id = ?").get(id);
+  return row ? rowToJobApplication(row) : undefined;
+}
+
+export async function createJobApplication(
+  application: Omit<JobApplication, "id" | "createdAt">
+): Promise<JobApplication> {
+  const db = await getDb();
+  const now = new Date().toISOString();
+  const result = db.prepare(`
+    INSERT INTO job_applications (job_reference, job_title, first_name, last_name, email, phone, linkedin, message, created_at, read, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    application.jobReference, application.jobTitle, application.firstName, application.lastName,
+    application.email, application.phone || null, application.linkedin || null, application.message,
+    now, application.read ? 1 : 0, application.notes || null
+  );
+  return { ...application, id: Number(result.lastInsertRowid), createdAt: now };
+}
+
+export async function updateJobApplication(
+  id: number,
+  updates: Partial<JobApplication>
+): Promise<JobApplication | null> {
+  const db = await getDb();
+  const existing = db.prepare("SELECT * FROM job_applications WHERE id = ?").get(id) as any;
+  if (!existing) return null;
+
+  const setParts: string[] = [];
+  const values: any[] = [];
+
+  if (updates.read !== undefined) { setParts.push("read = ?"); values.push(updates.read ? 1 : 0); }
+  if (updates.notes !== undefined) { setParts.push("notes = ?"); values.push(updates.notes); }
+
+  if (setParts.length === 0) return rowToJobApplication(existing);
+
+  values.push(id);
+  db.prepare(`UPDATE job_applications SET ${setParts.join(", ")} WHERE id = ?`).run(...values);
+  return rowToJobApplication(db.prepare("SELECT * FROM job_applications WHERE id = ?").get(id));
+}
+
+export async function deleteJobApplication(id: number): Promise<boolean> {
+  const db = await getDb();
+  const result = db.prepare("DELETE FROM job_applications WHERE id = ?").run(id);
   return result.changes > 0;
 }

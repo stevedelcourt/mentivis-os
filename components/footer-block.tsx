@@ -147,7 +147,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {["News", "A propos", "L'equipe", "Carrieres", "Securite"].map((link) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={link === "News" ? `/${lang}/blog` : link === "Securite" || link === "Security" ? `/${lang}/security` : link === "A propos" || link === "About" ? `/${lang}/about` : `/${lang}`}
+                  href={link === "News" ? `/${lang}/blog` : link === "Securite" || link === "Security" ? `/${lang}/security` : link === "A propos" || link === "About" ? `/${lang}/about` : link === "Carrieres" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >
