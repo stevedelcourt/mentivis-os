@@ -150,22 +150,165 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           style={{
             background: "#f5f3f1",
             borderRadius: 24,
-            padding: "clamp(40px, 5vw, 64px) clamp(24px, 4vw, 48px)",
+            padding: "clamp(20px, 3vw, 32px) clamp(24px, 4vw, 48px)",
             position: "relative",
             boxShadow: "inset 0 0 0 0.5px rgba(26,22,22,0.1)",
             overflow: "hidden",
           }}
         >
-          {/* Orb row */}
+          {/* AVANT / APRES — at top */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 0,
+              marginBottom: 16,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 10,
+                fontWeight: 500,
+                color: "#8A7D70",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                paddingRight: 16,
+              }}
+            >
+              {t.timeline.dividerLeft}
+            </span>
+            <div
+              style={{
+                width: 1,
+                height: 24,
+                background: "rgba(26,22,22,0.1)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 10,
+                fontWeight: 500,
+                color: "#8A7D70",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                paddingLeft: 16,
+              }}
+            >
+              {t.timeline.dividerRight}
+            </span>
+          </div>
+
+          {/* Measurement bar — below AVANT/APRES */}
+          <div
+            style={{
+              position: "relative",
+              height: 14,
+              marginBottom: 12,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {/* Horizontal track */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: "50%",
+                height: 1,
+                background: "rgba(26,22,22,0.06)",
+                transform: "translateY(-50%)",
+              }}
+            />
+            
+            {/* Progress fill */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                width: `${(active / 6) * 100}%`,
+                top: "50%",
+                height: 1,
+                background: "rgba(26,22,22,0.12)",
+                transform: "translateY(-50%)",
+                transition: "width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                zIndex: 1,
+              }}
+            />
+
+            {/* Tick marks */}
+            <div
+              ref={rowRef}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              {stages.map((_, i) => {
+                const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
+                const isPassed = i <= active;
+                return (
+                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+                    <span style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 10,
+                      color: i === active ? "#1A1616" : "#8A7D70",
+                      letterSpacing: "0.08em",
+                      fontWeight: i === active ? 500 : 400,
+                      transition: "color 0.3s ease",
+                      marginBottom: 6,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <button
+                      onClick={() => activate(i)}
+                      aria-label={`${stages[i].label}, ${stages[i].title}`}
+                      style={{
+                        width: 1,
+                        height: i === active ? 16 : isPassed ? 10 : 6,
+                        background: isPassed ? (i === active ? "#1A1616" : "#8A7D70") : tickColor,
+                        border: "none",
+                        padding: 0,
+                        cursor: "pointer",
+                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
+                        flexShrink: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = "12px";
+                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (i !== active) {
+                          (e.target as HTMLElement).style.height = isPassed ? "10px" : "6px";
+                          (e.target as HTMLElement).style.background = isPassed ? "#8A7D70" : tickColor;
+                        }
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Orb row — below measurement bar */}
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: 40,
+              marginBottom: 12,
               position: "relative",
-              minHeight: 320,
-              padding: "20px 0",
+              minHeight: 260,
+              padding: "10px 0",
             }}
           >
             {stages.map((stage, i) => {
@@ -217,7 +360,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
                       position: "relative",
                       width: size,
                       height: size,
-                      marginBottom: isActive ? Math.round(size * 0.35) + 20 : 20,
+                      marginBottom: isActive ? Math.round(size * 0.35) + 8 : 8,
                       transition: "margin-bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     }}
                   >
@@ -363,157 +506,14 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
             })}
           </div>
 
-          {/* Measurement bar — DESCENDED, between orbs and AVANT/APRES */}
-          <div
-            style={{
-              position: "relative",
-              height: 14,
-              marginBottom: 48,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {/* Horizontal track */}
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: "50%",
-                height: 1,
-                background: "rgba(26,22,22,0.06)",
-                transform: "translateY(-50%)",
-              }}
-            />
-            
-            {/* Progress fill */}
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                width: `${(active / 6) * 100}%`,
-                top: "50%",
-                height: 1,
-                background: "rgba(26,22,22,0.12)",
-                transform: "translateY(-50%)",
-                transition: "width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                zIndex: 1,
-              }}
-            />
-
-            {/* Tick marks */}
-            <div
-              ref={rowRef}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                position: "relative",
-                zIndex: 2,
-              }}
-            >
-              {stages.map((_, i) => {
-                const tickColor = i === active ? "#1A1616" : i < 5 ? "#B0A090" : "#14B8A6";
-                const isPassed = i <= active;
-                return (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
-                    <span style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 10,
-                      color: i === active ? "#1A1616" : "#8A7D70",
-                      letterSpacing: "0.08em",
-                      fontWeight: i === active ? 500 : 400,
-                      transition: "color 0.3s ease",
-                      marginBottom: 6,
-                    }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <button
-                      onClick={() => activate(i)}
-                      aria-label={`${stages[i].label}, ${stages[i].title}`}
-                      style={{
-                        width: 1,
-                        height: i === active ? 16 : isPassed ? 10 : 6,
-                        background: isPassed ? (i === active ? "#1A1616" : "#8A7D70") : tickColor,
-                        border: "none",
-                        padding: 0,
-                        cursor: "pointer",
-                        transition: "all 340ms cubic-bezier(0.34, 1.18, 0.64, 1)",
-                        flexShrink: 0,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = "12px";
-                          (e.target as HTMLElement).style.background = i < 5 ? "#8A7D70" : "#0D9488";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (i !== active) {
-                          (e.target as HTMLElement).style.height = isPassed ? "10px" : "6px";
-                          (e.target as HTMLElement).style.background = isPassed ? "#8A7D70" : tickColor;
-                        }
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* AVANT / APRES vertical divider */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 0,
-              marginBottom: 48,
-              position: "relative",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 10,
-                fontWeight: 500,
-                color: "#8A7D70",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                paddingRight: 16,
-              }}
-            >
-              {t.timeline.dividerLeft}
-            </span>
-            <div
-              style={{
-                width: 1,
-                height: 24,
-                background: "rgba(26,22,22,0.1)",
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 10,
-                fontWeight: 500,
-                color: "#8A7D70",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                paddingLeft: 16,
-              }}
-            >
-              {t.timeline.dividerRight}
-            </span>
-          </div>
-
-          {/* Full-width horizontal line above text panel */}
+          {/* Divider line — just above text panel */}
           <div
             style={{
               width: "100%",
               height: 1,
               background: "rgba(26,22,22,0.1)",
-              marginBottom: 40,
+              marginTop: 8,
+              marginBottom: 12,
             }}
           />
 
@@ -521,7 +521,7 @@ export default function TransformationTimeline({ lang }: TransformationTimelineP
           <div
             style={{
               maxWidth: 560,
-              height: 220,
+              height: 180,
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
