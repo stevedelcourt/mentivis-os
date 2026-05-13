@@ -68,7 +68,7 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
           {isContact ? (t.contact?.description || "Une question ? Un projet ? Écrivez-nous.") : t.demo.description}
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="on">
           {/* Row 1: Prénom + Nom */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
             <FormField label="Prénom" name="firstname" required autoComplete="given-name" />

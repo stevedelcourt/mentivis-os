@@ -147,21 +147,30 @@ export default function SettingsPage() {
       {/* Invite form */}
       <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", marginBottom: 40 }}>
         <h2 style={{ fontSize: 20, fontWeight: 500, color: "#0A0A0A", marginBottom: 20 }}>Inviter un utilisateur</h2>
-        <form onSubmit={handleInvite}>
+        <form onSubmit={handleInvite} autoComplete="on">
           <div className="cms-grid-2" style={{ marginBottom: 16 }}>
-            <div><label style={labelStyle}>Email *</label><input type="email" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} required style={inputStyle} placeholder="nom@mentivis.com" /></div>
-            <div><label style={labelStyle}>Nom</label><input type="text" value={inviteName} onChange={(e) => setInviteName(e.target.value)} style={inputStyle} placeholder="Prenom Nom" /></div>
+            <div>
+              <label htmlFor="invite-email" style={labelStyle}>Email *</label>
+              <input id="invite-email" name="email" type="email" autoComplete="email" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} required style={inputStyle} placeholder="nom@mentivis.com" />
+            </div>
+            <div>
+              <label htmlFor="invite-name" style={labelStyle}>Nom</label>
+              <input id="invite-name" name="name" type="text" autoComplete="name" value={inviteName} onChange={(e) => setInviteName(e.target.value)} style={inputStyle} placeholder="Prenom Nom" />
+            </div>
           </div>
           <div className="cms-grid-2" style={{ marginBottom: 16 }}>
             <div>
-              <label style={labelStyle}>Role *</label>
-              <select value={inviteRole} onChange={(e) => setInviteRole(e.target.value as "editorial" | "tarifs" | "god")} style={inputStyle}>
+              <label htmlFor="invite-role" style={labelStyle}>Role *</label>
+              <select id="invite-role" name="role" value={inviteRole} onChange={(e) => setInviteRole(e.target.value as "editorial" | "tarifs" | "god")} style={inputStyle}>
                 <option value="editorial">Editorial (articles)</option>
                 <option value="tarifs">Tarifs (prix)</option>
                 <option value="god">God (admin complet)</option>
               </select>
             </div>
-            <div><label style={labelStyle}>Mot de passe initial *</label><input type="password" value={invitePassword} onChange={(e) => setInvitePassword(e.target.value)} required style={inputStyle} /></div>
+            <div>
+              <label htmlFor="invite-password" style={labelStyle}>Mot de passe initial *</label>
+              <input id="invite-password" name="password" type="password" autoComplete="new-password" value={invitePassword} onChange={(e) => setInvitePassword(e.target.value)} required style={inputStyle} />
+            </div>
           </div>
           <button type="submit" disabled={inviting} style={{ padding: "12px 24px", fontSize: 14, fontWeight: 500, color: "#fff", background: "#0A0A0A", border: "none", borderRadius: 10, cursor: inviting ? "not-allowed" : "pointer", opacity: inviting ? 0.6 : 1 }}>
             {inviting ? "Creation..." : "Creer l'utilisateur"}

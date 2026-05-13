@@ -477,6 +477,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 ) : (
                   <form
                     onSubmit={handleSubmit}
+                    autoComplete="on"
                     style={{ background: "#fff", padding: "32px", borderRadius: 16 }}
                   >
                     {/* Honeypot */}
