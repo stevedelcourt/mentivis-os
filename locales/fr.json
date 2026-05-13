@@ -652,6 +652,18 @@
       "subheadline": "Rejoignez une equipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
       "cta": "Voir les postes"
     },
+    "program": {
+      "eyebrow": "REJOIGNEZ-NOUS",
+      "title": "Construisons l'avenir de la formation ensemble",
+      "description": "Rejoignez une equipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
+      "features": [
+        "Projets a impact reel sur des milliers d'apprenants",
+        "Technologies de pointe : IA, edtech, automatisation",
+        "Autonomie, confiance et culture d'excellence",
+        "Environnement bienveillant et transparent"
+      ],
+      "cta": "Voir les postes"
+    },
     "whyJoin": {
       "title": "Pourquoi nous rejoindre ?",
       "cards": [

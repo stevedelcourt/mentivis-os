@@ -1,6 +1,7 @@
 # MentivisOS — Design System Final
 
 > Référence absolue du design system. Document de travail pour l'équipe de développement.
+> Dernière mise à jour : 13 mai 2026
 
 ---
 
@@ -47,13 +48,18 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 
 | Couche | Choix |
 |---|---|
-| Framework | Next.js 16.2.6 + TypeScript + App Router |
+| Framework | Next.js 16.2.6 + TypeScript strict + App Router |
 | Bundler | Webpack UNIQUEMENT (`next build --webpack`) |
 | Styling | CSS custom properties uniquement |
-| Fonts | Inter (Google Fonts) |
+| Fonts | Inter (`var(--font-sans)`) — serif interdites |
 | i18n | `lib/i18n.ts` — FR/EN, FR par défaut |
 | Routing | `proxy.ts` (pas `middleware.ts`) |
 | Lang par défaut | `fr` |
+| Database | sql.js (WASM SQLite) — pas better-sqlite3 |
+| Auth | JWT + role-based, async guards |
+| Host | o2switch shared (terre.o2switch.net), Passenger, port 3001 |
+| Node | v20.20.2 |
+| Data dir | `/home/sc4bovu7233/data/` (persistent) |
 
 ---
 
@@ -207,8 +213,8 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 | Rôle | Valeur | Usage |
 |---|---|---|
 | Fond primaire | `#ffffff` | Page principale, cartes |
-| Fond secondaire | `#f5f5f5` | Sections alternées (problem, shifts, CTA) |
-| Fond chaud | `#f5f3f1` | Sections chaudes (impact, math features, articles) |
+| Fond secondaire | `#f5f5f5` | Sections alternées |
+| Fond chaud | `#f5f3f1` | Sections chaudes (impact, math, articles) |
 | Texte primaire | `#000000` | Titres, corps |
 | Texte secondaire | `#4e4e4e` | Descriptions, sous-titres |
 | Texte tertiaire | `#777169` | Eyebrows, captions, légendes |
@@ -222,8 +228,7 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 | `#ffffff` | Titres sur cartes gradient |
 | `rgba(255,255,255,0.9)` | Texte secondaire sur cartes |
 | `#A0C4FF` | Sélection active (feature tabs) |
-| `#0A0A0A` | Titres dans cartes sombres (impact, showcase) |
-| `#777169` | Texte tertiaire dans cartes sombres |
+| `#0A0A0A` | Titres dans cartes sombres |
 | `#3E3B38` | Lead dans sections warm |
 
 ### 2.4 Ombres & effets
@@ -350,9 +355,32 @@ MentivisOS est un **moteur pédagogique natif IA**. Ce n'est pas un LMS. Ce n'es
 
 ## 3. Composants
 
-### 3.1 Composants actifs — Homepage
+### 3.1 Architecture des sections — Homepage
 
-Ordre exact des sections sur la homepage :
+Ordre exact des sections sur la homepage (9 sections) :
+
+```
+NavBar (layout)
+  HeroUnit
+    ProductCardGrid
+      ProductCard ×3 + descriptions
+  ProblemSection
+  SectorShowcase
+  MathFeaturesSection
+  TransformationTimeline
+    AtmosphereOrb ×7
+    Satellite ×14
+    MeasurementBar
+    StageTextPanel
+  ImpactSection
+    Tabs (Clients | Partenariat)
+    3×1 CSS Grid (1fr 1.58fr 1fr)
+  FaqSection
+  CTABlock
+    SuperButton (3-layer SVG)
+  ArticlesFeaturesSection
+FooterBlock (layout)
+```
 
 #### 1. NavBar
 
@@ -368,12 +396,13 @@ Ordre exact des sections sur la homepage :
 - **Shadow scrolled** : `var(--shadow-card)`
 - **Inner container** : max-width `var(--container-wide)` (1440px), padding `0 var(--grid-margin)`
 - **Logo** : `<img src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg" alt="MentivisOS" height="36" />`
-- **Liens desktop** : 5 items avec dropdowns (gap 32px)
-  - Produit, Pour qui, Intégration, Ressources, À propos
-  - Chaque lien : `t-nav` weight 500, underline animé (scaleX 0→1, 0.25s, cubic-bezier(0.22,1,0.36,1))
+- **Liens desktop** : 4 items avec dropdowns (gap 32px)
+  - LearningOS, TalentOS, Entreprise, Tarifs
+  - Chaque lien : weight 500, underline animé (scaleX 0→1, 0.25s, cubic-bezier(0.22,1,0.36,1))
 - **Dropdown** : position `absolute`, `top: calc(100% + 20px)`, min-width 220px, radius 16px, shadow `var(--shadow-card-full), var(--shadow-soft)`
 - **Bridge invisible** : `.navbar-dropdown-bridge`, height 24px, entre le lien et le dropdown
-- **Bouton "Démarrer"** : `.btn-pill.btn-black.navbar-cta`, padding 8px 18px, chevron 12px
+- **Bouton "Contactez-nous"** : `.btn-pill.btn-black.navbar-cta`, padding 8px 18px, chevron 12px
+- **LanguageSwitcher** : FR/EN toggle, à droite du login
 - **Burger mobile** : `display: none` desktop, `display: block` < 1024px
 - **Overlay mobile** : fixed inset 0, z-index 999, padding 80px var(--grid-margin) 40px
 - **Liens mobile** : font-size `var(--text-heading)`, weight 300, stagger 40ms
@@ -391,57 +420,30 @@ Ordre exact des sections sur la homepage :
 - **Eyebrow** : `t-caption` uppercase, weight 500, letter-spacing 0.14px, color `var(--text-tertiary)`, margin-bottom 24px
 - **Headline** : `t-display` size `var(--text-hero)`, white-space pre-line, margin-bottom 20px
 - **Subheadline** : `t-lead`, max-width 560px, white-space pre-line, margin-bottom 40px
+- **ProductCardGrid** : 3 cartes gradient + descriptions en dessous
 - **CTAs** :
   - Primaire (noir) : `.btn-pill.btn-black`, border-radius **8px** (pas pill !), padding 12px 20px, chevron 14px
   - Secondaire (warm) : `.btn-pill.btn-warm`, border-radius **8px**, padding 12px 20px, chevron 14px
 - **Proof line** : `t-caption`, margin-top 32px, color `var(--text-tertiary)`
 - **TopoLines** : position absolute, `left: calc(var(--grid-margin) + 720px)`, top 50%, transform translateY(-50%), width/height clamp(300-600px), opacity 0.5, z-index 0, pointer-events none
 
-#### 3. BentoSection
+#### 3. ProductCardGrid + ProductCard
 
-- **Fichier** : `components/bento-section.tsx`
-- **Type** : Client (`"use client"`)
+- **Fichier** : `components/product-card-grid.tsx`, `components/product-card.tsx`
+- **Type** : Client
 - **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-primary)` (`#ffffff`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Top row** : grille 2 colonnes, gap 20px
-  - **Gauche** (Agents) : fond `linear-gradient(135deg, #1a3a2a, #2d5a3d, #4a7c5c, #8fb8a0)`, radius 32px, min-height 480px, padding 40px
-    - ChatMockup en haut (bulles CSS)
-    - Titre + description en bas
-    - Grain overlay
-  - **Droite** (Analytics) : fond `#f5f5f5`, radius 32px, padding 40px
-    - ChartMockup en haut
-    - Titre + description en bas
-- **Bottom row** : grille 3 colonnes, gap 20px
-  - 3 cartes `#f5f5f5` radius 24px, padding 32px
-  - Chaque carte : icône lucide (TestTube, Hand, Workflow) dans un cercle blanc radius 12px, titre, description
-- **Footer row** : flex space-between, margin-top 32px
-  - Logos placeholders + texte
-  - Bouton pill avec chevron
-- **Responsive** : < 1024px top row 1 colonne, < 768px bottom row 1 colonne
-
-#### 4. ModulesSection
-
-- **Fichier** : `components/modules-section.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-primary)` (`#ffffff`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Header** : flex space-between, align-items flex-end, margin-bottom 48px
-  - Titre : `t-display` size `clamp(28px, 4vw, 44px)`, line-height 1.1
-  - Sous-titre : 16px weight 300, color `var(--text-secondary)`
-  - Bouton "En savoir plus" : pill blanc, border `#e5e5e5`, chevron 14px
 - **Grille** : 3 colonnes, gap 20px
-  - 6 cartes, chaque carte : fond `#f5f5f5`, radius 24px, padding 32px 28px 28px
-  - Illustration SVG line-art au centre (140×140px)
-  - Titre : 17px weight 500, color `#1a1a1a`
-  - Description : 14px weight 300, color `#6b6b6b`
-  - Hover : fond `#eeeeee`, transition 0.18s
-- **Responsive** : < 1024px 2 colonnes, < 768px 1 colonne
+- **ProductCard** :
+  - Fond : gradient variable (4 patterns disponibles : Flows 5, Music 6, ImgVid 7, Acid 12)
+  - Radius : 24px
+  - Aspect-ratio : 1/1
+  - Tag : badge en haut à gauche
+  - Titre : en bas à gauche, blanc
+  - Grain overlay
+  - Hover : translateY(-4px)
+- **Descriptions** : texte plain sous chaque carte, 2 lignes max, color `var(--text-secondary)`
 
-#### 5. ProblemSection
+#### 4. ProblemSection
 
 - **Fichier** : `components/problem-section.tsx`
 - **Type** : Serveur
@@ -452,135 +454,21 @@ Ordre exact des sections sur la homepage :
 - **Titre** : `t-display` size `clamp(28px, 4vw, 48px)`, white-space pre-line, max-width 800px
 - **Contrepoint** : `t-lead`, max-width 600px, margin-top 24px
 
-#### 6. ProofSection
+#### 5. SectorShowcase
 
-- **Fichier** : `components/proof-section.tsx`
+- **Fichier** : `components/sector-showcase.tsx`
 - **Type** : Client (`"use client"`)
 - **Props** : `{ lang: Locale }`
 - **Fond** : `var(--bg-primary)` (`#ffffff`)
 - **Padding** : `var(--section-gap) 0`
 - **Container** : `.container` (1240px)
-- **Eyebrow** : `t-caption` uppercase, weight 500, letter-spacing 0.1em, color `var(--text-tertiary)`, margin-bottom 16px
-- **Situation** : `t-lead`, max-width 720px, margin-bottom 40px
-- **Carte outputs** : `.card`, padding 32px, max-width 640px, fade-in au scroll
-  - Header : `t-caption` uppercase, weight 500, letter-spacing 0.06em, color `var(--text-tertiary)`, margin-bottom 24px
-  - 6 lignes de données : `t-caption`, padding 10px 0, border-bottom `1px solid var(--border-light)` sauf dernière
-- **Blockquote** : `t-caption`, italic, color `var(--text-tertiary)`, margin-top 24px, padding-left 16px, border-left `2px solid var(--border-light)`
-- **Éditorial** : `t-caption`, margin-top 32px, color `var(--text-secondary)`
-
-#### 7. ShiftsSection
-
-- **Fichier** : `components/shifts-section.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-secondary)` (`#f5f5f5`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Titre** : `t-display` size `var(--text-display)`, margin-bottom 48px
-- **Liste** : flex colonne, gap 32px
-  - 4 items, chaque item : flex row, gap 24px, align-items flex-start
-  - Numéro : `t-caption` weight 500, color `var(--text-tertiary)`, flex-shrink 0, margin-top 4px
-  - Titre : `t-display` size `var(--text-heading)`, margin-bottom 8px
-  - Body : `t-caption`, max-width 640px
-  - Stagger : 50ms par item
-
-#### 8. IntegrationSection
-
-- **Fichier** : `components/integration-section.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-primary)` (`#ffffff`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Titre** : `t-display` size `var(--text-display)`, margin-bottom 48px
-- **Grille** : 3 colonnes, gap 24px
-  - 3 cartes, chaque carte : `.integration-card`, radius 24px, overflow hidden
-    - Fond : gradient variable (`--integration-grad-1` à `3`)
-    - Grain overlay
-    - Contenu : titre 22px weight 300 blanc, description 15px weight 300 blanc à 90%
-    - Hover : scale 1.02, bg scale 1.05, gradient-shift 8s
-  - Stagger : 50ms
-- **Lien** : "Voir le détail des modes d'intégration", `t-caption`, color `var(--text-tertiary)`, chevron 14px, margin-top 40px
+- **Tabs** : 4 onglets sectoriels (pills)
+- **Grille** : 2 colonnes, gap 48px
+  - Colonne texte : titre + description + CTA
+  - Colonne image : `.avif` avec aspect-ratio 4/3, radius 24px
 - **Responsive** : < 1024px 1 colonne
 
-#### 9. NotLmsSection
-
-- **Fichier** : `components/not-lms-section.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-secondary)` (`#f5f5f5`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Titre** : `t-display` size `var(--text-display)`, margin-bottom 48px
-- **Grille** : 2 colonnes, gap 48px, fade-in au scroll
-  - Colonne LMS : titre `t-caption` uppercase, weight 500, letter-spacing 0.1em, color `var(--text-tertiary)`
-    - 4 items : `t-caption`, padding 10px 0, border-bottom, color `var(--text-tertiary)`
-  - Colonne MentivisOS : même style, color `var(--text-primary)`
-- **Responsive** : < 1024px 1 colonne
-
-#### 10. InteractiveShowcase
-
-- **Fichier** : `components/interactive-showcase.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-warm)` (`#f5f3f1`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Carte principale** : max-width 1180px, fond `#F2EEE7`, radius 32px, padding 36px 40px 28px
-  - **Top bar** : flex space-between
-    - Tabs produits : 3 pills (Atelier/Operate/Intel), fond `rgba(0,0,0,0.03)`, radius 9999px, padding 5px
-      - Actif : fond blanc, shadow `0 0 0 1px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06)`
-      - Chaque tab : dot gradient 18px radius 50% + label
-    - Titre + sous-titre à droite, aligné à droite
-  - **Stage** : min-height 480px, position relative
-    - 7 orbs (carrés arrondis, PAS cercles)
-    - Orb actif : width 280px, height 280px, **border-radius 32px**
-    - Orbs adjacents : scale 0.62, opacity 0.95
-    - Orbs lointains : scale 0.42, opacity 0.55
-    - Grain overlay sur chaque orb (border-radius 32px)
-    - Play button : 60×60px, **border-radius 16px** (PAS cercle), blanc, shadow
-    - Nav flèches : 34×34px, border-radius 50%, transparent, z-index 20
-  - **Bottom bar** : flex space-between, border-top `1px solid rgba(0,0,0,0.08)`
-    - Feature tabs : 5 items (Diagnostic IA, Programme adaptatif...)
-      - Actif : weight 500, dernière mot highlight `#A0C4FF`
-    - CTA pill noir avec chevron 14px
-- **Animations** : orb pulse 1.4s, carousel transition 0.7s `cubic-bezier(0.22,1,0.36,1)`, opacity 0.55s
-
-#### 11. ImpactSection
-
-- **Fichier** : `components/impact-section.tsx`
-- **Type** : Client (`"use client"`)
-- **Props** : `{ lang: Locale }`
-- **Fond** : `#F5F2EF`
-- **Padding** : `var(--section-gap) 0`
-- **Container** : `.container` (1240px)
-- **Titre** : `t-display` size `clamp(28px, 4vw, 44px)`, weight 300, line-height 1.1
-- **Tabs** : 2 pills (MentivisAtelier / MentivisOperate)
-  - Actif : fond blanc, shadow multi-couche
-  - Inactif : transparent, hover `rgba(0,0,0,0.04)`
-- **Bento grid** : `grid-template-columns: 1fr 1.56fr 1fr`, `grid-template-rows: 1fr 1fr`, gap 12px, height 620px
-  - **Card A** : grid-row 1, grid-column 1, gradient chaud (ambre/terra-cotta), grain overlay, contenu blanc avec logo-chip
-  - **Card B** : grid-row 1/3, grid-column 2, fond sombre atmosphérique, détails géométriques, grain
-  - **Card C** : grid-row 1, grid-column 3, **ghost transparent** (layout uniquement)
-  - **Card D** : grid-row 2, grid-column 1, **ghost transparent** (layout uniquement)
-  - **Card E** : grid-row 2, grid-column 3, gradient gris/B&W, grain, tag + caption
-  - Hover : scale 1.014, shadow `0 12px 40px rgba(0,0,0,.12)`
-- **Responsive** :
-  - < 800px : 2 colonnes, card C et D hidden
-  - < 520px : 1 colonne
-
-#### 12. CombinationSection
-
-- **Fichier** : `components/combination-section.tsx`
-- **Type** : Serveur
-- **Props** : `{ lang: Locale }`
-- **Fond** : `var(--bg-primary)` (`#ffffff`)
-- **Padding** : `var(--section-gap) 0`
-- **Container** : max-width 720px
-- **Corps** : `t-lead`, white-space pre-line
-- **Lien** : "En savoir plus sur Mentivis", `t-caption`, inline-flex, gap 6px, color `var(--text-tertiary)`, chevron 14px SVG
-
-#### 13. MathFeaturesSection
+#### 6. MathFeaturesSection
 
 - **Fichier** : `components/math-features-section.tsx`
 - **Type** : Client (`"use client"`)
@@ -602,7 +490,57 @@ Ordre exact des sections sur la homepage :
     - SVG : Möbius Strip (36 longitudinal + 6 cross-ring, 3D projection)
 - **Responsive** : < 760px 1 colonne
 
-#### 14. CTABlock
+#### 7. TransformationTimeline
+
+- **Fichier** : `components/transformation-timeline.tsx`
+- **Type** : Client (`"use client"`)
+- **Props** : `{ lang: Locale }`
+- **Fond** : `var(--bg-primary)` (`#ffffff`)
+- **Padding** : `var(--section-gap) 0`
+- **Container** : `.container` (1240px)
+- **Structure** : 7-stage organizational transformation journey
+- **AtmosphereOrb** : 7 orbs glassmorphism avec blob gradients
+- **Satellite** : 14 satellites (2 par orb), orbiting
+- **MeasurementBar** : 7 ticks avec numéros d'étape
+- **StageTextPanel** : titre + description, aligné à gauche
+- **Responsive** : < 768px simplifié
+
+#### 8. ImpactSection
+
+- **Fichier** : `components/impact-section.tsx`
+- **Type** : Client (`"use client"`)
+- **Props** : `{ lang: Locale }`
+- **Fond** : `#F5F2EF`
+- **Padding** : `var(--section-gap) 0`
+- **Container** : `.container` (1240px)
+- **Titre** : `t-display` size `clamp(28px, 4vw, 44px)`, weight 300, line-height 1.1
+- **Tabs** : 2 pills (Clients / Partenariat)
+  - Actif : fond blanc, shadow multi-couche
+  - Inactif : transparent, hover `rgba(0,0,0,0.04)`
+- **Grille** : `grid-template-columns: 1fr 1.58fr 1fr`, `grid-template-rows: auto`, gap 12px
+  - **Big** (i=0) : colonne 2, remplit la hauteur de ligne (1.58W) via aspect-ratio
+  - **MedA** (i=1) : colonne 1 (clients) / 3 (partenariat), `align-self: start` → top = Big top
+  - **MedE** (i=2) : colonne 3 (clients) / 1 (partenariat), `align-self: end` → bottom = Big bottom
+  - Toutes les cartes : `aspect-ratio: 1/1` (pas de stretch)
+  - Hover : `translateY(-4px)`
+  - Crossfade entre les deux layouts via `grid-area: 1/1`
+- **Mobile** : hidden < 768px
+
+#### 9. FaqSection
+
+- **Fichier** : `components/faq-section.tsx`
+- **Type** : Client (`"use client"`)
+- **Props** : `{ lang: Locale }`
+- **Fond** : `var(--bg-secondary)` (`#f5f5f5`)
+- **Padding** : `var(--section-gap) 0`
+- **Container** : `.container` (1240px)
+- **Titre** : `t-display` size `var(--text-display)`
+- **Accordéon** : 8 questions
+  - Question : `t-heading`, weight 500, cursor pointer
+  - Réponse : `t-body`, max-width 720px, slideDown 0.3s ease
+  - Icon : chevron rotate 180deg
+
+#### 10. CTABlock
 
 - **Fichier** : `components/cta-block.tsx`
 - **Type** : Serveur
@@ -610,11 +548,12 @@ Ordre exact des sections sur la homepage :
 - **Variant "final"** :
   - Fond : `var(--bg-secondary)` (`#f5f5f5`)
   - Padding : `var(--section-gap) 0`
+  - Container : max-width 720px
   - Titre : `t-display` size `var(--text-display)`, white-space pre-line, margin-bottom 24px
   - Sous-titre : `t-lead`, margin-bottom 40px
-  - Bouton : `.btn-pill.btn-warm`, border-radius 8px, chevron 14px
+  - **SuperButton** : 3D layered SVG (bottom/middle/top), hover down, press deep, pas de texte overlay
 
-#### 15. ArticlesFeaturesSection
+#### 11. ArticlesFeaturesSection
 
 - **Fichier** : `components/articles-features-section.tsx`
 - **Type** : Client (`"use client"`)
@@ -658,6 +597,10 @@ Ordre exact des sections sur la homepage :
 
 | Composant | Page | Description |
 |---|---|---|
+| **CareersPageClient** | `/carrieres` | Hero two-column (Trial Program layout), Why Join Us 4 cards, department-filtered job list, CTABlock. |
+| **JobDetailClient** | `/carrieres/[slug]` | Job detail avec tabs (Description/Apply), info box, markdown rendering, CV upload, autofill attributes, random 24-char URLs. |
+| **SecurityPageClient** | `/security` | Sticky nav, engagement quote, 5 principles, 4-layer protections, infrastructure grid, FAQ accordion. |
+| **AboutPageClient** | `/about` | Conviction block, history, 4-partner team (.avif), 4 approach cards, 4 signatures, 5 values, CTABlock variant="final". |
 | **DemoClient** | `/demo` | Formulaire 7 champs (prénom, organisation, rôle, segment radio, objectif textarea, email, téléphone, préférence visio/onsite). Honeypot invisible. POST `/api/demo`. État success/error. |
 | **AdaptiveIntelligenceModule** | `/modules/adaptive` | Hero gradient, 5 capability cards gradient avec grain, intelligence section, 6 outcome cards gradient. Traductions via `modules.adaptive.*`. |
 | **VisualIntelligenceModule** | `/modules/visual` | Hero gradient, 6 capability sections, technical approach, outcomes. Traductions via `modules.visual.*`. |
@@ -668,12 +611,16 @@ Ordre exact des sections sur la homepage :
 | Composant | Usage | Description |
 |---|---|---|
 | **TopoLines** | HeroUnit | Canvas rAF, lignes topographiques concentriques animées. Props : `count`, `height`, `lineColor`, `lineWidth`, `speed`. |
-| **ChatMockup** | BentoSection | 5 bulles CSS (utilisateur/agent), border-radius 20px, max-width 360px. |
-| **ChartMockup** | BentoSection | SVG 2 séries (orange/bleu) + tooltip flottant. Props : `data`. |
+| **SuperButton** | CTABlock | 3D layered SVG button (bottom/middle/top). Hover : translateY(4px), active : translateY(8px). Pas de texte overlay — le texte est à côté. |
 | **LogomarkMotion** | FooterBlock | 17 carrés SVG (130×130 viewBox), animation `lmDrop` W02 Drop Physics, stagger 40ms. |
-| **ModuleCard** | ComposantsPage | Carte carrée gradient + grain. Props : `title`, `href`, `gradientVar`, `delay`. |
 | **NavBar** | Layout | Header fixe avec dropdowns. Voir section 3.1.1. |
 | **FooterBlock** | Layout | Footer 5 colonnes. Voir section 3.1.15. |
+| **MegaMenu** | NavBar | Desktop dropdown menus (fit-content width, maxWidth 640px, nowrap). |
+| **MobileAccordionNav** | NavBar | Mobile fullscreen nav (accordion pour Entreprise uniquement). |
+| **LanguageSwitcher** | NavBar | FR/EN toggle (à droite du Login). |
+| **AtmosphereOrb** | TransformationTimeline | Glassmorphism orbs avec blob gradients. |
+| **MeasurementBar** | TransformationTimeline | 7 ticks avec numéros d'étape. |
+| **BurgerMorph** | NavBar | Spring-animated SVG menu icon. |
 
 ### 3.4 Composants morts — NE PAS UTILISER
 
@@ -683,8 +630,16 @@ Ordre exact des sections sur la homepage :
 | `mosaic-module.tsx` | Grille mosaic avec tabs, jamais importée |
 | `steps-section.tsx` | 3 étapes avec `VisualOrb`, jamais importée |
 | `segments-section.tsx` | 4 segments avec `VisualOrb`, jamais importée |
-| `product-card.tsx` | 3 cartes produit avec `VisualOrb`, jamais importées |
+| `product-card.tsx` (ancien) | 3 cartes produit avec `VisualOrb`, jamais importées |
 | `visual-orb.tsx` | Orbs gradient circulaires. Tous ses consommateurs sont morts. |
+| `bento-section.tsx` | Section bento retirée de la homepage |
+| `modules-section.tsx` | Section modules retirée de la homepage |
+| `proof-section.tsx` | Section preuve retirée de la homepage |
+| `shifts-section.tsx` | Section shifts retirée de la homepage |
+| `integration-section.tsx` | Section intégration retirée de la homepage |
+| `not-lms-section.tsx` | Section NotLMS retirée de la homepage |
+| `interactive-showcase.tsx` | Déplacée vers `/composants` |
+| `combination-section.tsx` | Section combination retirée de la homepage |
 
 ---
 
@@ -696,20 +651,17 @@ Sections dans l'ordre exact :
 
 1. NavBar (layout)
 2. HeroUnit
-3. BentoSection
-4. ModulesSection
-5. ProblemSection
-6. ProofSection
-7. ShiftsSection
-8. IntegrationSection
-9. NotLmsSection
-10. InteractiveShowcase
-11. ImpactSection
-12. CombinationSection
-13. MathFeaturesSection
-14. CTABlock (variant "final")
-15. ArticlesFeaturesSection
-16. FooterBlock (layout)
+3. ProblemSection
+4. SectorShowcase
+5. MathFeaturesSection
+6. TransformationTimeline
+7. ImpactSection
+8. FaqSection
+9. CTABlock (variant "final")
+10. ArticlesFeaturesSection
+11. FooterBlock (layout)
+
+**Sections retirées** (anciennement sur la homepage) : BentoSection, ModulesSection, ProofSection, ShiftsSection, IntegrationSection, NotLmsSection, InteractiveShowcase, CombinationSection.
 
 ### 4.2 Demo (`/{lang}/demo`)
 
@@ -722,11 +674,32 @@ Sections dans l'ordre exact :
   - Radios : visioconférence / sur site
   - Honeypot : `name="honeypot"`, tabindex -1, display none
   - Bouton submit : `.btn-pill.btn-black`, width 100%, chevron 14px
+  - Autofill : `autoComplete="given-name"`, `"family-name"`, `"email"`, `"tel"`, `"organization"`
 - **État success** : "Merci." + message de confirmation
 - **État error** : message d'erreur rouge `#c62828`
 - **Pricing note** : `t-caption`, margin-top 48px, centré, color `var(--text-tertiary)`
 
-### 4.3 Modules / Adaptive (`/{lang}/modules/adaptive`)
+### 4.3 Carrières (`/{lang}/carrieres`)
+
+- **Hero** — Two-column Trial Program layout :
+  - Gauche : eyebrow uppercase 12px/0.18em, titre `t-display` clamp(28px,4vw,44px), description lead, 4 features avec checkmark SVG, CTA bouton noir radius 12px
+  - Droite : image `/images/team/chat%20window.avif`, 380×380px, radius 24px
+  - Responsive : stacks below 768px, image aspect-ratio 2/1
+  - Border-bottom : `1px solid var(--border-light)`
+- **Why Join Us** : 4 cartes sur fond `#FAFAF8`
+- **Postes ouverts** : filtres par département (pills), liste verticale
+- **CTA** : `CTABlock variant="final"`
+
+### 4.4 Carrières — Détail (`/{lang}/carrieres/[slug]`)
+
+- **URL** : 24 caractères alphanumériques aléatoires (ex: `/carrieres/a1B2c3D4e5F6g7H8i9J0k1L2`)
+- **Tabs** : Description / Candidature
+- **Info box** : département, type, lieu, référence
+- **Description** : rendu markdown (• → `<ul><li>`, ## → `<h3>`)
+- **Formulaire** : prénom, nom, email, téléphone, LinkedIn, CV (PDF, 6MB max, auto-nommé `{nom}-{prenom}-cv.pdf`), message
+- **Autofill** : `autoComplete="given-name"`, `"family-name"`, `"email"`, `"tel"`, `"url"`, `"organization"`
+
+### 4.5 Modules / Adaptive (`/{lang}/modules/adaptive`)
 
 - **Hero** : gradient CSS, eyebrow "Module", titre "Adaptive Intelligence", description
 - **Capabilities** : 5 cartes gradient avec grain
@@ -736,7 +709,7 @@ Sections dans l'ordre exact :
 - **Outcomes** : 6 cartes gradient
 - **Positioning** : texte de positionnement
 
-### 4.4 Modules / Visual (`/{lang}/modules/visual`)
+### 4.6 Modules / Visual (`/{lang}/modules/visual`)
 
 - **Hero** : gradient CSS, eyebrow "Module", titre "Visual Intelligence Layer"
 - **Capabilities** : 6 sections
@@ -744,7 +717,7 @@ Sections dans l'ordre exact :
 - **Outcomes** : 6 items
 - **Implementation note** : paragraphe technique
 
-### 4.5 Composants (`/{lang}/composants`)
+### 4.7 Composants (`/{lang}/composants`)
 
 - **Titre** : "Composants"
 - **Description** : "Inventaire interne des composants React de MentivisOS..."
@@ -755,6 +728,25 @@ Sections dans l'ordre exact :
   - Info : colored dot (8px) + nom + description + filename (code)
 - **Previews live** : ChatMockup, ChartMockup, TopoLines, ModuleCard
 - **Previews CSS mockup** : tous les autres composants
+
+### 4.8 Sécurité (`/{lang}/security`)
+
+- **Sticky nav** : 4 ancres (Engagement, Principes, Protections, Infrastructure)
+- **Engagement** : citation + auteur
+- **5 principes** : grille 2×2 + 1 centrée
+- **4 protections** : cartes avec icônes
+- **Infrastructure** : grille de features
+- **FAQ** : accordéon 5 questions
+
+### 4.9 À propos (`/{lang}/about`)
+
+- **Conviction** : texte de conviction + image
+- **Histoire** : timeline courte
+- **Équipe** : 4 fondateurs (.avif git-tracked)
+- **Approche** : 4 cartes
+- **Signatures** : 4 blocs de texte
+- **Valeurs** : 5 valeurs
+- **CTA** : `CTABlock variant="final"` (style HP)
 
 ---
 
@@ -769,13 +761,23 @@ Sections dans l'ordre exact :
 | Logomark blanc | `/images/MentivisOS/mentivisos-logomark-blanc.svg` | Variante | — |
 | Photo brand | `/images/MentivisOS/mentivos.avif` | Asset photo | — |
 
-### 5.2 Bibliothèque de référence (`visuals-library/`)
+### 5.2 Équipe (tous git-trackés)
+
+| Fichier | Chemin | Usage |
+|---|---|---|
+| Roxan Roumegas | `/images/team/roxan-roumegas.avif` | Page /about |
+| Mathias Costes | `/images/team/mathias-costes.avif` | Page /about |
+| Steven Delcourt | `/images/team/steven-delcourt.avif` | Page /about |
+| Julie Steiner | `/images/team/julie-steiner.avif` | Page /about |
+| Chat window | `/images/team/chat%20window.avif` | Page /carrieres hero |
+
+### 5.3 Bibliothèque de référence (`visuals-library/`)
 
 | Fichier | Contenu | Statut |
 |---|---|---|
 | `mentivisOS_math_visuals.html` | 24 courbes paramétriques (Lorenz, Koch, Phyllotaxis, Hilbert, Möbius...) | **Utilisé** : Phyllotaxis, Hilbert, Möbius |
 | `mentivisOS_articles_features.html` | Articles gradient + features géométriques | **Utilisé** : structure des articles |
-| `mentivisOS_interactive_showcase.html` | Carousel orbs avec tabs | **Utilisé** : InteractiveShowcase |
+| `mentivisOS_interactive_showcase.html` | Carousel orbs avec tabs | **Utilisé** : InteractiveShowcase (déplacé vers /composants) |
 | `mentivisOS_impact_section.html` | Bento grid impact avec tabs | **Utilisé** : ImpactSection |
 | `mentivisOS_logomark_motion.html` | 24 animations logo CSS | **Utilisé** : W02 Drop Physics |
 | `mentivisOS_funky_visual_library.html` | 24 patterns colorés | Référence future |
@@ -792,7 +794,7 @@ Sections dans l'ordre exact :
 - **Type** : `Locale = "fr" | "en"`
 - **Défaut** : `fr`
 - **Fonction** : `getT(locale)` retourne l'objet de traduction complet
-- **18 clés top-level** : nav, hero, products, problem, steps, proof, modules, segments, shifts, integration, notLms, combination, finalCta, footer, demo
+- **Clés top-level** : nav, hero, products, problem, sectors, mathFeatures, timeline, impact, faq, finalCta, articles, footer, demo, careers, ambassadors, security, about, modules, legal, privacy, terms
 
 ### 6.2 Routing
 
@@ -801,25 +803,35 @@ Sections dans l'ordre exact :
 - **Locales supportées** : `fr`, `en`
 - **Pattern** : `[lang]` pour toutes les pages
 - **Params** : `params: Promise<{ lang: string }>` (Next.js 16)
+- **Careers** : `/{lang}/carrieres` (liste), `/{lang}/carrieres/[slug]` (détail)
 
 ### 6.3 API
 
-- **Route** : `POST /api/demo`
-- **Fichier** : `app/api/demo/route.ts`
-- **Sécurité** :
-  - Rate limit : 5 requêtes/minute/IP
-  - Honeypot : champ invisible `honeypot`
-  - CORS : validation `ALLOWED_ORIGINS`
-  - Champs requis : `firstname`, `email`
-- **Relay** : POST vers HubSpot `api.hsforms.com`
-- **Fallback** : si env vars manquantes, log console + success fallback
+| Route | Méthode | Description |
+|---|---|---|
+| `/api/demo` | POST | Formulaire demo → HubSpot. Rate limit 5/min/IP, honeypot, CORS. |
+| `/api/job-applications` | POST | Candidature → upload CV + auto HubSpot. |
+| `/api/jobs` | GET | Liste publique des offres. |
+| `/api/jobs/[slug]` | GET | Détail d'une offre. |
+| `/api/cms/jobs` | CRUD | CMS jobs (admin). |
+| `/api/cms/job-applications` | GET/PUT | CMS candidatures (admin). |
+| `/api/cvs/[filename]` | GET | Téléchargement CV. |
+| `/api/blog/posts` | GET | Liste articles blog. |
+| `/api/blog/posts/[slug]` | GET | Détail article blog. |
+
+**HubSpot** : auto-send sur demo et candidatures. `lien_cv` text field pour URL CV (API v3 ne supporte pas les fichiers).
 
 ### 6.4 Build & déploiement
 
 - **Dev** : `npm run dev` (alias `next dev --webpack`)
 - **Build** : `rm -rf .next && npm run build` (alias `next build --webpack`)
-- **Déploiement** : `npx vercel deploy --prod --yes --scope steves-projects-09f7051e`
-- **Scope Vercel** : `steves-projects-09f7051e`
+- **Déploiement** : `./scripts/deploy-unlock.sh`
+- **Host** : o2switch shared (terre.o2switch.net), user sc4bovu7233, Passenger
+- **Port** : 3001 (3000 occupé par lsphp/Passenger)
+- **App root** : `/home/sc4bovu7233/nextapp`
+- **Data dir** : `/home/sc4bovu7233/data/` (persistent)
+- **Node** : v20.20.2
+- **Workers limit** : `experimental.cpus: 2` (évite OOM)
 
 ### 6.5 Architecture des composants
 
@@ -830,21 +842,7 @@ Sections dans l'ordre exact :
 
 ---
 
-## 7. Roadmap
-
-Pages futures prévues (non implémentées) :
-
-| Page | Route | Description |
-|---|---|---|
-| **Produit** | `/{lang}/produit` | Page produit complète avec détail des 3 piliers |
-| **Pour qui** | `/{lang}/pour-qui` | 4 segments : Individuel, Corporate, Formation, Compétences |
-| **Intégration** | `/{lang}/integration` | Détail des 3 modes : accès direct, licence entreprise, API |
-| **Ressources** | `/{lang}/ressources` | Insights, guides, articles |
-| **À propos** | `/{lang}/a-propos` | Historique, équipe, valeurs |
-
----
-
-## 8. Éléments écartés
+## 7. Éléments écartés
 
 ### Polices
 - **Cormorant Garamond** — présente dans les fichiers HTML source (`visuals-library/`), jamais utilisée dans le code
@@ -857,19 +855,28 @@ Pages futures prévues (non implémentées) :
 - `mosaic-module.tsx`
 - `steps-section.tsx`
 - `segments-section.tsx`
-- `product-card.tsx`
+- `product-card.tsx` (ancien, avec VisualOrb)
 - `visual-orb.tsx`
+- `bento-section.tsx`
+- `modules-section.tsx`
+- `proof-section.tsx`
+- `shifts-section.tsx`
+- `integration-section.tsx`
+- `not-lms-section.tsx`
+- `interactive-showcase.tsx` (déplacé vers /composants)
+- `combination-section.tsx`
 
 ### Patterns abandonnés
 - Orbs circulaires (`border-radius: 50%`) — remplacés par des carrés arrondis (`border-radius: 32px`)
 - Boutons pill extremes (`border-radius: 9999px`) sur les CTAs hero — remplacés par `border-radius: 8px`
 - `overflow: hidden` sur le hero — supprimé pour éviter le cropping des TopoLines
 - Timer-based dropdowns (150ms) — remplacés par un bridge element invisible
+- Homepage à 15+ sections — stripée à 9 sections narrative
 
 ### Anciens tokens
-- Couleurs sombres du design system v1 (remplacées par la palette ElevenLabs blanche/chaude)
+- Couleurs sombres du design system v1 (remplacées par la palette blanche/chaude)
 - `--color-ground` et variants blueprint (remplacés par `#ffffff` et `#f5f5f5`)
 
 ---
 
-> Document généré le 8 mai 2026. Dernière mise à jour : sections MathFeaturesSection et ArticlesFeaturesSection.
+> Document généré le 13 mai 2026. Dernière mise à jour : sections Carrières, ImpactSection finale, SuperButton, TransformationTimeline.

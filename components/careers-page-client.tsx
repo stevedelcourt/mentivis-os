@@ -75,68 +75,162 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
 
   return (
     <>
-      {/* Hero */}
-      <section style={{ padding: isMobile ? "40px 0 60px" : "80px 0 100px" }}>
+      {/* Hero — Two-column Trial Program layout */}
+      <section
+        style={{
+          padding: isMobile ? "40px 0 60px" : "80px 0 100px",
+          marginBottom: 100,
+          paddingBottom: 80,
+          borderBottom: "1px solid var(--border-light, #e5e5e5)",
+        }}
+      >
         <div className="container">
           <div
             ref={heroV.ref}
             style={{
-              maxWidth: 800,
-              margin: "0 auto",
-              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 60,
               opacity: heroV.visible ? 1 : 0,
               transform: heroV.visible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.6s ease, transform 0.6s ease",
             }}
           >
-            <p
+            {/* Left column */}
+            <div style={{ flex: 1, minWidth: 300 }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                  fontSize: "var(--text-micro, 12px)",
+                  fontWeight: 500,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--text-tertiary, #777169)",
+                  marginBottom: "1.75rem",
+                }}
+              >
+                {t.careers.program.eyebrow}
+              </p>
+              <h1
+                className="t-display"
+                style={{
+                  fontSize: "clamp(28px, 4vw, 44px)",
+                  fontWeight: 300,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.025em",
+                  color: "var(--text-primary, #0A0A0A)",
+                  marginBottom: "1.75rem",
+                }}
+              >
+                {t.careers.program.title}
+              </h1>
+              <p
+                className="t-lead"
+                style={{
+                  fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+                  fontSize: "0.9375rem",
+                  lineHeight: 1.65,
+                  color: "var(--text-secondary, #4e4e4e)",
+                  maxWidth: "48ch",
+                  marginBottom: "1.75rem",
+                }}
+              >
+                {t.careers.program.description}
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: "0 0 1.75rem 0",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 16,
+                }}
+              >
+                {t.careers.program.features.map((feature: string, i: number) => (
+                  <li
+                    key={i}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      fontSize: "1.0625rem",
+                      color: "var(--text-primary, #0A0A0A)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <svg
+                      width={18}
+                      height={18}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ flexShrink: 0, color: "var(--text-tertiary, #777169)" }}
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={scrollToList}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "12px 20px",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: "#FFFFFF",
+                  background: "#0A0A0A",
+                  borderRadius: 12,
+                  border: "none",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#222";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#0A0A0A";
+                }}
+              >
+                {t.careers.program.cta}
+                <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Right column */}
+            <div
               style={{
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#777169",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                marginBottom: 16,
+                flex: isMobile ? "1 1 100%" : "0 0 380px",
+                width: isMobile ? "100%" : 380,
+                height: isMobile ? "auto" : 380,
+                aspectRatio: isMobile ? "2 / 1" : "1 / 1",
+                position: "relative",
+                order: isMobile ? 2 : 0,
               }}
             >
-              {t.careers.hero.eyebrow}
-            </p>
-            <h1
-              style={{
-                fontSize: "clamp(32px, 5vw, 52px)",
-                fontWeight: 500,
-                lineHeight: 1.15,
-                color: "#0A0A0A",
-                marginBottom: 20,
-              }}
-            >
-              {t.careers.hero.headline}
-            </h1>
-            <p
-              style={{
-                fontSize: "clamp(16px, 2vw, 20px)",
-                color: "#777169",
-                lineHeight: 1.5,
-                marginBottom: 32,
-              }}
-            >
-              {t.careers.hero.subheadline}
-            </p>
-            <button
-              onClick={scrollToList}
-              style={{
-                padding: "14px 28px",
-                fontSize: 15,
-                fontWeight: 500,
-                color: "#fff",
-                background: "#0A0A0A",
-                borderRadius: 10,
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              {t.careers.hero.cta}
-            </button>
+              <img
+                src="/images/team/chat%20window.avif"
+                alt="MentivisOS chat interface"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: 24,
+                  display: "block",
+                }}
+              />
+            </div>
           </div>
         </div>
       </section>

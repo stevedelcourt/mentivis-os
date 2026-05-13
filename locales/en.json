@@ -652,6 +652,18 @@
       "subheadline": "Join a team that is rethinking how organizations train, recruit and develop their talent.",
       "cta": "View openings"
     },
+    "program": {
+      "eyebrow": "JOIN US",
+      "title": "Let's build the future of training together",
+      "description": "Join a team that is rethinking how organizations train, recruit and develop their talent.",
+      "features": [
+        "Real impact projects reaching thousands of learners",
+        "Cutting-edge tech: AI, edtech, automation",
+        "Autonomy, trust and culture of excellence",
+        "Kind and transparent environment"
+      ],
+      "cta": "View openings"
+    },
     "whyJoin": {
       "title": "Why join us?",
       "cards": [
