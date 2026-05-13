@@ -12,8 +12,6 @@ const CARD_GRADIENTS = [
 ];
 
 const GAP = 12;
-const COLS = 3;
-const ROWS = 3;
 
 interface LayoutItem {
   pos: CSSProperties;
@@ -22,20 +20,18 @@ interface LayoutItem {
 
 const LAYOUTS: Record<string, LayoutItem[]> = {
   clients: [
-    { pos: { gridColumn: "1 / 3", gridRow: "1 / 3" } },
-    { pos: { gridColumn: "3", gridRow: "1" } },
-    { pos: { gridColumn: "1", gridRow: "3" } },
-    { pos: { gridColumn: "3", gridRow: "2" }, ghost: true },
-    { pos: { gridColumn: "3", gridRow: "3" }, ghost: true },
-    { pos: { gridColumn: "2", gridRow: "3" }, ghost: true },
+    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "1", gridRow: "1" } },
+    { pos: { gridColumn: "3", gridRow: "2" } },
+    { pos: { gridColumn: "3", gridRow: "1" }, ghost: true },
+    { pos: { gridColumn: "1", gridRow: "2" }, ghost: true },
   ],
   partenariat: [
-    { pos: { gridColumn: "2 / 4", gridRow: "1 / 3" } },
-    { pos: { gridColumn: "1", gridRow: "1" } },
-    { pos: { gridColumn: "3", gridRow: "3" } },
-    { pos: { gridColumn: "1", gridRow: "2" }, ghost: true },
-    { pos: { gridColumn: "1", gridRow: "3" }, ghost: true },
-    { pos: { gridColumn: "2", gridRow: "3" }, ghost: true },
+    { pos: { gridColumn: "2", gridRow: "1 / 3" } },
+    { pos: { gridColumn: "3", gridRow: "1" } },
+    { pos: { gridColumn: "1", gridRow: "2" } },
+    { pos: { gridColumn: "1", gridRow: "1" }, ghost: true },
+    { pos: { gridColumn: "3", gridRow: "2" }, ghost: true },
   ],
 };
 
@@ -78,9 +74,7 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [gridHeight, setGridHeight] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -92,19 +86,6 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    function squarify() {
-      const el = stackRef.current;
-      if (!el) return;
-      const W = el.getBoundingClientRect().width;
-      const cell = (W - GAP * (COLS - 1)) / COLS;
-      setGridHeight(Math.round(ROWS * cell + GAP * (ROWS - 1)));
-    }
-    squarify();
-    window.addEventListener("resize", squarify);
-    return () => window.removeEventListener("resize", squarify);
-  }, [postsLoaded, visible]);
 
   useEffect(() => {
     fetch("/api/blog/posts")
@@ -209,30 +190,33 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
             </p>
           </div>
         ) : (
-          <div ref={stackRef} className="impact-stack" style={{ height: gridHeight || 480 }}>
+          <div className="impact-stack" style={{ minHeight: 320 }}>
             <style>{`
               .impact-stack {
+                display: grid;
                 position: relative;
                 width: 100%;
               }
               .impact-grid {
-                position: absolute;
-                inset: 0;
+                grid-area: 1/1;
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1.58fr 1fr;
+                grid-template-rows: auto auto;
                 gap: ${GAP}px;
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 0.38s ease, visibility 0.38s ease;
+                pointer-events: none;
               }
               .impact-grid[data-active="true"] {
                 opacity: 1;
                 visibility: visible;
+                pointer-events: auto;
               }
 
               .impact-card {
                 position: relative;
+                aspect-ratio: 1;
                 border-radius: 20px;
                 overflow: hidden;
                 display: flex;
@@ -251,9 +235,6 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               .impact-grid[data-active="true"] .impact-card:nth-child(1) { animation-delay: 0s; }
               .impact-grid[data-active="true"] .impact-card:nth-child(2) { animation-delay: 0.06s; }
               .impact-grid[data-active="true"] .impact-card:nth-child(3) { animation-delay: 0.12s; }
-              .impact-grid[data-active="true"] .impact-card:nth-child(4) { animation-delay: 0s; }
-              .impact-grid[data-active="true"] .impact-card:nth-child(5) { animation-delay: 0s; }
-              .impact-grid[data-active="true"] .impact-card:nth-child(6) { animation-delay: 0s; }
 
               .impact-card:active {
                 transform: scale(0.98);
@@ -276,6 +257,8 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               .impact-ghost {
+                width: 60%;
+                justify-self: center;
                 background: #f0f0f0;
                 cursor: default;
               }
@@ -306,28 +289,27 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               @media (max-width: 900px) {
-                .impact-stack { height: auto !important; }
+                .impact-stack { display: block; }
                 .impact-grid {
+                  display: grid;
                   position: relative;
-                  inset: auto;
-                  opacity: 1 !important;
-                  visibility: visible !important;
-                  height: auto;
+                  grid-area: auto;
                   grid-template-columns: 1fr 1fr;
                   grid-template-rows: auto auto auto;
+                  gap: ${GAP}px;
+                  opacity: 1 !important;
+                  visibility: visible !important;
                   transition: none;
+                  pointer-events: auto;
                 }
                 .impact-grid[data-active="false"] { display: none; }
                 .impact-card { animation: cardIn 0.5s backwards; }
-                .impact-card:nth-child(1),
-                .impact-card:nth-child(2),
-                .impact-card:nth-child(3) { aspect-ratio: 1; }
                 .impact-card:nth-child(1) { grid-column: 1/3 !important; grid-row: 1/2 !important; }
                 .impact-card:nth-child(2) { grid-column: 1/2 !important; grid-row: 2/3 !important; }
                 .impact-card:nth-child(3) { grid-column: 2/3 !important; grid-row: 2/3 !important; }
                 .impact-card:nth-child(4),
-                .impact-card:nth-child(5),
-                .impact-card:nth-child(6) { display: none; }
+                .impact-card:nth-child(5) { display: none; }
+                .impact-ghost { width: 100%; }
               }
               @media (max-width: 520px) {
                 .impact-grid { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
