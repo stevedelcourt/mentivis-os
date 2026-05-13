@@ -52,9 +52,10 @@ export async function POST(
     );
 
     if (!hubspotResponse.ok) {
-      const errorData = await hubspotResponse.json().catch(() => ({}));
+      const errorText = await hubspotResponse.text().catch(() => "Unknown error");
+      console.error("[HubSpot] Submit failed:", hubspotResponse.status, errorText);
       return NextResponse.json(
-        { error: "HubSpot submission failed", details: errorData },
+        { error: `HubSpot error ${hubspotResponse.status}: ${errorText.substring(0, 200)}` },
         { status: 502 }
       );
     }

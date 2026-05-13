@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
     }
 
     let cvUrl: string | undefined;
+    let cvFilename: string | undefined;
 
     if (file && file.size > 0) {
       if (file.type !== "application/pdf") {
@@ -74,18 +75,19 @@ export async function POST(request: NextRequest) {
 
       const safeLastName = sanitizeFilename(lastName);
       const safeFirstName = sanitizeFilename(firstName);
-      const filename = `${safeLastName}-${safeFirstName}-cv.pdf`;
+      cvFilename = `${safeLastName}-${safeFirstName}-cv.pdf`;
 
       if (!fs.existsSync(CVS_DIR)) {
         fs.mkdirSync(CVS_DIR, { recursive: true });
       }
 
       const buffer = Buffer.from(await file.arrayBuffer());
-      fs.writeFileSync(path.join(CVS_DIR, filename), buffer);
+      fs.writeFileSync(path.join(CVS_DIR, cvFilename), buffer);
 
-      cvUrl = `/api/cvs/${filename}`;
+      cvUrl = `/api/cvs/${cvFilename}`;
     }
 
+    // Save locally
     await createJobApplication({
       jobReference,
       jobTitle,
@@ -99,8 +101,51 @@ export async function POST(request: NextRequest) {
       read: false,
     });
 
-    return NextResponse.json({ success: true });
-  } catch {
+    // Send to HubSpot
+    const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
+    const hubspotFormId = process.env.HUBSPOT_FORM_ID;
+
+    let hubspotOk = false;
+    if (hubspotPortalId && hubspotFormId) {
+      try {
+        const hubspotBody = {
+          fields: [
+            { name: "firstname", value: firstName },
+            { name: "lastname", value: lastName },
+            { name: "email", value: email },
+            { name: "phone", value: phone || "" },
+            { name: "message", value: message },
+            { name: "jobtitle", value: `${jobTitle} (${jobReference})` },
+            { name: "company", value: linkedin || "" },
+          ],
+          context: {
+            pageUri: "https://sc4bovu7233.universe.wf/carrieres",
+            pageName: "Job Application",
+          },
+        };
+
+        const hubspotRes = await fetch(
+          `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(hubspotBody),
+          }
+        );
+
+        hubspotOk = hubspotRes.ok;
+        if (!hubspotRes.ok) {
+          const errText = await hubspotRes.text().catch(() => "unknown");
+          console.error("[JobApp] HubSpot error:", hubspotRes.status, errText);
+        }
+      } catch (err) {
+        console.error("[JobApp] HubSpot network error:", err);
+      }
+    }
+
+    return NextResponse.json({ success: true, hubspot: hubspotOk });
+  } catch (err) {
+    console.error("[JobApp] POST error:", err);
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 }
