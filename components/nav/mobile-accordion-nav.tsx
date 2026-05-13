@@ -92,7 +92,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.entreprise?.[1] || "A propos"}
           </Link>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+          <Link href={`/${lang}/security`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.entreprise?.[2] || "Securite"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
