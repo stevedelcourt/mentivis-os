@@ -4,7 +4,14 @@ import { useRef, useState, useCallback } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
-const CHAPTERS = {
+interface Chapter {
+  id: number;
+  label: string;
+  thumbnail?: string;
+  startTime?: number;
+}
+
+const CHAPTERS: Record<Locale, Chapter[]> = {
   fr: [
     { id: 0, label: "Définir" },
     { id: 1, label: "Générer" },
@@ -49,7 +56,10 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
   const handleChapterClick = (i: number) => {
     if (!videoRef.current) return;
     setActiveChapter(i);
-    // Simulate jumping to chapter (video would have chapter markers in real implementation)
+    const chapter = chapters[i];
+    if (chapter?.startTime !== undefined) {
+      videoRef.current.currentTime = chapter.startTime;
+    }
     const pct = (i / (chapters.length - 1)) * 100;
     setProgress(pct);
   };
@@ -166,11 +176,14 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%)",
+                  background: ch.thumbnail
+                    ? `url(${ch.thumbnail}) center/cover no-repeat`
+                    : "linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%)",
                 }}
               >
                 <span style={{ color: "#fff", fontSize: 10, fontWeight: 600, textAlign: "center" }}>
-                  {ch.label}
+                  {ch.thumbnail ? "" : ch.label}
+                </span>
                 </span>
               </div>
             </button>
