@@ -28,7 +28,7 @@ interface VideoPlayerProps {
   videoSrc?: string;
 }
 
-export default function VideoPlayer({ lang, videoSrc }: VideoPlayerProps) {
+export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.mp4" }: VideoPlayerProps) {
   const chapters = CHAPTERS[lang === "fr" ? "fr" : "en"];
   const [playing, setPlaying] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
