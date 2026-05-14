@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
 interface Chapter {
   id: number;
-  label: string;
+  label: string | Record<Locale, string>;
   thumbnail?: string;
   startTime?: number;
 }
@@ -30,18 +30,55 @@ const CHAPTERS: Record<Locale, Chapter[]> = {
   ],
 };
 
+interface VideoMeta {
+  title?: Record<Locale, string>;
+  chapters: Chapter[];
+}
+
 interface VideoPlayerProps {
   lang: Locale;
   videoSrc?: string;
+  videoId?: string;
 }
 
-export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.mp4" }: VideoPlayerProps) {
-  const chapters = CHAPTERS[lang === "fr" ? "fr" : "en"];
+export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.mp4", videoId }: VideoPlayerProps) {
+  const staticChapters = CHAPTERS[lang === "fr" ? "fr" : "en"];
+  const [chapters, setChapters] = useState<Chapter[]>(staticChapters);
   const [playing, setPlaying] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!videoId) return;
+    const jsonPath = videoSrc.replace(/\.[^.]+$/, ".json");
+    fetch(jsonPath)
+      .then((r) => {
+        if (!r.ok) return null;
+        return r.json();
+      })
+      .then((meta: VideoMeta | null) => {
+        if (!meta?.chapters?.length) return;
+        const locale = lang === "fr" ? "fr" : "en";
+        const localized = meta.chapters.map((ch) => {
+          const rawLabel = ch.label;
+          const labelText =
+            typeof rawLabel === "object" && rawLabel !== null
+              ? (rawLabel as Record<string, string>)[locale] || staticChapters[ch.id]?.label || ""
+              : typeof rawLabel === "string"
+              ? rawLabel
+              : staticChapters[ch.id]?.label || "";
+          return {
+            ...ch,
+            label: labelText,
+            thumbnail: ch.thumbnail ? `${videoSrc.replace(/\.[^.]+$/, "")}/${ch.thumbnail}` : undefined,
+          };
+        });
+        setChapters(localized);
+      })
+      .catch(() => {});
+  }, [videoId, videoSrc]);
 
   const handlePlay = useCallback(() => {
     if (!videoRef.current) return;
@@ -69,6 +106,13 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
     const pct = (videoRef.current.currentTime / videoRef.current.duration) * 100;
     setProgress(isNaN(pct) ? 0 : pct);
   };
+
+  const getLabel = (ch: Chapter, locale: Locale): string => {
+    if (typeof ch.label === "object" && ch.label !== null) return (ch.label as Record<string, string>)[locale] || "";
+    return ch.label as string;
+  };
+
+  const locale = lang === "fr" ? "fr" : "en";
 
   const handleMute = () => {
     if (!videoRef.current) return;
@@ -182,7 +226,7 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
                 }}
               >
                 <span style={{ color: "#fff", fontSize: 10, fontWeight: 600, textAlign: "center" }}>
-                  {ch.thumbnail ? "" : ch.label}
+                  {ch.thumbnail ? "" : getLabel(ch, locale)}
                 </span>
               </div>
             </button>
@@ -284,7 +328,7 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
             ...sectionAnim(visible, 0.1),
           }}
         >
-          <VideoPlayer lang={lang} />
+          <VideoPlayer lang={lang} videoId="marseille-drone" />
         </div>
 
         {/* Steps below video */}

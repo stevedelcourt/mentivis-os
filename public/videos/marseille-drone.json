@@ -1,0 +1,14 @@
+{
+  "title": {
+    "fr": "Parcours LearningOS",
+    "en": "LearningOS Journey"
+  },
+  "chapters": [
+    { "id": 0, "label": { "fr": "Définir", "en": "Define" }, "thumbnail": "ch0.jpg", "startTime": 0 },
+    { "id": 1, "label": { "fr": "Générer", "en": "Generate" }, "thumbnail": "ch1.jpg", "startTime": 12 },
+    { "id": 2, "label": { "fr": "Former", "en": "Train" }, "thumbnail": "ch2.jpg", "startTime": 24 },
+    { "id": 3, "label": { "fr": "Évaluer", "en": "Assess" }, "thumbnail": "ch3.jpg", "startTime": 36 },
+    { "id": 4, "label": { "fr": "Certifier", "en": "Certify" }, "thumbnail": "ch4.jpg", "startTime": 48 },
+    { "id": 5, "label": { "fr": "Analyser", "en": "Analyze" }, "thumbnail": "ch5.jpg", "startTime": 60 }
+  ]
+}
