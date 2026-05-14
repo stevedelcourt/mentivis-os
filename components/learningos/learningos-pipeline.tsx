@@ -272,8 +272,15 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           {lang === "fr" ? "Du besoin à la certification, un seul flux." : "From need to certification, a single flow."}
         </h2>
 
-        {/* Video player */}
-        <div style={{ ...sectionAnim(visible, 0.1) }}>
+        {/* Video player — contained within centered media block, not edge-to-edge */}
+        <div
+          style={{
+            ...sectionAnim(visible, 0.1),
+            maxWidth: 1080,
+            margin: "0 auto",
+            padding: "0 clamp(16px, 3vw, 40px)",
+          }}
+        >
           <VideoPlayer lang={lang} />
         </div>
 
