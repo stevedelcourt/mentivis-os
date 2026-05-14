@@ -8,7 +8,7 @@ import TalentOSWave from "./talentos-wave";
 const CONTENT = {
   fr: {
     eyebrow: "TalentOS",
-    headline: "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées.",
+    headline: "Recruter devient un syst\u00e8me.",
     subheadline: "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements — le tout dans un seul système connecté à vos outils RH.",
     ctaPrimary: "Démarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -18,7 +18,7 @@ const CONTENT = {
   },
   en: {
     eyebrow: "TalentOS",
-    headline: "The AI recruitment system that turns your sourcing into qualified hires.",
+    headline: "Recruiting becomes a system.",
     subheadline: "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management — all in a single system connected to your HR tools.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
