@@ -329,6 +329,35 @@ function runMigrations(db: SqlJsDb) {
   } catch {
     // Column already exists
   }
+
+  try {
+    const columns = db.prepare("PRAGMA table_info(jobs)").all() as { name: string }[];
+    if (columns.some((c) => c.name === "salary")) {
+      db.exec(`
+        CREATE TABLE jobs_new (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          slug TEXT UNIQUE NOT NULL,
+          reference TEXT UNIQUE NOT NULL,
+          title TEXT NOT NULL,
+          location TEXT NOT NULL,
+          remote INTEGER DEFAULT 0,
+          type TEXT NOT NULL CHECK(type IN ('cdi', 'cdd', 'freelance', 'stage', 'alternance')),
+          department TEXT NOT NULL,
+          description TEXT NOT NULL,
+          why_join TEXT NOT NULL,
+          published INTEGER DEFAULT 0,
+          created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+          updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );
+        INSERT INTO jobs_new (id, slug, reference, title, location, remote, type, department, description, why_join, published, created_at, updated_at)
+        SELECT id, slug, reference, title, location, remote, type, department, description, why_join, published, created_at, updated_at FROM jobs;
+        DROP TABLE jobs;
+        ALTER TABLE jobs_new RENAME TO jobs;
+      `);
+    }
+  } catch {
+    // salary column removed or migration not needed
+  }
 }
 
 function migrateFromJson(db: SqlJsDb) {
