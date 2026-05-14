@@ -186,7 +186,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   return (
     <>
       {/* Hero */}
-      <section style={{ padding: isMobile ? "40px 0 30px" : "60px 0 40px" }}>
+      <section style={{ padding: isMobile ? "50px 0 30px" : "70px 0 40px" }}>
         <div className="container">
           <div
             style={{

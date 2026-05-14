@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
+import IcosahedronAnimation from "@/components/icosahedron-animation";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -167,7 +168,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const H = isFr ? {
     metaTitle: "Securite — MentivisOS",
     heroEyebrow: "Securite",
-    heroHeadline: "L'IA pedagogique concue pour transformer la formation, guidee par la responsabilite et des protections qui garantissent la confidentialite des donnees.",
+    heroHeadline: "L'IA pedagogique pour transformer la formation, avec confidentialite et protections integrees.",
     engagementTitle: "Notre engagement securite",
     engagementBody1: "Chez MentivisOS, nous croyons profondement aux benefices de l'IA pour la formation et le recrutement. Notre technologie est utilisee par des entreprises et des institutions pour structurer les parcours de competence, analyser les profils candidats et orchestrer la montee en competences des equipes.",
     engagementBody2: "Nous savons qu'une mauvaise utilisation des donnees ou des algorithmes peut causer des torts. C'est pourquoi nous nous engageons a proteger les donnees de nos clients — apprenants, candidats, collaborateurs — avec le plus haut niveau de securite et de transparence.",
@@ -193,7 +194,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   } : {
     metaTitle: "Security — MentivisOS",
     heroEyebrow: "Security",
-    heroHeadline: "AI-powered pedagogy built to transform training, guided by responsibility and protections that guarantee data confidentiality.",
+    heroHeadline: "AI-powered pedagogy to transform training, with built-in confidentiality and protections.",
     engagementTitle: "Our security commitment",
     engagementBody1: "At MentivisOS, we deeply believe in the benefits of AI for training and recruitment. Our technology is used by companies and institutions to structure skill pathways, analyze candidate profiles, and orchestrate team upskilling.",
     engagementBody2: "We know that misuse of data or algorithms can cause harm. That's why we are committed to protecting our clients' data — learners, candidates, employees — with the highest level of security and transparency.",
@@ -274,25 +275,48 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       {/* ── HERO ── */}
       <section
         className="section"
-        style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionAnim(heroLoaded) }}
+        style={{
+          position: "relative",
+          paddingTop: "clamp(80px, 12vh, 140px)",
+          ...sectionAnim(heroLoaded),
+        }}
       >
-        <div className="container" style={{ maxWidth: 800 }}>
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 16 }}>
-            {H.heroEyebrow}
-          </p>
-          <h1
-            className="t-display"
-            style={{
-              fontSize: "clamp(32px, 5vw, 56px)",
-              fontWeight: 300,
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              color: "#000000",
-              margin: 0,
-            }}
-          >
-            {H.heroHeadline}
-          </h1>
+        {/* Icosahedron animation to the right */}
+        <div
+          style={{
+            position: "absolute",
+            left: "calc(var(--grid-margin) + 720px)",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "clamp(300px, 40vw, 600px)",
+            height: "clamp(300px, 40vw, 600px)",
+            opacity: 0.5,
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        >
+          <IcosahedronAnimation />
+        </div>
+
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ maxWidth: 720 }}>
+            <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 16 }}>
+              {H.heroEyebrow}
+            </p>
+            <h1
+              className="t-display"
+              style={{
+                fontSize: "clamp(32px, 5vw, 56px)",
+                fontWeight: 300,
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                color: "#000000",
+                margin: 0,
+              }}
+            >
+              {H.heroHeadline}
+            </h1>
+          </div>
         </div>
       </section>
 
