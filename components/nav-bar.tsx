@@ -144,21 +144,21 @@ export default function NavBar({ lang }: NavBarProps) {
             className="navbar-links"
             style={{ display: "flex", gap: 32, alignItems: "center" }}
           >
-            {/* LearningOS — plain link, dropdown reserved for future evolution */}
+            {/* LearningOS */}
             <Link
-              href={`/${lang}`}
+              href={`/${lang}/learningos`}
               className="t-nav navbar-link"
-              data-active={isActive("") && pathname === `/${lang}`}
+              data-active={isActive("/learningos")}
               style={{ padding: "20px 0" }}
             >
               {t.nav.learningOS}
             </Link>
 
-            {/* TalentOS — plain link, dropdown reserved for future evolution */}
+            {/* TalentOS */}
             <Link
-              href={`/${lang}`}
+              href={`/${lang}/talentos`}
               className="t-nav navbar-link"
-              data-active={isActive("") && pathname === `/${lang}`}
+              data-active={isActive("/talentos")}
               style={{ padding: "20px 0" }}
             >
               {t.nav.pipelineOS}

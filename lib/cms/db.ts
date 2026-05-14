@@ -45,6 +45,14 @@ async function getPosts(): Promise<Post[]> {
   return postsCache;
 }
 
+export async function getPostCount(): Promise<{ total: number; published: number; draft: number }> {
+  const db = await getDb();
+  const total = (db.prepare("SELECT COUNT(*) as c FROM posts").get() as any).c;
+  const published = (db.prepare("SELECT COUNT(*) as c FROM posts WHERE published = 1").get() as any).c;
+  const draft = total - published;
+  return { total, published, draft };
+}
+
 export async function getAllPosts(): Promise<Post[]> {
   return getPosts();
 }
@@ -612,6 +620,13 @@ function rowToSubmission(row: any): FormSubmission {
   };
 }
 
+export async function getSubmissionCount(): Promise<{ total: number; unread: number }> {
+  const db = await getDb();
+  const total = (db.prepare("SELECT COUNT(*) as c FROM submissions").get() as any).c;
+  const unread = (db.prepare("SELECT COUNT(*) as c FROM submissions WHERE read = 0").get() as any).c;
+  return { total, unread };
+}
+
 export async function getAllSubmissions(): Promise<FormSubmission[]> {
   const db = await getDb();
   const rows = db.prepare("SELECT * FROM submissions ORDER BY created_at DESC").all();
@@ -678,6 +693,14 @@ function rowToJob(row: any): Job {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+export async function getJobCount(): Promise<{ total: number; published: number; draft: number }> {
+  const db = await getDb();
+  const total = (db.prepare("SELECT COUNT(*) as c FROM jobs").get() as any).c;
+  const published = (db.prepare("SELECT COUNT(*) as c FROM jobs WHERE published = 1").get() as any).c;
+  const draft = total - published;
+  return { total, published, draft };
 }
 
 export async function getAllJobs(): Promise<Job[]> {

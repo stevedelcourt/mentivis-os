@@ -839,5 +839,75 @@
         }
       ]
     }
+  },
+  "learningosPage": {
+    "hero": {
+      "eyebrow": "LearningOS",
+      "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
+      "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes — le tout dans un seul système."
+    },
+    "featureGrid": {
+      "eyebrow": "Capacités",
+      "title": "Tout ce dont vous avez besoin pour former à l'échelle."
+    },
+    "workflowTabs": {
+      "eyebrow": "WORKFLOW",
+      "title": "Créez, formez et pilotez en un seul flux."
+    },
+    "showcase": {
+      "eyebrow": "FONCTIONNALITÉS CLÉS",
+      "title": "Des modèles puissants pour chaque besoin de formation."
+    },
+    "pipeline": {
+      "eyebrow": "PARCOURS COMPLET",
+      "title": "Du référentiel à la certification, un seul flux."
+    },
+    "enterprise": {
+      "eyebrow": "SÉCURITÉ & INFRASTRUCTURE",
+      "title": "Une infrastructure de niveau entreprise."
+    },
+    "testimonials": {
+      "eyebrow": "ILS NOUS FONT CONFIANCE",
+      "title": "Rejoignez les équipes qui forment avec LearningOS."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions fréquentes"
+    }
+  },
+  "talentosPage": {
+    "hero": {
+      "eyebrow": "TalentOS",
+      "headline": "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées.",
+      "subheadline": "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements — le tout dans un seul système connecté à vos outils RH."
+    },
+    "featureGrid": {
+      "eyebrow": "Capacités",
+      "title": "Tout ce dont vous avez besoin pour recruter à l'échelle."
+    },
+    "workflowTabs": {
+      "eyebrow": "WORKFLOW",
+      "title": "Sourcez, évaluez et recrutez en un seul flux."
+    },
+    "showcase": {
+      "eyebrow": "FONCTIONNALITÉS CLÉS",
+      "title": "Des modèles puissants pour chaque étape du recrutement."
+    },
+    "pipeline": {
+      "eyebrow": "PARCOURS COMPLET",
+      "title": "Du besoin au recrutement, un seul flux."
+    },
+    "enterprise": {
+      "eyebrow": "SÉCURITÉ & INFRASTRUCTURE",
+      "title": "Une infrastructure de niveau entreprise."
+    },
+    "testimonials": {
+      "eyebrow": "ILS NOUS FONT CONFIANCE",
+      "title": "Rejoignez les équipes qui recrutent avec TalentOS."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions fréquentes"
+    }
   }
 }

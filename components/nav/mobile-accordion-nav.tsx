@@ -54,13 +54,13 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
   return (
     <>
-      {/* LearningOS — plain link, submenu reserved for future evolution */}
-      <Link href={`/${lang}`} onClick={onClose} style={navStyle}>
+      {/* LearningOS */}
+      <Link href={`/${lang}/learningos`} onClick={onClose} style={navStyle}>
         <span>{t.nav.learningOS}</span>
       </Link>
 
-      {/* TalentOS — plain link, submenu reserved for future evolution */}
-      <Link href={`/${lang}`} onClick={onClose} style={navStyle}>
+      {/* TalentOS */}
+      <Link href={`/${lang}/talentos`} onClick={onClose} style={navStyle}>
         <span>{t.nav.pipelineOS}</span>
       </Link>
 

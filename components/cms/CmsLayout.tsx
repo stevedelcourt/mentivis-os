@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { CmsRole } from "@/hooks/useCmsAuth";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 
+type TabCounts = {
+  posts: { total: number; published: number; draft: number } | null;
+  jobs: { total: number; published: number; draft: number } | null;
+  submissions: { total: number; unread: number } | null;
+};
+
 export const CMS_TABS = [
-  { label: "Articles", href: "content-management" },
-  { label: "Offres d'emploi", href: "content-management/jobs" },
+  { label: "Articles", href: "content-management", countKey: "posts" as const },
+  { label: "Offres d'emploi", href: "content-management/jobs", countKey: "jobs" as const },
   { label: "Pages (HP)", href: "content-management/pages" },
   { label: "Tarifs", href: "content-management/tarifs" },
   { label: "SEO / JSON-LD", href: "content-management/seo" },
-  { label: "Soumissions", href: "content-management/soumissions" },
+  { label: "Soumissions", href: "content-management/soumissions", countKey: "submissions" as const },
   { label: "Parametres", href: "content-management/settings", godOnly: true },
 ];
 
@@ -42,14 +48,57 @@ export function RoleBadge({ role }: { role: CmsRole | null }) {
   );
 }
 
+const COUNT_URLS: Record<string, string> = {
+  posts: "/api/cms/posts/count",
+  jobs: "/api/cms/jobs/count",
+  submissions: "/api/cms/submissions/count",
+};
+
 export function CmsNavTabs({
   lang,
   role,
+  token,
 }: {
   lang: string;
   role: CmsRole | null;
+  token: string | null;
 }) {
   const isMobile = useIsMobile();
+  const [counts, setCounts] = useState<TabCounts>({
+    posts: null,
+    jobs: null,
+    submissions: null,
+  });
+
+  useEffect(() => {
+    if (!token) return;
+    const keys = ["posts", "jobs", "submissions"] as const;
+    keys.forEach(async (key) => {
+      try {
+        const res = await fetch(COUNT_URLS[key], {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setCounts((prev) => ({ ...prev, [key]: data }));
+        }
+      } catch {
+        // silently fail
+      }
+    });
+  }, [token]);
+
+  const badgeValue = (tab: (typeof CMS_TABS)[number]): string | null => {
+    if (!tab.countKey) return null;
+    const c = counts[tab.countKey];
+    if (!c) return null;
+    if (tab.countKey === "submissions") {
+      const s = c as { total: number; unread: number };
+      return s.unread > 0 ? String(s.unread) : null;
+    }
+    return String(c.total);
+  };
+
   return (
     <div
       className="cms-nav-scroll"
@@ -65,25 +114,51 @@ export function CmsNavTabs({
         flexWrap: isMobile ? "nowrap" : "wrap",
       }}
     >
-      {CMS_TABS.filter((t) => !t.godOnly || role === "god").map((tab) => (
-        <Link
-          key={tab.label}
-          href={`/${lang}/${tab.href}`}
-          style={{
-            padding: "8px 16px",
-            fontSize: 14,
-            fontWeight: 500,
-            color: "#0A0A0A",
-            background: "#F5F3F0",
-            borderRadius: 8,
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-            flexShrink: 0,
-          }}
-        >
-          {tab.label}
-        </Link>
-      ))}
+      {CMS_TABS.filter((t) => !t.godOnly || role === "god").map((tab) => {
+        const badge = badgeValue(tab);
+        return (
+          <Link
+            key={tab.label}
+            href={`/${lang}/${tab.href}`}
+            style={{
+              padding: "8px 16px",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#0A0A0A",
+              background: "#F5F3F0",
+              borderRadius: 8,
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            {tab.label}
+            {badge && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minWidth: 20,
+                  height: 20,
+                  padding: "0 6px",
+                  borderRadius: 999,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  background: tab.countKey === "submissions" ? "#2563EB" : "#0A0A0A",
+                  color: "#fff",
+                }}
+              >
+                {badge}
+              </span>
+            )}
+          </Link>
+        );
+      })}
     </div>
   );
 }
@@ -275,7 +350,7 @@ export function CmsLayout({
         </div>
       </div>
 
-      {showNav && <CmsNavTabs lang={lang} role={role} />}
+      {showNav && <CmsNavTabs lang={lang} role={role} token={token} />}
 
       {readOnly && <CmsReadOnlyBanner />}
       {error && <CmsAlert type="error" message={error} onDismiss={onDismissError} />}

@@ -839,5 +839,75 @@
         }
       ]
     }
+  },
+  "learningosPage": {
+    "hero": {
+      "eyebrow": "LearningOS",
+      "headline": "The AI-native training system that turns your employees into talents.",
+      "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development — all in a single system."
+    },
+    "featureGrid": {
+      "eyebrow": "Capabilities",
+      "title": "Everything you need to train at scale."
+    },
+    "workflowTabs": {
+      "eyebrow": "WORKFLOW",
+      "title": "Create, train and track in a single flow."
+    },
+    "showcase": {
+      "eyebrow": "KEY FEATURES",
+      "title": "Powerful models for every training need."
+    },
+    "pipeline": {
+      "eyebrow": "COMPLETE JOURNEY",
+      "title": "From framework to certification, a single flow."
+    },
+    "enterprise": {
+      "eyebrow": "SECURITY & INFRASTRUCTURE",
+      "title": "Enterprise-grade infrastructure."
+    },
+    "testimonials": {
+      "eyebrow": "TRUSTED BY",
+      "title": "Join the teams training with LearningOS."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions"
+    }
+  },
+  "talentosPage": {
+    "hero": {
+      "eyebrow": "TalentOS",
+      "headline": "The AI recruitment system that turns your sourcing into qualified hires.",
+      "subheadline": "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management — all in a single system connected to your HR tools."
+    },
+    "featureGrid": {
+      "eyebrow": "Capabilities",
+      "title": "Everything you need to recruit at scale."
+    },
+    "workflowTabs": {
+      "eyebrow": "WORKFLOW",
+      "title": "Source, evaluate and hire in a single flow."
+    },
+    "showcase": {
+      "eyebrow": "KEY FEATURES",
+      "title": "Powerful models for every recruitment stage."
+    },
+    "pipeline": {
+      "eyebrow": "COMPLETE JOURNEY",
+      "title": "From need to hire, a single flow."
+    },
+    "enterprise": {
+      "eyebrow": "SECURITY & INFRASTRUCTURE",
+      "title": "Enterprise-grade infrastructure."
+    },
+    "testimonials": {
+      "eyebrow": "TRUSTED BY",
+      "title": "Join the teams hiring with TalentOS."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions"
+    }
   }
 }
