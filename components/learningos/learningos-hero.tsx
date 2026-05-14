@@ -59,7 +59,8 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
       ref={ref}
       style={{
         background: "#ffffff",
-        padding: "clamp(96px, 12vw, 160px) 0 clamp(64px, 8vw, 96px)",
+        minHeight: "clamp(800px, 92vh, 1050px)",
+        padding: "clamp(96px, 12vw, 160px) 0 clamp(140px, 16vw, 220px)",
         position: "relative",
         overflow: "hidden",
       }}
