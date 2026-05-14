@@ -109,6 +109,7 @@ export default function ImpactHero({ lang }: { lang: Locale }) {
 
           {/* Right: image */}
           <div
+            className="impact-hero-img"
             style={{
               ...sectionAnim(visible, 0.3),
               position: "relative",
@@ -116,6 +117,7 @@ export default function ImpactHero({ lang }: { lang: Locale }) {
               overflow: "hidden",
               aspectRatio: "4/3",
               boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
+              marginTop: "clamp(100px, 11vw, 140px)",
             }}
           >
             <Image
@@ -133,6 +135,7 @@ export default function ImpactHero({ lang }: { lang: Locale }) {
       <style>{`
         @media (max-width: 900px) {
           .container > div { grid-template-columns: 1fr !important; }
+          .impact-hero-img { margin-top: 32px !important; }
         }
       `}</style>
     </section>
