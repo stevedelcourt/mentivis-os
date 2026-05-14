@@ -272,40 +272,150 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       <section id="principes" ref={principles.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(principles.visible, 0.05) }}>
         <div className="container">
           <h2 className="section-title">{H.principlesTitle}</h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: 16,
-            }}
-          >
-            {PRINCIPLES.map((p, i) => {
-              const content = isFr ? p.fr : p.en;
-              return (
-                <div
-                  key={i}
-                  className="principle-card"
-                  style={{
-                    padding: 24,
-                    borderRadius: 16,
-                    background: "#ffffff",
-                    border: "1px solid #e5e5e5",
-                    transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease",
-                    cursor: "default",
-                  }}
-                >
-                  <div style={{ color: "#000000", marginBottom: 14 }}>{p.icon}</div>
-                  <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 8px", color: "#000000" }}>{content.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{content.body}</p>
-                </div>
-              );
-            })}
+          <div className="principles-collage">
+            {/* Row 1: dark card (full), ghost, mid card */}
+            <div className="p-card p-card-dark" style={{ gridArea: "a" }}>
+              <div className="p-icon-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <h3 style={{ color: "#fff" }}>{H.fr ? PRINCIPLES[0].fr.title : PRINCIPLES[0].en.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.7)" }}>{H.fr ? PRINCIPLES[0].fr.body : PRINCIPLES[0].en.body}</p>
+            </div>
+            <div className="p-ghost" style={{ gridArea: "b" }} />
+            <div className="p-card p-card-mid" style={{ gridArea: "c" }}>
+              <div className="p-icon-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a10 10 0 0 1 10 10" /><path d="M12 2a10 10 0 0 0-10 10" /><path d="M2 12h20" /><circle cx="12" cy="12" r="4" />
+                </svg>
+              </div>
+              <h3 style={{ color: "#fff" }}>{H.fr ? PRINCIPLES[1].fr.title : PRINCIPLES[1].en.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.7)" }}>{H.fr ? PRINCIPLES[1].fr.body : PRINCIPLES[1].en.body}</p>
+            </div>
+            {/* Row 2: white card, ghost, white card */}
+            <div className="p-card p-card-light" style={{ gridArea: "d" }}>
+              <div className="p-icon-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[2].fr.title : PRINCIPLES[2].en.title}</h3>
+              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
+            </div>
+            <div className="p-ghost" style={{ gridArea: "e" }} />
+            <div className="p-card p-card-light" style={{ gridArea: "f" }}>
+              <div className="p-icon-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[3].fr.title : PRINCIPLES[3].en.title}</h3>
+              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
+            </div>
+            {/* Row 3: wide white card */}
+            <div className="p-card p-card-light p-card-wide" style={{ gridArea: "g" }}>
+              <div className="p-icon-pill">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+                </svg>
+              </div>
+              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[4].fr.title : PRINCIPLES[4].en.title}</h3>
+              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
+            </div>
           </div>
         </div>
         <style>{`
-          .principle-card:hover {
+          .principles-collage {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            grid-template-areas:
+              "a b c"
+              "d . e"
+              "g g .";
+            gap: 12px;
+          }
+          .p-card {
+            border-radius: 18px;
+            padding: 28px 24px 24px;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          .p-card-dark {
+            background: #1a1a2e;
+            grid-area: a;
+          }
+          .p-card-mid {
+            background: #777169;
+            grid-area: c;
+          }
+          .p-card-light {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            grid-area: g;
+          }
+          .p-card-wide {
+            grid-column: span 2;
+          }
+          .p-ghost {
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 18px;
+          }
+          .p-icon-pill {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+          }
+          .p-card-light .p-icon-pill {
+            background: rgba(0,0,0,0.06);
+          }
+          .p-card-light .p-icon-pill svg {
+            color: #000;
+          }
+          .p-card h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 10px;
+            line-height: 1.3;
+          }
+          .p-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+          }
+          .p-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+          }
+          @media (max-width: 768px) {
+            .principles-collage {
+              grid-template-columns: 1fr 1fr;
+              grid-template-areas:
+                "a c"
+                "d f"
+                "g g";
+            }
+          }
+          @media (max-width: 480px) {
+            .principles-collage {
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "a"
+                "c"
+                "d"
+                "f"
+                "g";
+            }
+            .p-card-wide {
+              grid-column: span 1;
+            }
           }
         `}</style>
       </section>
