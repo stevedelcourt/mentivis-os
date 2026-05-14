@@ -256,10 +256,10 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               style={{
                 fontSize: 13,
                 fontWeight: 500,
-                color: activeSection === s.id ? "#0A0A0A" : "#A8A29E",
+                color: activeSection === s.id ? "#000000" : "#777169",
                 textDecoration: "none",
                 padding: "8px 0",
-                borderBottom: activeSection === s.id ? "2px solid #0A0A0A" : "2px solid transparent",
+                  borderBottom: activeSection === s.id ? "2px solid #000000" : "2px solid transparent",
                 transition: "color 0.15s, border-color 0.15s",
                 whiteSpace: "nowrap",
                 fontFamily: "var(--font-sans)",
@@ -287,7 +287,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               fontWeight: 300,
               lineHeight: 1.15,
               letterSpacing: "-0.02em",
-              color: "#3E3B38",
+              color: "#000000",
               margin: 0,
             }}
           >
@@ -297,7 +297,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       </section>
 
       {/* ── ENGAGEMENT ── */}
-      <section id="engagement" ref={engagement.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(engagement.visible) }}>
+      <section id="engagement" ref={engagement.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(engagement.visible) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <h2 className="section-title">{H.engagementTitle}</h2>
           <p className="section-body">{H.engagementBody1}</p>
@@ -306,12 +306,12 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
             style={{
               marginTop: 40,
               padding: "28px 32px",
-              background: "#F9F7F4",
+              background: "#f5f5f5",
               borderRadius: 16,
-              borderLeft: "3px solid #0A0A0A",
+              borderLeft: "3px solid #000000",
             }}
           >
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: "#3E3B38", fontStyle: "italic", margin: "0 0 12px" }}>
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: "#000000", margin: "0 0 12px" }}>
               &ldquo;{H.engagementQuote}&rdquo;
             </p>
             <p style={{ fontSize: 13, color: "#777169", margin: 0 }}>{H.engagementAuthor}</p>
@@ -320,7 +320,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       </section>
 
       {/* ── PRINCIPLES ── */}
-      <section id="principes" ref={principles.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(principles.visible, 0.05) }}>
+      <section id="principes" ref={principles.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(principles.visible, 0.05) }}>
         <div className="container">
           <h2 className="section-title">{H.principlesTitle}</h2>
           <div
@@ -339,14 +339,14 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   style={{
                     padding: 24,
                     borderRadius: 16,
-                    background: "#FAFAF8",
-                    border: "1px solid #F0EBE5",
+                    background: "#ffffff",
+                    border: "1px solid #e5e5e5",
                     transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease",
                     cursor: "default",
                   }}
                 >
-                  <div style={{ color: "#0A0A0A", marginBottom: 14 }}>{p.icon}</div>
-                  <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 8px", color: "#0A0A0A" }}>{content.title}</h3>
+                  <div style={{ color: "#000000", marginBottom: 14 }}>{p.icon}</div>
+                  <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 8px", color: "#000000" }}>{content.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{content.body}</p>
                 </div>
               );
@@ -362,7 +362,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       </section>
 
       {/* ── PROTECTIONS ── */}
-      <section id="protections" ref={protections.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(protections.visible, 0.1) }}>
+      <section id="protections" ref={protections.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(protections.visible, 0.1) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <h2 className="section-title">{H.protectionsTitle}</h2>
           <p className="section-body">{H.protectionsIntro}</p>
@@ -375,9 +375,9 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   alignItems: "flex-start",
                   gap: 16,
                   padding: "18px 20px",
-                  background: "#FAFAF8",
+                  background: "#ffffff",
                   borderRadius: 12,
-                  border: "1px solid #F0EBE5",
+                  border: "1px solid #e5e5e5",
                 }}
               >
                 <span
@@ -385,7 +385,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                     width: 28,
                     height: 28,
                     borderRadius: "50%",
-                    background: "#0A0A0A",
+                    background: "#000000",
                     color: "#fff",
                     display: "flex",
                     alignItems: "center",
@@ -399,7 +399,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   {i + 1}
                 </span>
                 <div>
-                  <h3 style={{ fontSize: 15, fontWeight: 500, margin: "0 0 4px", color: "#0A0A0A" }}>{layer.title}</h3>
+                  <h3 style={{ fontSize: 15, fontWeight: 500, margin: "0 0 4px", color: "#000000" }}>{layer.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{layer.desc}</p>
                 </div>
               </div>
@@ -409,7 +409,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       </section>
 
       {/* ── INFRASTRUCTURE ── */}
-      <section id="infrastructure" ref={infrastructure.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(infrastructure.visible, 0.15) }}>
+      <section id="infrastructure" ref={infrastructure.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(infrastructure.visible, 0.15) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <h2 className="section-title">{H.infrastructureTitle}</h2>
           <div
@@ -424,15 +424,15 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                 key={i}
                 style={{
                   padding: "20px 24px",
-                  background: "#FAFAF8",
+                  background: "#ffffff",
                   borderRadius: 12,
-                  border: "1px solid #F0EBE5",
+                  border: "1px solid #e5e5e5",
                 }}
               >
-                <p style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#A8A29E", marginBottom: 6, fontWeight: 500 }}>
+                <p style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#777169", marginBottom: 6, fontWeight: 500 }}>
                   {item.label}
                 </p>
-                <p style={{ fontSize: 15, lineHeight: 1.5, color: "#3E3B38", margin: 0 }}>{item.value}</p>
+                <p style={{ fontSize: 15, lineHeight: 1.5, color: "#000000", margin: 0 }}>{item.value}</p>
               </div>
             ))}
           </div>
@@ -442,7 +442,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       <CTABlock lang={lang} variant="final" />
 
       {/* ── FAQ ── */}
-      <section id="faq" ref={faq.ref} className="section" style={{ paddingTop: 100, paddingBottom: 120, ...sectionAnim(faq.visible, 0.25) }}>
+      <section id="faq" ref={faq.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", paddingBottom: 120, ...sectionAnim(faq.visible, 0.25) }}>
         <div className="container" style={{ maxWidth: 720 }}>
           <h2 className="section-title">{H.faqTitle}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -450,7 +450,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <div
                 key={i}
                 style={{
-                  border: "1px solid #F0EBE5",
+                  border: "1px solid #e5e5e5",
                   borderRadius: 14,
                   overflow: "hidden",
                   background: "#fff",
@@ -471,7 +471,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                     cursor: "pointer",
                     fontSize: 15,
                     fontWeight: 500,
-                    color: "#0A0A0A",
+                    color: "#000000",
                     textAlign: "left",
                     fontFamily: "var(--font-sans)",
                     lineHeight: 1.4,
@@ -527,19 +527,22 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           font-size: clamp(28px, 4vw, 44px);
           font-weight: 300;
           line-height: 1.2;
-          color: #3E3B38;
+          color: #000000;
           margin: 0 0 24px;
           letter-spacing: -0.01em;
         }
         .section-body {
           font-family: var(--font-sans);
-          font-size: 16px;
-          line-height: 1.7;
+          font-size: 18px;
+          line-height: 1.6;
           color: #777169;
           margin: 0 0 16px;
           max-width: 680px;
         }
         .security-sticky-nav::-webkit-scrollbar { display: none; }
+        @media (max-width: 1024px) {
+          .security-sticky-nav { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+        }
         @media (max-width: 768px) {
           .section-title { margin-bottom: 16px; }
         }

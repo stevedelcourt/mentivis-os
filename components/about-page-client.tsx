@@ -196,7 +196,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
               fontWeight: 300,
               lineHeight: 1.15,
               letterSpacing: "-0.02em",
-              color: "#3E3B38",
+              color: "#000000",
               margin: "0 0 20px",
             }}
           >
@@ -209,7 +209,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── CONVICTION ── */}
-      <section ref={conviction.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(conviction.visible) }}>
+      <section ref={conviction.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(conviction.visible) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <div
             style={{
@@ -238,7 +238,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── HISTOIRE ── */}
-      <section id="histoire" ref={histoire.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(histoire.visible, 0.05) }}>
+      <section id="histoire" ref={histoire.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(histoire.visible, 0.05) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <h2 className="section-title">{H.histoireTitle}</h2>
           <p className="section-body">{H.histoireBody1}</p>
@@ -246,13 +246,13 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
           <div
             style={{
               padding: "20px 24px",
-              background: "#F9F7F4",
+              background: "#f5f5f5",
               borderRadius: 12,
-              borderLeft: "3px solid #0A0A0A",
+              borderLeft: "3px solid #000000",
               marginTop: 8,
             }}
           >
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: "#3E3B38", margin: 0, fontWeight: 450 }}>
+            <p style={{ fontSize: 16, lineHeight: 1.6, color: "#000000", margin: 0, fontWeight: 450 }}>
               {H.histoireBody3}
             </p>
           </div>
@@ -260,9 +260,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── EQUIPE ── */}
-      <section id="equipe" ref={equipe.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(equipe.visible, 0.1) }}>
+      <section id="equipe" ref={equipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(equipe.visible, 0.1) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A29E", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
             {H.equipeTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.equipeSub}</h2>
@@ -274,25 +274,25 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
             }}
           >
             {TEAM.map((member, i) => (
-              <div key={i} style={{ textAlign: "center" }}>
-                <div
-                  style={{
-                    width: "100%",
-                    aspectRatio: "1/1",
-                    borderRadius: 16,
-                    overflow: "hidden",
-                    marginBottom: 14,
-                    background: "#F0EBE5",
-                  }}
-                >
-                  <img
-                    src={member.img}
-                    alt={member.name}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                  />
-                </div>
-                <p style={{ fontSize: 15, fontWeight: 500, color: "#0A0A0A", margin: "0 0 4px" }}>{member.name}</p>
+              <div key={i}>
+          <div
+            style={{
+              width: "100%",
+              aspectRatio: "1/1",
+              borderRadius: 16,
+              overflow: "hidden",
+              marginBottom: 14,
+              background: "#e5e5e5",
+            }}
+          >
+            <img
+              src={member.img}
+              alt={member.name}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+          </div>
+                <p style={{ fontSize: 15, fontWeight: 500, color: "#000000", margin: "0 0 4px" }}>{member.name}</p>
                 <p style={{ fontSize: 13, color: "#777169", margin: 0 }}>{isFr ? member.roleFr : member.roleEn}</p>
               </div>
             ))}
@@ -301,9 +301,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── APPROCHE ── */}
-      <section id="approche" ref={approche.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(approche.visible, 0.15) }}>
+      <section id="approche" ref={approche.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(approche.visible, 0.15) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A29E", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
             {H.approcheTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 8 }}>{H.approcheSub}</h2>
@@ -322,8 +322,8 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                 style={{
                   padding: 24,
                   borderRadius: 16,
-                  background: "#FAFAF8",
-                  border: "1px solid #F0EBE5",
+                  background: "#ffffff",
+                  border: "1px solid #e5e5e5",
                   transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease",
                   cursor: "default",
                 }}
@@ -334,7 +334,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                     fontSize: 10,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
-                    color: "#A8A29E",
+                    color: "#777169",
                     fontWeight: 600,
                     marginBottom: 10,
                   }}
@@ -355,9 +355,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── SIGNATURES ── */}
-      <section ref={signatures.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(signatures.visible, 0.2) }}>
+      <section ref={signatures.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(signatures.visible, 0.2) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A29E", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
             {H.signaturesTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.signaturesSub}</h2>
@@ -370,9 +370,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                   alignItems: "flex-start",
                   gap: 20,
                   padding: "20px 24px",
-                  background: "#FAFAF8",
+                  background: "#ffffff",
                   borderRadius: 12,
-                  border: "1px solid #F0EBE5",
+                  border: "1px solid #e5e5e5",
                 }}
               >
                 <span
@@ -388,7 +388,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                   {s.num}
                 </span>
                 <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 4px", color: "#0A0A0A" }}>{s.title}</h3>
+                  <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 4px", color: "#000000" }}>{s.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
@@ -398,9 +398,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── VALEURS ── */}
-      <section ref={valeurs.ref} className="section" style={{ paddingTop: 100, ...sectionAnim(valeurs.visible, 0.25) }}>
+      <section ref={valeurs.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(valeurs.visible, 0.25) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A29E", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
             {H.valeursTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.valeursSub}</h2>
@@ -417,13 +417,12 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                 style={{
                   padding: "24px 20px",
                   borderRadius: 12,
-                  border: "1px solid #F0EBE5",
-                  textAlign: "center",
+                  border: "1px solid #e5e5e5",
                   transition: "background 0.2s",
                   cursor: "default",
                 }}
               >
-                <p style={{ fontSize: 14, fontWeight: 500, color: "#0A0A0A", margin: "0 0 8px", letterSpacing: "0.02em" }}>
+                <p style={{ fontSize: 14, fontWeight: 500, color: "#000000", margin: "0 0 8px", letterSpacing: "0.02em" }}>
                   {v.title}
                 </p>
                 <p style={{ fontSize: 13, lineHeight: 1.5, color: "#777169", margin: 0 }}>{v.body}</p>
@@ -441,14 +440,14 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
           font-size: clamp(28px, 4vw, 44px);
           font-weight: 300;
           line-height: 1.2;
-          color: #3E3B38;
+          color: #000000;
           margin: 0 0 24px;
           letter-spacing: -0.01em;
         }
         .section-body {
           font-family: var(--font-sans);
-          font-size: 16px;
-          line-height: 1.7;
+          font-size: 18px;
+          line-height: 1.6;
           color: #777169;
           margin: 0 0 16px;
           max-width: 680px;
