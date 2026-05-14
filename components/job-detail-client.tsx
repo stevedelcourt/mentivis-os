@@ -57,22 +57,6 @@ function escapeHtml(text: string): string {
     .replace(/>/g, "&gt;");
 }
 
-function useVisible(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-}
-
 interface JobDetailProps {
   lang: Locale;
   slug: string;
@@ -107,8 +91,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [honeypot, setHoneypot] = useState("");
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
   const [cvFile, setCvFile] = useState<File | null>(null);
-
-  const heroV = useVisible(0.2);
 
   useEffect(() => {
     async function fetchJob() {
@@ -207,10 +189,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       <section style={{ padding: isMobile ? "40px 0 30px" : "60px 0 40px" }}>
         <div className="container">
           <div
-            ref={heroV.ref}
             style={{
-              opacity: heroV.visible ? 1 : 0,
-              transform: heroV.visible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.6s ease, transform 0.6s ease",
             }}
           >
