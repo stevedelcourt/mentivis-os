@@ -75,8 +75,8 @@
   },
   "hero": {
     "eyebrow": "Mentivis OS",
-    "headline": "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
-    "subheadline": "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
+    "headline": "A training system that learns as much as it teaches.",
+    "subheadline": "Generate tailored learning paths, adapt content automatically, and track your teams' progress in a single AI-native system.",
     "ctaPrimary": "Start for free",
     "ctaSecondary": "Contact the team",
     "proof": "Used by training departments, CFAs, corporate campuses."
