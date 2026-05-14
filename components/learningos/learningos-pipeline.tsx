@@ -184,7 +184,6 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
                 <span style={{ color: "#fff", fontSize: 10, fontWeight: 600, textAlign: "center" }}>
                   {ch.thumbnail ? "" : ch.label}
                 </span>
-                </span>
               </div>
             </button>
           ))}
