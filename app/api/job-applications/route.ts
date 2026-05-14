@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
             { name: "message", value: message },
             { name: "jobtitle", value: `${jobTitle} (${jobReference})` },
             { name: "company", value: linkedin || "" },
-            { name: "cv_fichier_talent", value: hubspotCvUrl || "" },
+            { name: "lien_cv", value: hubspotCvUrl || "" },
           ],
           context: {
             pageUri: "https://sc4bovu7233.universe.wf/carrieres",
