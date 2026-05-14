@@ -95,41 +95,37 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
           pointerEvents: "none",
         }}
       >
-        {/* Bottom-left: Play button */}
+        {/* Bottom-left: Play button — circular glass, icon only */}
         <button
           onClick={handlePlay}
           style={{
             position: "absolute",
             bottom: 28,
             left: 28,
+            width: 48,
+            height: 48,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 8,
-            background: "rgba(255,255,255,0.12)",
-            backdropFilter: "blur(10px)",
-            border: "2px solid rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.10)",
+            backdropFilter: "blur(12px)",
             borderRadius: 999,
-            padding: "0 24px 0 20px",
-            height: 48,
             cursor: "pointer",
             pointerEvents: "auto",
             transition: "background 0.2s ease",
+            border: "none",
           }}
         >
           {playing ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
               <rect x="6" y="4" width="4" height="16" rx="1"/>
               <rect x="14" y="4" width="4" height="16" rx="1"/>
             </svg>
           ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
               <polygon points="5,3 19,12 5,21" />
             </svg>
           )}
-          <span style={{ color: "#fff", fontSize: 13, fontWeight: 500, whiteSpace: "nowrap" }}>
-            {playing ? (lang === "fr" ? "Pause" : "Pause") : (lang === "fr" ? "Lecture" : "Play")}
-          </span>
         </button>
 
         {/* Bottom-center: Thumbnail rail */}
@@ -152,15 +148,13 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
               style={{
                 width: 72,
                 height: 48,
-                borderRadius: 14,
+                borderRadius: 12,
                 overflow: "hidden",
-                border: activeChapter === i ? "3px solid white" : "3px solid transparent",
-                transform: activeChapter === i ? "scale(1.04)" : "scale(1)",
-                boxShadow: activeChapter === i ? "0 8px 24px rgba(0,0,0,0.35)" : "none",
-                opacity: activeChapter === i ? 1 : 0.65,
+                border: activeChapter === i ? "1px solid rgba(255,255,255,0.7)" : "1px solid rgba(255,255,255,0)",
+                opacity: activeChapter === i ? 1 : 0.6,
                 background: "#1a1a2e",
                 cursor: "pointer",
-                transition: "all 0.2s cubic-bezier(0.22, 1, 0.36, 1)",
+                transition: "all 0.2s ease",
                 padding: 0,
                 flexShrink: 0,
               }}
@@ -272,11 +266,11 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           {lang === "fr" ? "Du besoin à la certification, un seul flux." : "From need to certification, a single flow."}
         </h2>
 
-        {/* Video player — contained within centered media block, not edge-to-edge */}
+        {/* Video player — full content column width */}
         <div
           style={{
             ...sectionAnim(visible, 0.1),
-            maxWidth: 1080,
+            maxWidth: 1240,
             margin: "0 auto",
             padding: "0 clamp(16px, 3vw, 40px)",
           }}
