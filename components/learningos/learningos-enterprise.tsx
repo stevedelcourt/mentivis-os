@@ -97,20 +97,39 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
             >
               <div
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                  background: "#0A0A0A",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  gap: 8,
+                  background: "rgba(255,255,255,0.12)",
+                  backdropFilter: "blur(6px)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: 10,
+                  padding: "6px 12px 6px 10px",
                   flexShrink: 0,
-                  color: "#fff",
-                  fontSize: 16,
-                  fontWeight: 600,
                 }}
               >
-                {i + 1}
+                <svg width="14" height="14" viewBox="0 0 130 130" fill="none">
+                  <rect x="20" y="20" width="10" height="10" fill="white"/>
+                  <rect x="100" y="20" width="10" height="10" fill="white"/>
+                  <rect x="20" y="40" width="10" height="10" fill="white"/>
+                  <rect x="40" y="40" width="10" height="10" fill="white"/>
+                  <rect x="80" y="40" width="10" height="10" fill="white"/>
+                  <rect x="100" y="40" width="10" height="10" fill="white"/>
+                  <rect x="20" y="60" width="10" height="10" fill="white"/>
+                  <rect x="40" y="60" width="10" height="10" fill="white"/>
+                  <rect x="60" y="60" width="10" height="10" fill="white"/>
+                  <rect x="80" y="60" width="10" height="10" fill="white"/>
+                  <rect x="100" y="60" width="10" height="10" fill="white"/>
+                  <rect x="20" y="80" width="10" height="10" fill="white"/>
+                  <rect x="40" y="80" width="10" height="10" fill="white"/>
+                  <rect x="80" y="80" width="10" height="10" fill="white"/>
+                  <rect x="100" y="80" width="10" height="10" fill="white"/>
+                  <rect x="20" y="100" width="10" height="10" fill="white"/>
+                  <rect x="100" y="100" width="10" height="10" fill="white"/>
+                </svg>
+                <span style={{ color: "#fff", fontSize: 13, fontWeight: 600, lineHeight: 1 }}>
+                  {i + 1}
+                </span>
               </div>
               <div style={{ minWidth: 0, color: "#fff" }}>
                 <h4 style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: "inherit" }}>{item.label}</h4>
