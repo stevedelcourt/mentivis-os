@@ -6,7 +6,7 @@ import LearningOSHero from "./learningos-hero";
 import LearningOSFeatureGrid from "./learningos-feature-grid";
 import LearningOSWorkflowTabs from "./learningos-workflow-tabs";
 import LearningOSShowcase from "./learningos-showcase";
-import LearningOSPipeline from "./learningos-pipeline";
+import { LearningOSPipeline } from "./learningos-pipeline";
 import LearningOSEnterprise from "./learningos-enterprise";
 import LearningOSTestimonials from "./learningos-testimonials";
 import LearningOSFAQ from "./learningos-faq";
