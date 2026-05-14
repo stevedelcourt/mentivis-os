@@ -199,9 +199,9 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
             width: 48,
             height: 48,
             borderRadius: 999,
-            background: "rgba(255,255,255,0.12)",
-            backdropFilter: "blur(10px)",
-            border: "2px solid rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.10)",
+            backdropFilter: "blur(12px)",
+            border: "none",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -278,13 +278,10 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           {lang === "fr" ? "Du besoin à la certification, un seul flux." : "From need to certification, a single flow."}
         </h2>
 
-        {/* Video player — full content column width */}
+        {/* Video player — full content column width, no padding */}
         <div
           style={{
             ...sectionAnim(visible, 0.1),
-            maxWidth: 1240,
-            margin: "0 auto",
-            padding: "0 clamp(16px, 3vw, 40px)",
           }}
         >
           <VideoPlayer lang={lang} />
