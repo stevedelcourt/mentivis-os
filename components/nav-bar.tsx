@@ -194,7 +194,7 @@ export default function NavBar({ lang }: NavBarProps) {
                       eyebrow: t.nav.eyebrows.initiatives,
                       links: t.nav.ressourcesMenu.initiatives.map((label, i) => ({
                         label,
-                        href: i === 2 ? `/${lang}/ambassadors` : `/${lang}`,
+                        href: i === 0 ? `/${lang}/impact` : i === 2 ? `/${lang}/ambassadors` : `/${lang}`,
                       })),
                     },
                   ]}

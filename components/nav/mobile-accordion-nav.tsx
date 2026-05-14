@@ -102,7 +102,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
             {t.nav.ressourcesMenu?.entreprise?.[4] || "Carrieres"}
           </Link>
           <span style={eyebrowStyle}>{t.nav.eyebrows.initiatives}</span>
-          <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
+          <Link href={`/${lang}/impact`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.initiatives?.[0] || "Programme Impact"}
           </Link>
           <Link href={`/${lang}`} onClick={onClose} style={subItemStyle}>
