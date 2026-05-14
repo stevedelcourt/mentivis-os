@@ -63,13 +63,22 @@ function GreenSphereCard() {
 function RadialCircleCard() {
   const ticks = Array.from({ length: 48 }, (_, i) => {
     const angle = (i / 48) * 360;
+    const rad = (angle * Math.PI) / 180;
+    const r1 = 120;
+    const r2 = 138;
+    const cx = 160;
+    const cy = 140;
+    const x1 = +(cx + r1 * Math.cos(rad)).toFixed(2);
+    const y1 = +(cy + r1 * Math.sin(rad)).toFixed(2);
+    const x2 = +(cx + r2 * Math.cos(rad)).toFixed(2);
+    const y2 = +(cy + r2 * Math.sin(rad)).toFixed(2);
     return (
       <line
         key={i}
-        x1={160 + 120 * Math.cos((angle * Math.PI) / 180)}
-        y1={140 + 120 * Math.sin((angle * Math.PI) / 180)}
-        x2={160 + 138 * Math.cos((angle * Math.PI) / 180)}
-        y2={140 + 138 * Math.sin((angle * Math.PI) / 180)}
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
         stroke="rgba(255,255,255,0.2)"
         strokeWidth={1.5}
       />
