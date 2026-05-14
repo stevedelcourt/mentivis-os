@@ -136,35 +136,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
     transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
   });
 
-  const stickyNav = useRef<HTMLDivElement>(null);
-  const [activeSection, setActiveSection] = useState("engagement");
-
-  const sections = [
-    { id: "engagement", fr: "Engagement", en: "Commitment" },
-    { id: "principes", fr: "Principes", en: "Principles" },
-    { id: "protections", fr: "Protections", en: "Protections" },
-    { id: "infrastructure", fr: "Infrastructure", en: "Infrastructure" },
-    { id: "faq", fr: "FAQ", en: "FAQ" },
-  ];
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        }
-      },
-      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
-    );
-    for (const { id } of sections) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-    return () => observer.disconnect();
-  }, []);
-
   const H = isFr ? {
     metaTitle: "Securite — MentivisOS",
     heroEyebrow: "Securite",
@@ -224,54 +195,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      {/* ── STICKY NAV ── */}
-      <div
-        ref={stickyNav}
-        className="security-sticky-nav"
-        style={{
-          position: "sticky",
-          top: 60,
-          zIndex: 50,
-          background: "rgba(255,255,255,0.85)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          borderBottom: "1px solid #F0EBE5",
-          padding: "0 var(--grid-margin)",
-        }}
-      >
-        <div
-          className="container"
-          style={{
-            display: "flex",
-            gap: 24,
-            paddingTop: 8,
-            paddingBottom: 8,
-            overflowX: "auto",
-            scrollbarWidth: "none",
-          }}
-        >
-          {sections.map((s) => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: activeSection === s.id ? "#000000" : "#777169",
-                textDecoration: "none",
-                padding: "8px 0",
-                  borderBottom: activeSection === s.id ? "2px solid #000000" : "2px solid transparent",
-                transition: "color 0.15s, border-color 0.15s",
-                whiteSpace: "nowrap",
-                fontFamily: "var(--font-sans)",
-              }}
-            >
-              {isFr ? s.fr : s.en}
-            </a>
-          ))}
-        </div>
-      </div>
-
       {/* ── HERO ── */}
       <section
         className="section"
@@ -288,10 +211,9 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           style={{
             position: "absolute",
             left: "calc(var(--grid-margin) + 720px)",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "clamp(180px, 24vw, 360px)",
-            height: "clamp(180px, 24vw, 360px)",
+            top: 0,
+            width: "clamp(300px, 40vw, 600px)",
+            height: "clamp(300px, 40vw, 600px)",
             opacity: 0.5,
             zIndex: 0,
             pointerEvents: "none",
@@ -564,9 +486,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           margin: 0 0 16px;
           max-width: 680px;
         }
-        .security-sticky-nav::-webkit-scrollbar { display: none; }
         @media (max-width: 1024px) {
-          .security-sticky-nav { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
           .section-hero-ico { display: none !important; }
         }
         @media (max-width: 768px) {
