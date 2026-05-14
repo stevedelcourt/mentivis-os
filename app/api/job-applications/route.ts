@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
 
     let cvUrl: string | undefined;
     let cvFilename: string | undefined;
+    let cvBuffer: Buffer | undefined;
 
     if (file && file.size > 0) {
       if (file.type !== "application/pdf") {
@@ -82,6 +83,7 @@ export async function POST(request: NextRequest) {
       }
 
       const buffer = Buffer.from(await file.arrayBuffer());
+      cvBuffer = buffer;
       fs.writeFileSync(path.join(CVS_DIR, cvFilename), buffer);
 
       cvUrl = `/api/cvs/${cvFilename}`;
@@ -101,6 +103,34 @@ export async function POST(request: NextRequest) {
       read: false,
     });
 
+    // Upload CV to HubSpot Files API
+    let hubspotCvUrl = "";
+    if (cvFilename && cvBuffer && process.env.HUBSPOT_ACCESS_TOKEN) {
+      try {
+        const fileFormData = new FormData();
+        fileFormData.append("file", new Blob([new Uint8Array(cvBuffer)], { type: "application/pdf" }), cvFilename);
+        fileFormData.append("options", JSON.stringify({
+          access: "PRIVATE",
+          folderPath: "/cvs",
+          fileName: cvFilename,
+        }));
+        const fileRes = await fetch("https://api.hubapi.com/files/v3/files", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` },
+          body: fileFormData,
+        });
+        if (fileRes.ok) {
+          const fileData = await fileRes.json();
+          hubspotCvUrl = fileData.url;
+        } else {
+          const errText = await fileRes.text().catch(() => "unknown");
+          console.error("[JobApp] HubSpot Files API error:", fileRes.status, errText);
+        }
+      } catch (err) {
+        console.error("[JobApp] HubSpot Files upload error:", err);
+      }
+    }
+
     // Send to HubSpot
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
     const hubspotFormId = process.env.HUBSPOT_FORM_ID;
@@ -117,7 +147,7 @@ export async function POST(request: NextRequest) {
             { name: "message", value: message },
             { name: "jobtitle", value: `${jobTitle} (${jobReference})` },
             { name: "company", value: linkedin || "" },
-            { name: "lien_cv", value: cvUrl || "" },
+            { name: "cv_fichier_talent", value: hubspotCvUrl || "" },
           ],
           context: {
             pageUri: "https://sc4bovu7233.universe.wf/carrieres",
