@@ -178,8 +178,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Ensure lien_cv is set via CRM API (form may ignore hidden fields)
+    let crmOk = false;
     if (cvFinalUrl && process.env.HUBSPOT_ACCESS_TOKEN) {
       try {
+        // Brief delay to let HubSpot process the contact from form submission
+        await new Promise((r) => setTimeout(r, 2000));
         const searchRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts/search", {
           method: "POST",
           headers: {
@@ -194,7 +197,7 @@ export async function POST(request: NextRequest) {
           const searchData = await searchRes.json();
           if (searchData.results?.length > 0) {
             const contactId = searchData.results[0].id;
-            await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
+            const patchRes = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
@@ -202,14 +205,30 @@ export async function POST(request: NextRequest) {
               },
               body: JSON.stringify({ properties: { lien_cv: cvFinalUrl } }),
             });
+            crmOk = patchRes.ok;
+            if (!patchRes.ok) {
+              const errText = await patchRes.text().catch(() => "unknown");
+              console.error("[JobApp] CRM PATCH error:", patchRes.status, errText);
+            }
+          } else {
+            console.error("[JobApp] CRM search: no contact found for", email);
           }
+        } else {
+          const errText = await searchRes.text().catch(() => "unknown");
+          console.error("[JobApp] CRM search error:", searchRes.status, errText);
         }
       } catch (err) {
         console.error("[JobApp] CRM API error:", err);
       }
     }
 
-    return NextResponse.json({ success: true, hubspot: hubspotOk });
+    return NextResponse.json({
+      success: true,
+      hubspot: hubspotOk,
+      crm: crmOk,
+      hasToken: !!process.env.HUBSPOT_ACCESS_TOKEN,
+      cvUrl: cvFinalUrl,
+    });
   } catch (err) {
     console.error("[JobApp] POST error:", err);
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
