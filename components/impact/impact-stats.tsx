@@ -49,8 +49,8 @@ function BarChart({
   labels: string[];
 }) {
   const [tip, setTip] = useState<TooltipData>({ x: 0, y: 0, html: "", show: false });
-  const barH = 32;
-  const gap = 16;
+  const barH = 13;
+  const gap = 22;
   const H = data.length * (barH + gap);
   const W = 560;
   const M = { l: 140, r: 60, t: 10, b: 10 };
@@ -118,7 +118,7 @@ function BarChart({
               {/* Label */}
               <text
                 x={M.l - 10}
-                y={y + barH / 2 + 5}
+                y={y + barH / 2 + 4}
                 textAnchor="end"
                 fill="#374151"
                 fontSize={12}
@@ -129,7 +129,7 @@ function BarChart({
               {/* Value */}
               <text
                 x={M.l + bw + 6}
-                y={y + barH / 2 + 5}
+                y={y + barH / 2 + 4}
                 fill={color}
                 fontSize={12}
                 fontWeight={600}
@@ -174,7 +174,7 @@ const CONTENT = {
           labels: ["Tâches IA 2030", "Tâches IA 2035", "Reconversion 2030"],
           values: [27, 45, 59],
           max: 70,
-          color: "#F97316",
+          color: "#C87050",
           unit: "%",
         },
         source: "Source : McKinsey Global Institute / Institut de l'Entreprise, « L'IA et l'évolution des compétences en France », 2025",
@@ -187,7 +187,7 @@ const CONTENT = {
           labels: ["Prime salariale IA", "Utilisation Bac+5", "Utilisation non diplômés"],
           values: [56, 73, 50],
           max: 90,
-          color: "#3B82F6",
+          color: "#8890C8",
           unit: "%",
         },
         source: "Source : PwC AI Jobs Barometer 2025 / France Travail, Observatoire IA & Emploi, octobre 2024",
@@ -200,7 +200,7 @@ const CONTENT = {
           labels: ["Croissance offres IA", "Offres IA 2024", "Vitesse évolution compétences"],
           values: [273, 166, 66],
           max: 300,
-          color: "#10B981",
+          color: "#7092A8",
           unit: "%",
         },
         source: "Source : PwC AI Jobs Barometer 2025",
@@ -217,7 +217,7 @@ const CONTENT = {
           labels: ["AI tasks 2030", "AI tasks 2035", "Reskilling by 2030"],
           values: [27, 45, 59],
           max: 70,
-          color: "#F97316",
+          color: "#C87050",
           unit: "%",
         },
         source: "Source: McKinsey Global Institute / Institut de l'Entreprise, « AI and Skills Evolution in France », 2025",
@@ -230,7 +230,7 @@ const CONTENT = {
           labels: ["AI salary premium", "Graduate usage", "Non-graduate usage"],
           values: [56, 73, 50],
           max: 90,
-          color: "#3B82F6",
+          color: "#8890C8",
           unit: "%",
         },
         source: "Source: PwC AI Jobs Barometer 2025 / France Travail, AI & Employment Observatory, October 2024",
@@ -243,7 +243,7 @@ const CONTENT = {
           labels: ["AI job growth", "AI jobs 2024", "Skill change velocity"],
           values: [273, 166, 66],
           max: 300,
-          color: "#10B981",
+          color: "#7092A8",
           unit: "%",
         },
         source: "Source: PwC AI Jobs Barometer 2025",
