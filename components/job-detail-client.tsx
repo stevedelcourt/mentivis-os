@@ -199,19 +199,19 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 8,
-                fontSize: 16,
+                gap: 6,
+                fontSize: 13,
                 fontWeight: 500,
-                color: "#000000",
+                color: "#777169",
                 textDecoration: "none",
-                padding: "10px 20px",
-                borderRadius: 10,
-                background: "#e5e5e5",
-                marginBottom: 40,
+                padding: "6px 12px",
+                borderRadius: 8,
+                background: "#f2f2f2",
+                marginBottom: 24,
                 transition: "background 0.18s ease",
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
               {t.careers.detail.back}
@@ -738,5 +738,5 @@ const shareBtnStyle: React.CSSProperties = {
 };
 
 const backBtnHover = `
-.back-to-careers:hover { background: #d0d0d0 !important; }
+.back-to-careers:hover { background: #e5e5e5 !important; }
 `;
