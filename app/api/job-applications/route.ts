@@ -131,6 +131,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Fallback to local URL if HubSpot upload failed
+    const cvFinalUrl = hubspotCvUrl || (cvUrl ? `https://sc4bovu7233.universe.wf${cvUrl}` : "");
+
     // Send to HubSpot
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
     const hubspotFormId = process.env.HUBSPOT_FORM_ID;
@@ -147,7 +150,7 @@ export async function POST(request: NextRequest) {
             { name: "message", value: message },
             { name: "jobtitle", value: `${jobTitle} (${jobReference})` },
             { name: "company", value: linkedin || "" },
-            { name: "lien_cv", value: hubspotCvUrl || "" },
+            { name: "lien_cv", value: cvFinalUrl },
           ],
           context: {
             pageUri: "https://sc4bovu7233.universe.wf/carrieres",
