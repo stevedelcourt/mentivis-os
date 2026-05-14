@@ -168,7 +168,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const H = isFr ? {
     metaTitle: "Securite — MentivisOS",
     heroEyebrow: "Securite",
-    heroHeadline: "L'IA pedagogique pour transformer la formation, avec confidentialite et protections integrees.",
+    heroHeadline: "L'IA p\u00e9dagogique pour transformer la formation,<br />avec confidentialit\u00e9 et protections int\u00e9gr\u00e9es.",
     engagementTitle: "Notre engagement securite",
     engagementBody1: "Chez MentivisOS, nous croyons profondement aux benefices de l'IA pour la formation et le recrutement. Notre technologie est utilisee par des entreprises et des institutions pour structurer les parcours de competence, analyser les profils candidats et orchestrer la montee en competences des equipes.",
     engagementBody2: "Nous savons qu'une mauvaise utilisation des donnees ou des algorithmes peut causer des torts. C'est pourquoi nous nous engageons a proteger les donnees de nos clients — apprenants, candidats, collaborateurs — avec le plus haut niveau de securite et de transparence.",
@@ -194,7 +194,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   } : {
     metaTitle: "Security — MentivisOS",
     heroEyebrow: "Security",
-    heroHeadline: "AI-powered pedagogy to transform training, with built-in confidentiality and protections.",
+    heroHeadline: "AI-powered pedagogy to transform training,<br />with built-in confidentiality and protections.",
     engagementTitle: "Our security commitment",
     engagementBody1: "At MentivisOS, we deeply believe in the benefits of AI for training and recruitment. Our technology is used by companies and institutions to structure skill pathways, analyze candidate profiles, and orchestrate team upskilling.",
     engagementBody2: "We know that misuse of data or algorithms can cause harm. That's why we are committed to protecting our clients' data — learners, candidates, employees — with the highest level of security and transparency.",
@@ -278,18 +278,20 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
         style={{
           position: "relative",
           paddingTop: "clamp(80px, 12vh, 140px)",
+          overflow: "hidden",
           ...sectionAnim(heroLoaded),
         }}
       >
         {/* Icosahedron animation to the right */}
         <div
+          className="section-hero-ico"
           style={{
             position: "absolute",
             left: "calc(var(--grid-margin) + 720px)",
             top: "50%",
             transform: "translateY(-50%)",
-            width: "clamp(300px, 40vw, 600px)",
-            height: "clamp(300px, 40vw, 600px)",
+            width: "clamp(180px, 24vw, 360px)",
+            height: "clamp(180px, 24vw, 360px)",
             opacity: 0.5,
             zIndex: 0,
             pointerEvents: "none",
@@ -308,14 +310,13 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               style={{
                 fontSize: "clamp(32px, 5vw, 56px)",
                 fontWeight: 300,
-                lineHeight: 1.15,
+                lineHeight: 1.2,
                 letterSpacing: "-0.02em",
                 color: "#000000",
                 margin: 0,
               }}
-            >
-              {H.heroHeadline}
-            </h1>
+              dangerouslySetInnerHTML={{ __html: H.heroHeadline }}
+            />
           </div>
         </div>
       </section>
@@ -566,6 +567,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
         .security-sticky-nav::-webkit-scrollbar { display: none; }
         @media (max-width: 1024px) {
           .security-sticky-nav { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+          .section-hero-ico { display: none !important; }
         }
         @media (max-width: 768px) {
           .section-title { margin-bottom: 16px; }
