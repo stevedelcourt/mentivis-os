@@ -2,6 +2,7 @@
 
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
+import HeroCollage from "@/components/hero-collage";
 import LearningOSHero from "./learningos-hero";
 import LearningOSFeatureGrid from "./learningos-feature-grid";
 import LearningOSWorkflowTabs from "./learningos-workflow-tabs";
@@ -15,6 +16,7 @@ export default function LearningOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
       <LearningOSHero lang={lang} />
+      <HeroCollage lang={lang} />
       <LearningOSFeatureGrid lang={lang} />
       <LearningOSWorkflowTabs lang={lang} />
       <LearningOSShowcase lang={lang} />

@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
-import HeroCollage from "@/components/hero-collage";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,8 +29,8 @@ const sectionAnim = (visible: boolean, delay = 0): React.CSSProperties => ({
 const CONTENT = {
   fr: {
     eyebrow: "LearningOS",
-    headline: "Le système de formation native IA qui transforme vos collaborateurs en talents.",
-    subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes — le tout dans un seul système.",
+    headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
+    subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes — le tout dans un seul système.",
     ctaPrimary: "Démarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'équipe",
@@ -40,8 +39,8 @@ const CONTENT = {
   },
   en: {
     eyebrow: "LearningOS",
-    headline: "The AI-native training system that turns your employees into talents.",
-    subheadline: "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development — all in a single system.",
+    headline: "The AI-native training system\nthat turns your employees into talents.",
+    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development — all in a single system.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contact the team",
@@ -59,14 +58,12 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
       ref={ref}
       style={{
         background: "#ffffff",
-        minHeight: "clamp(800px, 92vh, 1050px)",
-        padding: "clamp(96px, 12vw, 160px) 0 clamp(140px, 16vw, 220px)",
+        padding: "clamp(96px, 12vw, 160px) 0 clamp(48px, 6vw, 72px)",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      <HeroCollage lang={lang} />
-      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", position: "relative", zIndex: 1 }}>
+      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <div style={{ maxWidth: 720 }}>
           <p
             style={{
@@ -86,7 +83,7 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
               ...sectionAnim(visible, 0.1),
               marginBottom: 20,
               fontWeight: 300,
-              lineHeight: 0.95,
+              lineHeight: 1.05,
               letterSpacing: "-0.03em",
               whiteSpace: "pre-line",
               fontSize: "clamp(32px, 5vw, 56px)",
