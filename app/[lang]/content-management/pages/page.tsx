@@ -249,9 +249,9 @@ export default function PagesEditorPage() {
               style={{
                 padding: "14px 24px",
                 fontSize: 15,
-                color: "#777169",
+                color: "#4e4e4e",
                 textDecoration: "none",
-                border: "1px solid #E5E0DA",
+                border: "1px solid #e5e5e5",
                 borderRadius: 10,
                 background: "#FAFAF8",
                 marginLeft: "auto",
@@ -277,7 +277,7 @@ export default function PagesEditorPage() {
               <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 {field.label}
               </p>
-              <p style={{ fontSize: 15, color: "#3E3B38", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+              <p style={{ fontSize: 15, color: "#4e4e4e", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
                 {field.value || "—"}
               </p>
             </div>
@@ -287,9 +287,9 @@ export default function PagesEditorPage() {
             style={{
               padding: "14px 24px",
               fontSize: 15,
-              color: "#777169",
+              color: "#4e4e4e",
               textDecoration: "none",
-              border: "1px solid #E5E0DA",
+              border: "1px solid #e5e5e5",
               borderRadius: 10,
               background: "#FAFAF8",
               marginTop: 40,
@@ -309,7 +309,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: 13,
   fontWeight: 500,
-  color: "#3E3B38",
+  color: "#4e4e4e",
   marginBottom: 6,
 };
 
@@ -317,7 +317,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px 14px",
   fontSize: 15,
-  border: "1px solid #E5E0DA",
+  border: "1px solid #e5e5e5",
   borderRadius: 10,
   background: "#FAFAF8",
   outline: "none",

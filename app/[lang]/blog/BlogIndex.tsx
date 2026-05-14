@@ -88,14 +88,14 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
     return (
       <main className={styles.wrap}>
         <header className={styles.pageHeader}>
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 10 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
             Actualites et analyses
           </p>
-          <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#3E3B38" }}>
+          <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
             Dernieres publications
           </h1>
         </header>
-        <p style={{ textAlign: "center", color: "#777169", padding: 60 }}>Chargement...</p>
+        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 60 }}>Chargement...</p>
       </main>
     );
   }
@@ -103,10 +103,10 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   return (
     <main className={styles.wrap}>
       <header className={styles.pageHeader}>
-        <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 10 }}>
+        <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
           Actualites et analyses
         </p>
-        <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#3E3B38" }}>
+        <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
           Dernieres publications
         </h1>
       </header>

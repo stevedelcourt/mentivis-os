@@ -157,14 +157,14 @@ export default function CandidaturesPage() {
               borderRadius: 999,
               border: "none",
               cursor: "pointer",
-              background: statusFilter === f ? "#2563EB" : "#E5E0DA",
-              color: statusFilter === f ? "#fff" : "#3E3B38",
+              background: statusFilter === f ? "#2563EB" : "#e5e5e5",
+              color: statusFilter === f ? "#fff" : "#4e4e4e",
             }}
           >
             {f === "all" ? "Tous" : f === "read" ? "Lus" : "Non lus"}
           </button>
         ))}
-        <span style={{ marginLeft: "auto", fontSize: 13, color: "#777169", alignSelf: "center" }}>
+        <span style={{ marginLeft: "auto", fontSize: 13, color: "#4e4e4e", alignSelf: "center" }}>
           {applications.length} candidature{applications.length !== 1 ? "s" : ""}
         </span>
       </div>
@@ -174,7 +174,7 @@ export default function CandidaturesPage() {
         <CmsLoading message="Chargement..." />
       ) : applications.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
-          <p style={{ color: "#777169" }}>Aucune candidature</p>
+          <p style={{ color: "#4e4e4e" }}>Aucune candidature</p>
         </div>
       ) : (
         <div className="cms-table-scroll" style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
@@ -195,7 +195,7 @@ export default function CandidaturesPage() {
                 <Fragment key={a.id}>
                   <tr
                     style={{
-                      borderBottom: "1px solid #F5F3F0",
+                      borderBottom: "1px solid #f5f5f5",
                       borderLeft: a.read ? "3px solid transparent" : "3px solid #2563EB",
                       background: expandedId === a.id ? "#FAFAF8" : "#fff",
                       cursor: "pointer",
@@ -237,7 +237,7 @@ export default function CandidaturesPage() {
                               padding: "6px 12px",
                               fontSize: 12,
                               color: a.read ? "#E65100" : "#2E7D32",
-                              border: "1px solid #E5E0DA",
+                              border: "1px solid #e5e5e5",
                               borderRadius: 8,
                               background: "#FAFAF8",
                               cursor: "pointer",
@@ -273,15 +273,15 @@ export default function CandidaturesPage() {
                           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "8px 24px", marginBottom: 16 }}>
                             <div>
                               <span style={{ fontSize: 12, color: "#A8A29E" }}>Reference</span>
-                              <p style={{ fontSize: 14, color: "#3E3B38", marginTop: 2 }}>{a.jobReference}</p>
+                              <p style={{ fontSize: 14, color: "#4e4e4e", marginTop: 2 }}>{a.jobReference}</p>
                             </div>
                             <div>
                               <span style={{ fontSize: 12, color: "#A8A29E" }}>Telephone</span>
-                              <p style={{ fontSize: 14, color: "#3E3B38", marginTop: 2 }}>{a.phone || "—"}</p>
+                              <p style={{ fontSize: 14, color: "#4e4e4e", marginTop: 2 }}>{a.phone || "—"}</p>
                             </div>
                             <div>
                               <span style={{ fontSize: 12, color: "#A8A29E" }}>LinkedIn</span>
-                              <p style={{ fontSize: 14, color: "#3E3B38", marginTop: 2 }}>{a.linkedin || "—"}</p>
+                              <p style={{ fontSize: 14, color: "#4e4e4e", marginTop: 2 }}>{a.linkedin || "—"}</p>
                             </div>
                             <div>
                               <span style={{ fontSize: 12, color: "#A8A29E" }}>CV</span>
@@ -303,7 +303,7 @@ export default function CandidaturesPage() {
                           </div>
                           <div style={{ marginBottom: 16 }}>
                             <span style={{ fontSize: 12, color: "#A8A29E", display: "block", marginBottom: 6 }}>Message</span>
-                            <p style={{ fontSize: 14, color: "#3E3B38", lineHeight: 1.5, whiteSpace: "pre-line" }}>{a.message}</p>
+                            <p style={{ fontSize: 14, color: "#4e4e4e", lineHeight: 1.5, whiteSpace: "pre-line" }}>{a.message}</p>
                           </div>
                           {canManage && (
                             <div style={{ marginTop: 16 }}>
@@ -319,7 +319,7 @@ export default function CandidaturesPage() {
                                     flex: 1,
                                     padding: "10px 12px",
                                     fontSize: 14,
-                                    border: "1px solid #E5E0DA",
+                                    border: "1px solid #e5e5e5",
                                     borderRadius: 10,
                                     background: "#fff",
                                     outline: "none",
@@ -397,7 +397,7 @@ const thStyle: React.CSSProperties = {
   textAlign: "left",
   padding: "16px 20px",
   fontWeight: 500,
-  color: "#777169",
+  color: "#4e4e4e",
   fontSize: 12,
   textTransform: "uppercase",
   letterSpacing: "0.05em",
@@ -406,5 +406,5 @@ const thStyle: React.CSSProperties = {
 
 const tdStyle: React.CSSProperties = {
   padding: "16px 20px",
-  color: "#3E3B38",
+  color: "#4e4e4e",
 };

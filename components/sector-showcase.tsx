@@ -217,7 +217,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                 fontSize: 11,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "#777169",
+                color: "#4e4e4e",
                 marginBottom: 16,
               }}
             >
@@ -359,7 +359,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               fontFamily: "var(--font-sans)",
               fontSize: 15,
               fontWeight: 400,
-              color: "#777169",
+              color: "#4e4e4e",
               lineHeight: 1.5,
             }}
           >

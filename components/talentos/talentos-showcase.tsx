@@ -27,7 +27,7 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 700 }}>
@@ -39,7 +39,7 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
               key={item.title}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.06),
-                background: i === items.length - 1 ? "#0A0A0A" : "#F5F3F0",
+                background: i === items.length - 1 ? "#0A0A0A" : "#f5f5f5",
                 borderRadius: 22,
                 padding: "32px 24px 24px",
                 display: "flex",
@@ -51,12 +51,12 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
               }}
               className="talentos-showcase-card"
             >
-              <span style={{ display: "inline-flex", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 500, background: i === items.length - 1 ? "rgba(255,255,255,0.15)" : "#EDEAE3", color: i === items.length - 1 ? "#fff" : "#3E3B38", marginBottom: "auto", alignSelf: "flex-start" }}>
+              <span style={{ display: "inline-flex", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 500, background: i === items.length - 1 ? "rgba(255,255,255,0.15)" : "#f5f5f5", color: i === items.length - 1 ? "#fff" : "#4e4e4e", marginBottom: "auto", alignSelf: "flex-start" }}>
                 {item.tag}
               </span>
               <div style={{ marginTop: "auto" }}>
                 <h3 style={{ fontSize: 20, fontWeight: 500, color: i === items.length - 1 ? "#fff" : "#000", marginBottom: 8 }}>{item.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: i === items.length - 1 ? "rgba(255,255,255,0.7)" : "#777169", margin: 0 }}>{item.desc}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.55, color: i === items.length - 1 ? "rgba(255,255,255,0.7)" : "#4e4e4e", margin: 0 }}>{item.desc}</p>
               </div>
             </div>
           ))}

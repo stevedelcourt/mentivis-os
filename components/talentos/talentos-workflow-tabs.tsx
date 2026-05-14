@@ -55,7 +55,7 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "WORKFLOW" : "WORKFLOW"}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
@@ -74,8 +74,8 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
                 borderRadius: 999,
                 border: "none",
                 cursor: "pointer",
-                background: active === i ? "#0A0A0A" : "#F5F3F0",
-                color: active === i ? "#fff" : "#3E3B38",
+                background: active === i ? "#0A0A0A" : "#f5f5f5",
+                color: active === i ? "#fff" : "#4e4e4e",
                 transition: "background 0.2s ease, color 0.2s ease",
               }}
             >
@@ -103,7 +103,7 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
               ))}
             </ul>
           </div>
-          <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "#F5F2EF", display: "flex", alignItems: "center", justifyContent: "center", color: "#A8A39A", fontSize: 14, overflow: "hidden" }}>
+          <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
             <img
               src="/images/TalentOS/screenshot-workflow.avif"
               alt=""

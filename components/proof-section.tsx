@@ -308,7 +308,7 @@ export default function ProofSection({ lang }: { lang: Locale }) {
         <div
           style={{
             marginTop: 32,
-            background: "#EDEAE3",
+            background: "#f5f5f5",
             borderRadius: "var(--r-card)",
             padding: "28px 32px",
             position: "relative",

@@ -216,7 +216,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           }}
         >
           <div style={{ maxWidth: 720 }}>
-            <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 16 }}>
+            <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 16 }}>
               {H.heroEyebrow}
             </p>
             <h1
@@ -263,7 +263,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
             <p style={{ fontSize: 17, lineHeight: 1.6, color: "#000000", margin: "0 0 12px" }}>
               &ldquo;{H.engagementQuote}&rdquo;
             </p>
-            <p style={{ fontSize: 13, color: "#777169", margin: 0 }}>{H.engagementAuthor}</p>
+            <p style={{ fontSize: 13, color: "#4e4e4e", margin: 0 }}>{H.engagementAuthor}</p>
           </div>
         </div>
       </section>
@@ -301,7 +301,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                 </svg>
               </div>
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[2].fr.title : PRINCIPLES[2].en.title}</h3>
-              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
+              <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
             </div>
             <div className="p-ghost" style={{ gridArea: "e" }} />
             <div className="p-card p-card-light" style={{ gridArea: "f" }}>
@@ -311,7 +311,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                 </svg>
               </div>
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[3].fr.title : PRINCIPLES[3].en.title}</h3>
-              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
+              <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
             </div>
             {/* Row 3: wide white card */}
             <div className="p-card p-card-light p-card-wide" style={{ gridArea: "g" }}>
@@ -321,7 +321,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                 </svg>
               </div>
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[4].fr.title : PRINCIPLES[4].en.title}</h3>
-              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
+              <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
             </div>
           </div>
         </div>
@@ -347,7 +347,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
             grid-area: a;
           }
           .p-card-mid {
-            background: #777169;
+            background: #4e4e4e;
             grid-area: c;
           }
           .p-card-light {
@@ -459,7 +459,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                 </span>
                 <div>
                   <h3 style={{ fontSize: 15, fontWeight: 500, margin: "0 0 4px", color: "#000000" }}>{layer.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{layer.desc}</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#4e4e4e", margin: 0 }}>{layer.desc}</p>
                 </div>
               </div>
             ))}
@@ -488,7 +488,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   border: "1px solid #e5e5e5",
                 }}
               >
-                <p style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#777169", marginBottom: 6, fontWeight: 500 }}>
+                <p style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6, fontWeight: 500 }}>
                   {item.label}
                 </p>
                 <p style={{ fontSize: 15, lineHeight: 1.5, color: "#000000", margin: 0 }}>{item.value}</p>
@@ -568,7 +568,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                       margin: 0,
                       fontSize: 14,
                       lineHeight: 1.7,
-                      color: "#777169",
+                      color: "#4e4e4e",
                     }}
                   >
                     {item.a}
@@ -594,7 +594,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           font-family: var(--font-sans);
           font-size: 18px;
           line-height: 1.6;
-          color: #777169;
+          color: #4e4e4e;
           margin: 0 0 16px;
           max-width: 680px;
         }

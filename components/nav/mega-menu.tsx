@@ -48,7 +48,7 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
                 fontWeight: 500,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "#777169",
+                color: "#4e4e4e",
               }}
             >
               {section.eyebrow}
@@ -69,7 +69,7 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
                     whiteSpace: "nowrap",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#777169";
+                    e.currentTarget.style.color = "#4e4e4e";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = "#0A0A0A";

@@ -68,7 +68,7 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -223,8 +223,8 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
                     borderRadius: 999,
                     fontSize: 10,
                     fontWeight: 500,
-                    background: "#EDEAE3",
-                    color: "#3E3B38",
+                    background: "#f5f5f5",
+                    color: "#4e4e4e",
                     marginBottom: 8,
                   }}
                 >

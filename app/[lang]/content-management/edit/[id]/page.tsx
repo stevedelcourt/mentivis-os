@@ -272,7 +272,7 @@ export default function PostEditorPage() {
                     padding: "8px 14px",
                     borderRadius: 8,
                     background: checked ? "#0A0A0A" : "#F0F0F0",
-                    color: checked ? "#fff" : "#3E3B38",
+                    color: checked ? "#fff" : "#4e4e4e",
                     fontSize: 13,
                     fontWeight: 500,
                     transition: "all 0.15s",
@@ -327,7 +327,7 @@ export default function PostEditorPage() {
                 fontSize: 13,
                 fontWeight: 500,
                 color: "#0A0A0A",
-                background: "#E5E0DA",
+                background: "#e5e5e5",
                 borderRadius: 10,
                 cursor: "pointer",
                 whiteSpace: "nowrap",
@@ -423,14 +423,14 @@ export default function PostEditorPage() {
                 width: 44,
                 height: 44,
                 borderRadius: 10,
-                border: gradientId === undefined ? "2px solid #0A0A0A" : "1px solid #E5E0DA",
+                border: gradientId === undefined ? "2px solid #0A0A0A" : "1px solid #e5e5e5",
                 background: "#fff",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: 18,
-                color: "#777169",
+                color: "#4e4e4e",
               }}
               title="Aucun"
             >
@@ -445,7 +445,7 @@ export default function PostEditorPage() {
                   width: 44,
                   height: 44,
                   borderRadius: 10,
-                  border: gradientId === g.id ? "2px solid #0A0A0A" : "1px solid #E5E0DA",
+                  border: gradientId === g.id ? "2px solid #0A0A0A" : "1px solid #e5e5e5",
                   background: g.css,
                   cursor: "pointer",
                 }}
@@ -476,7 +476,7 @@ export default function PostEditorPage() {
 
         {/* Toggles */}
         <div style={{ display: "flex", gap: 24, marginBottom: 32, flexWrap: "wrap" }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
             <input
               type="checkbox"
               checked={featured}
@@ -485,7 +485,7 @@ export default function PostEditorPage() {
             />
             Article a la une
           </label>
-          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
             <input
               type="checkbox"
               checked={published}
@@ -524,7 +524,7 @@ export default function PostEditorPage() {
                 fontSize: 15,
                 color: "#0A0A0A",
                 textDecoration: "none",
-                border: "1px solid #E5E0DA",
+                border: "1px solid #e5e5e5",
                 borderRadius: 10,
                 background: "#fff",
               }}
@@ -537,9 +537,9 @@ export default function PostEditorPage() {
             style={{
               padding: "14px 24px",
               fontSize: 15,
-              color: "#777169",
+              color: "#4e4e4e",
               textDecoration: "none",
-              border: "1px solid #E5E0DA",
+              border: "1px solid #e5e5e5",
               borderRadius: 10,
               background: "#FAFAF8",
               marginLeft: "auto",
@@ -557,7 +557,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: 13,
   fontWeight: 500,
-  color: "#3E3B38",
+  color: "#4e4e4e",
   marginBottom: 6,
 };
 
@@ -565,7 +565,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px 14px",
   fontSize: 15,
-  border: "1px solid #E5E0DA",
+  border: "1px solid #e5e5e5",
   borderRadius: 10,
   background: "#FAFAF8",
   outline: "none",

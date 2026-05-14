@@ -33,7 +33,7 @@ export default function LearningOSTestimonials({ lang }: { lang: Locale }) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -88,12 +88,12 @@ export default function LearningOSTestimonials({ lang }: { lang: Locale }) {
                 }}
               >
                 <span style={{ fontSize: 36, fontWeight: 300, color: "#0A0A0A", lineHeight: 1 }}>{t.stat}</span>
-                <span style={{ fontSize: 13, color: "#777169" }}>{t.statLabel}</span>
+                <span style={{ fontSize: 13, color: "#4e4e4e" }}>{t.statLabel}</span>
               </div>
               <blockquote style={{ fontSize: 14, lineHeight: 1.6, color: "#4e4e4e", margin: "0 0 auto 0", fontStyle: "normal" }}>
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <p style={{ fontSize: 13, color: "#A8A39A", marginTop: 20, margin: "20px 0 0" }}>{t.company}</p>
+              <p style={{ fontSize: 13, color: "#777777", marginTop: 20, margin: "20px 0 0" }}>{t.company}</p>
             </div>
           ))}
         </div>

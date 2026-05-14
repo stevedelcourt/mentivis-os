@@ -21,9 +21,9 @@ export default function TalentOSTestimonials({ lang }: { lang: Locale }) {
   const { ref, visible } = useVisible(0.05);
 
   return (
-    <section ref={ref} style={{ background: "#F5F2EF", padding: "clamp(96px, 12vw, 160px) 0" }}>
+    <section ref={ref} style={{ background: "#f5f5f5", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "ILS NOUS FONT CONFIANCE" : "TRUSTED BY"}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
@@ -47,12 +47,12 @@ export default function TalentOSTestimonials({ lang }: { lang: Locale }) {
             >
               <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 20 }}>
                 <span style={{ fontSize: 36, fontWeight: 300, color: "#0A0A0A", lineHeight: 1 }}>{t.stat}</span>
-                <span style={{ fontSize: 13, color: "#777169" }}>{t.statLabel}</span>
+                <span style={{ fontSize: 13, color: "#4e4e4e" }}>{t.statLabel}</span>
               </div>
               <blockquote style={{ fontSize: 14, lineHeight: 1.6, color: "#4e4e4e", margin: "0 0 auto 0", fontStyle: "normal" }}>
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <p style={{ fontSize: 13, color: "#A8A39A", margin: "20px 0 0" }}>{t.company}</p>
+              <p style={{ fontSize: 13, color: "#777777", margin: "20px 0 0" }}>{t.company}</p>
             </div>
           ))}
         </div>

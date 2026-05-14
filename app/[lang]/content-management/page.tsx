@@ -123,7 +123,7 @@ export default function ContentManagementPage() {
               alt="MentivisOS"
               style={{ height: 56, width: "auto", marginBottom: 12 }}
             />
-            <p style={{ fontSize: 14, color: "#777169" }}>Gestion des contenus</p>
+            <p style={{ fontSize: 14, color: "#4e4e4e" }}>Gestion des contenus</p>
           </div>
 
           <form onSubmit={handleLogin} autoComplete="on">
@@ -169,7 +169,7 @@ export default function ContentManagementPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#777169",
+                    color: "#4e4e4e",
                   }}
                   title={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                 >
@@ -261,24 +261,24 @@ export default function ContentManagementPage() {
               borderRadius: 999,
               border: "none",
               cursor: "pointer",
-              background: filter === f ? "#0A0A0A" : "#E5E0DA",
-              color: filter === f ? "#fff" : "#3E3B38",
+              background: filter === f ? "#0A0A0A" : "#e5e5e5",
+              color: filter === f ? "#fff" : "#4e4e4e",
             }}
           >
             {f === "all" ? "Tous" : f === "published" ? "Publies" : "Brouillons"}
           </button>
         ))}
-        <span style={{ marginLeft: "auto", fontSize: 13, color: "#777169", alignSelf: "center" }}>
+        <span style={{ marginLeft: "auto", fontSize: 13, color: "#4e4e4e", alignSelf: "center" }}>
           {sortedPosts.length} article{sortedPosts.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {/* Posts table */}
       {loading ? (
-        <p style={{ textAlign: "center", color: "#777169", padding: 40 }}>Chargement...</p>
+        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
       ) : sortedPosts.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
-          <p style={{ color: "#777169", marginBottom: 16 }}>Aucun article</p>
+          <p style={{ color: "#4e4e4e", marginBottom: 16 }}>Aucun article</p>
           <Link
             href={`/${lang}/content-management/edit/new`}
             style={{ color: "#0A0A0A", fontWeight: 500, textDecoration: "underline" }}
@@ -305,7 +305,7 @@ export default function ContentManagementPage() {
                       textAlign: col.key ? "left" : "right",
                       padding: "16px 20px",
                       fontWeight: 500,
-                      color: sortField === col.key ? "#0A0A0A" : "#777169",
+                      color: sortField === col.key ? "#0A0A0A" : "#4e4e4e",
                       fontSize: 12,
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
@@ -327,7 +327,7 @@ export default function ContentManagementPage() {
                 <tr
                   key={post.id}
                   style={{
-                    borderBottom: "1px solid #F5F3F0",
+                    borderBottom: "1px solid #f5f5f5",
                     borderLeft: post.featured ? "3px solid #2563EB" : "3px solid transparent",
                   }}
                 >
@@ -343,8 +343,8 @@ export default function ContentManagementPage() {
                           background: post.imageUrl
                             ? undefined
                             : (post.gradientId
-                              ? (GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "#E5E0DA")
-                              : "#E5E0DA"),
+                              ? (GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "#e5e5e5")
+                              : "#e5e5e5"),
                         }}
                       >
                         {post.imageUrl && (
@@ -361,10 +361,10 @@ export default function ContentManagementPage() {
                       </div>
                     </div>
                   </td>
-                  <td style={{ padding: "16px 20px", color: "#3E3B38" }}>
+                  <td style={{ padding: "16px 20px", color: "#4e4e4e" }}>
                     {post.category}
                   </td>
-                  <td style={{ padding: "16px 20px", color: "#777169", fontSize: 13 }}>
+                  <td style={{ padding: "16px 20px", color: "#4e4e4e", fontSize: 13 }}>
                     {post.date}
                   </td>
                   <td style={{ padding: "16px 20px" }}>
@@ -394,9 +394,9 @@ export default function ContentManagementPage() {
                         style={{
                           padding: "10px 16px",
                           fontSize: 12,
-                          color: "#777169",
+                          color: "#4e4e4e",
                           textDecoration: "none",
-                          border: "1px solid #E5E0DA",
+                          border: "1px solid #e5e5e5",
                           borderRadius: 8,
                           display: "inline-flex",
                           alignItems: "center",
@@ -414,7 +414,7 @@ export default function ContentManagementPage() {
                               fontSize: 12,
                               color: "#0A0A0A",
                               textDecoration: "none",
-                              border: "1px solid #E5E0DA",
+                              border: "1px solid #e5e5e5",
                               borderRadius: 8,
                               background: "#FAFAF8",
                               display: "inline-flex",
@@ -456,7 +456,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: 13,
   fontWeight: 500,
-  color: "#3E3B38",
+  color: "#4e4e4e",
   marginBottom: 6,
 };
 
@@ -464,7 +464,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px 14px",
   fontSize: 15,
-  border: "1px solid #E5E0DA",
+  border: "1px solid #e5e5e5",
   borderRadius: 10,
   background: "#FAFAF8",
   outline: "none",

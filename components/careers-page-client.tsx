@@ -106,7 +106,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                   fontWeight: 500,
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "var(--text-tertiary, #777169)",
+                  color: "var(--text-tertiary, #4e4e4e)",
                   marginBottom: "1.75rem",
                 }}
               >
@@ -169,7 +169,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                       strokeWidth={2.5}
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      style={{ flexShrink: 0, color: "var(--text-tertiary, #777169)" }}
+                      style={{ flexShrink: 0, color: "var(--text-tertiary, #4e4e4e)" }}
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
@@ -283,7 +283,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                   >
                     {card.title}
                   </h3>
-                  <p style={{ fontSize: 14, color: "#777169", lineHeight: 1.5 }}>
+                  <p style={{ fontSize: 14, color: "#4e4e4e", lineHeight: 1.5 }}>
                     {card.body}
                   </p>
                 </div>
@@ -335,7 +335,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                       border: "none",
                       cursor: "pointer",
                       background: selectedDept === "all" ? "#0A0A0A" : "#E5E0DA",
-                      color: selectedDept === "all" ? "#fff" : "#3E3B38",
+                      color: selectedDept === "all" ? "#fff" : "#4e4e4e",
                     }}
                   >
                     {t.careers.list.allDepartments}
@@ -352,7 +352,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                         border: "none",
                         cursor: "pointer",
                         background: selectedDept === dept ? "#0A0A0A" : "#E5E0DA",
-                        color: selectedDept === dept ? "#fff" : "#3E3B38",
+                        color: selectedDept === dept ? "#fff" : "#4e4e4e",
                       }}
                     >
                       {dept}
@@ -363,7 +363,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
             </div>
 
             {loading ? (
-              <p style={{ textAlign: "center", color: "#777169", padding: 40 }}>Chargement...</p>
+              <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
             ) : filteredJobs.length === 0 ? (
               <div
                 style={{
@@ -373,7 +373,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                   borderRadius: 16,
                 }}
               >
-                <p style={{ color: "#777169", marginBottom: 16 }}>
+                <p style={{ color: "#4e4e4e", marginBottom: 16 }}>
                   {t.careers.list.empty}
                 </p>
                 <Link
@@ -430,7 +430,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                           gap: 16,
                           flexWrap: "wrap",
                           fontSize: 14,
-                          color: "#777169",
+                          color: "#4e4e4e",
                         }}
                       >
                         <span>{job.department}</span>

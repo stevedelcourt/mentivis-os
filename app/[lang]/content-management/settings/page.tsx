@@ -181,9 +181,9 @@ export default function SettingsPage() {
       {/* Users table */}
       <h2 style={{ fontSize: 20, fontWeight: 500, color: "#0A0A0A", marginBottom: 20 }}>Utilisateurs</h2>
       {loading ? (
-        <p style={{ color: "#777169" }}>Chargement...</p>
+        <p style={{ color: "#4e4e4e" }}>Chargement...</p>
       ) : users.length === 0 ? (
-        <p style={{ color: "#777169" }}>Aucun utilisateur.</p>
+        <p style={{ color: "#4e4e4e" }}>Aucun utilisateur.</p>
       ) : (
         <div className="cms-table-scroll" style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
@@ -198,11 +198,11 @@ export default function SettingsPage() {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user.id} style={{ borderBottom: "1px solid #F5F3F0" }}>
+                <tr key={user.id} style={{ borderBottom: "1px solid #f5f5f5" }}>
                   <td style={tdStyle}>{user.name}</td>
                   <td style={tdStyle}>{user.email}</td>
                   <td style={tdStyle}>
-                    <span style={{ padding: "4px 10px", fontSize: 12, fontWeight: 500, borderRadius: 999, background: ROLE_COLORS[user.role]?.bg || "#E5E0DA", color: ROLE_COLORS[user.role]?.color || "#3E3B38" }}>
+                    <span style={{ padding: "4px 10px", fontSize: 12, fontWeight: 500, borderRadius: 999, background: ROLE_COLORS[user.role]?.bg || "#e5e5e5", color: ROLE_COLORS[user.role]?.color || "#4e4e4e" }}>
                       {ROLE_LABELS[user.role] || user.role}
                     </span>
                   </td>
@@ -217,7 +217,7 @@ export default function SettingsPage() {
                         color: user.email === "steven.delcourt@mentivis.com" ? "#A8A29E" : "#c45c4a",
                         border: "1px solid #F5E0DC",
                         borderRadius: 8,
-                        background: user.email === "steven.delcourt@mentivis.com" ? "#F5F3F0" : "#FEF2F0",
+                        background: user.email === "steven.delcourt@mentivis.com" ? "#f5f5f5" : "#FEF2F0",
                         cursor: user.email === "steven.delcourt@mentivis.com" ? "not-allowed" : "pointer",
                       }}
                       title={user.email === "steven.delcourt@mentivis.com" ? "Super admin protege" : "Supprimer"}
@@ -235,7 +235,7 @@ export default function SettingsPage() {
   );
 }
 
-const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 };
-const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };
-const thStyle: React.CSSProperties = { textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#777169", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em", whiteSpace: "nowrap" };
-const tdStyle: React.CSSProperties = { padding: "16px 20px", color: "#3E3B38" };
+const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#4e4e4e", marginBottom: 6 };
+const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };
+const thStyle: React.CSSProperties = { textAlign: "left", padding: "16px 20px", fontWeight: 500, color: "#4e4e4e", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em", whiteSpace: "nowrap" };
+const tdStyle: React.CSSProperties = { padding: "16px 20px", color: "#4e4e4e" };

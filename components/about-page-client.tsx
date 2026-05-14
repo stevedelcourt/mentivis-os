@@ -186,7 +186,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionAnim(heroLoaded) }}
       >
         <div className="container" style={{ maxWidth: 800 }}>
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 16 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 16 }}>
             {H.heroEyebrow}
           </p>
           <h1
@@ -202,7 +202,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
           >
             {H.heroHeadline}
           </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: "#777169", maxWidth: 600, margin: 0 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.6, color: "#4e4e4e", maxWidth: 600, margin: 0 }}>
             {H.heroSub}
           </p>
         </div>
@@ -262,7 +262,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       {/* ── EQUIPE ── */}
       <section id="equipe" ref={equipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(equipe.visible, 0.1) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
             {H.equipeTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.equipeSub}</h2>
@@ -293,7 +293,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
             />
           </div>
                 <p style={{ fontSize: 15, fontWeight: 500, color: "#000000", margin: "0 0 4px" }}>{member.name}</p>
-                <p style={{ fontSize: 13, color: "#777169", margin: 0 }}>{isFr ? member.roleFr : member.roleEn}</p>
+                <p style={{ fontSize: 13, color: "#4e4e4e", margin: 0 }}>{isFr ? member.roleFr : member.roleEn}</p>
               </div>
             ))}
           </div>
@@ -303,7 +303,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       {/* ── APPROCHE ── */}
       <section id="approche" ref={approche.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(approche.visible, 0.15) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
             {H.approcheTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 8 }}>{H.approcheSub}</h2>
@@ -334,14 +334,14 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                     fontSize: 10,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
-                    color: "#777169",
+                    color: "#4e4e4e",
                     fontWeight: 600,
                     marginBottom: 10,
                   }}
                 >
                   {block.tag}
                 </span>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{block.body}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.6, color: "#4e4e4e", margin: 0 }}>{block.body}</p>
               </div>
             ))}
           </div>
@@ -357,7 +357,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       {/* ── SIGNATURES ── */}
       <section ref={signatures.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(signatures.visible, 0.2) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
             {H.signaturesTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.signaturesSub}</h2>
@@ -389,7 +389,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                 </span>
                 <div>
                   <h3 style={{ fontSize: 16, fontWeight: 500, margin: "0 0 4px", color: "#000000" }}>{s.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#777169", margin: 0 }}>{s.body}</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "#4e4e4e", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}
@@ -400,7 +400,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       {/* ── VALEURS ── */}
       <section ref={valeurs.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(valeurs.visible, 0.25) }}>
         <div className="container">
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 6 }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
             {H.valeursTitle}
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.valeursSub}</h2>
@@ -425,7 +425,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
                 <p style={{ fontSize: 14, fontWeight: 500, color: "#000000", margin: "0 0 8px", letterSpacing: "0.02em" }}>
                   {v.title}
                 </p>
-                <p style={{ fontSize: 13, lineHeight: 1.5, color: "#777169", margin: 0 }}>{v.body}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.5, color: "#4e4e4e", margin: 0 }}>{v.body}</p>
               </div>
             ))}
           </div>
@@ -448,7 +448,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
           font-family: var(--font-sans);
           font-size: 18px;
           line-height: 1.6;
-          color: #777169;
+          color: #4e4e4e;
           margin: 0 0 16px;
           max-width: 680px;
         }

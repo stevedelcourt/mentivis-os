@@ -125,7 +125,7 @@ export function CmsNavTabs({
               fontSize: 14,
               fontWeight: 500,
               color: "#0A0A0A",
-              background: "#F5F3F0",
+              background: "#f5f5f5",
               borderRadius: 8,
               textDecoration: "none",
               whiteSpace: "nowrap",
@@ -243,7 +243,7 @@ export function CmsLoading({ message = "Chargement..." }: { message?: string }) 
         justifyContent: "center",
       }}
     >
-      <p style={{ color: "#777169" }}>{message}</p>
+      <p style={{ color: "#4e4e4e" }}>{message}</p>
     </div>
   );
 }
@@ -262,7 +262,7 @@ export function CmsBackLink({
       href={href || `/${lang}/content-management`}
       style={{
         fontSize: 13,
-        color: "#777169",
+        color: "#4e4e4e",
         textDecoration: "none",
         display: "inline-flex",
         alignItems: "center",
@@ -338,7 +338,7 @@ export function CmsLayout({
             {title}
           </h1>
           {subtitle && (
-            <p style={{ fontSize: 14, color: "#777169" }}>{subtitle}</p>
+            <p style={{ fontSize: 14, color: "#4e4e4e" }}>{subtitle}</p>
           )}
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>

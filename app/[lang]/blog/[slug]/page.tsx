@@ -39,7 +39,7 @@ export default function BlogPostPage() {
     return (
       <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
         <div className="container">
-          <p style={{ color: "#777169" }}>Chargement...</p>
+          <p style={{ color: "#4e4e4e" }}>Chargement...</p>
         </div>
       </section>
     );

@@ -17,7 +17,7 @@ function renderMarkdown(text: string): string {
       .replace(/<object[\s\S]*?<\/object>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/ on\w+=["'][^"']*["']/gi, "");
-    return `<div style="font-size:15px;line-height:1.7;color:#3E3B38;">${sanitized}</div>`;
+    return `<div style="font-size:15px;line-height:1.7;color:#4e4e4e;">${sanitized}</div>`;
   }
 
   const lines = text.split("\n");
@@ -44,7 +44,7 @@ function renderMarkdown(text: string): string {
     const bulletMatch = trimmed.match(/^(•|\*|\-)\s+(.*)$/);
     if (bulletMatch) {
       if (!inList) { html += '<ul style="margin:8px 0 16px 20px;padding:0;list-style:disc;">'; inList = true; }
-      html += `<li style="font-size:15px;line-height:1.7;color:#3E3B38;margin-bottom:6px;">${escapeHtml(bulletMatch[2])}</li>`;
+      html += `<li style="font-size:15px;line-height:1.7;color:#4e4e4e;margin-bottom:6px;">${escapeHtml(bulletMatch[2])}</li>`;
       continue;
     }
 
@@ -53,7 +53,7 @@ function renderMarkdown(text: string): string {
     if (trimmed === "") {
       html += '<div style="height:8px;"></div>';
     } else {
-      html += `<p style="font-size:15px;line-height:1.7;color:#3E3B38;margin-bottom:12px;">${escapeHtml(line)}</p>`;
+      html += `<p style="font-size:15px;line-height:1.7;color:#4e4e4e;margin-bottom:12px;">${escapeHtml(line)}</p>`;
     }
   }
 
@@ -171,7 +171,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   if (loading) {
     return (
       <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Chargement...</p>
+        <p style={{ color: "#4e4e4e" }}>Chargement...</p>
       </div>
     );
   }
@@ -208,7 +208,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
               style={{
                 fontSize: 14,
                 fontWeight: 500,
-                color: "#777169",
+                color: "#4e4e4e",
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 marginBottom: 12,
@@ -234,7 +234,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 gap: 16,
                 flexWrap: "wrap",
                 fontSize: 14,
-                color: "#777169",
+                color: "#4e4e4e",
               }}
             >
               <span>{job.department}</span>
@@ -267,7 +267,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                   padding: "12px 24px",
                   fontSize: 15,
                   fontWeight: 500,
-                  color: "#777169",
+                  color: "#4e4e4e",
                   textDecoration: "none",
                   borderBottom: "2px solid transparent",
                   marginBottom: -1,
@@ -290,7 +290,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     border: "none",
                     borderBottom: activeTab === tab ? "2px solid #0A0A0A" : "2px solid transparent",
                     background: "transparent",
-                    color: activeTab === tab ? "#0A0A0A" : "#777169",
+                    color: activeTab === tab ? "#0A0A0A" : "#4e4e4e",
                     cursor: "pointer",
                     marginBottom: -1,
                     transition: "color 0.2s ease",
@@ -313,7 +313,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 {/* Left: Description */}
                 <div>
                   <div
-                    style={{ fontSize: 15, lineHeight: 1.7, color: "#3E3B38" }}
+                    style={{ fontSize: 15, lineHeight: 1.7, color: "#4e4e4e" }}
                     dangerouslySetInnerHTML={{ __html: renderMarkdown(job.description) }}
                   />
 
@@ -331,7 +331,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         {t.careers.detail.whyJoin}
                       </h2>
                       <div
-                        style={{ fontSize: 15, lineHeight: 1.7, color: "#3E3B38" }}
+                        style={{ fontSize: 15, lineHeight: 1.7, color: "#4e4e4e" }}
                         dangerouslySetInnerHTML={{ __html: renderMarkdown(job.whyJoin) }}
                       />
                     </>
@@ -380,7 +380,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                       {/* Department */}
                       <div>
-                        <p style={{ fontSize: 12, color: "#777169", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                        <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
                           </svg>
@@ -392,7 +392,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       </div>
                       {/* Type */}
                       <div>
-                        <p style={{ fontSize: 12, color: "#777169", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                        <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                           </svg>
@@ -404,7 +404,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       </div>
                       {/* Location */}
                       <div>
-                        <p style={{ fontSize: 12, color: "#777169", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                        <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
                           </svg>
@@ -416,7 +416,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       </div>
                       {/* Remote */}
                       <div>
-                        <p style={{ fontSize: 12, color: "#777169", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                        <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                           </svg>
@@ -428,7 +428,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                       </div>
                       {/* Reference */}
                       <div>
-                        <p style={{ fontSize: 12, color: "#777169", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                        <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <line x1="4" y1="9" x2="20" y2="9" /><line x1="4" y1="15" x2="20" y2="15" /><line x1="10" y1="3" x2="8" y2="21" /><line x1="16" y1="3" x2="14" y2="21" />
                           </svg>
@@ -499,7 +499,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                   style={{
                     fontSize: 16,
                     lineHeight: 1.6,
-                    color: "#777169",
+                    color: "#4e4e4e",
                     marginBottom: 40,
                     maxWidth: "56ch",
                   }}
@@ -740,6 +740,6 @@ const shareBtnStyle: React.CSSProperties = {
   borderRadius: 10,
   background: "transparent",
   cursor: "pointer",
-  color: "#777169",
+  color: "#4e4e4e",
   transition: "background 0.18s ease, color 0.18s ease",
 };

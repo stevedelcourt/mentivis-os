@@ -299,7 +299,7 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -390,7 +390,7 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
               </div>
               <div>
                 <h4 style={{ fontSize: 14, fontWeight: 500, marginBottom: 4, color: "#000" }}>{s.label}</h4>
-                <p style={{ fontSize: 12, lineHeight: 1.5, color: "#777169", margin: 0 }}>{s.desc}</p>
+                <p style={{ fontSize: 12, lineHeight: 1.5, color: "#4e4e4e", margin: 0 }}>{s.desc}</p>
               </div>
             </div>
           ))}

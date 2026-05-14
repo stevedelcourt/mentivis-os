@@ -232,7 +232,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
               style={{
                 ...inputStyle,
                 background: "#F0F0F0",
-                color: "#777169",
+                color: "#4e4e4e",
                 fontFamily: "monospace",
                 fontSize: 13,
               }}
@@ -258,7 +258,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+            <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
               <input
                 type="checkbox"
                 checked={remote}
@@ -295,7 +295,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
                   padding: "8px 14px",
                   borderRadius: 8,
                   background: type === jt.key ? "#0A0A0A" : "#F0F0F0",
-                  color: type === jt.key ? "#fff" : "#3E3B38",
+                  color: type === jt.key ? "#fff" : "#4e4e4e",
                   fontSize: 13,
                   fontWeight: 500,
                   userSelect: "none",
@@ -343,7 +343,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
         </div>
 
         <div style={{ display: "flex", gap: 24, marginBottom: 32, flexWrap: "wrap" }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
             <input
               type="checkbox"
               checked={published}
@@ -381,7 +381,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
                 fontSize: 15,
                 color: "#0A0A0A",
                 textDecoration: "none",
-                border: "1px solid #E5E0DA",
+                border: "1px solid #e5e5e5",
                 borderRadius: 10,
                 background: "#fff",
               }}
@@ -394,9 +394,9 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
             style={{
               padding: "14px 24px",
               fontSize: 15,
-              color: "#777169",
+              color: "#4e4e4e",
               textDecoration: "none",
-              border: "1px solid #E5E0DA",
+              border: "1px solid #e5e5e5",
               borderRadius: 10,
               background: "#FAFAF8",
               marginLeft: "auto",
@@ -414,7 +414,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: 13,
   fontWeight: 500,
-  color: "#3E3B38",
+  color: "#4e4e4e",
   marginBottom: 6,
 };
 
@@ -422,7 +422,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px 14px",
   fontSize: 15,
-  border: "1px solid #E5E0DA",
+  border: "1px solid #e5e5e5",
   borderRadius: 10,
   background: "#FAFAF8",
   outline: "none",

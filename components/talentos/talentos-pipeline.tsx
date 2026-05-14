@@ -27,9 +27,9 @@ export default function TalentOSPipeline({ lang }: { lang: Locale }) {
   const { ref, visible } = useVisible(0.05);
 
   return (
-    <section id="parcours-complet" ref={ref} style={{ background: "#F5F2EF", padding: "clamp(96px, 12vw, 160px) 0" }}>
+    <section id="parcours-complet" ref={ref} style={{ background: "#f5f5f5", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "PARCOURS COMPLET" : "COMPLETE JOURNEY"}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 700 }}>
@@ -39,7 +39,7 @@ export default function TalentOSPipeline({ lang }: { lang: Locale }) {
           {steps.map((s, i) => (
             <div
               key={s.label}
-              style={{ flex: 1, minWidth: 140, padding: "20px 16px", position: "relative", borderTop: "2px solid #EDEAE3", transition: "border-color 0.3s ease" }}
+              style={{ flex: 1, minWidth: 140, padding: "20px 16px", position: "relative", borderTop: "2px solid #f5f5f5", transition: "border-color 0.3s ease" }}
               className="talentos-pipeline-step"
             >
               <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#0A0A0A", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, marginBottom: 12, position: "relative", top: -40 }}>
@@ -47,12 +47,12 @@ export default function TalentOSPipeline({ lang }: { lang: Locale }) {
               </div>
               <div style={{ marginTop: -24 }}>
                 <h4 style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: "#000" }}>{s.label}</h4>
-                <p style={{ fontSize: 13, lineHeight: 1.5, color: "#777169", margin: 0 }}>{s.desc}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.5, color: "#4e4e4e", margin: 0 }}>{s.desc}</p>
               </div>
             </div>
           ))}
         </div>
-        <div style={{ ...sectionAnim(visible, 0.2), aspectRatio: "16/9", borderRadius: 24, background: "#EDEAE3", display: "flex", alignItems: "center", justifyContent: "center", color: "#A8A39A", fontSize: 14, overflow: "hidden" }}>
+        <div style={{ ...sectionAnim(visible, 0.2), aspectRatio: "16/9", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
           <img
             src="/images/TalentOS/screenshot-pipeline.avif"
             alt=""

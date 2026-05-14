@@ -43,7 +43,7 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -107,7 +107,7 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
               </div>
               <div style={{ marginTop: "auto" }}>
                 <h3 style={{ fontSize: 17, fontWeight: 500, marginBottom: 8, color: "#000" }}>{f.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#777169", margin: 0 }}>{f.desc}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0 }}>{f.desc}</p>
               </div>
             </div>
           ))}

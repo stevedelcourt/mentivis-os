@@ -163,7 +163,7 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
                   width: el.size,
                   height: el.size,
                   borderRadius: 14,
-                  background: el.id % 2 === 0 ? "#1a1a2e" : "#777169",
+                  background: el.id % 2 === 0 ? "#1a1a2e" : "#4e4e4e",
                   opacity: 0.6,
                 }}
               />

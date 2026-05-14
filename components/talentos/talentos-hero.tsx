@@ -50,7 +50,7 @@ export default function TalentOSHero({ lang }: { lang: Locale }) {
           alignItems: "start",
         }}>
           <div style={{ maxWidth: 640 }}>
-            <p style={{ ...sectionAnim(visible, 0), marginBottom: 24, color: "#777169", textTransform: "uppercase", letterSpacing: "0.14px", fontWeight: 500, fontSize: 12 }}>
+            <p style={{ ...sectionAnim(visible, 0), marginBottom: 24, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.14px", fontWeight: 500, fontSize: 12 }}>
               {c.eyebrow}
             </p>
             <h1 style={{ ...sectionAnim(visible, 0.1), marginBottom: 20, fontWeight: 300, lineHeight: 0.95, letterSpacing: "-0.03em", whiteSpace: "pre-line", fontSize: "clamp(32px, 5vw, 56px)" }}>
@@ -87,7 +87,7 @@ export default function TalentOSHero({ lang }: { lang: Locale }) {
                   fontSize: 15,
                   fontWeight: 500,
                   color: "#0A0A0A",
-                  background: "#F5F3F0",
+                  background: "#f5f5f5",
                   borderRadius: 8,
                   textDecoration: "none",
                   display: "inline-flex",
@@ -101,7 +101,7 @@ export default function TalentOSHero({ lang }: { lang: Locale }) {
                 </svg>
               </Link>
             </div>
-            <p style={{ ...sectionAnim(visible, 0.4), marginTop: 32, color: "#777169", fontSize: 14 }}>
+            <p style={{ ...sectionAnim(visible, 0.4), marginTop: 32, color: "#4e4e4e", fontSize: 14 }}>
               {c.proof}
             </p>
           </div>

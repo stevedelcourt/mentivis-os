@@ -29,7 +29,7 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "SÉCURITÉ & INFRASTRUCTURE" : "SECURITY & INFRASTRUCTURE"}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 700 }}>
@@ -41,7 +41,7 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
               key={item.label}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.05),
-                background: "#F5F3F0",
+                background: "#f5f5f5",
                 borderRadius: 18,
                 padding: "28px 24px",
                 display: "flex",
@@ -55,7 +55,7 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
               <span style={{ fontSize: 28 }}>{item.icon}</span>
               <div style={{ marginTop: "auto" }}>
                 <h4 style={{ fontSize: 17, fontWeight: 500, marginBottom: 6, color: "#000" }}>{item.label}</h4>
-                <p style={{ fontSize: 14, lineHeight: 1.5, color: "#777169", margin: 0 }}>{item.desc}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.5, color: "#4e4e4e", margin: 0 }}>{item.desc}</p>
               </div>
             </div>
           ))}

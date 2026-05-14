@@ -65,7 +65,7 @@ export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -108,8 +108,8 @@ export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
                 borderRadius: 999,
                 border: "none",
                 cursor: "pointer",
-                background: active === i ? "#0A0A0A" : "#F5F3F0",
-                color: active === i ? "#fff" : "#3E3B38",
+                background: active === i ? "#0A0A0A" : "#f5f5f5",
+                color: active === i ? "#fff" : "#4e4e4e",
                 transition: "background 0.2s ease, color 0.2s ease",
               }}
             >
@@ -169,11 +169,11 @@ export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
             style={{
               aspectRatio: "4/3",
               borderRadius: 24,
-              background: "#F5F2EF",
+              background: "#f5f5f5",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#A8A39A",
+              color: "#777777",
               fontSize: 14,
               overflow: "hidden",
             }}

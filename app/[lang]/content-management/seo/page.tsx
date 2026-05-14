@@ -164,7 +164,7 @@ export default function SeoEditorPage() {
           <label style={labelStyle}>Langue</label>
           <div style={{ display: "flex", gap: 8 }}>
             {LANGUAGES.map((l) => (
-              <button key={l.key} type="button" onClick={() => setSelectedLang(l.key)} style={{ flex: 1, padding: "10px 14px", fontSize: 14, fontWeight: 500, borderRadius: 10, border: "1px solid", borderColor: selectedLang === l.key ? "#0A0A0A" : "#E5E0DA", background: selectedLang === l.key ? "#0A0A0A" : "#FAFAF8", color: selectedLang === l.key ? "#fff" : "#3E3B38", cursor: "pointer" }}>
+              <button key={l.key} type="button" onClick={() => setSelectedLang(l.key)} style={{ flex: 1, padding: "10px 14px", fontSize: 14, fontWeight: 500, borderRadius: 10, border: "1px solid", borderColor: selectedLang === l.key ? "#0A0A0A" : "#e5e5e5", background: selectedLang === l.key ? "#0A0A0A" : "#FAFAF8", color: selectedLang === l.key ? "#fff" : "#4e4e4e", cursor: "pointer" }}>
                 {l.label}
               </button>
             ))}
@@ -198,29 +198,29 @@ export default function SeoEditorPage() {
             <button type="submit" disabled={saving || !!jsonError} style={{ padding: "14px 28px", fontSize: 15, fontWeight: 500, color: "#fff", background: "#0A0A0A", border: "none", borderRadius: 10, cursor: saving || jsonError ? "not-allowed" : "pointer", opacity: saving || jsonError ? 0.6 : 1 }}>
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
-            <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#777169", textDecoration: "none", border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", marginLeft: "auto" }}>← Retour au tableau de bord</Link>
+            <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#4e4e4e", textDecoration: "none", border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", marginLeft: "auto" }}>← Retour au tableau de bord</Link>
           </div>
         </form>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div>
             <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>Titre</p>
-            <p style={{ fontSize: 15, color: "#3E3B38", lineHeight: 1.6 }}>{title}</p>
+            <p style={{ fontSize: 15, color: "#4e4e4e", lineHeight: 1.6 }}>{title}</p>
           </div>
           <div>
             <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>Description</p>
-            <p style={{ fontSize: 15, color: "#3E3B38", lineHeight: 1.6 }}>{description}</p>
+            <p style={{ fontSize: 15, color: "#4e4e4e", lineHeight: 1.6 }}>{description}</p>
           </div>
           <div>
             <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>JSON-LD</p>
-            <pre style={{ fontSize: 13, color: "#3E3B38", background: "#F5F3F0", padding: 16, borderRadius: 10, overflowX: "auto" }}>{jsonLdRaw}</pre>
+            <pre style={{ fontSize: 13, color: "#4e4e4e", background: "#f5f5f5", padding: 16, borderRadius: 10, overflowX: "auto" }}>{jsonLdRaw}</pre>
           </div>
-          <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#777169", textDecoration: "none", border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", marginTop: 40, display: "inline-block", width: "fit-content" }}>← Retour au tableau de bord</Link>
+          <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#4e4e4e", textDecoration: "none", border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", marginTop: 40, display: "inline-block", width: "fit-content" }}>← Retour au tableau de bord</Link>
         </div>
       )}
     </CmsLayout>
   );
 }
 
-const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 };
-const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };
+const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#4e4e4e", marginBottom: 6 };
+const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };

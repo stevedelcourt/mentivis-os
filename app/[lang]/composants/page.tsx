@@ -228,7 +228,7 @@ const COMPONENTS: ComponentDef[] = [
     file: "combination-section.tsx",
     desc: "Texte de positionnement cabinet",
     category: "Content",
-    color: "#777169",
+    color: "#4e4e4e",
     preview: (
       <div style={{ padding: 16, background: "#f5f5f5", borderRadius: 12 }}>
         <div style={{ height: 6, background: "#e5e5e5", borderRadius: 3, marginBottom: 6, width: "90%" }} />
@@ -255,7 +255,7 @@ const COMPONENTS: ComponentDef[] = [
     file: "faq-section.tsx",
     desc: "Accordeon FAQ numerote avec animation expand/collapse",
     category: "Content",
-    color: "#777169",
+    color: "#4e4e4e",
     preview: (
       <div style={{ padding: 16, background: "#fff", borderRadius: 12, boxShadow: "0 0 0 1px rgba(0,0,0,.06)" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -347,7 +347,7 @@ const COMPONENTS: ComponentDef[] = [
     file: "topo-lines.tsx",
     desc: "Animation de lignes topographiques",
     category: "Motion",
-    color: "#777169",
+    color: "#4e4e4e",
     preview: (
       <div style={{ height: 80, position: "relative", overflow: "hidden", borderRadius: 8, background: "#f5f5f5" }}>
         <TopoLines count={8} height="80px" lineColor="rgba(0,0,0,0.12)" lineWidth={0.75} speed={0.3} />

@@ -147,7 +147,7 @@ export default function TarifsEditorPage() {
 
       <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
         {PRODUCT_TABS.map((tab) => (
-          <button key={tab.key} onClick={() => setActiveTab(tab.key)} style={{ padding: "10px 20px", fontSize: 14, fontWeight: 500, borderRadius: 999, border: "none", cursor: "pointer", background: activeTab === tab.key ? "#0A0A0A" : "#E5E0DA", color: activeTab === tab.key ? "#fff" : "#3E3B38" }}>
+          <button key={tab.key} onClick={() => setActiveTab(tab.key)} style={{ padding: "10px 20px", fontSize: 14, fontWeight: 500, borderRadius: 999, border: "none", cursor: "pointer", background: activeTab === tab.key ? "#0A0A0A" : "#e5e5e5", color: activeTab === tab.key ? "#fff" : "#4e4e4e" }}>
             {tab.label}
           </button>
         ))}
@@ -173,7 +173,7 @@ export default function TarifsEditorPage() {
                 <div><label style={labelStyle}>Limite / credits</label><input type="text" value={plan.creditLimit} onChange={(e) => updatePlan(activeTab, planIndex, "creditLimit", e.target.value)} style={inputStyle} /></div>
               </div>
               <div style={{ display: "flex", gap: 24, marginBottom: 20, alignItems: "center" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
                   <input type="checkbox" checked={plan.popular} onChange={(e) => updatePlan(activeTab, planIndex, "popular", e.target.checked)} style={{ width: 18, height: 18 }} /> Plan populaire
                 </label>
               </div>
@@ -191,7 +191,7 @@ export default function TarifsEditorPage() {
             <button type="submit" disabled={saving} style={{ padding: "14px 28px", fontSize: 15, fontWeight: 500, color: "#fff", background: "#0A0A0A", border: "none", borderRadius: 10, cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.6 : 1 }}>
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
-            <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#777169", textDecoration: "none", border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", marginLeft: "auto" }}>← Retour au tableau de bord</Link>
+            <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#4e4e4e", textDecoration: "none", border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", marginLeft: "auto" }}>← Retour au tableau de bord</Link>
           </div>
         </form>
       ) : (
@@ -202,27 +202,27 @@ export default function TarifsEditorPage() {
                 <h2 style={{ fontSize: 20, fontWeight: 500, color: "#0A0A0A" }}>{plan.name}</h2>
                 {plan.popular && <span style={{ padding: "4px 10px", fontSize: 12, fontWeight: 500, borderRadius: 999, background: "#E3F2FD", color: "#1565C0" }}>Populaire</span>}
               </div>
-              <p style={{ fontSize: 14, color: "#3E3B38", marginBottom: 16, lineHeight: 1.6 }}>{plan.description}</p>
+              <p style={{ fontSize: 14, color: "#4e4e4e", marginBottom: 16, lineHeight: 1.6 }}>{plan.description}</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "12px 24px", marginBottom: 16 }}>
-                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Prix mensuel</p><p style={{ fontSize: 15, color: "#3E3B38" }}>{plan.monthlyPrice !== null ? `${plan.monthlyPrice} EUR` : "Sur devis"}</p></div>
-                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Prix annuel</p><p style={{ fontSize: 15, color: "#3E3B38" }}>{plan.yearlyPrice !== null ? `${plan.yearlyPrice} EUR` : "Sur devis"}</p></div>
-                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Setup</p><p style={{ fontSize: 15, color: "#3E3B38" }}>{plan.setupFee !== null ? `${plan.setupFee} EUR` : "Sur devis"}</p></div>
-                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Limite</p><p style={{ fontSize: 15, color: "#3E3B38" }}>{plan.creditLimit}</p></div>
+                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Prix mensuel</p><p style={{ fontSize: 15, color: "#4e4e4e" }}>{plan.monthlyPrice !== null ? `${plan.monthlyPrice} EUR` : "Sur devis"}</p></div>
+                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Prix annuel</p><p style={{ fontSize: 15, color: "#4e4e4e" }}>{plan.yearlyPrice !== null ? `${plan.yearlyPrice} EUR` : "Sur devis"}</p></div>
+                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Setup</p><p style={{ fontSize: 15, color: "#4e4e4e" }}>{plan.setupFee !== null ? `${plan.setupFee} EUR` : "Sur devis"}</p></div>
+                <div><p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 2 }}>Limite</p><p style={{ fontSize: 15, color: "#4e4e4e" }}>{plan.creditLimit}</p></div>
               </div>
               <div>
                 <p style={{ fontSize: 12, color: "#A8A29E", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Fonctionnalites</p>
                 <ul style={{ paddingLeft: 20, margin: 0 }}>
-                  {plan.features.map((f, i) => (<li key={i} style={{ fontSize: 14, color: "#3E3B38", marginBottom: 4 }}>{f}</li>))}
+                  {plan.features.map((f, i) => (<li key={i} style={{ fontSize: 14, color: "#4e4e4e", marginBottom: 4 }}>{f}</li>))}
                 </ul>
               </div>
             </div>
           ))}
-          <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#777169", textDecoration: "none", border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", marginTop: 40, display: "inline-block", width: "fit-content" }}>← Retour au tableau de bord</Link>
+          <Link href={`/${lang}/content-management`} style={{ padding: "14px 24px", fontSize: 15, color: "#4e4e4e", textDecoration: "none", border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", marginTop: 40, display: "inline-block", width: "fit-content" }}>← Retour au tableau de bord</Link>
         </div>
       )}
     </CmsLayout>
   );
 }
 
-const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#3E3B38", marginBottom: 6 };
-const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #E5E0DA", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };
+const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 500, color: "#4e4e4e", marginBottom: 6 };
+const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", fontSize: 15, border: "1px solid #e5e5e5", borderRadius: 10, background: "#FAFAF8", outline: "none", boxSizing: "border-box" };

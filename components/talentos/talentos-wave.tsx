@@ -47,10 +47,10 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
           transform: rotate(45deg) scale(1.1);
         }
         .talentos-wave__btn::before {
-          content: "${lang === "fr" ? "PARCOURS COMPLET" : "COMPLETE JOURNEY"}";
+          content: "Oui !";
           color: #31373f;
           font-weight: 300;
-          font-size: 11px;
+          font-size: 22px;
           position: absolute;
           top: 0;
           left: 0;
@@ -61,7 +61,6 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
           align-items: center;
           margin: auto;
           transform: rotate(-45deg);
-          letter-spacing: 0.04em;
           font-family: var(--font-sans);
         }
         .talentos-wave__btn:active {
@@ -124,7 +123,7 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
             height: 60px;
           }
           .talentos-wave__btn::before {
-            font-size: 9px;
+            font-size: 18px;
           }
           .talentos-wave__circle {
             border-width: 6px;

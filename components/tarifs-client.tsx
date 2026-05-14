@@ -568,7 +568,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                             backgroundSize: 16,
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%234e4e4e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
                             transition: "background-image 0.3s ease",
                           }}
                         />
@@ -620,7 +620,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             border-color: var(--border-light);
           }
           .pricing-card[data-plan="Gratuit"]:hover .pricing-card-check {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%23777169' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%234e4e4e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
           }
           @media (max-width: 950px) {
             .tarifs-faq-grid {

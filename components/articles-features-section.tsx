@@ -74,7 +74,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 fontSize: 11,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "#777169",
+                color: "#4e4e4e",
                 marginBottom: 10,
               }}
             >
@@ -87,7 +87,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 fontWeight: 300,
                 lineHeight: 1.35,
                 letterSpacing: "-0.01em",
-                color: "#3E3B38",
+                color: "#4e4e4e",
                 maxWidth: 520,
               }}
             >
@@ -229,7 +229,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                   fontSize: 10,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#A8A39A",
+                  color: "#777777",
                   marginBottom: 5,
                 }}
               >
@@ -250,7 +250,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
               </h3>
             </Link>
           )) : (
-            <p style={{ gridColumn: "1 / -1", color: "#A8A39A", fontSize: 14, padding: "40px 0" }}>
+            <p style={{ gridColumn: "1 / -1", color: "#777777", fontSize: 14, padding: "40px 0" }}>
               Aucun article publie pour le moment.
             </p>
           )}

@@ -93,7 +93,7 @@ export default function LearningOSFAQ({ lang }: { lang: Locale }) {
           style={{
             ...sectionAnim(visible, 0),
             marginBottom: 12,
-            color: "#777169",
+            color: "#4e4e4e",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             fontWeight: 500,
@@ -155,7 +155,7 @@ export default function LearningOSFAQ({ lang }: { lang: Locale }) {
                     transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 0.3s ease",
                     flexShrink: 0,
-                    color: "#777169",
+                    color: "#4e4e4e",
                   }}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

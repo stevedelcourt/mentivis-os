@@ -60,7 +60,7 @@ export default function JobsListPage() {
   if (!token) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#777169" }}>Redirection...</p>
+        <p style={{ color: "#4e4e4e" }}>Redirection...</p>
       </div>
     );
   }
@@ -107,23 +107,23 @@ export default function JobsListPage() {
               borderRadius: 999,
               border: "none",
               cursor: "pointer",
-              background: filter === f ? "#0A0A0A" : "#E5E0DA",
-              color: filter === f ? "#fff" : "#3E3B38",
+              background: filter === f ? "#0A0A0A" : "#e5e5e5",
+              color: filter === f ? "#fff" : "#4e4e4e",
             }}
           >
             {f === "all" ? "Tous" : f === "published" ? "Publiees" : "Brouillons"}
           </button>
         ))}
-        <span style={{ marginLeft: "auto", fontSize: 13, color: "#777169", alignSelf: "center" }}>
+        <span style={{ marginLeft: "auto", fontSize: 13, color: "#4e4e4e", alignSelf: "center" }}>
           {jobs.length} offre{jobs.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {loading ? (
-        <p style={{ textAlign: "center", color: "#777169", padding: 40 }}>Chargement...</p>
+        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
       ) : jobs.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
-          <p style={{ color: "#777169", marginBottom: 16 }}>Aucune offre</p>
+          <p style={{ color: "#4e4e4e", marginBottom: 16 }}>Aucune offre</p>
           <Link
             href={`/${lang}/content-management/jobs/edit/new`}
             style={{ color: "#0A0A0A", fontWeight: 500, textDecoration: "underline" }}
@@ -157,7 +157,7 @@ export default function JobsListPage() {
               {jobs.map((job) => (
                 <tr
                   key={job.id}
-                  style={{ borderBottom: "1px solid #F5F3F0" }}
+                  style={{ borderBottom: "1px solid #f5f5f5" }}
                 >
                   <td style={{ ...tdStyle, color: "#A8A29E", fontSize: 12 }}>{job.reference}</td>
                   <td style={tdStyle}>
@@ -177,7 +177,7 @@ export default function JobsListPage() {
                         fontSize: 12,
                         fontWeight: 500,
                         background: "#F0F0F0",
-                        color: "#3E3B38",
+                        color: "#4e4e4e",
                       }}
                     >
                       {typeLabel(job.type)}
@@ -217,9 +217,9 @@ export default function JobsListPage() {
                         style={{
                           padding: "10px 16px",
                           fontSize: 12,
-                          color: "#777169",
+                          color: "#4e4e4e",
                           textDecoration: "none",
-                          border: "1px solid #E5E0DA",
+                          border: "1px solid #e5e5e5",
                           borderRadius: 8,
                           display: "inline-flex",
                           alignItems: "center",
@@ -237,7 +237,7 @@ export default function JobsListPage() {
                               fontSize: 12,
                               color: "#0A0A0A",
                               textDecoration: "none",
-                              border: "1px solid #E5E0DA",
+                              border: "1px solid #e5e5e5",
                               borderRadius: 8,
                               background: "#FAFAF8",
                               display: "inline-flex",
@@ -279,7 +279,7 @@ const thStyle: React.CSSProperties = {
   textAlign: "left",
   padding: "16px 20px",
   fontWeight: 500,
-  color: "#777169",
+  color: "#4e4e4e",
   fontSize: 12,
   textTransform: "uppercase",
   letterSpacing: "0.05em",
@@ -288,5 +288,5 @@ const thStyle: React.CSSProperties = {
 
 const tdStyle: React.CSSProperties = {
   padding: "16px 20px",
-  color: "#3E3B38",
+  color: "#4e4e4e",
 };

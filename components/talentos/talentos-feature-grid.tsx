@@ -34,12 +34,12 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
     <section
       ref={ref}
       style={{
-        background: "#F5F2EF",
+        background: "#f5f5f5",
         padding: "clamp(96px, 12vw, 160px) 0",
       }}
     >
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
+        <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           Capacités
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
@@ -51,7 +51,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
               key={f.title}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.04),
-                background: i % 2 === 0 ? "#EDEAE3" : "#E5E0DA",
+                background: i % 2 === 0 ? "#f5f5f5" : "#E5E0DA",
                 borderRadius: 22,
                 padding: "28px 24px 24px",
                 display: "flex",
@@ -66,7 +66,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
               </div>
               <div style={{ marginTop: "auto" }}>
                 <h3 style={{ fontSize: 17, fontWeight: 500, marginBottom: 8, color: "#000" }}>{f.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#777169", margin: 0 }}>{f.desc}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0 }}>{f.desc}</p>
               </div>
             </div>
           ))}

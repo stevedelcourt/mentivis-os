@@ -396,7 +396,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#777169",
+                    color: "#4e4e4e",
                     transition: "all .2s ease",
                     flexShrink: 0,
                   }}
@@ -426,7 +426,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
               <p
                 style={{
                   fontSize: 14,
-                  color: "#777169",
+                  color: "#4e4e4e",
                   lineHeight: 1.45,
                 }}
               >
@@ -461,7 +461,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 color: "#0A0A0A",
                 cursor: "pointer",
                 appearance: "none",
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777169' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234e4e4e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right 16px center",
               }}
@@ -505,7 +505,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 alignItems: "center",
                 justifyContent: "center",
                 zIndex: 20,
-                color: "#777169",
+                color: "#4e4e4e",
                 transition: "all .25s ease",
                 fontSize: 24,
                 lineHeight: 1,
@@ -515,7 +515,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,.04)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color = "#777169";
+                (e.currentTarget as HTMLButtonElement).style.color = "#4e4e4e";
                 (e.currentTarget as HTMLButtonElement).style.background = "transparent";
               }}
             >
@@ -798,7 +798,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                       <p
                         style={{
                           fontSize: 13,
-                          color: "#777169",
+                          color: "#4e4e4e",
                           lineHeight: 1.5,
                           maxWidth: 240,
                           margin: "0 auto",
@@ -831,7 +831,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 alignItems: "center",
                 justifyContent: "center",
                 zIndex: 20,
-                color: "#777169",
+                color: "#4e4e4e",
                 transition: "all .25s ease",
                 fontSize: 24,
                 lineHeight: 1,
@@ -841,7 +841,7 @@ export default function InteractiveExplainer({ lang }: InteractiveExplainerProps
                 (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,.04)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color = "#777169";
+                (e.currentTarget as HTMLButtonElement).style.color = "#4e4e4e";
                 (e.currentTarget as HTMLButtonElement).style.background = "transparent";
               }}
             >

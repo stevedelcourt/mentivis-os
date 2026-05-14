@@ -71,7 +71,7 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
             style={{
               ...sectionAnim(visible, 0),
               marginBottom: 24,
-              color: "#777169",
+              color: "#4e4e4e",
               textTransform: "uppercase",
               letterSpacing: "0.14px",
               fontWeight: 500,
@@ -140,7 +140,7 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
                 fontSize: 15,
                 fontWeight: 500,
                 color: "#0A0A0A",
-                background: "#F5F3F0",
+                background: "#f5f5f5",
                 borderRadius: 8,
                 textDecoration: "none",
                 display: "inline-flex",
@@ -158,7 +158,7 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
             style={{
               ...sectionAnim(visible, 0.4),
               marginTop: 32,
-              color: "#777169",
+              color: "#4e4e4e",
               fontSize: 14,
             }}
           >
