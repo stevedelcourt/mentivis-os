@@ -332,7 +332,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
             grid-template-rows: auto auto auto;
             grid-template-areas:
               "a b c"
-              "d . e"
+              "d . f"
               "g g .";
             gap: 12px;
           }
