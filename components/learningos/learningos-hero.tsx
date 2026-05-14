@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
+import HeroCollage from "@/components/hero-collage";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -59,9 +60,12 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
       style={{
         background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0 clamp(64px, 8vw, 96px)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <HeroCollage lang={lang} />
+      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 720 }}>
           <p
             style={{
