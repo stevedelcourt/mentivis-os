@@ -27,7 +27,7 @@ export default function TalentOSPipeline({ lang }: { lang: Locale }) {
   const { ref, visible } = useVisible(0.05);
 
   return (
-    <section ref={ref} style={{ background: "#F5F2EF", padding: "clamp(96px, 12vw, 160px) 0" }}>
+    <section id="parcours-complet" ref={ref} style={{ background: "#F5F2EF", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#777169", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "PARCOURS COMPLET" : "COMPLETE JOURNEY"}
