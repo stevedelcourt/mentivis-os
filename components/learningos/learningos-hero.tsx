@@ -85,11 +85,14 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
               fontWeight: 300,
               lineHeight: 1.05,
               letterSpacing: "-0.03em",
-              whiteSpace: "pre-line",
               fontSize: "clamp(32px, 5vw, 56px)",
             }}
           >
-            {c.headline}
+            {c.headline.split("\n").map((line, i) => (
+              <span key={i} style={{ display: "block" }}>
+                {line}
+              </span>
+            ))}
           </h1>
           <p
             style={{
