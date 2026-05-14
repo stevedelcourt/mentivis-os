@@ -129,16 +129,39 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
               <span
                 style={{
                   display: "inline-flex",
-                  padding: "4px 10px",
-                  borderRadius: 999,
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(255,255,255,0.12)",
+                  backdropFilter: "blur(6px)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: 10,
+                  padding: "6px 12px 6px 8px",
                   fontSize: 11,
                   fontWeight: 500,
-                  background: "rgba(0,0,0,0.1)",
-                  color: "#000",
+                  color: "#fff",
                   marginBottom: "auto",
                   alignSelf: "flex-start",
                 }}
               >
+                <svg width="14" height="14" viewBox="0 0 130 130" fill="none">
+                  <rect x="20" y="20" width="10" height="10" fill="white"/>
+                  <rect x="100" y="20" width="10" height="10" fill="white"/>
+                  <rect x="20" y="40" width="10" height="10" fill="white"/>
+                  <rect x="40" y="40" width="10" height="10" fill="white"/>
+                  <rect x="80" y="40" width="10" height="10" fill="white"/>
+                  <rect x="100" y="40" width="10" height="10" fill="white"/>
+                  <rect x="20" y="60" width="10" height="10" fill="white"/>
+                  <rect x="40" y="60" width="10" height="10" fill="white"/>
+                  <rect x="60" y="60" width="10" height="10" fill="white"/>
+                  <rect x="80" y="60" width="10" height="10" fill="white"/>
+                  <rect x="100" y="60" width="10" height="10" fill="white"/>
+                  <rect x="20" y="80" width="10" height="10" fill="white"/>
+                  <rect x="40" y="80" width="10" height="10" fill="white"/>
+                  <rect x="80" y="80" width="10" height="10" fill="white"/>
+                  <rect x="100" y="80" width="10" height="10" fill="white"/>
+                  <rect x="20" y="100" width="10" height="10" fill="white"/>
+                  <rect x="100" y="100" width="10" height="10" fill="white"/>
+                </svg>
                 {items[activeIndex].tag}
               </span>
               <div style={{ marginTop: "auto" }}>

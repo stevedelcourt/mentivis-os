@@ -4,12 +4,12 @@ import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
 const GRADIENTS = [
-  `radial-gradient(ellipse 50% 60% at 15% 30%, rgba(180,160,220,0.25) 0%, transparent 60%), linear-gradient(135deg, #f8f4fc 0%, #eae4f4 100%)`,
-  `radial-gradient(ellipse 45% 55% at 80% 20%, rgba(160,200,180,0.25) 0%, transparent 55%), linear-gradient(135deg, #f0f8f4 0%, #e0ece4 100%)`,
-  `radial-gradient(ellipse 50% 50% at 70% 80%, rgba(230,200,170,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf4ec 0%, #f0e4d8 100%)`,
-  `radial-gradient(ellipse 45% 50% at 25% 80%, rgba(160,200,240,0.2) 0%, transparent 55%), linear-gradient(135deg, #f0f6fc 0%, #dce8f4 100%)`,
-  `radial-gradient(ellipse 40% 50% at 85% 50%, rgba(230,180,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf0f4 0%, #f0dce8 100%)`,
-  `radial-gradient(ellipse 45% 45% at 30% 90%, rgba(170,220,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #ecf8f0 0%, #dcece4 100%)`,
+  `radial-gradient(ellipse 55% 48% at 12% 90%, rgba(196,108,42,0.88) 0%, rgba(155,75,28,0.42) 38%, transparent 62%), radial-gradient(ellipse 38% 32% at 30% 60%, rgba(145,68,118,0.38) 0%, transparent 55%), radial-gradient(ellipse 45% 38% at 68% 28%, rgba(18,48,72,0.5) 0%, transparent 58%), linear-gradient(148deg, #1a3042 0%, #152535 55%, #0e1f30 100%)`,
+  `radial-gradient(ellipse 58% 52% at 80% 80%, rgba(218,42,52,0.94) 0%, rgba(178,28,38,0.6) 32%, transparent 62%), radial-gradient(ellipse 32% 28% at 65% 62%, rgba(235,82,38,0.22) 0%, transparent 48%), radial-gradient(ellipse 30% 25% at 45% 45%, rgba(12,18,45,0.4) 0%, transparent 60%), linear-gradient(138deg, #07102c 0%, #090e2e 100%)`,
+  `radial-gradient(ellipse 18% 55% at -2% 8%, rgba(115,22,182,0.88) 0%, transparent 52%), radial-gradient(ellipse 15% 35% at 0% 72%, rgba(18,135,78,0.78) 0%, transparent 48%), radial-gradient(ellipse 22% 25% at 5% 40%, rgba(18,88,185,0.5) 0%, transparent 45%), radial-gradient(ellipse 72% 62% at 58% 42%, rgba(238,112,28,0.92) 0%, transparent 62%), radial-gradient(ellipse 52% 55% at 78% 72%, rgba(205,55,38,0.88) 0%, transparent 56%), radial-gradient(ellipse 42% 35% at 85% 18%, rgba(225,158,18,0.72) 0%, transparent 52%), linear-gradient(138deg, #cf6228 0%, #c03228 100%)`,
+  `radial-gradient(ellipse 55% 52% at 12% 18%, rgba(115,18,175,0.88) 0%, transparent 58%), radial-gradient(ellipse 52% 56% at 78% 52%, rgba(232,48,108,0.9) 0%, transparent 56%), radial-gradient(ellipse 46% 42% at 52% 92%, rgba(222,88,58,0.78) 0%, transparent 52%), radial-gradient(ellipse 28% 28% at 92% 8%, rgba(85,15,142,0.62) 0%, transparent 48%), linear-gradient(138deg, #6e12b2 0%, #c23272 100%)`,
+  `radial-gradient(ellipse 28% 24% at 64% 30%, rgba(75,145,255,0.7) 0%, transparent 52%), radial-gradient(ellipse 22% 20% at 30% 58%, rgba(35,208,118,0.54) 0%, transparent 50%), radial-gradient(ellipse 20% 18% at 82% 70%, rgba(55,80,208,0.64) 0%, transparent 48%), radial-gradient(ellipse 26% 22% at 16% 24%, rgba(0,162,220,0.42) 0%, transparent 50%), linear-gradient(138deg, #161c30 0%, #121828 100%)`,
+  `radial-gradient(ellipse 58% 52% at 88% 18%, rgba(38,52,218,0.92) 0%, transparent 58%), radial-gradient(ellipse 55% 58% at 38% 62%, rgba(118,38,202,0.88) 0%, transparent 56%), radial-gradient(ellipse 46% 42% at 12% 88%, rgba(202,48,152,0.78) 0%, transparent 52%), linear-gradient(138deg, #2232b8 0%, #6e1e9e 100%)`,
 ];
 
 const ITEMS = {
@@ -112,9 +112,9 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
               >
                 {i + 1}
               </div>
-              <div style={{ minWidth: 0 }}>
-                <h4 style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: "#000" }}>{item.label}</h4>
-                <p style={{ fontSize: 13, lineHeight: 1.45, color: "#4e4e4e", margin: 0 }}>{item.desc}</p>
+              <div style={{ minWidth: 0, color: "#fff" }}>
+                <h4 style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: "inherit" }}>{item.label}</h4>
+                <p style={{ fontSize: 13, lineHeight: 1.45, color: "rgba(255,255,255,0.75)", margin: 0 }}>{item.desc}</p>
               </div>
             </div>
           ))}
