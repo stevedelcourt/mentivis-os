@@ -24,7 +24,7 @@ export default function LearningOSTestimonials({ lang }: { lang: Locale }) {
     <section
       ref={ref}
       style={{
-        background: "#F5F2EF",
+        background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0",
       }}
     >

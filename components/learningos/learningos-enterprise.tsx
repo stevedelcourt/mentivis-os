@@ -3,22 +3,31 @@
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
+const GRADIENTS = [
+  `radial-gradient(ellipse 50% 60% at 15% 30%, rgba(180,160,220,0.25) 0%, transparent 60%), linear-gradient(135deg, #f8f4fc 0%, #eae4f4 100%)`,
+  `radial-gradient(ellipse 45% 55% at 80% 20%, rgba(160,200,180,0.25) 0%, transparent 55%), linear-gradient(135deg, #f0f8f4 0%, #e0ece4 100%)`,
+  `radial-gradient(ellipse 50% 50% at 70% 80%, rgba(230,200,170,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf4ec 0%, #f0e4d8 100%)`,
+  `radial-gradient(ellipse 45% 50% at 25% 80%, rgba(160,200,240,0.2) 0%, transparent 55%), linear-gradient(135deg, #f0f6fc 0%, #dce8f4 100%)`,
+  `radial-gradient(ellipse 40% 50% at 85% 50%, rgba(230,180,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf0f4 0%, #f0dce8 100%)`,
+  `radial-gradient(ellipse 45% 45% at 30% 90%, rgba(170,220,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #ecf8f0 0%, #dcece4 100%)`,
+];
+
 const ITEMS = {
   fr: [
-    { label: "RGPD", desc: "Conformité au Règlement Général sur la Protection des Données.", icon: "🔒" },
-    { label: "SOC 2", desc: "Certification SOC 2 Type II pour la sécurité des données.", icon: "🛡️" },
-    { label: "SSO / SAML", desc: "Authentification unique via votre fournisseur d'identité.", icon: "🔑" },
-    { label: "Chiffrement", desc: "Données chiffrées au repos et en transit (AES-256 / TLS 1.3).", icon: "🔐" },
-    { label: "Journaux d'audit", desc: "Traçabilité complète de toutes les actions et accès.", icon: "📋" },
-    { label: "SLA", desc: "Engagement de disponibilité et support prioritaire.", icon: "⏱️" },
+    { label: "RGPD", desc: "Conformité au Règlement Général sur la Protection des Données." },
+    { label: "SOC 2", desc: "Certification SOC 2 Type II pour la sécurité des données." },
+    { label: "SSO / SAML", desc: "Authentification unique via votre fournisseur d'identité." },
+    { label: "Chiffrement", desc: "Données chiffrées au repos et en transit (AES-256 / TLS 1.3)." },
+    { label: "Journaux d'audit", desc: "Traçabilité complète de toutes les actions et accès." },
+    { label: "SLA", desc: "Engagement de disponibilité et support prioritaire." },
   ],
   en: [
-    { label: "GDPR", desc: "Compliance with the General Data Protection Regulation.", icon: "🔒" },
-    { label: "SOC 2", desc: "SOC 2 Type II certification for data security.", icon: "🛡️" },
-    { label: "SSO / SAML", desc: "Single sign-on through your identity provider.", icon: "🔑" },
-    { label: "Encryption", desc: "Data encrypted at rest and in transit (AES-256 / TLS 1.3).", icon: "🔐" },
-    { label: "Audit Logs", desc: "Complete traceability of all actions and accesses.", icon: "📋" },
-    { label: "SLA", desc: "Availability commitment and priority support.", icon: "⏱️" },
+    { label: "GDPR", desc: "Compliance with the General Data Protection Regulation." },
+    { label: "SOC 2", desc: "SOC 2 Type II certification for data security." },
+    { label: "SSO / SAML", desc: "Single sign-on through your identity provider." },
+    { label: "Encryption", desc: "Data encrypted at rest and in transit (AES-256 / TLS 1.3)." },
+    { label: "Audit Logs", desc: "Complete traceability of all actions and accesses." },
+    { label: "SLA", desc: "Availability commitment and priority support." },
   ],
 };
 
@@ -46,7 +55,7 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
             fontSize: 11,
           }}
         >
-          {lang === "fr" ? "SÉCURITÉ & INFRASTRUCTURE" : "SECURITY & INFRASTRUCTURE"}
+          Sécurité & Infrastructure
         </p>
         <h2
           style={{
@@ -75,21 +84,37 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
               key={item.label}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.05),
-                background: "#F5F3F0",
+                background: GRADIENTS[i % GRADIENTS.length],
                 borderRadius: 18,
-                padding: "28px 24px",
+                padding: "20px 24px",
                 display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                aspectRatio: "1/1",
+                alignItems: "center",
+                gap: 16,
+                aspectRatio: "2.2/1",
                 transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
               className="learningos-enterprise-card"
             >
-              <span style={{ fontSize: 28 }}>{item.icon}</span>
-              <div style={{ marginTop: "auto" }}>
-                <h4 style={{ fontSize: 17, fontWeight: 500, marginBottom: 6, color: "#000" }}>{item.label}</h4>
-                <p style={{ fontSize: 14, lineHeight: 1.5, color: "#777169", margin: 0 }}>{item.desc}</p>
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  background: "#0A0A0A",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: 600,
+                }}
+              >
+                {i + 1}
+              </div>
+              <div style={{ minWidth: 0 }}>
+                <h4 style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: "#000" }}>{item.label}</h4>
+                <p style={{ fontSize: 13, lineHeight: 1.45, color: "#4e4e4e", margin: 0 }}>{item.desc}</p>
               </div>
             </div>
           ))}
@@ -108,6 +133,9 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
         @media (max-width: 768px) {
           .learningos-enterprise-grid {
             grid-template-columns: 1fr !important;
+          }
+          .learningos-enterprise-card {
+            aspect-ratio: 3/1 !important;
           }
         }
       `}</style>

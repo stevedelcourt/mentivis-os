@@ -34,7 +34,7 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
     <section
       ref={ref}
       style={{
-        background: "#F5F2EF",
+        background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0",
       }}
     >
@@ -78,7 +78,7 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
               key={f.title}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.04),
-                background: "#EDEAE3",
+                background: "#f5f5f5",
                 borderRadius: 22,
                 padding: "28px 24px 24px",
                 display: "flex",

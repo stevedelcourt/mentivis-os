@@ -30,7 +30,7 @@ export default function LearningOSPipeline({ lang }: { lang: Locale }) {
     <section
       ref={ref}
       style={{
-        background: "#F5F2EF",
+        background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0",
       }}
     >
@@ -81,7 +81,7 @@ export default function LearningOSPipeline({ lang }: { lang: Locale }) {
                 minWidth: 160,
                 padding: "20px 16px",
                 position: "relative",
-                borderTop: "2px solid #EDEAE3",
+                  borderTop: "2px solid #e5e5e5",
                 transition: "border-color 0.3s ease",
               }}
               className="learningos-pipeline-step"
@@ -119,7 +119,7 @@ export default function LearningOSPipeline({ lang }: { lang: Locale }) {
             ...sectionAnim(visible, 0.2),
             aspectRatio: "16/9",
             borderRadius: 24,
-            background: "#EDEAE3",
+            background: "#f5f5f5",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

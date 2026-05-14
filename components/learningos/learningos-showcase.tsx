@@ -1,7 +1,16 @@
 "use client";
 
+import { useState, useCallback, useRef } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
+
+const GRADIENTS = [
+  `radial-gradient(ellipse 50% 60% at 15% 30%, rgba(180,160,220,0.25) 0%, transparent 60%), linear-gradient(135deg, #f8f4fc 0%, #eae4f4 100%)`,
+  `radial-gradient(ellipse 45% 55% at 80% 20%, rgba(160,200,180,0.25) 0%, transparent 55%), linear-gradient(135deg, #f0f8f4 0%, #e0ece4 100%)`,
+  `radial-gradient(ellipse 50% 50% at 70% 80%, rgba(230,200,170,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf4ec 0%, #f0e4d8 100%)`,
+  `radial-gradient(ellipse 45% 50% at 25% 80%, rgba(160,200,240,0.2) 0%, transparent 55%), linear-gradient(135deg, #f0f6fc 0%, #dce8f4 100%)`,
+  `radial-gradient(ellipse 40% 50% at 85% 50%, rgba(230,180,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf0f4 0%, #f0dce8 100%)`,
+];
 
 const ITEMS = {
   fr: [
@@ -22,7 +31,29 @@ const ITEMS = {
 
 export default function LearningOSShowcase({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [fading, setFading] = useState(false);
+  const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const { ref, visible } = useVisible(0.05);
+
+  const handleClick = useCallback((i: number) => {
+    if (i === activeIndex || fading) return;
+    setFading(true);
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+    fadeTimer.current = setTimeout(() => {
+      setActiveIndex(i);
+      setFading(false);
+    }, 200);
+  }, [activeIndex, fading]);
+
+  const smallItems = items.filter((_, i) => i !== activeIndex);
+  const smallPositions = [
+    { gridColumn: 2, gridRow: 1 },
+    { gridColumn: 3, gridRow: 1 },
+    { gridColumn: 2, gridRow: 2 },
+    { gridColumn: 3, gridRow: 2 },
+  ];
 
   return (
     <section
@@ -62,28 +93,38 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
 
         <div
           style={{
+            ...sectionAnim(visible, 0.1),
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "2.1fr 1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
             gap: 16,
           }}
           className="learningos-showcase-grid"
         >
-          {items.map((item, i) => (
+          {/* Big card */}
+          <div
+            style={{
+              gridRow: "span 2",
+              background: GRADIENTS[activeIndex % GRADIENTS.length],
+              borderRadius: 22,
+              padding: "36px 28px 28px",
+              display: "flex",
+              flexDirection: "column",
+              aspectRatio: "1/1",
+              position: "relative",
+              overflow: "hidden",
+              transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+            className="learningos-showcase-big"
+          >
             <div
-              key={item.title}
               style={{
-                ...sectionAnim(visible, 0.1 + i * 0.06),
-                background: i === 0 ? "#0A0A0A" : "#F5F3F0",
-                borderRadius: 22,
-                padding: "32px 24px 24px",
+                opacity: fading ? 0 : 1,
+                transition: "opacity 0.2s ease",
                 display: "flex",
                 flexDirection: "column",
-                aspectRatio: "1/1",
-                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                position: "relative",
-                overflow: "hidden",
+                height: "100%",
               }}
-              className="learningos-showcase-card"
             >
               <span
                 style={{
@@ -92,53 +133,113 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
                   borderRadius: 999,
                   fontSize: 11,
                   fontWeight: 500,
-                  background: i === 0 ? "rgba(255,255,255,0.15)" : "#EDEAE3",
-                  color: i === 0 ? "#fff" : "#3E3B38",
+                  background: "rgba(0,0,0,0.1)",
+                  color: "#000",
                   marginBottom: "auto",
                   alignSelf: "flex-start",
                 }}
               >
-                {item.tag}
+                {items[activeIndex].tag}
               </span>
               <div style={{ marginTop: "auto" }}>
                 <h3
                   style={{
-                    fontSize: 20,
+                    fontSize: "clamp(20px, 2.5vw, 28px)",
                     fontWeight: 500,
-                    color: i === 0 ? "#fff" : "#000",
-                    marginBottom: 8,
+                    color: "#000",
+                    marginBottom: 12,
+                    lineHeight: 1.2,
                   }}
                 >
-                  {item.title}
+                  {items[activeIndex].title}
                 </h3>
                 <p
                   style={{
                     fontSize: 14,
                     lineHeight: 1.55,
-                    color: i === 0 ? "rgba(255,255,255,0.7)" : "#777169",
+                    color: "#4e4e4e",
                     margin: 0,
                   }}
                 >
-                  {item.desc}
+                  {items[activeIndex].desc}
                 </p>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* 4 small cards */}
+          {smallItems.map((item, i) => {
+            const actualIndex = items.indexOf(item);
+            return (
+              <button
+                key={item.title}
+                onClick={() => handleClick(actualIndex)}
+                style={{
+                  gridColumn: smallPositions[i].gridColumn,
+                  gridRow: smallPositions[i].gridRow,
+                  background: "#f5f5f5",
+                  borderRadius: 18,
+                  padding: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  border: "none",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  aspectRatio: "1/1",
+                  transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease",
+                  overflow: "hidden",
+                  position: "relative",
+                }}
+                className="learningos-showcase-small"
+              >
+                <span
+                  style={{
+                    padding: "2px 8px",
+                    borderRadius: 999,
+                    fontSize: 10,
+                    fontWeight: 500,
+                    background: "#EDEAE3",
+                    color: "#3E3B38",
+                    marginBottom: 8,
+                  }}
+                >
+                  {item.tag}
+                </span>
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: "#000",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {item.title}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <style>{`
-        .learningos-showcase-card:hover {
+        .learningos-showcase-big:hover {
           transform: translateY(-4px);
+        }
+        .learningos-showcase-small:hover {
+          transform: translateY(-4px);
+          background: #f0f0f0 !important;
         }
         @media (max-width: 1024px) {
           .learningos-showcase-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: 1fr 1fr !important;
           }
         }
         @media (max-width: 768px) {
           .learningos-showcase-grid {
             grid-template-columns: 1fr !important;
+            grid-template-rows: auto !important;
           }
         }
       `}</style>
