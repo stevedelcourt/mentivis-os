@@ -239,6 +239,7 @@ function initDatabase(db: SqlJsDb) {
       reference TEXT UNIQUE NOT NULL,
       title TEXT NOT NULL,
       location TEXT NOT NULL,
+      remote INTEGER DEFAULT 0,
       type TEXT NOT NULL CHECK(type IN ('cdi', 'cdd', 'freelance', 'stage', 'alternance')),
       department TEXT NOT NULL,
       description TEXT NOT NULL,
@@ -319,6 +320,12 @@ function runMigrations(db: SqlJsDb) {
 
   try {
     db.exec("ALTER TABLE job_applications ADD COLUMN cv_url TEXT");
+  } catch {
+    // Column already exists
+  }
+
+  try {
+    db.exec("ALTER TABLE jobs ADD COLUMN remote INTEGER DEFAULT 0");
   } catch {
     // Column already exists
   }

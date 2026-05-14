@@ -125,6 +125,7 @@ export interface Job {
   reference: string;
   title: string;
   location: string;
+  remote: boolean;
   type: JobType;
   department: string;
   description: string;

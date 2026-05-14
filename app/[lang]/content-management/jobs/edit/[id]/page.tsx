@@ -35,6 +35,7 @@ export default function JobEditorPage() {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [location, setLocation] = useState("");
+  const [remote, setRemote] = useState(false);
   const [type, setType] = useState<JobType>("cdi");
   const [department, setDepartment] = useState("");
   const [description, setDescription] = useState("");
@@ -122,6 +123,7 @@ We work alongside institutions and organizations to co-build sustainable educati
         setTitle(j.title);
         setSlug(j.slug);
         setLocation(j.location);
+        setRemote(j.remote);
         setType(j.type);
         setDepartment(j.department);
         setDescription(j.description);
@@ -149,6 +151,7 @@ We work alongside institutions and organizations to co-build sustainable educati
     const payload = {
       title,
       location,
+      remote,
       type,
       department,
       description,
@@ -254,17 +257,29 @@ We work alongside institutions and organizations to co-build sustainable educati
           </div>
         )}
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Lieu *</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-            style={inputStyle}
-            placeholder="ex: Paris ou Remote"
-          />
-        </div>
+          <div style={{ marginBottom: 20 }}>
+            <label style={labelStyle}>Lieu *</label>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+              style={inputStyle}
+              placeholder="ex: Paris"
+            />
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#3E3B38" }}>
+              <input
+                type="checkbox"
+                checked={remote}
+                onChange={(e) => setRemote(e.target.checked)}
+                style={{ width: 22, height: 22 }}
+              />
+              Remote possible
+            </label>
+          </div>
 
         <div style={{ marginBottom: 20 }}>
           <label style={labelStyle}>Departement *</label>

@@ -249,10 +249,9 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
             <h2
               style={{
                 fontSize: "clamp(22px, 3vw, 32px)",
-                fontWeight: 500,
-                color: "#0A0A0A",
+                fontWeight: 300,
+                color: "#000000",
                 marginBottom: 40,
-                textAlign: "center",
               }}
             >
               {t.careers.whyJoin.title}
@@ -277,8 +276,8 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                   <h3
                     style={{
                       fontSize: 18,
-                      fontWeight: 500,
-                      color: "#0A0A0A",
+                      fontWeight: 300,
+                      color: "#000000",
                       marginBottom: 12,
                     }}
                   >
@@ -318,8 +317,8 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
               <h2
                 style={{
                   fontSize: "clamp(22px, 3vw, 32px)",
-                  fontWeight: 500,
-                  color: "#0A0A0A",
+                  fontWeight: 300,
+                  color: "#000000",
                 }}
               >
                 {t.careers.list.title}
@@ -418,8 +417,8 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                       <h3
                         style={{
                           fontSize: 18,
-                          fontWeight: 500,
-                          color: "#0A0A0A",
+                          fontWeight: 300,
+                          color: "#000000",
                           marginBottom: 8,
                         }}
                       >

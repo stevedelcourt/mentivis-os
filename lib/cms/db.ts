@@ -669,6 +669,7 @@ function rowToJob(row: any): Job {
     reference: row.reference,
     title: row.title,
     location: row.location,
+    remote: !!row.remote,
     type: row.type as JobType,
     department: row.department,
     description: row.description,
@@ -721,10 +722,10 @@ export async function createJob(job: Omit<Job, "id" | "reference" | "createdAt" 
   const now = new Date().toISOString();
   const reference = await getNextJobReference();
   const result = db.prepare(`
-    INSERT INTO jobs (slug, reference, title, location, type, department, description, why_join, published, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO jobs (slug, reference, title, location, remote, type, department, description, why_join, published, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    job.slug, reference, job.title, job.location, job.type, job.department,
+    job.slug, reference, job.title, job.location, job.remote ? 1 : 0, job.type, job.department,
     job.description, job.whyJoin, job.published ? 1 : 0, now, now
   );
   return { ...job, id: Number(result.lastInsertRowid), reference, createdAt: now, updatedAt: now };
@@ -741,6 +742,7 @@ export async function updateJob(id: number, updates: Partial<Omit<Job, "id" | "r
   if (updates.slug !== undefined) { setParts.push("slug = ?"); values.push(updates.slug); }
   if (updates.title !== undefined) { setParts.push("title = ?"); values.push(updates.title); }
   if (updates.location !== undefined) { setParts.push("location = ?"); values.push(updates.location); }
+  if (updates.remote !== undefined) { setParts.push("remote = ?"); values.push(updates.remote ? 1 : 0); }
   if (updates.type !== undefined) { setParts.push("type = ?"); values.push(updates.type); }
   if (updates.department !== undefined) { setParts.push("department = ?"); values.push(updates.department); }
   if (updates.description !== undefined) { setParts.push("description = ?"); values.push(updates.description); }

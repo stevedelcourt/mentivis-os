@@ -699,11 +699,14 @@
       "apply": "Postuler",
       "about": "A propos de ce poste",
       "whyJoin": "Pourquoi nous rejoindre",
-      "back": "← Voir toutes les offres",
+      "back": "Carrières",
       "info": "Informations",
       "department": "Departement",
       "type": "Type",
       "location": "Lieu",
+      "remote": "Remote",
+      "remoteYes": "Oui",
+      "remoteNo": "Non",
       "reference": "Reference"
     },
     "tabs": {

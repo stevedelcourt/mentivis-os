@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, location, type, department, description, whyJoin, published } = body;
+    const { title, location, remote, type, department, description, whyJoin, published } = body;
 
     if (!title || !location || !type || !department || !description || !whyJoin) {
       return NextResponse.json(
@@ -42,6 +42,7 @@ export async function POST(request: Request) {
       slug: uniqueSlug,
       title,
       location,
+      remote: !!remote,
       type,
       department,
       description,
