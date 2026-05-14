@@ -209,7 +209,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
           <div
             ref={heroV.ref}
             style={{
-              maxWidth: 800,
               opacity: heroV.visible ? 1 : 0,
               transform: heroV.visible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -217,22 +216,23 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
           >
             <Link
               href={`/${urlLang}/carrieres`}
+              className="back-to-careers"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                fontSize: 15,
+                fontSize: 16,
                 fontWeight: 500,
-                color: "#777169",
+                color: "#000000",
                 textDecoration: "none",
-                padding: "8px 16px",
+                padding: "10px 20px",
                 borderRadius: 10,
-                background: "#f5f5f5",
-                marginBottom: 32,
+                background: "#e5e5e5",
+                marginBottom: 40,
                 transition: "background 0.18s ease",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
               {t.careers.detail.back}
@@ -717,6 +717,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       </section>
 
       <CTABlock lang={lang} variant="final" />
+      <style>{backBtnHover}</style>
     </>
   );
 }
@@ -756,3 +757,7 @@ const shareBtnStyle: React.CSSProperties = {
   color: "#777169",
   transition: "background 0.18s ease, color 0.18s ease",
 };
+
+const backBtnHover = `
+.back-to-careers:hover { background: #d0d0d0 !important; }
+`;
