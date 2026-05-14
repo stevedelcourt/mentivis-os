@@ -177,6 +177,38 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Ensure lien_cv is set via CRM API (form may ignore hidden fields)
+    if (cvFinalUrl && process.env.HUBSPOT_ACCESS_TOKEN) {
+      try {
+        const searchRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+          },
+          body: JSON.stringify({
+            filterGroups: [{ filters: [{ propertyName: "email", operator: "EQ", value: email }] }],
+          }),
+        });
+        if (searchRes.ok) {
+          const searchData = await searchRes.json();
+          if (searchData.results?.length > 0) {
+            const contactId = searchData.results[0].id;
+            await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+              },
+              body: JSON.stringify({ properties: { lien_cv: cvFinalUrl } }),
+            });
+          }
+        }
+      } catch (err) {
+        console.error("[JobApp] CRM API error:", err);
+      }
+    }
+
     return NextResponse.json({ success: true, hubspot: hubspotOk });
   } catch (err) {
     console.error("[JobApp] POST error:", err);
