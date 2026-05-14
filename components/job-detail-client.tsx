@@ -193,30 +193,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
               transition: "opacity 0.6s ease, transform 0.6s ease",
             }}
           >
-            <Link
-              href={`/${urlLang}/carrieres`}
-              className="back-to-careers"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#777169",
-                textDecoration: "none",
-                padding: "6px 12px",
-                borderRadius: 8,
-                background: "#f2f2f2",
-                marginBottom: 24,
-                transition: "background 0.18s ease",
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-              {t.careers.detail.back}
-            </Link>
-
             <p
               style={{
                 fontSize: 14,
@@ -271,6 +247,27 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 borderBottom: "1px solid #F0EBE5",
               }}
             >
+              <Link
+                href={`/${urlLang}/carrieres`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  padding: "12px 24px",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: "#777169",
+                  textDecoration: "none",
+                  borderBottom: "2px solid transparent",
+                  marginBottom: -1,
+                  transition: "color 0.2s ease",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                {t.careers.detail.back}
+              </Link>
               {(["description", "apply"] as const).map((tab) => (
                 <button
                   key={tab}
@@ -696,7 +693,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       </section>
 
       <CTABlock lang={lang} variant="final" />
-      <style>{backBtnHover}</style>
     </>
   );
 }
@@ -736,7 +732,3 @@ const shareBtnStyle: React.CSSProperties = {
   color: "#777169",
   transition: "background 0.18s ease, color 0.18s ease",
 };
-
-const backBtnHover = `
-.back-to-careers:hover { background: #e5e5e5 !important; }
-`;
