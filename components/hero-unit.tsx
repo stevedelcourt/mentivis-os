@@ -5,7 +5,6 @@ import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import TopoLines from "@/components/topo-lines";
 import ProductCardGrid from "@/components/product-card-grid";
-import HeroCollage from "@/components/hero-collage";
 
 interface HeroUnitProps {
   lang: Locale;
@@ -72,9 +71,6 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
       >
         <TopoLines count={15} height="100%" lineColor="rgba(0,0,0,0.12)" lineWidth={0.75} speed={0.3} />
       </div>
-
-      {/* Parallax floating elements behind content */}
-      <HeroCollage lang={lang} />
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div
