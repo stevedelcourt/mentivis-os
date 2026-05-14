@@ -181,41 +181,32 @@ export async function POST(request: NextRequest) {
     let crmOk = false;
     if (cvFinalUrl && process.env.HUBSPOT_ACCESS_TOKEN) {
       try {
-        // Brief delay to let HubSpot process the contact from form submission
-        await new Promise((r) => setTimeout(r, 2000));
-        const searchRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts/search", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
-          },
-          body: JSON.stringify({
-            filterGroups: [{ filters: [{ propertyName: "email", operator: "EQ", value: email }] }],
-          }),
-        });
-        if (searchRes.ok) {
-          const searchData = await searchRes.json();
-          if (searchData.results?.length > 0) {
-            const contactId = searchData.results[0].id;
-            const patchRes = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
-              },
-              body: JSON.stringify({ properties: { lien_cv: cvFinalUrl } }),
-            });
-            crmOk = patchRes.ok;
-            if (!patchRes.ok) {
-              const errText = await patchRes.text().catch(() => "unknown");
-              console.error("[JobApp] CRM PATCH error:", patchRes.status, errText);
-            }
-          } else {
-            console.error("[JobApp] CRM search: no contact found for", email);
+        // Get contact by email (more reliable than search — no indexing delay)
+        const contactRes = await fetch(
+          `https://api.hubapi.com/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email&properties=lien_cv`,
+          {
+            headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` },
+          }
+        );
+        if (contactRes.ok) {
+          const contactData = await contactRes.json();
+          const contactId = contactData.id;
+          const patchRes = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+            },
+            body: JSON.stringify({ properties: { lien_cv: cvFinalUrl } }),
+          });
+          crmOk = patchRes.ok;
+          if (!patchRes.ok) {
+            const errText = await patchRes.text().catch(() => "unknown");
+            console.error("[JobApp] CRM PATCH error:", patchRes.status, errText);
           }
         } else {
-          const errText = await searchRes.text().catch(() => "unknown");
-          console.error("[JobApp] CRM search error:", searchRes.status, errText);
+          const errText = await contactRes.text().catch(() => "unknown");
+          console.error("[JobApp] CRM getByEmail error:", contactRes.status, errText);
         }
       } catch (err) {
         console.error("[JobApp] CRM API error:", err);
