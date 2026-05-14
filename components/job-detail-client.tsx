@@ -9,6 +9,17 @@ import CTABlock from "@/components/cta-block";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 
 function renderMarkdown(text: string): string {
+  // If content looks like HTML, render directly (sanitized)
+  if (/<[a-z][\s\S]*?>/i.test(text) && !/^(\s*[#\-*•\w])/m.test(text)) {
+    const sanitized = text
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<iframe[\s\S]*?<\/iframe>/gi, "")
+      .replace(/<object[\s\S]*?<\/object>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/ on\w+=["'][^"']*["']/gi, "");
+    return sanitized;
+  }
+
   const lines = text.split("\n");
   let html = "";
   let inList = false;

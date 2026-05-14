@@ -51,9 +51,10 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, job });
-  } catch {
+  } catch (err) {
+    console.error("POST /api/cms/jobs error:", err);
     return NextResponse.json(
-      { error: "Invalid request" },
+      { error: err instanceof Error ? err.message : "Invalid request" },
       { status: 400 }
     );
   }

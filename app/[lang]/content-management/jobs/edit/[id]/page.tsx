@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { JobType } from "@/lib/cms/types";
+import { htmlToMarkdown } from "@/lib/html-to-markdown";
 
 import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
@@ -140,6 +141,23 @@ We work alongside institutions and organizations to co-build sustainable educati
   useEffect(() => {
     loadJob();
   }, [loadJob]);
+
+  const handlePaste = useCallback((e: React.ClipboardEvent<HTMLTextAreaElement>, setter: (v: string) => void) => {
+    const html = e.clipboardData.getData("text/html");
+    if (html) {
+      e.preventDefault();
+      const markdown = htmlToMarkdown(html);
+      const target = e.target as HTMLTextAreaElement;
+      const start = target.selectionStart;
+      const end = target.selectionEnd;
+      const before = target.value.slice(0, start);
+      const after = target.value.slice(end);
+      setter(before + markdown + after);
+      requestAnimationFrame(() => {
+        target.selectionStart = target.selectionEnd = start + markdown.length;
+      });
+    }
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -331,6 +349,7 @@ We work alongside institutions and organizations to co-build sustainable educati
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            onPaste={(e) => handlePaste(e, setDescription)}
             required
             rows={12}
             style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }}
@@ -346,6 +365,7 @@ We work alongside institutions and organizations to co-build sustainable educati
           <textarea
             value={whyJoin}
             onChange={(e) => setWhyJoin(e.target.value)}
+            onPaste={(e) => handlePaste(e, setWhyJoin)}
             rows={8}
             style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }}
             placeholder={`Decrivez la culture, les avantages, l'impact du poste...\n\n• Equipe dynamique\n• Projets challenges\n• Impact direct`}

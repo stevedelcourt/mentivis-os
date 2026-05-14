@@ -201,28 +201,20 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
         style={{
           position: "relative",
           paddingTop: "clamp(80px, 12vh, 140px)",
-          overflow: "hidden",
           ...sectionAnim(heroLoaded),
         }}
       >
-        {/* Icosahedron animation to the right */}
         <div
-          className="section-hero-ico"
+          className="container"
           style={{
-            position: "absolute",
-            left: "calc(var(--grid-margin) + 720px)",
-            top: 0,
-            width: "clamp(300px, 40vw, 600px)",
-            height: "clamp(300px, 40vw, 600px)",
-            opacity: 0.5,
-            zIndex: 0,
-            pointerEvents: "none",
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            gap: 80,
+            alignItems: "start",
+            position: "relative",
+            zIndex: 1,
           }}
         >
-          <IcosahedronAnimation />
-        </div>
-
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ maxWidth: 720 }}>
             <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#777169", marginBottom: 16 }}>
               {H.heroEyebrow}
@@ -239,6 +231,16 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               }}
               dangerouslySetInnerHTML={{ __html: H.heroHeadline }}
             />
+          </div>
+          <div
+            className="section-hero-ico"
+            style={{
+              width: "clamp(300px, 40vw, 600px)",
+              height: "clamp(300px, 40vw, 600px)",
+              opacity: 0.5,
+            }}
+          >
+            <IcosahedronAnimation />
           </div>
         </div>
       </section>
