@@ -221,10 +221,15 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                fontSize: 14,
+                fontSize: 15,
+                fontWeight: 500,
                 color: "#777169",
                 textDecoration: "none",
-                marginBottom: 24,
+                padding: "8px 16px",
+                borderRadius: 10,
+                background: "#f5f5f5",
+                marginBottom: 32,
+                transition: "background 0.18s ease",
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -247,9 +252,10 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
             </p>
             <h1
               style={{
-                fontSize: "clamp(28px, 4vw, 44px)",
+                fontSize: "clamp(32px, 5vw, 56px)",
                 fontWeight: 300,
-                lineHeight: 1.2,
+                lineHeight: 1.08,
+                letterSpacing: "-0.03em",
                 color: "#000000",
                 marginBottom: 20,
               }}
@@ -490,22 +496,25 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                 </div>
               </div>
             ) : (
-              <div style={{ maxWidth: 600, margin: "0 auto" }}>
+              <div style={{ maxWidth: 720, margin: "0 auto" }}>
                 <h2
                   style={{
-                    fontSize: 22,
+                    fontSize: "clamp(24px, 3vw, 36px)",
                     fontWeight: 300,
+                    lineHeight: 1.1,
                     color: "#000000",
-                    marginBottom: 8,
+                    marginBottom: 12,
                   }}
                 >
                   {t.careers.detail.apply}
                 </h2>
                 <p
                   style={{
-                    fontSize: 14,
+                    fontSize: 16,
+                    lineHeight: 1.6,
                     color: "#777169",
-                    marginBottom: 32,
+                    marginBottom: 40,
+                    maxWidth: "56ch",
                   }}
                 >
                   {t.careers.form.subtitle}
@@ -538,7 +547,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                   <form
                     onSubmit={handleSubmit}
                     autoComplete="on"
-                    style={{ background: "#fff", padding: "32px", borderRadius: 16 }}
+                    style={{ background: "#fff", padding: "40px", borderRadius: 16, border: "1px solid #e5e5e5" }}
                   >
                     {/* Honeypot */}
                     <div style={{ display: "none" }}>
@@ -666,9 +675,9 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         required
-                        rows={5}
+                        rows={8}
                         autoComplete="off"
-                        style={{ ...inputStyle, resize: "vertical" }}
+                        style={{ ...inputStyle, resize: "vertical", minHeight: 200 }}
                         placeholder={t.careers.form.messagePlaceholder}
                       />
                     </div>
@@ -714,21 +723,24 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
 
 const labelStyle: React.CSSProperties = {
   display: "block",
-  fontSize: 13,
+  fontSize: 14,
   fontWeight: 500,
-  color: "#3E3B38",
-  marginBottom: 6,
+  color: "#000000",
+  marginBottom: 8,
+  fontFamily: "var(--font-sans, 'Inter', sans-serif)",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "12px 14px",
+  padding: "14px 16px",
   fontSize: 15,
-  border: "1px solid #E5E0DA",
+  fontFamily: "var(--font-sans, 'Inter', sans-serif)",
+  border: "1px solid #e5e5e5",
   borderRadius: 10,
-  background: "#FAFAF8",
+  background: "#fff",
   outline: "none",
   boxSizing: "border-box",
+  lineHeight: 1.5,
 };
 
 const shareBtnStyle: React.CSSProperties = {
