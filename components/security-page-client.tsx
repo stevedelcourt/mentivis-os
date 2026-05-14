@@ -194,7 +194,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <main style={{ background: "#ffffff" }}>
+    <div style={{ background: "#ffffff" }}>
       {/* ── HERO ── */}
       <section
         className="section"
@@ -353,7 +353,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           .p-card-light {
             background: #ffffff;
             border: 1px solid #e5e5e5;
-            grid-area: g;
           }
           .p-card-wide {
             grid-column: span 2;
@@ -605,6 +604,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           .section-title { margin-bottom: 16px; }
         }
       `}</style>
-    </main>
+    </div>
   );
 }
