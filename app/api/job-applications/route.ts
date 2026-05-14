@@ -178,10 +178,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Ensure lien_cv is set via CRM API (form may ignore hidden fields)
-    let crmOk = false;
     if (cvFinalUrl && process.env.HUBSPOT_ACCESS_TOKEN) {
       try {
-        // Get contact by email (more reliable than search — no indexing delay)
         const contactRes = await fetch(
           `https://api.hubapi.com/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email&properties=lien_cv`,
           {
@@ -199,7 +197,6 @@ export async function POST(request: NextRequest) {
             },
             body: JSON.stringify({ properties: { lien_cv: cvFinalUrl } }),
           });
-          crmOk = patchRes.ok;
           if (!patchRes.ok) {
             const errText = await patchRes.text().catch(() => "unknown");
             console.error("[JobApp] CRM PATCH error:", patchRes.status, errText);
@@ -213,13 +210,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      success: true,
-      hubspot: hubspotOk,
-      crm: crmOk,
-      hasToken: !!process.env.HUBSPOT_ACCESS_TOKEN,
-      cvUrl: cvFinalUrl,
-    });
+    return NextResponse.json({ success: true, hubspot: hubspotOk });
   } catch (err) {
     console.error("[JobApp] POST error:", err);
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
