@@ -280,8 +280,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
               </div>
-              <h3 style={{ color: "#fff" }}>{H.fr ? PRINCIPLES[0].fr.title : PRINCIPLES[0].en.title}</h3>
-              <p style={{ color: "rgba(255,255,255,0.7)" }}>{H.fr ? PRINCIPLES[0].fr.body : PRINCIPLES[0].en.body}</p>
+              <h3 style={{ color: "#fff" }}>{isFr ? PRINCIPLES[0].fr.title : PRINCIPLES[0].en.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.7)" }}>{isFr ? PRINCIPLES[0].fr.body : PRINCIPLES[0].en.body}</p>
             </div>
             <div className="p-ghost" style={{ gridArea: "b" }} />
             <div className="p-card p-card-mid" style={{ gridArea: "c" }}>
@@ -290,8 +290,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   <path d="M12 2a10 10 0 0 1 10 10" /><path d="M12 2a10 10 0 0 0-10 10" /><path d="M2 12h20" /><circle cx="12" cy="12" r="4" />
                 </svg>
               </div>
-              <h3 style={{ color: "#fff" }}>{H.fr ? PRINCIPLES[1].fr.title : PRINCIPLES[1].en.title}</h3>
-              <p style={{ color: "rgba(255,255,255,0.7)" }}>{H.fr ? PRINCIPLES[1].fr.body : PRINCIPLES[1].en.body}</p>
+              <h3 style={{ color: "#fff" }}>{isFr ? PRINCIPLES[1].fr.title : PRINCIPLES[1].en.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.7)" }}>{isFr ? PRINCIPLES[1].fr.body : PRINCIPLES[1].en.body}</p>
             </div>
             {/* Row 2: white card, ghost, white card */}
             <div className="p-card p-card-light" style={{ gridArea: "d" }}>
@@ -300,8 +300,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
               </div>
-              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[2].fr.title : PRINCIPLES[2].en.title}</h3>
-              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
+              <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[2].fr.title : PRINCIPLES[2].en.title}</h3>
+              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
             </div>
             <div className="p-ghost" style={{ gridArea: "e" }} />
             <div className="p-card p-card-light" style={{ gridArea: "f" }}>
@@ -310,8 +310,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[3].fr.title : PRINCIPLES[3].en.title}</h3>
-              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
+              <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[3].fr.title : PRINCIPLES[3].en.title}</h3>
+              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
             </div>
             {/* Row 3: wide white card */}
             <div className="p-card p-card-light p-card-wide" style={{ gridArea: "g" }}>
@@ -320,8 +320,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
                   <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
                 </svg>
               </div>
-              <h3 style={{ color: "#000" }}>{H.fr ? PRINCIPLES[4].fr.title : PRINCIPLES[4].en.title}</h3>
-              <p style={{ color: "#777169" }}>{H.fr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
+              <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[4].fr.title : PRINCIPLES[4].en.title}</h3>
+              <p style={{ color: "#777169" }}>{isFr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
             </div>
           </div>
         </div>
