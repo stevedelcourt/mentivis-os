@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
+import Image from "next/image";
 import CmsPageHero from "@/components/cms-page-hero";
 import ParallaxScreens from "@/components/parallax-screens";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
@@ -75,7 +76,15 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           ctaSecondaryLink: `/${locale}/demo`,
           proof: `${a.hero.commission} - ${a.hero.rate}`,
         }}
-        visual={<ParallaxScreens />}
+        visual={
+          <Image
+            src="/images/ambassador.avif"
+            alt=""
+            width={600}
+            height={600}
+            style={{ width: "100%", height: "auto", borderRadius: 16 }}
+          />
+        }
       />
 
       {/* WHO */}
@@ -284,6 +293,8 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
         lead={a.faq.subtitle}
         items={a.faq.items}
       />
+
+      <ParallaxScreens />
 
       {/* Bottom CTA */}
       <section ref={cta.ref} className="section" style={sectionStyle(cta.visible)}>
