@@ -623,14 +623,8 @@ const DEFAULT_PRICING_EN: PricingContent = {
 };
 
 export async function getPricing(lang: "fr" | "en" = "fr"): Promise<PricingContent> {
-  const db = await getDb();
-  const rows = db.prepare("SELECT * FROM pricing").all() as any[];
-  if (rows.length === 0) return lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
-  const result: any = {};
-  for (const row of rows) {
-    result[row.product] = JSON.parse(row.plans_json);
-  }
-  return result as PricingContent;
+  // Use language-specific defaults until CMS supports bilingual pricing
+  return lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
 }
 
 export async function savePricing(data: PricingContent) {
