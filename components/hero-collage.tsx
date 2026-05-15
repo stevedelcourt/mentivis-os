@@ -16,17 +16,18 @@ interface CardDef {
   left: number;
   top: number;
   width: number;
-  height: number;
+  arW: number;
+  arH: number;
   speed: number;
   zIndex: number;
 }
 
 const CARDS: CardDef[] = [
-  { id: 1, img: "/images/floater/01-wave.webp",        left: 2,  top: 23, width: 22, height: 49, speed: 0.05, zIndex: 1 },
-  { id: 2, img: "/images/floater/02-learning-guy.webp", left: 18, top: 53, width: 23, height: 45, speed: 0.09, zIndex: 5 },
-  { id: 3, img: "/images/floater/03-os-txt.webp",       left: 36, top: 12, width: 12, height: 63, speed: 0.12, zIndex: 3 },
-  { id: 4, img: "/images/floater/04-blue-ico.webp",     left: 54, top: 28, width: 22, height: 44, speed: 0.07, zIndex: 4 },
-  { id: 5, img: "/images/floater/05-red-girl.webp",     left: 68, top: 44, width: 28, height: 47, speed: 0.10, zIndex: 6 },
+  { id: 1, img: "/images/floater/01-wave.webp",        left: 2,  top: 23, width: 22, arW: 4592, arH: 7424, speed: 0.05, zIndex: 1 },
+  { id: 2, img: "/images/floater/02-learning-guy.webp", left: 18, top: 53, width: 23, arW: 12208, arH: 7425, speed: 0.09, zIndex: 5 },
+  { id: 3, img: "/images/floater/03-os-txt.webp",       left: 36, top: 12, width: 12, arW: 14800, arH: 7424, speed: 0.12, zIndex: 3 },
+  { id: 4, img: "/images/floater/04-blue-ico.webp",     left: 54, top: 28, width: 22, arW: 3344, arH: 7425, speed: 0.07, zIndex: 4 },
+  { id: 5, img: "/images/floater/05-red-girl.webp",     left: 68, top: 44, width: 28, arW: 15536, arH: 7425, speed: 0.10, zIndex: 6 },
 ];
 
 export default function HeroCollage({ lang }: HeroCollageProps) {
@@ -69,7 +70,7 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
               left: `${card.left}vw`,
               top: `calc(${card.top}vh + ${yShift}px)`,
               width: `${card.width}vw`,
-              height: `${card.height}vh`,
+              aspectRatio: `${card.arW}/${card.arH}`,
               borderRadius: 18,
               overflow: "hidden",
               zIndex: card.zIndex,
@@ -95,7 +96,7 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
             left: auto !important;
             top: auto !important;
             width: 80% !important;
-            height: 40vh !important;
+            height: auto !important;
             margin: 0 auto 16px !important;
             display: block !important;
             z-index: auto !important;
