@@ -115,7 +115,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {t.footer.workflows || "Workflows"}
             </h4>
             <ul>
-              {["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"].map((link) => (
+              {["Formation & Learning", "Talent Pipeline HR", "Transformation", "Intégration", "Developpeurs"].map((link) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}`}
@@ -146,10 +146,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {t.footer.entreprise}
           </h4>
           <ul>
-            {["News & publications", "A propos", "Affiliation & Ambassadeurs", "Carrieres"].map((link) => (
+            {["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"].map((link) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={link === "News & publications" ? `/${lang}/blog` : link === "A propos" || link === "About" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrieres" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
+                  href={link === "News & publications" ? `/${lang}/blog` : link === "À propos" || link === "About" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrières" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >
@@ -196,7 +196,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
             { label: "CMS", href: `/${lang}/content-management` },
-            { label: "Securite", href: `/${lang}/security` },
+            { label: "Sécurité", href: `/${lang}/security` },
             { label: "Mentions legales", href: `/${lang}/legal` },
             { label: "Confidentialite", href: `/${lang}/privacy` },
             { label: "CGU", href: `/${lang}/terms` },

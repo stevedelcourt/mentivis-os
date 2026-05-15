@@ -15,5 +15,25 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function LearningOSPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  return <LearningOSPageClient lang={lang as Locale} />;
+  const isFr = lang === "fr";
+  return (
+    <>
+      <LearningOSPageClient lang={lang as Locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "LearningOS",
+            applicationCategory: "EducationalApplication",
+            description: isFr
+              ? "Système de formation native IA — générez des parcours personnalisés et pilotez la montée en compétences."
+              : "AI-native training system — generate personalized learning paths and drive skills development.",
+            url: `https://sc4bovu7233.universe.wf/${lang}/learningos`,
+          }),
+        }}
+      />
+    </>
+  );
 }

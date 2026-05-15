@@ -57,22 +57,22 @@ const APPROACH_FR = [
   {
     tag: "Strategie",
     title: "Strategie",
-    body: "Cadrage du projet, positionnement de marche, modele economique. Ce qui rend le systeme viable avant meme le premier inscrit.",
+    body: "Cadrage du projet, positionnement de marche, modèle economique. Ce qui rend le système viable avant même le premier inscrit.",
   },
   {
-    tag: "Ingenierie pedagogique",
-    title: "Ingenierie pedagogique",
-    body: "Referentiels, certifications, parcours. Conception fine des objets pedagogiques et de leur evaluation par l'IA.",
+    tag: "Ingenierie pédagogique",
+    title: "Ingenierie pédagogique",
+    body: "Referentiels, certifications, parcours. Conception fine des objets pédagogiques et de leur evaluation par l'IA.",
   },
   {
     tag: "Marketing et admissions",
     title: "Marketing et admissions",
-    body: "Recrutement des apprenants, notoriete, conversion. Du tunnel de candidature a l'identite de marque.",
+    body: "Recrutement des apprenants, notoriété, conversion. Du tunnel de candidature a l'identite de marque.",
   },
   {
-    tag: "Conformite et deploiement",
-    title: "Conformite et deploiement",
-    body: "OPCO, dispositifs publics, certifications qualite, mise en oeuvre operationnelle quotidienne.",
+    tag: "Conformite et déploiement",
+    title: "Conformite et déploiement",
+    body: "OPCO, dispositifs publics, certifications qualite, mise en oeuvre opérationnelle quotidienne.",
   },
 ];
 
@@ -95,27 +95,27 @@ const APPROACH_EN = [
   {
     tag: "Compliance & deployment",
     title: "Compliance & deployment",
-    body: "OPCO, public schemes, quality certifications, day-to-day operational implementation.",
+    body: "OPCO, public schemes, quality certifications, day-to-day opérational implementation.",
   },
 ];
 
 const SIGS_FR = [
-  { num: "01", title: "Obsession du resultat", body: "Pas du rapport. Un projet qui n'est pas lance n'a pas existe." },
+  { num: "01", title: "Obsession du resultat", body: "Pas du rapport. Un projet qui n'est pas lancé n'a pas existe." },
   { num: "02", title: "Maitrise du financement", body: "OPCO, dispositifs publics, montages hybrides. Le levier economique du projet." },
-  { num: "03", title: "Approche full-stack", body: "Strategie, pedagogie, marketing, conformite. Sous un seul toit." },
-  { num: "04", title: "Capacite a operer", body: "Pas seulement a conseiller. Nous tenons les renes jusqu'a la premiere promotion." },
+  { num: "03", title: "Approche full-stack", body: "Strategie, pédagogie, marketing, conformité. Sous un seul toit." },
+  { num: "04", title: "Capacite a opèrer", body: "Pas seulement a conseiller. Nous tenons les renes jusqu'à la premiere promotion." },
 ];
 
 const SIGS_EN = [
   { num: "01", title: "Results obsession", body: "Not reports. A project that hasn't launched doesn't exist." },
   { num: "02", title: "Funding mastery", body: "OPCO, public schemes, hybrid structures. The economic lever of the project." },
   { num: "03", title: "Full-stack approach", body: "Strategy, pedagogy, marketing, compliance. Under one roof." },
-  { num: "04", title: "Ability to operate", body: "Not just advisory. We hold the reins until the first cohort." },
+  { num: "04", title: "Ability to opérate", body: "Not just advisory. We hold the reins until the first cohort." },
 ];
 
 const VALUES_FR = [
   { title: "Clarte", body: "Dire ce qui fonctionne. Eliminer le reste." },
-  { title: "Execution", body: "Un projet n'existe que s'il est lance." },
+  { title: "Execution", body: "Un projet n'existe que s'il est lancé." },
   { title: "Responsabilite", body: "Nous allons jusqu'au resultat." },
   { title: "Confidentialite", body: "Les projets ne circulent pas." },
   { title: "Utilite", body: "Chaque action doit creer de la valeur mesurable." },
@@ -137,7 +137,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
   const conviction = useVisible();
   const histoire = useVisible();
-  const equipe = useVisible();
+  const équipe = useVisible();
   const approche = useVisible();
   const signatures = useVisible();
   const valeurs = useVisible();
@@ -149,19 +149,19 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   });
 
   const H = isFr ? {
-    heroEyebrow: "A propos",
-    heroHeadline: "MentivisOS est le systeme de formation native IA concu par Mentivis",
-    heroSub: "De la strategie au deploiement operationnel. Un seul OS pour former, certifier et faire grandir les talents.",
-    convictionText: "Former n'est pas un cout. C'est un systeme de production de valeur.",
+    heroEyebrow: "À propos",
+    heroHeadline: "MentivisOS est le système de formation native IA conçu par Mentivis",
+    heroSub: "De la stratégie au déploiement opérationnel. Un seul OS pour former, certifier et faire grandir les talents.",
+    convictionText: "Former n'est pas un cout. C'est un système de production de valeur.",
     convictionAuthor: "Steven Delcourt, Fondateur, Mentivis",
-    histoireTitle: "Ne d'un constat operationnel",
-    histoireBody1: "Les fondateurs de Mentivis ont deja cree des ecoles ensemble. Pedagogie, developpement commercial, marketing, conformite, operations. Toutes les dimensions du metier.",
-    histoireBody2: "Ils se sont associes pour une raison precise. Les mutations rapides de l'education et de la formation exigent un acteur specialise, capable de faire le lien entre entreprises, dispositifs de formation et enjeux a venir.",
-    histoireBody3: "Un choix des l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent reellement.",
-    equipeTitle: "L'equipe",
-    equipeSub: "Les fondateurs",
+    histoireTitle: "Ne d'un constat opérationnel",
+    histoireBody1: "Les fondateurs de Mentivis ont déjà cree des écoles ensemble. Pedagogie, développément commercial, marketing, conformité, opérations. Toutes les dimensions du metier.",
+    histoireBody2: "Ils se sont associes pour une raison precise. Les mutations rapides de l'education et de la formation exigent un acteur spécialisé, capable de faire le lien entre entreprises, dispositifs de formation et enjeux a venir.",
+    histoireBody3: "Un choix des l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent réellement.",
+    équipeTitle: "L'équipe",
+    équipeSub: "Les fondateurs",
     approcheTitle: "Notre approche",
-    approcheSub: "Quatre blocs integres. Un seul objectif. Un systeme viable, finance, activable rapidement.",
+    approcheSub: "Quatre blocs intégrés. Un seul objectif. Un système viable, finance, activable rapidement.",
     signaturesTitle: "Ce qui nous distingue",
     signaturesSub: "Quatre signatures.",
     valeursTitle: "Nos valeurs",
@@ -169,14 +169,14 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   } : {
     heroEyebrow: "About",
     heroHeadline: "MentivisOS is the native AI training system built by Mentivis",
-    heroSub: "From strategy to operational deployment. A single OS to train, certify, and grow talent.",
-    equipeSub: "The founders",
+    heroSub: "From strategy to opérational deployment. A single OS to train, certify, and grow talent.",
+    équipeSub: "The founders",
     approcheTitle: "Our approach",
     approcheSub: "Four integrated blocks. A single goal. A viable, funded, rapidly activatable system.",
     signaturesTitle: "What sets us apart",
     signaturesSub: "Four signatures.",
     valeursTitle: "Our values",
-    valeursSub: "Five operating rules.",
+    valeursSub: "Five opérating rules.",
   };
 
   const approach = isFr ? APPROACH_FR : APPROACH_EN;
@@ -247,12 +247,12 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── EQUIPE ── */}
-      <section id="equipe" ref={equipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(equipe.visible, 0.1) }}>
+      <section id="équipe" ref={équipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(équipe.visible, 0.1) }}>
         <div className="container">
           <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
-            {H.equipeTitle}
+            {H.équipeTitle}
           </p>
-          <h2 className="section-title" style={{ marginBottom: 36 }}>{H.equipeSub}</h2>
+          <h2 className="section-title" style={{ marginBottom: 36 }}>{H.équipeSub}</h2>
           <div
             style={{
               display: "grid",

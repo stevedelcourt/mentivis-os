@@ -15,5 +15,24 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function ImpactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  return <ImpactPageClient lang={lang as Locale} />;
+  const isFr = lang === "fr";
+  return (
+    <>
+      <ImpactPageClient lang={lang as Locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: isFr ? "Programme Impact — ICIA x MentivisOS" : "Impact Program — ICIA x MentivisOS",
+            description: isFr
+              ? "Un programme structuré pour passer de l'inquiétude à la compétence face à l'IA."
+              : "A structured program to move from concern to competence with AI.",
+            url: `https://sc4bovu7233.universe.wf/${lang}/impact`,
+          }),
+        }}
+      />
+    </>
+  );
 }

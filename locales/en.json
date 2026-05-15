@@ -207,7 +207,7 @@
       "cta": "Get started"
     },
     "adaptive": {
-      "eyebrow": "Parcours adaptatif",
+      "eyebrow": "Adaptive Learning Path",
       "title": "Adaptive Intelligence",
       "description": "A real-time orchestration layer that continuously adapts the learning experience, workflows, content, and assistance according to the individual user and operational context.",
       "capabilitiesTitle": "Core capabilities",
@@ -277,7 +277,7 @@
       "positioning": "Not a static layer.\nA living adaptive system capable of evolving every interaction according to the learner, the organization, and the environment in real time."
     },
     "visual": {
-      "eyebrow": "Parcours adaptatif",
+      "eyebrow": "Adaptive Learning Path",
       "title": "Visual Intelligence Layer",
       "description": "A modular visual communication system designed to create adaptive, immersive, and AI-native interfaces through dynamic CSS-generated imagery and procedural visual rendering.",
       "capabilitiesTitle": "Core capabilities",
@@ -345,7 +345,7 @@
       "implementation": "The visual layer must prioritize CSS-generated imagery and procedural rendering instead of traditional static image assets whenever possible. This enables dynamic adaptation, lower load times, visual consistency, and real-time personalization across the platform."
     },
     "mosaic": {
-      "eyebrow": "Parcours adaptatif",
+      "eyebrow": "Adaptive Learning Path",
       "title": "Adaptive Design System",
       "description": "A modular design system that creates adaptable, immersive, and AI-native interfaces through an editorial card-based layout.",
       "tabs": {

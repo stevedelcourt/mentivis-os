@@ -51,7 +51,7 @@
         "Formation personnalisee automatisee",
         "Connexion SIRH / ERP / CRM",
         "Certification & financement OPCO",
-        "Agents IA integres metiers"
+        "Agents IA intégrés métiers"
       ]
     },
     "ressourcesMenu": {
@@ -76,7 +76,7 @@
     "headline": "Un système de formation qui apprend autant qu'il enseigne.",
     "subheadline": "Générez des parcours sur mesure, adaptez les contenus automatiquement et pilotez la progression de vos équipes dans un seul système natif IA.",
     "ctaPrimary": "Demarrer gratuitement",
-    "ctaSecondary": "Contacter l'equipe",
+    "ctaSecondary": "Contacter l'équipe",
     "proof": "Utilise par les directions de la formation, les CFA, les campus d'entreprise."
   },
   "productCards": {
@@ -109,11 +109,11 @@
     "cta": "En savoir plus"
   },
   "steps": {
-    "title": "Le moteur en trois etapes",
+    "title": "Le moteur en trois étapes",
     "step1": {
       "number": "01",
       "title": "Vous declarez votre objectif",
-      "body": "Profil, situation actuelle, contraintes de temps, referentiel vise."
+      "body": "Profil, situation actuelle, contraintes de temps, référentiel vise."
     },
     "step2": {
       "number": "02",
@@ -123,12 +123,12 @@
     "step3": {
       "number": "03",
       "title": "Le programme se construit",
-      "body": "Theorie, pratique, evaluation. Parcours par parcours. Un assistant pedagogique embarque qui ne sort jamais du sujet."
+      "body": "Theorie, pratique, evaluation. Parcours par parcours. Un assistant pédagogique embarque qui ne sort jamais du sujet."
     },
-    "link": "Voir le detail du moteur pedagogique"
+    "link": "Voir le detail du moteur pédagogique"
   },
   "proof": {
-    "situation": "Un ingenieur en systemes embarques automobile declare son intention de rejoindre l'aeronautique critique, avec un volet IA embarquee.",
+    "situation": "Un ingenieur en systèmes embarques automobile déclaré son intention de rejoindre l'aeronautique critique, avec un volet IA embarquee.",
     "outputs": {
       "title": "Output MentivisOS en moins d'une minute",
       "feasibility": "Faisabilite : exigeante",
@@ -138,8 +138,8 @@
       "modules": "Parcours adaptatifs identifies : 7",
       "ordering": "Ordonnancement : fondations avioniques > surete > normes DO-178C, ARINC, AFDX > IA embarquee certifiee"
     },
-    "honesty": "Six a douze mois de consolidation en entreprise pour atteindre l'autonomie operationnelle.",
-    "editorial": "C'est l'honnetete du dispositif qui frappe autant que sa precision."
+    "honesty": "Six a douze mois de consolidation en entreprise pour atteindre l'autonomie opérationnelle.",
+    "editorial": "C'est l'honnêteté du dispositif qui frappe autant que sa precision."
   },
   "modules": {
     "title": "Les parcours adaptatifs",
@@ -150,7 +150,7 @@
     },
     "engagement": {
       "title": "Accompagnement embarque",
-      "description": "Un assistant pedagogique qui ne sort jamais du sujet. Parcours par parcours, jusqu'au bout."
+      "description": "Un assistant pédagogique qui ne sort jamais du sujet. Parcours par parcours, jusqu'au bout."
     },
     "collaboration": {
       "title": "Pilotage collectif",
@@ -158,11 +158,11 @@
     },
     "analytics": {
       "title": "Mesure et preuve",
-      "description": "Faisabilite, ecarts, progression. Des chiffres qui permettent de decider, pas de supposer."
+      "description": "Faisabilite, écarts, progression. Des chiffres qui permettent de decider, pas de supposer."
     },
     "security": {
       "title": "Conformite et souverainete",
-      "description": "Hebergement europeen, donnees maitrisees, conformite RGPD. Aucune compromission."
+      "description": "Hebergement europeen, données maitrisees, conformité RGPD. Aucune compromission."
     },
     "platform": {
       "title": "Ordonnancement intelligent",
@@ -171,50 +171,50 @@
     "bento": {
       "agents": {
         "title": "Agents omnicanal",
-        "body": "Les agents écoutent, lisent et interagissent comme des humains, par telephone, chat, email ou WhatsApp.",
+        "body": "Les agents écoutent, lisent et interagissent comme des humains, par téléphone, chat, email ou WhatsApp.",
         "chat": {
           "user1": "Puis-je obtenir un remboursement ?",
-          "agent": "Bien sur. Pouvez-vous partager votre numero de commande s'il vous plait ?",
+          "agent": "Bien sûr. Pouvez-vous partager votre numéro de commande s'il vous plaît ?",
           "user2": "C'est EL4543490",
-          "agent2": "Merci. J'ai lance le processus de remboursement de la commande.",
-          "success": "Remboursement effectue"
+          "agent2": "Merci. J'ai lancé le processus de remboursement de la commande.",
+          "success": "Remboursement effectué"
         }
       },
       "analytics": {
         "title": "Analytique",
-        "body": "Mesurez facilement les taux de reussite et les indicateurs d'experience client, et optimisez vos parcours dans le temps.",
+        "body": "Mesurez facilement les taux de réussite et les indicateurs d'expérience client, et optimisez vos parcours dans le temps.",
         "chart": {
-          "title": "Taux de resolution",
+          "title": "Taux de résolution",
           "value": "83.4%",
           "v1": "V1: 75.10%",
           "v2": "V2: 62.65%",
-          "dateStart": "17 aout",
-          "dateEnd": "24 aout"
+          "dateStart": "17 août",
+          "dateEnd": "24 août"
         }
       },
       "tests": {
         "title": "Tests",
-        "body": "Simulez des conversations reelles pour verifier que les agents reagissent comme prevu avant le deploiement."
+        "body": "Simulez des conversations réelles pour verifier que les agents reagissent comme prévu avant le déploiement."
       },
       "guardrails": {
         "title": "Garde-fous",
-        "body": "Definissez des regles claires de comportement et de conformite pour garantir que les reponses des agents respectent la politique."
+        "body": "Definissez des regles claires de comportement et de conformité pour garantir que les réponses des agents respectent la politique."
       },
       "workflows": {
         "title": "Workflows",
-        "body": "Gerez des conversations complexes, appliquez la logique metier et connectez-vous en toute securite a vos systemes."
+        "body": "Gerez des conversations complexes, appliquez la logique métier et connectez-vous en toute sécurité a vos systèmes."
       },
       "cta": "Commencer"
     },
     "adaptive": {
       "eyebrow": "Parcours adaptatif",
       "title": "Adaptive Intelligence",
-      "description": "Une couche d'orchestration temps reel qui adapte continuellement l'experience d'apprentissage, les workflows, le contenu et l'assistance selon l'utilisateur et le contexte operationnel.",
+      "description": "Une couche d'orchestration temps réel qui adapte continuellement l'expérience d'apprentissage, les workflows, le contenu et l'assistance selon l'utilisateur et le contexte opérationnel.",
       "capabilitiesTitle": "Capacites principales",
       "personalization": {
         "title": "Personnalisation dynamique des parcours",
-        "skillLevel": "Niveau de competence",
-        "role": "Role et metier",
+        "skillLevel": "Niveau de compétence",
+        "role": "Role et métier",
         "behavioral": "Patterns comportementaux",
         "performance": "Signaux de performance",
         "engagement": "Rythme d'engagement",
@@ -228,13 +228,13 @@
         "language": "Langue",
         "time": "Contraintes de temps",
         "environment": "Environnement de travail",
-        "priorities": "Priorites metier",
+        "priorities": "Priorites métier",
         "regulatory": "Exigences reglementaires"
       },
       "optimization": {
         "title": "Moteur d'optimisation continu",
         "sequencing": "Modifie le sequencage des modules",
-        "difficulty": "Ajuste la difficulte en temps reel",
+        "difficulty": "Ajuste la difficulte en temps réel",
         "recommendations": "Recommande les prochaines actions",
         "remediation": "Surface les parcours de remediation ou d'acceleration",
         "reorganization": "Reorganise le contenu selon les resultats observes"
@@ -248,18 +248,18 @@
         "intervention": "Declencheurs d'intervention proactive"
       },
       "sync": {
-        "title": "Synchronisation operationnelle",
-        "workflows": "Connecte l'apprentissage aux workflows reels",
-        "tools": "Integre les outils et donnees metier",
-        "events": "Adapte la formation aux evenements operationnels en direct",
-        "gaps": "Detecte les ecarts entre competences attendues et observees"
+        "title": "Synchronisation opérationnelle",
+        "workflows": "Connecte l'apprentissage aux workflows réels",
+        "tools": "Integre les outils et données métier",
+        "events": "Adapte la formation aux evenements opérationnels en direct",
+        "gaps": "Detecte les écarts entre compétences attendues et observees"
       },
       "intelligenceTitle": "Systeme d'intelligence",
       "intelligenceDescription": "Le parcours adaptatif combine :",
       "intelligence": {
         "behavioral": "Analytique comportementale",
         "predictive": "Modeles predictifs",
-        "competency": "Cartographie des competences",
+        "competency": "Cartographie des compétences",
         "telemetry": "Telemetrie des workflows",
         "semantic": "Comprehension semantique du contenu",
         "reinforcement": "Boucles de feedback par renforcement"
@@ -267,22 +267,22 @@
       "outcomesTitle": "Resultats",
       "outcomes": {
         "completion": "Taux de completion plus eleves",
-        "acquisition": "Acquisition de competences plus rapide",
+        "acquisition": "Acquisition de compétences plus rapide",
         "fatigue": "Reduction de la fatigue de formation",
         "retention": "Meilleure retention",
         "progression": "Progression personnalisee a l'echelle",
-        "alignment": "Alignement continu entre education et realite operationnelle"
+        "alignment": "Alignement continu entre education et réalité opérationnelle"
       },
       "positioningTitle": "Positionnement",
-      "positioning": "Pas une couche statique.\nUn systeme adaptatif vivant capable d'evoluer a chaque interaction selon l'apprenant, l'organisation et l'environnement en temps reel."
+      "positioning": "Pas une couche statique.\nUn système adaptatif vivant capable d'evoluer a chaque interaction selon l'apprenant, l'organisation et l'environnement en temps réel."
     },
     "visual": {
       "eyebrow": "Parcours adaptatif",
       "title": "Visual Intelligence Layer",
-      "description": "Un systeme de communication visuelle modulaire concu pour creer des interfaces adaptatives, immersives et IA-natives via des images generees en CSS et un rendu visuel procedural.",
+      "description": "Un système de communication visuelle modulaire conçu pour creer des interfaces adaptatives, immersives et IA-natives via des images generees en CSS et un rendu visuel procedural.",
       "capabilitiesTitle": "Capacites principales",
       "cssVisuals": {
-        "title": "Environnements visuels generes en CSS",
+        "title": "Environnements visuels générés en CSS",
         "gradients": "Degrades",
         "mesh": "Arriere-plans mesh",
         "textures": "Textures procedurales",
@@ -292,7 +292,7 @@
         "light": "Systemes de lumiere responsifs"
       },
       "adaptation": {
-        "title": "Adaptation visuelle temps reel",
+        "title": "Adaptation visuelle temps réel",
         "context": "Ajuste les visuels selon le contexte",
         "density": "Adapte la densite et le contraste de l'interface",
         "atmosphere": "Change l'atmosphere visuelle selon le workflow ou l'etat utilisateur",
@@ -323,7 +323,7 @@
         "motion": "Langage de mouvement synchronise"
       },
       "technicalTitle": "Approche technique",
-      "technicalDescription": "Le systeme s'appuie fortement sur :",
+      "technicalDescription": "Le système s'appuie fortement sur :",
       "technical": {
         "css": "Graphiques proceduraux CSS",
         "gradients": "Degrades en couches",
@@ -339,15 +339,15 @@
         "performance": "Performance de rendu plus rapide",
         "aesthetics": "Esthetiques IA-natives coherentes",
         "assets": "Dependance reduite aux assets statiques",
-        "personalization": "Personnalisation temps reel facilitee"
+        "personalization": "Personnalisation temps réel facilitee"
       },
       "implementationTitle": "Note d'implementation",
-      "implementation": "La couche visuelle doit prioriser les images generees en CSS et le rendu procedural plutot que les assets d'image statiques traditionnels whenever possible. Cela permet une adaptation dynamique, des temps de chargement reduits, une coherence visuelle et une personnalisation temps reel sur toute la plateforme."
+      "implementation": "La couche visuelle doit prioriser les images generees en CSS et le rendu procedural plutot que les assets d'image statiques traditionnels whenever possible. Cela permet une adaptation dynamique, des temps de chargement reduits, une coherence visuelle et une personnalisation temps réel sur toute la plateforme."
     },
     "mosaic": {
       "eyebrow": "Parcours adaptatif",
       "title": "Adaptive Design System",
-      "description": "Un systeme de conception modulaire qui cree des interfaces adaptables, immersives et natives IA a travers une mise en page editoriale basee sur des cartes.",
+      "description": "Un système de conception modulaire qui cree des interfaces adaptables, immersives et natives IA a travers une mise en page editoriale basee sur des cartes.",
       "tabs": {
         "all": "Tout",
         "design": "Design",
@@ -392,7 +392,7 @@
     "title": "Pour qui",
     "individuel": {
       "title": "Individuel",
-      "body": "Professionnels en reconversion ou en montee en competence. Le programme exact qui comble l'ecart. Pas le catalogue le plus proche."
+      "body": "Professionnels en reconversion ou en montée en compétence. Le programme exact qui comble l'écart. Pas le catalogue le plus proche."
     },
     "corporate": {
       "title": "Corporate",
@@ -400,64 +400,64 @@
     },
     "formation": {
       "title": "Formation",
-      "body": "Ecoles, CFAs, operateurs de reconversion, OPCO. Un referentiel diplome instantie en parcours operationnel en quelques jours."
+      "body": "Ecoles, CFAs, opérateurs de reconversion, OPCO. Un référentiel diplome instantie en parcours opérationnel en quelques jours."
     },
     "competences": {
       "title": "Competences",
-      "body": "ESN et cabinets de conseil en gestion de competences. La prescription devient operationnelle. L'ecart se chiffre. Le parcours se genere."
+      "body": "ESN et cabinets de conseil en gestion de compétences. La prescription devient opérationnelle. L'écart se chiffre. Le parcours se généré."
     }
   },
   "timeline": {
     "eyebrow": "MENTIVIS OS",
     "title": "Transformer votre structure en organisation apprenante",
-    "description": "Centralisez les connaissances, automatisez la montee en competences et alignez formation, operations et IA dans un systeme unique capable d'evoluer avec votre organisation.",
+    "description": "Centralisez les connaissances, automatisez la montée en compétences et alignez formation, operations et IA dans un système unique capable d'evoluer avec votre organisation.",
     "dividerLeft": "Avant",
     "dividerRight": "Apres transformation",
     "stages": [
       {
         "label": "Desorganisation",
         "title": "Connaissances fragmentees",
-        "desc": "Les equipes travaillent en silos. Les connaissances sont dispersees entre documents, emails et individus. La formation repose encore sur de la coordination manuelle."
+        "desc": "Les équipes travaillent en silos. Les connaissances sont dispersees entre documents, emails et individus. La formation repose encore sur de la coordination manuelle."
       },
       {
         "label": "Tension",
-        "title": "Tension operationnelle",
-        "desc": "La croissance cree de la complexite. Les recrutements ralentissent l'organisation. Les managers passent de plus en plus de temps a aligner et former les equipes."
+        "title": "Tension opérationnelle",
+        "desc": "La croissance cree de la complexite. Les recrutements ralentissent l'organisation. Les managers passent de plus en plus de temps a aligner et former les équipes."
       },
       {
         "label": "Complexite",
         "title": "Fragmentation des outils",
-        "desc": "L'organisation accumule plateformes, LMS, tableurs et workflows deconnectes. Chaque nouvel outil ajoute une couche de friction operationnelle."
+        "desc": "L'organisation accumule plateformes, LMS, tableurs et workflows déconnectés. Chaque nouvel outil ajoute une couche de friction opérationnelle."
       },
       {
         "label": "Limitations",
-        "title": "Frein operationnel",
+        "title": "Frein opérationnel",
         "desc": "L'organisation ne peut plus scaler efficacement. La qualite de formation devient inegale. Les savoirs circulent trop lentement pour suivre la croissance."
       },
       {
         "label": "Mutation",
         "title": "Experimentation IA",
-        "desc": "Les equipes commencent a tester l'IA. Des initiatives apparaissent dans differents services. Mais les usages restent fragmentes et difficilement industrialisables."
+        "desc": "Les équipes commencent a tester l'IA. Des initiatives apparaissent dans differents services. Mais les usages restent fragmentes et difficilement industrialisables."
       },
       {
         "label": "Unification",
         "title": "Integration MentivisOS",
-        "desc": "MentivisOS unifie formation, recrutement, competences et systemes internes dans une infrastructure unique. L'organisation passe d'une logique reactive a une capacite d'adaptation continue."
+        "desc": "MentivisOS unifie formation, recrutement, compétences et systèmes internes dans une infrastructure unique. L'organisation passe d'une logique reactive a une capacite d'adaptation continue."
       },
       {
         "label": "Adaptation",
         "title": "Organisation apprenante autonome",
-        "desc": "La formation devient continue. Les connaissances circulent automatiquement. Les equipes montent en competence plus vite sans augmenter proportionnellement la charge operationnelle. L'organisation devient un systeme vivant capable d'evoluer en permanence."
+        "desc": "La formation devient continue. Les connaissances circulent automatiquement. Les équipes montent en compétence plus vite sans augmenter proportionnellement la charge opérationnelle. L'organisation devient un système vivant capable d'evoluer en permanence."
       }
     ]
   },
   "impact": {
     "eyebrow": "MENTIVIS OS",
-    "title": "L'expertise pedagogique avant la technologie",
+    "title": "L'expertise pédagogique avant la technologie",
     "body": [
-      "MentivisOS n'a pas ete concu par une start-up decouvrant le secteur de la formation. Le systeme est porte par un cabinet qui concoit, structure et opere des dispositifs pedagogiques depuis plusieurs annees.",
-      "Cette experience metier change profondement la logique de l'IA utilisee dans la plateforme. Les parcours generes respectent les realites operationnelles de l'apprentissage : progression, sequencage, acquisition des competences, charge cognitive et adaptation aux contextes metiers.",
-      "L'IA ne produit pas du contenu brut. Elle s'appuie sur une architecture pedagogique pensee pour etre exploitable, coherente et deployable a grande echelle."
+      "MentivisOS n'a pas été conçu par une start-up decouvrant le secteur de la formation. Le système est porte par un cabinet qui concoit, structure et opère des dispositifs pédagogiques depuis plusieurs annees.",
+      "Cette expérience métier change profondement la logique de l'IA utilisee dans la plateforme. Les parcours générés respectent les realites opérationnelles de l'apprentissage : progression, sequencage, acquisition des compétences, charge cognitive et adaptation aux contextes métiers.",
+      "L'IA ne produit pas du contenu brut. Elle s'appuie sur une architecture pédagogique pensee pour être exploitable, coherente et deployable a grande echelle."
     ],
     "tabs": {
       "clients": "Cas clients",
@@ -470,39 +470,39 @@
     "shift1": {
       "number": "01",
       "title": "La fin du curriculum unique",
-      "body": "Une promotion de quinze collaborateurs ne suit plus le meme cours. Chacun recoit la sequence qui lui manque, dans l'ordre qui lui convient."
+      "body": "Une promotion de quinze collaborateurs ne suit plus le même cours. Chacun recoit la sequence qui lui manque, dans l'ordre qui lui convient."
     },
     "shift2": {
       "number": "02",
-      "title": "La lisibilite des ecarts",
-      "body": "Un langage commun pour piloter la montee en competence a l'echelle de l'organisation. Les diagnostics chiffres permettent un pilotage a la maille fine."
+      "title": "La lisibilite des écarts",
+      "body": "Un langage commun pour piloter la montée en compétence a l'echelle de l'organisation. Les diagnostics chiffres permettent un pilotage a la maille fine."
     },
     "shift3": {
       "number": "03",
       "title": "La retention de l'attention",
-      "body": "L'assistant pedagogique embarque est un antidote concret au decrochage, plaie historique de la formation a distance."
+      "body": "L'assistant pédagogique embarque est un antidote concret au décrochage, plaie historique de la formation a distance."
     },
     "shift4": {
       "number": "04",
       "title": "La vitesse de mise en oeuvre",
-      "body": "Un referentiel diplome instantie en quelques jours, pas en plusieurs mois. Les equipes formation cessent d'etre des editeurs executants pour redevenir des architectes pedagogiques."
+      "body": "Un référentiel diplome instantie en quelques jours, pas en plusieurs mois. Les équipes formation cessent d'être des editeurs executants pour redevenir des architectes pédagogiques."
     }
   },
   "integration": {
-    "title": "Trois modes d'integration",
+    "title": "Trois modes d'intégration",
     "direct": {
       "title": "Acces direct par apprenant",
       "body": "Operationnel en 24h. Zero infrastructure."
     },
     "license": {
       "title": "Licence entreprise",
-      "body": "Referentiels metiers personnalises. Onboarding Mentivis."
+      "body": "Referentiels métiers personnalises. Onboarding Mentivis."
     },
     "api": {
       "title": "API",
-      "body": "Connexion systeme, SIRH, ATS. Documentation disponible."
+      "body": "Connexion système, SIRH, ATS. Documentation disponible."
     },
-    "link": "Voir le detail des modes d'integration"
+    "link": "Voir le detail des modes d'intégration"
   },
   "notLms": {
     "title": "Pourquoi MentivisOS n'est pas une plateforme de formation comme les autres",
@@ -510,25 +510,25 @@
     "mentivisLabel": "MentivisOS",
     "rows": [
       {
-        "lms": "Contenu standardise, meme parcours pour tous",
-        "mentivis": "Parcours genere par IA, unique pour chaque profil"
+        "lms": "Contenu standardise, même parcours pour tous",
+        "mentivis": "Parcours généré par IA, unique pour chaque profil"
       },
       {
         "lms": "Mesure de la consommation",
-        "mentivis": "Mesure de l'acquisition reelle, competence par competence"
+        "mentivis": "Mesure de l'acquisition réelle, compétence par compétence"
       },
       {
         "lms": "Catalogue fige",
-        "mentivis": "Programme dynamique recalcule a chaque etape"
+        "mentivis": "Programme dynamique recalcule a chaque étape"
       },
       {
         "lms": "Rapport de completion",
-        "mentivis": "Scoring de faisabilite et analyse de risque avant deploiement"
+        "mentivis": "Scoring de faisabilite et analyse de risque avant déploiement"
       }
     ]
   },
   "combination": {
-    "body": "Mentivis n'est pas une start-up technologique qui decouvre l'education.\nLe cabinet concoit et opere des dispositifs de formation depuis plusieurs annees.\nCette anteriorite metier irrigue MentivisOS dans ses moindres details.\nLe decoupage propose par l'IA respecte les principes eprouves de la sequence pedagogique.\nLa generation de contenu n'est jamais livree brute.",
+    "body": "Mentivis n'est pas une start-up technologique qui decouvre l'education.\nLe cabinet concoit et opère des dispositifs de formation depuis plusieurs annees.\nCette antériorité métier irrigue MentivisOS dans ses moindres details.\nLe decoupage propose par l'IA respecte les principes éprouvés de la sequence pédagogique.\nLa génération de contenu n'est jamais livree brute.",
     "link": "En savoir plus sur Mentivis"
   },
   "mathFeatures": {
@@ -538,64 +538,64 @@
     "cards": {
       "saddle": {
         "title": "Precision",
-        "description": "Chaque intervention commence par un diagnostic quantifie et une analyse reelle des besoins. Nous transformons cette lecture terrain en plan d'action operationnel."
+        "description": "Chaque intervention commence par un diagnostic quantifie et une analyse réelle des besoins. Nous transformons cette lecture terrain en plan d'action opérationnel."
       },
       "hilbert": {
         "title": "Structure",
-        "description": "Nous concevons des systemes pedagogiques structures, modulaires et alignes sur les usages metiers. Pas des catalogues de formation."
+        "description": "Nous concevons des systèmes pédagogiques structures, modulaires et alignes sur les usages métiers. Pas des catalogues de formation."
       },
       "mobius": {
         "title": "Continuite",
-        "description": "Le deploiement n'est jamais une finalite. Nous mesurons, ajustons et optimisons pour transformer chaque projet en capacite durable."
+        "description": "Le déploiement n'est jamais une finalite. Nous mesurons, ajustons et optimisons pour transformer chaque projet en capacite durable."
       }
     }
   },
   "faq": {
-    "eyebrow": "Questions frequentes",
+    "eyebrow": "Questions fréquentes",
     "title": "Tout ce qu'il faut savoir avant de commencer.",
-    "lead": "Reponses concises aux questions les plus posees par les directions formation et les operateurs.",
+    "lead": "Reponses concises aux questions les plus posees par les directions formation et les opérateurs.",
     "items": [
       {
         "question": "MentivisOS est-il un LMS ?",
-        "answer": "Non. Un LMS diffuse des contenus et enregistre des completions. MentivisOS construit, deploie, adapte et mesure la transformation reelle des competences dans une organisation. C'est un systeme d'exploitation pedagogique, pas une bibliotheque de modules."
+        "answer": "Non. Un LMS diffuse des contenus et enregistre des completions. MentivisOS construit, deploie, adapte et mesure la transformation réelle des compétences dans une organisation. C'est un système d'exploitation pédagogique, pas une bibliotheque de modules."
       },
       {
         "question": "Qu'est-ce qui distingue MentivisOS des outils IA de formation ?",
-        "answer": "La plupart des outils IA generent des contenus. MentivisOS orchestre l'ensemble du cycle : diagnostic de faisabilite, generation de parcours personnalises, mesure competence par competence, recalcul dynamique a chaque etape, et analyse de risque avant deploiement. L'IA n'est pas la fonctionnalite. C'est l'infrastructure."
+        "answer": "La plupart des outils IA generent des contenus. MentivisOS orchestre l'ensemble du cycle : diagnostic de faisabilite, génération de parcours personnalises, mesure compétence par compétence, recalcul dynamique a chaque étape, et analyse de risque avant déploiement. L'IA n'est pas la fonctionnalite. C'est l'infrastructure."
       },
       {
         "question": "Comment MentivisOS mesure-t-il la performance ?",
-        "answer": "Pas par la consommation. Pas par le taux de completion. MentivisOS mesure l'acquisition reelle, competence par competence, et ajuste les parcours en fonction des ecarts detectes. Ce que vous pilotez, c'est la capacite effective de vos equipes, pas leur presence dans un module."
+        "answer": "Pas par la consommation. Pas par le taux de completion. MentivisOS mesure l'acquisition réelle, compétence par compétence, et ajuste les parcours en fonction des écarts detectes. Ce que vous pilotez, c'est la capacite effective de vos équipes, pas leur presence dans un module."
       },
       {
         "question": "A quels types d'organisations MentivisOS s'adresse-t-il ?",
-        "answer": "Entreprises engagees dans une transformation IA, universites et grandes ecoles, groupes hospitaliers, organismes de formation, OPCOs, administrations publiques. MentivisOS est concu pour les organisations qui ont besoin d'operationnaliser la montee en competences a grande echelle, avec des contraintes de conformite, de gouvernance et d'integration."
+        "answer": "Entreprises engagees dans une transformation IA, universites et grandes écoles, groupes hospitaliers, organismes de formation, OPCOs, administrations publiques. MentivisOS est conçu pour les organisations qui ont besoin d'operationnaliser la montée en compétences a grande echelle, avec des contraintes de conformité, de gouvernance et d'intégration."
       },
       {
-        "question": "MentivisOS et la souverainete des donnees ?",
-        "answer": "MentivisOS est concu pour un hebergement souverain europeen, conforme aux exigences RGPD et aux politiques de donnees des institutions publiques et parapubliques. Vos donnees de competences, vos contenus et vos parcours restent sous votre controle, sur l'infrastructure de votre choix."
+        "question": "MentivisOS et la souverainete des données ?",
+        "answer": "MentivisOS est conçu pour un hébergement souverain europeen, conforme aux exigences RGPD et aux politiques de données des institutions publiques et parapubliques. Vos données de compétences, vos contenus et vos parcours restent sous votre controle, sur l'infrastructure de votre choix."
       },
       {
-        "question": "Comment se deroule un deploiement ?",
-        "answer": "Tout deploiement commence par un diagnostic de transformation : cartographie des competences, analyse des infrastructures existantes, evaluation de la maturite IA, scoring de faisabilite. MentivisOS est ensuite deploye par unite, par departement ou par campus sur un cycle pilote de 90 jours avant toute generalisation. Mentivis assure l'implementation de bout en bout."
+        "question": "Comment se deroule un déploiement ?",
+        "answer": "Tout déploiement commence par un diagnostic de transformation : cartographie des compétences, analyse des infrastructures existantes, evaluation de la maturite IA, scoring de faisabilite. MentivisOS est ensuite deploye par unite, par departement ou par campus sur un cycle pilote de 90 jours avant toute generalisation. Mentivis assure l'implementation de bout en bout."
       },
       {
         "question": "Quel est le role de Mentivis ?",
-        "answer": "Mentivis est l'operateur derriere MentivisOS. Ce n'est pas un editeur qui livre un logiciel et vous laisse seul. Mentivis concoit, developpe et opere les projets de transformation pedagogique de bout en bout, avec une expertise accumulee aupres d'institutions, d'entreprises et de ministeres en France et a l'international."
+        "answer": "Mentivis est l'opérateur derriere MentivisOS. Ce n'est pas un editeur qui livre un logiciel et vous laisse seul. Mentivis concoit, développé et opère les projets de transformation pédagogique de bout en bout, avec une expertise accumulee aupres d'institutions, d'entreprises et de ministeres en France et a l'international."
       },
       {
         "question": "Par ou commencer ?",
-        "answer": "Par un diagnostic. Nous auditons votre systeme de competences actuel, identifions les ecarts, evaluons votre maturite IA et produisons un plan de deploiement avec scoring de faisabilite. C'est le point d'entree naturel avant toute decision d'investissement."
+        "answer": "Par un diagnostic. Nous auditons votre système de compétences actuel, identifions les écarts, evaluons votre maturite IA et produisons un plan de déploiement avec scoring de faisabilite. C'est le point d'entree naturel avant toute decision d'investissement."
       }
     ]
   },
   "finalCta": {
-    "headline": "Pas de demonstration standard.\nUn cas reel, issu de votre organisation, traite en direct.",
+    "headline": "Pas de demonstration standard.\nUn cas réel, issu de votre organisation, traite en direct.",
     "button": "Demander une demonstration",
     "subline": "Preparee en quelques jours. Visioconference ou sur site."
   },
   "footer": {
-    "tagline": "Tous les metiers de la formation. De bout en bout.",
+    "tagline": "Tous les métiers de la formation. De bout en bout.",
     "produits": "Produits",
     "pourQui": "Pour qui",
     "workflows": "Workflows",
@@ -603,11 +603,11 @@
     "entreprise": "Entreprise",
     "contact": "Contact",
     "legal": "Legal",
-    "copyright": "MentivisOS est developpe par Mentivis."
+    "copyright": "MentivisOS est développé par Mentivis."
   },
   "demo": {
-    "title": "Pas de demonstration standard.\nUn cas reel, issu de votre organisation, traite en direct.",
-    "description": "Une demonstration MentivisOS est conduite par un consultant pedagogique de Mentivis. Elle se prepare en quelques jours a partir d'un objectif ou d'un profil representatif de votre situation. Elle se conduit en visioconference ou sur site.",
+    "title": "Pas de demonstration standard.\nUn cas réel, issu de votre organisation, traite en direct.",
+    "description": "Une demonstration MentivisOS est conduite par un consultant pédagogique de Mentivis. Elle se prepare en quelques jours a partir d'un objectif ou d'un profil representatif de votre situation. Elle se conduit en visioconference ou sur site.",
     "form": {
       "firstName": "Prenom et nom",
       "organization": "Organisation",
@@ -630,7 +630,7 @@
       "success": "Merci. Nous revenons vers vous sous 48 heures.",
       "error": "Une erreur est survenue. Veuillez reessayer."
     },
-    "pricing": "Pour les organisations qui envisagent un deploiement a plus grande echelle, plusieurs modeles sont proposes : abonnement SaaS par apprenant, licence d'entreprise, couche API pour integration aux systemes existants."
+    "pricing": "Pour les organisations qui envisagent un déploiement a plus grande echelle, plusieurs modèles sont proposes : abonnement SaaS par apprenant, licence d'entreprise, couche API pour intégration aux systèmes existants."
   },
   "contact": {
     "title": "Contactez-nous",
@@ -648,15 +648,15 @@
     "hero": {
       "eyebrow": "Carrieres",
       "headline": "Construisons l'avenir de la formation ensemble",
-      "subheadline": "Rejoignez une equipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
+      "subheadline": "Rejoignez une équipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
       "cta": "Voir les postes"
     },
     "program": {
       "eyebrow": "REJOIGNEZ-NOUS",
       "title": "Construisons l'avenir de la formation ensemble",
-      "description": "Rejoignez une equipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
+      "description": "Rejoignez une équipe qui repense la maniere dont les organisations forment, recrutent et developpent leurs talents.",
       "features": [
-        "Projets a impact reel sur des milliers d'apprenants",
+        "Projets a impact réel sur des milliers d'apprenants",
         "Technologies de pointe : IA, edtech, automatisation",
         "Autonomie, confiance et culture d'excellence",
         "Environnement bienveillant et transparent"
@@ -667,12 +667,12 @@
       "title": "Pourquoi nous rejoindre ?",
       "cards": [
         {
-          "title": "Impact reel",
-          "body": "Chaque projet que nous construisons transforme directement la maniere dont les equipes apprennent et evoluent."
+          "title": "Impact réel",
+          "body": "Chaque projet que nous construisons transforme directement la maniere dont les équipes apprennent et evoluent."
         },
         {
           "title": "Equipe et techno",
-          "body": "IA, edtech, automatisation, nous travaillons sur des sujets a la pointe avec des outils modernes et une equipe de talent."
+          "body": "IA, edtech, automatisation, nous travaillons sur des sujets a la pointe avec des outils modernes et une équipe de talent."
         },
         {
           "title": "Autonomie et confiance",
@@ -680,7 +680,7 @@
         },
         {
           "title": "Culture et valeurs",
-          "body": "Bienveillance, exigence, transparence. Nous construisons un environnement ou chacun peut donner le meilleur de lui-meme."
+          "body": "Bienveillance, exigence, transparence. Nous construisons un environnement ou chacun peut donner le meilleur de lui-même."
         }
       ]
     },
@@ -714,7 +714,7 @@
     },
     "form": {
       "title": "Candidature spontanee",
-      "subtitle": "Vous ne trouvez pas d'offre correspondant a votre profil ? Envoyez-nous quand meme votre candidature.",
+      "subtitle": "Vous ne trouvez pas d'offre correspondant a votre profil ? Envoyez-nous quand même votre candidature.",
       "firstName": "Prenom",
       "lastName": "Nom",
       "email": "Email",

@@ -18,7 +18,7 @@ const FAQ = {
     { q: "What is LearningOS?", a: "LearningOS is Mentivis's AI-native training system. It generates personalized learning paths, automatically adapts content, and drives skills development, all in a single platform." },
     { q: "How does LearningOS create personalized paths?", a: "LearningOS analyzes target skills, internal job frameworks, and each learner's profile to generate custom paths with objectives, modules and adapted assessments." },
     { q: "Is LearningOS compatible with OPCO funding?", a: "Yes. LearningOS includes an OPCO Manager module that simplifies the setup and tracking of funding applications, with exportable compliance data." },
-    { q: "Can I integrate LearningOS with my existing tools?", a: "Yes. LearningOS exposes a complete REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
+    { q: "Can I integrate LearningOS with my existing tools?", a: "Yes. LearningOS exposes a complété REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
     { q: "Is LearningOS GDPR compliant?", a: "Yes. LearningOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption at rest and TLS 1.3 in transit." },
     { q: "What types of training can I create with LearningOS?", a: "Internal training, certified programs, onboarding modules, regulatory training, upskilling programs, any format, any profession." },
     { q: "How are learners supported?", a: "AI agents (SkillAgents) accompany each learner 24/7, answer questions, direct them to relevant resources and adapt the pace in real time." },
@@ -90,7 +90,7 @@ export default function LearningOSFAQ({ lang }: { lang: Locale }) {
                 margin: "0 0 1.75rem",
               }}
             >
-              {lang === "fr" ? "Questions frequentes" : "Frequently asked questions"}
+              {lang === "fr" ? "Questions fréquentes" : "Frequently asked questions"}
             </h2>
             <p
               className="t-lead"

@@ -15,5 +15,25 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function TalentOSPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  return <TalentOSPageClient lang={lang as Locale} />;
+  const isFr = lang === "fr";
+  return (
+    <>
+      <TalentOSPageClient lang={lang as Locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "TalentOS",
+            applicationCategory: "BusinessApplication",
+            description: isFr
+              ? "Le système de recrutement IA — ATS intelligent, matching de profils et pilotage des recrutements."
+              : "The AI recruitment system — smart ATS, profile matching and recruitment pipeline management.",
+            url: `https://sc4bovu7233.universe.wf/${lang}/talentos`,
+          }),
+        }}
+      />
+    </>
+  );
 }

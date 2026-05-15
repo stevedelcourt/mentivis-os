@@ -1,0 +1,56 @@
+# MentivisOS
+
+## Overview
+MentivisOS is an AI-native pedagogical engine — not an LMS, not a catalog. It's a training operating system that designs, deploys, and operates end-to-end training programs with generative AI integrated structurally into the learning pipeline.
+
+## Stack
+- Next.js 16.2.6, TypeScript, Webpack-only
+- sql.js (WASM SQLite) for data persistence
+- Bilingual FR/EN, default FR
+- Hosted on o2switch shared hosting, Passenger, Node 20.20.2
+- JWT + role-based authentication
+
+## Architecture
+- NavBar → MegaMenu, MobileAccordionNav
+- PageHero (CMS-driven) → shared hero component for all product/info pages
+- CmsPageHero → fetches hero content from CMS API with fallback to defaults
+- Product pages: Hero → FeatureGrid → WorkflowTabs → Showcase → Pipeline → Enterprise → Testimonials → FAQ → CTABlock
+- Data via sql.js SQLite at /home/sc4bovu7233/data/ (persistent, auto-backup on deploy)
+
+## Key Pages
+- / → Homepage with HeroUnit, ProblemSection, SectorShowcase, TransformationTimeline, FAQ
+- /learningos → AI-native training system product page
+- /talentos → AI recruitment system product page
+- /about → Company/about page
+- /security → Security and compliance page
+- /ambassadors → Affiliation & Ambassadors program
+- /impact → Impact program (ICIA x MentivisOS)
+- /blog → News & publications (CMS-managed)
+- /tarifs → Pricing page
+- /carrieres → Careers/jobs page
+- /contact → Contact form
+- /demo → Demo request page
+
+## CMS
+- Content management at /content-management (god role required)
+- Pages: hero content editable per page (homepage, learningos, talentos, about, security, ambassadors)
+- Posts: blog articles with categories
+- SEO: JSON-LD structured data
+- Jobs: career listings
+- Pricing: plan configuration
+
+## Deploy
+- ./scripts/deploy-unlock.sh (auto-unlocks SSH, pushes to GitHub, deploys)
+- Zero-downtime atomic swap with health check and auto-rollback
+- Build: npm run build --webpack (NEVER use Turbopack)
+- Public assets must be git-tracked (deploy does git reset --hard)
+
+## Conventions
+- Components: PascalCase, files: kebab-case (assets) / PascalCase (components)
+- CSS vars: --color-*, --text-*, --font-*, --grid-*
+- camelCase variables/functions
+- Inter font only, no serif
+- Dark mode only, WCAG AA
+- No utility CSS frameworks, no Tailwind
+- No em dashes (—) in prose text
+- Tone: factual, precise. Forbidden: innovation, disruption, révolutionnaire, solution, écosystème

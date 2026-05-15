@@ -17,11 +17,11 @@ const FAQ = {
   en: [
     { q: "What is TalentOS?", a: "TalentOS is Mentivis's AI recruitment system. It combines a smart ATS, matching engine, assessment tests and HR analytics in a single platform." },
     { q: "How does AI matching work?", a: "The engine semantically analyzes CVs and candidate profiles, compares them against your job criteria and weights, and automatically ranks profiles by relevance." },
-    { q: "Can I integrate TalentOS with my existing HRIS?", a: "Yes. TalentOS exposes a complete REST API with ready-to-use connectors for major HRIS, CRM and ATS systems." },
+    { q: "Can I integrate TalentOS with my existing HRIS?", a: "Yes. TalentOS exposes a complété REST API with ready-to-use connectors for major HRIS, CRM and ATS systems." },
     { q: "Is TalentOS suitable for multi-recruiter hiring?", a: "Yes. The platform is built for collaboration: shared evaluations, comments, scoring grids and decision workflows for teams of any size." },
     { q: "What types of tests can I create?", a: "Technical tests, case studies, simulations, behavioral questionnaires with auto-correction, custom scoring grids and candidate comparison." },
     { q: "Is TalentOS GDPR compliant?", a: "Yes. TalentOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption and TLS 1.3, audit logs and role-based access control." },
-    { q: "How does TalentOS improve candidate experience?", a: "Dedicated candidate portal, real-time application tracking, automated communication, and simplified application process on mobile and desktop." },
+    { q: "How does TalentOS improve candidate expérience?", a: "Dedicated candidate portal, real-time application tracking, automated communication, and simplified application process on mobile and desktop." },
     { q: "Does TalentOS offer enterprise support?", a: "Yes. Guaranteed SLAs, priority support, deployment assistance and managed services for high-volume hiring." },
   ],
 };
@@ -90,7 +90,7 @@ export default function TalentOSFAQ({ lang }: { lang: Locale }) {
                 margin: "0 0 1.75rem",
               }}
             >
-              {lang === "fr" ? "Questions frequentes" : "Frequently asked questions"}
+              {lang === "fr" ? "Questions fréquentes" : "Frequently asked questions"}
             </h2>
             <p
               className="t-lead"

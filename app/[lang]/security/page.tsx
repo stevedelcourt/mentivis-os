@@ -6,14 +6,33 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Securite - MentivisOS" : "Security - MentivisOS",
+    title: isFr ? "Sécurité - MentivisOS" : "Security - MentivisOS",
     description: isFr
-      ? "L'IA pedagogique concue pour transformer la formation, guidee par la responsabilite et des protections qui garantissent la confidentialite des donnees."
+      ? "L'IA pédagogique conçue pour transformer la formation, guidée par la responsabilité et des protections qui garantissent la confidentialité des données."
       : "AI-powered pedagogy built to transform training, guided by responsibility and protections that guarantee data confidentiality.",
   };
 }
 
 export default async function SecurityPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  return <SecurityPageClient lang={lang as Locale} />;
+  const isFr = lang === "fr";
+  return (
+    <>
+      <SecurityPageClient lang={lang as Locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: isFr ? "Sécurité — MentivisOS" : "Security — MentivisOS",
+            description: isFr
+              ? "L'IA pédagogique conçue pour transformer la formation, avec confidentialité et protections intégrées."
+              : "AI-powered pedagogy built to transform training, with built-in confidentiality and protections.",
+            url: `https://sc4bovu7233.universe.wf/${lang}/security`,
+          }),
+        }}
+      />
+    </>
+  );
 }

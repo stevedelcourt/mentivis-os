@@ -40,7 +40,7 @@ export default function JobsListPage() {
     fetchJobs();
   }, [fetchJobs]);
 
-  const handleDelete = async (id: number) => {
+  const handleDelété = async (id: number) => {
     if (!confirm("Supprimer cette offre ? Cette action est irreversible.")) return;
     try {
       const res = await cmsFetch(`/api/cms/jobs/${id}`, { method: "DELETE" });
@@ -52,7 +52,7 @@ export default function JobsListPage() {
 
   const typeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      cdi: "CDI", cdd: "CDD", freelance: "Freelance", stage: "Stage", alternance: "Alternance",
+      cdi: "CDI", cdd: "CDD", fréelancé: "Fréelancé", stage: "Stage", alternance: "Alternance",
     };
     return labels[type] || type;
   };
@@ -144,9 +144,9 @@ export default function JobsListPage() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #F0EBE5" }}>
-                <th style={thStyle}>Reference</th>
+                <th style={thStyle}>Référence</th>
                 <th style={thStyle}>Titre</th>
-                <th style={thStyle}>Departement</th>
+                <th style={thStyle}>Département</th>
                 <th style={thStyle}>Lieu</th>
                 <th style={thStyle}>Type</th>
                 <th style={thStyle}>Statut</th>
@@ -211,7 +211,7 @@ export default function JobsListPage() {
                   <td style={{ ...tdStyle, textAlign: "right" }}>
                     <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
                       <Link
-                        href={`/${lang}/carrieres/${job.slug}`}
+                        href={`/${lang}/carrières/${job.slug}`}
                         target="_blank"
                         className="cms-touch-target"
                         style={{
@@ -247,7 +247,7 @@ export default function JobsListPage() {
                             Modifier
                           </Link>
                           <button
-                            onClick={() => handleDelete(job.id)}
+                            onClick={() => handleDelété(job.id)}
                             className="cms-touch-target"
                             style={{
                               padding: "10px 16px",

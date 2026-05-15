@@ -134,7 +134,7 @@ export default function BlogPostPage() {
 
           <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid var(--border-light)" }}>
             <p style={{ fontSize: 14, color: "var(--text-tertiary)" }}>
-              Cet article a ete publie le {post.date} dans la categorie {post.category.split(",")[0]}.
+              Cet article a été publie le {post.date} dans la categorie {post.category.split(",")[0]}.
             </p>
           </div>
         </article>

@@ -65,7 +65,7 @@ export default function SeoEditorPage() {
       const data: SeoResponse = await res.json();
       setSeoData(data.seo);
     } catch {
-      setError("Erreur lors du chargement des donnees SEO");
+      setError("Erreur lors du chargement des données SEO");
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ export default function SeoEditorPage() {
     try {
       const parsed = JSON.parse(value);
       if (typeof parsed !== "object" || parsed === null) {
-        setJsonError("Le JSON-LD doit etre un objet valide");
+        setJsonError("Le JSON-LD doit être un objet valide");
         return null;
       }
       setJsonError("");
@@ -106,7 +106,7 @@ export default function SeoEditorPage() {
     try {
       const parsed = JSON.parse(value);
       if (typeof parsed === "object" && parsed !== null) setJsonError("");
-      else setJsonError("Le JSON-LD doit etre un objet valide");
+      else setJsonError("Le JSON-LD doit être un objet valide");
     } catch (e) {
       setJsonError(`JSON invalide : ${e instanceof Error ? e.message : "Erreur de syntaxe"}`);
     }
