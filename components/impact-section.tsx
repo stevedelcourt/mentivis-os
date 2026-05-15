@@ -61,7 +61,7 @@ function filterToCards(posts: Post[], tab: "clients" | "partenariat"): (Post | n
 
 export default function ImpactSection({ lang }: ImpactSectionProps) {
   const t = getT(lang);
-  const [activeTab, setActiveTab] = useState<"clients" | "partenariat">("clients");
+  const [activeTab, setActiveTab] = useState<"clients" | "partenariat">("partenariat");
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
