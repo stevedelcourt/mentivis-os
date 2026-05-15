@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
-import PageHero, { PageHeroContent } from "@/components/page-hero";
+import PageHero from "@/components/page-hero";
+import CmsPageHero from "@/components/cms-page-hero";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -184,8 +185,10 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      <PageHero
-        content={{
+      <CmsPageHero
+        page="about"
+        lang={lang}
+        defaults={{
           eyebrow: H.heroEyebrow,
           headline: H.heroHeadline,
           subheadline: H.heroSub,

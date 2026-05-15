@@ -1,5 +1,5 @@
 import { getDb } from "./sqlite";
-import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType } from "./types";
+import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS } from "./types";
 
 export { generateSlug } from "./utils";
 
@@ -165,52 +165,192 @@ export function writeJsonFile<T>(filePath: string, data: T) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
-// ── Pages (Homepage Hero) ──
+// ── Pages (CMS Heroes) ──
 
-const DEFAULT_PAGES: PageContent = {
-  fr: {
-    hero: {
-      eyebrow: "Mentivis OS",
-      headline: "MentivisOS forme vos collaborateurs, gere vos recrutements et pilote la montee en competences de vos equipes.",
-      subheadline: "Un seul systeme qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecte a vos outils via la Mentivis API. Operationnel immediatement, sans refonte de votre organisation.",
-      ctaPrimary: "Demarrer gratuitement",
-      ctaPrimaryLink: "https://app.mentivisOS.com",
-      ctaSecondary: "Contacter l'equipe",
-      ctaSecondaryLink: "/fr/contact",
-      proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
-    },
+const DEFAULT_HERO_FR: Record<string, HeroContent> = {
+  homepage: {
+    eyebrow: "Mentivis OS",
+    headline: "MentivisOS forme vos collaborateurs, gere vos recrutements et pilote la montee en competences de vos equipes.",
+    subheadline: "Un seul systeme qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecte a vos outils via la Mentivis API. Operationnel immediatement, sans refonte de votre organisation.",
+    ctaPrimary: "Demarrer gratuitement",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contacter l'equipe",
+    ctaSecondaryLink: "/fr/contact",
+    proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
   },
-  en: {
-    hero: {
-      eyebrow: "Mentivis OS",
-      headline: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
-      subheadline: "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
-      ctaPrimary: "Start for free",
-      ctaPrimaryLink: "https://app.mentivisOS.com",
-      ctaSecondary: "Contact the team",
-      ctaSecondaryLink: "/en/contact",
-      proof: "Used by training departments, CFAs, corporate campuses.",
-    },
+  learningos: {
+    eyebrow: "LearningOS",
+    headline: "Le systeme de formation native IA\nqui transforme vos collaborateurs en talents.",
+    subheadline: "Generez des parcours personnalises, adaptez les contenus automatiquement\net pilotez la montee en competences de vos equipes — le tout dans un seul systeme.",
+    ctaPrimary: "Demarrer gratuitement",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contacter l'equipe",
+    ctaSecondaryLink: "/contact",
+    proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
+  },
+  talentos: {
+    eyebrow: "TalentOS",
+    headline: "Recruter devient un systeme.",
+    subheadline: "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements — le tout dans un seul systeme connecte a vos outils RH.",
+    ctaPrimary: "Demarrer gratuitement",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contacter l'equipe",
+    ctaSecondaryLink: "/contact",
+    proof: "Utilise par les directions RH, les cabinets de recrutement, les CFA.",
+  },
+  about: {
+    eyebrow: "A propos",
+    headline: "MentivisOS est le systeme de formation native IA concu par Mentivis",
+    subheadline: "De la strategie au deploiement operationnel. Un seul OS pour former, certifier et faire grandir les talents.",
+    ctaPrimary: "",
+    ctaPrimaryLink: "",
+    ctaSecondary: "",
+    ctaSecondaryLink: "",
+    proof: "",
+  },
+  security: {
+    eyebrow: "Securite",
+    headline: "L'IA pedagogique pour transformer la formation,\navec confidentialite et protections integrees.",
+    subheadline: "",
+    ctaPrimary: "",
+    ctaPrimaryLink: "",
+    ctaSecondary: "",
+    ctaSecondaryLink: "",
+    proof: "",
+  },
+  ambassadors: {
+    eyebrow: "Programme Affiliation & Ambassadeur",
+    headline: "Recommandez MentivisOS\net developpez votre activite.",
+    subheadline: "Un programme concu pour les professionnels de la formation, du recrutement et du conseil qui souhaitent recommander MentivisOS a leur reseau.",
+    ctaPrimary: "Rejoindre le programme",
+    ctaPrimaryLink: "/contact",
+    ctaSecondary: "Demander une presentation",
+    ctaSecondaryLink: "/demo",
+    proof: "",
   },
 };
 
+const DEFAULT_HERO_EN: Record<string, HeroContent> = {
+  homepage: {
+    eyebrow: "Mentivis OS",
+    headline: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+    subheadline: "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
+    ctaPrimary: "Start for free",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contact the team",
+    ctaSecondaryLink: "/en/contact",
+    proof: "Used by training departments, CFAs, corporate campuses.",
+  },
+  learningos: {
+    eyebrow: "LearningOS",
+    headline: "The AI-native training system\nthat turns your employees into talents.",
+    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development — all in a single system.",
+    ctaPrimary: "Start for free",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contact the team",
+    ctaSecondaryLink: "/contact",
+    proof: "Used by training departments, CFAs, corporate campuses.",
+  },
+  talentos: {
+    eyebrow: "TalentOS",
+    headline: "Recruiting becomes a system.",
+    subheadline: "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management — all in a single system connected to your HR tools.",
+    ctaPrimary: "Start for free",
+    ctaPrimaryLink: "https://app.mentivisOS.com",
+    ctaSecondary: "Contact the team",
+    ctaSecondaryLink: "/contact",
+    proof: "Used by HR departments, recruitment firms, CFAs.",
+  },
+  about: {
+    eyebrow: "About",
+    headline: "MentivisOS is the native AI training system built by Mentivis",
+    subheadline: "From strategy to operational deployment. A single OS to train, certify, and grow talent.",
+    ctaPrimary: "",
+    ctaPrimaryLink: "",
+    ctaSecondary: "",
+    ctaSecondaryLink: "",
+    proof: "",
+  },
+  security: {
+    eyebrow: "Security",
+    headline: "AI-powered pedagogy to transform training,\nwith built-in confidentiality and protections.",
+    subheadline: "",
+    ctaPrimary: "",
+    ctaPrimaryLink: "",
+    ctaSecondary: "",
+    ctaSecondaryLink: "",
+    proof: "",
+  },
+  ambassadors: {
+    eyebrow: "Affiliation & Ambassador Program",
+    headline: "Recommend MentivisOS\nand grow your business.",
+    subheadline: "A program designed for training, recruitment and consulting professionals who want to recommend MentivisOS to their network.",
+    ctaPrimary: "Join the program",
+    ctaPrimaryLink: "/contact",
+    ctaSecondary: "Request a presentation",
+    ctaSecondaryLink: "/demo",
+    proof: "",
+  },
+};
+
+const DEFAULT_PAGES: PageContent = {
+  fr: Object.fromEntries(Object.entries(DEFAULT_HERO_FR).map(([k, v]) => [k, { hero: v }])) as PageContent["fr"],
+  en: Object.fromEntries(Object.entries(DEFAULT_HERO_EN).map(([k, v]) => [k, { hero: v }])) as PageContent["en"],
+};
+
+async function seedDefaultPageHeroes(db: any) {
+  // Seed all pages for both languages if the table is empty
+  const count = db.prepare("SELECT COUNT(*) as c FROM pages").get() as any;
+  if (count.c > 0) return;
+
+  const now = new Date().toISOString();
+  const stmt = db.prepare("INSERT OR IGNORE INTO pages (lang, page, hero_json, updated_at) VALUES (?, ?, ?, ?)");
+  for (const lang of ["fr", "en"] as const) {
+    const heroes = lang === "fr" ? DEFAULT_HERO_FR : DEFAULT_HERO_EN;
+    for (const page of PAGE_KEYS) {
+      stmt.run(lang, page, JSON.stringify(heroes[page]), now);
+    }
+  }
+}
+
+function emptyHero(): HeroContent {
+  return { eyebrow: "", headline: "", subheadline: "", ctaPrimary: "", ctaPrimaryLink: "", ctaSecondary: "", ctaSecondaryLink: "", proof: "" };
+}
+
 export async function getPages(): Promise<PageContent> {
   const db = await getDb();
+  await seedDefaultPageHeroes(db);
+
   const rows = db.prepare("SELECT * FROM pages").all() as any[];
-  if (rows.length === 0) return DEFAULT_PAGES;
 
   const result: PageContent = {
-    fr: { hero: { eyebrow: "", headline: "", subheadline: "", ctaPrimary: "", ctaPrimaryLink: "", ctaSecondary: "", ctaSecondaryLink: "", proof: "" } },
-    en: { hero: { eyebrow: "", headline: "", subheadline: "", ctaPrimary: "", ctaPrimaryLink: "", ctaSecondary: "", ctaSecondaryLink: "", proof: "" } },
+    fr: {} as Record<PageKey, { hero: HeroContent }>,
+    en: {} as Record<PageKey, { hero: HeroContent }>,
   };
+  for (const pk of PAGE_KEYS) {
+    result.fr[pk] = { hero: { ...DEFAULT_HERO_FR[pk] } };
+    result.en[pk] = { hero: { ...DEFAULT_HERO_EN[pk] } };
+  }
 
   for (const row of rows) {
-    const hero = JSON.parse(row.hero_json);
-    if (row.lang === "fr" || row.lang === "en") {
-      (result as any)[row.lang] = { hero };
+    const lang = row.lang as "fr" | "en";
+    const page = row.page as string;
+    if (PAGE_KEYS.includes(page as PageKey)) {
+      try {
+        const hero = JSON.parse(row.hero_json);
+        result[lang][page as PageKey] = { hero };
+      } catch { /* keep default */ }
     }
   }
   return result;
+}
+
+export async function getPage(page: PageKey): Promise<{ fr: { hero: HeroContent }; en: { hero: HeroContent } }> {
+  const pages = await getPages();
+  return {
+    fr: pages.fr[page] || { hero: { ...DEFAULT_HERO_FR[page] } },
+    en: pages.en[page] || { hero: { ...DEFAULT_HERO_EN[page] } },
+  };
 }
 
 export async function savePages(data: PageContent) {
@@ -221,11 +361,22 @@ export async function savePages(data: PageContent) {
     ON CONFLICT(lang, page) DO UPDATE SET hero_json = excluded.hero_json, updated_at = excluded.updated_at
   `);
   for (const lang of ["fr", "en"] as const) {
-    const hero = data[lang]?.hero;
-    if (hero) {
-      stmt.run(lang, "homepage", JSON.stringify(hero), now);
+    for (const page of PAGE_KEYS) {
+      const hero = data[lang]?.[page]?.hero;
+      if (hero) {
+        stmt.run(lang, page, JSON.stringify(hero), now);
+      }
     }
   }
+}
+
+export async function savePage(page: PageKey, lang: "fr" | "en", hero: HeroContent) {
+  const db = await getDb();
+  const now = new Date().toISOString();
+  db.prepare(`
+    INSERT INTO pages (lang, page, hero_json, updated_at) VALUES (?, ?, ?, ?)
+    ON CONFLICT(lang, page) DO UPDATE SET hero_json = excluded.hero_json, updated_at = excluded.updated_at
+  `).run(lang, page, JSON.stringify(hero), now);
 }
 
 // ── Pricing ──

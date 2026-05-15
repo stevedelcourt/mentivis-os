@@ -1,7 +1,8 @@
 import { Locale } from "@/lib/i18n";
-import PageHero, { PageHeroContent } from "@/components/page-hero";
+import CmsPageHero from "@/components/cms-page-hero";
+import { PageHeroContent } from "@/components/page-hero";
 
-const CONTENT: Record<string, PageHeroContent> = {
+const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
     eyebrow: "LearningOS",
     headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
@@ -25,5 +26,5 @@ const CONTENT: Record<string, PageHeroContent> = {
 };
 
 export default function LearningOSHero({ lang }: { lang: Locale }) {
-  return <PageHero content={CONTENT[lang === "fr" ? "fr" : "en"]} />;
+  return <CmsPageHero page="learningos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} />;
 }

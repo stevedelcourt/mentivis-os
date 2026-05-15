@@ -1,8 +1,9 @@
 import { Locale } from "@/lib/i18n";
-import PageHero, { PageHeroContent } from "@/components/page-hero";
+import CmsPageHero from "@/components/cms-page-hero";
+import { PageHeroContent } from "@/components/page-hero";
 import TalentOSWave from "./talentos-wave";
 
-const CONTENT: Record<string, PageHeroContent> = {
+const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
     eyebrow: "TalentOS",
     headline: "Recruter devient un système.",
@@ -26,5 +27,5 @@ const CONTENT: Record<string, PageHeroContent> = {
 };
 
 export default function TalentOSHero({ lang }: { lang: Locale }) {
-  return <PageHero content={CONTENT[lang === "fr" ? "fr" : "en"]} visual={<TalentOSWave lang={lang} />} />;
+  return <CmsPageHero page="talentos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} visual={<TalentOSWave lang={lang} />} />;
 }

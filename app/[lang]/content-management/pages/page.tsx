@@ -7,6 +7,15 @@ import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
 import { CmsLayout, CmsLoading, CmsAlert, CmsReadOnlyBanner } from "@/components/cms/CmsLayout";
 
+const PAGE_OPTIONS = [
+  { key: "homepage", label: "Page d'accueil" },
+  { key: "learningos", label: "LearningOS" },
+  { key: "talentos", label: "TalentOS" },
+  { key: "about", label: "A propos" },
+  { key: "security", label: "Securite" },
+  { key: "ambassadors", label: "Affiliation & Ambassadeur" },
+];
+
 interface HeroData {
   eyebrow: string;
   headline: string;
@@ -41,6 +50,7 @@ export default function PagesEditorPage() {
   const [error, setError] = useState("");
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  const [activePage, setActivePage] = useState("homepage");
   const [hero, setHero] = useState<HeroData>(defaultHero);
 
   const canEdit = role === "god";
@@ -50,7 +60,7 @@ export default function PagesEditorPage() {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await cmsFetch(`/api/cms/pages?lang=${lang}`);
+      const res = await cmsFetch(`/api/cms/pages?lang=${lang}&page=${activePage}`);
       if (res.status === 401) return;
       const data = await res.json();
       if (data.page?.hero) {
@@ -70,7 +80,7 @@ export default function PagesEditorPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, lang, cmsFetch]);
+  }, [token, lang, activePage, cmsFetch]);
 
   useEffect(() => {
     loadPage();
@@ -91,7 +101,7 @@ export default function PagesEditorPage() {
       const res = await cmsFetch("/api/cms/pages", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lang, hero }),
+        body: JSON.stringify({ lang, page: activePage, hero }),
       });
 
       const data = await res.json();
@@ -120,7 +130,7 @@ export default function PagesEditorPage() {
       lang={lang}
       token={token}
       role={role}
-      title="Page d'accueil — Hero"
+      title={`${PAGE_OPTIONS.find(p => p.key === activePage)?.label || "Page"} — Hero`}
       maxWidth={800}
     >
       {!canEdit && <CmsReadOnlyBanner />}
@@ -129,6 +139,33 @@ export default function PagesEditorPage() {
 
       {canEdit ? (
         <form onSubmit={handleSave}>
+          {/* Page selector */}
+          <div style={{ marginBottom: 28 }}>
+            <label style={labelStyle}>Page</label>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {PAGE_OPTIONS.map((opt) => (
+                <button
+                  key={opt.key}
+                  type="button"
+                  onClick={() => setActivePage(opt.key)}
+                  style={{
+                    padding: "8px 16px",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    borderRadius: 8,
+                    border: activePage === opt.key ? "1.5px solid #0A0A0A" : "1px solid rgba(0,0,0,0.12)",
+                    background: activePage === opt.key ? "#0A0A0A" : "#fff",
+                    color: activePage === opt.key ? "#fff" : "#0A0A0A",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Eyebrow */}
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Eyebrow</label>

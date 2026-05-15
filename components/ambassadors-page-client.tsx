@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
-import PageHero from "@/components/page-hero";
+import CmsPageHero from "@/components/cms-page-hero";
 import TesseractColorCanvas from "@/components/tesseract-color-canvas";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 
@@ -62,8 +62,10 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      <PageHero
-        content={{
+      <CmsPageHero
+        page="ambassadors"
+        lang={locale}
+        defaults={{
           eyebrow: a.hero.eyebrow,
           headline: a.hero.headline,
           subheadline: a.hero.body,

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
 import PageHero from "@/components/page-hero";
+import CmsPageHero from "@/components/cms-page-hero";
 import IcosahedronAnimation from "@/components/icosahedron-animation";
 
 function useVisible(threshold = 0.1) {
@@ -201,8 +202,10 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
 
   return (
     <div style={{ background: "#ffffff" }}>
-      <PageHero
-        content={{
+      <CmsPageHero
+        page="security"
+        lang={lang}
+        defaults={{
           eyebrow: H.heroEyebrow,
           headline: H.heroHeadline.replace(/<br\s*\/?>/g, "\n"),
         }}

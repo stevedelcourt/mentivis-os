@@ -47,9 +47,13 @@ export interface HeroContent {
   proof: string;
 }
 
+export type PageKey = "homepage" | "learningos" | "talentos" | "about" | "security" | "ambassadors";
+
+export const PAGE_KEYS: PageKey[] = ["homepage", "learningos", "talentos", "about", "security", "ambassadors"];
+
 export interface PageContent {
-  fr: { hero: HeroContent };
-  en: { hero: HeroContent };
+  fr: Record<PageKey, { hero: HeroContent }>;
+  en: Record<PageKey, { hero: HeroContent }>;
 }
 
 // ── Pricing ──
