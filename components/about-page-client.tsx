@@ -95,7 +95,7 @@ const APPROACH_EN = [
   {
     tag: "Compliance & deployment",
     title: "Compliance & deployment",
-    body: "OPCO, public schemes, quality certifications, day-to-day opérational implementation.",
+    body: "OPCO, public schemes, quality certifications, day-to-day operational implementation.",
   },
 ];
 
@@ -137,7 +137,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
   const conviction = useVisible();
   const histoire = useVisible();
-  const équipe = useVisible();
+  const equipe = useVisible();
   const approche = useVisible();
   const signatures = useVisible();
   const valeurs = useVisible();
@@ -155,11 +155,11 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     convictionText: "Former n'est pas un cout. C'est un système de production de valeur.",
     convictionAuthor: "Steven Delcourt, Fondateur, Mentivis",
     histoireTitle: "Ne d'un constat opérationnel",
-    histoireBody1: "Les fondateurs de Mentivis ont déjà cree des écoles ensemble. Pedagogie, développément commercial, marketing, conformité, opérations. Toutes les dimensions du metier.",
+    histoireBody1: "Les fondateurs de Mentivis ont déjà cree des écoles ensemble. Pedagogie, développement commercial, marketing, conformité, opérations. Toutes les dimensions du metier.",
     histoireBody2: "Ils se sont associes pour une raison precise. Les mutations rapides de l'education et de la formation exigent un acteur spécialisé, capable de faire le lien entre entreprises, dispositifs de formation et enjeux a venir.",
     histoireBody3: "Un choix des l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent réellement.",
-    équipeTitle: "L'équipe",
-    équipeSub: "Les fondateurs",
+    equipeTitle: "L'équipe",
+    equipeSub: "Les fondateurs",
     approcheTitle: "Notre approche",
     approcheSub: "Quatre blocs intégrés. Un seul objectif. Un système viable, finance, activable rapidement.",
     signaturesTitle: "Ce qui nous distingue",
@@ -169,8 +169,8 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   } : {
     heroEyebrow: "About",
     heroHeadline: "MentivisOS is the native AI training system built by Mentivis",
-    heroSub: "From strategy to opérational deployment. A single OS to train, certify, and grow talent.",
-    équipeSub: "The founders",
+    heroSub: "From strategy to operational deployment. A single OS to train, certify, and grow talent.",
+    equipeSub: "The founders",
     approcheTitle: "Our approach",
     approcheSub: "Four integrated blocks. A single goal. A viable, funded, rapidly activatable system.",
     signaturesTitle: "What sets us apart",
@@ -247,12 +247,12 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
       </section>
 
       {/* ── EQUIPE ── */}
-      <section id="équipe" ref={équipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(équipe.visible, 0.1) }}>
+      <section id="equipe" ref={equipe.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(equipe.visible, 0.1) }}>
         <div className="container">
           <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6 }}>
-            {H.équipeTitle}
+            {H.equipeTitle}
           </p>
-          <h2 className="section-title" style={{ marginBottom: 36 }}>{H.équipeSub}</h2>
+          <h2 className="section-title" style={{ marginBottom: 36 }}>{H.equipeSub}</h2>
           <div
             style={{
               display: "grid",

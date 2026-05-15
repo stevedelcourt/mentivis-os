@@ -9,6 +9,7 @@ interface FooterBlockProps {
 
 export default function FooterBlock({ lang }: FooterBlockProps) {
   const t = getT(lang);
+  const f = t.footer;
 
   return (
     <footer
@@ -47,7 +48,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               letterSpacing: "-0.01em",
             }}
           >
-            Compétences. Pas clics.
+            {f.slogan}
           </p>
           <p
             className="t-caption"
@@ -57,7 +58,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               color: "var(--text-tertiary)",
             }}
           >
-            {t.footer.tagline}
+            {f.tagline}
           </p>
           <div style={{ marginLeft: -5 }}>
             <LogomarkMotion />
@@ -84,10 +85,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 marginBottom: 16,
               }}
             >
-              {t.footer.produits}
+              {f.produits}
             </h4>
             <ul>
-              {["LearningOS", "TalentOS", "Mentivis API", "Tarifs"].map((link) => (
+              {(f.sections?.produits || ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}`}
@@ -112,10 +113,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 marginBottom: 16,
               }}
             >
-              {t.footer.workflows || "Workflows"}
+              {f.workflows || "Workflows"}
             </h4>
             <ul>
-              {["Formation & Learning", "Talent Pipeline HR", "Transformation", "Intégration", "Developpeurs"].map((link) => (
+              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"]).map((link: string) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}`}
@@ -143,13 +144,13 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               marginBottom: 16,
             }}
           >
-            {t.footer.entreprise}
+            {f.entreprise}
           </h4>
           <ul>
-            {["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"].map((link) => (
+            {(f.sections?.entreprise || ["News & publications", "A propos", "Affiliation & Ambassadeurs", "Carrieres"]).map((link: string) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={link === "News & publications" ? `/${lang}/blog` : link === "À propos" || link === "About" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrières" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
+                  href={link === "News & publications" ? `/${lang}/blog` : link === "A propos" || link === "About" || link === "À propos" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrieres" || link === "Careers" || link === "Carrières" ? `/${lang}/carrieres` : `/${lang}`}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >
@@ -163,7 +164,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 className="footer-link t-caption"
                 style={{ color: "var(--text-tertiary)" }}
               >
-                Contact
+                {f.sections?.contact || (lang === "en" ? "Contact" : "Contact")}
               </Link>
             </li>
           </ul>
@@ -195,12 +196,12 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         </span>
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
-            { label: "CMS", href: `/${lang}/content-management` },
-            { label: "Sécurité", href: `/${lang}/security` },
-            { label: "Mentions legales", href: `/${lang}/legal` },
-            { label: "Confidentialite", href: `/${lang}/privacy` },
-            { label: "CGU", href: `/${lang}/terms` },
-            { label: "CGV", href: `/${lang}/cgv` },
+            { label: f.bottom?.cms || "CMS", href: `/${lang}/content-management` },
+            { label: f.bottom?.securite || "Securite", href: `/${lang}/security` },
+            { label: f.bottom?.mentions || "Mentions legales", href: `/${lang}/legal` },
+            { label: f.bottom?.confidentialite || "Confidentialite", href: `/${lang}/privacy` },
+            { label: f.bottom?.cgu || "CGU", href: `/${lang}/terms` },
+            { label: f.bottom?.cgv || "CGV", href: `/${lang}/cgv` },
           ].map((item) => (
             <Link
               key={item.label}
@@ -216,7 +217,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             </Link>
           ))}
           <CookieButton
-            label="Cookies"
+            label={f.bottom?.cookies || "Cookies"}
             className="footer-link"
             style={{
               fontFamily: "var(--font-sans)",

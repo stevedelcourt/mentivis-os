@@ -595,6 +595,7 @@
     "subline": "Prepared in a few days. Video conference or on-site."
   },
   "footer": {
+    "slogan": "Skills. Not clicks.",
     "tagline": "Every training discipline. End to end.",
     "produits": "Products",
     "pourQui": "For whom",
@@ -603,7 +604,22 @@
     "entreprise": "Company",
     "contact": "Contact",
     "legal": "Legal",
-    "copyright": "MentivisOS is developed by Mentivis."
+    "copyright": "MentivisOS is developed by Mentivis.",
+    "sections": {
+      "produits": ["LearningOS", "TalentOS", "Mentivis API", "Pricing"],
+      "workflows": ["Training & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developers"],
+      "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers"],
+      "contact": "Contact"
+    },
+    "bottom": {
+      "cms": "CMS",
+      "securite": "Security",
+      "mentions": "Legal notices",
+      "confidentialite": "Privacy",
+      "cgu": "Terms of service",
+      "cgv": "Terms of sale",
+      "cookies": "Cookies"
+    }
   },
   "demo": {
     "title": "No standard demo.\nA real case from your organization, handled live.",

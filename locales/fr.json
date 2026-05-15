@@ -595,15 +595,31 @@
     "subline": "Preparee en quelques jours. Visioconference ou sur site."
   },
   "footer": {
+    "slogan": "Compétences. Pas clics.",
     "tagline": "Tous les métiers de la formation. De bout en bout.",
     "produits": "Produits",
     "pourQui": "Pour qui",
     "workflows": "Workflows",
-    "integration": "Integration",
+    "integration": "Intégration",
     "entreprise": "Entreprise",
     "contact": "Contact",
-    "legal": "Legal",
-    "copyright": "MentivisOS est développé par Mentivis."
+    "legal": "Légal",
+    "copyright": "MentivisOS est développé par Mentivis.",
+    "sections": {
+      "produits": ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"],
+      "workflows": ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Développeurs"],
+      "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"],
+      "contact": "Contact"
+    },
+    "bottom": {
+      "cms": "CMS",
+      "securite": "Sécurité",
+      "mentions": "Mentions légales",
+      "confidentialite": "Confidentialité",
+      "cgu": "CGU",
+      "cgv": "CGV",
+      "cookies": "Cookies"
+    }
   },
   "demo": {
     "title": "Pas de demonstration standard.\nUn cas réel, issu de votre organisation, traite en direct.",
