@@ -1,71 +1,148 @@
 "use client";
 
+import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
 const ITEMS = {
   fr: [
-    { title: "HRAgents", desc: "Des agents IA spécialisés qui automatisent le sourcing, le tri et la présélection des candidats.", tag: "IA" },
-    { title: "Moteur de Matching", desc: "Analyse sémantique des CV et profils pour trouver les candidats qui correspondent réellement à vos besoins.", tag: "Moteur" },
-    { title: "ATS Intelligent", desc: "Un ATS complet avec pipeline visuel, étapes personnalisables et automatisations.", tag: "ATS" },
-    { title: "Tests & Évaluations", desc: "Créez des batteries de tests techniques et comportementaux adaptés à chaque recrutement.", tag: "Tests" },
-    { title: "Analytics & Reporting", desc: "Mesurez l'efficacité de vos recrutements avec des indicateurs clés en temps réel.", tag: "Analytics" },
+    { tag: "IA", title: "HRAgents", desc: "Des agents IA spécialisés qui automatisent le sourcing, le tri et la présélection des candidats." },
+    { tag: "Moteur", title: "Moteur de Matching", desc: "Analyse sémantique des CV et profils pour trouver les candidats qui correspondent réellement à vos besoins." },
+    { tag: "ATS", title: "ATS Intelligent", desc: "Un ATS complet avec pipeline visuel, étapes personnalisables et automatisations." },
+    { tag: "Tests", title: "Tests & Évaluations", desc: "Créez des batteries de tests techniques et comportementaux adaptés à chaque recrutement." },
+    { tag: "Analytics", title: "Analytics & Reporting", desc: "Mesurez l'efficacité de vos recrutements avec des indicateurs clés en temps réel." },
   ],
   en: [
-    { title: "HRAgents", desc: "Specialized AI agents that automate sourcing, screening and preselection of candidates.", tag: "AI" },
-    { title: "Matching Engine", desc: "Semantic analysis of CVs and profiles to find candidates that truly match your needs.", tag: "Engine" },
-    { title: "Smart ATS", desc: "A complete ATS with visual pipeline, customizable stages and automations.", tag: "ATS" },
-    { title: "Tests & Assessments", desc: "Create technical and behavioral test batteries tailored to each recruitment.", tag: "Tests" },
-    { title: "Analytics & Reporting", desc: "Measure your recruitment effectiveness with real-time key indicators.", tag: "Analytics" },
+    { tag: "AI", title: "HRAgents", desc: "Specialized AI agents that automate sourcing, screening and candidate preselection." },
+    { tag: "Engine", title: "Matching Engine", desc: "Semantic analysis of CVs and profiles to find candidates who truly match your needs." },
+    { tag: "ATS", title: "Smart ATS", desc: "A complete ATS with visual pipeline, customizable stages and automations." },
+    { tag: "Tests", title: "Tests & Assessments", desc: "Create batteries of technical and behavioral tests tailored to each hire." },
+    { tag: "Analytics", title: "Analytics & Reporting", desc: "Measure your recruitment effectiveness with real-time key indicators." },
   ],
 };
+
+const GRADIENT_PLACEHOLDERS = [
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(130,100,200,0.4) 0%, rgba(90,60,160,0.6) 50%, rgba(50,30,100,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,160,220,0.4) 0%, rgba(40,120,180,0.6) 50%, rgba(20,70,130,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,200,180,0.4) 0%, rgba(40,160,140,0.6) 50%, rgba(20,100,90,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(220,160,80,0.4) 0%, rgba(200,120,50,0.6) 50%, rgba(150,70,20,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(180,80,200,0.4) 0%, rgba(150,50,170,0.6) 50%, rgba(100,20,120,0.8) 100%)",
+];
 
 export default function TalentOSShowcase({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section ref={ref} style={{ background: "#ffffff", padding: "clamp(96px, 12vw, 160px) 0" }}>
+    <section
+      ref={ref}
+      style={{
+        background: "#ffffff",
+        padding: "clamp(96px, 12vw, 160px) 0",
+      }}
+    >
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
         </p>
-        <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 700 }}>
+        <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 64, maxWidth: 700 }}>
           {lang === "fr" ? "Des modèles puissants pour chaque étape du recrutement." : "Powerful models for every recruitment stage."}
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }} className="talentos-showcase-grid">
-          {items.map((item, i) => (
-            <div
-              key={item.title}
-              style={{
-                ...sectionAnim(visible, 0.1 + i * 0.06),
-                background: i === items.length - 1 ? "#0A0A0A" : "#f5f5f5",
-                borderRadius: 22,
-                padding: "32px 24px 24px",
-                display: "flex",
-                flexDirection: "column",
-                aspectRatio: "1/1",
-                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              className="talentos-showcase-card"
-            >
-              <span style={{ display: "inline-flex", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 500, background: i === items.length - 1 ? "rgba(255,255,255,0.15)" : "#f5f5f5", color: i === items.length - 1 ? "#fff" : "#4e4e4e", marginBottom: "auto", alignSelf: "flex-start" }}>
-                {item.tag}
-              </span>
-              <div style={{ marginTop: "auto" }}>
-                <h3 style={{ fontSize: 20, fontWeight: 500, color: i === items.length - 1 ? "#fff" : "#000", marginBottom: 8 }}>{item.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: i === items.length - 1 ? "rgba(255,255,255,0.7)" : "#4e4e4e", margin: 0 }}>{item.desc}</p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="talentos-showcase-split">
+          {/* Left — list */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {items.map((item, i) => (
+              <div
+                key={item.title}
+                onMouseEnter={() => setActiveIndex(i)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  padding: "20px 0",
+                  cursor: "pointer",
+                  borderBottom: i < items.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                  transition: "opacity 0.2s ease",
+                  opacity: activeIndex === i ? 1 : 0.55,
+                }}
+                className="talentos-showcase-list-item"
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      background: activeIndex === i ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.04)",
+                      backdropFilter: activeIndex === i ? "blur(6px)" : "none",
+                      border: activeIndex === i ? "1px solid rgba(0,0,0,0.08)" : "1px solid transparent",
+                      borderRadius: 8,
+                      padding: "4px 10px",
+                      fontSize: 11,
+                      fontWeight: 500,
+                      color: activeIndex === i ? "#000" : "#4e4e4e",
+                      transition: "background 0.3s ease, color 0.3s ease, border 0.3s ease",
+                    }}
+                  >
+                    {item.tag}
+                  </span>
+                </div>
+                <h3 style={{
+                  fontSize: 18,
+                  fontWeight: 500,
+                  color: activeIndex === i ? "#000" : "#4e4e4e",
+                  margin: 0,
+                  transition: "color 0.3s ease",
+                }}>
+                  {item.title}
+                </h3>
+                <p style={{
+                  fontSize: 14,
+                  lineHeight: 1.55,
+                  color: activeIndex === i ? "#4e4e4e" : "#888",
+                  margin: 0,
+                  maxWidth: "90%",
+                  transition: "color 0.3s ease",
+                }}>
+                  {item.desc}
+                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Right — image placeholder */}
+          <div
+            style={{
+              aspectRatio: "1/1",
+              borderRadius: 24,
+              background: GRADIENT_PLACEHOLDERS[activeIndex % GRADIENT_PLACEHOLDERS.length],
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background 0.5s ease",
+              position: "sticky",
+              top: 120,
+            }}
+            className="talentos-showcase-image"
+          >
+            <span style={{
+              fontSize: 18,
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.7)",
+              letterSpacing: "-0.01em",
+            }}>
+              {items[activeIndex].title}
+            </span>
+          </div>
         </div>
       </div>
       <style>{`
-        .talentos-showcase-card:hover { transform: translateY(-4px); }
-        @media (max-width: 1024px) { .talentos-showcase-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 768px) { .talentos-showcase-grid { grid-template-columns: 1fr !important; } }
+        .talentos-showcase-list-item:hover { opacity: 1 !important; }
+        @media (max-width: 1024px) {
+          .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .talentos-showcase-image { position: static !important; }
+        }
       `}</style>
     </section>
   );
