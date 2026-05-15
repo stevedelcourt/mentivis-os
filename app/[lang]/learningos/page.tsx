@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import LearningOSPageClient from "@/components/learningos/learningos-page-client";
+import { getFaqJsonLd } from "@/lib/faq-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -32,6 +33,12 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
               : "AI-native training system — generate personalized learning paths and drive skills development.",
             url: `https://sc4bovu7233.universe.wf/${lang}/learningos`,
           }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFaqJsonLd("learningos", lang as Locale)),
         }}
       />
     </>

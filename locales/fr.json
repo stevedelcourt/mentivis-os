@@ -142,7 +142,7 @@
     "editorial": "C'est l'honnêteté du dispositif qui frappe autant que sa precision."
   },
   "modules": {
-    "title": "Les parcours adaptatifs",
+    "title": "Quels sont les parcours adaptatifs ?",
     "subtitle": "Un moteur unique. Six dimensions. Zero maillon sous-traite.",
     "cognitive": {
       "title": "Diagnostic cognitif",
@@ -409,7 +409,7 @@
   },
   "timeline": {
     "eyebrow": "MENTIVIS OS",
-    "title": "Transformer votre structure en organisation apprenante",
+    "title": "Comment transformer votre structure en organisation apprenante ?",
     "description": "Centralisez les connaissances, automatisez la montée en compétences et alignez formation, operations et IA dans un système unique capable d'evoluer avec votre organisation.",
     "dividerLeft": "Avant",
     "dividerRight": "Apres transformation",
@@ -453,7 +453,7 @@
   },
   "impact": {
     "eyebrow": "MENTIVIS OS",
-    "title": "L'expertise pédagogique avant la technologie",
+    "title": "Pourquoi l'expertise pédagogique avant la technologie ?",
     "body": [
       "MentivisOS n'a pas été conçu par une start-up decouvrant le secteur de la formation. Le système est porte par un cabinet qui concoit, structure et opère des dispositifs pédagogiques depuis plusieurs annees.",
       "Cette expérience métier change profondement la logique de l'IA utilisee dans la plateforme. Les parcours générés respectent les realites opérationnelles de l'apprentissage : progression, sequencage, acquisition des compétences, charge cognitive et adaptation aux contextes métiers.",
@@ -489,7 +489,7 @@
     }
   },
   "integration": {
-    "title": "Trois modes d'intégration",
+    "title": "Quels sont les trois modes d'intégration ?",
     "direct": {
       "title": "Acces direct par apprenant",
       "body": "Operationnel en 24h. Zero infrastructure."
@@ -552,7 +552,7 @@
   },
   "faq": {
     "eyebrow": "Questions fréquentes",
-    "title": "Tout ce qu'il faut savoir avant de commencer.",
+    "title": "Tout ce qu'il faut savoir avant de commencer",
     "lead": "Reponses concises aux questions les plus posees par les directions formation et les opérateurs.",
     "items": [
       {

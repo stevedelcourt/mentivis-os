@@ -11,6 +11,8 @@ import ImpactSection from "@/components/impact-section";
 import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
+import { getFaqJsonLd } from "@/lib/faq-jsonld";
+
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const locale = lang as Locale;
@@ -26,6 +28,12 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <FaqSection lang={locale} />
       <CTABlock lang={locale} variant="final" />
       <ArticlesFeaturesSection lang={locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFaqJsonLd("homepage", locale)),
+        }}
+      />
     </>
   );
 }

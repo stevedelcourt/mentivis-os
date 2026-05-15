@@ -2,32 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Locale } from "@/lib/i18n";
-
-const FAQ = {
-  fr: [
-    { q: "Qu'est-ce que TalentOS ?", a: "TalentOS est le système de recrutement IA de Mentivis. Il combine un ATS intelligent, un moteur de matching, des tests d'évaluation et des analytics RH dans une seule plateforme." },
-    { q: "Comment fonctionne le matching IA ?", a: "Le moteur analyse sémantiquement les CV et profils candidats, les confronte à vos critères de poste et pondérations, et classe automatiquement les profils par pertinence." },
-    { q: "Puis-je intégrer TalentOS à mon SIRH existant ?", a: "Oui. TalentOS expose une API REST complète avec des connecteurs prêts à l'emploi pour les principaux SIRH, CRM et ATS du marché." },
-    { q: "TalentOS est-il adapté aux recrutements multi-recruiters ?", a: "Oui. La plateforme est conçue pour la collaboration : évaluations partagées, commentaires, grilles de notation et workflows de décision pour des équipes de toute taille." },
-    { q: "Quels types de tests puis-je créer ?", a: "Tests techniques, cas pratiques, mises en situation, questionnaires comportementaux avec correction automatique, grilles d'évaluation personnalisées et comparaison des candidats." },
-    { q: "TalentOS est-il conforme au RGPD ?", a: "Oui. TalentOS est conforme RGPD, certifié SOC 2 Type II, avec chiffrement AES-256 et TLS 1.3, journaux d'audit et gestion des accès par rôle." },
-    { q: "Comment TalentOS améliore-t-il l'expérience candidat ?", a: "Portail candidat dédié, suivi en temps réel des candidatures, communication automatisée, et processus de candidature simplifié sur mobile et desktop." },
-    { q: "TalentOS propose-t-il un support entreprise ?", a: "Oui. SLA garantis, support prioritaire, accompagnement au déploiement et services gérés pour les recrutements à grand volume." },
-  ],
-  en: [
-    { q: "What is TalentOS?", a: "TalentOS is Mentivis's AI recruitment system. It combines a smart ATS, matching engine, assessment tests and HR analytics in a single platform." },
-    { q: "How does AI matching work?", a: "The engine semantically analyzes CVs and candidate profiles, compares them against your job criteria and weights, and automatically ranks profiles by relevance." },
-    { q: "Can I integrate TalentOS with my existing HRIS?", a: "Yes. TalentOS exposes a complété REST API with ready-to-use connectors for major HRIS, CRM and ATS systems." },
-    { q: "Is TalentOS suitable for multi-recruiter hiring?", a: "Yes. The platform is built for collaboration: shared evaluations, comments, scoring grids and decision workflows for teams of any size." },
-    { q: "What types of tests can I create?", a: "Technical tests, case studies, simulations, behavioral questionnaires with auto-correction, custom scoring grids and candidate comparison." },
-    { q: "Is TalentOS GDPR compliant?", a: "Yes. TalentOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption and TLS 1.3, audit logs and role-based access control." },
-    { q: "How does TalentOS improve candidate expérience?", a: "Dedicated candidate portal, real-time application tracking, automated communication, and simplified application process on mobile and desktop." },
-    { q: "Does TalentOS offer enterprise support?", a: "Yes. Guaranteed SLAs, priority support, deployment assistance and managed services for high-volume hiring." },
-  ],
-};
+import { talentosFaq } from "@/lib/faq-data";
 
 export default function TalentOSFAQ({ lang }: { lang: Locale }) {
-  const faq = FAQ[lang === "fr" ? "fr" : "en"];
+  const faq = talentosFaq[lang];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -156,7 +134,7 @@ export default function TalentOSFAQ({ lang }: { lang: Locale }) {
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span>{item.q}</span>
+                    <span>{item.question}</span>
                     <span
                       style={{
                         position: "relative",
@@ -213,7 +191,7 @@ export default function TalentOSFAQ({ lang }: { lang: Locale }) {
                           margin: 0,
                         }}
                       >
-                        {item.a}
+                        {item.answer}
                       </p>
                     </div>
                   </div>

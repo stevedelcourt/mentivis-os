@@ -142,7 +142,7 @@
     "editorial": "It's the honesty of the system that strikes as much as its precision."
   },
   "modules": {
-    "title": "Modules",
+    "title": "What are the learning paths ?",
     "subtitle": "One engine. Six dimensions. Zero outsourced links.",
     "cognitive": {
       "title": "Cognitive diagnostic",
@@ -409,7 +409,7 @@
   },
   "timeline": {
     "eyebrow": "MENTIVIS OS",
-    "title": "Transform your structure into a learning organisation",
+    "title": "How to transform your structure into a learning organisation ?",
     "description": "Centralise knowledge, automate skills development and align training, operations and AI in a single system capable of evolving with your organisation.",
     "dividerLeft": "Before",
     "dividerRight": "After transformation",
@@ -453,7 +453,7 @@
   },
   "impact": {
     "eyebrow": "MENTIVIS OS",
-    "title": "Pedagogical expertise before technology",
+    "title": "Why pedagogical expertise before technology ?",
     "body": [
       "MentivisOS was not designed by a startup discovering the training sector. The system is driven by a firm that has been designing, structuring and operating pedagogical programs for several years.",
       "This professional experience fundamentally changes the logic of the AI used in the platform. The generated pathways respect the operational realities of learning: progression, sequencing, skill acquisition, cognitive load and adaptation to business contexts.",
@@ -489,7 +489,7 @@
     }
   },
   "integration": {
-    "title": "Three integration modes",
+    "title": "What are the three integration modes ?",
     "direct": {
       "title": "Direct access per learner",
       "body": "Operational in 24h. Zero infrastructure."
@@ -552,7 +552,7 @@
   },
   "faq": {
     "eyebrow": "FAQ",
-    "title": "Everything you need to know before getting started.",
+    "title": "Everything you need to know before getting started",
     "lead": "Concise answers to the most common questions asked by training departments and operators.",
     "items": [
       {

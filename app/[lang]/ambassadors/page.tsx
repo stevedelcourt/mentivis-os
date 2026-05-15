@@ -1,5 +1,6 @@
 import { Locale } from "@/lib/i18n";
 import AmbassadorsPageClient from "@/components/ambassadors-page-client";
+import { getFaqJsonLd } from "@/lib/faq-jsonld";
 
 export default async function AmbassadorsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -19,6 +20,12 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
               : "Recommend MentivisOS and grow your business. A program for training, recruitment and consulting professionals.",
             url: `https://sc4bovu7233.universe.wf/${lang}/ambassadors`,
           }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFaqJsonLd("ambassadors", lang as Locale)),
         }}
       />
     </>

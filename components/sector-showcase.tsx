@@ -150,7 +150,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               color: "#1a1a1a",
             }}
           >
-            Pour les organisations qui veulent former, recruter et piloter les compétences depuis un seul système.
+            Quelles organisations peuvent former, recruter et piloter les compétences depuis un seul système ?
           </h2>
         </div>
 
