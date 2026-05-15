@@ -119,24 +119,32 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
       </div>
       <style>{`
         .feature-badge {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          background: #0A0A0A;
           display: flex;
           align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 18px;
-          font-weight: 600;
           gap: 6px;
-          transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+          align-self: flex-start;
+          background: rgba(0,0,0,0.06);
+          backdrop-filter: blur(6px);
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 10px;
+          padding: 6px 12px 6px 8px;
+          color: #000;
+          font-size: 13px;
+          font-weight: 600;
+          transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1), border 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .feature-badge-icon {
-          display: none;
           width: 14px;
           height: 14px;
           flex-shrink: 0;
+        }
+        .learningos-feature-card h3 {
+          color: #000;
+          transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .learningos-feature-card p {
+          color: #4e4e4e;
+          transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .learningos-feature-card {
           transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -146,24 +154,15 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
           transform: translateY(-4px);
         }
         .learningos-feature-card:hover .feature-badge {
-          background: rgba(255,255,255,0.12) !important;
-          backdrop-filter: blur(6px) !important;
-          border: 1px solid rgba(255,255,255,0.18) !important;
-          border-radius: 10px !important;
-          width: auto !important;
-          height: auto !important;
-          padding: 6px 12px 6px 8px !important;
-          font-size: 13px !important;
-          font-weight: 600 !important;
-        }
-        .learningos-feature-card:hover .feature-badge-icon {
-          display: block !important;
+          background: rgba(255,255,255,0.12);
+          border-color: rgba(255,255,255,0.18);
+          color: #fff;
         }
         .learningos-feature-card:hover h3 {
-          color: #fff !important;
+          color: #fff;
         }
         .learningos-feature-card:hover p {
-          color: rgba(255,255,255,0.75) !important;
+          color: rgba(255,255,255,0.75);
         }
         @media (max-width: 1024px) {
           .learningos-feature-grid {
