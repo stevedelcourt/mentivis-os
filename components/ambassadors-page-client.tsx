@@ -5,7 +5,7 @@ import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
 import CmsPageHero from "@/components/cms-page-hero";
-import TesseractColorCanvas from "@/components/tesseract-color-canvas";
+import ParallaxScreens from "@/components/parallax-screens";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 
 function useVisible(threshold = 0.1) {
@@ -75,7 +75,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           ctaSecondaryLink: `/${locale}/demo`,
           proof: `${a.hero.commission} - ${a.hero.rate}`,
         }}
-        visual={<TesseractColorCanvas />}
+        visual={<ParallaxScreens />}
       />
 
       {/* WHO */}
