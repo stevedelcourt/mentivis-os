@@ -184,18 +184,18 @@ export default function NavBar({ lang }: NavBarProps) {
                       eyebrow: t.nav.eyebrows.entreprise,
                       links: [
                         { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
-                        ...t.nav.ressourcesMenu.entreprise.slice(1).map((label) => ({
-                          label,
-                          href: label === "Securite" || label === "Security" ? `/${lang}/security` : label === "A propos" || label === "About" ? `/${lang}/about` : label === "Temoignages clients" || label === "Customer Stories" ? `/${lang}/blog?category=cas` : label === "Carrieres" || label === "Careers" ? `/${lang}/carrieres` : `/${lang}`,
-                        })),
+                        { label: t.nav.ressourcesMenu.entreprise[1], href: `/${lang}/about` },
+                        { label: t.nav.ressourcesMenu.entreprise[2], href: `/${lang}/security` },
+                        { label: t.nav.ressourcesMenu.entreprise[3], href: `/${lang}/carrieres` },
                       ],
                     },
                     {
                       eyebrow: t.nav.eyebrows.initiatives,
-                      links: t.nav.ressourcesMenu.initiatives.map((label, i) => ({
-                        label,
-                        href: i === 0 ? `/${lang}/impact` : i === 2 ? `/${lang}/ambassadors` : `/${lang}`,
-                      })),
+                      links: [
+                        { label: t.nav.ressourcesMenu.initiatives[0], href: `/${lang}/impact` },
+                        { label: t.nav.ressourcesMenu.initiatives[1], href: `/${lang}/ambassadors` },
+                        { label: t.nav.ressourcesMenu.initiatives[2], href: `/${lang}/blog?category=partenariats` },
+                      ],
                     },
                   ]}
                   onMouseEnter={() => openDropdown("entreprise")}
