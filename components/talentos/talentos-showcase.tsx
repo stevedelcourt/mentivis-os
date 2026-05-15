@@ -59,54 +59,58 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
                 onMouseEnter={() => setActiveIndex(i)}
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
+                  gap: 16,
                   padding: "20px 0",
                   cursor: "pointer",
                   borderBottom: i < items.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
-                  transition: "opacity 0.2s ease",
-                  opacity: activeIndex === i ? 1 : 0.55,
                 }}
                 className="talentos-showcase-list-item"
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      background: activeIndex === i ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.04)",
-                      backdropFilter: activeIndex === i ? "blur(6px)" : "none",
-                      border: activeIndex === i ? "1px solid rgba(0,0,0,0.08)" : "1px solid transparent",
-                      borderRadius: 8,
-                      padding: "4px 10px",
-                      fontSize: 11,
-                      fontWeight: 500,
-                      color: activeIndex === i ? "#000" : "#4e4e4e",
-                      transition: "background 0.3s ease, color 0.3s ease, border 0.3s ease",
-                    }}
-                  >
-                    {item.tag}
-                  </span>
+                <div
+                  style={{
+                    width: 3,
+                    borderRadius: 2,
+                    background: activeIndex === i ? "#000" : "transparent",
+                    transition: "background 0.25s ease",
+                    flexShrink: 0,
+                  }}
+                />
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        background: "rgba(0,0,0,0.04)",
+                        border: "1px solid transparent",
+                        borderRadius: 8,
+                        padding: "4px 10px",
+                        fontSize: 11,
+                        fontWeight: 500,
+                        color: "#4e4e4e",
+                      }}
+                    >
+                      {item.tag}
+                    </span>
+                  </div>
+                  <h3 style={{
+                    fontSize: 18,
+                    fontWeight: 500,
+                    color: "#000",
+                    margin: 0,
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{
+                    fontSize: 14,
+                    lineHeight: 1.55,
+                    color: "#4e4e4e",
+                    margin: 0,
+                    maxWidth: "90%",
+                  }}>
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 style={{
-                  fontSize: 18,
-                  fontWeight: 500,
-                  color: activeIndex === i ? "#000" : "#4e4e4e",
-                  margin: 0,
-                  transition: "color 0.3s ease",
-                }}>
-                  {item.title}
-                </h3>
-                <p style={{
-                  fontSize: 14,
-                  lineHeight: 1.55,
-                  color: activeIndex === i ? "#4e4e4e" : "#888",
-                  margin: 0,
-                  maxWidth: "90%",
-                  transition: "color 0.3s ease",
-                }}>
-                  {item.desc}
-                </p>
               </div>
             ))}
           </div>
@@ -138,7 +142,6 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
         </div>
       </div>
       <style>{`
-        .talentos-showcase-list-item:hover { opacity: 1 !important; }
         @media (max-width: 1024px) {
           .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 48px !important; }
           .talentos-showcase-image { position: static !important; }
