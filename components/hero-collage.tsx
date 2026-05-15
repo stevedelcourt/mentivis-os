@@ -8,25 +8,24 @@ interface HeroCollageProps {
   lang: Locale;
 }
 
-/* ── 5 floating image cards (numbered floater images) ── */
-
 interface CardDef {
   id: number;
   img: string;
   left: number;
   top: number;
   width: number;
-  height: number;
+  ar: string;
   speed: number;
   zIndex: number;
+  radius: number | string;
 }
 
 const CARDS: CardDef[] = [
-  { id: 1, img: "/images/floater/01-wave.webp",        left: 2,  top: 23, width: 22, height: 49, speed: 0.05, zIndex: 1 },
-  { id: 2, img: "/images/floater/02-learning-guy.webp", left: 18, top: 53, width: 23, height: 45, speed: 0.09, zIndex: 5 },
-  { id: 3, img: "/images/floater/03-os-txt.webp",       left: 36, top: 12, width: 12, height: 63, speed: 0.12, zIndex: 3 },
-  { id: 4, img: "/images/floater/04-blue-ico.webp",     left: 54, top: 28, width: 22, height: 44, speed: 0.07, zIndex: 4 },
-  { id: 5, img: "/images/floater/05-red-girl.webp",     left: 68, top: 44, width: 28, height: 47, speed: 0.10, zIndex: 6 },
+  { id: 1, img: "/images/floater/01-wave.webp",        left: 2,  top: 23, width: 22, ar: "3/2",   speed: 0.05, zIndex: 1, radius: "0 18px 18px 0" },
+  { id: 2, img: "/images/floater/02-learning-guy.webp", left: 18, top: 53, width: 23, ar: "3/2",   speed: 0.09, zIndex: 5, radius: 18 },
+  { id: 3, img: "/images/floater/03-os-txt.webp",       left: 36, top: 12, width: 12, ar: "9/16",  speed: 0.12, zIndex: 3, radius: 18 },
+  { id: 4, img: "/images/floater/04-blue-ico.webp",     left: 54, top: 28, width: 22, ar: "3/2",   speed: 0.07, zIndex: 4, radius: 18 },
+  { id: 5, img: "/images/floater/05-red-girl.webp",     left: 68, top: 44, width: 28, ar: "16/9",  speed: 0.10, zIndex: 6, radius: "18px 0 0 18px" },
 ];
 
 export default function HeroCollage({ lang }: HeroCollageProps) {
@@ -69,12 +68,11 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
               left: `${card.left}vw`,
               top: `calc(${card.top}vh + ${yShift}px)`,
               width: `${card.width}vw`,
-              height: `${card.height}vh`,
-              borderRadius: 18,
+              aspectRatio: card.ar,
+              borderRadius: card.radius,
               overflow: "hidden",
               zIndex: card.zIndex,
               boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-              background: "#1a1a1e",
               transition: "top 0.1s linear",
             }}
           >
@@ -83,7 +81,7 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
               alt={`Floater ${card.id}`}
               fill
               sizes={`${card.width}vw`}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "cover" }}
             />
           </div>
         );
@@ -96,11 +94,12 @@ export default function HeroCollage({ lang }: HeroCollageProps) {
             left: auto !important;
             top: auto !important;
             width: 80% !important;
-            height: 40vh !important;
+            height: auto !important;
             margin: 0 auto 16px !important;
             display: block !important;
             z-index: auto !important;
             transform: none !important;
+            border-radius: 18px !important;
           }
           section {
             height: auto !important;
