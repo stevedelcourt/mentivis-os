@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
+import PageHero from "@/components/page-hero";
 import IcosahedronAnimation from "@/components/icosahedron-animation";
 
 function useVisible(threshold = 0.1) {
@@ -128,8 +129,6 @@ const FAQS_EN = [
 
 export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const isFr = lang === "fr";
-  const [heroLoaded, setHeroLoaded] = useState(false);
-  useEffect(() => { setHeroLoaded(true); }, []);
 
   const engagement = useVisible();
   const principles = useVisible();
@@ -202,55 +201,17 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
 
   return (
     <div style={{ background: "#ffffff" }}>
-      {/* ── HERO ── */}
-      <section
-        className="section"
-        style={{
-          position: "relative",
-          paddingTop: "clamp(80px, 12vh, 140px)",
-          ...sectionAnim(heroLoaded),
+      <PageHero
+        content={{
+          eyebrow: H.heroEyebrow,
+          headline: H.heroHeadline.replace(/<br\s*\/?>/g, "\n"),
         }}
-      >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto",
-            gap: 80,
-            alignItems: "start",
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
-          <div style={{ maxWidth: 720 }}>
-            <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 16 }}>
-              {H.heroEyebrow}
-            </p>
-            <h1
-              className="t-display"
-              style={{
-                fontSize: "clamp(32px, 5vw, 56px)",
-                fontWeight: 300,
-                lineHeight: 1.2,
-                letterSpacing: "-0.02em",
-                color: "#000000",
-                margin: 0,
-              }}
-              dangerouslySetInnerHTML={{ __html: H.heroHeadline }}
-            />
-          </div>
-          <div
-            className="section-hero-ico"
-            style={{
-              width: "clamp(300px, 40vw, 600px)",
-              height: "clamp(300px, 40vw, 600px)",
-              opacity: 0.5,
-            }}
-          >
+        visual={
+          <div style={{ opacity: 0.5 }}>
             <IcosahedronAnimation />
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* ── ENGAGEMENT ── */}
       <section id="engagement" ref={engagement.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(engagement.visible) }}>

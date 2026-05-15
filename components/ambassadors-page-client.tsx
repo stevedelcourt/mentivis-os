@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
+import PageHero from "@/components/page-hero";
 import TesseractColorCanvas from "@/components/tesseract-color-canvas";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 
@@ -44,10 +45,6 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
   const t = getT(locale);
   const a = t.ambassadors;
 
-  // Hero animates on mount immediately
-  const [heroLoaded, setHeroLoaded] = useState(false);
-  useEffect(() => { setHeroLoaded(true); }, []);
-
   const who = useVisible();
   const how = useVisible();
   const cta = useVisible();
@@ -65,163 +62,19 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      {/* HERO — animates on load */}
-      <section
-        className="section"
-        style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionStyle(heroLoaded) }}
-      >
-        <div className="container">
-          <div
-            className="ambassadors-hero-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 48,
-              alignItems: "center",
-            }}
-          >
-            {/* Left: Text */}
-            <div>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "#4e4e4e",
-                  marginBottom: 20,
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
-                }}
-              >
-                {a.hero.eyebrow}
-              </p>
-              <h1
-                className="t-display ambassadors-shimmer"
-                style={{
-                  fontSize: "clamp(32px, 5vw, 56px)",
-                  fontWeight: 300,
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.02em",
-                  color: "#0A0A0A",
-                  marginBottom: 24,
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
-                }}
-              >
-                {a.hero.headline}
-              </h1>
-              <p
-                style={{
-                  fontSize: 17,
-                  lineHeight: 1.65,
-                  color: "#3a3a3a",
-                  marginBottom: 16,
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s",
-                }}
-              >
-                {a.hero.body}
-              </p>
-              <p
-                style={{
-                  fontSize: 15,
-                  lineHeight: 1.6,
-                  color: "#4e4e4e",
-                  marginBottom: 8,
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s",
-                }}
-              >
-                {a.hero.commission}
-              </p>
-              <p
-                style={{
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: "#0A0A0A",
-                  marginBottom: 36,
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s",
-                }}
-              >
-                {a.hero.rate}
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: 12,
-                  flexWrap: "wrap",
-                  opacity: heroLoaded ? 1 : 0,
-                  transform: heroLoaded ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s",
-                }}
-              >
-                <Link
-                  href={`/${locale}/contact?subject=MentivisOS+Programme+Ambassador`}
-                  className="ambassadors-btn-primary"
-                  style={{
-                    background: "#0A0A0A",
-                    color: "#ffffff",
-                    borderRadius: 8,
-                    padding: "12px 24px",
-                    fontSize: 14,
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
-                  }}
-                >
-                  {a.hero.ctaJoin}
-                </Link>
-                <Link
-                  href={`/${locale}/demo`}
-                  className="ambassadors-btn-secondary"
-                  style={{
-                    background: "transparent",
-                    color: "#0A0A0A",
-                    border: "1px solid rgba(0,0,0,0.12)",
-                    borderRadius: 8,
-                    padding: "12px 24px",
-                    fontSize: 14,
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
-                  }}
-                >
-                  {a.hero.ctaPresentation}
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Tesseract */}
-            <div
-              className="ambassadors-tesseract-wrap"
-              style={{
-                position: "relative",
-                width: "100%",
-                minHeight: 600,
-                borderRadius: 24,
-                overflow: "hidden",
-                background: "#ffffff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: heroLoaded ? 1 : 0,
-                transform: heroLoaded ? "scale(1)" : "scale(0.96)",
-                transition: "opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s",
-              }}
-            >
-              <TesseractColorCanvas />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        content={{
+          eyebrow: a.hero.eyebrow,
+          headline: a.hero.headline,
+          subheadline: a.hero.body,
+          ctaPrimary: a.hero.ctaJoin,
+          ctaPrimaryLink: `/${locale}/contact?subject=MentivisOS+Programme+Ambassador`,
+          ctaSecondary: a.hero.ctaPresentation,
+          ctaSecondaryLink: `/${locale}/demo`,
+          proof: `${a.hero.commission} — ${a.hero.rate}`,
+        }}
+        visual={<TesseractColorCanvas />}
+      />
 
       {/* WHO */}
       <section

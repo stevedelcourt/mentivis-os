@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
+import PageHero, { PageHeroContent } from "@/components/page-hero";
 
 function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -165,6 +166,9 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     valeursTitle: "Nos valeurs",
     valeursSub: "Cinq regles de fonctionnement.",
   } : {
+    heroEyebrow: "About",
+    heroHeadline: "MentivisOS is the native AI training system built by Mentivis",
+    heroSub: "From strategy to operational deployment. A single OS to train, certify, and grow talent.",
     equipeSub: "The founders",
     approcheTitle: "Our approach",
     approcheSub: "Four integrated blocks. A single goal. A viable, funded, rapidly activatable system.",
@@ -180,33 +184,13 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      {/* ── HERO ── */}
-      <section
-        className="section"
-        style={{ paddingTop: "clamp(80px, 12vh, 140px)", ...sectionAnim(heroLoaded) }}
-      >
-        <div className="container" style={{ maxWidth: 800 }}>
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 16 }}>
-            {H.heroEyebrow}
-          </p>
-          <h1
-            className="t-display"
-            style={{
-              fontSize: "clamp(32px, 5vw, 56px)",
-              fontWeight: 300,
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              color: "#000000",
-              margin: "0 0 20px",
-            }}
-          >
-            {H.heroHeadline}
-          </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: "#4e4e4e", maxWidth: 600, margin: 0 }}>
-            {H.heroSub}
-          </p>
-        </div>
-      </section>
+      <PageHero
+        content={{
+          eyebrow: H.heroEyebrow,
+          headline: H.heroHeadline,
+          subheadline: H.heroSub,
+        }}
+      />
 
       {/* ── CONVICTION ── */}
       <section ref={conviction.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(conviction.visible) }}>
