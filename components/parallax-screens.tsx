@@ -25,7 +25,7 @@ export default function ParallaxScreens() {
     const cy = rect.top + rect.height / 2;
     const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
-    setTransform(`rotateX(${(dy * 12).toFixed(2)}deg) rotateY(${(dx * 12).toFixed(2)}deg)`);
+    setTransform(`rotateX(${(dy * 18).toFixed(2)}deg) rotateY(${(dx * 18).toFixed(2)}deg)`);
   }, []);
 
   const handleLeave = useCallback(() => {
@@ -44,7 +44,7 @@ export default function ParallaxScreens() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        perspective: "1200px",
+        perspective: "2400px",
         cursor: "default",
       }}
     >
