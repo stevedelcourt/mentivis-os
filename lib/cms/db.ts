@@ -603,10 +603,29 @@ const DEFAULT_PRICING: PricingContent = {
   ],
 };
 
-export async function getPricing(): Promise<PricingContent> {
+const DEFAULT_PRICING_EN: PricingContent = {
+  learningos: [
+    { name: "Starter", description: "Quickly structure an AI-driven internal academy.", monthlyPrice: 990, yearlyPrice: 950, originalPrice: 990, setupFee: 3500, cta: "Choose Starter", ctaLink: "https://app.mentivisOS.com", gradient: "var(--module-grad-2)", previousPlan: null, features: ["Auto-generated personalized training paths", "Content adaptation based on your roles and frameworks", "Conversational AI agents for employee support", "Real-time skills and progress tracking", "Secure enterprise workspace", "Rapid deployment without internal pedagogical team", "OPCO funding compatible"], creditLimit: "100 learners", popular: false },
+    { name: "Growth", description: "Industrialize upskilling at team or network scale.", monthlyPrice: 2900, yearlyPrice: 2700, originalPrice: 2900, setupFee: 8500, cta: "Choose Growth", ctaLink: "/demo", gradient: "var(--module-grad-3)", previousPlan: "Starter", features: ["All Starter features", "Advanced certified program generation", "Automatic adaptation by role, level and objective", "AI-powered dynamic business library", "HR and skills dashboards", "Managerial validation workflows", "Compliance reporting and training traceability", "Public funding and OPCO application assistance", "API and HRIS integrations"], creditLimit: "500 users", popular: true },
+    { name: "Enterprise", description: "Build a full autonomous and certifying training infrastructure.", monthlyPrice: null, yearlyPrice: null, originalPrice: null, setupFee: 15000, cta: "Contact the team", ctaLink: "/contact", gradient: "var(--module-grad-4)", previousPlan: "Growth", features: ["All Growth features", "Certification and internal framework generator", "Proprietary pedagogical model adapted to your roles", "Dedicated pedagogical engineering and ongoing support", "Advanced HRIS, LMS, CRM integrations", "Multi-site and multi-country deployment", "Guaranteed SLA and priority support", "GDPR, ISO 27001, accessibility compliance", "Qualiopi audit and certification support"], creditLimit: "Unlimited", popular: false },
+  ],
+  pipelineos: [
+    { name: "Starter", description: "ATS, candidate pipelines, basic matching, HR dashboard, recruitment workflows, basic automations.", monthlyPrice: 1490, yearlyPrice: 1400, originalPrice: 1490, setupFee: 5000, cta: "Choose Starter", ctaLink: "https://app.mentivisOS.com", gradient: "var(--module-grad-2)", previousPlan: null, features: ["Complete ATS", "Candidate pipelines", "Basic matching", "HR dashboard", "Recruitment workflows", "Basic automations"], creditLimit: "Unlimited", popular: false },
+    { name: "Growth", description: "AI matching, scoring, multi-recruiter, candidate portal, advanced automations, HR analytics, LearningOS onboarding sync.", monthlyPrice: 4900, yearlyPrice: 4600, originalPrice: 4900, setupFee: 12000, cta: "Choose Growth", ctaLink: "/demo", gradient: "var(--module-grad-3)", previousPlan: "Starter", features: ["Advanced AI matching", "Candidate scoring", "Multi-recruiter", "Candidate portal", "Advanced automations", "HR analytics", "LearningOS onboarding sync"], creditLimit: "Unlimited", popular: true },
+    { name: "Enterprise", description: "Dedicated architecture, private deployment, AI orchestration, governance, compliance, audit logs, advanced API access.", monthlyPrice: null, yearlyPrice: null, originalPrice: null, setupFee: 25000, cta: "Contact the team", ctaLink: "/contact", gradient: "var(--module-grad-4)", previousPlan: "Growth", features: ["Dedicated infrastructure", "Private deployment", "AI orchestration", "Governance", "Compliance", "Audit logs", "Advanced API access"], creditLimit: "Unlimited", popular: false },
+  ],
+  api: [
+    { name: "Starter", description: "500k requests, auth, workflows, embeddings, basic analytics.", monthlyPrice: 990, yearlyPrice: 950, originalPrice: 990, setupFee: 0, cta: "Choose Starter", ctaLink: "https://app.mentivisOS.com", gradient: "var(--module-grad-1)", previousPlan: null, features: ["500k requests", "Auth", "Workflows", "Embeddings", "Basic analytics"], creditLimit: "500k requests/mo", popular: false },
+    { name: "Build", description: "2M requests, webhooks, custom models, advanced analytics, priority support.", monthlyPrice: 2490, yearlyPrice: 2300, originalPrice: 2490, setupFee: 3500, cta: "Choose Build", ctaLink: "/demo", gradient: "var(--module-grad-2)", previousPlan: "Starter", features: ["2M requests", "Webhooks", "Custom models", "Advanced analytics", "Priority support"], creditLimit: "2M requests/mo", popular: true },
+    { name: "Scale", description: "10M requests, agent orchestration, multi-workspaces, monitoring, observability, priority support.", monthlyPrice: 6900, yearlyPrice: 6500, originalPrice: 6900, setupFee: 8500, cta: "Choose Scale", ctaLink: "/demo", gradient: "var(--module-grad-3)", previousPlan: "Build", features: ["10M requests", "Agent orchestration", "Multi-workspaces", "Monitoring", "Observability", "Priority support"], creditLimit: "10M requests/mo", popular: false },
+    { name: "Enterprise", description: "Dedicated infrastructure, SLA, private deployment, AI orchestration, governance, compliance, audit logs, advanced API access.", monthlyPrice: null, yearlyPrice: null, originalPrice: null, setupFee: 15000, cta: "Contact the team", ctaLink: "/contact", gradient: "var(--module-grad-4)", previousPlan: "Scale", features: ["Dedicated infrastructure", "SLA", "Private deployment", "AI orchestration", "Governance", "Compliance", "Audit logs", "Advanced API access"], creditLimit: "Unlimited", popular: false },
+  ],
+};
+
+export async function getPricing(lang: "fr" | "en" = "fr"): Promise<PricingContent> {
   const db = await getDb();
   const rows = db.prepare("SELECT * FROM pricing").all() as any[];
-  if (rows.length === 0) return DEFAULT_PRICING;
+  if (rows.length === 0) return lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
   const result: any = {};
   for (const row of rows) {
     result[row.product] = JSON.parse(row.plans_json);

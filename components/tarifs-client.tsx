@@ -24,7 +24,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   useEffect(() => {
     async function loadPricing() {
       try {
-        const res = await fetch("/api/pricing");
+        const res = await fetch(`/api/pricing?lang=${lang}`);
         if (res.ok) {
           const data = await res.json();
           if (data.pricing) {
