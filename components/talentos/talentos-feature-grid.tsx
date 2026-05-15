@@ -4,44 +4,35 @@ import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
-const GRADIENTS = [
-  "radial-gradient(ellipse 50% 60% at 15% 30%, rgba(100,180,220,0.3) 0%, transparent 60%), linear-gradient(135deg, #e8f4fc 0%, #d0e8f4 100%)",
-  "radial-gradient(ellipse 45% 55% at 80% 20%, rgba(140,160,220,0.3) 0%, transparent 55%), linear-gradient(135deg, #ecf0fc 0%, #d8e0f4 100%)",
-  "radial-gradient(ellipse 50% 50% at 70% 80%, rgba(160,180,230,0.3) 0%, transparent 55%), linear-gradient(135deg, #f0ecfc 0%, #e0d8f4 100%)",
-  "radial-gradient(ellipse 45% 50% at 25% 80%, rgba(80,200,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #e8fcf8 0%, #d0f0ec 100%)",
-  "radial-gradient(ellipse 40% 50% at 85% 50%, rgba(180,140,220,0.3) 0%, transparent 55%), linear-gradient(135deg, #f4ecfc 0%, #e8d8f4 100%)",
-  "radial-gradient(ellipse 50% 55% at 20% 70%, rgba(100,180,240,0.25) 0%, transparent 55%), linear-gradient(135deg, #e8f0fc 0%, #cce0f4 100%)",
-  "radial-gradient(ellipse 45% 50% at 60% 20%, rgba(130,200,180,0.3) 0%, transparent 55%), linear-gradient(135deg, #e8fcf0 0%, #d0ece0 100%)",
-  "radial-gradient(ellipse 50% 45% at 40% 60%, rgba(200,160,220,0.25) 0%, transparent 55%), linear-gradient(135deg, #f8f0fc 0%, #ece0f4 100%)",
-];
-
-const FEATURES = {
+const ITEMS = {
   fr: [
-    { title: "ATS Pipeline", desc: "Gérez l'intégralité de votre pipeline de recrutement : suivi des candidatures, étapes, décisions.", tag: "Pipeline" },
-    { title: "Matching IA", desc: "Le moteur de matching analyse automatiquement les CV et profils pour trouver les meilleurs talents.", tag: "IA" },
-    { title: "Tests & Cas pratiques", desc: "Créez et administrez des tests techniques et des cas pratiques adaptés à chaque poste.", tag: "Évaluation" },
-    { title: "Ranking Engine", desc: "Classez automatiquement les candidats par pertinence selon vos critères et pondérations.", tag: "Scoring" },
-    { title: "Multi-recruteurs", desc: "Collaborez à plusieurs sur chaque recrutement avec évaluations, commentaires et notes.", tag: "Collaboration" },
-    { title: "Portail candidats", desc: "Offrez une expérience candidat fluide avec portail dédié, suivi et communication.", tag: "Expérience" },
-    { title: "Analytics RH", desc: "Mesurez vos performances recrutement : time-to-hire, source quality, conversion.", tag: "Analytics" },
-    { title: "Intégration HRIS", desc: "Connectez TalentOS à votre SIRH, CRM et outils existants via API.", tag: "API" },
+    { tag: "IA", title: "HRAgents", desc: "Des agents IA spécialisés qui automatisent le sourcing, le tri et la présélection des candidats." },
+    { tag: "Moteur", title: "Moteur de Matching", desc: "Analyse sémantique des CV et profils pour trouver les candidats qui correspondent réellement à vos besoins." },
+    { tag: "ATS", title: "ATS Intelligent", desc: "Un ATS complet avec pipeline visuel, étapes personnalisables et automatisations." },
+    { tag: "Tests", title: "Tests & Évaluations", desc: "Créez des batteries de tests techniques et comportementaux adaptés à chaque recrutement." },
+    { tag: "Analytics", title: "Analytics & Reporting", desc: "Mesurez l'efficacité de vos recrutements avec des indicateurs clés en temps réel." },
   ],
   en: [
-    { title: "ATS Pipeline", desc: "Manage your entire recruitment pipeline: application tracking, stages, decisions.", tag: "Pipeline" },
-    { title: "AI Matching", desc: "The matching engine automatically analyzes CVs and profiles to find the best talent.", tag: "AI" },
-    { title: "Tests & Case Studies", desc: "Create and administer technical tests and case studies tailored to each position.", tag: "Assessment" },
-    { title: "Ranking Engine", desc: "Automatically rank candidates by relevance according to your criteria and weights.", tag: "Scoring" },
-    { title: "Multi-recruiter", desc: "Collaborate on each recruitment with evaluations, comments and notes.", tag: "Collaboration" },
-    { title: "Candidate Portal", desc: "Offer a smooth candidate experience with a dedicated portal, tracking and communication.", tag: "Experience" },
-    { title: "HR Analytics", desc: "Measure your recruitment performance: time-to-hire, source quality, conversion.", tag: "Analytics" },
-    { title: "HRIS Integration", desc: "Connect TalentOS to your HRIS, CRM and existing tools via API.", tag: "API" },
+    { tag: "AI", title: "HRAgents", desc: "Specialized AI agents that automate sourcing, screening and candidate preselection." },
+    { tag: "Engine", title: "Matching Engine", desc: "Semantic analysis of CVs and profiles to find candidates who truly match your needs." },
+    { tag: "ATS", title: "Smart ATS", desc: "A complete ATS with visual pipeline, customizable stages and automations." },
+    { tag: "Tests", title: "Tests & Assessments", desc: "Create batteries of technical and behavioral tests tailored to each hire." },
+    { tag: "Analytics", title: "Analytics & Reporting", desc: "Measure your recruitment effectiveness with real-time key indicators." },
   ],
 };
 
+const GRADIENT_PLACEHOLDERS = [
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(130,100,200,0.4) 0%, rgba(90,60,160,0.6) 50%, rgba(50,30,100,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,160,220,0.4) 0%, rgba(40,120,180,0.6) 50%, rgba(20,70,130,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,200,180,0.4) 0%, rgba(40,160,140,0.6) 50%, rgba(20,100,90,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(220,160,80,0.4) 0%, rgba(200,120,50,0.6) 50%, rgba(150,70,20,0.8) 100%)",
+  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(180,80,200,0.4) 0%, rgba(150,50,170,0.6) 50%, rgba(100,20,120,0.8) 100%)",
+];
+
 export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
-  const features = FEATURES[lang === "fr" ? "fr" : "en"];
+  const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section
@@ -67,81 +58,103 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
         </p>
-        <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
-          {lang === "fr" ? "Tout ce dont vous avez besoin pour recruter à l'échelle." : "Everything you need to recruit at scale."}
+        <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 64, maxWidth: 700 }}>
+          {lang === "fr" ? "Des modèles puissants pour chaque étape du recrutement." : "Powerful models for every recruitment stage."}
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }} className="talentos-feature-grid">
-          {features.map((f, i) => {
-            const hovered = hoveredIndex === i;
-            return (
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="talentos-showcase-split">
+          {/* Left — list */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {items.map((item, i) => (
               <div
-                key={f.title}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                key={item.title}
+                onMouseEnter={() => setActiveIndex(i)}
                 style={{
-                  ...sectionAnim(visible, 0.1 + i * 0.04),
-                  background: hovered ? GRADIENTS[i % GRADIENTS.length] : "#f5f5f5",
-                  borderRadius: 22,
-                  padding: "28px 24px 24px",
                   display: "flex",
                   flexDirection: "column",
-                  aspectRatio: "1/1",
-                  transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease",
-                  position: "relative",
-                  overflow: "hidden",
-                  cursor: "default",
+                  gap: 8,
+                  padding: "20px 0",
+                  cursor: "pointer",
+                  borderBottom: i < items.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                  transition: "opacity 0.2s ease",
+                  opacity: activeIndex === i ? 1 : 0.55,
                 }}
-                className="talentos-feature-card"
+                className="talentos-list-item"
               >
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    background: hovered ? "rgba(255,255,255,0.12)" : "#f5f5f5",
-                    backdropFilter: hovered ? "blur(6px)" : "none",
-                    border: hovered ? "1px solid rgba(255,255,255,0.18)" : "1px solid transparent",
-                    borderRadius: 10,
-                    padding: "6px 12px",
-                    fontSize: 11,
-                    fontWeight: 500,
-                    color: hovered ? "#000" : "#4e4e4e",
-                    marginBottom: "auto",
-                    alignSelf: "flex-start",
-                    transition: "background 0.3s ease, color 0.3s ease",
-                  }}
-                >
-                  {f.tag}
-                </span>
-                <div style={{ marginTop: "auto" }}>
-                  <h3 style={{
-                    fontSize: 17,
-                    fontWeight: 500,
-                    marginBottom: 8,
-                    color: hovered ? "#000" : "#000",
-                    transition: "color 0.3s ease",
-                  }}>
-                    {f.title}
-                  </h3>
-                  <p style={{
-                    fontSize: 14,
-                    lineHeight: 1.55,
-                    color: hovered ? "#4e4e4e" : "#4e4e4e",
-                    margin: 0,
-                    transition: "color 0.3s ease",
-                  }}>
-                    {f.desc}
-                  </p>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      background: activeIndex === i ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.04)",
+                      backdropFilter: activeIndex === i ? "blur(6px)" : "none",
+                      border: activeIndex === i ? "1px solid rgba(255,255,255,0.2)" : "1px solid transparent",
+                      borderRadius: 8,
+                      padding: "4px 10px",
+                      fontSize: 11,
+                      fontWeight: 500,
+                      color: activeIndex === i ? "#fff" : "#4e4e4e",
+                      transition: "background 0.3s ease, color 0.3s ease, border 0.3s ease",
+                    }}
+                  >
+                    {item.tag}
+                  </span>
                 </div>
+                <h3 style={{
+                  fontSize: 18,
+                  fontWeight: 500,
+                  color: activeIndex === i ? "#000" : "#4e4e4e",
+                  margin: 0,
+                  transition: "color 0.3s ease",
+                }}>
+                  {item.title}
+                </h3>
+                <p style={{
+                  fontSize: 14,
+                  lineHeight: 1.55,
+                  color: activeIndex === i ? "#4e4e4e" : "#888",
+                  margin: 0,
+                  maxWidth: "90%",
+                  transition: "color 0.3s ease",
+                }}>
+                  {item.desc}
+                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Right — image placeholder */}
+          <div
+            style={{
+              aspectRatio: "1/1",
+              borderRadius: 24,
+              background: GRADIENT_PLACEHOLDERS[activeIndex % GRADIENT_PLACEHOLDERS.length],
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background 0.5s ease",
+              position: "sticky",
+              top: 120,
+            }}
+            className="talentos-showcase-image"
+          >
+            <span style={{
+              fontSize: 18,
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.7)",
+              letterSpacing: "-0.01em",
+            }}>
+              {items[activeIndex].title}
+            </span>
+          </div>
         </div>
       </div>
       <style>{`
-        .talentos-feature-card:hover { transform: translateY(-4px); }
-        @media (max-width: 1024px) { .talentos-feature-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 768px) { .talentos-feature-grid { grid-template-columns: 1fr !important; } }
+        .talentos-list-item:hover { opacity: 1 !important; }
+        @media (max-width: 1024px) {
+          .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .talentos-showcase-image { position: static !important; }
+        }
       `}</style>
     </section>
   );
