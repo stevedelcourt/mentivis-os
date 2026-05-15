@@ -4,7 +4,7 @@ import BlogIndex from "./BlogIndex";
 import { getSeo } from "@/lib/cms/db";
 
 export const metadata: Metadata = {
-  title: "News — MentivisOS",
+  title: "News - MentivisOS",
   description: "Actualites, insights et points de vue sur la formation et l'IA.",
 };
 

@@ -21,7 +21,7 @@ const TABS = {
     {
       label: "Piloter",
       title: "Suivez les compétences en temps réel",
-      desc: "Le dashboard entreprise vous donne une vision complète des progrès, des écarts et de la conformité — par collaborateur, équipe ou département.",
+      desc: "Le dashboard entreprise vous donne une vision complète des progrès, des écarts et de la conformité, par collaborateur, équipe ou département.",
       features: ["Tableau de bord temps réel", "Reporting conformité", "Export OPCO et financeurs"],
     },
   ],
@@ -41,7 +41,7 @@ const TABS = {
     {
       label: "Track",
       title: "Monitor skills in real time",
-      desc: "The enterprise dashboard gives you a complete view of progress, gaps and compliance — by employee, team or department.",
+      desc: "The enterprise dashboard gives you a complete view of progress, gaps and compliance, by employee, team or department.",
       features: ["Real-time dashboard", "Compliance reporting", "OPCO and funder export"],
     },
   ],

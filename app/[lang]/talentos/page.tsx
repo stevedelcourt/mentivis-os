@@ -6,7 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "TalentOS — Recrutement IA" : "TalentOS — AI recruitment",
+    title: isFr ? "TalentOS - Recrutement IA" : "TalentOS - AI recruitment",
     description: isFr
       ? "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées."
       : "The AI recruitment system that turns your sourcing into qualified hires.",

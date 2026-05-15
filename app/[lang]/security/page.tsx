@@ -6,7 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Securite — MentivisOS" : "Security — MentivisOS",
+    title: isFr ? "Securite - MentivisOS" : "Security - MentivisOS",
     description: isFr
       ? "L'IA pedagogique concue pour transformer la formation, guidee par la responsabilite et des protections qui garantissent la confidentialite des donnees."
       : "AI-powered pedagogy built to transform training, guided by responsibility and protections that guarantee data confidentiality.",

@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MentivisOS — Le moteur pédagogique natif IA",
+  title: "MentivisOS - Le moteur pédagogique natif IA",
   description: "Un moteur qui produit le diagnostic, le programme et l'accompagnement. Pas un LMS. Pas un catalogue.",
 };
 

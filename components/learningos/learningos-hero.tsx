@@ -6,7 +6,7 @@ const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
     eyebrow: "LearningOS",
     headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
-    subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes — le tout dans un seul système.",
+    subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
     ctaPrimary: "Démarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'équipe",
@@ -16,7 +16,7 @@ const DEFAULTS: Record<string, PageHeroContent> = {
   en: {
     eyebrow: "LearningOS",
     headline: "The AI-native training system\nthat turns your employees into talents.",
-    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development — all in a single system.",
+    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development, all in a single system.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contact the team",

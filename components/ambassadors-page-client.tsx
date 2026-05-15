@@ -73,7 +73,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           ctaPrimaryLink: `/${locale}/contact?subject=MentivisOS+Programme+Ambassador`,
           ctaSecondary: a.hero.ctaPresentation,
           ctaSecondaryLink: `/${locale}/demo`,
-          proof: `${a.hero.commission} — ${a.hero.rate}`,
+          proof: `${a.hero.commission} - ${a.hero.rate}`,
         }}
         visual={<TesseractColorCanvas />}
       />

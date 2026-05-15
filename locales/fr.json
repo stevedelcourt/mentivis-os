@@ -63,7 +63,7 @@
       ],
       "initiatives": [
         "Programme Impact",
-        "Programme Affiliation & Ambassadeur",
+        "Affiliation & Ambassadeurs",
         "Partenariats"
       ]
     },
@@ -598,6 +598,7 @@
     "tagline": "Tous les metiers de la formation. De bout en bout.",
     "produits": "Produits",
     "pourQui": "Pour qui",
+    "workflows": "Workflows",
     "integration": "Integration",
     "entreprise": "Entreprise",
     "contact": "Contact",
@@ -641,7 +642,7 @@
   },
   "careers": {
     "meta": {
-      "title": "Carrières — MentivisOS",
+      "title": "Carrières - MentivisOS",
       "description": "Rejoignez l'équipe MentivisOS et participez à la construction du système d'exploitation de la formation native IA."
     },
     "hero": {
@@ -671,7 +672,7 @@
         },
         {
           "title": "Equipe et techno",
-          "body": "IA, edtech, automatisation — nous travaillons sur des sujets a la pointe avec des outils modernes et une equipe de talent."
+          "body": "IA, edtech, automatisation, nous travaillons sur des sujets a la pointe avec des outils modernes et une equipe de talent."
         },
         {
           "title": "Autonomie et confiance",
@@ -842,7 +843,7 @@
     "hero": {
       "eyebrow": "LearningOS",
       "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
-      "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes — le tout dans un seul système."
+      "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes, le tout dans un seul système."
     },
     "featureGrid": {
       "eyebrow": "Capacités",
@@ -877,7 +878,7 @@
     "hero": {
       "eyebrow": "TalentOS",
       "headline": "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées.",
-      "subheadline": "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements — le tout dans un seul système connecté à vos outils RH."
+      "subheadline": "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements, le tout dans un seul système connecté à vos outils RH."
     },
     "featureGrid": {
       "eyebrow": "Capacités",

@@ -3,7 +3,7 @@ import TarifsClient from "@/components/tarifs-client";
 import { getSeo } from "@/lib/cms/db";
 
 export const metadata = {
-  title: "Tarifs — MentivisOS",
+  title: "Tarifs - MentivisOS",
   description: "Des tarifs transparents pour les particuliers, les équipes et les entreprises. Essayez gratuitement.",
 };
 

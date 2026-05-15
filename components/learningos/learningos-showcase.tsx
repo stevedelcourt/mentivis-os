@@ -18,14 +18,14 @@ const ITEMS = {
     { title: "Moteur adaptatif", desc: "Le contenu s'ajuste automatiquement au niveau, au rythme et aux préférences d'apprentissage de chaque utilisateur.", tag: "Moteur" },
     { title: "Gestion des certifications", desc: "Créez, publiez et gérez des programmes certifiants avec suivi individuel et validation des compétences.", tag: "Certification" },
     { title: "Dashboard entreprise", desc: "Une vue complète sur la progression des compétences, les taux de complétion et la conformité réglementaire.", tag: "Dashboard" },
-    { title: "API & Intégrations", desc: "Connectez LearningOS à vos outils existants — SIRH, LMS, CRM — via notre API REST.", tag: "API" },
+    { title: "API & Intégrations", desc: "Connectez LearningOS à vos outils existants, SIRH, LMS, CRM, via notre API REST.", tag: "API" },
   ],
   en: [
     { title: "SkillAgents", desc: "Specialized AI agents that coach each learner, answer questions and direct them to relevant resources.", tag: "AI" },
     { title: "Adaptive Engine", desc: "Content automatically adjusts to each user's level, pace and learning preferences.", tag: "Engine" },
     { title: "Certification Manager", desc: "Create, publish and manage certified programs with individual tracking and skills validation.", tag: "Certification" },
     { title: "Enterprise Dashboard", desc: "A complete view of skills progression, completion rates and regulatory compliance.", tag: "Dashboard" },
-    { title: "API & Integrations", desc: "Connect LearningOS to your existing tools — HRIS, LMS, CRM — via our REST API.", tag: "API" },
+    { title: "API & Integrations", desc: "Connect LearningOS to your existing tools, HRIS, LMS, CRM, via our REST API.", tag: "API" },
   ],
 };
 

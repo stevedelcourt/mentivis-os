@@ -6,7 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Programme Impact — ICIA x MentivisOS" : "Impact Program — ICIA x MentivisOS",
+    title: isFr ? "Programme Impact - ICIA x MentivisOS" : "Impact Program - ICIA x MentivisOS",
     description: isFr
       ? "L'IA n'attend pas. Personne non plus. Un programme structuré pour passer de l'inquiétude à la compétence."
       : "AI won't wait. Neither will we. A structured program to move from concern to competence.",

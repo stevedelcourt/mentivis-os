@@ -7,7 +7,7 @@ import FaqSection from "@/components/faq-section";
 import InteractiveExplainer from "@/components/interactive-explainer";
 
 export const metadata = {
-  title: "Composants — MentivisOS",
+  title: "Composants - MentivisOS",
 };
 
 const SAMPLE_CHAT = {

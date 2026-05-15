@@ -14,7 +14,7 @@ export default function CTABlock({ lang, variant = "section" }: CTABlockProps) {
     return (
       <section
         style={{
-          background: "#f5f5f5",
+          background: "#ffffff",
           padding: "var(--section-gap) 0",
         }}
       >

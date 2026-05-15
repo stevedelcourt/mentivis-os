@@ -598,6 +598,7 @@
     "tagline": "Every training discipline. End to end.",
     "produits": "Products",
     "pourQui": "For whom",
+    "workflows": "Workflows",
     "integration": "Integration",
     "entreprise": "Company",
     "contact": "Contact",
@@ -641,7 +642,7 @@
   },
   "careers": {
     "meta": {
-      "title": "Careers — MentivisOS",
+      "title": "Careers - MentivisOS",
       "description": "Join the MentivisOS team and help build the operating system for AI-native training."
     },
     "hero": {
@@ -671,7 +672,7 @@
         },
         {
           "title": "Team & tech",
-          "body": "AI, edtech, automation — we work on cutting-edge subjects with modern tools and talented people."
+          "body": "AI, edtech, automation, we work on cutting-edge subjects with modern tools and talented people."
         },
         {
           "title": "Autonomy & trust",
@@ -842,7 +843,7 @@
     "hero": {
       "eyebrow": "LearningOS",
       "headline": "The AI-native training system that turns your employees into talents.",
-      "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development — all in a single system."
+      "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development, all in a single system."
     },
     "featureGrid": {
       "eyebrow": "Capabilities",
@@ -877,7 +878,7 @@
     "hero": {
       "eyebrow": "TalentOS",
       "headline": "The AI recruitment system that turns your sourcing into qualified hires.",
-      "subheadline": "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management — all in a single system connected to your HR tools."
+      "subheadline": "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management, all in a single system connected to your HR tools."
     },
     "featureGrid": {
       "eyebrow": "Capabilities",

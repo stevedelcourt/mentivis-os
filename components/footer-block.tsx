@@ -59,10 +59,12 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           >
             {t.footer.tagline}
           </p>
-          <LogomarkMotion />
+          <div style={{ marginLeft: -5 }}>
+            <LogomarkMotion />
+          </div>
         </div>
 
-        {/* Column 2 — Produits + PourQui + Integration */}
+        {/* Column 2 — Produits + Workflows */}
         <div
           style={{
             display: "grid",
@@ -110,10 +112,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 marginBottom: 16,
               }}
             >
-              {t.footer.pourQui}
+              {t.footer.workflows || "Workflows"}
             </h4>
             <ul>
-              {["Individuel", "Entreprise", "Formation", "Pipeline RH"].map((link) => (
+              {["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"].map((link) => (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}`}
@@ -128,7 +130,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           </div>
         </div>
 
-        {/* Column 3 — Entreprise (with Contact under Sécurité) */}
+        {/* Column 3 — Entreprise */}
         <div>
           <h4
             style={{
@@ -144,10 +146,10 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {t.footer.entreprise}
           </h4>
           <ul>
-            {["News", "A propos", "L'equipe", "Carrieres", "Securite"].map((link) => (
+            {["News & publications", "A propos", "Affiliation & Ambassadeurs", "Carrieres"].map((link) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={link === "News" ? `/${lang}/blog` : link === "Securite" || link === "Security" ? `/${lang}/security` : link === "A propos" || link === "About" ? `/${lang}/about` : link === "Carrieres" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
+                  href={link === "News & publications" ? `/${lang}/blog` : link === "A propos" || link === "About" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrieres" || link === "Careers" ? `/${lang}/carrieres` : `/${lang}`}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >
@@ -194,6 +196,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
             { label: "CMS", href: `/${lang}/content-management` },
+            { label: "Securite", href: `/${lang}/security` },
             { label: "Mentions legales", href: `/${lang}/legal` },
             { label: "Confidentialite", href: `/${lang}/privacy` },
             { label: "CGU", href: `/${lang}/terms` },

@@ -181,7 +181,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   learningos: {
     eyebrow: "LearningOS",
     headline: "Le systeme de formation native IA\nqui transforme vos collaborateurs en talents.",
-    subheadline: "Generez des parcours personnalises, adaptez les contenus automatiquement\net pilotez la montee en competences de vos equipes — le tout dans un seul systeme.",
+    subheadline: "Generez des parcours personnalises, adaptez les contenus automatiquement\net pilotez la montee en competences de vos equipes, le tout dans un seul systeme.",
     ctaPrimary: "Demarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'equipe",
@@ -191,7 +191,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   talentos: {
     eyebrow: "TalentOS",
     headline: "Recruter devient un systeme.",
-    subheadline: "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements — le tout dans un seul systeme connecte a vos outils RH.",
+    subheadline: "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements, le tout dans un seul systeme connecte a vos outils RH.",
     ctaPrimary: "Demarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'equipe",
@@ -219,7 +219,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
     proof: "",
   },
   ambassadors: {
-    eyebrow: "Programme Affiliation & Ambassadeur",
+    eyebrow: "Affiliation & Ambassadeurs",
     headline: "Recommandez MentivisOS\net developpez votre activite.",
     subheadline: "Un programme concu pour les professionnels de la formation, du recrutement et du conseil qui souhaitent recommander MentivisOS a leur reseau.",
     ctaPrimary: "Rejoindre le programme",
@@ -244,7 +244,7 @@ const DEFAULT_HERO_EN: Record<string, HeroContent> = {
   learningos: {
     eyebrow: "LearningOS",
     headline: "The AI-native training system\nthat turns your employees into talents.",
-    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development — all in a single system.",
+    subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development, all in a single system.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contact the team",
@@ -254,7 +254,7 @@ const DEFAULT_HERO_EN: Record<string, HeroContent> = {
   talentos: {
     eyebrow: "TalentOS",
     headline: "Recruiting becomes a system.",
-    subheadline: "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management — all in a single system connected to your HR tools.",
+    subheadline: "Smart ATS, profile matching, tests & case studies, and recruitment pipeline management, all in a single system connected to your HR tools.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contact the team",
@@ -633,7 +633,7 @@ export async function savePricing(data: PricingContent) {
 const DEFAULT_SEO: SeoContent = {
   fr: {
     homepage: {
-      title: "MentivisOS — Le systeme de formation native IA",
+      title: "MentivisOS - Le systeme de formation native IA",
       description: "MentivisOS forme vos collaborateurs, gere vos recrutements et pilote la montee en competences de vos equipes.",
       jsonLd: {
         "@context": "https://schema.org",
@@ -651,7 +651,7 @@ const DEFAULT_SEO: SeoContent = {
       },
     },
     tarifs: {
-      title: "Tarifs — MentivisOS",
+      title: "Tarifs - MentivisOS",
       description: "Des solutions adaptees a chaque etape de votre croissance, de l'apprenant individuel au deploiement enterprise.",
       jsonLd: {
         "@context": "https://schema.org",
@@ -667,7 +667,7 @@ const DEFAULT_SEO: SeoContent = {
       },
     },
     blog: {
-      title: "News — MentivisOS",
+      title: "News - MentivisOS",
       description: "Actualites, insights et points de vue sur la formation et l'IA.",
       jsonLd: {
         "@context": "https://schema.org",
@@ -679,7 +679,7 @@ const DEFAULT_SEO: SeoContent = {
   },
   en: {
     homepage: {
-      title: "MentivisOS — The AI-native training system",
+      title: "MentivisOS - The AI-native training system",
       description: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
       jsonLd: {
         "@context": "https://schema.org",
@@ -697,7 +697,7 @@ const DEFAULT_SEO: SeoContent = {
       },
     },
     tarifs: {
-      title: "Pricing — MentivisOS",
+      title: "Pricing - MentivisOS",
       description: "Solutions adapted to every stage of your growth, from individual learner to enterprise deployment.",
       jsonLd: {
         "@context": "https://schema.org",
@@ -713,7 +713,7 @@ const DEFAULT_SEO: SeoContent = {
       },
     },
     blog: {
-      title: "News — MentivisOS",
+      title: "News - MentivisOS",
       description: "News, insights and perspectives on training and AI.",
       jsonLd: {
         "@context": "https://schema.org",

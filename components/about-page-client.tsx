@@ -153,7 +153,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     heroHeadline: "MentivisOS est le systeme de formation native IA concu par Mentivis",
     heroSub: "De la strategie au deploiement operationnel. Un seul OS pour former, certifier et faire grandir les talents.",
     convictionText: "Former n'est pas un cout. C'est un systeme de production de valeur.",
-    convictionAuthor: "Steven Delcourt — Fondateur, Mentivis",
+    convictionAuthor: "Steven Delcourt, Fondateur, Mentivis",
     histoireTitle: "Ne d'un constat operationnel",
     histoireBody1: "Les fondateurs de Mentivis ont deja cree des ecoles ensemble. Pedagogie, developpement commercial, marketing, conformite, operations. Toutes les dimensions du metier.",
     histoireBody2: "Ils se sont associes pour une raison precise. Les mutations rapides de l'education et de la formation exigent un acteur specialise, capable de faire le lien entre entreprises, dispositifs de formation et enjeux a venir.",
