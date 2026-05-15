@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
-import HeroCollage from "@/components/hero-collage";
 import LearningOSHero from "./learningos-hero";
 import LearningOSFeatureGrid from "./learningos-feature-grid";
 import LearningOSWorkflowTabs from "./learningos-workflow-tabs";
@@ -16,7 +16,16 @@ export default function LearningOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
       <LearningOSHero lang={lang} />
-      <HeroCollage lang={lang} />
+      <section style={{ width: "100%", lineHeight: 0, fontSize: 0 }}>
+        <Image
+          src="/images/floater/float.webp"
+          alt=""
+          width={1900}
+          height={603}
+          style={{ width: "100%", height: "auto", display: "block" }}
+          priority
+        />
+      </section>
       <LearningOSFeatureGrid lang={lang} />
       <LearningOSWorkflowTabs lang={lang} />
       <LearningOSShowcase lang={lang} />
