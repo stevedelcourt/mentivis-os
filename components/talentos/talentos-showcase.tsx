@@ -127,6 +127,7 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
               transition: "background 0.5s ease",
               position: "sticky",
               top: 120,
+              marginTop: 20,
             }}
             className="talentos-showcase-image"
           >

@@ -131,8 +131,8 @@ button {
 ul, ol { list-style: none; }
 
 ::selection {
-  background: var(--bg-warm);
-  color: var(--text-primary);
+  background: #ff00e6;
+  color: #fff;
 }
 
 :focus-visible {
