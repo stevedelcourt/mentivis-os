@@ -84,38 +84,86 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
                 display: "flex",
                 flexDirection: "column",
                 aspectRatio: "1/1",
-                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
               className="learningos-feature-card"
             >
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: "#0A0A0A",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#fff",
-                  fontSize: 18,
-                  fontWeight: 600,
-                  marginBottom: "auto",
-                }}
-              >
-                {f.icon}
+              <div className="feature-badge" style={{ marginBottom: "auto" }}>
+                <svg className="feature-badge-icon" width="14" height="14" viewBox="0 0 130 130" fill="none">
+                  <rect x="20" y="20" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="20" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="60" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="100" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="100" width="10" height="10" fill="currentColor"/>
+                </svg>
+                <span>{f.icon}</span>
               </div>
-              <div style={{ marginTop: "auto" }}>
-                <h3 style={{ fontSize: 17, fontWeight: 500, marginBottom: 8, color: "#000" }}>{f.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0 }}>{f.desc}</p>
+              <div className="feature-text" style={{ marginTop: "auto" }}>
+                <h3 style={{ fontSize: 17, fontWeight: 500, marginBottom: 8 }}>{f.title}</h3>
+                <p style={{ fontSize: 14, lineHeight: 1.55, margin: 0 }}>{f.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
       <style>{`
+        .feature-badge {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: #0A0A0A;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 18px;
+          font-weight: 600;
+          gap: 6px;
+          transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .feature-badge-icon {
+          display: none;
+          width: 14px;
+          height: 14px;
+          flex-shrink: 0;
+        }
+        .learningos-feature-card {
+          transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
         .learningos-feature-card:hover {
+          background: linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%) !important;
           transform: translateY(-4px);
+        }
+        .learningos-feature-card:hover .feature-badge {
+          background: rgba(255,255,255,0.12) !important;
+          backdrop-filter: blur(6px) !important;
+          border: 1px solid rgba(255,255,255,0.18) !important;
+          border-radius: 10px !important;
+          width: auto !important;
+          height: auto !important;
+          padding: 6px 12px 6px 8px !important;
+          font-size: 13px !important;
+          font-weight: 600 !important;
+        }
+        .learningos-feature-card:hover .feature-badge-icon {
+          display: block !important;
+        }
+        .learningos-feature-card:hover h3 {
+          color: #fff !important;
+        }
+        .learningos-feature-card:hover p {
+          color: rgba(255,255,255,0.75) !important;
         }
         @media (max-width: 1024px) {
           .learningos-feature-grid {
