@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Locale } from "@/lib/i18n";
 import { Post, CATEGORIES } from "@/lib/cms/types";
 import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
@@ -28,17 +29,15 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
   const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
 
-  // Read initial category from URL search params
+  // Read category from URL search params on mount and when they change
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const cat = params.get("category");
-      if (cat && ["strategie", "ia", "annonces", "cas", "clients", "partenariat"].includes(cat)) {
-        setActiveCategory(cat as CategoryKey);
-      }
+    const cat = searchParams?.get("category");
+    if (cat && ["strategie", "ia", "annonces", "cas", "clients", "partenariat"].includes(cat)) {
+      setActiveCategory(cat as CategoryKey);
     }
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     async function loadPosts() {

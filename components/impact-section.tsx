@@ -143,21 +143,6 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 44 }}>
           <div style={{ display: "inline-flex", background: "#fff", border: "1px solid #e4e4e4", borderRadius: 100, padding: 4, gap: 2 }}>
             <button
-              onClick={() => setActiveTab("clients")}
-              style={{
-                background: activeTab === "clients" ? "#fff" : "transparent",
-                border: "1.5px solid transparent",
-                borderColor: activeTab === "clients" ? "#4d8cf5" : "transparent",
-                boxShadow: activeTab === "clients" ? "0 0 0 3px rgba(77,140,245,.1)" : "none",
-                padding: "9px 22px", font: "inherit", fontSize: 14, fontWeight: 500,
-                color: activeTab === "clients" ? "#111" : "#666",
-                cursor: "pointer", borderRadius: 100,
-                transition: "color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s",
-              }}
-            >
-              {t.impact.tabs.clients}
-            </button>
-            <button
               onClick={() => setActiveTab("partenariat")}
               style={{
                 background: activeTab === "partenariat" ? "#fff" : "transparent",
@@ -171,6 +156,21 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }}
             >
               {t.impact.tabs.partnerships}
+            </button>
+            <button
+              onClick={() => setActiveTab("clients")}
+              style={{
+                background: activeTab === "clients" ? "#fff" : "transparent",
+                border: "1.5px solid transparent",
+                borderColor: activeTab === "clients" ? "#4d8cf5" : "transparent",
+                boxShadow: activeTab === "clients" ? "0 0 0 3px rgba(77,140,245,.1)" : "none",
+                padding: "9px 22px", font: "inherit", fontSize: 14, fontWeight: 500,
+                color: activeTab === "clients" ? "#111" : "#666",
+                cursor: "pointer", borderRadius: 100,
+                transition: "color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s",
+              }}
+            >
+              {t.impact.tabs.clients}
             </button>
           </div>
         </div>

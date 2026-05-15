@@ -9,11 +9,12 @@ interface MegaMenuSection {
 
 interface MegaMenuProps {
   sections: MegaMenuSection[];
+  closing?: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }
 
-export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaMenuProps) {
+export default function MegaMenu({ sections, closing, onMouseEnter, onMouseLeave }: MegaMenuProps) {
   return (
     <div
       className="mega-menu"
@@ -37,7 +38,7 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
           borderRadius: 16,
           background: "#FFFFFF",
           boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04)",
-          animation: "megaMenuIn 0.2s ease both",
+          animation: closing ? "megaMenuOut 0.2s ease both" : "megaMenuIn 0.2s ease both",
         }}
       >
         {sections.map((section, idx) => (
@@ -86,6 +87,10 @@ export default function MegaMenu({ sections, onMouseEnter, onMouseLeave }: MegaM
         @keyframes megaMenuIn {
           from { opacity: 0; transform: translateY(-8px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes megaMenuOut {
+          from { opacity: 1; transform: translateY(0); }
+          to { opacity: 0; transform: translateY(-8px); }
         }
       `}</style>
     </div>

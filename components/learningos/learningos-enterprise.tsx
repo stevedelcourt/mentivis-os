@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "./_shared";
 
@@ -34,6 +35,7 @@ const ITEMS = {
 export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section
@@ -79,19 +81,23 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
           }}
           className="learningos-enterprise-grid"
         >
-          {items.map((item, i) => (
+          {items.map((item, i) => {
+             const isHovered = hoveredIndex === i;
+             return (
             <div
               key={item.label}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 ...sectionAnim(visible, 0.1 + i * 0.05),
-                background: GRADIENTS[i % GRADIENTS.length],
+                background: isHovered ? GRADIENTS[i % GRADIENTS.length] : "#f8f8f8",
                 borderRadius: 18,
                 padding: "20px 24px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 aspectRatio: "2.2/1",
-                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                transition: "background 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
               className="learningos-enterprise-card"
             >
@@ -101,47 +107,51 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                   alignItems: "center",
                   gap: 8,
                   alignSelf: "flex-start",
-                  background: "rgba(255,255,255,0.12)",
-                  backdropFilter: "blur(6px)",
-                  border: "1px solid rgba(255,255,255,0.18)",
+                  background: isHovered ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.06)",
+                  backdropFilter: isHovered ? "blur(6px)" : "none",
+                  border: isHovered ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(0,0,0,0.08)",
                   borderRadius: 10,
                   padding: "6px 12px 6px 10px",
+                  color: isHovered ? "#fff" : "#000",
+                  transition: "background 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 130 130" fill="none">
-                  <rect x="20" y="20" width="10" height="10" fill="white"/>
-                  <rect x="100" y="20" width="10" height="10" fill="white"/>
-                  <rect x="20" y="40" width="10" height="10" fill="white"/>
-                  <rect x="40" y="40" width="10" height="10" fill="white"/>
-                  <rect x="80" y="40" width="10" height="10" fill="white"/>
-                  <rect x="100" y="40" width="10" height="10" fill="white"/>
-                  <rect x="20" y="60" width="10" height="10" fill="white"/>
-                  <rect x="40" y="60" width="10" height="10" fill="white"/>
-                  <rect x="60" y="60" width="10" height="10" fill="white"/>
-                  <rect x="80" y="60" width="10" height="10" fill="white"/>
-                  <rect x="100" y="60" width="10" height="10" fill="white"/>
-                  <rect x="20" y="80" width="10" height="10" fill="white"/>
-                  <rect x="40" y="80" width="10" height="10" fill="white"/>
-                  <rect x="80" y="80" width="10" height="10" fill="white"/>
-                  <rect x="100" y="80" width="10" height="10" fill="white"/>
-                  <rect x="20" y="100" width="10" height="10" fill="white"/>
-                  <rect x="100" y="100" width="10" height="10" fill="white"/>
+                  <rect x="20" y="20" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="20" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="40" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="60" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="60" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="40" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="80" width="10" height="10" fill="currentColor"/>
+                  <rect x="20" y="100" width="10" height="10" fill="currentColor"/>
+                  <rect x="100" y="100" width="10" height="10" fill="currentColor"/>
                 </svg>
-                <span style={{ color: "#fff", fontSize: 13, fontWeight: 600, lineHeight: 1 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, lineHeight: 1 }}>
                   {item.label}
                 </span>
               </div>
               <p style={{
                 fontSize: 13,
                 lineHeight: 1.45,
-                color: "rgba(255,255,255,0.75)",
+                color: isHovered ? "rgba(255,255,255,0.75)" : "#4e4e4e",
                 margin: 0,
                 textAlign: "left",
+                transition: "color 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}>
                 {item.desc}
               </p>
             </div>
-          ))}
+             );
+          })}
         </div>
       </div>
 

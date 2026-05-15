@@ -17,8 +17,11 @@ export default function NavBar({ lang }: NavBarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [closingDropdown, setClosingDropdown] = useState<string | null>(null);
   const rafId = useRef<number | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const closingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const entrepriseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let lastScrollY = 0;
@@ -72,19 +75,36 @@ export default function NavBar({ lang }: NavBarProps) {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    return () => {
+      if (closingTimeoutRef.current) clearTimeout(closingTimeoutRef.current);
+    };
+  }, []);
+
   const openDropdown = useCallback((label: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
       dropdownTimeoutRef.current = null;
     }
+    if (closingTimeoutRef.current) {
+      clearTimeout(closingTimeoutRef.current);
+      setClosingDropdown(null);
+    }
     setActiveDropdown(label);
   }, []);
 
   const closeDropdown = useCallback(() => {
-    dropdownTimeoutRef.current = setTimeout(() => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
+    if (closingDropdown === "entreprise") return;
+    setClosingDropdown("entreprise");
+    closingTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 250);
-  }, []);
+      setClosingDropdown(null);
+    }, 200);
+  }, [closingDropdown]);
 
   const closeDropdownImmediate = useCallback(() => {
     if (dropdownTimeoutRef.current) {
@@ -112,6 +132,14 @@ export default function NavBar({ lang }: NavBarProps) {
           transition: "box-shadow 0.35s ease",
           boxShadow: "var(--shadow-card)",
           willChange: "transform",
+        }}
+        onPointerEnter={(e) => {
+          if (e.clientY >= 60 && entrepriseRef.current) {
+            const rect = entrepriseRef.current.getBoundingClientRect();
+            if (e.clientX >= rect.left - 40 && e.clientX <= rect.right + 40) {
+              openDropdown("entreprise");
+            }
+          }
         }}
       >
         <div
@@ -166,19 +194,21 @@ export default function NavBar({ lang }: NavBarProps) {
 
             {/* Entreprise (was Ressources) */}
             <div
+              ref={entrepriseRef}
               className="navbar-item"
               style={{ position: "relative", padding: "20px 0" }}
               onMouseEnter={() => openDropdown("entreprise")}
               onMouseLeave={closeDropdown}
             >
-              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span className="t-nav navbar-link" style={{ display: "flex", alignItems: "center", gap: 6 }} onMouseEnter={() => openDropdown("entreprise")}>
                 {t.nav.entreprise}
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.2s ease", transform: activeDropdown === "entreprise" ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </span>
-              {activeDropdown === "entreprise" && (
+              {(activeDropdown === "entreprise" || closingDropdown === "entreprise") && (
                 <MegaMenu
+                  closing={closingDropdown === "entreprise"}
                   sections={[
                     {
                       eyebrow: t.nav.eyebrows.entreprise,
@@ -194,7 +224,7 @@ export default function NavBar({ lang }: NavBarProps) {
                       links: [
                         { label: t.nav.ressourcesMenu.initiatives[0], href: `/${lang}/impact` },
                         { label: t.nav.ressourcesMenu.initiatives[1], href: `/${lang}/ambassadors` },
-                        { label: t.nav.ressourcesMenu.initiatives[2], href: `/${lang}/blog?category=partenariats` },
+                        { label: t.nav.ressourcesMenu.initiatives[2], href: `/${lang}/blog?category=partenariat` },
                       ],
                     },
                   ]}
