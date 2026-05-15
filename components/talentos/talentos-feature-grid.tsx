@@ -49,9 +49,21 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
       style={{
         background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0",
+        position: "relative",
+        isolation: "isolate",
       }}
     >
-      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url(/images/wave-big.webp)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          zIndex: -1,
+        }}
+      />
+      <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", position: "relative", zIndex: 1 }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
           {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
         </p>
