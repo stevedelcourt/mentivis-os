@@ -29,7 +29,7 @@ const sectionAnim = (visible: boolean, delay = 0): React.CSSProperties => ({
 const CONTENT = {
   fr: {
     eyebrow: "LearningOS",
-    headline: "Le système de formation native IA\n— qui transforme vos collaborateurs en talents.",
+    headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes — le tout dans un seul système.",
     ctaPrimary: "Démarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -39,7 +39,7 @@ const CONTENT = {
   },
   en: {
     eyebrow: "LearningOS",
-    headline: "The AI-native training system\n— that turns your employees into talents.",
+    headline: "The AI-native training system\nthat turns your employees into talents.",
     subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development — all in a single system.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -89,7 +89,7 @@ export default function LearningOSHero({ lang }: { lang: Locale }) {
             }}
           >
             {c.headline.split("\n").map((line, i) => (
-              <span key={i} style={{ display: "block" }}>
+              <span key={i} style={{ display: "block", whiteSpace: "nowrap" }}>
                 {line}
               </span>
             ))}

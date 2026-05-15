@@ -88,8 +88,8 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                 borderRadius: 18,
                 padding: "20px 24px",
                 display: "flex",
-                alignItems: "center",
-                gap: 16,
+                flexDirection: "column",
+                justifyContent: "space-between",
                 aspectRatio: "2.2/1",
                 transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
@@ -100,12 +100,12 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
+                  alignSelf: "flex-start",
                   background: "rgba(255,255,255,0.12)",
                   backdropFilter: "blur(6px)",
                   border: "1px solid rgba(255,255,255,0.18)",
                   borderRadius: 10,
                   padding: "6px 12px 6px 10px",
-                  flexShrink: 0,
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 130 130" fill="none">
@@ -128,13 +128,18 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                   <rect x="100" y="100" width="10" height="10" fill="white"/>
                 </svg>
                 <span style={{ color: "#fff", fontSize: 13, fontWeight: 600, lineHeight: 1 }}>
-                  {i + 1}
+                  {item.label}
                 </span>
               </div>
-              <div style={{ minWidth: 0, color: "#fff" }}>
-                <h4 style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: "inherit" }}>{item.label}</h4>
-                <p style={{ fontSize: 13, lineHeight: 1.45, color: "rgba(255,255,255,0.75)", margin: 0 }}>{item.desc}</p>
-              </div>
+              <p style={{
+                fontSize: 13,
+                lineHeight: 1.45,
+                color: "rgba(255,255,255,0.75)",
+                margin: 0,
+                textAlign: "left",
+              }}>
+                {item.desc}
+              </p>
             </div>
           ))}
         </div>
