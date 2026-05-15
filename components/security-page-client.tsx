@@ -96,6 +96,13 @@ const FAQS_FR = [
   },
 ];
 
+const INFRA_GRADIENTS = [
+  "linear-gradient(135deg, #1A2B80 0%, #3040A0 50%, #4A5AC0 100%)",
+  "linear-gradient(135deg, #1A5C3A 0%, #2D7A50 50%, #409A6A 100%)",
+  "linear-gradient(135deg, #2D1B69 0%, #4A2D8A 50%, #6A4AAA 100%)",
+  "linear-gradient(135deg, #8B3A20 0%, #A85830 50%, #C87848 100%)",
+];
+
 const FAQS_EN = [
   {
     q: "Is my data used to train AI models?",
@@ -470,27 +477,85 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       <section id="infrastructure" ref={infrastructure.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(infrastructure.visible, 0.15) }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <h2 className="section-title">{H.infrastructureTitle}</h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: 12,
-            }}
-          >
+          <div className="infra-grid">
             {H.infrastructureItems.map((item, i) => (
               <div
                 key={i}
+                className="infra-card"
                 style={{
-                  padding: "20px 24px",
-                  background: "#ffffff",
-                  borderRadius: 12,
-                  border: "1px solid #e5e5e5",
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "16/9",
+                  borderRadius: 18,
+                  overflow: "hidden",
+                  background: INFRA_GRADIENTS[i],
                 }}
               >
-                <p style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 6, fontWeight: 500 }}>
-                  {item.label}
-                </p>
-                <p style={{ fontSize: 15, lineHeight: 1.5, color: "#000000", margin: 0 }}>{item.value}</p>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    zIndex: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    background: "rgba(255,255,255,0.12)",
+                    backdropFilter: "blur(6px)",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    borderRadius: 10,
+                    padding: "6px 12px 6px 8px",
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 130 130" fill="none">
+                    <rect x="20" y="20" width="10" height="10" fill="white"/>
+                    <rect x="100" y="20" width="10" height="10" fill="white"/>
+                    <rect x="20" y="40" width="10" height="10" fill="white"/>
+                    <rect x="40" y="40" width="10" height="10" fill="white"/>
+                    <rect x="80" y="40" width="10" height="10" fill="white"/>
+                    <rect x="100" y="40" width="10" height="10" fill="white"/>
+                    <rect x="20" y="60" width="10" height="10" fill="white"/>
+                    <rect x="40" y="60" width="10" height="10" fill="white"/>
+                    <rect x="60" y="60" width="10" height="10" fill="white"/>
+                    <rect x="80" y="60" width="10" height="10" fill="white"/>
+                    <rect x="100" y="60" width="10" height="10" fill="white"/>
+                    <rect x="20" y="80" width="10" height="10" fill="white"/>
+                    <rect x="40" y="80" width="10" height="10" fill="white"/>
+                    <rect x="80" y="80" width="10" height="10" fill="white"/>
+                    <rect x="100" y="80" width="10" height="10" fill="white"/>
+                    <rect x="20" y="100" width="10" height="10" fill="white"/>
+                    <rect x="100" y="100" width="10" height="10" fill="white"/>
+                  </svg>
+                  <span
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      letterSpacing: "0.04em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: 14,
+                    left: 14,
+                    right: 14,
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    lineHeight: 1.38,
+                    letterSpacing: "-0.005em",
+                    color: "#ffffff",
+                    zIndex: 2,
+                    textAlign: "left",
+                  }}
+                >
+                  {item.value}
+                </span>
               </div>
             ))}
           </div>
@@ -597,11 +662,23 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           margin: 0 0 16px;
           max-width: 680px;
         }
+        .infra-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        .infra-card {
+          transition: transform .45s cubic-bezier(.22,1,.36,1);
+        }
+        .infra-card:hover {
+          transform: translateY(-4px);
+        }
         @media (max-width: 1024px) {
           .section-hero-ico { display: none !important; }
         }
         @media (max-width: 768px) {
           .section-title { margin-bottom: 16px; }
+          .infra-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
