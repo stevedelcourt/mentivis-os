@@ -34,6 +34,15 @@ export default function LearningOSPageClient({ lang }: { lang: Locale }) {
       <LearningOSTestimonials lang={lang} />
       <LearningOSFAQ lang={lang} />
       <CTABlock lang={lang} variant="final" />
+      <section style={{ width: "100%", lineHeight: 0, fontSize: 0 }}>
+        <Image
+          src="/images/LearningOS/proportions.avif"
+          alt=""
+          width={1900}
+          height={603}
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
+      </section>
     </>
   );
 }
