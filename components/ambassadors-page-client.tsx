@@ -6,7 +6,6 @@ import { getT } from "@/lib/i18n";
 import Link from "next/link";
 import Image from "next/image";
 import CmsPageHero from "@/components/cms-page-hero";
-import ParallaxScreens from "@/components/parallax-screens";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 
 function useVisible(threshold = 0.1) {
@@ -293,8 +292,6 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
         lead={a.faq.subtitle}
         items={a.faq.items}
       />
-
-      <ParallaxScreens />
 
       {/* Bottom CTA */}
       <section ref={cta.ref} className="section" style={sectionStyle(cta.visible)}>
