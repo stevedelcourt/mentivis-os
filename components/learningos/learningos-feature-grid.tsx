@@ -40,17 +40,13 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
     >
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p
+          className="section-eyebrow-pill"
           style={{
             ...sectionAnim(visible, 0),
-            marginBottom: 12,
-            color: "#4e4e4e",
-            textTransform: "uppercase",
-            letterSpacing: "0.18em",
-            fontWeight: 500,
-            fontSize: 11,
+            marginBottom: 16,
           }}
         >
-          Capacités
+          {lang === "fr" ? "Fonctionnalités clés" : "Key features"}
         </p>
         <h2
           style={{
@@ -132,6 +128,21 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
           font-size: 13px;
           font-weight: 600;
           transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1), border 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .section-eyebrow-pill {
+          display: inline-flex;
+          align-items: center;
+          background: rgba(0,0,0,0.06);
+          backdrop-filter: blur(6px);
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 10px;
+          padding: 6px 14px;
+          color: #000;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          width: fit-content;
         }
         .feature-badge-icon {
           width: 14px;
