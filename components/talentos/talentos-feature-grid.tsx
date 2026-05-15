@@ -93,7 +93,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
                     padding: "6px 12px",
                     fontSize: 11,
                     fontWeight: 500,
-                    color: hovered ? "#fff" : "#4e4e4e",
+                    color: hovered ? "#000" : "#4e4e4e",
                     marginBottom: "auto",
                     alignSelf: "flex-start",
                     transition: "background 0.3s ease, color 0.3s ease",
@@ -106,7 +106,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
                     fontSize: 17,
                     fontWeight: 500,
                     marginBottom: 8,
-                    color: hovered ? "#fff" : "#000",
+                    color: hovered ? "#000" : "#000",
                     transition: "color 0.3s ease",
                   }}>
                     {f.title}
@@ -114,7 +114,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
                   <p style={{
                     fontSize: 14,
                     lineHeight: 1.55,
-                    color: hovered ? "rgba(255,255,255,0.8)" : "#4e4e4e",
+                    color: hovered ? "#4e4e4e" : "#4e4e4e",
                     margin: 0,
                     transition: "color 0.3s ease",
                   }}>
