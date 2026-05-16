@@ -52,17 +52,6 @@ export default function TalentOSPipeline({ lang }: { lang: Locale }) {
             </div>
           ))}
         </div>
-        <div style={{ ...sectionAnim(visible, 0.2), aspectRatio: "16/9", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
-          <img
-            src="/images/TalentOS/screenshot-pipeline.avif"
-            alt=""
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-              (e.target as HTMLImageElement).parentElement!.innerText = "Pipeline screenshot";
-            }}
-          />
-        </div>
       </div>
       <style>{`.talentos-pipeline-step:hover { border-top-color: #0A0A0A !important; }`}</style>
     </section>

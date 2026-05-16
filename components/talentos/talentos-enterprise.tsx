@@ -52,7 +52,7 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 700 }}>
           {lang === "fr" ? "Une infrastructure de niveau entreprise." : "Enterprise-grade infrastructure."}
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }} className="talentos-enterprise-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12 }} className="talentos-enterprise-grid">
           {items.map((item, i) => (
             <div
               key={item.label}
@@ -60,19 +60,19 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
                 ...sectionAnim(visible, 0.1 + i * 0.05),
                 background: "#f5f5f5",
                 borderRadius: 18,
-                padding: "28px 24px",
+                padding: "24px 16px",
                 display: "flex",
                 flexDirection: "column",
-                gap: 12,
-                aspectRatio: "1/1",
+                gap: 10,
+                minHeight: 200,
                 transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
               className="talentos-enterprise-card"
             >
               <SvgIcon path={ICONS[item.icon]} />
               <div style={{ marginTop: "auto" }}>
-                <h4 style={{ fontSize: 17, fontWeight: 500, marginBottom: 6, color: "#000" }}>{item.label}</h4>
-                <p style={{ fontSize: 14, lineHeight: 1.5, color: "#4e4e4e", margin: 0 }}>{item.desc}</p>
+                <h4 style={{ fontSize: 14, fontWeight: 500, marginBottom: 4, color: "#000" }}>{item.label}</h4>
+                <p style={{ fontSize: 12, lineHeight: 1.4, color: "#4e4e4e", margin: 0 }}>{item.desc}</p>
               </div>
             </div>
           ))}
@@ -80,8 +80,8 @@ export default function TalentOSEnterprise({ lang }: { lang: Locale }) {
       </div>
       <style>{`
         .talentos-enterprise-card:hover { transform: translateY(-4px); }
-        @media (max-width: 1024px) { .talentos-enterprise-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 768px) { .talentos-enterprise-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1200px) { .talentos-enterprise-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 768px) { .talentos-enterprise-grid { grid-template-columns: repeat(2, 1fr) !important; } }
       `}</style>
     </section>
   );
