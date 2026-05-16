@@ -94,7 +94,7 @@ export default function PageHero({ content, visual }: PageHeroProps) {
             }}
           >
             {c.headline.split("\n").map((line, i) => (
-              <span key={i} style={{ display: "block", whiteSpace: "nowrap" }}>
+              <span key={i} style={{ display: "block" }}>
                 {line}
               </span>
             ))}

@@ -88,17 +88,20 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.produits}
             </h4>
             <ul>
-              {(f.sections?.produits || ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => (
+              {(f.sections?.produits || ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
+                const path = link === "LearningOS" ? `/learningos` : link === "TalentOS" ? `/talentos` : link === "Tarifs" ? `/tarifs` : `/learningos`;
+                return (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
-                    href={`/${lang}`}
+                    href={`/${lang}${path}`}
                     className="footer-link t-caption"
                     style={{ color: "var(--text-tertiary)" }}
                   >
                     {link}
                   </Link>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </div>
           <div>
@@ -116,17 +119,20 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.workflows || "Workflows"}
             </h4>
             <ul>
-              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"]).map((link: string) => (
+              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"]).map((link: string) => {
+                const wPath = link === "Formation & Learning" || link === "Formation & Apprentissage" ? `/learningos` : link === "Talent Pipeline HR" || link === "Recrutement & Pipeline" ? `/talentos` : link === "Transformation" ? `/impact` : `/talentos`;
+                return (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
-                    href={`/${lang}`}
+                    href={`/${lang}${wPath}`}
                     className="footer-link t-caption"
                     style={{ color: "var(--text-tertiary)" }}
                   >
                     {link}
                   </Link>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </div>
         </div>

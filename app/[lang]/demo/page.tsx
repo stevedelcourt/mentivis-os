@@ -22,10 +22,10 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
       <PageHero
         content={{
           eyebrow: isFr ? "Démonstration" : "Demo",
-          headline: isFr ? "Pas de démonstration standard.\nUn cas réel, traité en direct." : "No standard demo.\nA real case, handled live.",
+          headline: isFr ? "Aucune démo générique.\nSeulement votre réalité terrain." : "No generic demo.\nOnly your real-world context.",
           subheadline: isFr
-            ? "Une démonstration MentivisOS est conduite par un consultant pédagogique. Elle se prépare en quelques jours à partir d'un objectif représentatif de votre situation."
-            : "A MentivisOS demo is conducted by a pedagogical consultant. It's prepared in a few days from an objective representative of your situation.",
+            ? "En quelques jours, nos équipes configurent MentivisOS autour d'un cas concret issu de votre contexte."
+            : "In just a few days, our teams configure MentivisOS around a concrete case from your context.",
         }}
       />
       <ContactForm lang={lang as Locale} mode="demo" />

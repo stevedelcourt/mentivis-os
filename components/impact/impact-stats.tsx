@@ -49,11 +49,19 @@ function BarChart({
   labels: string[];
 }) {
   const [tip, setTip] = useState<TooltipData>({ x: 0, y: 0, html: "", show: false });
-  const barH = 13;
-  const gap = 22;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  const barH = isMobile ? 11 : 13;
+  const gap = isMobile ? 18 : 22;
   const H = data.length * (barH + gap);
   const W = 560;
-  const M = { l: 140, r: 60, t: 10, b: 10 };
+  const M = { l: isMobile ? 90 : 140, r: isMobile ? 30 : 60, t: 10, b: 10 };
   const pw = W - M.l - M.r;
 
   return (
