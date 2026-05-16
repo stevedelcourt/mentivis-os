@@ -173,7 +173,7 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
         }
         @media (max-width: 768px) {
           .learningos-feature-grid {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
       `}</style>
