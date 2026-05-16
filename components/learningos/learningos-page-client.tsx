@@ -16,7 +16,8 @@ export default function LearningOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
       <LearningOSHero lang={lang} />
-      <section style={{ width: "100%", lineHeight: 0, fontSize: 0 }}>
+      {/* Desktop banner */}
+      <section className="learningos-banner-desktop" style={{ width: "100%", lineHeight: 0, fontSize: 0 }}>
         <Image
           src="/images/LearningOS/proportions.avif"
           alt=""
@@ -26,6 +27,23 @@ export default function LearningOSPageClient({ lang }: { lang: Locale }) {
           priority
         />
       </section>
+      {/* Mobile banner — left-anchored */}
+      <section className="learningos-banner-mobile" style={{ width: "100%", position: "relative", aspectRatio: "1900/603", overflow: "hidden" }}>
+        <Image
+          src="/images/LearningOS/proportions.avif"
+          alt=""
+          fill
+          style={{ objectFit: "cover", objectPosition: "left" }}
+          priority
+        />
+      </section>
+      <style>{`
+        .learningos-banner-mobile { display: none; }
+        @media (max-width: 768px) {
+          .learningos-banner-desktop { display: none !important; }
+          .learningos-banner-mobile { display: block !important; }
+        }
+      `}</style>
       <LearningOSFeatureGrid lang={lang} />
       <LearningOSWorkflowTabs lang={lang} />
       <LearningOSShowcase lang={lang} />

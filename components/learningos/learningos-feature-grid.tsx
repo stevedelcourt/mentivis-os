@@ -175,6 +175,10 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
           .learningos-feature-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .learningos-feature-card {
+            aspect-ratio: auto !important;
+            padding: 20px 16px !important;
+          }
         }
       `}</style>
     </section>
