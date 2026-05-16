@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState } from "react";
 import { getT, Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
@@ -32,26 +32,14 @@ const ITEMS = {
 export default function LearningOSShowcase({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const [activeIndex, setActiveIndex] = useState(0);
-  const [fading, setFading] = useState(false);
-  const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const { ref, visible } = useVisible(0.05);
-  const t = getT(lang);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const handleMobileClick = (i: number) => {
     setExpandedIndex(expandedIndex === i ? null : i);
   };
 
-  const handleClick = useCallback((i: number) => {
-    if (i === activeIndex || fading) return;
-    setFading(true);
-    if (fadeTimer.current) clearTimeout(fadeTimer.current);
-    fadeTimer.current = setTimeout(() => {
-      setActiveIndex(i);
-      setFading(false);
-    }, 200);
-  }, [activeIndex, fading]);
+  const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   const smallItems = items.filter((_, i) => i !== activeIndex);
   const smallPositions = [
@@ -105,88 +93,12 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: 22,
-              padding: "36px 28px 28px",
-              display: "flex",
-              flexDirection: "column",
               aspectRatio: "1/1",
-              position: "relative",
               overflow: "hidden",
-              transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+              transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-image 0.5s ease",
             }}
             className="learningos-showcase-big"
-          >
-            <div
-              style={{
-                opacity: fading ? 0 : 1,
-                transition: "opacity 0.2s ease",
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  background: "rgba(255,255,255,0.12)",
-                  backdropFilter: "blur(6px)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  borderRadius: 10,
-                  padding: "6px 12px 6px 8px",
-                  fontSize: 11,
-                  fontWeight: 500,
-                  color: "#fff",
-                  marginBottom: "auto",
-                  alignSelf: "flex-start",
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 130 130" fill="none">
-                  <rect x="20" y="20" width="10" height="10" fill="white"/>
-                  <rect x="100" y="20" width="10" height="10" fill="white"/>
-                  <rect x="20" y="40" width="10" height="10" fill="white"/>
-                  <rect x="40" y="40" width="10" height="10" fill="white"/>
-                  <rect x="80" y="40" width="10" height="10" fill="white"/>
-                  <rect x="100" y="40" width="10" height="10" fill="white"/>
-                  <rect x="20" y="60" width="10" height="10" fill="white"/>
-                  <rect x="40" y="60" width="10" height="10" fill="white"/>
-                  <rect x="60" y="60" width="10" height="10" fill="white"/>
-                  <rect x="80" y="60" width="10" height="10" fill="white"/>
-                  <rect x="100" y="60" width="10" height="10" fill="white"/>
-                  <rect x="20" y="80" width="10" height="10" fill="white"/>
-                  <rect x="40" y="80" width="10" height="10" fill="white"/>
-                  <rect x="80" y="80" width="10" height="10" fill="white"/>
-                  <rect x="100" y="80" width="10" height="10" fill="white"/>
-                  <rect x="20" y="100" width="10" height="10" fill="white"/>
-                  <rect x="100" y="100" width="10" height="10" fill="white"/>
-                </svg>
-                {items[activeIndex].tag}
-              </span>
-              <div style={{ marginTop: "auto" }}>
-                <h3
-                  style={{
-                    fontSize: "clamp(20px, 2.5vw, 28px)",
-                    fontWeight: 500,
-                    color: "#000",
-                    marginBottom: 12,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {items[activeIndex].title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: 14,
-                    lineHeight: 1.55,
-                    color: "#4e4e4e",
-                    margin: 0,
-                  }}
-                >
-                  {items[activeIndex].desc}
-                </p>
-              </div>
-            </div>
-          </div>
+          />
 
           {/* 4 small cards */}
           {smallItems.map((item, i) => {
@@ -194,7 +106,7 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
             return (
               <button
                 key={item.title}
-                onClick={() => handleClick(actualIndex)}
+                onClick={() => setActiveIndex(actualIndex)}
                 style={{
                   gridColumn: smallPositions[i].gridColumn,
                   gridRow: smallPositions[i].gridRow,
