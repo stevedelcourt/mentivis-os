@@ -76,13 +76,15 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           proof: `${a.hero.commission} - ${a.hero.rate}`,
         }}
         visual={
-          <Image
-            src="/images/ambassador.avif"
-            alt=""
-            width={600}
-            height={600}
-            style={{ width: "100%", height: "auto", borderRadius: 16 }}
-          />
+          <div className="amb-hero-visual">
+            <Image
+              src="/images/ambassador.avif"
+              alt=""
+              width={600}
+              height={600}
+              style={{ width: "100%", height: "auto", borderRadius: 16 }}
+            />
+          </div>
         }
       />
 
@@ -334,6 +336,12 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
       </section>
 
       <style>{`
+        .amb-hero-visual { width: 100%; }
+        @media (max-width: 768px) {
+          main > section:first-child > .container { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .amb-hero-visual { order: 2; }
+          .amb-hero-visual img { width: 100% !important; height: auto !important; max-width: 100% !important; }
+        }
         @keyframes ambassadors-float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-12px); }

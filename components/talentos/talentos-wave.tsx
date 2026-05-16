@@ -114,6 +114,7 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
           }
         }
         @media (max-width: 768px) {
+          .talentos-wave { display: none !important; }
           .talentos-wave {
             width: clamp(200px, 60vw, 300px);
             height: clamp(200px, 60vw, 300px);

@@ -109,7 +109,7 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
               ))}
             </ul>
           </div>
-          <div className="talentos-tabs-image" style={{ aspectRatio: "4/3", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
+          <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
             <img
               src={IMAGES[active]}
               alt=""
@@ -122,7 +122,7 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
           </div>
         </div>
       </div>
-      <style>{`@media (max-width: 1024px) { .talentos-tabs-panel { grid-template-columns: 1fr !important; gap: 24px !important; } .talentos-tabs-image { order: -1 !important; } }`}</style>
+      <style>{`@media (max-width: 1024px) { .talentos-tabs-panel { grid-template-columns: 1fr !important; gap: 24px !important; } }`}</style>
     </section>
   );
 }

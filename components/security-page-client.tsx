@@ -210,7 +210,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           headline: H.heroHeadline.replace(/<br\s*\/?>/g, "\n"),
         }}
         visual={
-          <div style={{ opacity: 0.5 }}>
+          <div className="security-hero-visual" style={{ opacity: 0.5 }}>
             <IcosahedronAnimation />
           </div>
         }
@@ -643,6 +643,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
         @media (max-width: 768px) {
           .section-title { margin-bottom: 16px; }
           .infra-grid { grid-template-columns: 1fr !important; }
+          .security-hero-visual { display: none !important; }
         }
       `}</style>
     </div>

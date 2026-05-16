@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
@@ -28,7 +29,19 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             : "In just a few days, our teams configure MentivisOS around a concrete case from your context.",
         }}
       />
-      <ContactForm lang={lang as Locale} mode="demo" />
+      <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px)" }}>
+        <div style={{ maxWidth: 1240, margin: "0 auto", display: "grid", gap: 48, alignItems: "start" }} className="demo-layout">
+          <Image
+            src="/images/demo-cool.webp"
+            alt=""
+            width={600}
+            height={600}
+            style={{ width: "100%", height: "auto", borderRadius: 16, position: "sticky", top: 100 }}
+          />
+          <ContactForm lang={lang as Locale} mode="demo" />
+        </div>
+      </section>
+      <style>{`@media (min-width: 1024px) { .demo-layout { grid-template-columns: 1fr 1fr; } }`}</style>
     </>
   );
 }

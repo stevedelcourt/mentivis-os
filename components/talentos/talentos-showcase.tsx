@@ -54,92 +54,57 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
           {/* Left — list */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             {items.map((item, i) => (
-              <div key={item.title} className="talentos-showcase-list-item">
+              <div
+                key={item.title}
+                onClick={() => setActiveIndex(i)}
+                onMouseEnter={() => setActiveIndex(i)}
+                style={{
+                  display: "flex",
+                  gap: 16,
+                  padding: "20px 0",
+                  cursor: "pointer",
+                  borderBottom: i < items.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                }}
+              >
                 <div
-                  onClick={() => setActiveIndex(i)}
-                  onMouseEnter={() => setActiveIndex(i)}
                   style={{
-                    display: "flex",
-                    gap: 16,
-                    padding: "20px 0",
-                    cursor: "pointer",
-                    borderBottom: i < items.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                    width: 3,
+                    borderRadius: 2,
+                    background: activeIndex === i ? "#000" : "transparent",
+                    transition: "background 0.25s ease",
+                    flexShrink: 0,
                   }}
-                >
-                  <div
-                    style={{
-                      width: 3,
-                      borderRadius: 2,
-                      background: activeIndex === i ? "#000" : "transparent",
-                      transition: "background 0.25s ease",
-                      flexShrink: 0,
-                    }}
-                  />
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          background: "rgba(0,0,0,0.04)",
-                          border: "1px solid transparent",
-                          borderRadius: 8,
-                          padding: "4px 10px",
-                          fontSize: 11,
-                          fontWeight: 500,
-                          color: "#4e4e4e",
-                        }}
-                      >
-                        {item.tag}
-                      </span>
-                    </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 500, color: "#000", margin: 0 }}>
-                      {item.title}
-                    </h3>
-                    <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0, maxWidth: "90%" }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-                {/* Mobile accordion image */}
-                <div className="talentos-showcase-acc" style={{ display: activeIndex === i ? "block" : "none" }}>
-                  <div
-                    style={{
-                      aspectRatio: "1/1",
-                      borderRadius: 18,
-                      backgroundImage: `url(${IMAGES[i]})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      margin: "0 0 20px",
-                      position: "relative",
-                    }}
-                  >
+                />
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <span
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        position: "absolute",
-                        top: 12,
-                        left: 12,
-                        background: "rgba(255,255,255,0.15)",
-                        backdropFilter: "blur(8px)",
-                        border: "1px solid rgba(255,255,255,0.2)",
+                        background: "rgba(0,0,0,0.04)",
+                        border: "1px solid transparent",
                         borderRadius: 8,
-                        padding: "5px 10px",
-                        fontSize: 10,
+                        padding: "4px 10px",
+                        fontSize: 11,
                         fontWeight: 500,
-                        color: "#fff",
+                        color: "#4e4e4e",
                       }}
                     >
                       {item.tag}
                     </span>
                   </div>
+                  <h3 style={{ fontSize: 18, fontWeight: 500, color: "#000", margin: 0 }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0, maxWidth: "90%" }}>
+                    {item.desc}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Right — desktop image */}
+          {/* Right — image */}
           <div
             style={{
               aspectRatio: "1/1",
@@ -178,9 +143,8 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
       </div>
       <style>{`
         @media (max-width: 1024px) {
-          .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 0 !important; }
-          .talentos-showcase-image { display: none !important; }
-          .talentos-showcase-list-item > div:first-child { padding: 16px 0 !important; }
+          .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .talentos-showcase-image { position: static !important; }
         }
       `}</style>
     </section>
