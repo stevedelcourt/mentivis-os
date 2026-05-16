@@ -42,7 +42,7 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
           <ContactForm lang={lang as Locale} mode="demo" />
         </div>
       </section>
-      <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } }`}</style>
+      <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } .demo-form-layout > section > .container { max-width: none !important; } }`}</style>
     </>
   );
 }
