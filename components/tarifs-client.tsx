@@ -93,7 +93,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 color: "var(--text-primary)",
               }}
             >
-              Opérez la formation<br />de votre entreprise
+              {lang === "fr" ? "Opérez la formation<br />de votre entreprise" : "Operate your company's training ecosystem."}
             </h1>
             <p
               className="t-lead"
@@ -103,7 +103,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 fontSize: "var(--text-body)",
               }}
             >
-              Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.
+              {lang === "fr" ? "Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise." : "Solutions tailored to every stage of your growth, from individual learners to enterprise-scale deployment."}
             </p>
 
             {/* Product Tabs */}

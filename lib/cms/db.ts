@@ -784,6 +784,13 @@ function rowToSubmission(row: any): FormSubmission {
   };
 }
 
+export async function getJobApplicationCount(): Promise<{ total: number; unread: number }> {
+  const db = await getDb();
+  const total = (db.prepare("SELECT COUNT(*) as c FROM job_applications").get() as any).c;
+  const unread = (db.prepare("SELECT COUNT(*) as c FROM job_applications WHERE read = 0").get() as any).c;
+  return { total, unread };
+}
+
 export async function getSubmissionCount(): Promise<{ total: number; unread: number }> {
   const db = await getDb();
   const total = (db.prepare("SELECT COUNT(*) as c FROM submissions").get() as any).c;

@@ -9,6 +9,7 @@ type TabCounts = {
   posts: { total: number; published: number; draft: number } | null;
   jobs: { total: number; published: number; draft: number } | null;
   submissions: { total: number; unread: number } | null;
+  candidatures: { total: number; unread: number } | null;
 };
 
 export const CMS_TABS = [
@@ -18,6 +19,7 @@ export const CMS_TABS = [
   { label: "Tarifs", href: "content-management/tarifs" },
   { label: "SEO / JSON-LD", href: "content-management/seo" },
   { label: "Soumissions", href: "content-management/soumissions", countKey: "submissions" as const },
+  { label: "Candidatures", href: "content-management/candidatures", countKey: "candidatures" as const },
   { label: "Parametres", href: "content-management/settings", godOnly: true },
 ];
 
@@ -52,6 +54,7 @@ const COUNT_URLS: Record<string, string> = {
   posts: "/api/cms/posts/count",
   jobs: "/api/cms/jobs/count",
   submissions: "/api/cms/submissions/count",
+  candidatures: "/api/cms/job-applications/count",
 };
 
 export function CmsNavTabs({
@@ -68,11 +71,12 @@ export function CmsNavTabs({
     posts: null,
     jobs: null,
     submissions: null,
+    candidatures: null,
   });
 
   useEffect(() => {
     if (!token) return;
-    const keys = ["posts", "jobs", "submissions"] as const;
+    const keys = ["posts", "jobs", "submissions", "candidatures"] as const;
     keys.forEach(async (key) => {
       try {
         const res = await fetch(COUNT_URLS[key], {
@@ -92,7 +96,7 @@ export function CmsNavTabs({
     if (!tab.countKey) return null;
     const c = counts[tab.countKey];
     if (!c) return null;
-    if (tab.countKey === "submissions") {
+    if (tab.countKey === "submissions" || tab.countKey === "candidatures") {
       const s = c as { total: number; unread: number };
       return s.unread > 0 ? String(s.unread) : null;
     }
@@ -149,7 +153,7 @@ export function CmsNavTabs({
                   fontSize: 11,
                   fontWeight: 600,
                   lineHeight: 1,
-                  background: tab.countKey === "submissions" ? "#2563EB" : "#0A0A0A",
+                  background: tab.countKey === "submissions" || tab.countKey === "candidatures" ? "#2563EB" : "#0A0A0A",
                   color: "#fff",
                 }}
               >
