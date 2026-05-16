@@ -6,22 +6,7 @@ import CTABlock from "@/components/cta-block";
 import PageHero from "@/components/page-hero";
 import CmsPageHero from "@/components/cms-page-hero";
 import IcosahedronAnimation from "@/components/icosahedron-animation";
-
-function useVisible(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-}
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface SecurityPageProps {
   lang: Locale;
@@ -136,12 +121,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
   const protections = useVisible();
   const infrastructure = useVisible();
   const faq = useVisible();
-
-  const sectionAnim = (visible: boolean, delay = 0): React.CSSProperties => ({
-    opacity: visible ? 1 : 0,
-    transform: visible ? "translateY(0)" : "translateY(24px)",
-    transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-  });
 
   const H = isFr ? {
     metaTitle: "Sécurité - MentivisOS",

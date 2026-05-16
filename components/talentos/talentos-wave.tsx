@@ -115,38 +115,6 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
         }
         @media (max-width: 768px) {
           .talentos-wave { display: none !important; }
-          .talentos-wave {
-            width: clamp(200px, 60vw, 300px);
-            height: clamp(200px, 60vw, 300px);
-          }
-          .talentos-wave__btn {
-            width: 60px;
-            height: 60px;
-          }
-          .talentos-wave__btn::before {
-            font-size: 18px;
-          }
-          .talentos-wave__circle {
-            border-width: 6px;
-          }
-          @keyframes talentsRipple {
-            0% {
-              top: 50%;
-              left: 50%;
-              width: 0;
-              height: 0;
-              opacity: 1;
-              transform: translate(-50%, -50%);
-            }
-            100% {
-              top: 50%;
-              left: 50%;
-              width: clamp(200px, 60vw, 300px);
-              height: clamp(200px, 60vw, 300px);
-              opacity: 0;
-              transform: translate(-50%, -50%);
-            }
-          }
         }
       `}</style>
     </div>

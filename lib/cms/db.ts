@@ -689,6 +689,25 @@ const DEFAULT_SEO: SeoContent = {
         description: "Actualites et analyses sur la formation et l'IA.",
       },
     },
+    business: {
+      title: "Mentivis - Coordonnees",
+      description: "Adresse, telephone et localisation de Mentivis, 60 Rue Francois 1er, 75008 Paris.",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Mentivis",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "60 Rue Francois 1er",
+          postalCode: "75008",
+          addressLocality: "Paris",
+          addressCountry: "FR",
+        },
+        telephone: "+33189481002",
+        url: "https://sc4bovu7233.universe.wf",
+        hasMap: "https://share.google/8UyU2AWo3MXMIhWPa",
+      },
+    },
   },
   en: {
     homepage: {
@@ -735,6 +754,25 @@ const DEFAULT_SEO: SeoContent = {
         description: "News and analysis on training and AI.",
       },
     },
+    business: {
+      title: "Mentivis - Contact",
+      description: "Address, phone and location of Mentivis, 60 Rue Francois 1er, 75008 Paris, France.",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Mentivis",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "60 Rue Francois 1er",
+          postalCode: "75008",
+          addressLocality: "Paris",
+          addressCountry: "FR",
+        },
+        telephone: "+33189481002",
+        url: "https://sc4bovu7233.universe.wf",
+        hasMap: "https://share.google/8UyU2AWo3MXMIhWPa",
+      },
+    },
   },
 };
 
@@ -761,7 +799,7 @@ export async function saveSeo(data: SeoContent) {
     ON CONFLICT(lang, page) DO UPDATE SET title = excluded.title, description = excluded.description, json_ld = excluded.json_ld
   `);
   for (const lang of ["fr", "en"] as const) {
-    for (const page of ["homepage", "tarifs", "blog"] as const) {
+    for (const page of ["homepage", "tarifs", "blog", "business"] as const) {
       const pageData = data[lang]?.[page];
       if (pageData) {
         stmt.run(lang, page, pageData.title, pageData.description, JSON.stringify(pageData.jsonLd));

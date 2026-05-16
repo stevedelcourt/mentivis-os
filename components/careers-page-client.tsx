@@ -6,22 +6,7 @@ import { Locale, getT } from "@/lib/i18n";
 import { Job, JobType } from "@/lib/cms/types";
 import CTABlock from "@/components/cta-block";
 import { useIsMobile } from "@/hooks/useMediaQuery";
-
-function useVisible(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-}
+import { useVisible } from "@/hooks/use-visible";
 
 interface CareersPageProps {
   lang: Locale;

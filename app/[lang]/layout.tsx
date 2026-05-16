@@ -21,6 +21,7 @@ export default async function LangLayout({
   const { lang } = await params;
   const seo = await getSeo();
   const homepageSeo = seo[lang as "fr" | "en"]?.homepage;
+  const businessSeo = seo[lang as "fr" | "en"]?.business;
 
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || headersList.get("next-url") || `/${lang}`;
@@ -38,6 +39,12 @@ export default async function LangLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageSeo.jsonLd) }}
+        />
+      )}
+      {businessSeo?.jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSeo.jsonLd) }}
         />
       )}
       <script

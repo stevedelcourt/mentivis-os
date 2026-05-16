@@ -42,7 +42,7 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
       <section style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
         <div className="container" style={{ textAlign: "center", maxWidth: 480 }}>
           <h2 className="t-display" style={{ fontSize: "var(--text-display)", marginBottom: 24 }}>
-            Merci.
+            {t.demo.form.success}
           </h2>
           <p className="t-lead">{t.demo.form.success}</p>
         </div>
@@ -71,8 +71,8 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
         <form onSubmit={handleSubmit} autoComplete="on">
           {/* Row 1: Prénom + Nom */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label="Prénom" name="firstname" required autoComplete="given-name" />
-            <FormField label="Nom" name="lastname" required autoComplete="family-name" />
+            <FormField label={t.demo.form.firstName} name="firstname" required autoComplete="given-name" />
+            <FormField label={t.demo.form.lastName} name="lastname" required autoComplete="family-name" />
           </div>
 
           {/* Row 2: Organisation + Poste/Role */}

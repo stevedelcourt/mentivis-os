@@ -7,7 +7,7 @@ import { useCmsAuth } from "@/hooks/useCmsAuth";
 import { useCmsFetch } from "@/hooks/useCmsFetch";
 import { CmsLayout, CmsLoading, CmsAlert, CmsReadOnlyBanner } from "@/components/cms/CmsLayout";
 
-type SeoPage = "homepage" | "tarifs" | "blog";
+type SeoPage = "homepage" | "tarifs" | "blog" | "business";
 
 interface SeoData {
   title: string;
@@ -26,6 +26,7 @@ const PAGES: { key: SeoPage; label: string }[] = [
   { key: "homepage", label: "Homepage" },
   { key: "tarifs", label: "Tarifs" },
   { key: "blog", label: "Blog" },
+  { key: "business", label: "Fiche établissement" },
 ];
 
 const LANGUAGES: { key: "fr" | "en"; label: string }[] = [

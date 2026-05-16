@@ -1,7 +1,7 @@
 "use client";
 
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const FEATURES = {
   fr: [
@@ -29,6 +29,7 @@ const FEATURES = {
 export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
   const features = FEATURES[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   return (
     <section
@@ -46,20 +47,10 @@ export default function LearningOSFeatureGrid({ lang }: { lang: Locale }) {
             marginBottom: 16,
           }}
         >
-          {lang === "fr" ? "Fonctionnalités clés" : "Key features"}
-        </p>
-        <h2
-          style={{
-            ...sectionAnim(visible, 0.05),
-            fontWeight: 300,
-            fontSize: "clamp(28px, 4vw, 44px)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            marginBottom: 48,
-            maxWidth: 600,
-          }}
-        >
-          {lang === "fr" ? "Tout ce dont vous avez besoin pour former à l'échelle." : "Everything you need to train at scale."}
+          {t.learningosPage.featureGrid.eyebrow}
+            </p>
+            <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
+              {t.learningosPage.featureGrid.title}
         </h2>
         <div
           style={{

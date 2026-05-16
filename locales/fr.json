@@ -625,7 +625,8 @@
     "title": "Pas de demonstration standard.\nUn cas réel, issu de votre organisation, traite en direct.",
     "description": "Une demonstration MentivisOS est conduite par un consultant pédagogique de Mentivis. Elle se prepare en quelques jours a partir d'un objectif ou d'un profil representatif de votre situation. Elle se conduit en visioconference ou sur site.",
     "form": {
-      "firstName": "Prenom et nom",
+      "firstName": "Prénom",
+      "lastName": "Nom",
       "organization": "Organisation",
       "role": "Role / Titre",
       "segment": "Segment",

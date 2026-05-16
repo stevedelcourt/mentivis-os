@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Locale } from "@/lib/i18n";
+import { getT, Locale } from "@/lib/i18n";
 import { learningosFaq } from "@/lib/faq-data";
 
 export default function LearningOSFAQ({ lang }: { lang: Locale }) {
   const faq = learningosFaq[lang];
+  const t = getT(lang);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,7 +69,7 @@ export default function LearningOSFAQ({ lang }: { lang: Locale }) {
                 margin: "0 0 1.75rem",
               }}
             >
-              {lang === "fr" ? "Questions fréquentes" : "Frequently asked questions"}
+              {t.learningosPage.faq.title}
             </h2>
             <p
               className="t-lead"

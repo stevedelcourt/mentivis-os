@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const GRADIENTS = [
   "radial-gradient(ellipse 50% 60% at 15% 30%, rgba(100,180,220,0.3) 0%, transparent 60%), linear-gradient(135deg, #e8f4fc 0%, #d0e8f4 100%)",
@@ -41,6 +41,7 @@ const FEATURES = {
 export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
   const features = FEATURES[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -66,10 +67,10 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
       />
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", position: "relative", zIndex: 1 }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
-          {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
+          {t.talentosPage.featureGrid.eyebrow}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
-          {lang === "fr" ? "Tout ce dont vous avez besoin pour recruter à l'échelle." : "Everything you need to recruit at scale."}
+          {t.talentosPage.featureGrid.title}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }} className="talentos-feature-grid">
           {features.map((f, i) => {

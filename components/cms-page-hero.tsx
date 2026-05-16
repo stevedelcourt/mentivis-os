@@ -8,9 +8,10 @@ interface CmsPageHeroProps {
   lang: string;
   defaults: PageHeroContent;
   visual?: ReactNode;
+  className?: string;
 }
 
-export default function CmsPageHero({ page, lang, defaults, visual }: CmsPageHeroProps) {
+export default function CmsPageHero({ page, lang, defaults, visual, className }: CmsPageHeroProps) {
   const [content, setContent] = useState<PageHeroContent>(defaults);
 
   useEffect(() => {
@@ -27,5 +28,5 @@ export default function CmsPageHero({ page, lang, defaults, visual }: CmsPageHer
     return () => { cancelled = true; };
   }, [page, lang]);
 
-  return <PageHero content={content} visual={visual} />;
+  return <PageHero content={content} visual={visual} className={className} />;
 }

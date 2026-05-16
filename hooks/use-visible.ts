@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 
 export function useVisible(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,3 +20,9 @@ export function useVisible(threshold = 0.1) {
 
   return { ref, visible };
 }
+
+export const sectionAnim = (visible: boolean, delay = 0): CSSProperties => ({
+  opacity: visible ? 1 : 0,
+  transform: visible ? "translateY(0)" : "translateY(24px)",
+  transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+});

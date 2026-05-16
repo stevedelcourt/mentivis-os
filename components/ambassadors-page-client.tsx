@@ -7,24 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CmsPageHero from "@/components/cms-page-hero";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
-
-function useVisible(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
+import { useVisible } from "@/hooks/use-visible";
 
 function ProfileIcon({ index }: { index: number }) {
   const icons = [

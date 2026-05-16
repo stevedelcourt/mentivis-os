@@ -606,22 +606,6 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           .pricing-card:hover .pricing-card-strikethrough {
             color: rgba(255, 255, 255, 0.7);
           }
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-title,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-price,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-amount,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-currency,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-period,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-includes,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-includes strong,
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-feature {
-            color: inherit;
-          }
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-feature {
-            border-color: var(--border-light);
-          }
-          .pricing-card[data-plan="Gratuit"]:hover .pricing-card-check {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9L8 13L14 6' stroke='%234e4e4e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
-          }
           @media (max-width: 950px) {
             .tarifs-faq-grid {
               grid-template-columns: 1fr !important;

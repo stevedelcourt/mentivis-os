@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const TABS = {
   fr: [
@@ -57,15 +57,16 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
   const tabs = TABS[lang === "fr" ? "fr" : "en"];
   const [active, setActive] = useState(0);
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
-          {lang === "fr" ? "WORKFLOW" : "WORKFLOW"}
+          {t.talentosPage.workflowTabs.eyebrow}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
-          {lang === "fr" ? "Sourcez, évaluez et recrutez en un seul flux." : "Source, evaluate and hire in a single flow."}
+          {t.talentosPage.workflowTabs.title}
         </h2>
 
         <div style={{ ...sectionAnim(visible, 0.1), display: "flex", gap: 8, marginBottom: 48 }}>

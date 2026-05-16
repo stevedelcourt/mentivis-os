@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const GRADIENTS = [
   `radial-gradient(ellipse 55% 48% at 12% 90%, rgba(196,108,42,0.88) 0%, rgba(155,75,28,0.42) 38%, transparent 62%), radial-gradient(ellipse 38% 32% at 30% 60%, rgba(145,68,118,0.38) 0%, transparent 55%), radial-gradient(ellipse 45% 38% at 68% 28%, rgba(18,48,72,0.5) 0%, transparent 58%), linear-gradient(148deg, #1a3042 0%, #152535 55%, #0e1f30 100%)`,
@@ -35,6 +35,7 @@ const ITEMS = {
 export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -70,7 +71,7 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
             maxWidth: 700,
           }}
         >
-          {lang === "fr" ? "Une infrastructure de niveau entreprise." : "Enterprise-grade infrastructure."}
+          {t.learningosPage.enterprise.title}
         </h2>
 
         <div

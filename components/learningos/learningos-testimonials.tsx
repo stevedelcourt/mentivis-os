@@ -1,7 +1,7 @@
 "use client";
 
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const TESTIMONIALS = {
   fr: [
@@ -19,6 +19,7 @@ const TESTIMONIALS = {
 export default function LearningOSTestimonials({ lang }: { lang: Locale }) {
   const testimonials = TESTIMONIALS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   return (
     <section
@@ -40,20 +41,10 @@ export default function LearningOSTestimonials({ lang }: { lang: Locale }) {
             fontSize: 11,
           }}
         >
-          {lang === "fr" ? "ILS NOUS FONT CONFIANCE" : "TRUSTED BY"}
-        </p>
-        <h2
-          style={{
-            ...sectionAnim(visible, 0.05),
-            fontWeight: 300,
-            fontSize: "clamp(28px, 4vw, 44px)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            marginBottom: 48,
-            maxWidth: 600,
-          }}
-        >
-          {lang === "fr" ? "Rejoignez les équipes qui forment avec LearningOS." : "Join the teams training with LearningOS."}
+          {t.learningosPage.testimonials.eyebrow}
+            </p>
+            <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
+              {t.learningosPage.testimonials.title}
         </h2>
 
         <div

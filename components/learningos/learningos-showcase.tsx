@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const GRADIENTS = [
   `radial-gradient(ellipse 50% 60% at 15% 30%, rgba(180,160,220,0.25) 0%, transparent 60%), linear-gradient(135deg, #f8f4fc 0%, #eae4f4 100%)`,
@@ -36,6 +36,7 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
   const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   const handleClick = useCallback((i: number) => {
     if (i === activeIndex || fading) return;
@@ -75,20 +76,10 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
             fontSize: 11,
           }}
         >
-          {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
-        </p>
-        <h2
-          style={{
-            ...sectionAnim(visible, 0.05),
-            fontWeight: 300,
-            fontSize: "clamp(28px, 4vw, 44px)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            marginBottom: 48,
-            maxWidth: 700,
-          }}
-        >
-          {lang === "fr" ? "Des modèles puissants pour chaque besoin de formation." : "Powerful models for every training need."}
+          {t.learningosPage.showcase.eyebrow}
+            </p>
+            <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 64, maxWidth: 700 }}>
+              {t.learningosPage.showcase.title}
         </h2>
 
         <div

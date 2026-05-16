@@ -625,7 +625,8 @@
     "title": "No standard demo.\nA real case from your organization, handled live.",
     "description": "A MentivisOS demo is conducted by a Mentivis pedagogical consultant. It's prepared in a few days from an objective or profile representative of your situation. It's conducted via video conference or on-site.",
     "form": {
-      "firstName": "First and last name",
+      "firstName": "First name",
+      "lastName": "Last name",
       "organization": "Organization",
       "role": "Role / Title",
       "segment": "Segment",

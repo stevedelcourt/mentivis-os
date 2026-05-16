@@ -89,7 +89,8 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             </h4>
             <ul>
               {(f.sections?.produits || ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
-                const path = link === "LearningOS" ? `/learningos` : link === "TalentOS" ? `/talentos` : link === "Tarifs" ? `/tarifs` : `/learningos`;
+                const PRODUITS_PATH: Record<string, string> = { LearningOS: "/learningos", TalentOS: "/talentos", "Mentivis API": "/modules/adaptive", Tarifs: "/tarifs" };
+                const path = PRODUITS_PATH[link] || "/learningos";
                 return (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
@@ -120,7 +121,14 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             </h4>
             <ul>
               {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"]).map((link: string) => {
-                const wPath = link === "Formation & Learning" || link === "Formation & Apprentissage" ? `/learningos` : link === "Talent Pipeline HR" || link === "Recrutement & Pipeline" ? `/talentos` : link === "Transformation" ? `/impact` : `/talentos`;
+                const WORKFLOWS_PATH: Record<string, string> = {
+                  "Formation & Learning": "/learningos", "Formation & Apprentissage": "/learningos", "Training & Learning": "/learningos",
+                  "Talent Pipeline HR": "/talentos", "Recrutement & Pipeline": "/talentos",
+                  "Transformation": "/impact",
+                  "Integration": "/modules/adaptive", "Intégration": "/modules/adaptive",
+                  "Developpeurs": "/modules/visual", "Développeurs": "/modules/visual", "Developers": "/modules/visual",
+                };
+                const wPath = WORKFLOWS_PATH[link] || "/talentos";
                 return (
                 <li key={link} style={{ marginBottom: 8 }}>
                   <Link
@@ -156,7 +164,15 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {(f.sections?.entreprise || ["News & publications", "A propos", "Affiliation & Ambassadeurs", "Carrieres"]).map((link: string) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
-                  href={link === "News & publications" ? `/${lang}/blog` : link === "A propos" || link === "About" || link === "À propos" ? `/${lang}/about` : link === "Affiliation & Ambassadeurs" || link === "Affiliation & Ambassadors" ? `/${lang}/ambassadors` : link === "Carrieres" || link === "Careers" || link === "Carrières" ? `/${lang}/carrieres` : `/${lang}`}
+                  href={(() => {
+                    const ENTREPRISE_PATH: Record<string, string> = {
+                      "News & publications": "/blog",
+                      "A propos": "/about", "About": "/about", "À propos": "/about",
+                      "Affiliation & Ambassadeurs": "/ambassadors", "Affiliation & Ambassadors": "/ambassadors",
+                      "Carrieres": "/carrieres", "Careers": "/carrieres", "Carrières": "/carrieres",
+                    };
+                    return `/${lang}${ENTREPRISE_PATH[link] || ""}`;
+                  })()}
                   className="footer-link t-caption"
                   style={{ color: "var(--text-tertiary)" }}
                 >

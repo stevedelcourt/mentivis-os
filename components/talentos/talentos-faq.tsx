@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Locale } from "@/lib/i18n";
+import { getT, Locale } from "@/lib/i18n";
 import { talentosFaq } from "@/lib/faq-data";
 
 export default function TalentOSFAQ({ lang }: { lang: Locale }) {
   const faq = talentosFaq[lang];
+  const t = getT(lang);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,7 +69,7 @@ export default function TalentOSFAQ({ lang }: { lang: Locale }) {
                 margin: "0 0 1.75rem",
               }}
             >
-              {lang === "fr" ? "Questions fréquentes" : "Frequently asked questions"}
+              {t.talentosPage.faq.title}
             </h2>
             <p
               className="t-lead"

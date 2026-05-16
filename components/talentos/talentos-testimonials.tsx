@@ -1,7 +1,7 @@
 "use client";
 
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const TESTIMONIALS = {
   fr: [
@@ -19,15 +19,16 @@ const TESTIMONIALS = {
 export default function TalentOSTestimonials({ lang }: { lang: Locale }) {
   const testimonials = TESTIMONIALS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   return (
     <section ref={ref} style={{ background: "#f5f5f5", padding: "clamp(96px, 12vw, 160px) 0" }}>
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
-          {lang === "fr" ? "ILS NOUS FONT CONFIANCE" : "TRUSTED BY"}
+          {t.talentosPage.testimonials.eyebrow}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
-          {lang === "fr" ? "Rejoignez les équipes qui recrutent avec TalentOS." : "Join the teams hiring with TalentOS."}
+          {t.talentosPage.testimonials.title}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }} className="talentos-testimonials-grid">
           {testimonials.map((t, i) => (

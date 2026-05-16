@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const ITEMS = {
   fr: [
@@ -32,6 +32,7 @@ const IMAGES = [
 export default function TalentOSShowcase({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -44,10 +45,10 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
     >
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <p style={{ ...sectionAnim(visible, 0), marginBottom: 12, color: "#4e4e4e", textTransform: "uppercase", letterSpacing: "0.18em", fontWeight: 500, fontSize: 11 }}>
-          {lang === "fr" ? "FONCTIONNALITÉS CLÉS" : "KEY FEATURES"}
+          {t.talentosPage.showcase.eyebrow}
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 64, maxWidth: 700 }}>
-          {lang === "fr" ? "Des modèles puissants pour chaque étape du recrutement." : "Powerful models for every recruitment stage."}
+          {t.talentosPage.showcase.title}
         </h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="talentos-showcase-split">

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect } from "react";
-import { Locale } from "@/lib/i18n";
-import { useVisible, sectionAnim } from "./_shared";
+import { getT, Locale } from "@/lib/i18n";
+import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface Chapter {
   id: number;
@@ -281,6 +281,7 @@ interface LearningOSPipelineProps {
 
 export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
   const { ref, visible } = useVisible(0.05);
+  const t = getT(lang);
 
   return (
     <section
@@ -302,20 +303,10 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
             fontSize: 11,
           }}
         >
-          {lang === "fr" ? "PARCOURS COMPLET" : "COMPLETE JOURNEY"}
-        </p>
-        <h2
-          style={{
-            ...sectionAnim(visible, 0.05),
-            fontWeight: 300,
-            fontSize: "clamp(28px, 4vw, 44px)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            marginBottom: 48,
-            maxWidth: 700,
-          }}
-        >
-          {lang === "fr" ? "Du besoin à la certification, un seul flux." : "From need to certification, a single flow."}
+          {t.learningosPage.pipeline.eyebrow}
+            </p>
+            <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
+              {t.learningosPage.pipeline.title}
         </h2>
 
         {/* Video player — full content column width, no padding */}
