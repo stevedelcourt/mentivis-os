@@ -4,12 +4,12 @@ import { useState, useCallback, useRef } from "react";
 import { getT, Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
-const GRADIENTS = [
-  `radial-gradient(ellipse 50% 60% at 15% 30%, rgba(180,160,220,0.25) 0%, transparent 60%), linear-gradient(135deg, #f8f4fc 0%, #eae4f4 100%)`,
-  `radial-gradient(ellipse 45% 55% at 80% 20%, rgba(160,200,180,0.25) 0%, transparent 55%), linear-gradient(135deg, #f0f8f4 0%, #e0ece4 100%)`,
-  `radial-gradient(ellipse 50% 50% at 70% 80%, rgba(230,200,170,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf4ec 0%, #f0e4d8 100%)`,
-  `radial-gradient(ellipse 45% 50% at 25% 80%, rgba(160,200,240,0.2) 0%, transparent 55%), linear-gradient(135deg, #f0f6fc 0%, #dce8f4 100%)`,
-  `radial-gradient(ellipse 40% 50% at 85% 50%, rgba(230,180,200,0.25) 0%, transparent 55%), linear-gradient(135deg, #fcf0f4 0%, #f0dce8 100%)`,
+const IMAGES = [
+  "/images/LearningOS/skillagents.webp",
+  "/images/LearningOS/moteuradaptif.webp",
+  "/images/LearningOS/gestion-certifications.webp",
+  "/images/LearningOS/dashboard-entreprise.webp",
+  "/images/LearningOS/api-integrations.webp",
 ];
 
 const ITEMS = {
@@ -101,7 +101,9 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
           <div
             style={{
               gridRow: "span 2",
-              background: GRADIENTS[activeIndex % GRADIENTS.length],
+              backgroundImage: `url(${IMAGES[activeIndex]})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               borderRadius: 22,
               padding: "36px 28px 28px",
               display: "flex",
