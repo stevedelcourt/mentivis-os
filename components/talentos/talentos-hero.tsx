@@ -12,7 +12,6 @@ const DEFAULTS: Record<string, PageHeroContent> = {
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'équipe",
     ctaSecondaryLink: "/contact",
-    proof: "Utilisé par les directions RH, les cabinets de recrutement, les CFA.",
   },
   en: {
     eyebrow: "TalentOS",
@@ -22,7 +21,6 @@ const DEFAULTS: Record<string, PageHeroContent> = {
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contact the team",
     ctaSecondaryLink: "/contact",
-    proof: "Used by HR departments, recruitment firms, CFAs.",
   },
 };
 
