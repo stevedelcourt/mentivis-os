@@ -1,5 +1,40 @@
 # Decision Log
 
+## 2026-05-16
+
+### Mobile Wave/Icosahedron Hiding
+**Problem**: TalentOS wave animation and Security icosahedron caused scroll/performance issues and layout breaks on mobile.
+**Decision**: Hide both via `display: none` at 768px breakpoint (TalentOSWave: CSS, Icosahedron: `.security-hero-visual` class).
+**Status**: ✅ Deployed
+
+### Demo/Contact 30/70 Layout
+**Problem**: Demo and contact pages had inconsistent image placement; image inside hero visual caused alignment issues with form.
+**Decision**: Place `<Grid cols={[3, 7]}>` below hero section — image 30% left, ContactForm 70% right. Image `margin-top: 120px` to align with form title. Same `demo-cool.webp` for both pages.
+**Status**: ✅ Deployed
+
+### Ambassador Hero Mobile Stack
+**Problem**: Hero image overlapped text on mobile.
+**Decision**: Force single column on mobile with `.amb-hero-visual` image full-width below headline/text.
+**Files**: `ambassadors-page-client.tsx`
+**Status**: ✅ Deployed
+
+### CMS Proof Stripping
+**Problem**: CMS `proof` field appearing on pages that shouldn't show it (e.g. TalentOS).
+**Decision**: `CmsPageHero` strips `proof` from CMS response on merge. Proof only shown from page defaults.
+**Status**: ✅ Deployed
+
+### CMS Candidatures Badge
+**Problem**: No way to see unread job applications from CMS nav.
+**Decision**: Add `getJobApplicationCount()` query, `/api/cms/job-applications/count` endpoint, `candidatures` tab in `CmsLayout` with unread badge.
+**Files**: `lib/cms/db.ts`, `app/api/cms/job-applications/count/route.ts`, `components/cms/CmsLayout.tsx`
+**Status**: ✅ Deployed
+
+### Tarifs EN Translation
+**Problem**: Tarifs hero text hardcoded in French on EN version.
+**Decision**: Conditional render based on `lang` prop for eyebrow, headline, subheadline.
+**Files**: `components/tarifs-client.tsx`
+**Status**: ✅ Deployed
+
 ## 2026-05-13
 
 ### Menu Reorganisation

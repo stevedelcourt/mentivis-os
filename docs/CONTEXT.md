@@ -18,6 +18,27 @@ Hero (with ambassador.avif visual) → WHO → HOW → FAQ → Bottom CTA
 - `/blog` — CMS-managed blog with category filtering
 - `/carrieres` — job listings
 
+## Milestone: v2.0 — Mobile + CMS Candidatures (2026-05-16)
+
+### Mobile Layout Overhaul
+- **PageHero**: Removed `whiteSpace: "nowrap"`, added optional `className` prop
+- **TalentOS**: Wave animation hidden on mobile, feature grid 2 cols, workflow/showcase reverted to side-image layout
+- **Security**: Icosahedron animation hidden on mobile (`.security-hero-visual` class)
+- **Ambassadors**: Hero image moves below text on mobile (`.amb-hero-visual` class)
+- **Demo/Contact**: 30%/70% image/form grid below hero (not inside hero), same `demo-cool.webp` for both
+- **Impact stats**: Bar charts larger on mobile (taller bars, wider gaps)
+- **Footer**: Produits/Workflows linked to real paths
+- **Nav**: Fixed href `carrières` → `carrieres` in mobile accordion (404 fix)
+- **CmsPageHero**: Proof field stripped from CMS data (proof only from page defaults)
+
+### CMS Candidatures Badge
+- Added `getJobApplicationCount()` in `lib/cms/db.ts` (queries `job_applications` table)
+- Created `/api/cms/job-applications/count` API endpoint (calqued on `submissions/count`)
+- Added `candidatures` tab to CMS nav with unread badge (blue, same as submissions)
+
+### Tarifs EN Translation
+- Hero eyebrow/headline/subheadline now conditional on `lang` prop (FR/EN)
+
 ## Recent Major Build (May 2026)
 - **CMS Heroes**: All page heroes editable via `/content-management/pages` (homepage, learningos, talentos, about, security, ambassadors)
 - **PageHero component**: Shared hero with `CmsPageHero` wrapper fetching from `/api/pages?page=xxx&lang=yy`
