@@ -47,6 +47,12 @@ const TABS = {
   ],
 };
 
+const IMAGES = [
+  "/images/TalentOS/talent-import.avif",
+  "/images/TalentOS/talent-score.avif",
+  "/images/TalentOS/talent-dash.avif",
+];
+
 export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
   const tabs = TABS[lang === "fr" ? "fr" : "en"];
   const [active, setActive] = useState(0);
@@ -105,7 +111,7 @@ export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
           </div>
           <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "#f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", color: "#777777", fontSize: 14, overflow: "hidden" }}>
             <img
-              src="/images/TalentOS/screenshot-workflow.avif"
+              src={IMAGES[active]}
               alt=""
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               onError={(e) => {
