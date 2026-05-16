@@ -31,7 +31,7 @@ const ITEMS = {
 
 export default function LearningOSShowcase({ lang }: { lang: Locale }) {
   const items = ITEMS[lang === "fr" ? "fr" : "en"];
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const handleMobileClick = (i: number) => {
