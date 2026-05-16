@@ -142,7 +142,7 @@ export default function TalentOSFeatureGrid({ lang }: { lang: Locale }) {
       <style>{`
         .talentos-feature-card:hover { transform: translateY(-4px); }
         @media (max-width: 1024px) { .talentos-feature-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 768px) { .talentos-feature-grid { grid-template-columns: 1fr !important; } .talentos-wave-bg { display: none !important; } }
+        @media (max-width: 768px) { .talentos-feature-grid { grid-template-columns: repeat(2, 1fr) !important; } .talentos-wave-bg { display: none !important; } }
       `}</style>
     </section>
   );
