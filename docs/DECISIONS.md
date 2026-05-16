@@ -2,6 +2,38 @@
 
 ## 2026-05-16
 
+### Centralized Animation Hooks
+**Problem**: `useVisible` and `sectionAnim` duplicated across 12+ files, plus identical `_shared.ts` in both `talentos/` and `learningos/`. A proper `hooks/use-visible.ts` existed but was never imported.
+**Decision**: Move `sectionAnim` into `hooks/use-visible.ts`, delete both `_shared.ts` files, all components import from `@/hooks/use-visible`.
+**Status**: ✅ Deployed
+
+### Inline Ternaries → Locale Keys
+**Problem**: 50+ instances of `lang === "fr" ? "..." : "..."` across product components bypassing the locale system. Locale keys (talentosPage/learningosPage.*.eyebrow/title) already populated in `fr.json`/`en.json` but unused.
+**Decision**: Import `getT(lang)` in every product section component, replace all inline ternaries with `t.*.eyebrow`/`t.*.title`. Feature grid eyebrow changed from duplicated "FONCTIONNALITÉS CLÉS" to distinct "Capacités" (matching locale intent).
+**Status**: ✅ Deployed
+
+### Footer Link Lookup Maps
+**Problem**: Triple-nested ternaries for Produits, Workflows, and Entreprise link paths were unmaintainable and silently linked wrong pages for locale-sourced labels (EN "Training & Learning" → /talentos instead of /learningos).
+**Decision**: Replace all three with `Record<string, string>` lookup maps. Added all FR/EN locale variants as keys.
+**Status**: ✅ Deployed
+
+### Contact Form Split Names
+**Problem**: Contact form had separate Prénom/Nom fields but locale only had a combined "Prenom et nom" key.
+**Decision**: Split into `firstName` + `lastName` locale keys (FR: Prénom/Nom, EN: First name/Last name). Success message "Merci." replaced with `t.demo.form.success`.
+**Status**: ✅ Deployed
+
+### Google Business Listing via CMS SEO
+**Problem**: No `LocalBusiness` schema for Google Maps/business listing. Address/phone existed only on /about page as plain `Organization`.
+**Decision**: Add `business` page to CMS SEO system (editable by god role). Inject `LocalBusiness` JSON-LD site-wide from `layout.tsx`. Default includes address (60 Rue François 1er, 75008 Paris), phone (+33189481002), and Google Maps URL.
+**Status**: ✅ Deployed
+
+### Dead CSS Cleanup
+**Problem**: `talentos-wave.tsx` animated element dimensions inside mobile media query where element is `display:none`. `tarifs-client.tsx` had 16 lines of hover overrides for `data-plan="Gratuit"` which doesn't exist.
+**Decision**: Remove dead CSS. 31 lines removed.
+**Status**: ✅ Deployed
+
+## 2026-05-16
+
 ### Mobile Wave/Icosahedron Hiding
 **Problem**: TalentOS wave animation and Security icosahedron caused scroll/performance issues and layout breaks on mobile.
 **Decision**: Hide both via `display: none` at 768px breakpoint (TalentOSWave: CSS, Icosahedron: `.security-hero-visual` class).

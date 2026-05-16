@@ -18,6 +18,23 @@ Hero (with ambassador.avif visual) → WHO → HOW → FAQ → Bottom CTA
 - `/blog` — CMS-managed blog with category filtering
 - `/carrieres` — job listings
 
+## Milestone: v2.1 — Refactor + LocalBusiness JSON-LD (2026-05-16)
+
+### Code Quality Refactor
+- **Centralized `useVisible` + `sectionAnim`**: Moved 12 inline copies + 2 duplicate `_shared.ts` files into `hooks/use-visible.ts`. Deleted `talentos/_shared.ts` and `learningos/_shared.ts`. 12 files now import from `@/hooks/use-visible`.
+- **Locale keys replacing inline ternaries**: All product section eyebrow/title strings (featureGrid, workflowTabs, showcase, pipeline, enterprise, testimonials, faq) now sourced from `fr.json`/`en.json` via `getT(lang)` instead of inline `lang === "fr" ? ...` ternaries. 14 files.
+- **Footer link paths**: Replaced 3 triple-nested ternaries with `Record<string, string>` lookup maps. Fixed locale bugs where EN `"Training & Learning"`, `"Integration"`, `"Developers"` silently fell through to wrong pages.
+- **Contact form i18n**: Added `firstName`/`lastName` split keys to demo.form locales. Replaced hardcoded `"Prénom"`, `"Nom"`, `"Merci."` with `t.demo.form.*` keys.
+- **Dead CSS removal**: 15 dead animation lines in `talentos-wave.tsx` mobile query (element is `display:none`). 16 dead `data-plan="Gratuit"` hover rules in `tarifs-client.tsx`.
+- **CmsPageHero `className` forwarding**: CMS hero pages can now pass `className` through to `PageHero`.
+- **+169 / −410 lines net code reduction** across 36 files.
+
+### LocalBusiness JSON-LD (Google Business Listing)
+- Added `LocalBusiness` schema with address, phone, and Google Maps URL to CMS SEO defaults.
+- New `"Fiche établissement"` tab in `/content-management/seo` (god-editable).
+- Schema injected site-wide via `layout.tsx` alongside existing `SoftwareApplication` JSON-LD.
+- **Address**: 60 Rue François 1er, 75008 Paris. **Phone**: +33189481002. **Map**: share.google/8UyU2AWo3MXMIhWPa
+
 ## Milestone: v2.0 — Mobile + CMS Candidatures (2026-05-16)
 
 ### Mobile Layout Overhaul
