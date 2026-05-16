@@ -76,8 +76,8 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
+            gridTemplateColumns: "repeat(6, 1fr)",
+            gap: 12,
           }}
           className="learningos-enterprise-grid"
         >
@@ -92,11 +92,11 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                 ...sectionAnim(visible, 0.1 + i * 0.05),
                 background: isHovered ? GRADIENTS[i % GRADIENTS.length] : "#f8f8f8",
                 borderRadius: 18,
-                padding: "20px 24px",
+                padding: "20px 16px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                aspectRatio: "2.2/1",
+                aspectRatio: "1/1",
                 transition: "background 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
               className="learningos-enterprise-card"
@@ -135,13 +135,13 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
                   <rect x="20" y="100" width="10" height="10" fill="currentColor"/>
                   <rect x="100" y="100" width="10" height="10" fill="currentColor"/>
                 </svg>
-                <span style={{ fontSize: 13, fontWeight: 600, lineHeight: 1 }}>
+                <span style={{ fontSize: 12, fontWeight: 600, lineHeight: 1 }}>
                   {item.label}
                 </span>
               </div>
               <p style={{
-                fontSize: 13,
-                lineHeight: 1.45,
+                fontSize: 11,
+                lineHeight: 1.4,
                 color: isHovered ? "rgba(255,255,255,0.75)" : "#4e4e4e",
                 margin: 0,
                 textAlign: "left",
@@ -161,15 +161,12 @@ export default function LearningOSEnterprise({ lang }: { lang: Locale }) {
         }
         @media (max-width: 1024px) {
           .learningos-enterprise-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
           }
         }
         @media (max-width: 768px) {
           .learningos-enterprise-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .learningos-enterprise-card {
-            aspect-ratio: 3/1 !important;
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
       `}</style>
