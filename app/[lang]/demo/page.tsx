@@ -21,6 +21,7 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <PageHero
+        className="demo-hero"
         content={{
           eyebrow: isFr ? "Démonstration" : "Demo",
           headline: isFr ? "Aucune démo générique.\nSeulement votre réalité terrain." : "No generic demo.\nOnly your real-world context.",
@@ -28,20 +29,18 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             ? "En quelques jours, nos équipes configurent MentivisOS autour d'un cas concret issu de votre contexte."
             : "In just a few days, our teams configure MentivisOS around a concrete case from your context.",
         }}
-      />
-      <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px)" }}>
-        <div style={{ maxWidth: 1240, margin: "0 auto", display: "grid", gap: 48, alignItems: "start" }} className="demo-layout">
+        visual={
           <Image
             src="/images/demo-cool.webp"
             alt=""
             width={600}
             height={600}
-            style={{ width: "100%", height: "auto", borderRadius: 16, position: "sticky", top: 100 }}
+            style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
-          <ContactForm lang={lang as Locale} mode="demo" />
-        </div>
-      </section>
-      <style>{`@media (min-width: 1024px) { .demo-layout { grid-template-columns: 1fr 1fr; } }`}</style>
+        }
+      />
+      <ContactForm lang={lang as Locale} mode="demo" />
+      <style>{`@media (min-width: 1024px) { .demo-hero > .container { grid-template-columns: 2fr 1fr !important; gap: 48px !important; } .demo-hero > .container > div:first-child { max-width: none !important; } }`}</style>
     </>
   );
 }

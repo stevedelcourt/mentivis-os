@@ -39,9 +39,10 @@ export interface PageHeroContent {
 interface PageHeroProps {
   content: PageHeroContent;
   visual?: ReactNode;
+  className?: string;
 }
 
-export default function PageHero({ content, visual }: PageHeroProps) {
+export default function PageHero({ content, visual, className }: PageHeroProps) {
   const c = content;
   const { ref, visible } = useVisible(0.01);
   const hasVisual = Boolean(visual);
@@ -49,6 +50,7 @@ export default function PageHero({ content, visual }: PageHeroProps) {
   return (
     <section
       ref={ref}
+      className={className}
       style={{
         background: "#ffffff",
         padding: visual
