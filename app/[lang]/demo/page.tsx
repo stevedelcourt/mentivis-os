@@ -36,12 +36,13 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             alt=""
             width={600}
             height={600}
+            className="demo-image"
             style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
           <ContactForm lang={lang as Locale} mode="demo" />
         </div>
       </section>
-      <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } }`}</style>
+      <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } }`}</style>
     </>
   );
 }
