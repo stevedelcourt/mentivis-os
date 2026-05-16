@@ -34,6 +34,12 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
   const { ref, visible } = useVisible(0.05);
   const t = getT(lang);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const handleItemClick = (i: number) => {
+    setActiveIndex(i);
+    setExpandedIndex(expandedIndex === i ? null : i);
+  };
 
   return (
     <section
@@ -57,7 +63,7 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
             {items.map((item, i) => (
               <div
                 key={item.title}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => handleItemClick(i)}
                 onMouseEnter={() => setActiveIndex(i)}
                 style={{
                   display: "flex",
@@ -100,6 +106,19 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0, maxWidth: "90%" }}>
                     {item.desc}
                   </p>
+                  <div className={`talentos-showcase-expand${expandedIndex === i ? " expanded" : ""}`}>
+                    <div
+                      style={{
+                        aspectRatio: "1/1",
+                        borderRadius: 14,
+                        backgroundImage: `url(${IMAGES[i]})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "100%",
+                        maxWidth: 400,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -145,7 +164,24 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
       <style>{`
         @media (max-width: 1024px) {
           .talentos-showcase-split { grid-template-columns: 1fr !important; gap: 48px !important; }
-          .talentos-showcase-image { position: static !important; }
+          .talentos-showcase-image { display: none !important; }
+        }
+        .talentos-showcase-expand {
+          display: none;
+          overflow: hidden;
+          max-height: 0;
+          opacity: 0;
+          margin-top: 0;
+          transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease, margin-top 0.45s ease;
+        }
+        @media (max-width: 1024px) {
+          .talentos-showcase-expand { display: block; }
+          .talentos-showcase-expand.expanded {
+            max-height: 450px;
+            opacity: 1;
+            margin-top: 20px;
+            margin-bottom: 12px;
+          }
         }
       `}</style>
     </section>

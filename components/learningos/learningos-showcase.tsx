@@ -37,6 +37,11 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
 
   const { ref, visible } = useVisible(0.05);
   const t = getT(lang);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const handleMobileClick = (i: number) => {
+    setExpandedIndex(expandedIndex === i ? null : i);
+  };
 
   const handleClick = useCallback((i: number) => {
     if (i === activeIndex || fading) return;
@@ -237,6 +242,52 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
         </div>
       </div>
 
+      {/* Mobile flat list */}
+      <div className="container learningos-showcase-mobile" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {items.map((item, i) => {
+            const isExpanded = expandedIndex === i;
+            return (
+              <div
+                key={item.title}
+                onClick={() => handleMobileClick(i)}
+                style={{
+                  background: "#f5f5f5",
+                  borderRadius: 16,
+                  padding: "16px 18px",
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: isExpanded ? 12 : 0,
+                  transition: "gap 0.3s ease",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span style={{ display: "inline-flex", background: "rgba(0,0,0,0.06)", borderRadius: 8, padding: "4px 10px", fontSize: 11, fontWeight: 500, color: "#4e4e4e", flexShrink: 0 }}>
+                    {item.tag}
+                  </span>
+                  <span style={{ fontSize: 15, fontWeight: 500, color: "#000", lineHeight: 1.3 }}>
+                    {item.title}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    overflow: "hidden",
+                    maxHeight: isExpanded ? 200 : 0,
+                    opacity: isExpanded ? 1 : 0,
+                    transition: "max-height 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease",
+                  }}
+                >
+                  <p style={{ fontSize: 14, lineHeight: 1.55, color: "#4e4e4e", margin: 0 }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       <style>{`
         .learningos-showcase-big:hover {
           transform: translateY(-4px);
@@ -245,16 +296,16 @@ export default function LearningOSShowcase({ lang }: { lang: Locale }) {
           transform: translateY(-4px);
           background: #f0f0f0 !important;
         }
-        @media (max-width: 1024px) {
-          .learningos-showcase-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
         @media (max-width: 768px) {
           .learningos-showcase-grid {
-            grid-template-columns: 1fr !important;
-            grid-template-rows: auto !important;
+            display: none !important;
           }
+          .learningos-showcase-mobile {
+            display: block !important;
+          }
+        }
+        .learningos-showcase-mobile {
+          display: none;
         }
       `}</style>
     </section>
