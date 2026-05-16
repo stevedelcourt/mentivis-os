@@ -19,7 +19,8 @@ export default function CmsPageHero({ page, lang, defaults, visual }: CmsPageHer
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (!cancelled && data?.page?.hero) {
-          setContent(data.page.hero);
+          const { proof: _p, ...rest } = data.page.hero;
+          setContent({ ...defaults, ...rest });
         }
       })
       .catch(() => {});
