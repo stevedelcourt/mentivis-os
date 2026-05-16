@@ -779,8 +779,7 @@ const DEFAULT_SEO: SeoContent = {
 export async function getSeo(): Promise<SeoContent> {
   const db = await getDb();
   const rows = db.prepare("SELECT * FROM seo").all() as any[];
-  if (rows.length === 0) return DEFAULT_SEO;
-  const result: any = { fr: {}, en: {} };
+  const result: any = JSON.parse(JSON.stringify(DEFAULT_SEO));
   for (const row of rows) {
     if (!result[row.lang]) result[row.lang] = {};
     result[row.lang][row.page] = {
