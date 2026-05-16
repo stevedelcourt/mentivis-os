@@ -21,12 +21,12 @@ const ITEMS = {
   ],
 };
 
-const GRADIENT_PLACEHOLDERS = [
-  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(130,100,200,0.4) 0%, rgba(90,60,160,0.6) 50%, rgba(50,30,100,0.8) 100%)",
-  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,160,220,0.4) 0%, rgba(40,120,180,0.6) 50%, rgba(20,70,130,0.8) 100%)",
-  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(70,200,180,0.4) 0%, rgba(40,160,140,0.6) 50%, rgba(20,100,90,0.8) 100%)",
-  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(220,160,80,0.4) 0%, rgba(200,120,50,0.6) 50%, rgba(150,70,20,0.8) 100%)",
-  "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(180,80,200,0.4) 0%, rgba(150,50,170,0.6) 50%, rgba(100,20,120,0.8) 100%)",
+const IMAGES = [
+  "/images/TalentOS/01talent.webp",
+  "/images/TalentOS/02talent.webp",
+  "/images/TalentOS/03talent.webp",
+  "/images/TalentOS/04talent.webp",
+  "/images/TalentOS/05talent.webp",
 ];
 
 export default function TalentOSShowcase({ lang }: { lang: Locale }) {
@@ -115,29 +115,39 @@ export default function TalentOSShowcase({ lang }: { lang: Locale }) {
             ))}
           </div>
 
-          {/* Right — image placeholder */}
+          {/* Right — image */}
           <div
             style={{
               aspectRatio: "1/1",
               borderRadius: 24,
-              background: GRADIENT_PLACEHOLDERS[activeIndex % GRADIENT_PLACEHOLDERS.length],
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transition: "background 0.5s ease",
+              backgroundImage: `url(${IMAGES[activeIndex]})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              transition: "background-image 0.5s ease",
               position: "sticky",
               top: 120,
               marginTop: 20,
             }}
             className="talentos-showcase-image"
           >
-            <span style={{
-              fontSize: 18,
-              fontWeight: 400,
-              color: "rgba(255,255,255,0.7)",
-              letterSpacing: "-0.01em",
-            }}>
-              {items[activeIndex].title}
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                position: "absolute",
+                top: 16,
+                left: 16,
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                borderRadius: 8,
+                padding: "6px 12px",
+                fontSize: 11,
+                fontWeight: 500,
+                color: "#fff",
+              }}
+            >
+              {items[activeIndex].tag}
             </span>
           </div>
         </div>
