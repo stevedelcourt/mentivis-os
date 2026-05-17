@@ -80,7 +80,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 marginBottom: 12,
               }}
             >
-              Tarifs
+              {lang === "fr" ? "Tarifs" : "Pricing"}
             </span>
             <h1
               className="t-display"
