@@ -93,7 +93,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 color: "var(--text-primary)",
               }}
             >
-              {lang === "fr" ? "Opérez la formation<br />de votre entreprise" : "Operate your company's training ecosystem."}
+              {lang === "fr" ? <>Opérez la formation<br />de votre entreprise</> : "Operate your company's training ecosystem."}
             </h1>
             <p
               className="t-lead"
