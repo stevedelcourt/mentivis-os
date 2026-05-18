@@ -1,5 +1,31 @@
 # Decision Log
 
+## 2026-05-18
+
+### Static Mirror for FTP Servers
+**Problem**: Site needed to be deployable to a static FTP server without Node.js/Passenger.
+**Decision**: `scripts/build-static.sh` curls all 34 public pages + assets into `out/`, post-processes `_next/image` URLs to direct paths. Uses local `DATA_DIR` for sql.js initialization. Generates `robots.txt` and `sitemap.xml`. SSR-only pages (/blog, /carrieres, /content-management, /api) not captured.
+**Files**: `scripts/build-static.sh`, `next.config.ts` (trailingSlash already present)
+**Status**: ✅ Deployed
+
+### Video Player Quick Wins
+**Problem**: 37MB video loaded on every page visit with no optimizations — slow to start, no iOS inline support, no poster, no fullscreen button.
+**Decision**: Add `preload="metadata"`, `playsInline`, `poster` thumbnail, lazy load via `{visible && <VideoPlayer/>}`, Fullscreen API button with glassmorphism styling. No `<link rel="preload">` in layout (would download 37MB site-wide).
+**Files**: `learningos-pipeline.tsx`
+**Status**: ✅ Deployed
+
+### Workflow Images Per-Tab
+**Problem**: TalentOS workflow used `.avif` images; LearningOS workflow used a single static screenshot for all tabs.
+**Decision**: TalentOS: swap to `.webp` (talent-import, talent-score, talent-dash). LearningOS: add `IMAGES` array with per-tab images (01-generation-cours, 02-former, 03-dashboard). No structural changes.
+**Files**: `talentos-workflow-tabs.tsx`, `learningos-workflow-tabs.tsx`
+**Status**: ✅ Deployed
+
+### LearningOS Showcase Screenshots
+**Problem**: Big card used gradient backgrounds — abstract, not informative. 5 real screenshots existed.
+**Decision**: Replace `GRADIENTS` array with `IMAGES` array (skillagents, moteuradaptif, gestion-certifications, dashboard-entreprise, api-integrations). Remove all text overlay from big card (image-only). Default to moteur adaptatif image.
+**Files**: `learningos-showcase.tsx`
+**Status**: ✅ Deployed
+
 ## 2026-05-16
 
 ### Centralized Animation Hooks

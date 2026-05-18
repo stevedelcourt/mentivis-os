@@ -342,3 +342,50 @@ PassengerStartupFile server.js
 - `3257b10` — Fix WASM path resolution for standalone builds
 - `75891bf` — Add infrastructure and CMS data layer documentation
 - `0ee73d1` — Zero-downtime deploy with atomic swap, DB backup, and health check
+
+---
+
+## Static Mirror Build (`/out`)
+
+### Purpose
+
+Generate a complete static HTML snapshot of all public pages for deployment to static FTP servers (no Node.js/Passenger required).
+
+### Script: `scripts/build-static.sh`
+
+```bash
+./scripts/build-static.sh  # creates out/ directory
+```
+
+**Process:**
+1. Starts local Next.js server on port 3999
+2. Curls 34 pages (17 pages × 2 langs) → `out/fr/` and `out/en/`
+3. Curls `sitemap.xml` (dynamic XML route)
+4. Copies `public/` static assets (images, videos, fonts)
+5. Post-processes all HTML to replace `/_next/image?url=...` with direct image paths
+6. Generates `robots.txt` and root `index.html` redirect → `/fr/`
+
+### Output Structure
+
+```
+out/
+├── index.html              ← root → /fr/
+├── robots.txt              ← sitemap link
+├── sitemap.xml             ← 34 entries with hreflang
+├── llms.txt                ← AI tool overview
+├── icon.svg                ← favicon
+├── fr/ (17 dirs)           ← index.html per page
+├── en/ (17 dirs)           ← index.html per page
+├── images/                 ← all public images
+├── videos/                 ← marseille-drone.mp4
+├── _next/static/           ← CSS + JS bundles
+└── sounds/                 ← audio effects
+```
+
+### Key Details
+
+- **Homepage URL fix**: Uses `${page:+/$page}` to avoid double-slash (`/fr//`)
+- **Image URL fix**: Regex handles both `&` and `&amp;` separators in `srcSet`/`imageSrcSet` attributes
+- **SQLite workaround**: Sets `DATA_DIR` to `/tmp/mentivis-data` locally (avoids hardcoded server path)
+- **Total size**: ~78MB (including 37MB video)
+- **SSR-only pages excluded**: `/blog/*`, `/carrieres/*`, `/content-management/*`, `/api/*` — not captured

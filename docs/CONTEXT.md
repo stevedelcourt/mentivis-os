@@ -18,6 +18,37 @@ Hero (with ambassador.avif visual) → WHO → HOW → FAQ → Bottom CTA
 - `/blog` — CMS-managed blog with category filtering
 - `/carrieres` — job listings
 
+## Milestone: v2.2 — Static Mirror + Video Player + Workflow Images (2026-05-18)
+
+### Static Mirror Build (`scripts/build-static.sh`)
+- Generates `out/` directory with 35 static HTML pages (17 pages × 2 langs + root redirect)
+- Post-processes `_next/image` URLs to direct image paths for static serving
+- Includes `robots.txt`, `sitemap.xml`, `llms.txt`, `icon.svg`
+- Local `DATA_DIR` workaround for sql.js
+- FTP-ready for any static Apache/Nginx server
+
+### Video Player Improvements
+- `preload="metadata"` — browser buffers video start on page load
+- `playsInline` — iOS stays inline (no forced fullscreen)
+- `poster="/videos/marseille-drone/ch0.jpg"` — thumbnail placeholder
+- Lazy load — `<video>` only mounted when pipeline section scrolls into view (37MB saved for top-of-page visitors)
+- Fullscreen button — bottom-right glassmorphism toggles browser Fullscreen API
+- All icons white with gray glassmorphism background
+
+### Workflow Images
+- **TalentOS workflow**: `.avif` → `.webp` swap (talent-import, talent-score, talent-dash)
+- **LearningOS workflow**: Per-tab images (01-generation-cours, 02-former, 03-dashboard)
+- **LearningOS showcase**: 5 real screenshots replacing gradient backgrounds (skillagents, moteuradaptif, gestion-certifications, dashboard-entreprise, api-integrations)
+
+### Misc Fixes
+- LearningOS feature grid 2 cols mobile + aspect-ratio fix
+- LearningOS banner left-anchored on mobile (fill + objectPosition: left)
+- LearningOS showcase mobile click-to-expand description
+- TalentOS showcase mobile click-to-reveal image
+- Tarifs eyebrow bilingual (Tarifs/Pricing)
+- Tarifs headline `<br />` rendered as JSX element instead of string
+- Google Tag Manager GTM-T94BWBCG (root layout)
+
 ## Milestone: v2.1 — Refactor + LocalBusiness JSON-LD (2026-05-16)
 
 ### Code Quality Refactor
