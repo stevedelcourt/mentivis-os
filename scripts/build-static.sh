@@ -30,7 +30,7 @@ for lang in fr en; do
   for page in "${PAGES[@]}"; do
     dir="$OUT_DIR/$lang/$page"
     mkdir -p "$dir"
-    url="$BASE/$lang/$page/"
+    url="$BASE/$lang${page:+/$page}/"
     if curl -sS -o "$dir/index.html" "$url"; then
       echo "  OK  $url"
     else
@@ -68,13 +68,17 @@ TXTEOL
 echo "--- Copying static assets ---"
 if [ -d "public" ]; then cp -r public/* "$OUT_DIR/"; fi
 
-# Fix Next.js Image URLs → direct paths
+# Fix Next.js Image URLs → direct paths (handles &amp; in srcSet)
 echo "--- Post-processing image URLs ---"
 python3 -c "
 import re, urllib.parse, glob
 for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     html = open(f, 'r').read()
-    html = re.sub(r'/_next/image\?url=([^&\"]+)(&[^\"\s]*)?', lambda m: urllib.parse.unquote(m.group(1)), html)
+    html = re.sub(
+        r'/_next/image/?\?url=([^&\s\"<>]+)(?:&(?:amp;)?[^\s\"<>]*)*',
+        lambda m: urllib.parse.unquote(m.group(1)),
+        html
+    )
     open(f, 'w').write(html)
 "
 
