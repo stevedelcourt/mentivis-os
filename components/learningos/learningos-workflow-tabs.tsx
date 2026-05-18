@@ -47,6 +47,12 @@ const TABS = {
   ],
 };
 
+const IMAGES = [
+  "/images/los-workflow/01-generation-cours.webp",
+  "/images/los-workflow/02-former.webp",
+  "/images/los-workflow/03-dashboard.webp",
+];
+
 export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
   const tabs = TABS[lang === "fr" ? "fr" : "en"];
   const [active, setActive] = useState(0);
@@ -170,7 +176,7 @@ export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
             }}
           >
             <img
-              src="/images/LearningOS/screenshot-workflow.avif"
+              src={IMAGES[active]}
               alt=""
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               onError={(e) => {

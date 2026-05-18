@@ -48,9 +48,9 @@ const TABS = {
 };
 
 const IMAGES = [
-  "/images/TalentOS/talent-import.avif",
-  "/images/TalentOS/talent-score.avif",
-  "/images/TalentOS/talent-dash.avif",
+  "/images/TalentOS/talent-import.webp",
+  "/images/TalentOS/talent-score.webp",
+  "/images/TalentOS/talent-dash.webp",
 ];
 
 export default function TalentOSWorkflowTabs({ lang }: { lang: Locale }) {
