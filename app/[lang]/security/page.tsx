@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import SecurityPageClient from "@/components/security-page-client";
 
@@ -29,7 +30,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ lang:
             description: isFr
               ? "L'IA pédagogique conçue pour transformer la formation, avec confidentialité et protections intégrées."
               : "AI-powered pedagogy built to transform training, with built-in confidentiality and protections.",
-            url: `https://sc4bovu7233.universe.wf/${lang}/security`,
+            url: `${SITE_URL}/${lang}/security`,
           }),
         }}
       />

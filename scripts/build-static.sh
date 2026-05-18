@@ -62,7 +62,7 @@ echo "  OK  root index.html → /fr/"
 cat > "$OUT_DIR/robots.txt" << 'TXTEOL'
 User-agent: *
 Allow: /
-Sitemap: https://sc4bovu7233.universe.wf/sitemap.xml
+Sitemap: ${SITE_URL:-https://mentivisos.com}/sitemap.xml
 TXTEOL
 
 echo "--- Copying static assets ---"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import TalentOSPageClient from "@/components/talentos/talentos-page-client";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
@@ -31,7 +32,7 @@ export default async function TalentOSPage({ params }: { params: Promise<{ lang:
             description: isFr
               ? "Le système de recrutement IA — ATS intelligent, matching de profils et pilotage des recrutements."
               : "The AI recruitment system — smart ATS, profile matching and recruitment pipeline management.",
-            url: `https://sc4bovu7233.universe.wf/${lang}/talentos`,
+            url: `${SITE_URL}/${lang}/talentos`,
           }),
         }}
       />

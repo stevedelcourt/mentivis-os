@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { Locale, getT } from "@/lib/i18n";
 import CareersPageClient from "@/components/careers-page-client";
 
@@ -25,7 +26,7 @@ export default async function CareersPage({ params }: { params: Promise<{ lang: 
             "@type": "WebPage",
             name: t.careers.meta.title,
             description: t.careers.meta.description,
-            url: `https://sc4bovu7233.universe.wf/${lang}/carrieres`,
+            url: `${SITE_URL}/${lang}/carrieres`,
           }),
         }}
       />

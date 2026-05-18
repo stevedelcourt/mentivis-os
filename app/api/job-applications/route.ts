@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/site-url";
 import fs from "fs";
 import path from "path";
 import { createJobApplication } from "@/lib/cms/db";
@@ -8,7 +9,7 @@ const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const CVS_DIR = path.join(DATA_DIR, "cvs");
 
 const ALLOWED_ORIGINS = [
-  "https://sc4bovu7233.universe.wf",
+  SITE_URL,
   "https://mentivis-os.vercel.app",
   "http://localhost:3000",
 ];
@@ -132,7 +133,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fallback to local URL if HubSpot upload failed
-    const cvFinalUrl = hubspotCvUrl || (cvUrl ? `https://sc4bovu7233.universe.wf${cvUrl}` : "");
+    const cvFinalUrl = hubspotCvUrl || (cvUrl ? `${SITE_URL}${cvUrl}` : "");
 
     // Send to HubSpot
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
@@ -153,7 +154,7 @@ export async function POST(request: NextRequest) {
             { name: "lien_cv", value: cvFinalUrl },
           ],
           context: {
-            pageUri: "https://sc4bovu7233.universe.wf/carrieres",
+            pageUri: `${SITE_URL}/carrieres`,
             pageName: "Job Application",
           },
         };

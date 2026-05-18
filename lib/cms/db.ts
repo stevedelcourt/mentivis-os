@@ -1,5 +1,6 @@
 import { getDb } from "./sqlite";
 import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS } from "./types";
+import { SITE_URL } from "@/lib/site-url";
 
 export { generateSlug } from "./utils";
 
@@ -654,7 +655,7 @@ const DEFAULT_SEO: SeoContent = {
         name: "MentivisOS",
         applicationCategory: "EducationApplication",
         description: "Systeme de formation native IA pour entreprises et institutions.",
-        url: "https://sc4bovu7233.universe.wf",
+                url: SITE_URL,
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "990",
@@ -704,7 +705,7 @@ const DEFAULT_SEO: SeoContent = {
           addressCountry: "FR",
         },
         telephone: "+33189481002",
-        url: "https://sc4bovu7233.universe.wf",
+                url: SITE_URL,
         hasMap: "https://share.google/8UyU2AWo3MXMIhWPa",
       },
     },
@@ -719,7 +720,7 @@ const DEFAULT_SEO: SeoContent = {
         name: "MentivisOS",
         applicationCategory: "EducationApplication",
         description: "AI-native training system for enterprises and institutions.",
-        url: "https://sc4bovu7233.universe.wf",
+                url: SITE_URL,
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "990",
@@ -769,7 +770,7 @@ const DEFAULT_SEO: SeoContent = {
           addressCountry: "FR",
         },
         telephone: "+33189481002",
-        url: "https://sc4bovu7233.universe.wf",
+                url: SITE_URL,
         hasMap: "https://share.google/8UyU2AWo3MXMIhWPa",
       },
     },

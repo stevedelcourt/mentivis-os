@@ -1,5 +1,6 @@
 import { getHomepageFaq, getAmbassadorsFaq, learningosFaq, talentosFaq, FaqItem } from "@/lib/faq-data";
 import { Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-url";
 
 export type FaqPage = "homepage" | "learningos" | "talentos" | "ambassadors";
 
@@ -21,7 +22,7 @@ function buildFaqSchema(items: FaqItem[], url: string) {
 
 export function getFaqJsonLd(page: FaqPage, lang: Locale): Record<string, unknown> | null {
   const isFr = lang === "fr";
-  const base = `https://sc4bovu7233.universe.wf/${lang}`;
+  const base = `${SITE_URL}/${lang}`;
 
   switch (page) {
     case "homepage":

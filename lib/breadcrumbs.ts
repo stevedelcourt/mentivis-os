@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 
 const LABELS: Record<string, { fr: string; en: string }> = {
@@ -30,7 +31,7 @@ export function getBreadcrumbItems(lang: Locale, pathname: string): BreadcrumbIt
   const segments = pathname.replace(/^\/+/, "").split("/").filter(Boolean);
 
   const items: BreadcrumbItem[] = [];
-  const base = `https://sc4bovu7233.universe.wf/${lang}`;
+  const base = `${SITE_URL}/${lang}`;
 
   items.push({
     name: lang === "fr" ? "Accueil" : "Home",

@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 
-const BASE_URL = "https://sc4bovu7233.universe.wf";
+import { SITE_URL } from "@/lib/site-url";
+
+const BASE_URL = SITE_URL;
 
 const langs = ["fr", "en"];
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import ImpactPageClient from "@/components/impact/impact-page-client";
 
@@ -29,7 +30,7 @@ export default async function ImpactPage({ params }: { params: Promise<{ lang: s
             description: isFr
               ? "Un programme structuré pour passer de l'inquiétude à la compétence face à l'IA."
               : "A structured program to move from concern to competence with AI.",
-            url: `https://sc4bovu7233.universe.wf/${lang}/impact`,
+            url: `${SITE_URL}/${lang}/impact`,
           }),
         }}
       />

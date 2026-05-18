@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import LearningOSPageClient from "@/components/learningos/learningos-page-client";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
@@ -31,7 +32,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
             description: isFr
               ? "Système de formation native IA — générez des parcours personnalisés et pilotez la montée en compétences."
               : "AI-native training system — generate personalized learning paths and drive skills development.",
-            url: `https://sc4bovu7233.universe.wf/${lang}/learningos`,
+            url: `${SITE_URL}/${lang}/learningos`,
           }),
         }}
       />
