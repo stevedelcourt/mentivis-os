@@ -40,9 +40,30 @@ for lang in fr en; do
   done
 done
 
+# Curl sitemap.xml while server is still up
+echo "--- Fetching sitemap.xml ---"
+curl -sS "$BASE/sitemap.xml" > "$OUT_DIR/sitemap.xml" 2>/dev/null && echo "  OK  sitemap.xml" || echo "  WARN: sitemap.xml failed"
+
 # Kill server
 kill "$SERVER_PID" 2>/dev/null || true
 wait "$SERVER_PID" 2>/dev/null || true
+
+# Root index.html redirect → /fr/
+cat > "$OUT_DIR/index.html" << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/fr/"></head>
+<body><a href="/fr/">MentivisOS</a></body>
+</html>
+HTMLEOF
+echo "  OK  root index.html → /fr/"
+
+# robots.txt
+cat > "$OUT_DIR/robots.txt" << 'TXTEOL'
+User-agent: *
+Allow: /
+Sitemap: https://sc4bovu7233.universe.wf/sitemap.xml
+TXTEOL
 
 echo "--- Copying static assets ---"
 if [ -d "public" ]; then cp -r public/* "$OUT_DIR/"; fi
@@ -53,13 +74,12 @@ python3 -c "
 import re, urllib.parse, glob
 for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     html = open(f, 'r').read()
-    def repl(m):
-        raw = urllib.parse.unquote(m.group(1))
-        return raw
-    html = re.sub(r'/_next/image\?url=([^&\"]+)(&[^\"\s]*)?', repl, html)
+    html = re.sub(r'/_next/image\?url=([^&\"]+)(&[^\"\s]*)?', lambda m: urllib.parse.unquote(m.group(1)), html)
     open(f, 'w').write(html)
 "
 
 COUNT=$(find "$OUT_DIR" -name 'index.html' | wc -l | tr -d ' ')
-echo "=== Done: $COUNT HTML pages in $OUT_DIR/ ($FAILS failed) ==="
+echo "=== Done: $COUNT HTML pages in $OUT_DIR/ ($FAILS pages failed) ==="
+echo "Contents:"
+ls -la "$OUT_DIR/"
 echo "FTP upload: rsync -av out/ user@targetserver:/path/to/webroot/"
