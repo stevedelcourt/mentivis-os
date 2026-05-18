@@ -49,6 +49,8 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     if (!videoId) return;
@@ -120,8 +122,18 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
     setMuted((m) => !m);
   };
 
+  const handleFullscreen = () => {
+    if (!containerRef.current) return;
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().then(() => setFullscreen(true)).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => setFullscreen(false)).catch(() => {});
+    }
+  };
+
   return (
     <div
+      ref={containerRef}
       className="video-player"
       style={{
         position: "relative",
@@ -135,6 +147,9 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
       <video
         ref={videoRef}
         src={videoSrc || ""}
+        preload="metadata"
+        playsInline
+        poster="/videos/marseille-drone/ch0.jpg"
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => setPlaying(false)}
@@ -268,6 +283,44 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
             </svg>
           )}
         </button>
+
+        {/* Bottom-right: Fullscreen button */}
+        <button
+          onClick={handleFullscreen}
+          style={{
+            position: "absolute",
+            bottom: 28,
+            right: 28,
+            width: 48,
+            height: 48,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.18)",
+            backdropFilter: "blur(12px)",
+            borderRadius: 999,
+            cursor: "pointer",
+            pointerEvents: "auto",
+            transition: "background 0.2s ease",
+            border: "none",
+          }}
+        >
+          {fullscreen ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="4 8 4 4 8 4" />
+              <polyline points="16 4 20 4 20 8" />
+              <polyline points="20 16 20 20 16 20" />
+              <polyline points="8 20 4 20 4 16" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+          )}
+        </button>
       </div>
 
       <style>{``}</style>
@@ -315,7 +368,7 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
             ...sectionAnim(visible, 0.1),
           }}
         >
-          <VideoPlayer lang={lang} videoId="marseille-drone" />
+          {visible && <VideoPlayer lang={lang} videoId="marseille-drone" />}
         </div>
 
         {/* Steps below video */}
