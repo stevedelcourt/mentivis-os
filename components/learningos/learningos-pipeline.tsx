@@ -186,12 +186,12 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
           }}
         >
           {playing ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A0A0A">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
               <rect x="6" y="4" width="4" height="16" rx="1"/>
               <rect x="14" y="4" width="4" height="16" rx="1"/>
             </svg>
           ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A0A0A">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
               <polygon points="5,3 19,12 5,21" />
             </svg>
           )}
@@ -270,13 +270,13 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
           }}
         >
           {muted ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
               <line x1="23" y1="9" x2="17" y2="15"/>
               <line x1="17" y1="9" x2="23" y2="15"/>
             </svg>
           ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -306,14 +306,14 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
           }}
         >
           {fullscreen ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="4 8 4 4 8 4" />
               <polyline points="16 4 20 4 20 8" />
               <polyline points="20 16 20 20 16 20" />
               <polyline points="8 20 4 20 4 16" />
             </svg>
           ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 3 21 3 21 9" />
               <polyline points="9 21 3 21 3 15" />
               <line x1="21" y1="3" x2="14" y2="10" />
