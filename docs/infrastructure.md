@@ -361,9 +361,16 @@ Generate a complete static HTML snapshot of all public pages for deployment to s
 1. Starts local Next.js server on port 3999
 2. Curls 34 pages (17 pages × 2 langs) → `out/fr/` and `out/en/`
 3. Curls `sitemap.xml` (dynamic XML route)
-4. Copies `public/` static assets (images, videos, fonts)
-5. Post-processes all HTML to replace `/_next/image?url=...` with direct image paths
-6. Generates `robots.txt` and root `index.html` redirect → `/fr/`
+4. Copies `public/` static assets (images, videos)
+5. Copies `.next/static/` to `out/_next/static/` (CSS, JS, fonts)
+6. Post-processes all HTML:
+   - Replaces `/_next/image?url=...` with direct image paths
+   - Strips dead `<link rel="preload" as="image">` tags
+   - Strips Next.js cache-busting query from favicon
+   - Injects OG/Twitter meta tags if missing
+   - Adds `apple-touch-icon` link
+7. Generates root files: `index.html`, `robots.txt`, `.htaccess`, `manifest.json`, `404.html`
+8. Removes unused Next.js default metadata SVGs (file.svg, globe.svg, etc.)
 
 ### Output Structure
 
@@ -373,12 +380,15 @@ out/
 ├── robots.txt              ← sitemap link
 ├── sitemap.xml             ← 34 entries with hreflang
 ├── llms.txt                ← AI tool overview
-├── icon.svg                ← favicon
+├── icon.svg                ← favicon (copied from app/)
+├── .htaccess               ← API proxy + trailing slash rewrite
+├── manifest.json           ← PWA minimal manifest
+├── 404.html                ← custom 404 page
 ├── fr/ (17 dirs)           ← index.html per page
 ├── en/ (17 dirs)           ← index.html per page
 ├── images/                 ← all public images
 ├── videos/                 ← marseille-drone.mp4
-├── _next/static/           ← CSS + JS bundles
+├── _next/static/           ← CSS, JS chunks, font .woff2
 └── sounds/                 ← audio effects
 ```
 
