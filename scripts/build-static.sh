@@ -59,7 +59,7 @@ HTMLEOF
 echo "  OK  root index.html → /fr/"
 
 # robots.txt
-cat > "$OUT_DIR/robots.txt" << 'TXTEOL'
+cat > "$OUT_DIR/robots.txt" << TXTEOL
 User-agent: *
 Allow: /
 Sitemap: ${SITE_URL:-https://mentivisos.com}/sitemap.xml
