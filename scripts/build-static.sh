@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 OUT_DIR="out"
-PORT=3999
-BASE="http://localhost:${PORT}"
 
 PAGES=(
   "" "about" "ambassadors" "security" "impact" "talentos" "learningos"
@@ -11,27 +9,23 @@ PAGES=(
 )
 
 rm -rf "$OUT_DIR"
-echo "=== Building static mirror to $OUT_DIR/ ==="
 
-# Create local data dir for sql.js
-export DATA_DIR="${TMPDIR:-/tmp}/mentivis-data"
-mkdir -p "$DATA_DIR"
-echo "--- DATA_DIR=$DATA_DIR ---"
+# Source secrets (SITE_URL for output domain)
+if [ -f ".env.deploy" ]; then source .env.deploy; fi
 
-# Start Next.js
-echo "--- Starting Next.js on port $PORT ---"
-npx next start --port "$PORT" &
-SERVER_PID=$!
-sleep 5
+SOURCE_URL="https://sc4bovu7233.universe.wf"
+TARGET_DOMAIN="${SITE_URL:-https://mentivisos.com}"
 
-# Curl all pages
+echo "=== Mirroring $SOURCE_URL → $OUT_DIR/ (target: $TARGET_DOMAIN) ==="
+
+# Curl all pages from live server (real CMS content baked in)
 FAILS=0
 for lang in fr en; do
   for page in "${PAGES[@]}"; do
     dir="$OUT_DIR/$lang/$page"
     mkdir -p "$dir"
-    url="$BASE/$lang${page:+/$page}/"
-    if curl -sS -o "$dir/index.html" "$url"; then
+    url="$SOURCE_URL/$lang${page:+/$page}/"
+    if curl -sSk -o "$dir/index.html" "$url"; then
       echo "  OK  $url"
     else
       echo "  FAIL $url"
@@ -40,13 +34,14 @@ for lang in fr en; do
   done
 done
 
-# Curl sitemap.xml while server is still up
+# Curl sitemap.xml from live
 echo "--- Fetching sitemap.xml ---"
-curl -sS "$BASE/sitemap.xml" > "$OUT_DIR/sitemap.xml" 2>/dev/null && echo "  OK  sitemap.xml" || echo "  WARN: sitemap.xml failed"
-
-# Kill server
-kill "$SERVER_PID" 2>/dev/null || true
-wait "$SERVER_PID" 2>/dev/null || true
+curl -sSk "$SOURCE_URL/sitemap.xml" > "$OUT_DIR/sitemap.xml" 2>/dev/null && echo "  OK  sitemap.xml" || echo "  WARN: sitemap.xml failed"
+# Replace source domain with target domain in sitemap
+if [ -f "$OUT_DIR/sitemap.xml" ] && grep -q sc4bovu7233 "$OUT_DIR/sitemap.xml" 2>/dev/null; then
+  perl -i -pe "s|https://sc4bovu7233\.universe\.wf|${TARGET_DOMAIN}|g" "$OUT_DIR/sitemap.xml"
+  echo "  OK  sitemap domain → ${TARGET_DOMAIN}"
+fi
 
 # Root index.html redirect → /fr/
 cat > "$OUT_DIR/index.html" << 'HTMLEOF'
@@ -62,7 +57,7 @@ echo "  OK  root index.html → /fr/"
 cat > "$OUT_DIR/robots.txt" << TXTEOL
 User-agent: *
 Allow: /
-Sitemap: ${SITE_URL:-https://mentivisos.com}/sitemap.xml
+Sitemap: ${TARGET_DOMAIN}/sitemap.xml
 TXTEOL
 
 # .htaccess for static server — proxy API + trailing slash rewrite
@@ -115,7 +110,7 @@ SITE_URL = os.environ.get('SITE_URL', 'https://mentivisos.com')
 for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     html = open(f, 'r').read()
 
-    # Fix Next.js Image URLs → direct paths (handles &amp; in srcSet)
+    # Fix Next.js Image URLs → direct paths (handles &amp; in srcSet and imageSrcSet)
     html = re.sub(
         r'/_next/image/?\?url=([^&\s\"<>]+)(?:&(?:amp;)?[^\s\"<>]*)*',
         lambda m: urllib.parse.unquote(m.group(1)),
@@ -125,8 +120,12 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     # Strip <link rel=preload as=image> — dead on static, uses _next/image
     html = re.sub(r'<link\s[^>]*\brel=[\"\']?preload[\"\']?\s[^>]*\bas=[\"\']?image[\"\']?[^>]*/?>', '', html)
 
+    # Replace live server domain with target domain (sitemap, JSON-LD, breadcrumbs)
+    if SITE_URL and 'sc4bovu7233.universe.wf' in html and SITE_URL != 'https://sc4bovu7233.universe.wf':
+        html = html.replace('https://sc4bovu7233.universe.wf', SITE_URL)
+
     # Fix favicon: strip cache-busting query, preserve quotes
-    html = re.sub(r'href=([\"\'])/icon\.svg\?[^\"\']*\1', r'href=\1/icon.svg\1', html)
+    html = re.sub(r'href=([\"\'])/icon.svg\?[^\"\']*\1', r'href=\1/icon.svg\1', html)
 
     # Add apple-touch-icon
     html = html.replace('<link rel=\"icon\"', '<link rel=\"apple-touch-icon\" href=\"/icon.svg\"/><link rel=\"icon\"')

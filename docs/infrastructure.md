@@ -354,23 +354,19 @@ Generate a complete static HTML snapshot of all public pages for deployment to s
 ### Script: `scripts/build-static.sh`
 
 ```bash
-./scripts/build-static.sh  # creates out/ directory
+./scripts/build-static.sh  # curls live sc4bovu7233 → out/
 ```
 
-**Process:**
-1. Starts local Next.js server on port 3999
-2. Curls 34 pages (17 pages × 2 langs) → `out/fr/` and `out/en/`
-3. Curls `sitemap.xml` (dynamic XML route)
-4. Copies `public/` static assets (images, videos)
-5. Copies `.next/static/` to `out/_next/static/` (CSS, JS, fonts)
-6. Post-processes all HTML:
-   - Replaces `/_next/image?url=...` with direct image paths
-   - Strips dead `<link rel="preload" as="image">` tags
-   - Strips Next.js cache-busting query from favicon
-   - Injects OG/Twitter meta tags if missing
-   - Adds `apple-touch-icon` link
+**Process (v3 — curlling live server):**
+1. Sources `.env.deploy` for `SITE_URL` (target domain)
+2. Curls all 34 public pages from `https://sc4bovu7233.universe.wf` → CMS content baked in
+3. Curls `sitemap.xml` from live, replaces domain with `SITE_URL`
+4. Replaces all `https://sc4bovu7233.universe.wf` references with target domain in HTML (JSON-LD, breadcrumbs)
+5. Copies `public/` + `.next/static/` for CSS/JS/fonts/images
+6. Post-processes HTML: `_next/image` URLs → direct paths, OG tags, favicon, preload cleanup
 7. Generates root files: `index.html`, `robots.txt`, `.htaccess`, `manifest.json`, `404.html`
-8. Removes unused Next.js default metadata SVGs (file.svg, globe.svg, etc.)
+
+**Note**: Requires local `next build --webpack` first (for `.next/static/` CSS/JS bundles). No local server needed — curlls live sc4bovu7233 directly.
 
 ### Output Structure
 
