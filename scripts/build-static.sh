@@ -102,7 +102,7 @@ rm -f "$OUT_DIR/file.svg" "$OUT_DIR/globe.svg" "$OUT_DIR/next.svg" "$OUT_DIR/ver
 
 # Curl CSS/JS/fonts from live server (must match HTML references exactly)
 echo "--- Fetching CSS/JS assets from live server ---"
-mkdir -p "$OUT_DIR/_next/static"
+mkdir -p "$OUT_DIR/_next/static/css" "$OUT_DIR/_next/static/chunks" "$OUT_DIR/_next/static/media"
 ASSETS=0
 grep -ohE "/_next/static/[^\"<>[:space:]]+" $(find "$OUT_DIR" -name 'index.html') | sort -u > /tmp/static-assets.txt
 while IFS= read -r path; do
@@ -117,7 +117,44 @@ while IFS= read -r path; do
     echo "  SKIP $path"
   fi
 done < /tmp/static-assets.txt
-echo "  OK  $ASSETS CSS/JS/fonts mirrored"
+
+# Download all lazy-loaded chunks from webpack manifest
+CHUNK_BASE="${SOURCE_URL}/_next/static/chunks"
+CHUNK_DIR="${OUT_DIR}/_next/static/chunks"
+echo "--- Fetching all webpack lazy chunks ---"
+node -e "
+  const fs = require('fs');
+  const files = fs.readdirSync('${CHUNK_DIR}');
+  const mf = files.find(f => f.startsWith('webpack-'));
+  if (!mf) { console.log('no webpack manifest'); process.exit(0); }
+  const src = fs.readFileSync('${CHUNK_DIR}/'+mf, 'utf8');
+  const ids = new Set();
+  [...src.matchAll(/\"([a-f0-9]{4,})\"/g)].forEach(m => ids.add(m[1]));
+  [...src.matchAll(/\"(\d{1,6})\"/g)].forEach(m => ids.add(m[1]));
+  for (const id of ids) {
+    const onDisk = files.find(f => f.startsWith(id+'-') || f === id+'.js' || f === id+'.mjs');
+    if (!onDisk) process.stdout.write(id+' ');
+  }
+" > /tmp/chunk-ids.txt
+
+LC=0
+for chunkId in $(cat /tmp/chunk-ids.txt 2>/dev/null); do
+  # Try named pattern first, then numeric
+  for suffix in js mjs; do
+    url="${CHUNK_BASE}/${chunkId}.${suffix}"
+    if curl -sSk -w '%{http_code}' -o "${CHUNK_DIR}/${chunkId}.${suffix}" "$url" 2>/dev/null | grep -q 200; then
+      size=$(wc -c < "${CHUNK_DIR}/${chunkId}.${suffix}")
+      if [ "$size" -gt 100 ]; then
+        ((LC++)) 2>/dev/null || true
+        break
+      fi
+      rm -f "${CHUNK_DIR}/${chunkId}.${suffix}"
+    fi
+  done
+done
+rm -f /tmp/chunk-ids.txt
+
+echo "  OK  $ASSETS HTML-ref + $LC lazy chunks mirrored"
 
 # ── Post-processing (Python) ──
 echo "--- Post-processing HTML ---"
