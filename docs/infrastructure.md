@@ -389,3 +389,21 @@ out/
 - **SQLite workaround**: Sets `DATA_DIR` to `/tmp/mentivis-data` locally (avoids hardcoded server path)
 - **Total size**: ~78MB (including 37MB video)
 - **SSR-only pages excluded**: `/blog/*`, `/carrieres/*`, `/content-management/*`, `/api/*` — not captured
+
+### Static `.htaccess` (generated in `out/`)
+
+The build script generates an `.htaccess` that proxies all `/api/*` calls to the live o2switch server, enabling forms, blog content, and CMS hero data to work on the static site:
+
+```apache
+# Proxy API calls to live server
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^api/(.*)$ https://sc4bovu7233.universe.wf/api/$1 [P,L]
+```
+
+**Requirements on target server**: `mod_rewrite` and `mod_proxy` (standard on cPanel/shared hosting).
+**Nginx equivalent**:
+```nginx
+location /api/ {
+    proxy_pass https://sc4bovu7233.universe.wf/api/;
+}
+```

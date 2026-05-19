@@ -65,6 +65,21 @@ Allow: /
 Sitemap: ${SITE_URL:-https://mentivisos.com}/sitemap.xml
 TXTEOL
 
+# .htaccess for static server — proxy API + trailing slash rewrite
+cat > "$OUT_DIR/.htaccess" << 'HTEOF'
+RewriteEngine On
+
+# Trailing slash → index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} /$
+RewriteRule ^(.*)/$ $1/index.html [L]
+
+# Proxy API calls to live server
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^api/(.*)$ https://sc4bovu7233.universe.wf/api/$1 [P,L]
+HTEOF
+echo "  OK  .htaccess (API proxy + trailing slash)"
+
 echo "--- Copying static assets ---"
 if [ -d "public" ]; then cp -r public/* "$OUT_DIR/"; fi
 
