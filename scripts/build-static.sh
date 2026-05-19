@@ -94,6 +94,8 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
         lambda m: urllib.parse.unquote(m.group(1)),
         html
     )
+    # Strip <link rel=preload as=image> — dead on static, uses _next/image
+    html = re.sub(r'<link\s[^>]*\brel=[\"\']?preload[\"\']?\s[^>]*\bas=[\"\']?image[\"\']?[^>]*/?>', '', html)
     open(f, 'w').write(html)
 "
 
