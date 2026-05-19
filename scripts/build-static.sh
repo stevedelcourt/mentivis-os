@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 set -e
 OUT_DIR="out"
 
@@ -94,11 +95,29 @@ echo "  OK  404.html"
 
 echo "--- Copying static assets ---"
 if [ -d "public" ]; then cp -r public/* "$OUT_DIR/"; fi
-if [ -d ".next/static" ]; then mkdir -p "$OUT_DIR/_next" && cp -r .next/static "$OUT_DIR/_next/static"; fi
 # Copy Next.js file-based metadata assets
 if [ -f "app/icon.svg" ]; then cp app/icon.svg "$OUT_DIR/icon.svg"; fi
 # Strip Next.js default metadata SVGs (unused in static)
 rm -f "$OUT_DIR/file.svg" "$OUT_DIR/globe.svg" "$OUT_DIR/next.svg" "$OUT_DIR/vercel.svg" "$OUT_DIR/window.svg"
+
+# Curl CSS/JS/fonts from live server (must match HTML references exactly)
+echo "--- Fetching CSS/JS assets from live server ---"
+mkdir -p "$OUT_DIR/_next/static"
+ASSETS=0
+grep -ohE "/_next/static/[^\"<>[:space:]]+" $(find "$OUT_DIR" -name 'index.html') | sort -u > /tmp/static-assets.txt
+while IFS= read -r path; do
+  [[ -z "$path" ]] && continue
+  path=$(echo "$path" | sed 's/\\$//')
+  [[ -z "$path" ]] && continue
+  dir="$OUT_DIR$(/usr/bin/dirname "$path")"
+  /bin/mkdir -p "$dir"
+  if curl -sSk -o "${OUT_DIR}${path}" "${SOURCE_URL}${path}"; then
+    ((ASSETS++)) 2>/dev/null || true
+  else
+    echo "  SKIP $path"
+  fi
+done < /tmp/static-assets.txt
+echo "  OK  $ASSETS CSS/JS/fonts mirrored"
 
 # ── Post-processing (Python) ──
 echo "--- Post-processing HTML ---"
