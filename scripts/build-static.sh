@@ -82,6 +82,7 @@ echo "  OK  .htaccess (API proxy + trailing slash)"
 
 echo "--- Copying static assets ---"
 if [ -d "public" ]; then cp -r public/* "$OUT_DIR/"; fi
+if [ -d ".next/static" ]; then mkdir -p "$OUT_DIR/_next" && cp -r .next/static "$OUT_DIR/_next/static"; fi
 
 # Fix Next.js Image URLs → direct paths (handles &amp; in srcSet)
 echo "--- Post-processing image URLs ---"
