@@ -81,32 +81,6 @@ ENVEOF
   rm -rf .next
   npx next build --webpack
 
-  echo "--- Staging new build ---"
-  if [ -d ".next/standalone" ]; then
-    rm -rf .next/standalone-new
-    cp -a .next/standalone .next/standalone-new
-    echo "Copied standalone -> standalone-new"
-  else
-    echo "ERROR: .next/standalone not found after build"
-    exit 1
-  fi
-
-  echo "--- Atomic swap ---"
-  rm -rf .next/standalone-old
-  if [ -d ".next/standalone" ]; then
-    mv .next/standalone .next/standalone-old
-  fi
-  mv .next/standalone-new .next/standalone
-  echo "Swapped standalone-new -> standalone (old preserved as standalone-old)"
-
-  echo "--- Copying static assets to standalone ---"
-  mkdir -p .next/standalone/public
-  cp -a public/. .next/standalone/public/
-  mkdir -p .next/standalone/.next/static
-  cp -a .next/static/. .next/standalone/.next/static/
-  cp .env.local .next/standalone/.env.local
-  echo "Copied static assets to standalone"
-
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
   touch tmp/restart.txt
@@ -124,16 +98,10 @@ ENVEOF
   done
 
   if [ "\$HEALTH_OK" -eq 1 ]; then
-    echo "--- Cleaning up old build ---"
-    rm -rf .next/standalone-old
     echo "Deploy successful"
   else
     echo "!!! HEALTH CHECK FAILED !!!"
-    echo "Rolling back to previous build..."
-    rm -rf .next/standalone
-    mv .next/standalone-old .next/standalone
-    touch tmp/restart.txt
-    echo "Rollback complete. Investigate and retry."
+    echo "Previous build remains in place. Investigate and retry."
     exit 1
   fi
 EOF
@@ -141,13 +109,7 @@ EOF
 echo "=== Deploy complete ==="
 
 # ── Rollback Instructions ──
-# If deploy fails and you need manual rollback:
-# ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST}
-# cd /home/sc4bovu7233/nextapp
-# rm -rf .next/standalone
-# mv .next/standalone-old .next/standalone
-# touch tmp/restart.txt
-#
 # To restore database from backup:
+# ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST}
 # cp /home/sc4bovu7233/data/mentivis.db.backup.YYYYMMDD_HHMMSS /home/sc4bovu7233/data/mentivis.db
-# touch tmp/restart.txt
+# touch ~/nextapp/tmp/restart.txt
