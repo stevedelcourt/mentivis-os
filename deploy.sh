@@ -82,7 +82,7 @@ ENVEOF
   echo "--- Staging new build ---"
   if [ -d ".next/standalone" ]; then
     rm -rf .next/standalone-new
-    cp -aL .next/standalone .next/standalone-new
+    cp -a .next/standalone .next/standalone-new
     echo "Copied standalone -> standalone-new"
   else
     echo "ERROR: .next/standalone not found after build"
@@ -100,8 +100,13 @@ ENVEOF
   echo "--- Copying static assets to standalone ---"
   mkdir -p .next/standalone/public
   cp -a public/. .next/standalone/public/
-  rm -rf .next/standalone/.next/static
-  cp -a .next/static .next/standalone/.next/static
+  # Copy static into standalone (atomic rsync-delete if available)
+  if command -v rsync &> /dev/null; then
+    rsync -a --delete .next/static/ .next/standalone/.next/static/
+  else
+    rm -rf .next/standalone/.next/static
+    cp -a .next/static .next/standalone/.next/static
+  fi
   cp .env.local .next/standalone/.env.local
   echo "Copied static assets to standalone"
 
