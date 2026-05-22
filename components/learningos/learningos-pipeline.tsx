@@ -131,13 +131,35 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
     setMuted((m) => !m);
   };
 
-  const handleFullscreen = () => {
-    const el = videoRef.current || containerRef.current;
+  useEffect(() => {
+    const el = videoRef.current;
     if (!el) return;
-    if (!document.fullscreenElement) {
-      el.requestFullscreen({ navigationUI: "hide" }).then(() => setFullscreen(true)).catch(() => {});
+    const onFsChange = () => {
+      setFullscreen(!!(document.fullscreenElement || (el as any).webkitDisplayingFullscreen));
+    };
+    el.addEventListener('fullscreenchange', onFsChange);
+    el.addEventListener('webkitfullscreenchange', onFsChange);
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
+    return () => {
+      el.removeEventListener('fullscreenchange', onFsChange);
+      el.removeEventListener('webkitfullscreenchange', onFsChange);
+      document.removeEventListener('fullscreenchange', onFsChange);
+      document.removeEventListener('webkitfullscreenchange', onFsChange);
+    };
+  }, []);
+
+  const handleFullscreen = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const isFs = !!(document.fullscreenElement || (video as any).webkitDisplayingFullscreen);
+    if (isFs) {
+      if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+    } else if (typeof (video as any).webkitEnterFullscreen === "function") {
+      (video as any).webkitEnterFullscreen();
     } else {
-      document.exitFullscreen().then(() => setFullscreen(false)).catch(() => {});
+      video.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
     }
   };
 
