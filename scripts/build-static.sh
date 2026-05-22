@@ -102,6 +102,7 @@ rm -f "$OUT_DIR/file.svg" "$OUT_DIR/globe.svg" "$OUT_DIR/next.svg" "$OUT_DIR/ver
 
 # Curl CSS/JS/fonts from live server (must match HTML references exactly)
 echo "--- Fetching CSS/JS assets from live server ---"
+rm -rf "$OUT_DIR/_next/static"
 mkdir -p "$OUT_DIR/_next/static/css" "$OUT_DIR/_next/static/chunks" "$OUT_DIR/_next/static/media"
 ASSETS=0
 grep -ohE "/_next/static/[^\"<>[:space:]]+" $(find "$OUT_DIR" -name 'index.html') | sort -u > /tmp/static-assets.txt

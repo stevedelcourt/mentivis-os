@@ -98,6 +98,7 @@ ENVEOF
   echo "--- Copying static assets to standalone ---"
   mkdir -p .next/standalone/public
   cp -r public/* .next/standalone/public/
+  rm -rf .next/standalone/.next/static
   mkdir -p .next/standalone/.next/static
   cp -r .next/static/* .next/standalone/.next/static/
   cp .env.local .next/standalone/.env.local
