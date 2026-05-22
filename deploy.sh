@@ -75,15 +75,10 @@ ENVEOF
   fi
 
   echo "--- Building Next.js ---"
-  # Fix any broken permissions from previous deploys (644 on dirs removes x bit)
-  find .next -type d -exec chmod 755 {} \; 2>/dev/null || true
-  chmod -R u+rw .next 2>/dev/null || true
-  rm -rf .next
-  npx next build --webpack
-
-  # Clean up any stale Apache rewrite rules for _next/static (handled by server.js now)
+  # Clean stale artifacts from previous deploys
+  rm -rf .next ${APP_DIR}/public/_next 2>/dev/null || true
   sed -i '/RewriteRule.*_next\/static/d' ${APP_DIR}/.htaccess 2>/dev/null || true
-  rm -rf ${APP_DIR}/public/_next 2>/dev/null || true
+  npx next build --webpack
 
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
