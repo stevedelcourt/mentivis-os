@@ -132,9 +132,10 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
   };
 
   const handleFullscreen = () => {
-    if (!containerRef.current) return;
+    const el = videoRef.current || containerRef.current;
+    if (!el) return;
     if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen().then(() => setFullscreen(true)).catch(() => {});
+      el.requestFullscreen({ navigationUI: "hide" }).then(() => setFullscreen(true)).catch(() => {});
     } else {
       document.exitFullscreen().then(() => setFullscreen(false)).catch(() => {});
     }
@@ -258,7 +259,7 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
         </div>
         )}
 
-        {/* Top-right: Volume button */}
+        {!isMobileRef.current && (
         <button
           onClick={handleMute}
           style={{
@@ -293,6 +294,7 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
             </svg>
           )}
         </button>
+        )}
 
         {/* Bottom-right: Fullscreen button */}
         <button
