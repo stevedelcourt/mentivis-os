@@ -80,7 +80,7 @@ ENVEOF
   echo "--- Staging new build ---"
   if [ -d ".next/standalone" ]; then
     rm -rf .next/standalone-new
-    cp -a .next/standalone .next/standalone-new
+    cp -aL .next/standalone .next/standalone-new
     echo "Copied standalone -> standalone-new"
   else
     echo "ERROR: .next/standalone not found after build"
