@@ -75,6 +75,7 @@ ENVEOF
   fi
 
   echo "--- Building Next.js ---"
+  chmod -R u+rwx .next 2>/dev/null || true
   rm -rf .next
   npx next build --webpack
 
