@@ -75,7 +75,9 @@ ENVEOF
   fi
 
   echo "--- Building Next.js ---"
-  chmod -R u+rwx .next 2>/dev/null || true
+  # Fix any broken permissions from previous deploys (644 on dirs removes x bit)
+  find .next -type d -exec chmod 755 {} \; 2>/dev/null || true
+  chmod -R u+rw .next 2>/dev/null || true
   rm -rf .next
   npx next build --webpack
 
