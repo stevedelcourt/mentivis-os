@@ -81,17 +81,9 @@ ENVEOF
   rm -rf .next
   npx next build --webpack
 
-  echo "--- Copying static chunks to public/_next/static/ ---"
-  # Tiger-Protect blocks all dot-directory access, so copy static files outside .next/
-  rm -rf ${APP_DIR}/public/_next
-  mkdir -p ${APP_DIR}/public/_next/static
-  cp -a .next/static/. ${APP_DIR}/public/_next/static/
-  # Add rewrite rule if not present
-  if ! grep -q "RewriteRule.*public/_next" ${APP_DIR}/.htaccess 2>/dev/null; then
-    sed -i '/^RewriteEngine On$/a\RewriteRule ^_next/static/(.*) public/_next/static/\$1 [L]' ${APP_DIR}/.htaccess
-    echo "Added public/_next/static rewrite rule to .htaccess"
-  fi
-  echo "Static chunks copied to public/_next/static/"
+  # Clean up any stale Apache rewrite rules for _next/static (handled by server.js now)
+  sed -i '/RewriteRule.*_next\/static/d' ${APP_DIR}/.htaccess 2>/dev/null || true
+  rm -rf ${APP_DIR}/public/_next 2>/dev/null || true
 
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
