@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  assetPrefix: process.env.ASSET_PREFIX || undefined,
   images: {
     remotePatterns: [],
   },
