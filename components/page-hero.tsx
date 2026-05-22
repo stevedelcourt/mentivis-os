@@ -91,7 +91,8 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
                 color: "#4e4e4e",
               }}
             >
-              {c.subheadline}
+              <span className="subheadline-desktop">{c.subheadline}</span>
+              <span className="subheadline-mobile">Générez des parcours personnalisés, adaptez les contenus et pilotez la montée en compétences de vos équipes.</span>
             </p>
           )}
           {c.ctaPrimary && (
@@ -102,6 +103,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
                 gap: 12,
                 flexWrap: "wrap",
               }}
+              className="hero-buttons"
             >
               <Link
                 href={c.ctaPrimaryLink ?? "#"}
@@ -118,7 +120,8 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
                   gap: 8,
                 }}
               >
-                {c.ctaPrimary}
+                <span className="btn-label-desktop">{c.ctaPrimary}</span>
+                <span className="btn-label-mobile">Démo gratuite</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
@@ -139,7 +142,8 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
                     gap: 8,
                   }}
                 >
-                  {c.ctaSecondary}
+                  <span className="btn-label-desktop">{c.ctaSecondary}</span>
+                  <span className="btn-label-mobile">Contactez-nous</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
                   </svg>
@@ -149,6 +153,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
           )}
           {c.proof && (
             <p
+              className="hero-proof"
               style={{
                 ...sectionAnim(visible, 0.4),
                 marginTop: 32,
@@ -166,6 +171,19 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
           </div>
         )}
       </div>
+      <style>{`
+        .btn-label-mobile { display: none; }
+        .subheadline-mobile { display: none; }
+        @media (max-width: 768px) {
+          .btn-label-desktop { display: none; }
+          .btn-label-mobile { display: inline; }
+          .subheadline-desktop { display: none; }
+          .subheadline-mobile { display: inline; }
+          .hero-buttons { flex-wrap: nowrap !important; }
+          .hero-buttons a { font-size: 13px !important; padding: 10px 14px !important; white-space: nowrap; }
+          .hero-proof { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }

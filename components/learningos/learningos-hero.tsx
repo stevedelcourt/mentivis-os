@@ -5,7 +5,7 @@ import { PageHeroContent } from "@/components/page-hero";
 const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
     eyebrow: "LearningOS",
-    headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
+    headline: "Former autrement.\nPerformer durablement.",
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
     ctaPrimary: "Démarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",

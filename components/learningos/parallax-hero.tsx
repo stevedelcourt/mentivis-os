@@ -3,10 +3,11 @@
 import { useRef, useEffect, useCallback } from 'react'
 
 const GAP = 30
-const BASE_SPEED = 0.15
+const BASE_SPEED = 0.25
 const BACK_VR = 0.08
 const FRONT_VR = 0.15
-const FRONT_Y_OFFSET = -60
+const FRONT_Y_OFFSET_DESKTOP = -300
+const FRONT_Y_OFFSET_MOBILE = -136
 
 export default function ParallaxHero() {
   const backTrackRef = useRef<HTMLDivElement>(null)
@@ -16,6 +17,15 @@ export default function ParallaxHero() {
   const scrollYRef = useRef(0)
   const rafRef = useRef(0)
   const fallbackTimer = useRef(0)
+  const isMobileRef = useRef(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => { isMobileRef.current = e.matches }
+    isMobileRef.current = mq.matches
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   const measure = useCallback(() => {
     if (!backTrackRef.current) return
@@ -43,7 +53,8 @@ export default function ParallaxHero() {
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     const tick = () => {
-      offsetRef.current += BASE_SPEED
+      const speedMul = 1 + scrollYRef.current * 0.0003
+      offsetRef.current += BASE_SPEED * speedMul
 
       const stepW = imgWRef.current + GAP
       if (imgWRef.current > 0) {
@@ -51,8 +62,9 @@ export default function ParallaxHero() {
         while (offsetRef.current > wrapRange) offsetRef.current -= wrapRange
         while (offsetRef.current < 0) offsetRef.current += wrapRange
 
+        const frontOffset = isMobileRef.current ? FRONT_Y_OFFSET_MOBILE : FRONT_Y_OFFSET_DESKTOP
         const backY = scrollYRef.current * BACK_VR
-        const frontY = FRONT_Y_OFFSET + scrollYRef.current * FRONT_VR
+        const frontY = frontOffset + scrollYRef.current * FRONT_VR
 
         if (backTrackRef.current) {
           backTrackRef.current.style.transform = `translateX(${-offsetRef.current}px) translateY(${backY}px)`
@@ -86,7 +98,7 @@ export default function ParallaxHero() {
 
   return (
     <>
-      <div className="parallax-wrap" style={{ width: '100%', marginTop: 'var(--section-gap)' }}>
+      <div className="parallax-wrap" style={{ width: '100%', marginTop: 'calc(var(--section-gap) - 70px)' }}>
         {/* Back layer */}
         <div ref={backTrackRef} style={{ display: 'flex', gap: `${GAP}px`, width: 'max-content', willChange: 'transform' }}>
           <img ref={imgRef} src="/images/backgrounds/proportions-back.webp" alt="" draggable={false} style={sharedImg} />
@@ -107,7 +119,7 @@ export default function ParallaxHero() {
         :root { --parallax-img-h: 25vh; }
         @media (max-width: 768px) {
           :root { --parallax-img-h: 18vh; }
-          .parallax-wrap { margin-top: clamp(32px, 6vw, 64px) !important; }
+          .parallax-wrap { margin-top: 0 !important; }
         }
       ` }} />
     </>

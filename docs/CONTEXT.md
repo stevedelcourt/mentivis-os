@@ -1,5 +1,27 @@
 # MentivisOS — Current State
 
+## Milestone: v2.3 — Parallax Hero + Mobile Hero Tweaks (2026-05-22)
+
+### Parallax Hero (`components/learningos/parallax-hero.tsx`)
+- **Desktop front offset**: `-300px` (unchanged)
+- **Mobile front offset**: `-136px` (proportional to 18vh vs 25vh, then adjusted -80px)
+- **Auto-scroll speed**: `0.25` (was `0.15`)
+- **Scroll speed boost**: Horizontal speed multiplied by `1 + scrollY × 0.0003` (1× at top, ~2× at 3000px)
+- **Section raised 70px**: `margin-top: calc(var(--section-gap) - 70px)` on desktop
+- **Mobile margin-top**: `0` (was `clamp(32px, 6vw, 64px)`)
+- **Responsive offset**: `matchMedia('max-width: 768px')` via `isMobileRef` to avoid stale closures
+
+### Mobile Hero Buttons (`components/page-hero.tsx`)
+- **"Démo gratuite"** / **"Contactez-nous"** on mobile (CMS labels on desktop)
+- Two buttons inline on mobile: `flex-wrap: nowrap`, smaller font (13px) and padding (10px 14px)
+- Proof line hidden on mobile (`.hero-proof`)
+
+### Mobile Subheadline
+- Shorter mobile version: "Générez des parcours personnalisés, adaptez les contenus et pilotez la montée en compétences de vos équipes."
+
+### CMS Update
+- LearningOS FR hero updated via API: headline to "Former autrement.\nPerformer durablement.", shortened subheadline
+
 ## Product Pages (in order)
 ### LearningOS
 Hero → Edge-to-edge banner (proportions.avif) → FeatureGrid → WorkflowTabs → Showcase → Pipeline (video) → Enterprise → Testimonials → FAQ → CTABlock
