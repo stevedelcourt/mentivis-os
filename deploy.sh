@@ -81,6 +81,15 @@ ENVEOF
   rm -rf .next
   npx next build --webpack
 
+  echo "--- Configuring Apache for _next/static/ ---"
+  touch ${APP_DIR}/.htaccess
+  if ! grep -q "RewriteRule.*_next/static" ${APP_DIR}/.htaccess 2>/dev/null; then
+    sed -i '/^RewriteEngine On$/a\RewriteRule ^_next/static/(.*) .next/static/\$1 [L]' ${APP_DIR}/.htaccess
+    echo "Added _next/static/ rewrite rule"
+  else
+    echo "Rewrite rule already present"
+  fi
+
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
   touch tmp/restart.txt
