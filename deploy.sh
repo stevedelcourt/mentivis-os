@@ -75,6 +75,7 @@ ENVEOF
   fi
 
   echo "--- Building Next.js ---"
+  rm -rf .next
   npx next build --webpack
 
   echo "--- Staging new build ---"
