@@ -102,8 +102,6 @@ ENVEOF
   cp -a public/. .next/standalone/public/
   rm -rf .next/standalone/.next/static
   cp -a .next/static .next/standalone/.next/static
-  chmod -R 644 .next/standalone/.next/static
-  chmod 755 .next/standalone/.next/static .next/standalone/.next/static/*/
   cp .env.local .next/standalone/.env.local
   echo "Copied static assets to standalone"
 
