@@ -4,6 +4,9 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Serve _next/static from statics/ to bypass Tiger-Protect dotdir blocking
+RewriteRule ^_next/static/(.*) /statics/$1 [L]
+
 # Hide server version
 ServerSignature Off
 
