@@ -81,14 +81,12 @@ ENVEOF
   rm -rf .next
   npx next build --webpack
 
-  echo "--- Configuring Apache for _next/static/ ---"
-  touch ${APP_DIR}/.htaccess
-  if ! grep -q "RewriteRule.*_next/static" ${APP_DIR}/.htaccess 2>/dev/null; then
-    sed -i '/^RewriteEngine On$/a\RewriteRule ^_next/static/(.*) .next/static/\$1 [L]' ${APP_DIR}/.htaccess
-    echo "Added _next/static/ rewrite rule"
-  else
-    echo "Rewrite rule already present"
-  fi
+  echo "--- Creating _next/static symlink for Apache ---"
+  # Remove any old rewrite rule for _next/static (may conflict with symlink)
+  sed -i '/RewriteRule.*_next\/static/d' ${APP_DIR}/.htaccess 2>/dev/null || true
+  mkdir -p ${APP_DIR}/_next
+  ln -sfn .next/static ${APP_DIR}/_next/static
+  echo "Created _next/static -> .next/static/"
 
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
