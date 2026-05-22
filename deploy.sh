@@ -102,13 +102,8 @@ ENVEOF
   echo "--- Copying static assets to standalone ---"
   mkdir -p .next/standalone/public
   cp -a public/. .next/standalone/public/
-  # Copy static into standalone (atomic rsync-delete if available)
-  if command -v rsync &> /dev/null; then
-    rsync -a --delete .next/static/ .next/standalone/.next/static/
-  else
-    rm -rf .next/standalone/.next/static
-    cp -a .next/static .next/standalone/.next/static
-  fi
+  mkdir -p .next/standalone/.next/static
+  cp -a .next/static/. .next/standalone/.next/static/
   cp .env.local .next/standalone/.env.local
   echo "Copied static assets to standalone"
 
