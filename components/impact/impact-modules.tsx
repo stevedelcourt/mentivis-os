@@ -173,15 +173,15 @@ export default function ImpactModules({ lang }: { lang: Locale }) {
           ))}
           {/* MARIUS card */}
           <a
-            href="https://mariusia.com"
+            href="https://iciafrance.com/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="MARIUS"
+            aria-label="ICIA France"
             style={{
               ...sectionAnim(visible, 0.1 + c.modules.length * 0.08),
               borderRadius: 22,
               overflow: "hidden",
-              backgroundImage: "url(/images/marius-ia.webp)",
+              backgroundImage: "url(https://iciafrance.com/images/publications/icia-association-loi-1901/icia-article.webp)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               aspectRatio: "1/1",
