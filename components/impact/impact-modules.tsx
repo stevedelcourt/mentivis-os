@@ -171,6 +171,62 @@ export default function ImpactModules({ lang }: { lang: Locale }) {
               </div>
             </div>
           ))}
+          {/* MARIUS card */}
+          <a
+            href="https://mariusia.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="MARIUS"
+            style={{
+              ...sectionAnim(visible, 0.1 + c.modules.length * 0.08),
+              borderRadius: 22,
+              overflow: "hidden",
+              backgroundImage: "url(/images/marius-ia-small.webp)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              aspectRatio: "1/1",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "28px",
+              textDecoration: "none",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.6) 100%)",
+                borderRadius: 22,
+              }}
+            />
+            <div style={{ position: "relative", zIndex: 2 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#fff", fontSize: 17, fontWeight: 500 }}>MARIUS</span>
+                <span
+                  style={{
+                    padding: "8px 18px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: "#fff",
+                    background: "rgba(255,255,255,0.18)",
+                    backdropFilter: "blur(8px)",
+                    borderRadius: 8,
+                    border: "1px solid rgba(255,255,255,0.25)",
+                  }}
+                >
+                  Voir !
+                </span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>
