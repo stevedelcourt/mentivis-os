@@ -205,11 +205,9 @@ export default function ImpactModules({ lang }: { lang: Locale }) {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  justifyContent: "flex-end",
                 }}
               >
-                <span style={{ color: "#fff", fontSize: 17, fontWeight: 500 }}>MARIUS</span>
                 <span
                   style={{
                     padding: "8px 18px",
