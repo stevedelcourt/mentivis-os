@@ -65,6 +65,7 @@ export default function LearningOSWorkflowTabs({ lang }: { lang: Locale }) {
       style={{
         background: "#ffffff",
         padding: "clamp(96px, 12vw, 160px) 0",
+        boxShadow: "0 2px 24px rgba(0,0,0,0.04)",
       }}
     >
       <div className="container" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
