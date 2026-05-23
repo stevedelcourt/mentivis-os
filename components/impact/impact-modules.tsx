@@ -181,7 +181,7 @@ export default function ImpactModules({ lang }: { lang: Locale }) {
               ...sectionAnim(visible, 0.1 + c.modules.length * 0.08),
               borderRadius: 22,
               overflow: "hidden",
-              backgroundImage: "url(/images/marius-ia-small.webp)",
+              backgroundImage: "url(/images/marius-ia.webp)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               aspectRatio: "1/1",
