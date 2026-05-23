@@ -276,6 +276,13 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
                 to { opacity: 1; transform: none; }
               }
 
+              .impact-marius-card {
+                transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.38s ease;
+              }
+              .impact-marius-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 16px 40px rgba(0,0,0,.15);
+              }
               @media (max-width: 768px) {
                 .impact-section { display: none; }
               }
@@ -290,6 +297,61 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
             </div>
           </div>
         )}
+
+        <a
+          href="https://mariusia.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="impact-marius-card"
+          style={{
+            display: "block",
+            aspectRatio: "1 / 1",
+            borderRadius: 20,
+            overflow: "hidden",
+            backgroundImage: "url(/images/marius-ia-small.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            position: "relative",
+            textDecoration: "none",
+            marginTop: GAP,
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.65) 100%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: 22,
+              left: 24,
+              right: 24,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              zIndex: 2,
+            }}
+          >
+            <span style={{ color: "#fff", fontSize: 15, fontWeight: 500 }}>MARIUS</span>
+            <span
+              style={{
+                padding: "8px 18px",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#fff",
+                background: "rgba(255,255,255,0.18)",
+                backdropFilter: "blur(8px)",
+                borderRadius: 8,
+                border: "1px solid rgba(255,255,255,0.25)",
+              }}
+            >
+              Voir !
+            </span>
+          </div>
+        </a>
       </div>
     </section>
   );
