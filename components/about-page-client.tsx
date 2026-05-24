@@ -187,6 +187,86 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         </div>
       </section>
 
+      {/* ── INSIGHTS ── */}
+      <section className="section" style={{ paddingTop: "clamp(48px, 6vw, 80px)" }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+            {[
+              {
+                tag: "Notes stratégiques",
+                date: "28 mars 2026",
+                title: "Le poste est mort, vive la compétence",
+                author: "Marie Castelli",
+                href: "https://www.mentivis.com/fr/insights/le-poste-est-mort-vive-la-competence/",
+              },
+              {
+                tag: "Annonces",
+                date: "16 mars 2026",
+                title: "Les entreprises sont les prochaines grandes écoles",
+                author: "Mentivis",
+                href: "https://www.mentivis.com/fr/insights/les-entreprises-sont-les-prochaines-grandes-ecoles/",
+              },
+              {
+                tag: "Perspectives",
+                date: "26 janvier 2026",
+                title: "L\u2019IA comme nouvelle alphab\u00e9tisation : reprendre la bataille de la lumi\u00e8re",
+                author: "Roxan Roum\u00e9gas (PhD)",
+                href: "https://www.mentivis.com/fr/insights/lia-comme-nouvelle-alphabetisation-reprendre-la-bataille-de-la-lumiere/",
+              },
+            ].map((article, i) => (
+              <a
+                key={i}
+                href={article.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: 24,
+                  borderRadius: 16,
+                  border: "1px solid #e5e5e5",
+                  background: "#ffffff",
+                  textDecoration: "none",
+                  transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease",
+                }}
+                className="insight-card"
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                  <span style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "#4e4e4e", fontWeight: 500 }}>
+                    {article.tag}
+                  </span>
+                  <span style={{ fontSize: 11, color: "#aaa" }}>{article.date}</span>
+                </div>
+                <p style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.4, color: "#000", margin: "0 0 6px", flex: 1 }}>
+                  {article.title}
+                </p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
+                  <span style={{ fontSize: 12, color: "#888" }}>{article.author}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" viewBox="0 0 12 13" fill="none" style={{ flexShrink: 0, color: "#bbb" }}>
+                    <path d="M5.60002 0.899994C5.82094 0.899994 6.00002 1.07908 6.00002 1.29999C6.00002 1.52091 5.82094 1.69999 5.60002 1.69999H1.60002C1.37911 1.69999 1.20002 1.87908 1.20002 2.09999V10.9C1.20002 11.1209 1.37911 11.3 1.60002 11.3H10.4C10.6209 11.3 10.8 11.1209 10.8 10.9V6.89999C10.8 6.67908 10.9791 6.49999 11.2 6.49999C11.4209 6.49999 11.6 6.67908 11.6 6.89999V10.9C11.6 11.5627 11.0628 12.1 10.4 12.1H1.60002C0.937283 12.1 0.400024 11.5627 0.400024 10.9V2.09999C0.400024 1.43725 0.937283 0.899994 1.60002 0.899994H5.60002ZM11.2 0.899994C11.2299 0.899994 11.2598 0.903486 11.2891 0.91015C11.3078 0.91442 11.3259 0.920467 11.3438 0.927338C11.3496 0.9296 11.3552 0.932601 11.361 0.93515C11.3771 0.942258 11.3927 0.950169 11.4078 0.959369C11.414 0.963129 11.4206 0.966183 11.4266 0.970306C11.4466 0.984054 11.4654 0.999763 11.4828 1.01718L11.5344 1.07968C11.5431 1.09292 11.5485 1.1079 11.5555 1.12187C11.56 1.13085 11.5657 1.13915 11.5696 1.14843C11.5832 1.18169 11.5911 1.21637 11.5953 1.25156C11.5973 1.26761 11.6 1.28365 11.6 1.29999V4.49999C11.6 4.72091 11.4209 4.89999 11.2 4.89999C10.9791 4.89999 10.8 4.72091 10.8 4.49999V2.26562L7.48284 5.58281C7.32663 5.73902 7.07342 5.73902 6.91721 5.58281C6.761 5.4266 6.761 5.17339 6.91721 5.01718L10.2344 1.69999H8.00003C7.77911 1.69999 7.60003 1.52091 7.60003 1.29999C7.60003 1.07908 7.77911 0.899994 8.00003 0.899994H11.2Z" fill="currentColor" />
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+          <p style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: "#999" }}>
+            {isFr ? "Articles publiés sur mentivis.com" : "Articles published on mentivis.com"}
+          </p>
+        </div>
+        <style>{`
+          .insight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+          }
+          @media (max-width: 768px) {
+            .insight-card { grid-column: 1 / -1; }
+          }
+          @media (max-width: 480px) {
+            .insight-card { grid-column: 1 / -1; }
+          }
+        `}</style>
+      </section>
+
       {/* ── HISTOIRE ── */}
       <section id="histoire" ref={histoire.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(histoire.visible, 0.05) }}>
         <div className="container" style={{ maxWidth: 800 }}>
