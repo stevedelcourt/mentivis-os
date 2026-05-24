@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
 import PageHero from "@/components/page-hero";
@@ -120,7 +121,6 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   const [heroLoaded, setHeroLoaded] = useState(false);
   useEffect(() => { setHeroLoaded(true); }, []);
 
-  const conviction = useVisible();
   const histoire = useVisible();
   const equipe = useVisible();
   const approche = useVisible();
@@ -174,32 +174,16 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         }}
       />
 
-      {/* ── CONVICTION ── */}
-      <section ref={conviction.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(conviction.visible) }}>
+      {/* CONVICTION */}
+      <section className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)" }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          <div
-            style={{
-              padding: "36px 40px",
-              background: "#0A0A0A",
-              borderRadius: 20,
-            }}
-          >
-            <p
-              style={{
-                fontSize: "clamp(22px, 3vw, 32px)",
-                fontWeight: 300,
-                lineHeight: 1.3,
-                color: "#fff",
-                margin: "0 0 16px",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              &ldquo;{H.convictionText}&rdquo;
-            </p>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", margin: 0 }}>
-              {H.convictionAuthor}
-            </p>
-          </div>
+          <Image
+            src="/images/former.avif"
+            alt="Former n'est pas un coût — Steven Delcourt"
+            width={1600}
+            height={900}
+            style={{ width: "100%", height: "auto", borderRadius: 20, display: "block" }}
+          />
         </div>
       </section>
 
