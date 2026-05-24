@@ -6,6 +6,7 @@ import TransformationTimeline from "@/components/transformation-timeline";
 import CTABlock from "@/components/cta-block";
 import ProblemSection from "@/components/problem-section";
 import ProofSection from "@/components/proof-section";
+import EnterpriseCardsSection from "@/components/enterprise-section";
 
 import ImpactSection from "@/components/impact-section";
 import ArticlesFeaturesSection from "@/components/articles-features-section";
@@ -24,6 +25,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <SectorShowcase lang={locale} />
       <MathFeaturesSection lang={locale} />
       <TransformationTimeline lang={locale} />
+      <EnterpriseCardsSection lang={locale} />
       <ImpactSection lang={locale} />
       <FaqSection lang={locale} />
       <CTABlock lang={locale} variant="final" />
