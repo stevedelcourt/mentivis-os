@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
-import LogomarkMotion from "./logomark-motion";
 import CookieButton from "./cookie-button";
 
 interface FooterBlockProps {
@@ -32,7 +31,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           <div style={{ marginBottom: 12 }}>
             <Link href={`/${lang}`} style={{ textDecoration: "none", display: "inline-block" }}>
               <img
-                src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg"
+                src="/images/MentivisOS/mentivisos-logo-anim-drop.svg"
                 alt="MentivisOS"
                 style={{ height: 24, width: "auto", opacity: 0.7 }}
               />
@@ -60,9 +59,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
           >
             {f.tagline}
           </p>
-          <div style={{ marginLeft: -5 }}>
-            <LogomarkMotion />
-          </div>
+
         </div>
 
         {/* Column 2 — Produits + Workflows */}
