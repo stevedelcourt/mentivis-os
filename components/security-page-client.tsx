@@ -222,9 +222,8 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
       <section id="principes" ref={principles.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(principles.visible, 0.05) }}>
         <div className="container">
           <h2 className="section-title">{H.principlesTitle}</h2>
-          <div className="principles-collage">
-            {/* Row 1: dark card (full), ghost, mid card */}
-            <div className="p-card p-card-dark" style={{ gridArea: "a" }}>
+          <div className="principles-grid">
+            <div className="p-card p-card-dark">
               <div className="p-icon-pill">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -233,8 +232,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <h3 style={{ color: "#fff" }}>{isFr ? PRINCIPLES[0].fr.title : PRINCIPLES[0].en.title}</h3>
               <p style={{ color: "rgba(255,255,255,0.7)" }}>{isFr ? PRINCIPLES[0].fr.body : PRINCIPLES[0].en.body}</p>
             </div>
-            <div className="p-ghost" style={{ gridArea: "b" }} />
-            <div className="p-card p-card-mid" style={{ gridArea: "c" }}>
+            <div className="p-card p-card-mid">
               <div className="p-icon-pill">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2a10 10 0 0 1 10 10" /><path d="M12 2a10 10 0 0 0-10 10" /><path d="M2 12h20" /><circle cx="12" cy="12" r="4" />
@@ -243,8 +241,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <h3 style={{ color: "#fff" }}>{isFr ? PRINCIPLES[1].fr.title : PRINCIPLES[1].en.title}</h3>
               <p style={{ color: "rgba(255,255,255,0.7)" }}>{isFr ? PRINCIPLES[1].fr.body : PRINCIPLES[1].en.body}</p>
             </div>
-            {/* Row 2: white card, ghost, white card */}
-            <div className="p-card p-card-light" style={{ gridArea: "d" }}>
+            <div className="p-card p-card-light">
               <div className="p-icon-pill">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -253,8 +250,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[2].fr.title : PRINCIPLES[2].en.title}</h3>
               <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[2].fr.body : PRINCIPLES[2].en.body}</p>
             </div>
-            <div className="p-ghost" style={{ gridArea: "e" }} />
-            <div className="p-card p-card-light" style={{ gridArea: "f" }}>
+            <div className="p-card p-card-light">
               <div className="p-icon-pill">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
@@ -263,8 +259,7 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[3].fr.title : PRINCIPLES[3].en.title}</h3>
               <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[3].fr.body : PRINCIPLES[3].en.body}</p>
             </div>
-            {/* Row 3: wide white card */}
-            <div className="p-card p-card-light p-card-wide" style={{ gridArea: "g" }}>
+            <div className="p-card p-card-light">
               <div className="p-icon-pill">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
@@ -273,17 +268,19 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
               <h3 style={{ color: "#000" }}>{isFr ? PRINCIPLES[4].fr.title : PRINCIPLES[4].en.title}</h3>
               <p style={{ color: "#4e4e4e" }}>{isFr ? PRINCIPLES[4].fr.body : PRINCIPLES[4].en.body}</p>
             </div>
+            <div className="p-card p-card-image">
+              <div style={{
+                position: "absolute", inset: 0,
+                backgroundImage: "url(/images/data-flower.webp)",
+                backgroundSize: "cover", backgroundPosition: "center",
+              }} />
+            </div>
           </div>
         </div>
         <style>{`
-          .principles-collage {
+          .principles-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: auto auto auto;
-            grid-template-areas:
-              "a b c"
-              "d . f"
-              "g g .";
+            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
           }
           .p-card {
@@ -294,23 +291,18 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
           }
           .p-card-dark {
             background: #1a1a2e;
-            grid-area: a;
           }
           .p-card-mid {
             background: #4e4e4e;
-            grid-area: c;
           }
           .p-card-light {
             background: #ffffff;
             border: 1px solid #e5e5e5;
           }
-          .p-card-wide {
-            grid-column: span 2;
-          }
-          .p-ghost {
-            background: transparent;
-            border: 1px solid rgba(0,0,0,0.06);
-            border-radius: 18px;
+          .p-card-image {
+            padding: 0;
+            overflow: hidden;
+            aspect-ratio: 3 / 2;
           }
           .p-icon-pill {
             width: 36px;
@@ -344,26 +336,13 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
             transform: translateY(-4px);
           }
           @media (max-width: 768px) {
-            .principles-collage {
+            .principles-grid {
               grid-template-columns: 1fr 1fr;
-              grid-template-areas:
-                "a c"
-                "d f"
-                "g g";
             }
           }
           @media (max-width: 480px) {
-            .principles-collage {
+            .principles-grid {
               grid-template-columns: 1fr;
-              grid-template-areas:
-                "a"
-                "c"
-                "d"
-                "f"
-                "g";
-            }
-            .p-card-wide {
-              grid-column: span 1;
             }
           }
         `}</style>
