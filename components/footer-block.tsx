@@ -22,8 +22,8 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         className="container"
         style={{
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr",
-          gap: 40,
+          gridTemplateColumns: "1.4fr 1.2fr 1fr",
+          gap: 60,
         }}
       >
         {/* Column 1 — Brand */}
@@ -127,7 +127,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 };
                 const wPath = WORKFLOWS_PATH[link] || "/talentos";
                 return (
-                <li key={link} style={{ marginBottom: 8 }}>
+                <li key={link} style={{ marginBottom: 8, whiteSpace: "nowrap" }}>
                   <Link
                     href={`/${lang}${wPath}`}
                     className="footer-link t-caption"
