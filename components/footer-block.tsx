@@ -117,13 +117,12 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.workflows || "Workflows"}
             </h4>
             <ul>
-              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Developpeurs"]).map((link: string) => {
+              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Developpeurs"]).map((link: string) => {
                 const WORKFLOWS_PATH: Record<string, string> = {
                   "Formation & Learning": "/learningos", "Formation & Apprentissage": "/learningos", "Training & Learning": "/learningos",
                   "Talent Pipeline HR": "/talentos", "Recrutement & Pipeline": "/talentos",
                   "Transformation": "/impact",
-                  "Integration": "/modules/adaptive", "Intégration": "/modules/adaptive",
-                  "Developpeurs": "/modules/visual", "Développeurs": "/modules/visual", "Developers": "/modules/visual",
+                  "Developpeurs": "/developpers", "Développeurs": "/developpers", "Developers": "/developpers",
                 };
                 const wPath = WORKFLOWS_PATH[link] || "/talentos";
                 return (
