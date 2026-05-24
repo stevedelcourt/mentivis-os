@@ -12,24 +12,22 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-const baseUrl = SITE_URL;
-
 const interviews = [
   {
-    id: "florence-ettori",
+    id: "dr-f",
     date: "2026-05-25",
     titleFr: "Un outil qui oblige le manager hospitalier à se confronter à la complexité réelle du terrain",
     titleEn: "A tool that forces hospital managers to confront the real complexity of the field",
-    interviewee: "Dr Florence Ettori",
-    roleFr: "Médecin anesthésiste-réanimatrice, Institut Paoli-Calmettes — Ancienne chargée de mission pertinence, ARS PACA",
-    roleEn: "Anesthesiologist and intensivist, Institut Paoli-Calmettes — Former mission lead for healthcare relevance, ARS PACA",
+    interviewee: "Dr F.",
+    roleFr: "Médecin anesthésiste-réanimatrice, centre hospitalo-universitaire",
+    roleEn: "Anesthesiologist and intensivist, teaching hospital",
     rating: "8/10",
     module: "Implémentations PROM en Nordiques : analyse comparée",
     duration: "18 heures, 14 sections",
     questions: [
       {
-        qFr: "Florence, vous avez parcouru l'intégralité du module. Première réaction ?",
-        qEn: "Florence, you've gone through the entire module. First reaction?",
+        qFr: "Vous avez parcouru l'intégralité du module. Première réaction ?",
+        qEn: "You've gone through the entire module. First reaction?",
         aFr: "La première chose qui frappe, c'est la densité. On est sur 18 heures de formation, 14 sections, avec une progression qui part des fondamentaux instrumentaux, traverse quatre systèmes de santé nationaux, et arrive jusqu'à la simulation d'une stratégie locale d'implémentation. Ce n'est pas un survol. C'est un vrai parcours structuré, avec une logique pédagogique qui tient la route du début à la fin.",
         aEn: "The first thing that strikes you is the density. It's 18 hours of training, 14 sections, with a progression that starts from the instrumental fundamentals, goes through four national healthcare systems, and arrives at the simulation of a local implementation strategy. This is not an overview. It's a real structured program with a pedagogical logic that holds up from start to finish.",
       },
@@ -52,10 +50,10 @@ const interviews = [
         aEn: "Two things mainly. First, the integrated pedagogical assistant was initially too tight in its responses. When a learner asked a question slightly outside the strict framework of the section, it would shut down instead of supporting reflection. That was corrected along the way, and the current version is much more fluid. Second, some practical features were missing: the ability to take notes directly in the module and export your work. Both additions have since been implemented, and they change the learning experience. With these improvements, it's a tool that's starting to rival established professional platforms, except here the content is generated and adaptive.",
       },
       {
-        qFr: "En tant que médecin ayant exercé des responsabilités en santé publique à l'ARS PACA, qu'est-ce qui vous a le plus interpellée dans le contenu ?",
-        qEn: "As a physician who held public health responsibilities at ARS PACA, what struck you most in the content?",
-        aFr: "L'analyse comparative des quatre modèles nordiques est remarquablement bien construite. Le module ne se contente pas de décrire chaque pays en silo. Il fait ressortir les mécanismes profonds : pourquoi la Norvège peut imposer et pas la Finlande, pourquoi la Suède réussit par le prestige régional et le benchmarking, pourquoi le Danemark avance par convergence volontaire. Quand on a travaillé sur la pertinence des soins en région, comme je l'ai fait à l'ARS, on reconnaît immédiatement ces dynamiques. Le parallèle avec le contexte français est implicite dans tout le module, et c'est très bien fait. On n'est jamais dans la transposition naïve du type « il faut faire comme la Suède ». On est dans l'analyse des conditions de possibilité.",
-        aEn: "The comparative analysis of the four Nordic models is remarkably well constructed. The module doesn't just describe each country in a silo. It brings out the deep mechanisms: why Norway can impose and Finland can't, why Sweden succeeds through regional prestige and benchmarking, why Denmark advances through voluntary convergence. When you've worked on healthcare relevance in a region, as I did at ARS, you immediately recognize these dynamics. The parallel with the French context is implicit throughout the module, and that's very well done. It's never a naive transposition like 'we should do what Sweden does.' It's an analysis of the conditions of possibility.",
+        qFr: "En tant que médecin ayant exercé des responsabilités en santé publique en région, qu'est-ce qui vous a le plus interpellée dans le contenu ?",
+        qEn: "As a physician who held public health responsibilities at a regional level, what struck you most in the content?",
+        aFr: "L'analyse comparative des quatre modèles nordiques est remarquablement bien construite. Le module ne se contente pas de décrire chaque pays en silo. Il fait ressortir les mécanismes profonds : pourquoi la Norvège peut imposer et pas la Finlande, pourquoi la Suède réussit par le prestige régional et le benchmarking, pourquoi le Danemark avance par convergence volontaire. Quand on a travaillé sur la pertinence des soins à l'échelle régionale, on reconnaît immédiatement ces dynamiques. Le parallèle avec le contexte français est implicite dans tout le module, et c'est très bien fait. On n'est jamais dans la transposition naïve du type « il faut faire comme la Suède ». On est dans l'analyse des conditions de possibilité.",
+        aEn: "The comparative analysis of the four Nordic models is remarkably well constructed. The module doesn't just describe each country in a silo. It brings out the deep mechanisms: why Norway can impose and Finland can't, why Sweden succeeds through regional prestige and benchmarking, why Denmark advances through voluntary convergence. When you've worked on healthcare relevance at a regional level, you immediately recognize these dynamics. The parallel with the French context is implicit throughout the module, and that's very well done. It's never a naive transposition like 'we should do what Sweden does.' It's an analysis of the conditions of possibility.",
       },
       {
         qFr: "Le module est destiné à des médecins managers d'équipe. Est-il adapté à ce public ?",
@@ -82,22 +80,22 @@ const interviews = [
         aEn: "To physician managers interested in measured patient experience and quality governance, yes. The module provides a solid comparative foundation on Nordic PROMs, tools for analyzing organizational change, and a methodology for anticipating resistance before launching an implementation. It's exactly the type of training missing from the French landscape: not academic enough to bore, not superficial enough to disappoint.",
       },
     ],
-    bioFr: `Le Dr Florence Ettori est médecin anesthésiste-réanimatrice, spécialisée en médecine de la douleur, oncologie et santé publique. Elle exerce à l'Institut Paoli-Calmettes (IPC) à Marseille, centre de lutte contre le cancer de référence nationale, au sein du département d'anesthésie et de réanimation polyvalente. Son activité clinique couvre la prise en charge péri-opératoire en chirurgie oncologique, les soins critiques des patients atteints de cancer et l'accompagnement dans la gestion de la douleur cancéreuse.
+    bioFr: `Le Dr F. est médecin anesthésiste-réanimatrice, spécialisée en médecine de la douleur, oncologie et santé publique. Elle exerce au sein d'un centre hospitalo-universitaire, au département d'anesthésie et de réanimation polyvalente. Son activité clinique couvre la prise en charge péri-opératoire en chirurgie oncologique, les soins critiques des patients atteints de cancer et l'accompagnement dans la gestion de la douleur cancéreuse.
 
 Titulaire d'une expertise transversale intégrant anesthésie, réanimation, qualité des soins et expérience patient, elle développe une approche centrée sur l'optimisation des parcours de soins, de la phase pré-opératoire au suivi post-interventionnel, en intégrant les protocoles de réhabilitation améliorée après chirurgie (ERAS).
 
-En recherche clinique, elle est premier auteur de l'étude NUTCHOCO (Nutritional Care in Hematology Oncologic Patients and Critical Outcome), publiée en 2019 dans Annals of Intensive Care, portant sur 275 patients d'hématologie en réanimation et l'impact d'un système informatisé d'aide à la décision (CDSS) sur la gestion nutritionnelle.
+En recherche clinique, elle est premier auteur d'une étude publiée dans une revue internationale de réanimation portant sur l'impact d'un système informatisé d'aide à la décision sur la gestion nutritionnelle chez des patients en soins critiques.
 
-Parallèlement à son activité hospitalière, elle a exercé des responsabilités institutionnelles majeures au sein de l'Agence régionale de santé Provence-Alpes-Côte d'Azur (ARS PACA) comme Médecin Référent chirurgie, virage ambulatoire et soins critiques, et chargée de mission pertinence. Elle est intervenue lors de la première journée régionale sur la pertinence des soins organisée conjointement par l'ARS et l'IRAPS, en présence de la DGOS, de la HAS et de l'ANDPC.
+Parallèlement à son activité hospitalière, elle a exercé des responsabilités institutionnelles majeures au sein d'une agence régionale de santé comme médecin référent en chirurgie, virage ambulatoire et soins critiques, et chargée de mission pertinence. Elle est intervenue lors de la première journée régionale sur la pertinence des soins organisée conjointement par l'agence et l'instance régionale compétente.
 
 Son parcours reflète une expertise rare à la croisée de quatre dimensions complémentaires : la médecine clinique de haute intensité en cancérologie, la recherche sur les soins critiques en onco-hématologie, la médecine de la douleur, et la gouvernance des politiques de santé à l'échelle régionale.`,
-    bioEn: `Dr. Florence Ettori is an anesthesiologist and intensivist specializing in pain medicine, oncology, and public health. She practices at the Institut Paoli-Calmettes (IPC) in Marseille, a national reference cancer center, within the anesthesiology and intensive care department. Her clinical work covers peri-operative management in oncologic surgery, critical care for cancer patients, and cancer pain management.
+    bioEn: `Dr F. is an anesthesiologist and intensivist specializing in pain medicine, oncology, and public health. She practices at a teaching hospital within the anesthesiology and intensive care department. Her clinical work covers peri-operative management in oncologic surgery, critical care for cancer patients, and cancer pain management.
 
 With cross-disciplinary expertise integrating anesthesia, intensive care, quality of care, and patient experience, she develops a patient-centered approach optimizing care pathways from pre-operative phase through post-intervention follow-up, integrating enhanced recovery after surgery (ERAS) protocols.
 
-In clinical research, she is first author of the NUTCHOCO study (Nutritional Care in Hematology Oncologic Patients and Critical Outcome), published in 2019 in Annals of Intensive Care, studying 275 hematology patients in intensive care and the impact of a clinical decision support system (CDSS) on nutritional management.
+In clinical research, she is first author of a study published in an international critical care journal examining the impact of a clinical decision support system on nutritional management in intensive care patients.
 
-Alongside her hospital work, she held major institutional responsibilities at the Regional Health Agency of Provence-Alpes-Côte d'Azur (ARS PACA) as Referent Physician for surgery, outpatient care, and critical care, and mission lead for healthcare relevance. She spoke at the first regional conference on healthcare relevance organized jointly by ARS and IRAPS, in the presence of DGOS, HAS, and ANDPC.
+Alongside her hospital work, she held major institutional responsibilities at a regional health agency as Referent Physician for surgery, outpatient care, and critical care, and mission lead for healthcare relevance. She spoke at the first regional conference on healthcare relevance organized jointly by the agency and the competent regional body.
 
 Her career reflects a rare expertise at the intersection of four complementary dimensions: high-intensity clinical medicine in oncology, critical care research in onco-hematology, pain medicine, and regional healthcare policy governance.`,
   },
