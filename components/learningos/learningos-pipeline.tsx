@@ -4,92 +4,32 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { getT, Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
-interface Chapter {
-  id: number;
-  label: string | Record<Locale, string>;
-  thumbnail?: string;
-  startTime?: number;
-}
-
-const CHAPTERS: Record<Locale, Chapter[]> = {
-  fr: [
-    { id: 0, label: "Définir" },
-    { id: 1, label: "Générer" },
-    { id: 2, label: "Former" },
-    { id: 3, label: "Évaluer" },
-    { id: 4, label: "Certifier" },
-    { id: 5, label: "Analyser" },
-  ],
-  en: [
-    { id: 0, label: "Define" },
-    { id: 1, label: "Generate" },
-    { id: 2, label: "Train" },
-    { id: 3, label: "Assess" },
-    { id: 4, label: "Certify" },
-    { id: 5, label: "Analyze" },
-  ],
-};
-
-interface VideoMeta {
-  title?: Record<Locale, string>;
-  chapters: Chapter[];
-}
+const CHAPTER_TIMES = [0, 31, 99, 143, 196, 215];
 
 interface VideoPlayerProps {
   lang: Locale;
-  videoSrc?: string;
-  videoId?: string;
+  activeChapter: number;
+  seekVersion: number;
+  onSeekChapter: (i: number) => void;
 }
 
-export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.mp4", videoId }: VideoPlayerProps) {
-  const staticChapters = CHAPTERS[lang === "fr" ? "fr" : "en"];
-  const [chapters, setChapters] = useState<Chapter[]>(staticChapters);
+export default function VideoPlayer({ lang: _lang, activeChapter, seekVersion, onSeekChapter }: VideoPlayerProps) {
+  const [videoSrc, setVideoSrc] = useState("/videos/mOS-720.mp4");
   const [playing, setPlaying] = useState(false);
-  const [activeChapter, setActiveChapter] = useState(0);
-  const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [duration, setDuration] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [fullscreen, setFullscreen] = useState(false);
-  const isMobileRef = useRef(false);
+  const hasSeeked = useRef(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)')
-    const handler = (e: MediaQueryListEvent | MediaQueryList) => { isMobileRef.current = e.matches }
-    isMobileRef.current = mq.matches
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
-
-  useEffect(() => {
-    if (!videoId) return;
-    const jsonPath = videoSrc.replace(/\.[^.]+$/, ".json");
-    fetch(jsonPath)
-      .then((r) => {
-        if (!r.ok) return null;
-        return r.json();
-      })
-      .then((meta: VideoMeta | null) => {
-        if (!meta?.chapters?.length) return;
-        const locale = lang === "fr" ? "fr" : "en";
-        const localized = meta.chapters.map((ch) => {
-          const rawLabel = ch.label;
-          const labelText =
-            typeof rawLabel === "object" && rawLabel !== null
-              ? (rawLabel as Record<string, string>)[locale] || staticChapters[ch.id]?.label || ""
-              : typeof rawLabel === "string"
-              ? rawLabel
-              : staticChapters[ch.id]?.label || "";
-          return {
-            ...ch,
-            label: labelText,
-            thumbnail: ch.thumbnail ? `${videoSrc.replace(/\.[^.]+$/, "")}/${ch.thumbnail}` : undefined,
-          };
-        });
-        setChapters(localized);
-      })
-      .catch(() => {});
-  }, [videoId, videoSrc]);
+    const conn = (navigator as any).connection;
+    if (conn) {
+      const isSlow = conn.downlink < 5 || ["slow-2g", "2g", "3g"].includes(conn.effectiveType);
+      setVideoSrc(isSlow ? "/videos/mOS-720.mp4" : "/videos/mOS-1080.mp4");
+    }
+  }, []);
 
   const handlePlay = useCallback(() => {
     if (!videoRef.current) return;
@@ -101,53 +41,11 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
     setPlaying((p) => !p);
   }, [playing]);
 
-  const handleChapterClick = (i: number) => {
-    if (!videoRef.current) return;
-    setActiveChapter(i);
-    const chapter = chapters[i];
-    if (chapter?.startTime !== undefined) {
-      videoRef.current.currentTime = chapter.startTime;
-    }
-    const pct = (i / (chapters.length - 1)) * 100;
-    setProgress(pct);
-  };
-
   const handleTimeUpdate = () => {
     if (!videoRef.current) return;
     const pct = (videoRef.current.currentTime / videoRef.current.duration) * 100;
     setProgress(isNaN(pct) ? 0 : pct);
   };
-
-  const getLabel = (ch: Chapter, locale: Locale): string => {
-    if (typeof ch.label === "object" && ch.label !== null) return (ch.label as Record<string, string>)[locale] || "";
-    return ch.label as string;
-  };
-
-  const locale = lang === "fr" ? "fr" : "en";
-
-  const handleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !muted;
-    setMuted((m) => !m);
-  };
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    const onFsChange = () => {
-      setFullscreen(!!(document.fullscreenElement || (el as any).webkitDisplayingFullscreen));
-    };
-    el.addEventListener('fullscreenchange', onFsChange);
-    el.addEventListener('webkitfullscreenchange', onFsChange);
-    document.addEventListener('fullscreenchange', onFsChange);
-    document.addEventListener('webkitfullscreenchange', onFsChange);
-    return () => {
-      el.removeEventListener('fullscreenchange', onFsChange);
-      el.removeEventListener('webkitfullscreenchange', onFsChange);
-      document.removeEventListener('fullscreenchange', onFsChange);
-      document.removeEventListener('webkitfullscreenchange', onFsChange);
-    };
-  }, []);
 
   const handleFullscreen = () => {
     const video = videoRef.current;
@@ -163,6 +61,73 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
     }
   };
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onFsChange = () => {
+      setFullscreen(!!(document.fullscreenElement || (video as any).webkitDisplayingFullscreen));
+    };
+    video.addEventListener("fullscreenchange", onFsChange);
+    video.addEventListener("webkitfullscreenchange", onFsChange);
+    document.addEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
+    return () => {
+      video.removeEventListener("fullscreenchange", onFsChange);
+      video.removeEventListener("webkitfullscreenchange", onFsChange);
+      document.removeEventListener("fullscreenchange", onFsChange);
+      document.removeEventListener("webkitfullscreenchange", onFsChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (!hasSeeked.current) { hasSeeked.current = true; return; }
+    const t = CHAPTER_TIMES[activeChapter];
+    if (t !== undefined) videoRef.current.currentTime = t;
+    videoRef.current.play().catch(() => {});
+    setPlaying(true);
+  }, [activeChapter, seekVersion]);
+
+  const progressRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+
+  const handleBarDown = (e: React.MouseEvent | React.TouchEvent) => {
+    isDragging.current = true;
+    seekFromEvent(e);
+  };
+
+  const seekFromEvent = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!progressRef.current || !videoRef.current) return;
+    const rect = progressRef.current.getBoundingClientRect();
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const ratio = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+    videoRef.current.currentTime = ratio * videoRef.current.duration;
+    setProgress(ratio * 100);
+  };
+
+  useEffect(() => {
+    const up = () => { isDragging.current = false; };
+    const move = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging.current) return;
+      if (!progressRef.current || !videoRef.current) return;
+      const rect = progressRef.current.getBoundingClientRect();
+      const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+      const ratio = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+      videoRef.current.currentTime = ratio * videoRef.current.duration;
+      setProgress(ratio * 100);
+    };
+    window.addEventListener("mouseup", up);
+    window.addEventListener("touchend", up);
+    window.addEventListener("mousemove", move);
+    window.addEventListener("touchmove", move, { passive: true });
+    return () => {
+      window.removeEventListener("mouseup", up);
+      window.removeEventListener("touchend", up);
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("touchmove", move);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -174,29 +139,22 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
         aspectRatio: "16/9",
         background: "#0a0a0a",
       }}
+      onDoubleClick={handleFullscreen}
     >
-      {/* Video */}
       <video
         ref={videoRef}
-        src={videoSrc || ""}
+        src={videoSrc}
         preload="metadata"
         playsInline
-        poster="/videos/marseille-drone/ch0.jpg"
+        poster="/images/LearningOS/thumb-product.webp"
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        onLoadedMetadata={() => { if (videoRef.current) setDuration(videoRef.current.duration); }}
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => setPlaying(false)}
         onClick={handlePlay}
       />
 
-      {/* Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-        }}
-      >
-        {/* Bottom-left: Play button — circular glass, icon only */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
         <button
           onClick={handlePlay}
           style={{
@@ -229,96 +187,6 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
           )}
         </button>
 
-        {!isMobileRef.current && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 24,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            gap: 8,
-            alignItems: "center",
-            pointerEvents: "auto",
-          }}
-        >
-          {chapters.map((ch, i) => (
-            <button
-              key={ch.id}
-              onClick={() => handleChapterClick(i)}
-              style={{
-                width: 72,
-                height: 48,
-                borderRadius: 12,
-                overflow: "hidden",
-                border: activeChapter === i ? "1px solid rgba(255,255,255,0.7)" : "1px solid rgba(255,255,255,0)",
-                opacity: activeChapter === i ? 1 : 0.6,
-                background: "#1a1a2e",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-                padding: 0,
-                flexShrink: 0,
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: ch.thumbnail
-                    ? `url(${ch.thumbnail}) center/cover no-repeat`
-                    : "linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%)",
-                }}
-              >
-                <span style={{ color: "#fff", fontSize: 10, fontWeight: 600, textAlign: "center" }}>
-                  {ch.thumbnail ? "" : getLabel(ch, locale)}
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
-        )}
-
-        {!isMobileRef.current && (
-        <button
-          onClick={handleMute}
-          style={{
-            position: "absolute",
-            top: 28,
-            right: 28,
-            width: 48,
-            height: 48,
-            borderRadius: 999,
-            background: "rgba(0,0,0,0.18)",
-            backdropFilter: "blur(12px)",
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            pointerEvents: "auto",
-            transition: "background 0.2s ease",
-          }}
-        >
-          {muted ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
-              <line x1="23" y1="9" x2="17" y2="15"/>
-              <line x1="17" y1="9" x2="23" y2="15"/>
-            </svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            </svg>
-          )}
-        </button>
-        )}
-
-        {/* Bottom-right: Fullscreen button */}
         <button
           onClick={handleFullscreen}
           style={{
@@ -357,7 +225,54 @@ export default function VideoPlayer({ lang, videoSrc = "/videos/marseille-drone.
         </button>
       </div>
 
-      <style>{``}</style>
+      <div
+        ref={progressRef}
+        onMouseDown={handleBarDown}
+        onTouchStart={handleBarDown}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 4,
+          background: "rgba(255,255,255,0.15)",
+          cursor: "pointer",
+          pointerEvents: "auto",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: `${progress}%`,
+            background: "#fff",
+            borderRadius: "0 2px 2px 0",
+            transition: "width 0.1s linear",
+            position: "relative",
+          }}
+        />
+        {CHAPTER_TIMES.map((t, i) => {
+          const left = duration ? (t / duration) * 100 : (i / (CHAPTER_TIMES.length - 1)) * 100;
+          return (
+            <div
+              key={i}
+              onClick={(e) => { e.stopPropagation(); onSeekChapter(i); }}
+              style={{
+                position: "absolute",
+                left: `${left}%`,
+                top: "50%",
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                background: i === activeChapter ? "#fff" : "rgba(255,255,255,0.4)",
+                transform: "translate(-50%, -50%)",
+                cursor: "pointer",
+                pointerEvents: "auto",
+                transition: "background 0.2s ease",
+              }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -369,6 +284,31 @@ interface LearningOSPipelineProps {
 export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
   const { ref, visible } = useVisible(0.05);
   const t = getT(lang);
+  const [activeChapter, setActiveChapter] = useState(0);
+  const [seekVersion, setSeekVersion] = useState(0);
+
+  const seekChapter = (i: number) => {
+    setActiveChapter(i);
+    setSeekVersion((v) => v + 1);
+  };
+
+  const steps = lang === "fr"
+    ? [
+        { label: "Définir", desc: "Compétences visées, métiers, référentiels internes." },
+        { label: "Générer", desc: "Parcours personnalisés avec objectifs et modules." },
+        { label: "Former", desc: "Agents IA accompagnent chaque apprenant." },
+        { label: "Évaluer", desc: "Quiz, mises en situation, validation des acquis." },
+        { label: "Certifier", desc: "Certifications et badges de compétences." },
+        { label: "Analyser", desc: "Dashboard, reporting, conformité OPCO." },
+      ]
+    : [
+        { label: "Define", desc: "Target skills, job roles, internal frameworks." },
+        { label: "Generate", desc: "Personalized paths with objectives and modules." },
+        { label: "Train", desc: "AI agents accompany each learner." },
+        { label: "Assess", desc: "Quizzes, simulations, skills validation." },
+        { label: "Certify", desc: "Certifications and skill badges." },
+        { label: "Analyze", desc: "Dashboard, reporting, OPCO compliance." },
+      ];
 
   return (
     <section
@@ -391,21 +331,15 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           }}
         >
           {t.learningosPage.pipeline.eyebrow}
-            </p>
-            <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
-              {t.learningosPage.pipeline.title}
+        </p>
+        <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
+          {t.learningosPage.pipeline.title}
         </h2>
 
-        {/* Video player — full content column width, no padding */}
-        <div
-          style={{
-            ...sectionAnim(visible, 0.1),
-          }}
-        >
-          {visible && <VideoPlayer lang={lang} videoId="marseille-drone" />}
+        <div style={{ ...sectionAnim(visible, 0.1) }}>
+          {visible && <VideoPlayer lang={lang} activeChapter={activeChapter} seekVersion={seekVersion} onSeekChapter={seekChapter} />}
         </div>
 
-        {/* Steps below video */}
         <div
           style={{
             display: "flex",
@@ -415,33 +349,18 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
           }}
           className="learningos-pipeline-steps"
         >
-          {(lang === "fr"
-            ? [
-                { label: "Définir", desc: "Compétences visées, métiers, référentiels internes." },
-                { label: "Générer", desc: "Parcours personnalisés avec objectifs et modules." },
-                { label: "Former", desc: "Agents IA accompagnent chaque apprenant." },
-                { label: "Évaluer", desc: "Quiz, mises en situation, validation des acquis." },
-                { label: "Certifier", desc: "Certifications et badges de compétences." },
-                { label: "Analyser", desc: "Dashboard, reporting, conformité OPCO." },
-              ]
-            : [
-                { label: "Define", desc: "Target skills, job roles, internal frameworks." },
-                { label: "Generate", desc: "Personalized paths with objectives and modules." },
-                { label: "Train", desc: "AI agents accompany each learner." },
-                { label: "Assess", desc: "Quizzes, simulations, skills validation." },
-                { label: "Certify", desc: "Certifications and skill badges." },
-                { label: "Analyze", desc: "Dashboard, reporting, OPCO compliance." },
-              ]
-          ).map((s, i) => (
+          {steps.map((s, i) => (
             <div
               key={s.label}
+              onClick={() => seekChapter(i)}
               style={{
                 flex: 1,
                 minWidth: 140,
                 padding: "16px",
                 position: "relative",
-                borderTop: "2px solid #e5e5e5",
+                borderTop: i === activeChapter ? "2px solid #0A0A0A" : "2px solid #e5e5e5",
                 transition: "border-color 0.3s ease",
+                cursor: "pointer",
               }}
               className="learningos-pipeline-step"
             >
@@ -450,14 +369,15 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
                   width: 28,
                   height: 28,
                   borderRadius: "50%",
-                  background: "#0A0A0A",
-                  color: "#fff",
+                  background: i === activeChapter ? "#0A0A0A" : "#e5e5e5",
+                  color: i === activeChapter ? "#fff" : "#666",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 12,
                   fontWeight: 600,
                   marginBottom: 8,
+                  transition: "background 0.3s ease, color 0.3s ease",
                 }}
               >
                 {i + 1}
@@ -474,6 +394,10 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
       <style>{`
         .learningos-pipeline-step:hover {
           border-top-color: #0A0A0A !important;
+        }
+        .learningos-pipeline-step:hover > div:first-child {
+          background: #0A0A0A !important;
+          color: #fff !important;
         }
       `}</style>
     </section>
