@@ -242,7 +242,7 @@ export default async function HiddenTestimonialsPage({ params }: { params: Promi
 }
 
 const pageStyle: React.CSSProperties = {
-  background: "#ffffff",
+  background: "#f5f5f7",
   minHeight: "100vh",
   display: "flex",
   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif",
@@ -254,162 +254,172 @@ const sidebarStyle: React.CSSProperties = {
   position: "sticky",
   top: 0,
   height: "100vh",
-  width: 220,
+  width: 240,
   flexShrink: 0,
-  padding: "40px 16px",
-  borderRight: "1px solid #eee",
+  padding: "48px 24px",
   overflowY: "auto",
 };
 
 const backLinkStyle: React.CSSProperties = {
   display: "inline-block",
-  marginBottom: 24,
-  color: "#888",
-  textDecoration: "underline",
+  marginBottom: 32,
+  color: "#999",
+  textDecoration: "none",
   fontSize: 13,
 };
 
 const sidebarTitleStyle: React.CSSProperties = {
-  fontSize: 14,
+  fontSize: 11,
   fontWeight: 700,
-  margin: "0 0 20px",
+  margin: "0 0 24px",
   textTransform: "uppercase",
-  letterSpacing: "0.06em",
-  color: "#999",
+  letterSpacing: "0.1em",
+  color: "#bbb",
 };
 
 const sectorGroupStyle: React.CSSProperties = {
-  marginBottom: 24,
+  marginBottom: 32,
 };
 
 const sectorLabelStyle: React.CSSProperties = {
   fontSize: 11,
   fontWeight: 600,
   textTransform: "uppercase",
-  letterSpacing: "0.08em",
-  color: "#bbb",
+  letterSpacing: "0.06em",
+  color: "#ccc",
   margin: "0 0 8px",
+  paddingLeft: 4,
 };
 
 const caseLinkStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: 8,
-  padding: "6px 8px",
-  borderRadius: 6,
+  padding: "8px 10px",
+  borderRadius: 10,
   fontSize: 13,
-  color: "#444",
+  color: "#555",
   textDecoration: "none",
-  transition: "background 0.15s",
+  transition: "all 0.15s",
+  marginBottom: 2,
 };
 
 const activeCaseLinkStyle: React.CSSProperties = {
-  background: "#f5f5f5",
+  background: "#ffffff",
   fontWeight: 600,
   color: "#111",
+  boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
 };
 
 const caseLinkBadgeStyle: React.CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  width: 26,
-  height: 18,
-  borderRadius: 4,
-  background: "#111",
-  color: "#fff",
+  minWidth: 28,
+  height: 20,
+  borderRadius: 6,
+  background: "#e8e8ed",
+  color: "#666",
   fontSize: 10,
-  fontWeight: 600,
+  fontWeight: 700,
   flexShrink: 0,
 };
 
 const contentStyle: React.CSSProperties = {
   flex: 1,
-  maxWidth: 760,
-  padding: "48px 48px 120px",
+  maxWidth: 800,
+  padding: "48px 64px 120px",
 };
 
 const h1Style: React.CSSProperties = {
-  fontSize: 32,
+  fontSize: 28,
   fontWeight: 700,
-  margin: "0 0 8px",
+  margin: "0 0 6px",
   letterSpacing: "-0.02em",
+  color: "#1a1a1a",
 };
 
 const pageDescStyle: React.CSSProperties = {
-  fontSize: 15,
-  color: "#666",
+  fontSize: 14,
+  color: "#999",
   margin: "0 0 48px",
   lineHeight: 1.6,
 };
 
 const interviewCardStyle: React.CSSProperties = {
-  marginBottom: 80,
-  paddingBottom: 56,
+  marginBottom: 48,
+  paddingTop: 8,
 };
 
 const interviewHeaderStyle: React.CSSProperties = {
-  marginBottom: 40,
+  marginBottom: 32,
 };
 
 const metaRowStyle: React.CSSProperties = {
   display: "flex",
   flexWrap: "wrap",
-  gap: 12,
+  gap: 8,
   alignItems: "center",
-  marginBottom: 20,
-  fontSize: 13,
+  marginBottom: 16,
+  fontSize: 12,
 };
 
 const badgeStyle: React.CSSProperties = {
   display: "inline-block",
-  background: "#111",
+  background: "#1a1a1a",
   color: "#fff",
   padding: "2px 10px",
-  borderRadius: 6,
+  borderRadius: 8,
   fontWeight: 600,
-  fontSize: 13,
+  fontSize: 12,
 };
 
 const metaStyle: React.CSSProperties = {
-  color: "#888",
+  color: "#aaa",
+  fontSize: 12,
 };
 
 const subtitleStyle: React.CSSProperties = {
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: 600,
-  lineHeight: 1.4,
+  lineHeight: 1.35,
   margin: "0 0 12px",
   letterSpacing: "-0.01em",
+  color: "#1a1a1a",
 };
 
 const bylineStyle: React.CSSProperties = {
   fontSize: 14,
-  color: "#555",
+  color: "#666",
   margin: 0,
   lineHeight: 1.6,
 };
 
 const roleStyle: React.CSSProperties = {
   fontSize: 13,
-  color: "#888",
+  color: "#aaa",
 };
 
 const qaSectionStyle: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
-  gap: 32,
+  gap: 0,
 };
 
 const qaItemStyle: React.CSSProperties = {
-  borderLeft: "2px solid #e5e5e5",
-  paddingLeft: 20,
+  padding: "20px 24px",
+  background: "#ffffff",
+  borderRadius: 14,
+  marginBottom: 12,
+  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+  border: "1px solid #eee",
 };
 
 const qStyle: React.CSSProperties = {
-  margin: "0 0 8px",
+  margin: "0 0 12px",
   fontSize: 14,
   lineHeight: 1.6,
+  color: "#888",
 };
 
 const aStyle: React.CSSProperties = {
@@ -420,21 +430,25 @@ const aStyle: React.CSSProperties = {
 };
 
 const bioDetailsStyle: React.CSSProperties = {
-  marginTop: 40,
-  borderTop: "1px solid #eee",
-  paddingTop: 20,
+  marginTop: 32,
 };
 
 const bioSummaryStyle: React.CSSProperties = {
   cursor: "pointer",
-  fontWeight: 600,
-  fontSize: 14,
-  color: "#555",
+  fontWeight: 500,
+  fontSize: 13,
+  color: "#aaa",
   userSelect: "none",
+  padding: "6px 0",
 };
 
 const bioContentStyle: React.CSSProperties = {
   marginTop: 16,
+  padding: "20px 24px",
+  background: "#ffffff",
+  borderRadius: 14,
+  border: "1px solid #eee",
+  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
 };
 
 const bioPStyle: React.CSSProperties = {
