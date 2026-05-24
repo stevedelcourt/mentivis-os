@@ -176,13 +176,13 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
       {/* CONVICTION */}
       <section className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)" }}>
-        <div className="container" style={{ maxWidth: 800 }}>
+        <div className="container">
           <Image
             src="/images/former.avif"
             alt="Former n'est pas un coût — Steven Delcourt"
-            width={1600}
-            height={900}
-            style={{ width: "100%", height: "auto", borderRadius: 20, display: "block" }}
+            width={2400}
+            height={1350}
+            style={{ width: "100%", height: "auto", borderRadius: 24, display: "block" }}
           />
         </div>
       </section>
