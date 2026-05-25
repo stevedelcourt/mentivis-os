@@ -607,7 +607,7 @@
     "copyright": "MentivisOS est développé par Mentivis.",
     "sections": {
       "produits": ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"],
-      "workflows": ["Formation & Learning", "Talent Pipeline HR", "Transformation", "Integration", "Développeurs"],
+      "workflows": ["Formation & Learning", "Talent Pipeline HR", "Développeurs"],
       "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"],
       "contact": "Contact"
     },
