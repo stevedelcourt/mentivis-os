@@ -13,8 +13,9 @@ interface VideoPlayerProps {
   onSeekChapter: (i: number) => void;
 }
 
-export default function VideoPlayer({ lang: _lang, activeChapter, seekVersion, onSeekChapter }: VideoPlayerProps) {
-  const [videoSrc, setVideoSrc] = useState("/videos/mOS-720.mp4");
+export default function VideoPlayer({ lang, activeChapter, seekVersion, onSeekChapter }: VideoPlayerProps) {
+  const isEn = lang === "en";
+  const [videoSrc, setVideoSrc] = useState(isEn ? "/videos/mOS-product-en-sm.mp4" : "/videos/mOS-720.mp4");
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
@@ -27,7 +28,11 @@ export default function VideoPlayer({ lang: _lang, activeChapter, seekVersion, o
     const conn = (navigator as any).connection;
     if (conn) {
       const isSlow = conn.downlink < 5 || ["slow-2g", "2g", "3g"].includes(conn.effectiveType);
-      setVideoSrc(isSlow ? "/videos/mOS-720.mp4" : "/videos/mOS-1080.mp4");
+      setVideoSrc(
+        isSlow
+          ? (isEn ? "/videos/mOS-product-en-sm.mp4" : "/videos/mOS-720.mp4")
+          : (isEn ? "/videos/mOS-product-en.mp4" : "/videos/mOS-1080.mp4")
+      );
     }
   }, []);
 
