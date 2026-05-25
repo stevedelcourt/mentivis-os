@@ -7,6 +7,10 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Hide server version
 ServerSignature Off
 
+# Maintenance page — served when Passenger is down
+ErrorDocument 502 /maintenance.html
+ErrorDocument 503 /maintenance.html
+
 # Protect sensitive files and directories
 <FilesMatch "^\.">
   Require all denied
