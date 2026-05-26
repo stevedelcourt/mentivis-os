@@ -277,7 +277,10 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
               }
 
               @media (max-width: 768px) {
-                .impact-section { display: none; }
+                .impact-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+                .impact-card { aspect-ratio: 2/1 !important; padding: 14px 16px !important; }
+                .impact-card-title { font-size: 15px !important; }
+                .impact-tag { top: 14px !important; left: 16px !important; }
               }
             `}</style>
 

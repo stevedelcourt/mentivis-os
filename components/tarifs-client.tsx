@@ -107,7 +107,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             </p>
 
             {/* Product Tabs */}
-            <div style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
+            <div className="tarifs-tabs" style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
               { key: "learningos", label: "LearningOS" },
               { key: "pipelineos", label: "TalentOS" },
@@ -627,6 +627,8 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             .tarifs-product-card {
               display: none !important;
             }
+            .tarifs-tabs { gap: 4px !important; justify-content: stretch !important; }
+            .tarifs-tabs button { padding: 8px 12px !important; font-size: 13px !important; flex: 1; }
           }
           .tarifs-product-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;

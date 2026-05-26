@@ -48,6 +48,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
       <CmsPageHero
         page="ambassadors"
         lang={locale}
+        className="ambassadors-hero"
         defaults={{
           eyebrow: a.hero.eyebrow,
           headline: a.hero.headline,
@@ -324,6 +325,7 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
           main > section:first-child > .container { grid-template-columns: 1fr !important; gap: 32px !important; }
           .amb-hero-visual { order: 2; }
           .amb-hero-visual img { width: 100% !important; height: auto !important; max-width: 100% !important; }
+          .ambassadors-hero .hero-buttons a:first-child { display: none; }
         }
         @keyframes ambassadors-float {
           0%, 100% { transform: translateY(0); }

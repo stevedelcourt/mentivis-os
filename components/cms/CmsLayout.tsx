@@ -137,6 +137,7 @@ export function CmsNavTabs({
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
+              minHeight: isMobile ? 44 : undefined,
             }}
           >
             {tab.label}
@@ -361,6 +362,13 @@ export function CmsLayout({
       {success && <CmsAlert type="success" message={success} onDismiss={onDismissSuccess} />}
 
       {children}
+      <style>{`
+        @media (max-width: 767px) {
+          .cms-nav-scroll { padding-bottom: 24px; }
+          .cms-table-scroll { margin: 0 -16px; border-radius: 0 !important; }
+          .cms-table-scroll table { min-width: 700px; }
+        }
+      `}</style>
     </div>
   );
 }

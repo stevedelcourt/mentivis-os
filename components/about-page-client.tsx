@@ -186,6 +186,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
             alt="Former n'est pas un coût — Steven Delcourt"
             width={2400}
             height={1350}
+            className="about-conviction-img"
             style={{ width: "100%", height: "auto", borderRadius: 24, display: "block" }}
           />
         </div>
@@ -301,6 +302,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
           </p>
           <h2 className="section-title" style={{ marginBottom: 36 }}>{H.equipeSub}</h2>
           <div
+            className="about-team-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
@@ -494,6 +496,8 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         }
         @media (max-width: 768px) {
           .section-title { margin-bottom: 16px; }
+          .about-conviction-img { aspect-ratio: 5/4 !important; object-fit: cover; }
+          .about-team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
         }
       `}</style>
     </main>
