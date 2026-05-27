@@ -32,7 +32,7 @@ export default async function LangLayout({
   return (
     <>
       <NavBar lang={lang as Locale} />
-      <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
+      <main style={{ position: "relative", zIndex: 1, paddingTop: 70 }}>{children}</main>
       <FooterBlock lang={lang as Locale} />
       <CookieConsentDeferred lang={lang} />
       {homepageSeo?.jsonLd && (
