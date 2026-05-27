@@ -221,7 +221,7 @@ export default async function HiddenTestimonialsPage({ params }: { params: Promi
   const isFr = lang === "fr";
 
   return (
-    <main style={pageStyle}>
+    <div style={pageStyle}>
       <Sidebar sectors={sectors} interviews={interviews} isFr={isFr} activeId="" />
       <div style={contentStyle}>
         <h1 style={h1Style}>
@@ -237,7 +237,7 @@ export default async function HiddenTestimonialsPage({ params }: { params: Promi
           <InterviewCard key={interview.id} interview={interview} isFr={isFr} />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -251,11 +251,11 @@ const pageStyle: React.CSSProperties = {
 };
 
 const sidebarStyle: React.CSSProperties = {
-  position: "sticky",
-  top: 0,
-  height: "100vh",
+  position: "fixed",
+  top: 64,
+  left: 0,
   width: 240,
-  flexShrink: 0,
+  height: "calc(100vh - 64px)",
   padding: "48px 24px",
   overflowY: "auto",
 };
@@ -328,6 +328,7 @@ const caseLinkBadgeStyle: React.CSSProperties = {
 const contentStyle: React.CSSProperties = {
   flex: 1,
   maxWidth: 800,
+  marginLeft: 240,
   padding: "48px 64px 120px",
 };
 
