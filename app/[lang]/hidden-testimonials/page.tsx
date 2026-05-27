@@ -194,8 +194,20 @@ Her career reflects a rare expertise at the intersection of four complementary d
         aEn: "Sans hésitation. À des collègues d'OFSI, évidemment, en particulier les nouveaux case officers qui arrivent souvent avec une solide formation juridique mais une connaissance partielle de l'étendue réelle des régimes au-delà de la Russie. À des juristes de la FCA qui travaillent sur les sanctions controls des firmes régulées. À des compliance officers du secteur privé qui doivent comprendre comment l'OFSI raisonne quand il évalue une breach, parce que le module donne exactement cette perspective enforcement qui manque dans les formations conçues par et pour le secteur bancaire. C'est une formation qui comble un vide réel. Trop technique pour les généralistes, trop opérationnelle pour les académiques : c'est précisément le bon positionnement.",
       },
     ],
-    bioFr: "",
-    bioEn: "",
+    bioFr: `Me V. exerce principalement en droit pénal des affaires et de la finance, ainsi qu'en matière de fraude civile et d'insolvabilité. Elle est avocate au barreau de New York (2009), solicitor en Angleterre et au Pays de Galles (2011), et avocate au barreau de France. Après un double cursus en droit comparé (droit anglais et français), elle a exercé à Londres, Paris et Monaco, acquérant une expérience des systèmes de common law et de droit civil.
+
+Après son stage au sein du cabinet Cleary Gottlieb Steen & Hamilton LLP à Londres, elle a exercé en contentieux et mené des enquêtes dans le secteur de l'assurance chez Clyde & Co LLP. Elle a ensuite rejoint la fonction publique britannique, d'abord comme assistante juridique auprès de Lord Justice Rix, puis comme conseillère juridique auprès de deux chanceliers successifs de la High Court, Etherton et Vos LJJ. Après le ministère de la Justice, elle a rejoint l'OFSI, où elle a travaillé comme juriste spécialisée en renseignement financier, avant de devenir procureure dans plusieurs dossiers de fraude et de corruption internationale. Elle a également travaillé à la Cellule de Renseignements Financiers de Monaco en tant qu'analyste principale, en interaction avec les banques et acteurs locaux, enquêtant et transmettant des dossiers de blanchiment au Parquet général.
+
+Titulaire de deux diplômes en droit de l'Université de Cambridge (St Catharine's College) et de Paris 2-Assas, elle est également titulaire d'une licence avec distinction en sciences politiques et sociologie de l'Université McGill, et d'un Master of Laws (Honors) de l'Université Cornell, où elle était boursière Edmund de Rothschild.
+
+Me V. est citoyenne du Royaume-Uni, des États-Unis et de la France. Elle parle couramment anglais et français, pratique l'allemand intermédiaire et apprend l'arabe.`,
+    bioEn: `Me V.'s main area of practice is economic and corporate crime, but includes civil fraud and insolvency. She is a New York Attorney (2009), a solicitor of England & Wales (qualified in 2011), as well as a qualified Avocate in France. Having obtained a comparative law degree in English and French law, and practiced in London, Paris, and Monaco, she has experience under both common and civil law systems.
+
+After completing her training contract with Cleary Gottlieb Steen & Hamilton LLP in London, she practiced litigation and delved into investigatory work in the insurance sphere at Clyde & Co LLP. She then joined the Civil Service, working as a Judicial Assistant to Lord Justice Rix, before serving as Legal Advisor to two successive Chancellors of the High Court, Etherton and Vos LJJ. From the Ministry of Justice, she then went on to the OFSI, where she worked first as a Financial Intelligence Lawyer, before becoming Prosecutor on several fraud and international bribery cases. She also worked at the Monaco Financial Investigations Unit as Lead Analyst, interacting with local banks and stakeholders, and investigating and referring money laundering matters to the General Prosecutor.
+
+In addition to her dual law degrees from the University of Cambridge (St Catharine's College) and Paris 2-Assas, she holds a BA with Distinction in Political Science and Sociology from McGill University, and a Master of Laws (Honors) from Cornell University, where she was an Edmund de Rothschild Fellow.
+
+Me V. is a citizen of the United Kingdom, the United States, and France. She is fluent in English and French, speaks intermediate German, and is learning Arabic.`,
   },
 ];
 
