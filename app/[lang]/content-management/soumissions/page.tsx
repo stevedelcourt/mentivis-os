@@ -19,7 +19,7 @@ export default function SubmissionsPage() {
 
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [loading, setLoading] = useState(false);
-  const [typeFilter, setTypeFilter] = useState<"all" | "demo" | "contact">("all");
+  const [typeFilter, setTypeFilter] = useState<"all" | "demo" | "contact" | "beta">("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "read" | "unread">("all");
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -115,7 +115,7 @@ export default function SubmissionsPage() {
       token={token}
       role={role}
       title="Soumissions"
-      subtitle="Demandes de demo, formulaires de contact et candidatures"
+      subtitle="Demandes de demo, formulaires de contact, questionnaires bêta et candidatures"
     >
       <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
         <Link
@@ -155,7 +155,7 @@ export default function SubmissionsPage() {
 
       {/* Filters */}
       <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
-        {(["all", "demo", "contact"] as const).map((f) => (
+        {(["all", "demo", "contact", "beta"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setTypeFilter(f)}
@@ -170,7 +170,7 @@ export default function SubmissionsPage() {
               color: typeFilter === f ? "#fff" : "#4e4e4e",
             }}
           >
-            {f === "all" ? "Tous" : f === "demo" ? "Demo" : "Contact"}
+            {f === "all" ? "Tous" : f === "demo" ? "Demo" : f === "contact" ? "Contact" : "Beta"}
           </button>
         ))}
         <div style={{ width: 1, background: "#e5e5e5", margin: "0 4px" }} />
