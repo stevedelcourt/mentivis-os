@@ -21,7 +21,7 @@ jobs:
       - name: Install expect
         run: sudo apt-get update -qq && sudo apt-get install -y -qq expect
 
-      - name: Fetch DB from o2switch
+      - name: Fetch DB and uploads from o2switch
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
@@ -40,17 +40,28 @@ jobs:
             expect eof
           "
 
-          rm -f "$SSH_KEY_FILE"
           echo "DB size: $(ls -lh data/mentivis.db | awk '{print $5}')"
+
+          mkdir -p data/uploads
+          expect -c "
+            set timeout 30
+            spawn scp -o StrictHostKeyChecking=accept-new -i \"$SSH_KEY_FILE\" \"$SSH_USER@$SSH_HOST:/home/$SSH_USER/data/uploads/*\" data/uploads/
+            expect -re {passphrase|Password}
+            send \"$SSH_PASSPHRASE\r\"
+            expect eof
+          "
+
+          rm -f "$SSH_KEY_FILE"
+          echo "Uploads: $(ls data/uploads/ | wc -l) files"
 
       - name: Commit and push if changed
         run: |
-          if git diff --quiet -- data/mentivis.db; then
-            echo "No DB changes. Skipping."
+          if git diff --quiet -- data/mentivis.db data/uploads/; then
+            echo "No changes. Skipping."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/mentivis.db
-          git commit -m "sync: production DB snapshot ($(date -u +%Y-%m-%d_%H:%M) UTC)" -- data/mentivis.db
+          git add data/mentivis.db data/uploads/
+          git commit -m "sync: production DB + uploads ($(date -u +%Y-%m-%d_%H:%M) UTC)"
           git push origin vercel

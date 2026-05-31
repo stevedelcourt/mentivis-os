@@ -55,6 +55,14 @@ if [ -n "${GITHUB_ACTIONS:-}" ]; then
     send \"$SSH_PASS\r\"
     expect eof
   "
+
+  expect -c "
+    set timeout 30
+    spawn scp -o StrictHostKeyChecking=accept-new -i \"$SSH_KEY_FILE\" \"$SSH_USER@$SSH_HOST:${REMOTE_DB%/*}/uploads/*\" \"${LOCAL_DB%/*}/uploads/\"
+    expect -re {passphrase|Password}
+    send \"$SSH_PASS\r\"
+    expect eof
+  "
   
   rm -f "$SSH_KEY_FILE"
 else
@@ -62,6 +70,14 @@ else
   expect -c "
     set timeout 30
     spawn scp -o StrictHostKeyChecking=accept-new -i \"$SSH_KEY\" \"$SSH_USER@$SSH_HOST:$REMOTE_DB\" \"$LOCAL_DB\"
+    expect \"Enter passphrase for key\"
+    send \"$SSH_PASS\r\"
+    expect eof
+  "
+
+  expect -c "
+    set timeout 30
+    spawn scp -o StrictHostKeyChecking=accept-new -i \"$SSH_KEY\" \"$SSH_USER@$SSH_HOST:${REMOTE_DB%/*}/uploads/*\" \"${LOCAL_DB%/*}/uploads/\"
     expect \"Enter passphrase for key\"
     send \"$SSH_PASS\r\"
     expect eof
