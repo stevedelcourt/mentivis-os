@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: process.env.BASE_PATH || undefined,
   trailingSlash: true,
   assetPrefix: process.env.ASSET_PREFIX || undefined,
   images: {
