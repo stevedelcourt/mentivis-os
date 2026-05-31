@@ -281,6 +281,8 @@ export default function NavBar({ lang }: NavBarProps) {
 
             <Link
               href="https://app.mentivisOS.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-header-black"
               style={{
                 display: "inline-flex",
@@ -415,6 +417,8 @@ export default function NavBar({ lang }: NavBarProps) {
           </Link>
           <Link
             href="https://app.mentivisOS.com"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMobileOpen(false)}
             style={{
               flex: 1,
