@@ -43,9 +43,10 @@ export async function GET() {
       db.exec("PRAGMA journal_mode = WAL;");
     } catch {}
 
-    const postCount = db.prepare("SELECT COUNT(*) as count FROM posts").step()
-      ? db.getAsObject().count
-      : 0;
+    const stmt = db.prepare("SELECT COUNT(*) as count FROM posts");
+    stmt.step();
+    const postCount = stmt.getAsObject().count;
+    stmt.free();
     results.postCount = postCount;
   } catch (e: any) {
     results.error = "sqljs_error: " + String(e?.message || e);
