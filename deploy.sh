@@ -54,6 +54,7 @@ ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
 SITE_URL=${SITE_URL}
 PORT=3001
 ASSET_PREFIX=/statics
+BASE_PATH=/mentivisos-proxy
 ENVEOF
   echo "Written .env.local"
 
@@ -78,7 +79,7 @@ ENVEOF
   echo "--- Building Next.js ---"
   # Clean stale artifacts from previous deploys
   rm -rf .next ${APP_DIR}/public/_next ${APP_DIR}/statics 2>/dev/null || true
-  ASSET_PREFIX=/statics npx next build --webpack
+  ASSET_PREFIX=/statics BASE_PATH=/mentivisos-proxy npx next build --webpack
 
   echo "--- Copying static files for Apache to serve directly ---"
   # o2switch Tiger-Protect blocks _next/static/ URLs. We use assetPrefix=/statics
@@ -98,7 +99,7 @@ ENVEOF
   HEALTH_OK=0
   for i in 1 2 3 4 5; do
     sleep 2
-    if curl -sfk "${LIVE_URL}/api/health/" > /dev/null 2>&1; then
+    if curl -sfk "${LIVE_URL}/mentivisos-proxy/api/health/" > /dev/null 2>&1; then
       echo "Health check passed (attempt \$i)"
       HEALTH_OK=1
       break

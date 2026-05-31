@@ -13,7 +13,7 @@ MentivisOS is an AI-native pedagogical engine — not an LMS, not a catalog.
 - **Webpack ONLY**: `next dev --webpack`, `next build --webpack`. Turbopack = ChunkLoadError.
 - **No better-sqlite3**: GLIBC_2.29 missing, no gcc. sql.js pure JS/WASM only.
 - **Commit before deploy**: `deploy.sh` does `git push` → server `git reset --hard origin/main`. Uncommitted changes are wiped.
-- **All .avif/.svg assets must be git-tracked**: deploy does `git reset --hard`.
+- **All static assets (images, PDFs) must be git-tracked**: deploy does `git reset --hard origin/main`. Any file under `public/` referenced in articles/content that isn't committed will be wiped on the next deploy.
 - **Serif fonts banned**: Inter (`var(--font-sans)`) only.
 - **No utility CSS frameworks**: Custom properties only, no Tailwind.
 - **No em dashes (—) in prose**: Use commas or regular dashes. Banned site-wide.
@@ -68,7 +68,7 @@ Env: INTERNAL_TOKEN, CMS_AUTH_SECRET, HUBSPOT_PORTAL_ID, HUBSPOT_FORM_ID, ALLOWE
 - **No better-sqlite3**: GLIBC_2.29 missing, no gcc. sql.js pure JS/WASM only.
 - **No onMouseEnter/onMouseLeave on server components**: Use CSS `:hover`.
 - **Params returns Promise**: Cast `as Locale` after awaiting.
-- **All .avif/.svg assets must be git-tracked**: deploy does `git reset --hard`.
+- **All static assets (images, PDFs) must be git-tracked**: deploy does `git reset --hard origin/main`. Any file under `public/` referenced in articles/content that isn't committed will be wiped on the next deploy.
 - **Serif fonts banned**: Inter (`var(--font-sans)`) only.
 - **No utility CSS frameworks**: Custom properties only, no Tailwind.
 
