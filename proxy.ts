@@ -15,8 +15,10 @@ const WRITE_API_PREFIXES = [
 ];
 
 function isAllowedReferrer(request: NextRequest): boolean {
-  if (ALLOWED_REFERRERS.length === 0) return true;
   const ref = request.headers.get("referer") || "";
+  const host = request.headers.get("host") || "";
+  if (ref.startsWith(`https://${host}`)) return true;
+  if (ALLOWED_REFERRERS.length === 0) return true;
   return ALLOWED_REFERRERS.some((domain) => ref.startsWith(domain));
 }
 
