@@ -12,5 +12,10 @@ export async function GET(
     return NextResponse.json({ error: "Post not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ post });
+  const result = { ...post };
+  if (process.env.VERCEL && result.imageUrl?.startsWith("/api/uploads/")) {
+    result.imageUrl = "";
+  }
+
+  return NextResponse.json({ post: result });
 }

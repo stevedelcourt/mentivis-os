@@ -5,9 +5,7 @@ const locales = ["fr", "en"];
 const VER = process.env.VERCEL;
 
 const WRITE_API_PREFIXES = [
-  "/api/demo",
   "/api/beta-questionnaire",
-  "/api/job-applications",
   "/api/cms/",
 ];
 
