@@ -174,16 +174,6 @@ Before committing:
 
 ## Deployment
 
-### Vercel (Production)
-
-```bash
-git push origin main
-# or
-vercel --prod --scope steves-projects-09f7051e --yes
-```
-
-URL: https://mentivis-os.vercel.app
-
 ### Local Dev
 
 ```bash

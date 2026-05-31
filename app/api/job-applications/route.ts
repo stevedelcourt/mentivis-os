@@ -10,7 +10,6 @@ const CVS_DIR = path.join(DATA_DIR, "cvs");
 
 const ALLOWED_ORIGINS = [
   SITE_URL,
-  "https://mentivis-os.vercel.app",
   "http://localhost:3000",
 ];
 

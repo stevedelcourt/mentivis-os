@@ -110,4 +110,3 @@ Env: INTERNAL_TOKEN, CMS_AUTH_SECRET, HUBSPOT_PORTAL_ID, HUBSPOT_FORM_ID, ALLOWE
 
 - **Repo**: https://github.com/stevedelcourt/mentivis-os
 - **Production**: https://sc4bovu7233.universe.wf
-- **Vercel Preview**: https://mentivis-os.vercel.app

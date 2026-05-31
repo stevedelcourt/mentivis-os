@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSubmission } from "@/lib/cms/db";
 import { checkRateLimit, cleanupRateLimits } from "@/lib/rate-limit";
 
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "https://mentivis-os.vercel.app,http://localhost:3000").split(",");
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "http://localhost:3000").split(",");
 
 function getIp(request: NextRequest): string {
   return (
