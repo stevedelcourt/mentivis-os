@@ -34,7 +34,7 @@ export default async function LangLayout({
       <NavBar lang={lang as Locale} />
       <main style={{ position: "relative", zIndex: 1, paddingTop: 70 }}>{children}</main>
       <FooterBlock lang={lang as Locale} />
-      <CookieConsentDeferred lang={lang} />
+      {!process.env.VERCEL && <CookieConsentDeferred lang={lang} />}
       {homepageSeo?.jsonLd && (
         <script
           type="application/ld+json"
