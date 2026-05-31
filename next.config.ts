@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   serverExternalPackages: ["sql.js"],
+  outputFileTracingIncludes: {
+    "/**/*": ["./data/**/*"],
+  },
   experimental: {
     cpus: 2,
   },
