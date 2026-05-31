@@ -6,8 +6,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
   },
+  serverExternalPackages: ["sql.js"],
   outputFileTracingIncludes: {
-    "/**/*": ["./data/**/*"],
+    "/**/*": [
+      "./data/**/*",
+      "./node_modules/sql.js/dist/**/*.wasm",
+    ],
   },
   experimental: {
     cpus: 2,
