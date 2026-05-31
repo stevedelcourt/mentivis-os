@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# sql.js WAL temp files (don't track with DB snapshot)
+data/*.db-shm
+data/*.db-wal

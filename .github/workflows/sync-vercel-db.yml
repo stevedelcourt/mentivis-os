@@ -1,0 +1,56 @@
+name: Sync Vercel DB
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"  # every 4 hours
+  workflow_dispatch:        # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout vercel branch
+        uses: actions/checkout@v4
+        with:
+          ref: vercel
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install expect
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq expect
+
+      - name: Fetch DB from o2switch
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          SSH_KEY_FILE=$(mktemp)
+          echo "$SSH_KEY" > "$SSH_KEY_FILE"
+          chmod 600 "$SSH_KEY_FILE"
+
+          expect -c "
+            set timeout 30
+            spawn scp -o StrictHostKeyChecking=accept-new -i \"$SSH_KEY_FILE\" \"$SSH_USER@$SSH_HOST:/home/$SSH_USER/data/mentivis.db\" data/mentivis.db
+            expect -re {passphrase|Password}
+            send \"$SSH_PASSPHRASE\r\"
+            expect eof
+          "
+
+          rm -f "$SSH_KEY_FILE"
+          echo "DB size: $(ls -lh data/mentivis.db | awk '{print $5}')"
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet -- data/mentivis.db; then
+            echo "No DB changes. Skipping."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/mentivis.db
+          git commit -m "sync: production DB snapshot ($(date -u +%Y-%m-%d_%H:%M) UTC)" -- data/mentivis.db
+          git push origin vercel

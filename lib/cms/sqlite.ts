@@ -131,8 +131,12 @@ export class SqlJsDb {
   }
 
   save() {
-    const data = this.db.export();
-    fs.writeFileSync(this.dbPath, Buffer.from(data));
+    try {
+      const data = this.db.export();
+      fs.writeFileSync(this.dbPath, Buffer.from(data));
+    } catch {
+      // No-op on read-only filesystems (Vercel)
+    }
   }
 }
 
