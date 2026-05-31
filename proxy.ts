@@ -4,16 +4,33 @@ const locales = ["fr", "en"];
 
 const VER = process.env.VERCEL;
 
+const ALLOWED_REFERRERS = (process.env.ALLOWED_REFERRERS || "")
+  .split(",")
+  .map((d) => d.trim())
+  .filter(Boolean);
+
 const WRITE_API_PREFIXES = [
   "/api/beta-questionnaire",
   "/api/cms/",
 ];
+
+function isAllowedReferrer(request: NextRequest): boolean {
+  if (ALLOWED_REFERRERS.length === 0) return true;
+  const ref = request.headers.get("referer") || "";
+  return ALLOWED_REFERRERS.some((domain) => ref.startsWith(domain));
+}
 
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (/\.[a-zA-Z0-9]+$/.test(pathname)) {
     return NextResponse.next();
+  }
+
+  if (VER && ALLOWED_REFERRERS.length > 0 && !pathname.startsWith("/api/")) {
+    if (!isAllowedReferrer(request)) {
+      return new NextResponse("Access denied", { status: 403 });
+    }
   }
 
   if (VER && pathname.startsWith("/api/")) {
