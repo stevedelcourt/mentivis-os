@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
   },
-  serverExternalPackages: ["sql.js"],
   outputFileTracingIncludes: {
     "/**/*": ["./data/**/*"],
   },
