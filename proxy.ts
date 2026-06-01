@@ -70,7 +70,9 @@ export function proxy(request: NextRequest) {
     );
   }
 
-  return NextResponse.next();
+  const res = NextResponse.next();
+  res.headers.set("X-Proxy", "ok");
+  return res;
 }
 
 export const config = {
