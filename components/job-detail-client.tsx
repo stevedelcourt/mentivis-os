@@ -91,17 +91,11 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Form state
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [honeypot, setHoneypot] = useState("");
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
-  const [cvFile, setCvFile] = useState<File | null>(null);
+
+  const hsFormRef = useRef<HTMLDivElement>(null);
+  const hsScriptRef = useRef<HTMLScriptElement | null>(null);
 
   useEffect(() => {
     async function fetchJob() {
@@ -126,47 +120,41 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
     fetchJob();
   }, [slug]);
 
-  const typeLabel = (type: string) => JOB_TYPE_LABELS[type]?.[lang] || type;
+  useEffect(() => {
+    if (!job || activeTab !== "apply") return;
+    if (hsScriptRef.current) return;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!job || honeypot) return;
-    setFormState("loading");
+    const script = document.createElement("script");
+    script.src = "https://js.hsforms.net/forms/embed/49558612.js";
+    script.defer = true;
+    script.onload = () => {
+      const hbspt = (window as any).hbspt;
+      if (!hbspt || !hsFormRef.current) return;
 
-    const formData = new FormData();
-    formData.append("jobReference", job.reference);
-    formData.append("jobTitle", job.title);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("linkedin", linkedin);
-    formData.append("message", message);
-    if (cvFile) {
-      formData.append("cv", cvFile);
-    }
-
-    try {
-      const res = await fetch("/api/job-applications", {
-        method: "POST",
-        body: formData,
+      hbspt.forms.create({
+        region: "na1",
+        portalId: "49558612",
+        formId: "78954872-9038-4a85-8420-ae295c46f90b",
+        target: `#hs-form-${job.reference}`,
+        onFormReady: ($form: HTMLFormElement) => {
+          const ref = $form.querySelector('[name="job_reference"]') as HTMLInputElement | null;
+          const title = $form.querySelector('[name="job_title"]') as HTMLInputElement | null;
+          if (ref) ref.value = job.reference;
+          if (title) title.value = job.title;
+        },
+        onFormSubmitted: () => setFormState("success"),
       });
-      if (res.ok) {
-        setFormState("success");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPhone("");
-        setLinkedin("");
-        setMessage("");
-        setCvFile(null);
-      } else {
-        setFormState("error");
-      }
-    } catch {
-      setFormState("error");
-    }
-  };
+    };
+    document.body.appendChild(script);
+    hsScriptRef.current = script;
+
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      hsScriptRef.current = null;
+    };
+  }, [job, activeTab]);
+
+  const typeLabel = (type: string) => JOB_TYPE_LABELS[type]?.[lang] || type;
 
   if (loading) {
     return (
@@ -531,171 +519,11 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     </Link>
                   </div>
                 ) : (
-                  <form
-                    onSubmit={handleSubmit}
-                    autoComplete="on"
+                  <div
+                    id={`hs-form-${job.reference}`}
+                    ref={hsFormRef}
                     style={{ background: "#fff", padding: "40px", borderRadius: 16, border: "1px solid #e5e5e5" }}
-                  >
-                    {/* Honeypot */}
-                    <div style={{ display: "none" }}>
-                      <input
-                        type="text"
-                        name="honeypot"
-                        value={honeypot}
-                        onChange={(e) => setHoneypot(e.target.value)}
-                        tabIndex={-1}
-                        autoComplete="off"
-                      />
-                    </div>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
-                      <div>
-                        <label htmlFor="firstName" style={labelStyle}>{t.careers.form.firstName}</label>
-                        <input
-                          id="firstName"
-                          name="firstName"
-                          type="text"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          required
-                          autoComplete="given-name"
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="lastName" style={labelStyle}>{t.careers.form.lastName}</label>
-                        <input
-                          id="lastName"
-                          name="lastName"
-                          type="text"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          required
-                          autoComplete="family-name"
-                          style={inputStyle}
-                        />
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label htmlFor="email" style={labelStyle}>{t.careers.form.email}</label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        autoComplete="email"
-                        style={inputStyle}
-                      />
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label htmlFor="phone" style={labelStyle}>{t.careers.form.phone}</label>
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        autoComplete="tel"
-                        style={inputStyle}
-                      />
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label htmlFor="linkedin" style={labelStyle}>{t.careers.form.linkedin}</label>
-                      <input
-                        id="linkedin"
-                        name="linkedin"
-                        type="url"
-                        value={linkedin}
-                        onChange={(e) => setLinkedin(e.target.value)}
-                        autoComplete="url"
-                        style={inputStyle}
-                        placeholder="https://linkedin.com/in/..."
-                      />
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle}>CV (PDF, max 6 Mo)</label>
-                      <label
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 12,
-                          padding: "12px 14px",
-                          border: "1px dashed #E5E0DA",
-                          borderRadius: 10,
-                          background: "#FAFAF8",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <input
-                          type="file"
-                          accept=".pdf,application/pdf"
-                          onChange={(e) => setCvFile(e.target.files?.[0] || null)}
-                          style={{ display: "none" }}
-                        />
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="17 8 12 3 7 8" />
-                          <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
-                        <span style={{ fontSize: 14, color: cvFile ? "#0A0A0A" : "#A8A29E" }}>
-                          {cvFile ? cvFile.name : "Choisir un fichier PDF"}
-                        </span>
-                      </label>
-                      {cvFile && cvFile.size > 6 * 1024 * 1024 && (
-                        <p style={{ fontSize: 12, color: "#c45c4a", marginTop: 4 }}>
-                          Fichier trop volumineux (max 6 Mo)
-                        </p>
-                      )}
-                    </div>
-
-                    <div style={{ marginBottom: 24 }}>
-                      <label htmlFor="message" style={labelStyle}>{t.careers.form.message}</label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        required
-                        rows={8}
-                        autoComplete="off"
-                        style={{ ...inputStyle, resize: "vertical", minHeight: 200 }}
-                        placeholder={t.careers.form.messagePlaceholder}
-                      />
-                    </div>
-
-                    {formState === "error" && (
-                      <p style={{ color: "#c45c4a", fontSize: 14, marginBottom: 16 }}>
-                        {t.careers.form.error}
-                      </p>
-                    )}
-
-                    <button
-                      type="submit"
-                      disabled={formState === "loading"}
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        fontSize: 15,
-                        fontWeight: 500,
-                        color: "#fff",
-                        background: "#0A0A0A",
-                        border: "none",
-                        borderRadius: 10,
-                        cursor: formState === "loading" ? "not-allowed" : "pointer",
-                        opacity: formState === "loading" ? 0.6 : 1,
-                      }}
-                    >
-                      {formState === "loading"
-                        ? "Envoi..."
-                        : t.careers.form.submit}
-                    </button>
-                  </form>
+                  />
                 )}
               </div>
             )}
