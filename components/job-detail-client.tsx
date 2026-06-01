@@ -122,20 +122,17 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
 
   useEffect(() => {
     if (!job || activeTab !== "apply") return;
-    if (hsScriptRef.current) return;
 
-    const script = document.createElement("script");
-    script.src = "https://js.hsforms.net/forms/embed/49558612.js";
-    script.defer = true;
-    script.onload = () => {
+    const containerId = `hs-form-${job.reference}`;
+
+    const createForm = () => {
       const hbspt = (window as any).hbspt;
-      if (!hbspt || !hsFormRef.current) return;
-
+      if (!hbspt) return false;
       hbspt.forms.create({
         region: "na1",
         portalId: "49558612",
         formId: "78954872-9038-4a85-8420-ae295c46f90b",
-        target: `#hs-form-${job.reference}`,
+        target: `#${containerId}`,
         onFormReady: ($form: HTMLFormElement) => {
           const ref = $form.querySelector('[name="job_reference"]') as HTMLInputElement | null;
           const title = $form.querySelector('[name="job_title"]') as HTMLInputElement | null;
@@ -144,13 +141,26 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         },
         onFormSubmitted: () => setFormState("success"),
       });
+      return true;
     };
-    document.body.appendChild(script);
-    hsScriptRef.current = script;
+
+    if (createForm()) return;
+
+    const script = document.createElement("script");
+    script.src = "https://js.hsforms.net/forms/embed/49558612.js";
+    script.defer = true;
+    script.onload = () => {
+      let attempts = 0;
+      const retry = () => {
+        if (createForm() || ++attempts > 10) return;
+        setTimeout(retry, 100);
+      };
+      retry();
+    };
+    document.head.appendChild(script);
 
     return () => {
       if (script.parentNode) script.parentNode.removeChild(script);
-      hsScriptRef.current = null;
     };
   }, [job, activeTab]);
 
