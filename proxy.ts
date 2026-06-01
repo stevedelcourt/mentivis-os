@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 const locales = ["fr", "en"];
 
-const ALLOWED_REFERRERS = (process.env.ALLOWED_REFERRERS || "")
-  .split(",")
-  .map((d) => d.trim())
-  .filter(Boolean);
+const ALLOWED_REFERRER_DOMAINS = [
+  "https://mentivis.com",
+  "https://www.mentivis.com",
+  "https://sc3bovu7233.universe.wf",
+  "https://mentivis-web.vercel.app",
+];
 
-const ALLOWED_IPS = (process.env.ALLOWED_IPS || "")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
+const ALLOWED_IP_LIST = ["88.138.77.130"];
 
 const WRITE_API_PREFIXES = [
   "/api/beta-questionnaire",
@@ -21,14 +20,12 @@ function isAllowedReferrer(request: NextRequest): boolean {
   const ref = request.headers.get("referer") || "";
   const host = request.headers.get("host") || "";
   if (ref.startsWith(`https://${host}`)) return true;
-  if (ALLOWED_REFERRERS.length === 0) return true;
-  return ALLOWED_REFERRERS.some((domain) => ref.startsWith(domain));
+  return ALLOWED_REFERRER_DOMAINS.some((domain) => ref.startsWith(domain));
 }
 
 function isAllowedIp(request: NextRequest): boolean {
-  if (ALLOWED_IPS.length === 0) return false;
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "";
-  return ALLOWED_IPS.includes(ip);
+  return ALLOWED_IP_LIST.includes(ip);
 }
 
 export function proxy(request: NextRequest) {
@@ -38,7 +35,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (ALLOWED_REFERRERS.length > 0 && !pathname.startsWith("/api/")) {
+  if (!pathname.startsWith("/api/")) {
     if (!isAllowedIp(request) && !isAllowedReferrer(request)) {
       return new NextResponse("Access denied", { status: 403 });
     }
