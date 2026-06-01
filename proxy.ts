@@ -9,6 +9,11 @@ const ALLOWED_REFERRERS = (process.env.ALLOWED_REFERRERS || "")
   .map((d) => d.trim())
   .filter(Boolean);
 
+const ALLOWED_IPS = (process.env.ALLOWED_IPS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 const WRITE_API_PREFIXES = [
   "/api/beta-questionnaire",
   "/api/cms/",
@@ -22,6 +27,12 @@ function isAllowedReferrer(request: NextRequest): boolean {
   return ALLOWED_REFERRERS.some((domain) => ref.startsWith(domain));
 }
 
+function isAllowedIp(request: NextRequest): boolean {
+  if (ALLOWED_IPS.length === 0) return false;
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "";
+  return ALLOWED_IPS.includes(ip);
+}
+
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
@@ -30,7 +41,7 @@ export function proxy(request: NextRequest) {
   }
 
   if (VER && ALLOWED_REFERRERS.length > 0 && !pathname.startsWith("/api/")) {
-    if (!isAllowedReferrer(request)) {
+    if (!isAllowedIp(request) && !isAllowedReferrer(request)) {
       return new NextResponse("Access denied", { status: 403 });
     }
   }
