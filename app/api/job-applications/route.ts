@@ -78,13 +78,16 @@ export async function POST(request: NextRequest) {
       const safeFirstName = sanitizeFilename(firstName);
       cvFilename = `${safeLastName}-${safeFirstName}-cv.pdf`;
 
-      if (!fs.existsSync(CVS_DIR)) {
-        fs.mkdirSync(CVS_DIR, { recursive: true });
+      try {
+        if (!fs.existsSync(CVS_DIR)) {
+          fs.mkdirSync(CVS_DIR, { recursive: true });
+        }
+        const buffer = Buffer.from(await file.arrayBuffer());
+        cvBuffer = buffer;
+        fs.writeFileSync(path.join(CVS_DIR, cvFilename), buffer);
+      } catch {
+        // Non-fatal — read-only filesystem (Vercel)
       }
-
-      const buffer = Buffer.from(await file.arrayBuffer());
-      cvBuffer = buffer;
-      fs.writeFileSync(path.join(CVS_DIR, cvFilename), buffer);
 
       cvUrl = `/api/cvs/${cvFilename}`;
     }
