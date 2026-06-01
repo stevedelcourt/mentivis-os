@@ -37,9 +37,7 @@ export function proxy(request: NextRequest) {
 
   if (!pathname.startsWith("/api/")) {
     if (!isAllowedIp(request) && !isAllowedReferrer(request)) {
-      const res = new NextResponse("Access denied", { status: 403 });
-      res.headers.set("X-Proxy-Block", `ref:${request.headers.get("referer")||"none"}|ip:${request.headers.get("x-forwarded-for")||"none"}`);
-      return res;
+      return new NextResponse("Access denied", { status: 403 });
     }
   }
 
@@ -72,9 +70,7 @@ export function proxy(request: NextRequest) {
     );
   }
 
-  const res = NextResponse.next();
-  res.headers.set("X-Proxy", `ok|ref=${(request.headers.get("referer")||"NO").slice(0,50)}|host=${request.headers.get("host")||"NO"}|ip=${(request.headers.get("x-forwarded-for")||"NO").slice(0,20)}`);
-  return res;
+  return NextResponse.next();
 }
 
 export const config = {
