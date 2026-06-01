@@ -120,53 +120,28 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   }, [slug]);
 
   useEffect(() => {
-    if (!job || activeTab !== "apply") return;
+    if (!job) return;
 
-    const containerId = `hs-form-${job.reference}`;
-
-    const createForm = () => {
-      const hbspt = (window as any).hbspt;
-      if (!hbspt) return;
-      hbspt.forms.create({
-        region: "na1",
-        portalId: "49558612",
-        formId: "78954872-9038-4a85-8420-ae295c46f90b",
-        target: `#${containerId}`,
-        onFormReady: ($form: HTMLFormElement) => {
-          const ref = $form.querySelector('[name="job_reference"]') as HTMLInputElement | null;
-          const title = $form.querySelector('[name="job_title"]') as HTMLInputElement | null;
-          if (ref) ref.value = job.reference;
-          if (title) title.value = job.title;
-        },
-        onFormSubmitted: () => setFormState("success"),
-      });
-    };
-
-    const tryCreateForm = (attempts = 0) => {
-      const hbspt = (window as any).hbspt;
-      if (!hbspt) return;
-      if (document.getElementById(containerId)) {
-        createForm();
-        return;
+    const onMessage = (e: MessageEvent) => {
+      if (
+        e.data?.type === "hsFormCallback" &&
+        e.data?.eventName === "onFormSubmitted" &&
+        e.data?.id === "78954872-9038-4a85-8420-ae295c46f90b"
+      ) {
+        setFormState("success");
       }
-      if (attempts < 20) setTimeout(() => tryCreateForm(attempts + 1), 150);
     };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [job]);
 
-    if ((window as any).hbspt) {
-      tryCreateForm();
-      return;
-    }
-
+  useEffect(() => {
+    if (document.querySelector('script[src*="js.hsforms.net/forms/embed"]')) return;
     const script = document.createElement("script");
     script.src = "https://js.hsforms.net/forms/embed/49558612.js";
     script.defer = true;
-    script.onload = () => tryCreateForm();
     document.head.appendChild(script);
-
-    return () => {
-      if (script.parentNode) script.parentNode.removeChild(script);
-    };
-  }, [job, activeTab]);
+  }, []);
 
   const typeLabel = (type: string) => JOB_TYPE_LABELS[type]?.[lang] || type;
 
@@ -534,7 +509,10 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                   </div>
                 ) : (
                   <div
-                    id={`hs-form-${job.reference}`}
+                    className="hs-form-frame"
+                    data-region="na1"
+                    data-form-id="78954872-9038-4a85-8420-ae295c46f90b"
+                    data-portal-id="49558612"
                     ref={hsFormRef}
                     style={{ background: "#fff", padding: "40px", borderRadius: 16, border: "1px solid #e5e5e5" }}
                   />
