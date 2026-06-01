@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const locales = ["fr", "en"];
 
-const VER = process.env.VERCEL;
-
 const ALLOWED_REFERRERS = (process.env.ALLOWED_REFERRERS || "")
   .split(",")
   .map((d) => d.trim())
@@ -40,13 +38,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (VER && ALLOWED_REFERRERS.length > 0 && !pathname.startsWith("/api/")) {
+  if (ALLOWED_REFERRERS.length > 0 && !pathname.startsWith("/api/")) {
     if (!isAllowedIp(request) && !isAllowedReferrer(request)) {
       return new NextResponse("Access denied", { status: 403 });
     }
   }
 
-  if (VER && pathname.startsWith("/api/")) {
+  if (pathname.startsWith("/api/")) {
     if (
       request.method !== "GET" &&
       request.method !== "HEAD" &&
