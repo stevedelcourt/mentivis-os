@@ -73,7 +73,7 @@ export function proxy(request: NextRequest) {
   }
 
   const res = NextResponse.next();
-  res.headers.set("X-Proxy", "ok");
+  res.headers.set("X-Proxy", `ok|ref=${(request.headers.get("referer")||"NO").slice(0,50)}|host=${request.headers.get("host")||"NO"}|ip=${(request.headers.get("x-forwarded-for")||"NO").slice(0,20)}`);
   return res;
 }
 
