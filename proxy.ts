@@ -37,7 +37,9 @@ export function proxy(request: NextRequest) {
 
   if (!pathname.startsWith("/api/")) {
     if (!isAllowedIp(request) && !isAllowedReferrer(request)) {
-      return new NextResponse("Access denied", { status: 403 });
+      const res = new NextResponse("Access denied", { status: 403 });
+      res.headers.set("X-Proxy-Block", `ref:${request.headers.get("referer")||"none"}|ip:${request.headers.get("x-forwarded-for")||"none"}`);
+      return res;
     }
   }
 
