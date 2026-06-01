@@ -95,7 +95,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
 
   const hsFormRef = useRef<HTMLDivElement>(null);
-  const hsScriptRef = useRef<HTMLScriptElement | null>(null);
 
   useEffect(() => {
     async function fetchJob() {
@@ -127,7 +126,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
 
     const createForm = () => {
       const hbspt = (window as any).hbspt;
-      if (!hbspt) return false;
+      if (!hbspt) return;
       hbspt.forms.create({
         region: "na1",
         portalId: "49558612",
@@ -141,22 +140,27 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         },
         onFormSubmitted: () => setFormState("success"),
       });
-      return true;
     };
 
-    if (createForm()) return;
+    const tryCreateForm = (attempts = 0) => {
+      const hbspt = (window as any).hbspt;
+      if (!hbspt) return;
+      if (document.getElementById(containerId)) {
+        createForm();
+        return;
+      }
+      if (attempts < 20) setTimeout(() => tryCreateForm(attempts + 1), 150);
+    };
+
+    if ((window as any).hbspt) {
+      tryCreateForm();
+      return;
+    }
 
     const script = document.createElement("script");
     script.src = "https://js.hsforms.net/forms/embed/49558612.js";
     script.defer = true;
-    script.onload = () => {
-      let attempts = 0;
-      const retry = () => {
-        if (createForm() || ++attempts > 10) return;
-        setTimeout(retry, 100);
-      };
-      retry();
-    };
+    script.onload = () => tryCreateForm();
     document.head.appendChild(script);
 
     return () => {
