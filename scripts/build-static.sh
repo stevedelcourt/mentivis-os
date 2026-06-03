@@ -250,8 +250,8 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     if SITE_URL and 'sc4bovu7233.universe.wf' in html and SITE_URL != 'https://sc4bovu7233.universe.wf':
         html = html.replace('https://sc4bovu7233.universe.wf', SITE_URL)
 
-    # Strip /statics prefix from asset URLs (mirror doesn't use ASSET_PREFIX)
-    html = html.replace('/statics/_next/static/', '/_next/static/')
+    # Strip /s prefix from asset URLs (mirror doesn't use ASSET_PREFIX)
+    html = html.replace('/s/_next/static/', '/_next/static/')
 
     # Fix favicon: strip cache-busting query, preserve quotes
     html = re.sub(r'href=([\"\'])/icon.svg\?[^\"\']*\1', r'href=\1/icon.svg\1', html)

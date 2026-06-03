@@ -57,7 +57,7 @@ ALLOWED_ORIGINS=${ALLOWED_ORIGINS},https://sc10bovu7233.universe.wf,https://mirr
 SITE_URL=https://mentivisos.com
 DATA_DIR=/home/sc10bovu7233/data
 PORT=3001
-ASSET_PREFIX=/statics
+ASSET_PREFIX=/s
 ENVEOF
   echo "Written .env.local"
 
@@ -73,14 +73,14 @@ ENVEOF
   fi
 
   echo "--- Building Next.js ---"
-  rm -rf .next ${APP_DIR}/public/_next ${APP_DIR}/statics 2>/dev/null || true
-  ASSET_PREFIX=/statics npx next build --webpack
+  rm -rf .next ${APP_DIR}/public/_next ${APP_DIR}/s 2>/dev/null || true
+  ASSET_PREFIX=/s npx next build --webpack
 
   echo "--- Copying static files for Apache to serve directly ---"
-  mkdir -p ${APP_DIR}/statics/_next
-  cp -r ${APP_DIR}/.next/static ${APP_DIR}/statics/_next/static
-  find ${APP_DIR}/statics -type f \( -name '8058-*.js' -o -name 'polyfills-42372ed130431b0a.js' -o -name 'page-fd1be9258fa18787.js' \) -exec sed -i '1i void 0;' {} \;
-  echo "Static files ready in statics/"
+  mkdir -p ${APP_DIR}/s/_next
+  cp -r ${APP_DIR}/.next/static ${APP_DIR}/s/_next/static
+  find ${APP_DIR}/s -type f \( -name '8058-*.js' -o -name 'polyfills-42372ed130431b0a.js' -o -name 'page-fd1be9258fa18787.js' \) -exec sed -i '1i void 0;' {} \;
+  echo "Static files ready in s/"
 
   echo "--- Restarting Passenger ---"
   mkdir -p tmp
