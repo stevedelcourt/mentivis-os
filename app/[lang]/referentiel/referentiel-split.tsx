@@ -31,7 +31,6 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
   const [selectedSlug, setSelectedSlug] = useState(initialSlug || (articles[0]?.slug || ""));
   const [article, setArticle] = useState<ReferentielArticle | null>(initialArticle);
   const [loading, setLoading] = useState(false);
-  const [showList, setShowList] = useState(true);
 
   const fetchArticle = useCallback(async (slug: string) => {
     setLoading(true);
@@ -68,7 +67,6 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
     } else {
       fetchArticle(slug);
     }
-    setShowList(false);
   }
 
   const isFr = lang === "fr";
@@ -92,25 +90,10 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
         </div>
       </header>
 
-      {!showList && (
-        <button
-          onClick={() => setShowList(true)}
-          style={{
-            display: "flex", alignItems: "center", gap: 6, padding: "10px 16px", margin: "12px 16px 0",
-            background: "none", border: "1px solid #ddd", borderRadius: 8, cursor: "pointer",
-            fontSize: 13, color: "#4e4e4e", fontFamily: "inherit", alignSelf: "flex-start",
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          {isFr ? "Retour à la liste" : "Back to list"}
-        </button>
-      )}
-
       <div style={{ display: "flex", flex: 1, maxWidth: 1200, margin: "0 auto", width: "100%" }}>
         <aside
           style={{
             width: 320, flexShrink: 0, borderRight: "1px solid #e4e4e4",
-            display: showList ? "block" : "none",
             padding: "16px 12px",
             position: "sticky", top: 100, alignSelf: "flex-start", maxHeight: "calc(100vh - 120px)", overflowY: "auto",
           }}
@@ -172,11 +155,7 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
 
       <style>{`
         @media (max-width: 768px) {
-          .referentiel-list {
-            display: ${showList ? "block" : "none"} !important;
-            width: 100% !important;
-            border-right: none !important;
-          }
+          .referentiel-list { width: 100% !important; border-right: none !important; border-bottom: 1px solid #e4e4e4; position: static !important; max-height: none !important; }
         }
         .referentiel-content h1, .referentiel-content h2, .referentiel-content h3 {
           font-weight: 300;
