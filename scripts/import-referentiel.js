@@ -84,7 +84,7 @@ async function main() {
     for (const article of articles) {
       // Check if slug already exists
       const existing = db.prepare("SELECT id FROM referentiel_articles WHERE slug = ?").get([article.slug]);
-      if (existing) {
+      if (existing && existing.length > 0) {
         console.log(`  SKIP (exists): ${article.title}`);
         continue;
       }
