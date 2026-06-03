@@ -30,7 +30,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
     setVisible(true);
     async function loadHero() {
       try {
-        const res = await fetch(`/api/pages?lang=${lang}`);
+        const res = await fetch(`/api/pages?page=homepage&lang=${lang}`);
         if (res.ok) {
           const data = await res.json();
           if (data.page?.hero) {

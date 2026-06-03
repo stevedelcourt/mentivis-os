@@ -28,11 +28,11 @@ export function getFaqJsonLd(page: FaqPage, lang: Locale): Record<string, unknow
     case "homepage":
       return buildFaqSchema(getHomepageFaq(lang), `${base}/`);
     case "learningos":
-      return buildFaqSchema(learningosFaq[lang], `${base}/learningos`);
+      return buildFaqSchema(learningosFaq[lang], `${base}/learningos/`);
     case "talentos":
-      return buildFaqSchema(talentosFaq[lang], `${base}/talentos`);
+      return buildFaqSchema(talentosFaq[lang], `${base}/talentos/`);
     case "ambassadors":
-      return buildFaqSchema(getAmbassadorsFaq(lang), `${base}/ambassadors`);
+      return buildFaqSchema(getAmbassadorsFaq(lang), `${base}/ambassadors/`);
     default:
       return null;
   }

@@ -16,11 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: pageSeo?.title || "MentivisOS",
     description: pageSeo?.description || "",
     alternates: {
-      canonical: `${SITE_URL}/${lang}`,
+      canonical: `${SITE_URL}/${lang}/`,
       languages: {
-        fr: `${SITE_URL}/fr`,
-        en: `${SITE_URL}/en`,
-        "x-default": `${SITE_URL}/fr`,
+        fr: `${SITE_URL}/fr/`,
+        en: `${SITE_URL}/en/`,
+        "x-default": `${SITE_URL}/fr/`,
       },
     },
     openGraph: {

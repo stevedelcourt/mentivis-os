@@ -27,5 +27,6 @@ export async function GET(request: Request) {
   }
 
   const pages = await getPages();
-  return NextResponse.json({ page: pages.fr.homepage }, { headers: corsHeaders(request) });
+  const langKey = (lang === "fr" || lang === "en" ? lang : "fr") as "fr" | "en";
+  return NextResponse.json({ page: (pages[langKey] || pages.fr).homepage }, { headers: corsHeaders(request) });
 }

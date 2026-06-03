@@ -35,7 +35,7 @@ export function getBreadcrumbItems(lang: Locale, pathname: string): BreadcrumbIt
 
   items.push({
     name: lang === "fr" ? "Accueil" : "Home",
-    url: base,
+    url: base + "/",
   });
 
   let current = base;
@@ -43,7 +43,7 @@ export function getBreadcrumbItems(lang: Locale, pathname: string): BreadcrumbIt
     if (seg === lang) continue;
     current += `/${seg}`;
     const label = LABELS[seg]?.[lang] || seg;
-    items.push({ name: label, url: current });
+    items.push({ name: label, url: current + "/" });
   }
 
   return items;
