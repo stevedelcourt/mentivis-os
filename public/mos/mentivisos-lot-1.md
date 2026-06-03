@@ -33,7 +33,7 @@ Le goulot d'étranglement de la formation n'est plus la diffusion, résolue depu
 
 ---
 
-MentivisOS diagnostique l'écart, génère le parcours exact et mesure l'acquisition réelle, du référentiel à la certification. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS diagnostique l'écart, génère le parcours exact et mesure l'acquisition réelle, du référentiel à la certification. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment MentivisOS génère une formation à partir d'un référentiel · Pourquoi un LMS ne suffit plus · Qu'est-ce qu'un système d'exploitation pédagogique.
 
@@ -66,7 +66,7 @@ La valeur d'un système ne tient pas à l'addition de fonctions, mais à leur or
 
 ---
 
-MentivisOS est ce système d'exploitation pédagogique : une base native IA qui opère la formation de bout en bout. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS est ce système d'exploitation pédagogique : une base native IA qui opère la formation de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS · Comment MentivisOS génère une formation à partir d'un référentiel · Pourquoi un LMS ne suffit plus.
 
@@ -99,7 +99,7 @@ Il manque au LMS tout l'amont et tout l'aval intelligents : le diagnostic qui id
 
 ---
 
-MentivisOS adresse ce que le LMS ne traite pas : il génère le contenu juste à partir du besoin et du référentiel. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS adresse ce que le LMS ne traite pas : il génère le contenu juste à partir du besoin et du référentiel. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS · MentivisOS remplace-t-il mon LMS ou s'y ajoute-t-il · Comment MentivisOS génère une formation à partir d'un référentiel.
 
@@ -132,7 +132,7 @@ La logique centrale est l'écart : la distance entre le niveau réel de l'appren
 
 ---
 
-MentivisOS génère le parcours exact qui comble l'écart, du référentiel à la certification. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS génère le parcours exact qui comble l'écart, du référentiel à la certification. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS · Comment MentivisOS adapte un parcours compétence par compétence · Comment MentivisOS sécurise la conformité Qualiopi des contenus.
 
@@ -165,7 +165,7 @@ Travailler compétence par compétence, et non par module global, est ce qui ren
 
 ---
 
-MentivisOS ajuste chaque parcours aux acquis réels, compétence par compétence. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS ajuste chaque parcours aux acquis réels, compétence par compétence. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment MentivisOS génère une formation à partir d'un référentiel · Comment MentivisOS mesure l'acquisition réelle des compétences · Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS.
 
@@ -198,7 +198,7 @@ La mesure de l'acquisition sert trois usages. Elle alimente l'adaptation : le sy
 
 ---
 
-MentivisOS mesure l'acquisition réelle des compétences, intégrée dès la génération du parcours. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS mesure l'acquisition réelle des compétences, intégrée dès la génération du parcours. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment MentivisOS adapte un parcours compétence par compétence · Comment MentivisOS sécurise la conformité Qualiopi des contenus · Comment piloter la formation avec les données de MentivisOS.
 
@@ -231,7 +231,7 @@ Il faut être clair sur le périmètre. MentivisOS sécurise les preuves liées 
 
 ---
 
-MentivisOS produit par construction une partie des preuves pédagogiques attendues en audit Qualiopi. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS produit par construction une partie des preuves pédagogiques attendues en audit Qualiopi. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment MentivisOS génère une formation à partir d'un référentiel · Comment MentivisOS mesure l'acquisition réelle des compétences · MentivisOS pour les organismes de formation et les CFA.
 
@@ -264,7 +264,7 @@ Il n'y a pas de réponse unique. Une organisation attachée à son LMS et à ses
 
 ---
 
-MentivisOS opère seul ou se branche sur vos outils existants via API : à vous de choisir. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS opère seul ou se branche sur vos outils existants via API : à vous de choisir. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Pourquoi un LMS ne suffit plus · Comment intégrer MentivisOS à un LMS existant · Comment intégrer MentivisOS à un SIRH.
 
@@ -297,7 +297,7 @@ Pour une entreprise, TalentOS est le moteur qui relie la stratégie de compéten
 
 ---
 
-TalentOS pilote les compétences et les parcours ; LearningOS génère la formation. Ensemble, ils opèrent le développement de bout en bout. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+TalentOS pilote les compétences et les parcours ; LearningOS génère la formation. Ensemble, ils opèrent le développement de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment TalentOS relie la stratégie de compétences à la formation · LearningOS et TalentOS : quelle différence · MentivisOS pour les entreprises.
 
@@ -330,7 +330,7 @@ TalentOS ne s'arrête pas à la génération. Il suit l'acquisition dans la dur�
 
 ---
 
-TalentOS transforme votre stratégie de compétences en parcours générés, suivis et mesurés. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+TalentOS transforme votre stratégie de compétences en parcours générés, suivis et mesurés. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que TalentOS dans la suite MentivisOS · Comment MentivisOS génère une formation à partir d'un référentiel · MentivisOS pour les entreprises.
 

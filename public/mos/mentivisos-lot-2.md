@@ -33,7 +33,7 @@ La valeur naît de l'articulation. TalentOS sans LearningOS identifierait des é
 
 ---
 
-LearningOS génère, TalentOS pilote : ensemble, ils opèrent le développement des compétences de bout en bout. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+LearningOS génère, TalentOS pilote : ensemble, ils opèrent le développement des compétences de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que TalentOS dans la suite MentivisOS · Comment TalentOS relie la stratégie de compétences à la formation · Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS.
 
@@ -66,7 +66,7 @@ Une cartographie figée se périme vite. L'intérêt de TalentOS est de mainteni
 
 ---
 
-TalentOS maintient une cartographie vivante des compétences, base du pilotage continu du développement. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+TalentOS maintient une cartographie vivante des compétences, base du pilotage continu du développement. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment TalentOS relie la stratégie de compétences à la formation · Qu'est-ce que TalentOS dans la suite MentivisOS · MentivisOS pour les entreprises.
 
@@ -99,7 +99,7 @@ Le suivi rend la trajectoire pilotable. Visualiser où en est chaque individu, c
 
 ---
 
-TalentOS suit l'acquisition réelle de chaque parcours dans la durée et la relie à la stratégie. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+TalentOS suit l'acquisition réelle de chaque parcours dans la durée et la relie à la stratégie. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment TalentOS cartographie les compétences d'une organisation · Comment MentivisOS mesure l'acquisition réelle des compétences · LearningOS et TalentOS : quelle différence.
 
@@ -132,7 +132,7 @@ Ce changement de posture a des effets commerciaux. Un partenaire opérationnel q
 
 ---
 
-Avec TalentOS, l'organisme de formation devient partenaire du pilotage des compétences de ses clients. [Voir l'accompagnement organismes de formation](https://mentivis.com/fr/of/) · [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+Avec TalentOS, l'organisme de formation devient partenaire du pilotage des compétences de ses clients. [Voir l'accompagnement organismes de formation](https://mentivisos.com/fr/tarifs/) · [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que TalentOS dans la suite MentivisOS · MentivisOS pour les organismes de formation et les CFA · Comment TalentOS relie la stratégie de compétences à la formation.
 
@@ -165,7 +165,7 @@ L'API rend le déploiement modulaire. Vous pouvez utiliser MentivisOS comme une 
 
 ---
 
-L'API de MentivisOS branche la génération sur vos outils existants, sans tout reconstruire. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+L'API de MentivisOS branche la génération sur vos outils existants, sans tout reconstruire. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment intégrer MentivisOS à un SIRH · Comment intégrer MentivisOS à un LMS existant · MentivisOS remplace-t-il mon LMS ou s'y ajoute-t-il.
 
@@ -198,7 +198,7 @@ L'intégration technique ne suffit pas. Elle suppose des données propres au dé
 
 ---
 
-L'API de MentivisOS relie la génération et le pilotage à votre SIRH, sur des données à jour et un hébergement conforme au RGPD. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+L'API de MentivisOS relie la génération et le pilotage à votre SIRH, sur des données à jour et un hébergement conforme au RGPD. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment l'API de MentivisOS s'intègre à vos outils existants · Comment intégrer MentivisOS à un LMS existant · MentivisOS pour les entreprises.
 
@@ -231,7 +231,7 @@ L'intérêt de cette intégration est l'absence de rupture. Les apprenants conti
 
 ---
 
-MentivisOS alimente votre LMS en contenus générés à la demande : la diffusion reste, la production change. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS alimente votre LMS en contenus générés à la demande : la diffusion reste, la production change. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : MentivisOS remplace-t-il mon LMS ou s'y ajoute-t-il · Pourquoi un LMS ne suffit plus · Comment l'API de MentivisOS s'intègre à vos outils existants.
 
@@ -264,7 +264,7 @@ La conformité au RGPD encadre la collecte, le traitement et la conservation des
 
 ---
 
-MentivisOS traite vos données de formation sur un hébergement souverain européen conforme au RGPD. [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS traite vos données de formation sur un hébergement souverain européen conforme au RGPD. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment intégrer MentivisOS à un SIRH · Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS · MentivisOS pour le secteur public et les OPCO.
 
@@ -297,7 +297,7 @@ Au-delà de la production, MentivisOS ouvre un changement de posture. Avec Talen
 
 ---
 
-MentivisOS permet aux organismes et CFA de produire conforme, à grande échelle, et de proposer un pilotage des compétences à leurs clients. [Voir l'accompagnement organismes de formation](https://mentivis.com/fr/of/) · [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS permet aux organismes et CFA de produire conforme, à grande échelle, et de proposer un pilotage des compétences à leurs clients. [Voir l'accompagnement organismes de formation](https://mentivisos.com/fr/tarifs/) · [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment MentivisOS sécurise la conformité Qualiopi des contenus · Comment un organisme de formation utilise TalentOS pour ses clients · MentivisOS pour les entreprises.
 
@@ -330,7 +330,7 @@ MentivisOS ne suppose pas de tout remplacer. Via l'API, il s'intègre au SIRH et
 
 ---
 
-MentivisOS fait passer l'entreprise de l'achat de formations ponctuelles à une fonction compétences opérée de bout en bout. [Voir l'accompagnement entreprises](https://mentivis.com/fr/enterprise/) · [Découvrir MentivisOS](https://mentivis.com/fr/mentivisos/)
+MentivisOS fait passer l'entreprise de l'achat de formations ponctuelles à une fonction compétences opérée de bout en bout. [Voir l'accompagnement entreprises](https://mentivisos.com/fr/contact/) · [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Comment TalentOS relie la stratégie de compétences à la formation · Comment intégrer MentivisOS à un SIRH · Comment l'API de MentivisOS s'intègre à vos outils existants.
 
