@@ -12,6 +12,21 @@ interface Props {
   initialSlug: string;
 }
 
+function excerpt(content: string, maxLen = 120): string {
+  return content
+    .replace(/^#+\s+.*$/gm, "")
+    .replace(/\*\*|__/g, "")
+    .replace(/\*|_/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+    .replace(/`{1,3}[^`]+`{1,3}/g, "")
+    .replace(/#+\s/g, "")
+    .replace(/\n{2,}/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .substring(0, maxLen) + "...";
+}
+
 export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }: Props) {
   const [selectedSlug, setSelectedSlug] = useState(initialSlug || (articles[0]?.slug || ""));
   const [article, setArticle] = useState<ReferentielArticle | null>(initialArticle);
@@ -115,7 +130,8 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
               onMouseEnter={(e) => { if (selectedSlug !== a.slug) e.currentTarget.style.background = "#f8f8f8"; }}
               onMouseLeave={(e) => { if (selectedSlug !== a.slug) e.currentTarget.style.background = "transparent"; }}
             >
-              {a.title}
+              <div style={{ fontWeight: selectedSlug === a.slug ? 500 : 400 }}>{a.title}</div>
+            <div style={{ fontSize: 12, color: "#888", marginTop: 4, lineHeight: 1.3 }}>{excerpt(a.content)}</div>
             </button>
           ))}
         </aside>
