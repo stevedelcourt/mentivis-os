@@ -325,6 +325,23 @@ function runMigrations(db: SqlJsDb) {
   }
 
   try {
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS referentiel_articles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        slug TEXT UNIQUE NOT NULL,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        position INTEGER DEFAULT 0,
+        published INTEGER DEFAULT 1,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+  } catch {
+    // Table already exists
+  }
+
+  try {
     db.exec("ALTER TABLE jobs ADD COLUMN remote INTEGER DEFAULT 0");
   } catch {
     // Column already exists
