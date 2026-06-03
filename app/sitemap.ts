@@ -29,15 +29,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const lang of langs) {
     for (const page of pages) {
-      const path = page.path || "/";
       entries.push({
-        url: `${BASE_URL}/${lang}${path}/`,
+        url: `${BASE_URL}/${lang}${page.path}/`,
         lastModified: new Date(),
         changeFrequency: page.changeFreq,
         priority: page.priority,
         alternates: {
           languages: Object.fromEntries(
-            langs.map((l) => [l, `${BASE_URL}/${l}${path}/`])
+            langs.map((l) => [l, `${BASE_URL}/${l}${page.path}/`])
           ),
         },
       });
