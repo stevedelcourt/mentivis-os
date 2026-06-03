@@ -624,8 +624,22 @@ const DEFAULT_PRICING_EN: PricingContent = {
 };
 
 export async function getPricing(lang: "fr" | "en" = "fr"): Promise<PricingContent> {
-  // Use language-specific defaults until CMS supports bilingual pricing
-  return lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
+  const defaults = lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
+  try {
+    const db = await getDb();
+    const rows = db.prepare("SELECT product, plans_json FROM pricing").all() as { product: string; plans_json: string }[];
+    if (rows.length === 0) return defaults;
+    const merged: PricingContent = { learningos: defaults.learningos, pipelineos: defaults.pipelineos, api: defaults.api };
+    for (const row of rows) {
+      const product = row.product as keyof PricingContent;
+      if (merged[product]) {
+        try { merged[product] = JSON.parse(row.plans_json); } catch {}
+      }
+    }
+    return merged;
+  } catch {
+    return defaults;
+  }
 }
 
 export async function savePricing(data: PricingContent) {
