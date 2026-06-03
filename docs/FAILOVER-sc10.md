@@ -1,4 +1,6 @@
-# Procédure de basculement sc10 → Mirror
+# MentivisOS.com
+
+## Procédure de basculement sc10 → Mirror
 
 Quand le serveur principal (Passenger) ne répond plus, basculer le domaine
 principal vers le miroir statique.

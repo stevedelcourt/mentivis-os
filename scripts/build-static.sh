@@ -62,7 +62,7 @@ Allow: /
 Sitemap: ${TARGET_DOMAIN}/sitemap.xml
 TXTEOL
 
-# .htaccess for static server — proxy API + trailing slash rewrite
+# .htaccess for static server — API proxy via PHP + trailing slash rewrite
 cat > "$OUT_DIR/.htaccess" << 'HTEOF'
 RewriteEngine On
 
@@ -71,15 +71,65 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} /$
 RewriteRule ^(.*)/$ $1/index.html [L]
 
-# Fallback: redirect non-file requests to live SSR (blog posts, carrieres, etc.)
+# Proxy /api/* calls through PHP (no CORS issues, same origin)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(api/.*)$ proxy.php?url=$1 [L,QSA]
+
+# Fallback: serve 404.html for non-file requests
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ __API_PROXY__/$1 [R=302,L]
+RewriteRule ^(.*)$ 404.html [L]
 HTEOF
-sed -i '' "s|__API_PROXY__|${API_PROXY}|g" "$OUT_DIR/.htaccess"
-echo "  OK  .htaccess (API proxy → ${API_PROXY})"
+echo "  OK  .htaccess (API proxy via PHP)"
 
-# Generate minimal PWA manifest
+# PHP proxy for /api/* requests
+cat > "$OUT_DIR/proxy.php" << 'PHPEOF'
+<?php
+$url = $_GET['url'] ?? '';
+if (!$url || strpos($url, 'api/') !== 0) {
+  http_response_code(400);
+  exit('Bad request');
+}
+$target = rtrim('__API_PROXY__', '/') . '/' . $url;
+$ch = curl_init();
+curl_setopt_array($ch, [
+  CURLOPT_URL => $target,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HEADER => false,
+  CURLOPT_TIMEOUT => 15,
+  CURLOPT_SSL_VERIFYPEER => false,
+  CURLOPT_HTTPHEADER => ['X-Forwarded-For: ' . ($_SERVER['REMOTE_ADDR'] ?? '')],
+]);
+// Forward request method and body
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $_SERVER['REQUEST_METHOD']);
+if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'PATCH'])) {
+  curl_setopt($ch, CURLOPT_POSTFIELDS, file_get_contents('php://input'));
+  // Forward Content-Type header
+  foreach (getallheaders() as $name => $value) {
+    if (strtolower($name) === 'content-type') {
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array_merge(
+        curl_getinfo($ch, CURLOPT_HTTPHEADER) ?: [],
+        ["Content-Type: $value"]
+      ));
+      break;
+    }
+  }
+}
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+curl_close($ch);
+if ($response === false) {
+  http_response_code(502);
+  exit('Proxy error');
+}
+if ($contentType) header("Content-Type: $contentType");
+http_response_code($httpCode);
+echo $response;
+PHPEOF
+sed -i '' "s|__API_PROXY__|${API_PROXY}|g" "$OUT_DIR/proxy.php"
+echo "  OK  proxy.php (forwards /api/* to ${API_PROXY})"
 cat > "$OUT_DIR/manifest.json" << 'MANEOF'
 {"name":"MentivisOS","short_name":"MentivisOS","start_url":"/fr/","display":"minimal-ui","icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml"}]}
 MANEOF
@@ -158,7 +208,23 @@ for chunkId in $(cat /tmp/chunk-ids.txt 2>/dev/null); do
 done
 rm -f /tmp/chunk-ids.txt
 
-echo "  OK  $ASSETS HTML-ref + $LC lazy chunks mirrored"
+  echo "  OK  $ASSETS HTML-ref + $LC lazy chunks mirrored"
+
+# ── Fix URL-encoded directory names (e.g. %5Blang%5D → [lang]) ──
+echo "--- Fixing URL-encoded directory names ---"
+find "$OUT_DIR/_next/static" -type d -name '%5B*%5D' | while read d; do
+  decoded=$(echo "$d" | sed 's/%5B/[/g; s/%5D/]/g')
+  if [ "$d" != "$decoded" ]; then
+    mv "$d" "$decoded" 2>/dev/null && echo "  Renamed $(basename "$d") → $(basename "$decoded")" || true
+  fi
+done
+find "$OUT_DIR/_next/static" -type f -path '*%5B*%5D*' | while read f; do
+  decoded=$(echo "$f" | sed 's/%5B/[/g; s/%5D/]/g')
+  if [ "$f" != "$decoded" ]; then
+    mkdir -p "$(dirname "$decoded")"
+    mv "$f" "$decoded" 2>/dev/null || true
+  fi
+done
 
 # ── Post-processing (Python) ──
 echo "--- Post-processing HTML ---"
@@ -184,8 +250,8 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     if SITE_URL and 'sc4bovu7233.universe.wf' in html and SITE_URL != 'https://sc4bovu7233.universe.wf':
         html = html.replace('https://sc4bovu7233.universe.wf', SITE_URL)
 
-    # Rewrite relative /api/ URLs to absolute live server URLs (no mod_proxy on mirror)
-    html = html.replace('/api/', '${API_PROXY}/api/')
+    # Strip /statics prefix from asset URLs (mirror doesn't use ASSET_PREFIX)
+    html = html.replace('/statics/_next/static/', '/_next/static/')
 
     # Fix favicon: strip cache-busting query, preserve quotes
     html = re.sub(r'href=([\"\'])/icon.svg\?[^\"\']*\1', r'href=\1/icon.svg\1', html)
@@ -204,16 +270,6 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
 
     open(f, 'w').write(html)
 "
-
-echo "--- Rewriting /api/ URLs in JS bundles ---"
-JS_COUNT=0
-for f in $(find "${OUT_DIR}/_next/static" -name '*.js' -type f); do
-  if grep -q '"/api/' "$f" 2>/dev/null; then
-    sed -i '' "s|\"/api/|\"${API_PROXY}/api/|g" "$f"
-    ((JS_COUNT++))
-  fi
-done
-echo "  OK  $JS_COUNT JS files updated with absolute API URLs"
 
 COUNT=$(find "$OUT_DIR" -name 'index.html' | wc -l | tr -d ' ')
 echo "=== Done: $COUNT HTML pages in $OUT_DIR/ ($FAILS pages failed) ==="
