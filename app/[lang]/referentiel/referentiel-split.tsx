@@ -95,7 +95,7 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
           style={{
             width: 320, flexShrink: 0, borderRight: "1px solid #e4e4e4",
             padding: "16px 12px",
-            position: "sticky", top: 100, alignSelf: "flex-start", maxHeight: "calc(100vh - 120px)", overflowY: "auto",
+            position: "sticky", top: 100, alignSelf: "flex-start",
           }}
           className="referentiel-list"
         >
