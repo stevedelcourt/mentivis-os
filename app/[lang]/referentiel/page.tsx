@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles, getReferentielArticle } from "@/lib/cms/db";
 import { ReferentielSplit } from "./referentiel-split";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
-  const isFr = lang === "fr";
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS",
-    description: isFr
-      ? "Articles pratiques et conformes sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences."
-      : "Practical articles on vocational training, Qualiopi standards, and skills development.",
+    title: "Le Référentiel - MentivisOS",
+    description: "Articles pratiques et conformes sur la formation professionnelle, le réferentiel Qualiopi, le développement des compétences.",
     robots: { index: true, follow: true },
+    alternates: { canonical: `${SITE_URL}/fr/referentiel/` },
   };
 }
 

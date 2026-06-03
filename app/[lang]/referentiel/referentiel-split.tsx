@@ -48,7 +48,8 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
       if (res.ok) {
         const data = await res.json();
         setArticle(data.article);
-        window.history.replaceState(null, "", `?article=${slug}`);
+        window.history.replaceState(null, data.article.title, `/${document.documentElement.lang || "fr"}/referentiel/?article=${slug}`);
+        document.title = `${data.article.title} | Le Référentiel - MentivisOS`;
       }
     } catch {}
     setLoading(false);
@@ -67,12 +68,20 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
     }
   }, [articles, initialSlug, article, fetchArticle]);
 
+  useEffect(() => {
+    if (articles.length > 0 && !initialSlug && !article) {
+      setSelectedSlug(articles[0].slug);
+      fetchArticle(articles[0].slug);
+    }
+  }, [articles, initialSlug, article, fetchArticle]);
+
   function selectArticle(slug: string) {
     setSelectedSlug(slug);
     const cached = articles.find(a => a.slug === slug);
     setArticle(cached || null);
     if (cached) {
-      window.history.replaceState(null, "", `?article=${slug}`);
+      window.history.replaceState(null, cached.title, `/${document.documentElement.lang || "fr"}/referentiel/?article=${slug}`);
+      document.title = `${cached.title} | Le Référentiel - MentivisOS`;
     } else {
       fetchArticle(slug);
     }
@@ -81,6 +90,37 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
 
   const isFr = lang === "fr";
   const activeArticle = article || articles.find(a => a.slug === selectedSlug);
+
+  useEffect(() => {
+    if (!activeArticle) return;
+    if (typeof window === "undefined") return;
+    const base = document.documentElement.lang || "fr";
+    const url = `${window.location.origin}/${base}/referentiel/?article=${activeArticle.slug}`;
+    document.title = `${activeArticle.title} | Le Référentiel - MentivisOS`;
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", url);
+
+    const desc = activeArticle.content
+      .replace(/^#+\s+.*$/gm, "")
+      .replace(/\*\*|__/g, "")
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/\n+/g, " ")
+      .trim()
+      .substring(0, 155);
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", desc);
+  }, [activeArticle]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
@@ -166,6 +206,20 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
                     dateModified: activeArticle.updatedAt,
                     author: { "@type": "Organization", name: "MentivisOS" },
                     publisher: { "@type": "Organization", name: "MentivisOS" },
+                  }),
+                }}
+              />
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://mentivisos.com/fr/" },
+                      { "@type": "ListItem", "position": 2, "name": "Le Référentiel", "item": "https://mentivisos.com/fr/referentiel/" },
+                      { "@type": "ListItem", "position": 3, "name": activeArticle.title },
+                    ],
                   }),
                 }}
               />
