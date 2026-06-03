@@ -3,6 +3,7 @@ import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, Job
 import { SITE_URL } from "@/lib/site-url";
 
 export { generateSlug } from "./utils";
+import { generateSlug as _genSlug } from "./utils";
 
 // ── Posts ──
 
@@ -706,7 +707,7 @@ export async function getReferentielArticle(slug: string): Promise<ReferentielAr
 
 export async function saveReferentielArticle(data: Partial<ReferentielArticle> & { title: string; content: string }) {
   const db = await getDb();
-  const slug = data.slug || generateSlug(data.title);
+  const slug = data.slug || _genSlug(data.title);
   const now = new Date().toISOString();
 
   if (data.id) {
