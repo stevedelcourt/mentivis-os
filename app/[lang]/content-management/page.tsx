@@ -57,17 +57,24 @@ export default function ContentManagementPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        redirect: "follow",
       });
-      const data = await res.json();
+      const text = await res.text();
+      let data: any;
+      try { data = JSON.parse(text); } catch {
+        console.error("[CMS Login] Non-JSON:", text.substring(0, 300));
+        setLoginError("Erreur serveur (" + res.status + ")");
+        return;
+      }
       if (data.success && data.token) {
         localStorage.setItem("cms_token", data.token);
         localStorage.setItem("cms_role", data.role || "god");
-        // Force reload to pick up new auth state
         window.location.href = `/${lang}/content-management`;
       } else {
         setLoginError(data.error || "Erreur de connexion");
       }
-    } catch {
+    } catch (err) {
+      console.error("[CMS Login] Network error:", err);
       setLoginError("Erreur reseau");
     }
   };
