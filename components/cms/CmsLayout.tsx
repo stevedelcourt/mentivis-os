@@ -20,6 +20,7 @@ export const CMS_TABS = [
   { label: "SEO / JSON-LD", href: "content-management/seo" },
   { label: "Soumissions", href: "content-management/soumissions", countKey: "submissions" as const },
   { label: "Candidatures", href: "content-management/candidatures", countKey: "candidatures" as const },
+  { label: "Référentiel", href: "content-management/referentiel" },
   { label: "Parametres", href: "content-management/settings", godOnly: true },
 ];
 

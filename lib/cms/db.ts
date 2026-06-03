@@ -656,6 +656,76 @@ export async function savePricing(data: PricingContent) {
   }
 }
 
+// ── Référentiel ──
+
+export async function getReferentielArticles(): Promise<ReferentielArticle[]> {
+  const db = await getDb();
+  const rows = db.prepare("SELECT * FROM referentiel_articles WHERE published = 1 ORDER BY position ASC").all() as any[];
+  return rows.map((row: any) => ({
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    content: row.content,
+    position: row.position,
+    published: !!row.published,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }));
+}
+
+export async function getAllReferentielArticles(): Promise<ReferentielArticle[]> {
+  const db = await getDb();
+  const rows = db.prepare("SELECT * FROM referentiel_articles ORDER BY position ASC").all() as any[];
+  return rows.map((row: any) => ({
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    content: row.content,
+    position: row.position,
+    published: !!row.published,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }));
+}
+
+export async function getReferentielArticle(slug: string): Promise<ReferentielArticle | undefined> {
+  const db = await getDb();
+  const row = db.prepare("SELECT * FROM referentiel_articles WHERE slug = ?").get(slug) as any;
+  if (!row) return undefined;
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    content: row.content,
+    position: row.position,
+    published: !!row.published,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export async function saveReferentielArticle(data: Partial<ReferentielArticle> & { title: string; content: string }) {
+  const db = await getDb();
+  const slug = data.slug || generateSlug(data.title);
+  const now = new Date().toISOString();
+
+  if (data.id) {
+    db.prepare(`
+      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
+    `).run(slug, data.title, data.content, data.position ?? 0, data.published ? 1 : 0, now, data.id);
+  } else {
+    db.prepare(`
+      INSERT INTO referentiel_articles (slug, title, content, position, published, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(slug, data.title, data.content, data.position ?? 0, data.published ? 1 : 0, now, now);
+  }
+}
+
+export async function deleteReferentielArticle(id: number) {
+  const db = await getDb();
+  db.prepare("DELETE FROM referentiel_articles WHERE id = ?").run(id);
+}
+
 // ── SEO / JSON-LD ──
 
 const DEFAULT_SEO: SeoContent = {

@@ -107,6 +107,17 @@ export interface FormSubmission {
 
 // ── Users & Roles ──
 
+export interface ReferentielArticle {
+  id: number;
+  slug: string;
+  title: string;
+  content: string;
+  position: number;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type UserRole = "god" | "editorial" | "tarifs";
 
 export interface User {

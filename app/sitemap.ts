@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
-import { getPublishedPosts } from "@/lib/cms/db";
+import { getPublishedPosts, getReferentielArticles } from "@/lib/cms/db";
 
 const BASE_URL = SITE_URL;
 const langs = ["fr", "en"];
@@ -22,6 +22,7 @@ const pages = [
   { path: "/privacy", priority: 0.3, changeFreq: "yearly" as const },
   { path: "/terms", priority: 0.3, changeFreq: "yearly" as const },
   { path: "/cgv", priority: 0.3, changeFreq: "yearly" as const },
+  { path: "/referentiel", priority: 0.7, changeFreq: "weekly" as const },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -52,6 +53,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.dateISO),
           changeFrequency: "monthly",
           priority: 0.6,
+        });
+      }
+    }
+  } catch {}
+
+  try {
+    const refArticles = await getReferentielArticles();
+    for (const article of refArticles) {
+      for (const lang of langs) {
+        entries.push({
+          url: `${BASE_URL}/${lang}/referentiel/?article=${article.slug}`,
+          lastModified: new Date(article.updatedAt),
+          changeFrequency: "monthly",
+          priority: 0.5,
         });
       }
     }
