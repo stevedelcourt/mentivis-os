@@ -6,7 +6,7 @@ OUT_DIR="out"
 PAGES=(
   "" "about" "ambassadors" "security" "impact" "talentos" "learningos"
   "tarifs" "demo" "contact" "composants" "modules/adaptive" "modules/visual"
-  "legal" "privacy" "terms" "cgv"
+  "legal" "privacy" "terms" "cgv" "blog" "carrieres" "hidden-testimonials"
 )
 
 rm -rf "$OUT_DIR"
@@ -14,7 +14,8 @@ rm -rf "$OUT_DIR"
 # Source secrets (SITE_URL for output domain)
 if [ -f ".env.deploy" ]; then source .env.deploy; fi
 
-SOURCE_URL="https://sc4bovu7233.universe.wf"
+SOURCE_URL="${SOURCE_URL:-https://sc10bovu7233.universe.wf}"
+API_PROXY="${API_PROXY:-$SOURCE_URL}"
 TARGET_DOMAIN="${SITE_URL:-https://mentivisos.com}"
 
 echo "=== Mirroring $SOURCE_URL → $OUT_DIR/ (target: $TARGET_DOMAIN) ==="
@@ -70,11 +71,13 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} /$
 RewriteRule ^(.*)/$ $1/index.html [L]
 
-# Proxy API calls to live server
-RewriteCond %{REQUEST_URI} ^/api/
-RewriteRule ^api/(.*)$ https://sc4bovu7233.universe.wf/api/$1 [P,L]
+# Fallback: redirect non-file requests to live SSR (blog posts, carrieres, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ __API_PROXY__/$1 [R=302,L]
 HTEOF
-echo "  OK  .htaccess (API proxy + trailing slash)"
+sed -i '' "s|__API_PROXY__|${API_PROXY}|g" "$OUT_DIR/.htaccess"
+echo "  OK  .htaccess (API proxy → ${API_PROXY})"
 
 # Generate minimal PWA manifest
 cat > "$OUT_DIR/manifest.json" << 'MANEOF'
@@ -181,6 +184,9 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
     if SITE_URL and 'sc4bovu7233.universe.wf' in html and SITE_URL != 'https://sc4bovu7233.universe.wf':
         html = html.replace('https://sc4bovu7233.universe.wf', SITE_URL)
 
+    # Rewrite relative /api/ URLs to absolute live server URLs (no mod_proxy on mirror)
+    html = html.replace('/api/', '${API_PROXY}/api/')
+
     # Fix favicon: strip cache-busting query, preserve quotes
     html = re.sub(r'href=([\"\'])/icon.svg\?[^\"\']*\1', r'href=\1/icon.svg\1', html)
 
@@ -198,6 +204,16 @@ for f in sorted(glob.glob('${OUT_DIR}/**/*.html', recursive=True)):
 
     open(f, 'w').write(html)
 "
+
+echo "--- Rewriting /api/ URLs in JS bundles ---"
+JS_COUNT=0
+for f in $(find "${OUT_DIR}/_next/static" -name '*.js' -type f); do
+  if grep -q '"/api/' "$f" 2>/dev/null; then
+    sed -i '' "s|\"/api/|\"${API_PROXY}/api/|g" "$f"
+    ((JS_COUNT++))
+  fi
+done
+echo "  OK  $JS_COUNT JS files updated with absolute API URLs"
 
 COUNT=$(find "$OUT_DIR" -name 'index.html' | wc -l | tr -d ' ')
 echo "=== Done: $COUNT HTML pages in $OUT_DIR/ ($FAILS pages failed) ==="
