@@ -1,5 +1,5 @@
 import { getDb } from "./sqlite";
-import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS } from "./types";
+import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS, ReferentielArticle } from "./types";
 import { SITE_URL } from "@/lib/site-url";
 
 export { generateSlug } from "./utils";
