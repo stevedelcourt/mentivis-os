@@ -26,11 +26,14 @@ export default async function DeveloppersPage({ params }: { params: Promise<{ la
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            name: isFr ? "API MentivisOS — Documentation Développeurs" : "MentivisOS API — Developer Documentation",
+            headline: isFr ? "API MentivisOS - Documentation Développeurs" : "MentivisOS API - Developer Documentation",
             description: isFr
               ? "Documentation technique de l'API MentivisOS pour l'intégration avec les systèmes ATS, SIRH et outils de gestion."
               : "MentivisOS API technical documentation for integration with ATS, HRIS and management tools.",
             url: `${SITE_URL}/${lang}/developpers`,
+            author: { "@type": "Organization", name: "Mentivis" },
+            publisher: { "@type": "Organization", name: "Mentivis" },
+            datePublished: "2026-03-01",
           }),
         }}
       />

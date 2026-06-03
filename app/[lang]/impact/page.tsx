@@ -26,7 +26,7 @@ export default async function ImpactPage({ params }: { params: Promise<{ lang: s
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: isFr ? "Programme Impact — ICIA x MentivisOS" : "Impact Program — ICIA x MentivisOS",
+            name: isFr ? "Programme Impact - ICIA x MentivisOS" : "Impact Program - ICIA x MentivisOS",
             description: isFr
               ? "Un programme structuré pour passer de l'inquiétude à la compétence face à l'IA."
               : "A structured program to move from concern to competence with AI.",

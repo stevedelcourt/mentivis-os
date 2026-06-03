@@ -26,7 +26,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ lang:
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: isFr ? "Sécurité — MentivisOS" : "Security — MentivisOS",
+            name: isFr ? "Sécurité - MentivisOS" : "Security - MentivisOS",
             description: isFr
               ? "L'IA pédagogique conçue pour transformer la formation, avec confidentialité et protections intégrées."
               : "AI-powered pedagogy built to transform training, with built-in confidentiality and protections.",

@@ -8,6 +8,7 @@ import InteractiveExplainer from "@/components/interactive-explainer";
 
 export const metadata = {
   title: "Composants - MentivisOS",
+  description: "Les composants de linterface MentivisOS : chat, graphiques, modules et éléments interactifs.",
 };
 
 const SAMPLE_CHAT = {

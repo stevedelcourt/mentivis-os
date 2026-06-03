@@ -22,7 +22,7 @@ export const learningosFaq: Record<Locale, FaqItem[]> = {
     { question: "What is LearningOS?", answer: "LearningOS is Mentivis's AI-native training system. It generates personalized learning paths, automatically adapts content, and drives skills development, all in a single platform." },
     { question: "How does LearningOS create personalized paths?", answer: "LearningOS analyzes target skills, internal job frameworks, and each learner's profile to generate custom paths with objectives, modules and adapted assessments." },
     { question: "Is LearningOS compatible with OPCO funding?", answer: "Yes. LearningOS includes an OPCO Manager module that simplifies the setup and tracking of funding applications, with exportable compliance data." },
-    { question: "Can I integrate LearningOS with my existing tools?", answer: "Yes. LearningOS exposes a complété REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
+    { question: "Can I integrate LearningOS with my existing tools?", answer: "Yes. LearningOS exposes a complete REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
     { question: "Is LearningOS GDPR compliant?", answer: "Yes. LearningOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption at rest and TLS 1.3 in transit." },
     { question: "What types of training can I create with LearningOS?", answer: "Internal training, certified programs, onboarding modules, regulatory training, upskilling programs, any format, any profession." },
     { question: "How are learners supported?", answer: "AI agents (SkillAgents) accompany each learner 24/7, answer questions, direct them to relevant resources and adapt the pace in real time." },
@@ -44,7 +44,7 @@ export const talentosFaq: Record<Locale, FaqItem[]> = {
   en: [
     { question: "What is TalentOS?", answer: "TalentOS is Mentivis's AI recruitment system. It combines a smart ATS, matching engine, assessment tests and HR analytics in a single platform." },
     { question: "How does AI matching work?", answer: "The engine semantically analyzes CVs and candidate profiles, compares them against your job criteria and weights, and automatically ranks profiles by relevance." },
-    { question: "Can I integrate TalentOS with my existing HRIS?", answer: "Yes. TalentOS exposes a complété REST API with ready-to-use connectors for major HRIS, CRM and ATS systems." },
+    { question: "Can I integrate TalentOS with my existing HRIS?", answer: "Yes. TalentOS exposes a complete REST API with ready-to-use connectors for major HRIS, CRM and ATS systems." },
     { question: "Is TalentOS suitable for multi-recruiter hiring?", answer: "Yes. The platform is built for collaboration: shared evaluations, comments, scoring grids and decision workflows for teams of any size." },
     { question: "What types of tests can I create?", answer: "Technical tests, case studies, simulations, behavioral questionnaires with auto-correction, custom scoring grids and candidate comparison." },
     { question: "Is TalentOS GDPR compliant?", answer: "Yes. TalentOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption and TLS 1.3, audit logs and role-based access control." },

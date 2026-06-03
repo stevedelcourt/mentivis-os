@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next";
-
 import { SITE_URL } from "@/lib/site-url";
+import { getPublishedPosts } from "@/lib/cms/db";
 
 const BASE_URL = SITE_URL;
-
 const langs = ["fr", "en"];
 
 const pages = [
@@ -25,7 +24,7 @@ const pages = [
   { path: "/cgv", priority: 0.3, changeFreq: "yearly" as const },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   for (const lang of langs) {
@@ -43,6 +42,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
   }
+
+  try {
+    const posts = await getPublishedPosts();
+    for (const post of posts) {
+      for (const lang of langs) {
+        entries.push({
+          url: `${BASE_URL}/${lang}/blog/${post.slug}`,
+          lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.dateISO),
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
+    }
+  } catch {}
 
   return entries;
 }

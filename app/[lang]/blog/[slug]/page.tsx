@@ -151,10 +151,17 @@ export default function BlogPostPage() {
             datePublished: post.dateISO,
             dateModified: post.updatedAt,
             author: { "@type": "Organization", name: "MentivisOS" },
-            publisher: { "@type": "Organization", name: "MentivisOS" },
+            publisher: {
+              "@type": "Organization",
+              name: "MentivisOS",
+              logo: {
+                "@type": "ImageObject",
+                url: (typeof window !== "undefined" ? window.location.origin : "https://mentivisos.com") + "/icon.svg",
+              },
+            },
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": typeof window !== "undefined" ? window.location.href : "",
+              "@id": typeof window !== "undefined" ? window.location.href : `https://mentivisos.com/${lang}/blog/${post.slug}`,
             },
           }),
         }}

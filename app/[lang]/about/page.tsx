@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-url";
 import AboutPageClient from "@/components/about-page-client";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -29,7 +30,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
             description: isFr
               ? "Mentivis conçoit, développe et opère MentivisOS, le système de formation native IA."
               : "Mentivis designs, develops and operates MentivisOS, the AI-native training system.",
-            url: `https://sc4bovu7233.universe.wf/${lang}/about`,
+            url: `${SITE_URL}/${lang}/about`,
           }),
         }}
       />
