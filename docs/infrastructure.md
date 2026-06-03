@@ -6,14 +6,32 @@ Reference document for the MentivisOS deployment environment, database architect
 
 ## Hosting Environment
 
+### Production (sc4)
+
 | Property | Value |
 |----------|-------|
 | Provider | o2switch (shared hosting) |
 | Server | `terre.o2switch.net` |
 | User | `sc4bovu7233` |
+| SSH Key | `/Users/stv/Documents/zed/OS_sc4/id_rsa_sc4` (passphrase: `RoxanStevenMathias2024`) |
 | Node | v20.20.2 via `/opt/alt/alt-nodejs20/root/usr/bin` |
 | Process Manager | Passenger (CloudLinux) |
 | Live URL | `https://sc4bovu7233.universe.wf` |
+| Database | `/home/sc4bovu7233/data/mentivis.db` |
+
+### Staging / Secondary (sc10)
+
+| Property | Value |
+|----------|-------|
+| Provider | o2switch (shared hosting) |
+| Server | `terre.o2switch.net` |
+| User | `sc10bovu7233` |
+| SSH Key | `/Users/stv/Documents/zed/DeployOS-sc10/id_rsa_sc10` (no passphrase) |
+| Node | v20.20.2 via `/opt/alt/alt-nodejs20/root/usr/bin` |
+| Process Manager | Passenger (CloudLinux) |
+| Live URL | `https://sc10bovu7233.universe.wf` |
+| Mirror URL | `https://mirror.sc10bovu7233.universe.wf` |
+| Database | `/home/sc10bovu7233/data/mentivis.db` |
 
 ### Key Constraints
 
@@ -21,10 +39,13 @@ Reference document for the MentivisOS deployment environment, database architect
 - **Old glibc** — prebuilt `better-sqlite3` binaries require GLIBC_2.29, which is unavailable
 - **Shared hosting** — no root access, no Docker, Passenger manages the Node process lifecycle
 - **2 CPU cores** — build capped via `experimental.cpus: 2` in `next.config.ts` to prevent OOM
+- **No mod_proxy** on subdomains — API proxying must use PHP-based proxy
 
 ---
 
 ## Directory Layout on Server
+
+### sc4 — `/home/sc4bovu7233/`
 
 ```
 /home/sc4bovu7233/
@@ -51,6 +72,35 @@ Reference document for the MentivisOS deployment environment, database architect
     └── .htaccess               # Passenger config + security headers
 ```
 
+### sc10 — `/home/sc10bovu7233/`
+
+```
+/home/sc10bovu7233/
+├── nextapp/                    # Application code (git checkout)
+│   ├── .env.local              # Secrets (written by deploy-sc10.sh)
+│   ├── node_modules/
+│   ├── server.js               # Passenger entry point
+│   ├── statics/                # Static files served directly by Apache
+│   │   └── _next/static/       # (avoids o2switch Tiger-Protect blocking _next/)
+│   ├── tmp/
+│   │   └── restart.txt         # Passenger restart trigger
+│   └── ...
+├── data/                       # Persistent data (outside repo)
+│   ├── mentivis.db             # SQLite database (synced from sc4)
+│   └── uploads/                # CMS image uploads (synced from sc4)
+└── public_html/
+    ├── .htaccess               # Passenger config + security headers
+    └── mirror/                 # Static mirror (served by Apache)
+        ├── index.html
+        ├── .htaccess            # PHP-based API proxy + trailing slash rewrite
+        ├── proxy.php            # Forwards /api/* to live server
+        ├── fr/                  # 20 pages
+        ├── en/                  # 20 pages
+        ├── _next/static/        # CSS/JS chunks
+        ├── images/
+        └── videos/
+```
+
 ---
 
 ## Database
@@ -73,11 +123,13 @@ Reference document for the MentivisOS deployment environment, database architect
 
 ### SQLite File
 
-- **Path:** `/home/sc4bovu7233/data/mentivis.db`
+- **sc4 path:** `/home/sc4bovu7233/data/mentivis.db`
+- **sc10 path:** `/home/sc10bovu7233/data/mentivis.db`
+- **CMS content is managed on sc4** — sc10 is a secondary deployment that receives synced data
 - **Persistence:** Survives `git reset --hard` and redeploys (outside repo)
 - **WAL mode:** Attempted on init (best-effort with sql.js)
 - **Auto-save:** Every `INSERT`/`UPDATE`/`DELETE` triggers `fs.writeFileSync()` of the exported database buffer
-- **Backups:** `deploy.sh` creates timestamped backups before every deploy (`mentivis.db.backup.YYYYMMDD_HHMMSS`). Last 10 retained.
+- **Backups:** `deploy-sc10.sh` creates timestamped backups before every deploy (`mentivis.db.backup.YYYYMMDD_HHMMSS`). Last 10 retained.
 
 ---
 
@@ -118,117 +170,49 @@ Next.js `standalone` output does **not** copy `sql.js` WASM into `.next/standalo
 
 ## Deployment Pipeline
 
-### `deploy.sh` — Zero-Downtime Deploy with Atomic Swap
+### sc4 — `deploy.sh`
 
-The deployment script implements an **atomic swap** strategy to ensure the old build continues serving traffic until the new build is fully ready and health-checked.
-
-```bash
-# 1. Push to GitHub
-git push
-
-# 2. SSH to o2switch
-ssh -i $SSH_KEY $SSH_USER@$SSH_HOST
-
-# 3. Pre-deploy database backup
-BACKUP_TS=$(date +%Y%m%d_%H%M%S)
-cp /home/sc4bovu7233/data/mentivis.db \
-   /home/sc4bovu7233/data/mentivis.db.backup.${BACKUP_TS}
-# Keep only last 10 backups
-ls -t /home/sc4bovu7233/data/mentivis.db.backup.* | tail -n +11 | xargs rm -f
-
-# 4. Write .env.local from local environment variables
-cat > ${APP_DIR}/.env.local << EOF
-INTERNAL_TOKEN=...
-CMS_AUTH_SECRET=...
-HUBSPOT_PORTAL_ID=...
-HUBSPOT_FORM_ID=...
-ALLOWED_ORIGINS=...
-EOF
-
-# 5. Ensure persistent data directory exists
-mkdir -p /home/sc4bovu7233/data/uploads
-
-# 6. Update code
-git fetch origin main
-git reset --hard origin/main
-
-# 7. Install dependencies
-npm install
-
-# 8. Build Next.js (webpack only)
-npx next build --webpack
-
-# 9. Stage new build (old build untouched)
-cp -a .next/standalone .next/standalone-new
-
-# 10. Atomic swap
-mv .next/standalone .next/standalone-old
-mv .next/standalone-new .next/standalone
-
-# 11. Copy static assets to new standalone output
-mkdir -p .next/standalone/public
-cp -r public/* .next/standalone/public/
-mkdir -p .next/standalone/.next/static
-cp -r .next/static/* .next/standalone/.next/static/
-cp .env.local .next/standalone/.env.local
-
-# 12. Restart Passenger
-mkdir -p tmp
-touch tmp/restart.txt
-
-# 13. Health check (5 retries, 2s apart)
-curl -sfk https://sc4bovu7233.universe.wf/api/health/
-
-# 14. Cleanup old build on success
-rm -rf .next/standalone-old
-```
-
-### Zero-Downtime Strategy
-
-| Step | What Happens | Downtime |
-|------|--------------|----------|
-| 1-8 | Build runs in parallel, old server still serving | **0s** |
-| 9 | New build copied to `standalone-new` | **0s** |
-| 10 | Atomic rename: `standalone` → `standalone-old`, `standalone-new` → `standalone` | **0s** |
-| 11-12 | Static assets copied, Passenger restart triggered | **~1-3s** |
-| 13 | Health check confirms new build is responding | **0s** |
-| 14 | Old build removed | **0s** |
-
-**Total estimated downtime:** 1-3 seconds (Passenger restart only).
-
-### Auto-Rollback
-
-If the health check fails after restart, the script automatically rolls back:
+Production deploy. Pushes to GitHub triggers Vercel auto-deploy. See `deploy.sh` for full script.
 
 ```bash
-rm -rf .next/standalone
-mv .next/standalone-old .next/standalone
-touch tmp/restart.txt
+cd /Users/stv/Documents/zed/OS_sc4/mentivis-os
+./scripts/deploy-unlock.sh
 ```
 
-This restores the previous working build without manual intervention.
+### sc10 — `deploy-sc10.sh`
 
-### Manual Rollback
-
-If you need to rollback after a successful deploy:
+Secondary SSR deploy. No Vercel. Uses `id_rsa_sc10` key (no passphrase).
 
 ```bash
-ssh -i id_rsa_sc4 sc4bovu7233@terre.o2switch.net
-cd /home/sc4bovu7233/nextapp
-rm -rf .next/standalone
-mv .next/standalone-old .next/standalone  # if still present
-touch tmp/restart.txt
+cd /Users/stv/Documents/zed/DeployOS-sc10/mentivis-os
+set -a && source .env.deploy && set +a
+./deploy-sc10.sh
 ```
 
-### Database Rollback
+The script:
+1. Writes `.env.local` with `ALLOWED_ORIGINS` including `mirror.sc10bovu7233.universe.wf`
+2. Fetches code from GitHub (`git reset --hard origin/main`)
+3. Builds Next.js with `ASSET_PREFIX=/statics` (avoids Tiger-Protect)
+4. Copies static files to `statics/_next/static/` for Apache direct serving
+5. Restarts Passenger
+6. Health checks at `https://sc10bovu7233.universe.wf/api/health/`
 
-To restore the database from a backup:
+### Sync sc4 → sc10 — `scripts/sync-sc4-to-sc10.sh`
+
+Syncs CMS content (database + uploads) from sc4 to sc10, then rebuilds the mirror.
 
 ```bash
-cp /home/sc4bovu7233/data/mentivis.db.backup.YYYYMMDD_HHMMSS \
-   /home/sc4bovu7233/data/mentivis.db
-touch tmp/restart.txt
+cd /Users/stv/Documents/zed/DeployOS-sc10/mentivis-os
+./scripts/sync-sc4-to-sc10.sh
 ```
+
+Steps:
+1. Unlocks sc4 SSH key (`/Users/stv/Documents/zed/OS_sc4/id_rsa_sc4`)
+2. Copies `mentivis.db` from sc4 → sc10 via SSH pipe
+3. Copies `uploads/` directory from sc4 → sc10 via tar pipe
+4. Restarts Passenger on sc10
+5. Rebuilds static mirror (see below)
+6. Uploads mirror to `public_html/mirror/`
 
 ### Required Environment Variables
 
@@ -349,67 +333,121 @@ PassengerStartupFile server.js
 
 ### Purpose
 
-Generate a complete static HTML snapshot of all public pages for deployment to static FTP servers (no Node.js/Passenger required).
+Generate a complete static HTML snapshot of all public pages for deployment as a **fallback mirror** when Passenger is down. No Node.js required — pure Apache/static hosting.
+
+### URL
+
+- **sc10 mirror**: `https://mirror.sc10bovu7233.universe.wf`
+- Created as a subdomain in cPanel, document root: `public_html/mirror/`
 
 ### Script: `scripts/build-static.sh`
 
 ```bash
-./scripts/build-static.sh  # curls live sc4bovu7233 → out/
+SOURCE_URL=https://sc10bovu7233.universe.wf \
+API_PROXY=https://sc10bovu7233.universe.wf \
+SITE_URL=https://mirror.sc10bovu7233.universe.wf \
+./scripts/build-static.sh
 ```
 
-**Process (v3 — curlling live server):**
-1. Sources `.env.deploy` for `SITE_URL` (target domain)
-2. Curls all 34 public pages from `https://sc4bovu7233.universe.wf` → CMS content baked in
-3. Curls `sitemap.xml` from live, replaces domain with `SITE_URL`
-4. Replaces all `https://sc4bovu7233.universe.wf` references with target domain in HTML (JSON-LD, breadcrumbs)
-5. Copies `public/` + `.next/static/` for CSS/JS/fonts/images
-6. Post-processes HTML: `_next/image` URLs → direct paths, OG tags, favicon, preload cleanup
-7. Generates root files: `index.html`, `robots.txt`, `.htaccess`, `manifest.json`, `404.html`
+**Environment variables (all optional):**
 
-**Note**: Requires local `next build --webpack` first (for `.next/static/` CSS/JS bundles). No local server needed — curlls live sc4bovu7233 directly.
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `SOURCE_URL` | `https://sc10bovu7233.universe.wf` | Source server to curl pages from |
+| `API_PROXY` | `$SOURCE_URL` | Backend URL for PHP API proxy |
+| `SITE_URL` | `https://mentivisos.com` | Target domain for sitemap/JSON-LD |
+
+**Process (v4):**
+1. Curls all **41 pages** (20 FR + 20 EN + root) from `SOURCE_URL` → CMS content baked in
+2. (New) Pages include: `blog`, `carrieres`, `hidden-testimonials`
+3. Curls `sitemap.xml` from live, replaces domain with `SITE_URL`
+4. Copies `public/` + `_next/static/` CSS/JS/fonts/images from live server
+5. Strips `/statics/` prefix from asset URLs (mirror doesn't use `ASSET_PREFIX`)
+6. Fixes URL-encoded directory names (`%5Blang%5D` → `[lang]`)
+7. Generates `proxy.php` — PHP-based API proxy (no mod_proxy needed)
+8. Generates `.htaccess`:
+   - Trailing slash → `index.html` rewrite
+   - `/api/*` → PHP proxy (for CORS-free same-origin API calls)
+   - Fallback → `404.html`
+9. Post-processes HTML: OG tags, favicon, `_next/image` cleanup
 
 ### Output Structure
 
 ```
 out/
 ├── index.html              ← root → /fr/
-├── robots.txt              ← sitemap link
-├── sitemap.xml             ← 34 entries with hreflang
-├── llms.txt                ← AI tool overview
-├── icon.svg                ← favicon (copied from app/)
-├── .htaccess               ← API proxy + trailing slash rewrite
-├── manifest.json           ← PWA minimal manifest
+├── .htaccess               ← PHP proxy + trailing slash rewrite
+├── proxy.php               ← Forwards /api/* to live server via cURL
 ├── 404.html                ← custom 404 page
-├── fr/ (17 dirs)           ← index.html per page
-├── en/ (17 dirs)           ← index.html per page
-├── images/                 ← all public images
-├── videos/                 ← marseille-drone.mp4
-├── _next/static/           ← CSS, JS chunks, font .woff2
-└── sounds/                 ← audio effects
+├── robots.txt
+├── sitemap.xml             ← 41 entries with hreflang
+├── manifest.json
+├── icon.svg
+├── llms.txt
+├── fr/ (20 dirs)           ← "" + 19 pages
+├── en/ (20 dirs)
+├── images/
+├── videos/
+├── _next/static/           ← CSS, JS chunks, fonts
+└── visuals-library/
+```
+
+### How the API proxy works
+
+`proxy.php` receives `/api/*` requests via Apache rewrite, forwards them to `API_PROXY` via cURL, and returns the response — all same-origin, no CORS headers needed.
+
+```apache
+# .htaccess rules (in mirror directory)
+RewriteRule ^(api/.*)$ proxy.php?url=$1 [L,QSA]
+```
+
+The PHP script:
+- Forwards GET/POST/PUT/PATCH with body and Content-Type
+- Follows redirects (handles trailing slash redirects from Next.js)
+- Disables SSL verification (shared hosting has no CA certs)
+- Passes through HTTP status codes and Content-Type
+
+### Building the mirror
+
+```bash
+# Full rebuild
+SOURCE_URL=https://sc10bovu7233.universe.wf \
+API_PROXY=https://sc10bovu7233.universe.wf \
+SITE_URL=https://mirror.sc10bovu7233.universe.wf \
+./scripts/build-static.sh
+
+# Upload to sc10
+rsync -avz --delete -e "ssh -i /Users/stv/Documents/zed/DeployOS-sc10/id_rsa_sc10" \
+  out/ sc10bovu7233@terre.o2switch.net:/home/sc10bovu7233/public_html/mirror/
+```
+
+Or use the all-in-one sync script:
+
+```bash
+./scripts/sync-sc4-to-sc10.sh  # copies DB + uploads from sc4, rebuilds mirror
 ```
 
 ### Key Details
 
-- **Homepage URL fix**: Uses `${page:+/$page}` to avoid double-slash (`/fr//`)
-- **Image URL fix**: Regex handles both `&` and `&amp;` separators in `srcSet`/`imageSrcSet` attributes
-- **SQLite workaround**: Sets `DATA_DIR` to `/tmp/mentivis-data` locally (avoids hardcoded server path)
-- **Total size**: ~78MB (including 37MB video)
-- **SSR-only pages excluded**: `/blog/*`, `/carrieres/*`, `/content-management/*`, `/api/*` — not captured
+- **Total size**: ~180MB (includes 37MB video)
+- **Blog pages**: Client-side JS fetches posts via `/api/blog/posts` → PHP proxy → live server (same-origin, no CORS)
+- **Blog detail pages**: Not static — served by fallback 404 or redirect to live server
+- **Forms (demo/contact)**: Submit via `/api/demo` → PHP proxy → live server → HubSpot
+- **CMS heroes**: Baked into HTML at build time (static snapshot)
 
-### Static `.htaccess` (generated in `out/`)
+### Failover
 
-The build script generates an `.htaccess` that proxies all `/api/*` calls to the live o2switch server, enabling forms, blog content, and CMS hero data to work on the static site:
+If Passenger goes down, redirect `sc10bovu7233.universe.wf` to the mirror:
 
-```apache
-# Proxy API calls to live server
-RewriteCond %{REQUEST_URI} ^/api/
-RewriteRule ^api/(.*)$ https://sc4bovu7233.universe.wf/api/$1 [P,L]
+```bash
+ssh -i /Users/stv/Documents/zed/DeployOS-sc10/id_rsa_sc10 \
+  sc10bovu7233@terre.o2switch.net \
+  "cat > /home/sc10bovu7233/public_html/.htaccess << 'EOF'
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ https://mirror.sc10bovu7233.universe.wf/\$1 [L,R=302]
+EOF"
 ```
 
-**Requirements on target server**: `mod_rewrite` and `mod_proxy` (standard on cPanel/shared hosting).
-**Nginx equivalent**:
-```nginx
-location /api/ {
-    proxy_pass https://sc4bovu7233.universe.wf/api/;
-}
-```
+To restore Passenger, see `docs/FAILOVER-sc10.md`.
