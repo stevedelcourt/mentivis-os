@@ -629,6 +629,8 @@ const DEFAULT_PRICING_EN: PricingContent = {
 
 export async function getPricing(lang: "fr" | "en" = "fr"): Promise<PricingContent> {
   const defaults = lang === "en" ? DEFAULT_PRICING_EN : DEFAULT_PRICING;
+  if (lang === "en") return defaults;
+
   try {
     const db = await getDb();
     const rows = db.prepare("SELECT product, plans_json FROM pricing").all() as { product: string; plans_json: string }[];
