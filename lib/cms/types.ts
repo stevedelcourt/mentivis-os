@@ -114,6 +114,7 @@ export interface ReferentielArticle {
   id: number;
   slug: string;
   title: string;
+  titleEn: string;
   content: string;
   contentEn: string;
   position: number;

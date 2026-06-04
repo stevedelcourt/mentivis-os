@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { getReferentielArticles, getReferentielArticle } from "@/lib/cms/db";
 
 function localize(a: any, lang: string) {
-  if (lang === "en" && a.contentEn) a.content = a.contentEn;
+  if (lang === "en") {
+    if (a.titleEn) a.title = a.titleEn;
+    if (a.contentEn) a.content = a.contentEn;
+  }
+  delete a.titleEn;
   delete a.contentEn;
   return a;
 }

@@ -26,10 +26,11 @@ export default async function ReferentielPage({ params, searchParams }: { params
     initialArticle = await getReferentielArticle(slug) || null;
     if (initialArticle && lang === "en" && initialArticle.contentEn) {
       initialArticle.content = initialArticle.contentEn;
+      if (initialArticle.titleEn) initialArticle.title = initialArticle.titleEn;
     }
   }
   const localizedArticles = lang === "en"
-    ? articles.map((a) => ({ ...a, content: a.contentEn || a.content }))
+    ? articles.map((a) => ({ ...a, content: a.contentEn || a.content, title: a.titleEn || a.title }))
     : articles;
 
   return (
