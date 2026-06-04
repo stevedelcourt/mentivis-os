@@ -4,11 +4,14 @@ import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles, getReferentielArticle } from "@/lib/cms/db";
 import { ReferentielSplit } from "./referentiel-split";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
   return {
-    title: "Le Référentiel - MentivisOS",
-    description: "Articles pratiques et conformes sur la formation professionnelle, le réferentiel Qualiopi, le développement des compétences.",
-    robots: { index: true, follow: true },
+    title: lang === "fr" ? "Le Référentiel — Guides formation professionnelle | MentivisOS" : "The Reference — Professional Training Guides | MentivisOS",
+    description: lang === "fr"
+      ? "Articles pratiques et conformes sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences."
+      : "Practical compliance guides for training organizations. Qualiopi, funding, skills development, AI training.",
+    robots: lang === "fr" ? { index: true, follow: true } : { index: false, follow: true },
     alternates: { canonical: `${SITE_URL}/fr/referentiel/` },
   };
 }
@@ -25,6 +28,31 @@ export default async function ReferentielPage({ params, searchParams }: { params
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {!sp.article && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              name: "Le Référentiel — MentivisOS",
+              description: "Articles pratiques sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences et l'intégration IA.",
+              url: `${SITE_URL}/fr/referentiel/`,
+              inLanguage: "fr-FR",
+              publisher: {
+                "@type": "Organization",
+                name: "MentivisOS",
+                url: SITE_URL,
+              },
+              hasPart: articles.slice(0, 10).map((a: any) => ({
+                "@type": "Article",
+                headline: a.title,
+                url: `${SITE_URL}/fr/referentiel/?article=${a.slug}`,
+              })),
+            }),
+          }}
+        />
+      )}
       <ReferentielSplit
         lang={lang as Locale}
         articles={articles}

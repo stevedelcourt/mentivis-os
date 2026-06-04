@@ -12,20 +12,28 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const seo = await getSeo();
   const pageSeo = seo[lang as "fr" | "en"]?.homepage;
+
+  const headersList = await headers();
+  const rawPath = headersList.get("x-pathname") || headersList.get("next-url") || `/${lang}`;
+  const path = rawPath.startsWith("http") ? new URL(rawPath).pathname : rawPath;
+  const relativePath = path.replace(/^\/(fr|en)/, "") || "/";
+  const canonical = `${SITE_URL}${path}`;
+
   return {
     title: pageSeo?.title || "MentivisOS",
     description: pageSeo?.description || "",
     alternates: {
-      canonical: `${SITE_URL}/${lang}/`,
+      canonical,
       languages: {
-        fr: `${SITE_URL}/fr/`,
-        en: `${SITE_URL}/en/`,
-        "x-default": `${SITE_URL}/fr/`,
+        fr: `${SITE_URL}/fr${relativePath}`,
+        en: `${SITE_URL}/en${relativePath}`,
+        "x-default": `${SITE_URL}/fr${relativePath}`,
       },
     },
     openGraph: {
       title: pageSeo?.title || "MentivisOS",
       description: pageSeo?.description || "",
+      url: canonical,
       locale: lang === "fr" ? "fr_FR" : "en_US",
       siteName: "MentivisOS",
       type: "website",

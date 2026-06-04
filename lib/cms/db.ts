@@ -172,7 +172,7 @@ export function writeJsonFile<T>(filePath: string, data: T) {
 const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   homepage: {
     eyebrow: "Mentivis OS",
-    headline: "MentivisOS forme vos collaborateurs, gere vos recrutements et pilote la montée en compétences de vos équipes.",
+    headline: "MentivisOS forme vos collaborateurs, gère vos recrutements et pilote la montée en compétences de vos équipes.",
     subheadline: "Un seul système qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecte a vos outils via la Mentivis API. Operationnel immediatement, sans refonte de votre organisation.",
     ctaPrimary: "Demarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -183,7 +183,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   learningos: {
     eyebrow: "LearningOS",
     headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
-    subheadline: "Generez des parcours personnalises, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
+    subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
     ctaPrimary: "Demarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
     ctaSecondary: "Contacter l'équipe",
@@ -733,7 +733,7 @@ const DEFAULT_SEO: SeoContent = {
   fr: {
     homepage: {
       title: "MentivisOS - Le système de formation native IA",
-      description: "MentivisOS forme vos collaborateurs, gere vos recrutements et pilote la montée en compétences de vos équipes.",
+      description: "MentivisOS forme vos collaborateurs, gère vos recrutements et pilote la montée en compétences de vos équipes.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
