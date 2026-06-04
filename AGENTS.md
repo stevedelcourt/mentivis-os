@@ -103,7 +103,52 @@ Failover procedure: `docs/FAILOVER-sc10.md`.
 - Dark mode only, WCAG AA, no parallax
 - Tone: factual, precise. Forbidden: innovation, disruption, révolutionnaire, solution, écosystème
 
-## Links
+## Bilingual Content Architecture (June 2026)
+
+All content types now support FR/EN via `_en` suffixed columns:
+
+### Blog posts
+- **DB columns**: `title_en`, `excerpt_en`, `content_en` (TEXT, nullable)
+- **API**: `GET /api/blog/posts?lang=en` → localizes title/excerpt/content from `_en` fields
+- **Frontend**: BlogIndex passes `?lang=` to API; slug page same pattern
+- **EN filter**: Posts without `content_en` are hidden on `/en/blog/`
+
+### Referentiel articles
+- **DB columns**: `content_en`, `title_en` (TEXT, nullable)
+- **API**: `GET /api/referentiel?lang=en` → localizes both title and content
+- **Server component**: `page.tsx` localizes initial article + sidebar before passing to client
+- **Client fetch**: `referentiel-split.tsx` passes `&lang=` parameter
+
+### Jobs
+- **DB columns**: `title_en`, `description_en`, `why_join_en`, `location_en`, `department_en`
+- **API**: `GET /api/jobs?lang=en` → localizes all fields
+- **Frontend**: careers page + job detail both pass `?lang=`
+
+### Tarifs (pricing)
+- **API**: `GET /api/pricing?lang=en` → returns `DEFAULT_PRICING_EN` (bypasses DB for EN)
+- **Features/Faq**: `FEATURES_COMPARISON_EN`, `FAQ_ITEMS_EN` used when `lang === "en"`
+- **UI**: All trial section, buttons, headings bilingual via `lang === "en"` ternaries
+
+### CMS
+- **Language toggle**: FR/EN switcher in edit forms for blog posts and referentiel
+- **Toggle default**: Matches URL language (`/en/content-management/` → defaults to EN)
+- **UI translation**: CMS interface labels use `t(fr, en)` helper — English on `/en/`, French on `/fr/`
+- **All fields**: FR fields (title/excerpt/content) + EN fields (title_en/excerpt_en/content_en) included in save payload
+
+### JSON-LD
+- **Organization** (global layout): with `sameAs`, `logo`, `contactPoint`
+- **SoftwareApplication** (layout): homepage with `AggregateOffer`
+- **LocalBusiness** (layout): address, phone, Google Maps
+- **FAQPage**: homepage + learningos + talentos + ambassadors
+- **Article**: blog detail + referentiel detail (client-side injected)
+- **BreadcrumbList**: dynamic per path
+- **CollectionPage**: referentiel index (FR: "Le Référentiel", EN: "The Reference")
+- **VideoObject**: homepage — demo video
+- **hreflang**: dynamic via `x-current-path` header from proxy middleware
+- **Canonical**: per-page via `generateMetadata`, removed from layout (was causing root canonical for all pages)
+
+### Job detail pages — noindex
+- `/fr/carrieres/[slug]` and `/en/carrieres/[slug]` → `robots: { index: false }`. Only the listing `/carrieres/` is indexable.
 
 - **Repo**: https://github.com/stevedelcourt/mentivis-os
 - **sc4 (production)**: https://sc4bovu7233.universe.wf
