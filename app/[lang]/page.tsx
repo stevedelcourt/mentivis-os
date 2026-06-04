@@ -1,4 +1,6 @@
 import { Locale } from "@/lib/i18n";
+import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import HeroUnit from "@/components/hero-unit";
 import SectorShowcase from "@/components/sector-showcase";
 import MathFeaturesSection from "@/components/math-features-section";
@@ -13,6 +15,14 @@ import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    alternates: { canonical: `${SITE_URL}/${lang}/` },
+    openGraph: { url: `${SITE_URL}/${lang}/` },
+  };
+}
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
