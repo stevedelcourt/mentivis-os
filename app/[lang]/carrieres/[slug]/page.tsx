@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: job ? `${job.title} - ${t.careers.meta.title}` : t.careers.meta.title,
     description: job ? `${job.title} - ${job.department} - ${job.location}` : t.careers.meta.description,
-    robots: { index: true, follow: true },
+    robots: { index: false, follow: true },
   };
 }
 
