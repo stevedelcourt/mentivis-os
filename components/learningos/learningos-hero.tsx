@@ -25,6 +25,21 @@ const DEFAULTS: Record<string, PageHeroContent> = {
   },
 };
 
+const starVisual = (
+  <img
+    src="/images/star-3d-transparent.svg"
+    alt="MentivisOS Star 3D"
+    style={{ width: "100%", maxWidth: 580, height: "auto", display: "block" }}
+  />
+);
+
 export default function LearningOSHero({ lang }: { lang: Locale }) {
-  return <CmsPageHero page="learningos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} />;
+  return (
+    <CmsPageHero
+      page="learningos"
+      lang={lang}
+      defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]}
+      visual={starVisual}
+    />
+  );
 }

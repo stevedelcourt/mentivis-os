@@ -182,6 +182,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
           .hero-buttons { flex-wrap: nowrap !important; }
           .hero-buttons a { font-size: 13px !important; padding: 10px 14px !important; white-space: nowrap; }
           .hero-proof { display: none !important; }
+          .hero-visual { display: none !important; }
         }
       `}</style>
     </section>
