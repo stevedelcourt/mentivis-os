@@ -25,29 +25,6 @@ const DEFAULTS: Record<string, PageHeroContent> = {
   },
 };
 
-const starVisual = (
-  <div style={{ width: "100%", maxWidth: 520, margin: "0 auto", aspectRatio: "1/1" }}>
-    <div
-      className="star-spin"
-      style={{ width: "100%", height: "100%" }}
-    >
-      <embed
-        src="/images/star-3d-transparent.svg"
-        type="image/svg+xml"
-        style={{ width: "100%", height: "100%", display: "block" }}
-      />
-    </div>
-    <style>{`@keyframes star-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .star-spin { animation: star-spin 25s linear infinite; }`}</style>
-  </div>
-);
-
 export default function LearningOSHero({ lang }: { lang: Locale }) {
-  return (
-    <CmsPageHero
-      page="learningos"
-      lang={lang}
-      defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]}
-      visual={starVisual}
-    />
-  );
+  return <CmsPageHero page="learningos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} />;
 }
