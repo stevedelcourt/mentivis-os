@@ -24,7 +24,13 @@ export default async function ReferentielPage({ params, searchParams }: { params
   let initialArticle = null;
   if (slug) {
     initialArticle = await getReferentielArticle(slug) || null;
+    if (initialArticle && lang === "en" && initialArticle.contentEn) {
+      initialArticle.content = initialArticle.contentEn;
+    }
   }
+  const localizedArticles = lang === "en"
+    ? articles.map((a) => ({ ...a, content: a.contentEn || a.content }))
+    : articles;
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -35,19 +41,21 @@ export default async function ReferentielPage({ params, searchParams }: { params
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "CollectionPage",
-              name: "Le Référentiel — MentivisOS",
-              description: "Articles pratiques sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences et l'intégration IA.",
-              url: `${SITE_URL}/fr/referentiel/`,
-              inLanguage: "fr-FR",
+              name: lang === "en" ? "The Reference — MentivisOS" : "Le Référentiel — MentivisOS",
+              description: lang === "en"
+                ? "Practical compliance guides for training organizations. Qualiopi, funding, skills development, AI training."
+                : "Articles pratiques sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences et l'intégration IA.",
+              url: `${SITE_URL}/${lang}/referentiel/`,
+              inLanguage: lang === "en" ? "en-US" : "fr-FR",
               publisher: {
                 "@type": "Organization",
                 name: "MentivisOS",
                 url: SITE_URL,
               },
-              hasPart: articles.slice(0, 10).map((a: any) => ({
+              hasPart: localizedArticles.slice(0, 10).map((a: any) => ({
                 "@type": "Article",
                 headline: a.title,
-                url: `${SITE_URL}/fr/referentiel/?article=${a.slug}`,
+                url: `${SITE_URL}/${lang}/referentiel/?article=${a.slug}`,
               })),
             }),
           }}
@@ -55,7 +63,7 @@ export default async function ReferentielPage({ params, searchParams }: { params
       )}
       <ReferentielSplit
         lang={lang as Locale}
-        articles={articles}
+        articles={localizedArticles}
         initialArticle={initialArticle}
         initialSlug={slug}
       />
