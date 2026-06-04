@@ -42,7 +42,7 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
   useEffect(() => {
     async function loadPosts() {
       try {
-        const res = await fetch("/api/blog/posts");
+        const res = await fetch(`/api/blog/posts?lang=${lang}`);
         const data = await res.json();
         setPosts(data.posts || []);
       } catch {
@@ -140,7 +140,7 @@ interface FeaturedCardProps {
 }
 
 function getGradientCss(post: Post): string | undefined {
-  if (post.gradientId) return GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css;
+  if (post.gradientId) return GRADIENT_PATTERNS.find(g => g.id === Number(post.gradientId))?.css;
   return undefined;
 }
 

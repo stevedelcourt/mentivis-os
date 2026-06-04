@@ -19,7 +19,7 @@ export default function BlogPostPage() {
   useEffect(() => {
     async function loadPost() {
       try {
-        const res = await fetch(`/api/blog/posts/${slug}`);
+        const res = await fetch(`/api/blog/posts/${slug}?lang=${lang}`);
         if (res.ok) {
           const data = await res.json();
           setPost(data.post);
@@ -122,7 +122,7 @@ export default function BlogPostPage() {
                 aspectRatio: "2/1",
                 borderRadius: 12,
                 marginBottom: 48,
-                background: GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "var(--bg-warm)",
+                background: GRADIENT_PATTERNS.find(g => g.id === Number(post.gradientId))?.css ?? "var(--bg-warm)",
               }}
             />
           ) : null}

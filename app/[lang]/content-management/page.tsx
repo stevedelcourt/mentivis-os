@@ -350,7 +350,7 @@ export default function ContentManagementPage() {
                           background: post.imageUrl
                             ? undefined
                             : (post.gradientId
-                              ? (GRADIENT_PATTERNS.find(g => g.id === post.gradientId)?.css ?? "#e5e5e5")
+                              ? (GRADIENT_PATTERNS.find(g => g.id === Number(post.gradientId))?.css ?? "#e5e5e5")
                               : "#e5e5e5"),
                         }}
                       >

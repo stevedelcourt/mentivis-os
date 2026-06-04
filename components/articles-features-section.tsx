@@ -12,7 +12,7 @@ interface ArticlesFeaturesSectionProps {
 
 function getGradientCss(post: Post): string {
   if (post.gradientId) {
-    const found = GRADIENT_PATTERNS.find(g => g.id === post.gradientId);
+    const found = GRADIENT_PATTERNS.find(g => g.id === Number(post.gradientId));
     if (found) return found.css;
   }
   return GRADIENT_PATTERNS[post.id % GRADIENT_PATTERNS.length].css;
