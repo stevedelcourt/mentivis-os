@@ -33,7 +33,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
 
   const fetchJobs = useCallback(async () => {
     try {
-      const res = await fetch("/api/jobs");
+        const res = await fetch(`/api/jobs?lang=${lang}`);
       const data = await res.json();
       setJobs(data.jobs || []);
     } catch {

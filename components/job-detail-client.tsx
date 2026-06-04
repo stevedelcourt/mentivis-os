@@ -106,7 +106,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   useEffect(() => {
     async function fetchJob() {
       try {
-        const res = await fetch(`/api/jobs/${slug}`);
+        const res = await fetch(`/api/jobs/${slug}?lang=${lang}`);
         if (res.status === 404) {
           setError("notFound");
           return;

@@ -143,12 +143,17 @@ export interface Job {
   slug: string;
   reference: string;
   title: string;
+  titleEn: string;
   location: string;
+  locationEn: string;
   remote: boolean;
   type: JobType;
   department: string;
+  departmentEn: string;
   description: string;
+  descriptionEn: string;
   whyJoin: string;
+  whyJoinEn: string;
   published: boolean;
   createdAt: string;
   updatedAt: string;
