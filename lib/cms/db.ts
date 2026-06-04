@@ -667,6 +667,7 @@ export async function getReferentielArticles(): Promise<ReferentielArticle[]> {
     slug: row.slug,
     title: row.title,
     content: row.content,
+    contentEn: row.content_en || "",
     position: row.position,
     published: !!row.published,
     createdAt: row.created_at,
@@ -682,6 +683,7 @@ export async function getAllReferentielArticles(): Promise<ReferentielArticle[]>
     slug: row.slug,
     title: row.title,
     content: row.content,
+    contentEn: row.content_en || "",
     position: row.position,
     published: !!row.published,
     createdAt: row.created_at,
@@ -698,6 +700,7 @@ export async function getReferentielArticle(slug: string): Promise<ReferentielAr
     slug: row.slug,
     title: row.title,
     content: row.content,
+    contentEn: row.content_en || "",
     position: row.position,
     published: !!row.published,
     createdAt: row.created_at,
@@ -712,13 +715,13 @@ export async function saveReferentielArticle(data: Partial<ReferentielArticle> &
 
   if (data.id) {
     db.prepare(`
-      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
-    `).run(slug, data.title, data.content, data.position ?? 0, data.published ? 1 : 0, now, data.id);
+      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, content_en = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
+    `).run(slug, data.title, data.content, data.contentEn || "", data.position ?? 0, data.published ? 1 : 0, now, data.id);
   } else {
     db.prepare(`
-      INSERT INTO referentiel_articles (slug, title, content, position, published, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).run(slug, data.title, data.content, data.position ?? 0, data.published ? 1 : 0, now, now);
+      INSERT INTO referentiel_articles (slug, title, content, content_en, position, published, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(slug, data.title, data.content, data.contentEn || "", data.position ?? 0, data.published ? 1 : 0, now, now);
   }
 }
 

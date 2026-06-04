@@ -44,7 +44,7 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
   const fetchArticle = useCallback(async (slug: string) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/referentiel?slug=${slug}`);
+      const res = await fetch(`/api/referentiel?slug=${slug}&lang=${lang}`);
       if (res.ok) {
         const data = await res.json();
         setArticle(data.article);
@@ -53,7 +53,7 @@ export function ReferentielSplit({ lang, articles, initialArticle, initialSlug }
       }
     } catch {}
     setLoading(false);
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     if (selectedSlug && !article) {

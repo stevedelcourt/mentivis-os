@@ -112,6 +112,7 @@ export interface ReferentielArticle {
   slug: string;
   title: string;
   content: string;
+  contentEn: string;
   position: number;
   published: boolean;
   createdAt: string;
