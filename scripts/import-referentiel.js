@@ -37,6 +37,7 @@ function parseArticles(md) {
     if (!titleLine) continue;
 
     const title = titleLine.replace(/^#\s+/, "").replace(/^\d+\.\s*/, "").trim();
+    if (/^MentivisOS\s*[—\-]\s*Lot\b/i.test(title)) continue;
     const slug = generateSlug(title);
     position++;
 
