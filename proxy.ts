@@ -21,7 +21,9 @@ export function proxy(request: NextRequest) {
     );
   }
 
-  return NextResponse.next();
+  const res = NextResponse.next();
+  res.headers.set("x-current-path", pathname);
+  return res;
 }
 
 export const config = {

@@ -12,14 +12,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const seo = await getSeo();
   const pageSeo = seo[lang as "fr" | "en"]?.homepage;
+
+  const headersList = await headers();
+  const rawPath = headersList.get("x-current-path") || headersList.get("next-url") || `/${lang}`;
+  const path = rawPath.startsWith("http") ? new URL(rawPath).pathname : rawPath;
+  const relativePath = path.replace(/^\/(fr|en)/, "") || "/";
+
   return {
     title: pageSeo?.title || "MentivisOS",
     description: pageSeo?.description || "",
     alternates: {
       languages: {
-        fr: `${SITE_URL}/fr/`,
-        en: `${SITE_URL}/en/`,
-        "x-default": `${SITE_URL}/fr/`,
+        fr: `${SITE_URL}/fr${relativePath}`,
+        en: `${SITE_URL}/en${relativePath}`,
+        "x-default": `${SITE_URL}/fr${relativePath}`,
       },
     },
     openGraph: {
@@ -75,6 +81,35 @@ export default async function LangLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSeo.jsonLd) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Mentivis",
+            alternateName: "MentivisOS",
+            url: SITE_URL,
+            logo: {
+              "@type": "ImageObject",
+              url: `${SITE_URL}/images/MentivisOS/mentivisos-logo-wordmark-noir.svg`,
+              width: 200,
+              height: 50,
+            },
+            sameAs: [
+              "https://www.linkedin.com/company/mentivis",
+              "https://www.instagram.com/menti.vis/",
+              "https://mentivis.com",
+            ],
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "sales",
+              url: `${SITE_URL}/${lang}/contact/`,
+              availableLanguage: ["French", "English"],
+            },
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

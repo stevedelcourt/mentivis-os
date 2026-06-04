@@ -46,6 +46,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           __html: JSON.stringify(getFaqJsonLd("homepage", locale)),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            name: "MentivisOS — démonstration du système de formation IA",
+            description: "Présentation du flux complet MentivisOS : diagnostic de compétences, génération de parcours, accompagnement IA, certification.",
+            thumbnailUrl: "https://mentivisos.com/images/LearningOS/thumb-product.webp",
+            uploadDate: "2026-01-01",
+            duration: "PT2M",
+            contentUrl: "https://mentivisos.com/videos/mOS-720.mp4",
+            embedUrl: "https://mentivisos.com/fr/",
+            publisher: { "@type": "Organization", name: "MentivisOS", url: "https://mentivisos.com" },
+          }),
+        }}
+      />
     </>
   );
 }
