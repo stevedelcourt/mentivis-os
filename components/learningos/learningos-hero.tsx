@@ -26,16 +26,15 @@ const DEFAULTS: Record<string, PageHeroContent> = {
 };
 
 const starVisual = (
-  <div style={{ width: "100%", maxWidth: 700, margin: "0 auto" }}>
+  <div style={{ width: "100%", maxWidth: 520, margin: "0 auto", aspectRatio: "1/1" }}>
     <div
       className="star-spin"
-      style={{ width: "100%" }}
+      style={{ width: "100%", height: "100%" }}
     >
-      <object
-        data="/images/star-3d-transparent.svg"
+      <embed
+        src="/images/star-3d-transparent.svg"
         type="image/svg+xml"
-        style={{ width: "100%", height: "auto", display: "block" }}
-        aria-label="MentivisOS Star 3D"
+        style={{ width: "100%", height: "100%", display: "block" }}
       />
     </div>
     <style>{`@keyframes star-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .star-spin { animation: star-spin 25s linear infinite; }`}</style>
