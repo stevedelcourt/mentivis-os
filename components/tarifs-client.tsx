@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import { PricingPlan } from "@/lib/cms/types";
-import { HOVER_GRADIENTS, FALLBACK_PLANS, FEATURES_COMPARISON, FAQ_ITEMS } from "@/components/tarifs/pricing-data";
+import { HOVER_GRADIENTS, FALLBACK_PLANS, FEATURES_COMPARISON, FAQ_ITEMS, FEATURES_COMPARISON_EN, FAQ_ITEMS_EN } from "@/components/tarifs/pricing-data";
 
 interface TarifsClientProps {
   lang: Locale;
@@ -15,6 +15,8 @@ type BillingCycle = "monthly" | "yearly";
 
 export default function TarifsClient({ lang }: TarifsClientProps) {
   const t = getT(lang);
+  const features = lang === "en" ? FEATURES_COMPARISON_EN : FEATURES_COMPARISON;
+  const faq = lang === "en" ? FAQ_ITEMS_EN : FAQ_ITEMS;
   const [activeTab, setActiveTab] = useState<ProductTab>("learningos");
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
   const [calculatorValue, setCalculatorValue] = useState(10);
@@ -654,7 +656,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               fontWeight: 300,
             }}
           >
-            Comparer les offres
+            {lang === "en" ? "Compare plans" : "Comparer les offres"}
           </h2>
 
           <div style={{ overflowX: "auto" }}>
@@ -662,7 +664,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
               <thead>
                 <tr>
                   <th style={{ textAlign: "left", padding: "16px", borderBottom: "1px solid var(--border-light)", fontWeight: 500, fontSize: "var(--text-body-sm)", color: "var(--text-secondary)", minWidth: 200 }}>
-                    Fonctionnalité
+                    {lang === "en" ? "Feature" : "Fonctionnalité"}
                   </th>
                   {currentPlans.map((plan) => (
                     <th
@@ -683,7 +685,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 </tr>
               </thead>
               <tbody>
-                {(FEATURES_COMPARISON[activeTab] || []).map((row, idx) => (
+                {(features[activeTab] || []).map((row, idx) => (
                   <tr key={idx} style={{ background: idx % 2 === 0 ? "transparent" : "var(--bg-secondary)" }}>
                     <td style={{ padding: "14px 16px", borderBottom: "1px solid var(--border-subtle)", fontSize: "var(--text-body-sm)", color: "var(--text-primary)" }}>
                       {row.name}
@@ -709,95 +711,36 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
           </div>
         </div>
 
-        {/* Programme d'essai sans risque */}
-        <div
-          style={{
-            marginBottom: 100,
-            padding: "0 0 80px",
-            borderBottom: "1px solid var(--border-light)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 60,
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Left: All text content */}
+        {/* Trial section */}
+        <div style={{ marginBottom: 100, padding: "0 0 80px", borderBottom: "1px solid var(--border-light)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 60, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 300 }}>
-              <p
-                className="t-caption"
-                style={{
-                  marginBottom: "1.75rem",
-                  color: "var(--text-tertiary)",
-                  fontWeight: 500,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  fontSize: "var(--text-micro)",
-                }}
-              >
-                Essai gratuit
+              <p className="t-caption" style={{ marginBottom: "1.75rem", color: "var(--text-tertiary)", fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", fontSize: "var(--text-micro)" }}>
+                {lang === "en" ? "Free Trial" : "Essai gratuit"}
               </p>
-              <h2
-                className="t-display"
-                style={{
-                  fontSize: "clamp(28px, 4vw, 44px)",
-                  fontWeight: 300,
-                  lineHeight: 1.08,
-                  letterSpacing: "-0.025em",
-                  margin: "0 0 1.75rem",
-                }}
-              >
-                Programme d'essai sans risque
+              <h2 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 300, lineHeight: 1.08, letterSpacing: "-0.025em", margin: "0 0 1.75rem" }}>
+                {lang === "en" ? "Risk-Free Trial Program" : "Programme d'essai sans risque"}
               </h2>
-              <p
-                className="t-lead"
-                style={{
-                  fontSize: "0.9375rem",
-                  lineHeight: 1.65,
-                  color: "var(--text-secondary)",
-                  maxWidth: "48ch",
-                  margin: "0 0 1.75rem",
-                }}
-              >
-                Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation.
+              <p className="t-lead" style={{ fontSize: "0.9375rem", lineHeight: 1.65, color: "var(--text-secondary)", maxWidth: "48ch", margin: "0 0 1.75rem" }}>
+                {lang === "en" ? "Test intelligent conversational AI agents in your organization in real time." : "Testez des agents IA conversationnels intelligents et en temps réel dans votre organisation."}
               </p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: 16 }}>
                 <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Pour expérimenter, déployer et évaluer
+                  {lang === "en" ? "Experiment, deploy and evaluate" : "Pour expérimenter, déployer et évaluer"}
                 </li>
                 <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Accès complet à la plateforme
+                  {lang === "en" ? "Full platform access" : "Accès complet à la plateforme"}
                 </li>
                 <li style={{ display: "flex", alignItems: "center", gap: 12, fontSize: "1.0625rem", color: "var(--text-primary)", lineHeight: 1.4 }}>
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9l3.5 3.5L14.5 5" stroke="var(--text-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Accompagnement à l'intégration inclus
+                  {lang === "en" ? "Onboarding support included" : "Accompagnement à l'intégration inclus"}
                 </li>
               </ul>
-              <Link
-                href={`/${lang}/demo`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "12px 20px",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  background: "#0A0A0A",
-                  borderRadius: 12,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                En savoir plus
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+              <Link href={`/${lang}/demo`} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 20px", fontSize: 14, fontWeight: 500, color: "#FFFFFF", background: "#0A0A0A", borderRadius: 12, textDecoration: "none", transition: "all 0.2s ease" }}>
+                {lang === "en" ? "Learn more" : "En savoir plus"}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </Link>
             </div>
 
@@ -850,7 +793,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 margin: "0 0 1.75rem",
               }}
             >
-              Questions fréquentes
+              {lang === "en" ? "Frequently Asked Questions" : "Questions fréquentes"}
             </h2>
             <p
               className="t-lead"
@@ -862,13 +805,13 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 margin: 0,
               }}
             >
-              Tout ce que vous devez savoir sur nos tarifs et nos plans.
+              {lang === "en" ? "Everything you need to know about our pricing and plans." : "Tout ce que vous devez savoir sur nos tarifs et nos plans."}
             </p>
           </div>
 
           {/* Right accordion */}
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {FAQ_ITEMS.map((item, idx) => {
+            {faq.map((item: { question: string; answer: string }, idx: number) => {
               const isOpen = openFaq === idx;
               return (
                 <article

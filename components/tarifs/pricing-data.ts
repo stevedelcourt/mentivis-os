@@ -293,3 +293,63 @@ export const FAQ_ITEMS = [
     answer: "Les PME de moins de 50 salariés peuvent bénéficier de 3 mois gratuits au plan Équipe. Postulez via notre formulaire dédié et notre équipe examinera votre dossier sous 48h.",
   },
 ];
+
+export const FEATURES_COMPARISON_EN = {
+  learningos: [
+    { name: "Learners", starter: "1", growth: "10", enterprise: "50", enterprisePlus: "Unlimited" },
+    { name: "AI Diagnostics", starter: "Unlimited", growth: "Unlimited", enterprise: "Unlimited", enterprisePlus: "Unlimited" },
+    { name: "Custom Programs", starter: "Unlimited", growth: "Unlimited", enterprise: "Unlimited", enterprisePlus: "Unlimited" },
+    { name: "AI Teaching Assistant", starter: "Advanced", growth: "Advanced", enterprise: "Advanced", enterprisePlus: "Advanced" },
+    { name: "Manager Dashboard", starter: "—", growth: "✓", enterprise: "✓", enterprisePlus: "✓" },
+    { name: "HRIS Integration", starter: "—", growth: "—", enterprise: "✓", enterprisePlus: "✓" },
+    { name: "API", starter: "—", growth: "—", enterprise: "—", enterprisePlus: "✓" },
+    { name: "White Label", starter: "—", growth: "—", enterprise: "—", enterprisePlus: "✓" },
+    { name: "Support", starter: "Email", growth: "Priority", enterprise: "Priority", enterprisePlus: "Dedicated CSM" },
+  ],
+  pipelineos: [
+    { name: "Job Listings", free: "3", starter: "10", pro: "Unlimited", enterprise: "Unlimited" },
+    { name: "Applications/month", free: "10", starter: "100", pro: "500", enterprise: "Unlimited" },
+    { name: "AI Analysis", free: "Basic", starter: "Advanced", pro: "Advanced", enterprise: "Advanced" },
+    { name: "Matching Score", free: "✓", starter: "✓", pro: "✓", enterprise: "✓" },
+    { name: "Technical Tests", free: "—", starter: "✓", pro: "✓", enterprise: "✓" },
+    { name: "ATS Integration", free: "—", starter: "—", pro: "✓", enterprise: "✓" },
+    { name: "API Pipeline", free: "—", starter: "—", pro: "—", enterprise: "✓" },
+    { name: "Support", free: "Email", starter: "Email", pro: "Priority", enterprise: "Dedicated" },
+  ],
+  api: [
+    { name: "Requests/month", build: "10,000", scale: "100,000", enterprise: "Unlimited" },
+    { name: "API Diagnostics", build: "✓", scale: "✓", enterprise: "✓" },
+    { name: "API Programs", build: "✓", scale: "✓", enterprise: "✓" },
+    { name: "Webhooks", build: "—", scale: "✓", enterprise: "✓" },
+    { name: "Rate Limit", build: "Standard", scale: "High", enterprise: "Custom" },
+    { name: "SLA", build: "—", scale: "99.9%", enterprise: "99.99%" },
+    { name: "Support", build: "Technical", scale: "Priority", enterprise: "24/7" },
+  ],
+};
+
+export const FAQ_ITEMS_EN = [
+  {
+    question: "How does billing work?",
+    answer: "Billing is monthly or annual based on your choice. Payment is secured via automatic debit. You can change your plan or cancel at any time.",
+  },
+  {
+    question: "Can I change my plan mid-subscription?",
+    answer: "Yes, you can upgrade or downgrade your plan at any time. Upgrades are prorated. Downgrades take effect at the end of your billing cycle.",
+  },
+  {
+    question: "Is there a trial period?",
+    answer: "Yes, all paid plans include a 14-day free trial. You get full access to all features of your chosen plan during this period, with no commitment.",
+  },
+  {
+    question: "What happens after the trial?",
+    answer: "After 14 days, your subscription activates automatically with your registered payment method. You can cancel anytime before the trial ends at no charge.",
+  },
+  {
+    question: "Do you offer pricing for SMBs?",
+    answer: "Yes! Our SMB program offers 3 months of free access to the Growth plan for companies with fewer than 50 employees. Contact us to apply.",
+  },
+  {
+    question: "How does the SMB program work?",
+    answer: "SMBs with fewer than 50 employees can receive 3 free months on the Growth plan. Apply via our dedicated form and our team will review your application within 48 hours.",
+  },
+];
