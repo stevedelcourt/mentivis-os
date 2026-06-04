@@ -22,10 +22,12 @@ export default function ReferentielCmsPage() {
   const { token, role } = useCmsAuth();
   const [articles, setArticles] = useState<Article[]>([]);
   const [selected, setSelected] = useState<Article | null>(null);
-  const [cmsLang, setCmsLang] = useState<"fr" | "en">("fr");
+  const [cmsLang, setCmsLang] = useState<"fr" | "en">(lang === "en" ? "en" : "fr");
   const [preview, setPreview] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  const t = (fr: string, en: string) => lang === "en" ? en : fr;
 
   const fetchArticles = useCallback(async () => {
     if (!token) return;
@@ -60,13 +62,13 @@ export default function ReferentielCmsPage() {
       await fetchArticles();
     } else {
       const data = await res.json();
-      setError(data.error || "Erreur");
+      setError(data.error || t("Erreur", "Error"));
     }
     setSaving(false);
   }
 
   async function handleDelete(id: number) {
-    if (!confirm("Supprimer cet article ?")) return;
+    if (!confirm(t("Supprimer cet article ?", "Delete this article?"))) return;
     if (!token) return;
     await fetch(`/api/cms/referentiel?id=${id}`, {
       method: "DELETE",
@@ -86,18 +88,18 @@ export default function ReferentielCmsPage() {
   return (
     <div style={{ padding: "24px", maxWidth: 1400, margin: "0 auto" }}>
       <CmsNavTabs lang={lang} role={role} token={token} />
-      <h1 style={{ fontSize: 24, fontWeight: 500, margin: "24px 0 16px" }}>Référentiel</h1>
+      <h1 style={{ fontSize: 24, fontWeight: 500, margin: "24px 0 16px" }}>{t("Référentiel", "Reference")}</h1>
       {canEdit && (
         <button
           onClick={() => setSelected({ id: 0, slug: "", title: "", content: "", contentEn: "", position: articles.length + 1, published: true })}
           style={{ padding: "8px 16px", background: "#0A0A0A", color: "#fff", border: "none", borderRadius: 8, cursor: "pointer", marginBottom: 16 }}
         >
-          Nouvel article
+          {t("Nouvel article", "New article")}
         </button>
       )}
       <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 24, alignItems: "start" }}>
         <div style={{ background: "#f5f5f5", borderRadius: 12, padding: 16 }}>
-          {articles.length === 0 && <p style={{ color: "#999", fontSize: 14 }}>Aucun article</p>}
+          {articles.length === 0 && <p style={{ color: "#999", fontSize: 14 }}>{t("Aucun article", "No articles")}</p>}
           {articles.map((a) => (
             <div
               key={a.id}
@@ -110,7 +112,7 @@ export default function ReferentielCmsPage() {
               }}
             >
               <span style={{ fontSize: 14, fontWeight: 500 }}>{a.title}</span>
-              <span style={{ fontSize: 11, color: a.published ? "#4CAF50" : "#999", marginLeft: 8 }}>{a.published ? "Publié" : "Brouillon"}</span>
+              <span style={{ fontSize: 11, color: a.published ? "#4CAF50" : "#999", marginLeft: 8 }}>{a.published ? t("Publié", "Published") : t("Brouillon", "Draft")}</span>
             </div>
           ))}
         </div>
@@ -123,7 +125,7 @@ export default function ReferentielCmsPage() {
             </div>
             <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
               <div style={{ flex: 1 }}>
-                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>Titre</label>
+                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>{t("Titre", "Title")}</label>
                 <input
                   value={selected.title}
                   onChange={(e) => setSelected({ ...selected, title: e.target.value })}
@@ -132,7 +134,7 @@ export default function ReferentielCmsPage() {
                 />
               </div>
               <div style={{ width: 80 }}>
-                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>Position</label>
+                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>{t("Position", "Position")}</label>
                 <input
                   type="number"
                   value={selected.position}
@@ -144,9 +146,9 @@ export default function ReferentielCmsPage() {
             <div style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "center" }}>
               <label style={{ fontSize: 12, fontWeight: 500, display: "flex", alignItems: "center", gap: 6 }}>
                 <input type="checkbox" checked={selected.published} onChange={(e) => setSelected({ ...selected, published: e.target.checked })} />
-                Publié
+                {t("Publié", "Published")}
               </label>
-              {selected.slug && <span style={{ fontSize: 11, color: "#999" }}>Slug: {selected.slug}</span>}
+              {selected.slug && <span style={{ fontSize: 11, color: "#999" }}>{t("Slug", "Slug")}: {selected.slug}</span>}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
               <div>
@@ -159,7 +161,7 @@ export default function ReferentielCmsPage() {
                 />
               </div>
               <div>
-                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>Aperçu</label>
+                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>{t("Aperçu", "Preview")}</label>
                 <div
                   style={{ width: "100%", height: 400, overflow: "auto", padding: 12, borderRadius: 8, border: "1px solid #ddd", background: "#fff", fontSize: 14, lineHeight: 1.6 }}
                   dangerouslySetInnerHTML={{ __html: preview }}
@@ -168,11 +170,11 @@ export default function ReferentielCmsPage() {
             </div>
             <div style={{ display: "flex", gap: 8 }}>
               <button type="submit" disabled={saving} style={{ padding: "8px 20px", background: "#0A0A0A", color: "#fff", border: "none", borderRadius: 8, cursor: "pointer", fontSize: 14 }}>
-                {saving ? "Enregistrement..." : "Enregistrer"}
+                {saving ? t("Enregistrement...", "Saving...") : t("Enregistrer", "Save")}
               </button>
               {selected.id > 0 && (
                 <button type="button" onClick={() => handleDelete(selected.id)} style={{ padding: "8px 20px", background: "#c45c4a", color: "#fff", border: "none", borderRadius: 8, cursor: "pointer", fontSize: 14 }}>
-                  Supprimer
+                  {t("Supprimer", "Delete")}
                 </button>
               )}
             </div>

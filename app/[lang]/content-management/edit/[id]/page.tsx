@@ -17,6 +17,8 @@ export default function PostEditorPage() {
   const id = params.id as string;
   const isNew = id === "new";
 
+  const t = (fr: string, en: string) => lang === "en" ? en : fr;
+
   const { token, role, isReady } = useCmsAuth();
   const { cmsFetch } = useCmsFetch(token);
 
@@ -26,7 +28,7 @@ export default function PostEditorPage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Form state
-  const [cmsLang, setCmsLang] = useState<"fr" | "en">("fr");
+  const [cmsLang, setCmsLang] = useState<"fr" | "en">(lang === "en" ? "en" : "fr");
   const [title, setTitle] = useState("");
   const [titleEn, setTitleEn] = useState("");
   const [slug, setSlug] = useState("");
@@ -86,7 +88,7 @@ export default function PostEditorPage() {
         setPublished(p.published);
       }
     } catch {
-      setError("Erreur lors du chargement de l'article");
+      setError(t("Erreur lors du chargement de l'article", "Error loading article"));
     } finally {
       setLoading(false);
     }
@@ -126,10 +128,10 @@ export default function PostEditorPage() {
       if (data.success) {
         setImageUrl(data.url);
       } else {
-        setError(data.error || "Erreur d'upload");
+        setError(data.error || t("Erreur d'upload", "Upload error"));
       }
     } catch {
-      setError("Erreur d'upload");
+      setError(t("Erreur d'upload", "Upload error"));
     } finally {
       setUploadingImage(false);
     }
@@ -186,10 +188,10 @@ export default function PostEditorPage() {
           }, 500);
         }
       } else {
-        setError(data.error || "Erreur lors de la sauvegarde");
+        setError(data.error || t("Erreur lors de la sauvegarde", "Save error"));
       }
     } catch {
-      setError("Erreur reseau");
+      setError(t("Erreur reseau", "Network error"));
     } finally {
       setSaving(false);
     }
@@ -208,7 +210,7 @@ export default function PostEditorPage() {
       lang={lang}
       token={token}
       role={role}
-      title={isNew ? "Nouvel article" : "Modifier l'article"}
+      title={isNew ? t("Nouvel article", "New article") : t("Modifier l'article", "Edit article")}
       maxWidth={800}
       showNav={false}
     >
@@ -220,7 +222,7 @@ export default function PostEditorPage() {
 
       {saveSuccess && (
         <div style={{ padding: "12px 16px", background: "#E8F5E9", borderRadius: 10, marginBottom: 20, color: "#2E7D32", fontSize: 14 }}>
-          Article enregistre avec succes !
+          {t("Article enregistre avec succes !", "Article saved successfully!")}
         </div>
       )}
 
@@ -277,16 +279,16 @@ export default function PostEditorPage() {
 
         {/* Slug */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Slug *</label>
+          <label style={labelStyle}>{t("Slug", "Slug")} *</label>
           <input
             type="text"
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
             required
             style={inputStyle}
-            placeholder="titre-de-l-article"
+            placeholder={t("titre-de-l-article", "article-title")}
           />
-          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>L'URL de l'article : /blog/{slug}</p>
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>{t("L'URL de l'article : /blog/", "Article URL: /blog/")}{slug}</p>
         </div>
 
         {/* Language-aware Excerpt */}
@@ -304,7 +306,7 @@ export default function PostEditorPage() {
 
         {/* Categories checkboxes */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Categories *</label>
+          <label style={labelStyle}>{t("Categories", "Categories")} *</label>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {CATEGORIES.map((cat) => {
               const checked = category.split(",").map(s => s.trim()).includes(cat.key);
@@ -345,7 +347,7 @@ export default function PostEditorPage() {
           </div>
         </div>
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Date *</label>
+          <label style={labelStyle}>{t("Date", "Date")} *</label>
           <input
             type="date"
             value={date}
@@ -357,7 +359,7 @@ export default function PostEditorPage() {
 
         {/* Featured image */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Image a la une</label>
+          <label style={labelStyle}>{t("Image a la une", "Featured image")}</label>
           <div style={{ display: "flex", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 200 }}>
               <input
@@ -435,7 +437,7 @@ export default function PostEditorPage() {
 
         {/* Image Tag */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Badge (haut de l&apos;image)</label>
+          <label style={labelStyle}>{t("Badge (haut de l'image)", "Image badge (top)")}</label>
           <input
             type="text"
             value={imageTag}
@@ -448,20 +450,20 @@ export default function PostEditorPage() {
 
         {/* Image Caption */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Legende (bas de l&apos;image)</label>
+          <label style={labelStyle}>{t("Legende (bas de l'image)", "Image caption (bottom)")}</label>
           <textarea
             value={imageCaption}
             onChange={(e) => setImageCaption(e.target.value)}
             rows={2}
             style={{ ...inputStyle, resize: "vertical" }}
-            placeholder="ex: Mentivis presente MentivisOS, l'OS de la formation native IA..."
+            placeholder={t("ex: Mentivis presente MentivisOS, l'OS de la formation native IA...", "e.g. Mentivis presents MentivisOS, the AI-native training OS...")}
           />
-          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Texte blanc sur degrade sombre en bas de l&apos;image, visible sur la page article</p>
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>{t("Texte blanc sur degrade sombre en bas de l'image, visible sur la page article", "White text on dark gradient at bottom of image, visible on article page")}</p>
         </div>
 
         {/* Gradient picker */}
         <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Fond degrade (alternative a l&apos;image)</label>
+          <label style={labelStyle}>{t("Fond degrade (alternative a l'image)", "Gradient background (image alternative)")}</label>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
             <button
               type="button"
@@ -479,7 +481,7 @@ export default function PostEditorPage() {
                 fontSize: 18,
                 color: "#4e4e4e",
               }}
-              title="Aucun"
+               title={t("Aucun", "None")}
             >
               ∅
             </button>
@@ -501,7 +503,7 @@ export default function PostEditorPage() {
             ))}
           </div>
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
-            Utilise un motif de fond si l&apos;article n&apos;a pas d&apos;image a la une
+            {t("Utilise un motif de fond si l'article n'a pas d'image a la une", "Use gradient if article has no featured image")}
           </p>
         </div>
 
@@ -523,13 +525,8 @@ export default function PostEditorPage() {
         {/* Toggles */}
         <div style={{ display: "flex", gap: 24, marginBottom: 32, flexWrap: "wrap" }}>
           <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
-            <input
-              type="checkbox"
-              checked={featured}
-              onChange={(e) => setFeatured(e.target.checked)}
-              style={{ width: 22, height: 22 }}
-            />
-            Article a la une
+            <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} style={{ width: 22, height: 22 }} />
+            {t("Article a la une", "Featured article")}
           </label>
           <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: 14, color: "#4e4e4e" }}>
             <input
@@ -538,7 +535,7 @@ export default function PostEditorPage() {
               onChange={(e) => setPublished(e.target.checked)}
               style={{ width: 22, height: 22 }}
             />
-            Publier immediatement
+            {t("Publier immediatement", "Publish immediately")}
           </label>
         </div>
 
@@ -559,7 +556,7 @@ export default function PostEditorPage() {
               opacity: saving ? 0.6 : 1,
             }}
           >
-            {saving ? "Enregistrement..." : "Enregistrer"}
+            {saving ? t("Enregistrement...", "Saving...") : t("Enregistrer", "Save")}
           </button>
           {!isNew && (
             <Link
@@ -575,7 +572,7 @@ export default function PostEditorPage() {
                 background: "#fff",
               }}
             >
-              Previsualiser
+              {t("Previsualiser", "Preview")}
             </Link>
           )}
           <Link
@@ -591,7 +588,7 @@ export default function PostEditorPage() {
               marginLeft: "auto",
             }}
           >
-            ← Retour
+            {t("← Retour", "← Back")}
           </Link>
         </div>
       </form>

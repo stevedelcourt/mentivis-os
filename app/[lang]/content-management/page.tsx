@@ -16,6 +16,8 @@ export default function ContentManagementPage() {
   const { token, role, isReady, logout } = useCmsAuth();
   const { cmsFetch } = useCmsFetch(token, logout);
 
+  const t = (fr: string, en: string) => lang === "en" ? en : fr;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -80,7 +82,7 @@ export default function ContentManagementPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Supprimer cet article ? Cette action est irreversible.")) return;
+    if (!confirm(t("Supprimer cet article ? Cette action est irreversible.", "Delete this article? This action is irreversible."))) return;
     try {
       const res = await cmsFetch(`/api/cms/posts/${id}`, { method: "DELETE" });
       if (res.ok) {
@@ -135,7 +137,7 @@ export default function ContentManagementPage() {
 
           <form onSubmit={handleLogin} autoComplete="on">
             <div style={{ marginBottom: 20 }}>
-              <label htmlFor="cms-email" style={labelStyle}>Email</label>
+              <label htmlFor="cms-email" style={labelStyle}>{t("Email", "Email")}</label>
               <input
                 id="cms-email"
                 name="email"
@@ -149,7 +151,7 @@ export default function ContentManagementPage() {
               />
             </div>
             <div style={{ marginBottom: 24 }}>
-              <label htmlFor="cms-password" style={labelStyle}>Mot de passe</label>
+              <label htmlFor="cms-password" style={labelStyle}>{t("Mot de passe", "Password")}</label>
               <div style={{ position: "relative" }}>
                 <input
                   id="cms-password"
@@ -212,7 +214,7 @@ export default function ContentManagementPage() {
                 cursor: "pointer",
               }}
             >
-              Se connecter
+              {t("Se connecter", "Sign in")}
             </button>
           </form>
 
@@ -250,7 +252,7 @@ export default function ContentManagementPage() {
               gap: 6,
             }}
           >
-            + Nouvel article
+            + {t("Nouvel article", "New article")}
           </Link>
         ) : undefined
       }
@@ -272,7 +274,7 @@ export default function ContentManagementPage() {
               color: filter === f ? "#fff" : "#4e4e4e",
             }}
           >
-            {f === "all" ? "Tous" : f === "published" ? "Publies" : "Brouillons"}
+            {f === "all" ? t("Tous", "All") : f === "published" ? t("Publies", "Published") : t("Brouillons", "Drafts")}
           </button>
         ))}
         <span style={{ marginLeft: "auto", fontSize: 13, color: "#4e4e4e", alignSelf: "center" }}>
@@ -282,10 +284,10 @@ export default function ContentManagementPage() {
 
       {/* Posts table */}
       {loading ? (
-        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
+        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>{t("Chargement...", "Loading...")}</p>
       ) : sortedPosts.length === 0 ? (
         <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 16 }}>
-          <p style={{ color: "#4e4e4e", marginBottom: 16 }}>Aucun article</p>
+          <p style={{ color: "#4e4e4e", marginBottom: 16 }}>{t("Aucun article", "No articles")}</p>
           <Link
             href={`/${lang}/content-management/edit/new`}
             style={{ color: "#0A0A0A", fontWeight: 500, textDecoration: "underline" }}
@@ -302,7 +304,7 @@ export default function ContentManagementPage() {
                   { key: "title", label: "Article" },
                   { key: "category", label: "Categorie" },
                   { key: "date", label: "Date" },
-                  { key: "status", label: "Statut" },
+                  { key: "status", label: t("Statut", "Status") },
                   { key: null, label: "Actions" },
                 ].map((col) => (
                   <th
@@ -428,7 +430,7 @@ export default function ContentManagementPage() {
                               alignItems: "center",
                             }}
                           >
-                            Modifier
+                            {t("Modifier", "Edit")}
                           </Link>
                           <button
                             onClick={() => handleDelete(post.id)}
@@ -443,7 +445,7 @@ export default function ContentManagementPage() {
                               cursor: "pointer",
                             }}
                           >
-                            Supprimer
+                            {t("Supprimer", "Delete")}
                           </button>
                         </>
                       )}
