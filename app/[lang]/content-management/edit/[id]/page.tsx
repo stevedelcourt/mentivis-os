@@ -26,10 +26,14 @@ export default function PostEditorPage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Form state
+  const [cmsLang, setCmsLang] = useState<"fr" | "en">("fr");
   const [title, setTitle] = useState("");
+  const [titleEn, setTitleEn] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
+  const [excerptEn, setExcerptEn] = useState("");
   const [content, setContent] = useState("");
+  const [contentEn, setContentEn] = useState("");
   const [category, setCategory] = useState("strategie");
   const [date, setDate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -66,9 +70,12 @@ export default function PostEditorPage() {
       if (data.post) {
         const p = data.post;
         setTitle(p.title);
+        setTitleEn(p.titleEn || "");
         setSlug(p.slug);
         setExcerpt(p.excerpt);
+        setExcerptEn(p.excerptEn || "");
         setContent(p.content);
+        setContentEn(p.contentEn || "");
         setCategory(p.category);
         setDate(p.dateISO);
         setImageUrl(p.imageUrl || "");
@@ -137,9 +144,12 @@ export default function PostEditorPage() {
 
     const payload = {
       title,
+      titleEn: titleEn || "",
       slug: slug || generateSlug(title),
       excerpt,
+      excerptEn: excerptEn || "",
       content,
+      contentEn: contentEn || "",
       category,
       date: new Date(date).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" }),
       dateISO: date,
@@ -214,19 +224,56 @@ export default function PostEditorPage() {
         </div>
       )}
 
+      <div style={{ display: "flex", gap: 4, marginBottom: 24, background: "#F0F0F0", padding: 4, borderRadius: 10, alignSelf: "flex-start" }}>
+        <button
+          type="button"
+          onClick={() => setCmsLang("fr")}
+          style={{
+            padding: "10px 24px",
+            fontSize: 18,
+            fontWeight: cmsLang === "fr" ? 900 : 400,
+            color: cmsLang === "fr" ? "#fff" : "#4e4e4e",
+            background: cmsLang === "fr" ? "#0A0A0A" : "transparent",
+            border: "none",
+            borderRadius: 8,
+            cursor: "pointer",
+            letterSpacing: "0.02em",
+          }}
+        >
+          FR
+        </button>
+        <button
+          type="button"
+          onClick={() => setCmsLang("en")}
+          style={{
+            padding: "10px 24px",
+            fontSize: 18,
+            fontWeight: cmsLang === "en" ? 900 : 400,
+            color: cmsLang === "en" ? "#fff" : "#4e4e4e",
+            background: cmsLang === "en" ? "#0A0A0A" : "transparent",
+            border: "none",
+            borderRadius: 8,
+            cursor: "pointer",
+            letterSpacing: "0.02em",
+          }}
+        >
+          EN
+        </button>
+      </div>
+
       <form onSubmit={handleSave}>
-        {/* Title */}
-        <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Titre *</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            style={inputStyle}
-            placeholder="Titre de l'article"
-          />
-        </div>
+        {/* Language-aware Title */}
+        {cmsLang === "fr" ? (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Titre (FR) *</label>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} placeholder="Titre de l'article" />
+          </div>
+        ) : (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Title (EN) *</label>
+            <input type="text" value={titleEn} onChange={(e) => setTitleEn(e.target.value)} required style={inputStyle} placeholder="Article title" />
+          </div>
+        )}
 
         {/* Slug */}
         <div style={{ marginBottom: 20 }}>
@@ -242,18 +289,18 @@ export default function PostEditorPage() {
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>L'URL de l'article : /blog/{slug}</p>
         </div>
 
-        {/* Excerpt */}
-        <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Resume *</label>
-          <textarea
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            required
-            rows={3}
-            style={{ ...inputStyle, resize: "vertical" }}
-            placeholder="Courte description de l'article"
-          />
-        </div>
+        {/* Language-aware Excerpt */}
+        {cmsLang === "fr" ? (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Résumé (FR) *</label>
+            <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} required rows={3} style={{ ...inputStyle, resize: "vertical" }} placeholder="Courte description de l'article" />
+          </div>
+        ) : (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Excerpt (EN) *</label>
+            <textarea value={excerptEn} onChange={(e) => setExcerptEn(e.target.value)} required rows={3} style={{ ...inputStyle, resize: "vertical" }} placeholder="Short article description" />
+          </div>
+        )}
 
         {/* Categories checkboxes */}
         <div style={{ marginBottom: 20 }}>
@@ -458,21 +505,20 @@ export default function PostEditorPage() {
           </p>
         </div>
 
-        {/* Content */}
-        <div style={{ marginBottom: 20 }}>
-          <label style={labelStyle}>Contenu *</label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            rows={20}
-            style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }}
-            placeholder={`## Premier titre\n\nTexte du paragraphe.\n\n## Deuxieme titre\n\n• Premier element de liste\n• Deuxieme element\n• Troisieme element\n\n## Conclusion\n\nTexte final.`}
-          />
-          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
-            Utilisez ## pour les titres et • pour les listes
-          </p>
-        </div>
+        {/* Language-aware Content */}
+        {cmsLang === "fr" ? (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Contenu (FR) *</label>
+            <textarea value={content} onChange={(e) => setContent(e.target.value)} required rows={20} style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }} placeholder={`## Premier titre\n\nTexte du paragraphe.\n\n## Deuxieme titre\n\n• Premier element de liste\n• Deuxieme element\n• Troisieme element\n\n## Conclusion\n\nTexte final.`} />
+            <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Utilisez ## pour les titres et • pour les listes</p>
+          </div>
+        ) : (
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ ...labelStyle, fontWeight: 700 }}>Content (EN) *</label>
+            <textarea value={contentEn} onChange={(e) => setContentEn(e.target.value)} required rows={20} style={{ ...inputStyle, fontFamily: "monospace", fontSize: 14, lineHeight: 1.6, resize: "vertical" }} placeholder={`## First heading\n\nParagraph text.\n\n## Second heading\n\n• First item\n• Second item`} />
+            <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>Use ## for headings and • for lists</p>
+          </div>
+        )}
 
         {/* Toggles */}
         <div style={{ display: "flex", gap: 24, marginBottom: 32, flexWrap: "wrap" }}>

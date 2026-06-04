@@ -11,6 +11,7 @@ interface Article {
   slug: string;
   title: string;
   content: string;
+  contentEn: string;
   position: number;
   published: boolean;
 }
@@ -21,6 +22,7 @@ export default function ReferentielCmsPage() {
   const { token, role } = useCmsAuth();
   const [articles, setArticles] = useState<Article[]>([]);
   const [selected, setSelected] = useState<Article | null>(null);
+  const [cmsLang, setCmsLang] = useState<"fr" | "en">("fr");
   const [preview, setPreview] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -47,10 +49,11 @@ export default function ReferentielCmsPage() {
     setError("");
 
     const method = selected.id ? "PUT" : "POST";
+    const payload = { ...selected, contentEn: selected.contentEn || "" };
     const res = await fetch("/api/cms/referentiel", {
       method,
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify(selected),
+      body: JSON.stringify(payload),
     });
 
     if (res.ok) {
@@ -73,10 +76,12 @@ export default function ReferentielCmsPage() {
     await fetchArticles();
   }
 
-  function updatePreview(content: string) {
-    setSelected(prev => prev ? { ...prev, content } : null);
-    setPreview(renderMarkdown(content));
+  function updatePreview(value: string) {
+    setSelected(prev => prev ? { ...prev, [cmsLang === "fr" ? "content" : "contentEn"]: value } : null);
+    setPreview(renderMarkdown(value));
   }
+
+  const currentContent = cmsLang === "fr" ? selected?.content || "" : selected?.contentEn || "";
 
   return (
     <div style={{ padding: "24px", maxWidth: 1400, margin: "0 auto" }}>
@@ -84,7 +89,7 @@ export default function ReferentielCmsPage() {
       <h1 style={{ fontSize: 24, fontWeight: 500, margin: "24px 0 16px" }}>Référentiel</h1>
       {canEdit && (
         <button
-          onClick={() => setSelected({ id: 0, slug: "", title: "", content: "", position: articles.length + 1, published: true })}
+          onClick={() => setSelected({ id: 0, slug: "", title: "", content: "", contentEn: "", position: articles.length + 1, published: true })}
           style={{ padding: "8px 16px", background: "#0A0A0A", color: "#fff", border: "none", borderRadius: 8, cursor: "pointer", marginBottom: 16 }}
         >
           Nouvel article
@@ -96,7 +101,7 @@ export default function ReferentielCmsPage() {
           {articles.map((a) => (
             <div
               key={a.id}
-              onClick={() => { setSelected(a); setPreview(renderMarkdown(a.content)); }}
+              onClick={() => { setSelected(a); setPreview(renderMarkdown(a.content)); setCmsLang("fr"); }}
               style={{
                 padding: "10px 12px", borderRadius: 8, cursor: "pointer", marginBottom: 4,
                 background: selected?.id === a.id ? "#fff" : "transparent",
@@ -112,6 +117,10 @@ export default function ReferentielCmsPage() {
         {selected && (
           <form onSubmit={handleSave}>
             {error && <p style={{ color: "#c45c4a", fontSize: 13, marginBottom: 12 }}>{error}</p>}
+            <div style={{ display: "flex", gap: 4, marginBottom: 16, background: "#F0F0F0", padding: 4, borderRadius: 8, alignSelf: "flex-start" }}>
+              <button type="button" onClick={() => { setCmsLang("fr"); setPreview(cmsLang === "en" ? renderMarkdown(selected?.content || "") : preview); }} style={{ padding: "8px 20px", fontSize: 16, fontWeight: cmsLang === "fr" ? 900 : 400, color: cmsLang === "fr" ? "#fff" : "#4e4e4e", background: cmsLang === "fr" ? "#0A0A0A" : "transparent", border: "none", borderRadius: 6, cursor: "pointer" }}>FR</button>
+              <button type="button" onClick={() => { setCmsLang("en"); setPreview(cmsLang === "fr" ? renderMarkdown(selected?.contentEn || "") : preview); }} style={{ padding: "8px 20px", fontSize: 16, fontWeight: cmsLang === "en" ? 900 : 400, color: cmsLang === "en" ? "#fff" : "#4e4e4e", background: cmsLang === "en" ? "#0A0A0A" : "transparent", border: "none", borderRadius: 6, cursor: "pointer" }}>EN</button>
+            </div>
             <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
               <div style={{ flex: 1 }}>
                 <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>Titre</label>
@@ -141,9 +150,9 @@ export default function ReferentielCmsPage() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
               <div>
-                <label style={{ fontSize: 12, fontWeight: 500, display: "block", marginBottom: 4 }}>Contenu (markdown)</label>
+                <label style={{ fontSize: 12, fontWeight: cmsLang === "fr" ? 700 : 500, display: "block", marginBottom: 4 }}>Contenu FR (markdown)</label>
                 <textarea
-                  value={selected.content}
+                  value={currentContent}
                   onChange={(e) => updatePreview(e.target.value)}
                   style={{ width: "100%", height: 400, padding: 12, borderRadius: 8, border: "1px solid #ddd", fontSize: 13, fontFamily: "monospace", resize: "vertical" }}
                   required
