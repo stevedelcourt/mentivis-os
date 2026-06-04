@@ -35,6 +35,10 @@ export async function GET(request: Request) {
     posts = posts.filter((p) => p.category.split(",").includes(category));
   }
 
+  if (lang === "en") {
+    posts = posts.filter((p) => p.contentEn);
+  }
+
   posts.sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
