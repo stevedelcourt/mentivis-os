@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, location, remote, type, department, description, whyJoin, published } = body;
+    const { title, titleEn, location, locationEn, remote, type, department, departmentEn, description, descriptionEn, whyJoin, whyJoinEn, published } = body;
 
     if (!title || !location || !type || !department || !description || !whyJoin) {
       return NextResponse.json(
@@ -41,12 +41,17 @@ export async function POST(request: Request) {
     const job = await createJob({
       slug: uniqueSlug,
       title,
+      titleEn: titleEn || "",
       location,
+      locationEn: locationEn || "",
       remote: !!remote,
       type,
       department,
+      departmentEn: departmentEn || "",
       description,
+      descriptionEn: descriptionEn || "",
       whyJoin,
+      whyJoinEn: whyJoinEn || "",
       published: !!published,
     });
 
