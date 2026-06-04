@@ -28,13 +28,13 @@ export type CategoryKey =
   | "clients"
   | "partenariat";
 
-export const CATEGORIES: { key: CategoryKey; label: string }[] = [
-  { key: "strategie", label: "Strategie" },
-  { key: "ia", label: "IA & Formation" },
-  { key: "annonces", label: "Annonces" },
-  { key: "cas", label: "Etudes de cas" },
-  { key: "clients", label: "Clients" },
-  { key: "partenariat", label: "Partenariats" },
+export const CATEGORIES: { key: CategoryKey; labelFr: string; labelEn: string }[] = [
+  { key: "strategie", labelFr: "Strategie", labelEn: "Strategy" },
+  { key: "ia", labelFr: "IA & Formation", labelEn: "AI & Training" },
+  { key: "annonces", labelFr: "Annonces", labelEn: "Announcements" },
+  { key: "cas", labelFr: "Etudes de cas", labelEn: "Case Studies" },
+  { key: "clients", labelFr: "Clients", labelEn: "Clients" },
+  { key: "partenariat", labelFr: "Partenariats", labelEn: "Partnerships" },
 ];
 
 // ── Homepage Hero ──

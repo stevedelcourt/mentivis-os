@@ -85,16 +85,16 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
 
   if (loading) {
     return (
-      <main className={styles.wrap}>
-        <header className={styles.pageHeader}>
-          <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
-            Actualites et analyses
-          </p>
-          <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
-            Dernieres publications
-          </h1>
-        </header>
-        <p style={{ textAlign: "center", color: "#4e4e4e", padding: 60 }}>Chargement...</p>
+    <main className={styles.wrap}>
+      <header className={styles.pageHeader}>
+        <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
+          {lang === "en" ? "News & Analysis" : "Actualites et analyses"}
+        </p>
+        <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
+          {lang === "en" ? "Latest Publications" : "Dernieres publications"}
+        </h1>
+      </header>
+      <p style={{ textAlign: "center", color: "#4e4e4e", padding: 60 }}>{lang === "en" ? "Loading..." : "Chargement..."}</p>
       </main>
     );
   }
@@ -103,20 +103,20 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
     <main className={styles.wrap}>
       <header className={styles.pageHeader}>
         <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
-          Actualites et analyses
+          {lang === "en" ? "News & Analysis" : "Actualites et analyses"}
         </p>
         <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
-          Dernieres publications
+          {lang === "en" ? "Latest Publications" : "Dernieres publications"}
         </h1>
       </header>
 
-      <CategoryFilter active={activeCategory} onChange={handleCategoryChange} />
+      <CategoryFilter active={activeCategory} onChange={handleCategoryChange} lang={lang} />
 
       {featuredPost && <FeaturedCard post={featuredPost} lang={lang} />}
 
       {pagedPosts.length > 0 && (
         <section>
-          <p className={styles.sectionLabel}>Derniers articles</p>
+          <p className={styles.sectionLabel}>{lang === "en" ? "Latest articles" : "Derniers articles"}</p>
           <div className={styles.grid}>
             {pagedPosts.map((post) => (
               <ArticleCard key={post.id} post={post} lang={lang} />
@@ -146,7 +146,7 @@ function getGradientCss(post: Post): string | undefined {
 
 function FeaturedCard({ post, lang }: FeaturedCardProps) {
   const categoryLabel =
-    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
+    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.[lang === "en" ? "labelEn" : "labelFr"] ?? post.category.split(",")[0];
   const gradCss = getGradientCss(post);
 
   return (
@@ -173,7 +173,7 @@ function FeaturedCard({ post, lang }: FeaturedCardProps) {
           <p className={styles.featExcerpt}>{stripMarkdown(post.excerpt)}</p>
         </div>
         <Link href={`/${lang}/blog/${post.slug}`} className={styles.featCta}>
-          Lire l&apos;article
+          {lang === "en" ? "Read article" : "Lire l'article"}
         </Link>
       </div>
     </article>
@@ -187,7 +187,7 @@ interface ArticleCardProps {
 
 function ArticleCard({ post, lang }: ArticleCardProps) {
   const categoryLabel =
-    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.label ?? post.category.split(",")[0];
+    CATEGORIES.find((c) => c.key === post.category.split(",")[0])?.[lang === "en" ? "labelEn" : "labelFr"] ?? post.category.split(",")[0];
   const gradCss = getGradientCss(post);
 
   return (
@@ -219,12 +219,13 @@ function ArticleCard({ post, lang }: ArticleCardProps) {
 interface CategoryFilterProps {
   active: CategoryKey;
   onChange: (key: CategoryKey) => void;
+  lang: string;
 }
 
-function CategoryFilter({ active, onChange }: CategoryFilterProps) {
+function CategoryFilter({ active, onChange, lang }: CategoryFilterProps) {
   const allCategories: { key: CategoryKey; label: string }[] = [
-    { key: "all", label: "A la une" },
-    ...CATEGORIES,
+    { key: "all", label: lang === "en" ? "Featured" : "A la une" },
+    ...CATEGORIES.map((c) => ({ key: c.key, label: lang === "en" ? c.labelEn : c.labelFr })),
   ];
 
   return (

@@ -291,7 +291,7 @@ export default function PostEditorPage() {
                     }}
                     style={{ display: "none" }}
                   />
-                  {cat.label}
+                  {cat.labelFr}
                 </label>
               );
             })}
