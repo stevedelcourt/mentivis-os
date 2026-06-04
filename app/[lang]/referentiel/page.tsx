@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     description: lang === "fr"
       ? "Articles pratiques et conformes sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences."
       : "Practical compliance guides for training organizations. Qualiopi, funding, skills development, AI training.",
-    robots: lang === "fr" ? { index: true, follow: true } : { index: false, follow: true },
+    robots: { index: true, follow: true },
     alternates: { canonical: `${SITE_URL}/fr/referentiel/` },
   };
 }
