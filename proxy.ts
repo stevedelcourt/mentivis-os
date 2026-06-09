@@ -10,11 +10,6 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Skip locale redirect for landing page
-  if (pathname === "/manager-ingenierie-durable/" || pathname.startsWith("/manager-ingenierie-durable/")) {
-    return NextResponse.next();
-  }
-
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
@@ -32,5 +27,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|visuals-library|sounds).*)",],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|visuals-library|sounds|manager-ingenierie-durable).*)",],
 };
