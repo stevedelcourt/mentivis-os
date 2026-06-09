@@ -2,7 +2,19 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 
-const BASE = path.join(process.cwd(), "public", "manager-ingenierie-durable");
+const POSSIBLE_BASES = [
+  path.join(process.cwd(), "public", "manager-ingenierie-durable"),
+  path.join(process.cwd(), "..", "public", "manager-ingenierie-durable"),
+  "/home/sc4bovu7233/nextapp/public/manager-ingenierie-durable",
+];
+
+let BASE = POSSIBLE_BASES[0];
+for (const dir of POSSIBLE_BASES) {
+  if (fs.existsSync(path.join(dir, "index.html"))) {
+    BASE = dir;
+    break;
+  }
+}
 
 const MIME: Record<string, string> = {
   html: "text/html; charset=utf-8",
