@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manager l'Ingénierie Durable. Formation certifiante CPF. ACV, Ecoconception, Decarbonation. Reste a charge 150 euros. 25h, 100% distanciel. Certifiee Qualiopi.">
+  <meta property="og:title" content="Manager l'Ingenierie Durable. Formation certifiante CPF">
+  <meta property="og:description" content="ACV, Ecoconception, Decarbonation. Formation operationnelle pour ingenieurs. 25h, 100% distanciel. Reste a charge 150 euros.">
+  <title>Manager l'Ingenierie Durable. Formation certifiante CPF. EcoLearn</title>
+  <link rel="icon" href="favicon.png">
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5C9QHQ8N');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #002d37;
+      background: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; cursor: pointer; }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container-narrow { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+    .urgency-bar {
+      background: #33bd7b;
+      color: #fff;
+      padding: 10px 24px;
+      text-align: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .urgency-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .lp-nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .lp-nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; }
+    .nav-brand img { height: 32px; width: auto; }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #33bd7b;
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: #2da86c; transform: translateY(-1px); }
+    .nav-trust {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    .nav-trust span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .nav-trust svg { width: 14px; height: 14px; flex: none; color: #33bd7b; }
+    .nav-cta .tel-num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+    .hero {
+      background: #f4f9f4;
+      padding: 60px 0 80px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+      align-items: stretch;
+    }
+    .hero-left {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 20px rgba(0,45,55,0.06);
+    }
+    .hero-right { display: flex; flex-direction: column; }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #D8F3DC;
+      color: #2D6A4F;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.2vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #002d37;
+    }
+    .hero-lead {
+      font-size: 1.125rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 520px;
+    }
+    .hero-bullets {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .hero-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.98rem;
+      color: #002d37;
+      line-height: 1.45;
+    }
+    .hero-bullets .check {
+      flex: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #33bd7b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .hero-bullets .check svg { width: 12px; height: 12px; color: #fff; }
+    .hero-bullets li strong { font-weight: 600; }
+
+    .lead-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 20px rgba(0,45,55,0.08);
+      position: relative;
+    }
+    .lead-card--floating { position: sticky; top: 84px; scroll-margin-top: 84px; flex: 1; }
+    .lead-card-head { margin-bottom: 20px; }
+    .lead-card-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #33bd7b;
+      margin-bottom: 10px;
+    }
+    .lead-card-eyebrow::before {
+      content: '';
+      width: 18px; height: 2px;
+      background: #33bd7b;
+    }
+    .lead-card h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #002d37;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .lead-card-sub {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .lead-form { display: grid; gap: 12px; }
+    .lead-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .lead-field { display: flex; flex-direction: column; gap: 4px; }
+    .lead-field label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #002d37;
+    }
+    .lead-field label .req { color: #33bd7b; }
+    .lead-field input,
+    .lead-field select {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: #002d37;
+      background: #fafaf7;
+      border: 1px solid rgba(0,45,55,0.12);
+      border-radius: 8px;
+      padding: 11px 14px;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .lead-field input:focus,
+    .lead-field select:focus {
+      outline: none;
+      border-color: #33bd7b;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(51,189,123,0.12);
+    }
+    .lead-field.invalid input,
+    .lead-field.invalid select { border-color: #e43205; background: #fff5f2; }
+    .lead-field .err {
+      font-size: 0.72rem;
+      color: #e43205;
+      margin-top: 2px;
+    }
+    .lead-rgpd {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .lead-rgpd input[type="checkbox"] {
+      margin-top: 2px;
+      width: 16px; height: 16px;
+      accent-color: #33bd7b;
+      flex: none;
+    }
+    .lead-rgpd a { color: #002d37; text-decoration: underline; }
+    .lead-submit {
+      background: #33bd7b;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 4px;
+      font-family: inherit;
+    }
+    .lead-submit:hover { background: #2da86c; transform: translateY(-1px); }
+    .lead-submit:active { transform: translateY(0); }
+    .lead-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .lead-foot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #555;
+    }
+    .lead-foot span { display: inline-flex; align-items: center; gap: 5px; }
+    .lead-foot svg { width: 12px; height: 12px; color: #33bd7b; }
+    .lead-success { text-align: center; padding: 8px 4px 4px; }
+    .lead-success .check-big {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: #D8F3DC;
+      color: #33bd7b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .lead-success .check-big svg { width: 32px; height: 32px; }
+    .lead-success h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #002d37;
+      margin-bottom: 10px;
+    }
+    .lead-success p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+    section { padding: 80px 0; }
+    .section-light { background: #f4f9f4; }
+    .section-white { background: #ffffff; }
+
+    .sec-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #33bd7b;
+      margin-bottom: 12px;
+    }
+    .sec-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #002d37;
+    }
+    .sec-sub {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.6;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 1px 8px rgba(0,45,55,0.05);
+    }
+    .stat-num {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #33bd7b;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .audience-card {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+    .audience-card:hover { box-shadow: 0 2px 16px rgba(0,45,55,0.06); }
+    .audience-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #002d37;
+      margin-bottom: 8px;
+    }
+    .audience-card p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .sessions-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .session-card {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .session-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #002d37;
+      transition: background 0.15s;
+    }
+    .session-header:hover { background: #f4f9f4; }
+    .session-num {
+      flex: none;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #33bd7b;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .session-chevron {
+      margin-left: auto;
+      transition: transform 0.25s;
+      color: #33bd7b;
+    }
+    .session-chevron.open { transform: rotate(180deg); }
+    .session-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .session-body-inner {
+      padding: 0 24px 20px 72px;
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .session-body-inner ul { list-style: none; }
+    .session-body-inner li { padding: 4px 0; }
+    .session-body-inner li::before { content: '\2022'; color: #33bd7b; font-weight: bold; display: inline-block; width: 16px; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .testi-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #e8e8e8;
+    }
+    .testi-text {
+      font-size: 0.92rem;
+      color: #002d37;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testi-author img {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .testi-author .name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #002d37;
+    }
+    .testi-author .role {
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 40px;
+    }
+    .faq-item {
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #002d37;
+      font-family: inherit;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .faq-q:hover { background: #f4f9f4; }
+    .faq-chevron { transition: transform 0.25s; color: #33bd7b; flex: none; }
+    .faq-chevron.open { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-a-inner {
+      padding: 0 24px 18px;
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .foot {
+      background: #ffffff;
+      border-top: 1px solid #e8e8e8;
+      padding: 32px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    .foot img { height: 28px; width: auto; margin: 0 auto 12px; }
+    .foot a { color: #33bd7b; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid #33bd7b;
+      color: #33bd7b;
+      background: transparent;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+      font-family: inherit;
+    }
+    .btn-outline:hover { background: #33bd7b; color: #fff; }
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #33bd7b;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .btn-solid:hover { background: #2da86c; }
+
+    .diff-block {
+      background: #fff;
+      border-left: 4px solid #33bd7b;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-top: 40px;
+    }
+    .diff-block h3 { font-size: 1.1rem; font-weight: 600; color: #002d37; margin-bottom: 12px; }
+    .diff-block p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .diff-block strong { color: #002d37; }
+
+    .finance-block {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 28px;
+      margin-top: 40px;
+    }
+    .finance-block h3 { font-size: 1.05rem; font-weight: 600; color: #002d37; margin-bottom: 16px; }
+    .finance-item { display: flex; gap: 12px; padding: 10px 0; font-size: 0.92rem; color: #002d37; border-bottom: 1px solid #f0f0f0; }
+    .finance-item:last-child { border-bottom: none; }
+    .finance-item .label { min-width: 180px; font-weight: 500; }
+    .finance-item .desc { color: #555; }
+
+    .form-section {
+      background: #f4f9f4;
+    }
+    .form-section .container-narrow {
+      max-width: 640px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-left { padding: 24px; }
+      .lead-row { grid-template-columns: 1fr; }
+      .lead-card--floating { position: static; }
+      .nav-trust { display: none; }
+      section { padding: 48px 0; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .audience-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .session-header { padding: 16px; font-size: 0.9rem; }
+      .session-body-inner { padding: 0 16px 16px 56px; }
+      .finance-item { flex-direction: column; gap: 4px; }
+      .finance-item .label { min-width: auto; }
+      .hero { padding: 32px 0 48px; }
+    }
+
+    .btn-arrow svg { transition: transform 0.2s; }
+    .btn-arrow:hover svg { transform: translateX(3px); }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5C9QHQ8N" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="urgency-bar">
+    <span class="urgency-dot"></span>
+    <span>Formation certifiante CPF &mdash; Reste a charge <strong>150 &euro;</strong> &mdash; 25h &mdash; 100% distanciel</span>
+    <a href="#form" class="btn-solid" style="padding:6px 16px;font-size:0.85rem;background:rgba(255,255,255,0.2)">Je m'inscris</a>
+  </div>
+
+  <nav class="lp-nav">
+    <div class="container">
+      <div class="nav-brand">
+        <img src="ecolearn-logo.svg" alt="EcoLearn">
+      </div>
+      <div class="nav-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certifie Qualiopi</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>99,3% satisfaction</span>
+      </div>
+      <a href="#form" class="nav-cta btn-arrow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        T&eacute;l&eacute;charger le programme
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-badges">
+            <span class="hero-badge">Certifiee CPF</span>
+            <span class="hero-badge">Qualiopi</span>
+            <span class="hero-badge">100% Distanciel</span>
+            <span class="hero-badge">25h</span>
+          </div>
+          <h1>Manager l'Ingenierie Durable</h1>
+          <p class="hero-lead">ACV, Ecoconception, Decarbonation. La formation operationnelle pour les ingenieurs qui veulent agir des demain.</p>
+          <ul class="hero-bullets">
+            <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Reste a charge 150 &euro;</strong> avec le CPF</li>
+            <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>25 heures, 30 modules,</strong> 100% en ligne, demarrage immediat</li>
+            <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Diplome EcoLearn</strong> &mdash; Certification Qualiopi</li>
+            <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>500+ professionnels</strong> dans la communaute</li>
+          </ul>
+          <div style="font-size:0.85rem;color:#555;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span>Concu par <strong>Arnaud Herrmann</strong>, 20 ans d'experience</span>
+            <span style="color:#33bd7b;">|</span>
+            <span>Partenaire <strong>Mews Partners</strong> depuis 1992</span>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="lead-card lead-card--floating" id="form">
+            <div class="lead-card-head">
+              <p class="lead-card-eyebrow">T&eacute;l&eacute;chargement</p>
+              <h2>Recevez le programme complet</h2>
+              <p class="lead-card-sub">Et les informations de financement CPF</p>
+            </div>
+            <form class="lead-form" id="leadForm">
+              <div class="lead-row">
+                <div class="lead-field">
+                  <label>Pr&eacute;nom <span class="req">*</span></label>
+                  <input type="text" name="firstname" required>
+                </div>
+                <div class="lead-field">
+                  <label>Nom <span class="req">*</span></label>
+                  <input type="text" name="lastname" required>
+                </div>
+              </div>
+              <div class="lead-field">
+                <label>Email professionnel <span class="req">*</span></label>
+                <input type="email" name="email" required>
+              </div>
+              <div class="lead-field">
+                <label>Secteur d'activite</label>
+                <select name="sector">
+                  <option value="">Selectionnez votre secteur</option>
+                  <option value="pharma">Pharma / Chimie</option>
+                  <option value="packaging">Packaging / Grande consommation</option>
+                  <option value="automobile">Automobile / Equipementier</option>
+                  <option value="energie">Energie / Environnement</option>
+                  <option value="construction">Construction / Genie civil</option>
+                  <option value="it">IT / Embarque</option>
+                  <option value="consulting">Consulting / Ingenierie</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              <div class="lead-rgpd">
+                <input type="checkbox" name="consent" required>
+                <span>Je souhaite recevoir le programme et etre contacte par un conseiller EcoLearn. <a href="#" onclick="alert('Consultez notre politique de confidentialite sur ecolearn.com');return false">Politique de confidentialite</a></span>
+              </div>
+              <button type="submit" class="lead-submit btn-arrow" id="submitBtn">
+                Recevoir le programme
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+            <div class="lead-success" id="leadSuccess" style="display:none;">
+              <div class="check-big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <h3>Merci ! Votre demande est envoyee</h3>
+              <p>Vous allez recevoir le programme complet par email dans les prochaines minutes. Un conseiller EcoLearn vous contactera sous 24h pour vous accompagner dans vos demarches de financement.</p>
+            </div>
+            <div class="lead-foot">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><lock size="14"/><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Donnees securisees</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><clock size="14"/><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reponse sous 24h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container-narrow">
+      <p class="sec-eyebrow">En bref</p>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">150 &euro;</div><div class="stat-label">Reste a charge CPF</div></div>
+        <div class="stat-card"><div class="stat-num">25h</div><div class="stat-label">30 modules de 30 min</div></div>
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Distanciel asynchrone</div></div>
+        <div class="stat-card"><div class="stat-num">99,3%</div><div class="stat-label">Satisfaction apprenants</div></div>
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Completion 2023/2024</div></div>
+        <div class="stat-card"><div class="stat-num">2000+</div><div class="stat-label">Alumni EcoLearn</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <p class="sec-eyebrow">Publics</p>
+      <h2 class="sec-title">Pour qui ?</h2>
+      <p class="sec-sub">Cette formation est concue pour les ingenieurs en activite, tous secteurs industriels.</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <h3>Metiers d'etudes et de conception</h3>
+          <p>Conception produit, ingenierie systeme, simulation, bureau d'etudes.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Metiers de production</h3>
+          <p>Industrialisation, logistique, maintenance, qualite, services supports.</p>
+        </div>
+        <div class="audience-card">
+          <h3>IT embarque</h3>
+          <p>Ingenieurs IT embarque (hors IT support).</p>
+        </div>
+        <div class="audience-card">
+          <h3>Tous secteurs industriels</h3>
+          <p>Procedes (ciment, pharma, chimie), produits de grande consommation, grands projets.</p>
+        </div>
+        <div class="audience-card">
+          <h3>Cabinets de conseil en ingenieurie</h3>
+          <p>Consultants et managers souhaitant integrer les enjeux de durabilite dans leurs missions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container">
+      <p class="sec-eyebrow">Programme</p>
+      <h2 class="sec-title">Ce que vous maitriserez</h2>
+      <p class="sec-sub">30 modules &mdash; 5 cas d'entreprise reels &mdash; 60 fiches telechargeables</p>
+      <div class="sessions-grid">
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">1</span>
+            <span>Les defis de l'ingenieur durable</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Enjeux de durabilite, contraintes reglementaires (CSRD, REACH, REP), double materialite. Vous posez le cadre pour agir.
+          </div></div>
+        </div>
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">2</span>
+            <span>Quantifier la performance environnementale</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Analyse du Cycle de Vie (ACV), methodes de quantification des impacts, performance sociale, communication environnementale. Vous mesurez pour decider.
+          </div></div>
+        </div>
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">3</span>
+            <span>Ecoconception</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Principes, mise en oeuvre, pistes d'optimisation, nouveaux modeles economiques. Vous concevez autrement.
+          </div></div>
+        </div>
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">4</span>
+            <span>Procedes industriels et economie circulaire</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Efficience energetique, decarbonation des procedes, supply chain durable, gestion des ressources. Vous optimisez a l'echelle industrielle.
+          </div></div>
+        </div>
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">5</span>
+            <span>Mettre en oeuvre une ingenieurie durable</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Deploiement operationnel, numerique durable, finance et fiscalite, exemples concrets. Vous passez a l'action.
+          </div></div>
+        </div>
+        <div class="session-card">
+          <button class="session-header" onclick="toggleSession(this)">
+            <span class="session-num">6</span>
+            <span>Vers un nouveau metier d'ingenieur</span>
+            <svg class="session-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="session-body"><div class="session-body-inner">
+            Nouvelles competences, approche systemique, transition ecologique, cas final d'application. Vous vous projetez.
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container-narrow">
+      <p class="sec-eyebrow">Notre approche</p>
+      <h2 class="sec-title">Ce que cette formation n'est pas</h2>
+      <div class="diff-block">
+        <h3>Ce n'est pas un cours theorique sur le developpement durable en general.</h3>
+        <p>C'est une formation operationnelle construite pour des ingenieurs, par des praticiens. Chaque module est ancre dans des situations reelles d'entreprise. Vous travaillez sur des cas concrets issus de l'industrie pharma, chimie, packaging, procedes et grands projets.</p>
+        <p style="margin-top:12px"><strong>Arnaud Herrmann</strong>, cofondateur d'EcoLearn, praticien de la durabilite depuis 20 ans, a concu ce programme avec <strong>Mews Partners</strong>, cabinet de conseil industriel implante en France et en Allemagne depuis 1992.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container-narrow">
+      <p class="sec-eyebrow">Financement</p>
+      <h2 class="sec-title">Financement CPF mode d'emploi</h2>
+      <div class="finance-block">
+        <div class="finance-item"><span class="label">Vous etes salarie</span><span class="desc">Financement via le plan de developpement des competences de votre entreprise ou via votre CPF. Reste a charge estime a 150 &euro; net selon votre solde CPF.</span></div>
+        <div class="finance-item"><span class="label">Independant ou dirigeant</span><span class="desc">Prise en charge via OPCO (AGEFICE, FIF PL, VIVEA selon votre statut) ou CPF selon eligibilite.</span></div>
+        <div class="finance-item"><span class="label">Demandeur d'emploi</span><span class="desc">Aide individuelle a la formation (AIF) via France Travail, CPF autonome ou AIRE selon votre region.</span></div>
+      </div>
+      <div style="text-align:center;margin-top:24px">
+        <p style="font-size:0.9rem;color:#555;margin-bottom:16px">EcoLearn est certifie Qualiopi. Un conseiller vous accompagne dans vos demarches de financement.</p>
+        <a href="#form" class="btn-solid btn-arrow">Prendre rendez-vous avec un conseiller<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <p class="sec-eyebrow">Temoignages</p>
+      <h2 class="sec-title">Ils l'ont suivie</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-text">"J'ai gagne une vraie vision globale des enjeux environnementaux de mon secteur. Les cas pratiques sont directement transposables."</p>
+          <div class="testi-author">
+            <img src="thomas.webp" alt="">
+            <div><div class="name">Thomas</div><div class="role">Ingenieur procedes, industrie chimique</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"La formation m'a appris a structurer une demarche ACV et a la defendre en interne. C'est exactement ce dont j'avais besoin."</p>
+          <div class="testi-author">
+            <img src="alix.webp" alt="">
+            <div><div class="name">Alix</div><div class="role">Chef de projet R&D, equipementier automobile</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"Contenu dense, operationnel, compatible avec une activite pro a temps plein. Le format asynchrone est vraiment adapte."</p>
+          <div class="testi-author">
+            <img src="serena.webp" alt="">
+            <div><div class="name">Serena</div><div class="role">Ingenieur packaging, grande consommation</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container-narrow">
+      <p class="sec-eyebrow">FAQ</p>
+      <h2 class="sec-title">Questions frequentes</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>La formation est-elle certifiante ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            La formation delivre un Diplome EcoLearn attestant de votre reussite, reconnu par les OPCO dans le cadre du financement CPF. EcoLearn est certifie Qualiopi.
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>Combien de temps ai-je pour la suivre ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Le programme est conçu sur 3 mois a raison d'environ 2 heures par semaine. Le format asynchrone vous permet d'avancer a votre rythme, compatible avec une activite professionnelle a temps plein.
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>Puis-je acceder au contenu apres la formation ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Oui. Vous rejoignez la communaute EcoLearn (2 000+ membres) et conservez l'acces aux ressources, lectures recommandees, podcasts et fiches telechargeables.
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>Quel est le reste a charge exact avec le CPF ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Le reste a charge estime est de 150 &euro; net selon votre solde CPF. Un conseiller EcoLearn vous accompagne dans la simulation et les demarches de financement.
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>La formation est-elle accessible aux personnes en situation de handicap ?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Oui. EcoLearn accompagne les apprenants en situation de handicap. Contactez-nous pour un accompagnement adapte.
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="download">
+    <div class="container-narrow" style="text-align:center">
+      <p class="sec-eyebrow">T&eacute;l&eacute;chargement</p>
+      <h2 class="sec-title">Recevez le programme complet</h2>
+      <p class="sec-sub" style="margin:0 auto 32px">Et les informations de financement CPF</p>
+      <a href="#form" class="btn-solid btn-arrow" style="font-size:1.1rem;padding:16px 32px">
+        T&eacute;l&eacute;charger le programme
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <img src="ecolearn-logo.svg" alt="EcoLearn">
+    <p style="margin-bottom:4px">&copy; 2026 EcoLearn &mdash; Certifie Qualiopi &mdash; Societe a mission</p>
+    <p style="font-size:0.75rem;color:#999">Paris, France &mdash; <a href="https://ecolearn.com">ecolearn.com</a> &mdash; <a href="mailto:contact@ecolearn.com">contact@ecolearn.com</a></p>
+  </footer>
+
+  <script>
+    function toggleSession(btn) {
+      var body = btn.nextElementSibling;
+      var chevron = btn.querySelector('.session-chevron');
+      var open = body.style.maxHeight && body.style.maxHeight !== '0px';
+      body.style.maxHeight = open ? '0px' : body.scrollHeight + 'px';
+      if (chevron) chevron.classList.toggle('open');
+    }
+    function toggleFaq(btn) {
+      var body = btn.nextElementSibling;
+      var chevron = btn.querySelector('.faq-chevron');
+      var open = body.style.maxHeight && body.style.maxHeight !== '0px';
+      body.style.maxHeight = open ? '0px' : body.scrollHeight + 'px';
+      if (chevron) chevron.classList.toggle('open');
+    }
+    document.getElementById('leadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours...';
+      var fd = new FormData(this);
+      var data = {};
+      fd.forEach(function(v, k) { data[k] = v; });
+      try {
+        var res = await fetch('https://api.hsforms.com/submissions/v3/integration/submit/49558612/71a2e6a5-1ebe-46ea-9cdf-fe793b95e935', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: [
+              { name: 'firstname', value: data.firstname || '' },
+              { name: 'lastname', value: data.lastname || '' },
+              { name: 'email', value: data.email || '' },
+              { name: 'sector', value: data.sector || '' },
+            ],
+            context: { pageUri: window.location.href, pageName: 'EcoLearn MID Landing' }
+          })
+        });
+        if (!res.ok) throw new Error('HubSpot error');
+      } catch(e) {
+        console.error(e);
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'ecolearn_inscription' });
+      gtag_report_conversion();
+      document.getElementById('leadForm').style.display = 'none';
+      document.getElementById('leadSuccess').style.display = 'block';
+    });
+    function gtag_report_conversion() {
+      var callback = function() { if (typeof window.gtag !== 'undefined') { gtag('event', 'conversion', { send_to: 'AW-17610081004/x3CrCN_LybscEOyFks1B' }); } };
+      if (typeof window.gtag !== 'undefined') { callback(); }
+    }
+  </script>
+</body>
+</html>
