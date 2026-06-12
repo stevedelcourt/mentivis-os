@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 export const metadata = {
   title: "Content Management - MentivisOS",
+  robots: { index: false, follow: false },
 };
 
 export default function ContentManagementLayout({

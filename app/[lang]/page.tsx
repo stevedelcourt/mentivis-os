@@ -55,7 +55,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             name: "MentivisOS — démonstration du système de formation IA",
             description: "Présentation du flux complet MentivisOS : diagnostic de compétences, génération de parcours, accompagnement IA, certification.",
             thumbnailUrl: "https://mentivisos.com/images/LearningOS/thumb-product.webp",
-            uploadDate: "2026-01-01",
+            uploadDate: "2026-01-01T00:00:00Z",
             duration: "PT2M",
             contentUrl: "https://mentivisos.com/videos/mOS-720.mp4",
             embedUrl: "https://mentivisos.com/fr/",
