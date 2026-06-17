@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 580"><script><![CDATA[
+const svg = document.documentElement;
+const g = document.getElementById('scene');
+
+const CSS=580, CX=290, CY=290, SPHERE_R=232, PERSP=783, PERIOD=18;
+const RAW = [
+[0,72],[14,55],[29,80],[44,61],[62,51],[78,75],[96,60],[113,64],[131,54],[149,70],
+[166,49],[182,63],[196,52],[212,66],[229,58],[249,73],[267,55],[285,49],[305,69],[323,53],
+[341,49],[354,66],[49,42],[168,37]
+];
+const MAX_LEN=80;
+const spikes = RAW.map(([deg,len],i)=>{
+ const a=deg*Math.PI/180, r=len/MAX_LEN;
+ const nx=r*Math.cos(a), ny=r*Math.sin(a);
+ const zmg=Math.sqrt(Math.max(0,1-nx*nx-ny*ny));
+ const nz=(i%2===0)?zmg:-zmg;
+ return {nx,ny,nz};
+});
+const TILT=0.20, cosT=Math.cos(TILT), sinT=Math.sin(TILT);
+
+function frame(ts){
+  while(g.firstChild) g.removeChild(g.firstChild);
+  const angle=(ts/1000/PERIOD)*Math.PI*2;
+  const cosA=Math.cos(angle), sinA=Math.sin(angle);
+
+  const proj = spikes.map(({nx,ny,nz})=>{
+    let rx=nx*cosA+nz*sinA;
+    let ry=ny;
+    let rz=-nx*sinA+nz*cosA;
+    const ry2=ry*cosT-rz*sinT;
+    const rz2=ry*sinT+rz*cosT;
+    ry=ry2; rz=rz2;
+
+    const zPx=rz*SPHERE_R;
+    const psc=PERSP/(PERSP-zPx);
+    const ex=CX+rx*SPHERE_R*psc;
+    const ey=CY+ry*SPHERE_R*psc;
+    const depth=(rz+1)/2;
+    return {ex,ey,depth,rz};
+  }).sort((a,b)=>a.rz-b.rz);
+
+  proj.forEach(p=>{
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",CX); line.setAttribute("y1",CY);
+    line.setAttribute("x2",p.ex); line.setAttribute("y2",p.ey);
+    line.setAttribute("stroke","rgba(22,22,22,"+(0.12+p.depth*0.88)+")");
+    line.setAttribute("stroke-width",(0.35+p.depth*1.55));
+    g.appendChild(line);
+  });
+
+  proj.forEach(p=>{
+    const c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("cx",p.ex); c.setAttribute("cy",p.ey);
+    c.setAttribute("r",(1.5+p.depth*4.0));
+    c.setAttribute("fill","rgba(22,22,22,"+(0.15+p.depth*0.85)+")");
+    g.appendChild(c);
+  });
+
+  const center=document.createElementNS("http://www.w3.org/2000/svg","circle");
+  center.setAttribute("cx",CX); center.setAttribute("cy",CY);
+  center.setAttribute("r","2.5");
+  center.setAttribute("fill","rgba(22,22,22,0.45)");
+  g.appendChild(center);
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+]]></script></svg>

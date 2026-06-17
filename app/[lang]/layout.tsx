@@ -17,11 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const rawPath = headersList.get("x-current-path") || headersList.get("next-url") || `/${lang}`;
   const path = rawPath.startsWith("http") ? new URL(rawPath).pathname : rawPath;
   const relativePath = path.replace(/^\/(fr|en)/, "") || "/";
+  const canonicalPath = `/${lang}${relativePath === "/" ? "" : relativePath.replace(/\/+$/, "")}/`;
 
   return {
     title: pageSeo?.title || "MentivisOS",
     description: pageSeo?.description || "",
     alternates: {
+      canonical: `${SITE_URL}${canonicalPath}`,
       languages: {
         fr: `${SITE_URL}/fr${relativePath}`,
         en: `${SITE_URL}/en${relativePath}`,
