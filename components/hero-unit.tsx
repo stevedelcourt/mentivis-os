@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import TopoLines from "@/components/topo-lines";
@@ -10,39 +9,8 @@ interface HeroUnitProps {
   lang: Locale;
 }
 
-interface HeroData {
-  eyebrow: string;
-  headline: string;
-  tagline: string;
-  description: string;
-  bodyText: string;
-  ctaPrimary: string;
-  ctaPrimaryLink: string;
-  proof: string;
-}
-
 export default function HeroUnit({ lang }: HeroUnitProps) {
   const t = getT(lang);
-  const [visible, setVisible] = useState(false);
-  const [hero, setHero] = useState<HeroData | null>(null);
-
-  useEffect(() => {
-    setVisible(true);
-    async function loadHero() {
-      try {
-        const res = await fetch(`/api/pages?page=homepage&lang=${lang}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.page?.hero) {
-            setHero(data.page.hero);
-          }
-        }
-      } catch {
-        // Fallback to i18n
-      }
-    }
-    loadHero();
-  }, [lang]);
 
   return (
     <section
@@ -73,14 +41,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
       </div>
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div
-          style={{
-            maxWidth: 900,
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}
-        >
+        <div style={{ maxWidth: 900 }}>
           <p
             style={{
               fontFamily: "var(--font-sans)",
@@ -92,7 +53,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               marginBottom: 24,
             }}
           >
-            {hero?.eyebrow || t.hero.eyebrow}
+            {t.hero.eyebrow}
           </p>
 
           <h1
@@ -103,7 +64,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               lineHeight: 1.1,
             }}
           >
-            {hero?.headline || t.hero.headline}
+            {t.hero.headline}
           </h1>
 
           <p
@@ -115,7 +76,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               fontWeight: 600,
             }}
           >
-            {hero?.tagline || t.hero.tagline}
+            {t.hero.tagline}
           </p>
 
           <p
@@ -126,7 +87,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               lineHeight: 1.5,
             }}
           >
-            {hero?.description || t.hero.description}
+            {t.hero.description}
           </p>
 
           <p
@@ -137,12 +98,12 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               lineHeight: 1.6,
             }}
           >
-            {hero?.bodyText || t.hero.bodyText}
+            {t.hero.bodyText}
           </p>
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href={hero?.ctaPrimaryLink || "https://open.mentivisos.com"}
+              href="https://open.mentivisos.com"
               className="btn-pill btn-black"
               style={{
                 display: "inline-flex",
@@ -152,7 +113,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 padding: "12px 20px",
               }}
             >
-              {hero?.ctaPrimary || t.hero.ctaPrimary}
+              {t.hero.ctaPrimary}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -167,7 +128,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               fontStyle: "italic",
             }}
           >
-            {hero?.proof || t.hero.proof}
+            {t.hero.proof}
           </p>
         </div>
 
