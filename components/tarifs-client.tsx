@@ -408,7 +408,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                           transition: "color 0.3s ease",
                         }}
                       >
-                        {lang === "en" ? "Custom pricing" : "Sur devis"}
+                        {lang === "en" ? "Get a quote" : "Sur devis"}
                       </div>
                     ) : (
                       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
