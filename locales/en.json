@@ -72,12 +72,13 @@
     }
   },
   "hero": {
-    "eyebrow": "Mentivis OS",
-    "headline": "A training system that learns as much as it teaches.",
-    "subheadline": "Generate tailored learning paths, adapt content automatically, and track your teams' progress in a single AI-native system.",
-    "ctaPrimary": "Start for free",
-    "ctaSecondary": "Contact the team",
-    "proof": "Used by training departments, CFAs, corporate campuses."
+    "eyebrow": "OPEN MENTIVIS OS",
+    "headline": "Open MentivisOS",
+    "tagline": "Learn anything you want, for free.",
+    "description": "The native AI learning platform open to everyone.",
+    "bodyText": "Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
+    "ctaPrimary": "Start free",
+    "proof": "Free forever. Learn for life."
   },
   "productCards": {
     "card1": "Generates structured learning paths tailored to each profile and professional context.",

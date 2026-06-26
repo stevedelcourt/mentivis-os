@@ -13,11 +13,11 @@ interface HeroUnitProps {
 interface HeroData {
   eyebrow: string;
   headline: string;
-  subheadline: string;
+  tagline: string;
+  description: string;
+  bodyText: string;
   ctaPrimary: string;
   ctaPrimaryLink: string;
-  ctaSecondary: string;
-  ctaSecondaryLink: string;
   proof: string;
 }
 
@@ -99,7 +99,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             className="t-display"
             style={{
               fontSize: "var(--text-hero)",
-              marginBottom: 20,
+              marginBottom: 16,
               lineHeight: 1.1,
             }}
           >
@@ -110,16 +110,39 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             className="t-lead"
             style={{
               maxWidth: 800,
+              marginBottom: 12,
+              lineHeight: 1.4,
+              fontWeight: 600,
+            }}
+          >
+            {hero?.tagline || t.hero.tagline}
+          </p>
+
+          <p
+            className="t-lead"
+            style={{
+              maxWidth: 800,
+              marginBottom: 12,
+              lineHeight: 1.5,
+            }}
+          >
+            {hero?.description || t.hero.description}
+          </p>
+
+          <p
+            className="t-lead"
+            style={{
+              maxWidth: 800,
               marginBottom: 40,
               lineHeight: 1.6,
             }}
           >
-            {hero?.subheadline || t.hero.subheadline}
+            {hero?.bodyText || t.hero.bodyText}
           </p>
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href={hero?.ctaPrimaryLink || "https://app.mentivisOS.com"}
+              href={hero?.ctaPrimaryLink || "https://open.mentivisos.com"}
               className="btn-pill btn-black"
               style={{
                 display: "inline-flex",
@@ -134,22 +157,6 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-            <Link
-              href={hero?.ctaSecondaryLink || `/${lang}/contact`}
-              className="btn-pill btn-warm"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                borderRadius: 8,
-                padding: "12px 20px",
-              }}
-            >
-              {hero?.ctaSecondary || t.hero.ctaSecondary}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
           </div>
 
           <p
@@ -157,6 +164,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             style={{
               marginTop: 32,
               color: "var(--text-tertiary)",
+              fontStyle: "italic",
             }}
           >
             {hero?.proof || t.hero.proof}
