@@ -62,6 +62,10 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               fontSize: "var(--text-hero)",
               marginBottom: 16,
               lineHeight: 1.1,
+              background: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
             }}
           >
             {t.hero.headline}
