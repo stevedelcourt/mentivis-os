@@ -62,26 +62,20 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
               fontSize: "var(--text-hero)",
               marginBottom: 16,
               lineHeight: 1.1,
-              background: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
             }}
           >
-            {t.hero.headline}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {t.hero.headline}
+            </span>
+            . {t.hero.tagline}
           </h1>
-
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 800,
-              marginBottom: 12,
-              lineHeight: 1.4,
-              fontWeight: 600,
-            }}
-          >
-            {t.hero.tagline}
-          </p>
 
           <p
             className="t-lead"
