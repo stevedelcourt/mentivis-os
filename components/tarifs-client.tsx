@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getT, Locale } from "@/lib/i18n";
 import { PricingPlan } from "@/lib/cms/types";
-import { HOVER_GRADIENTS, FALLBACK_PLANS, FEATURES_COMPARISON, FAQ_ITEMS, FEATURES_COMPARISON_EN, FAQ_ITEMS_EN } from "@/components/tarifs/pricing-data";
+import { HOVER_GRADIENTS, FALLBACK_PLANS, FALLBACK_PLANS_EN, FEATURES_COMPARISON, FAQ_ITEMS, FEATURES_COMPARISON_EN, FAQ_ITEMS_EN } from "@/components/tarifs/pricing-data";
 
 interface TarifsClientProps {
   lang: Locale;
@@ -42,7 +42,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
 
   const currentPlans = cmsPricing[activeTab]?.length > 0
     ? cmsPricing[activeTab]
-    : FALLBACK_PLANS[activeTab];
+    : (lang === "en" ? FALLBACK_PLANS_EN[activeTab] : FALLBACK_PLANS[activeTab]);
 
   const recommendedPlan = useMemo(() => {
     if (activeTab === "learningos") {
@@ -163,7 +163,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                   fontFamily: "var(--font-sans)",
                 }}
               >
-                Mensuel
+                {lang === "en" ? "Monthly" : "Mensuel"}
               </button>
               <button
                 onClick={() => setBillingCycle("yearly")}
@@ -184,7 +184,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                   fontFamily: "var(--font-sans)",
                 }}
               >
-                Annuel
+                {lang === "en" ? "Yearly" : "Annuel"}
                 <span
                   style={{
                     fontSize: "var(--text-tiny)",
@@ -232,7 +232,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                 letterSpacing: "-0.005em",
                 marginTop: 0,
               }}>
-                Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA.
+                {lang === "en" ? "MentivisOS solutions adapt to your needs: training, recruitment or AI infrastructure." : "Les offres MentivisOS s'adaptent à vos besoins : formation, recrutement ou infrastructure IA."}
               </p>
 
               {/* Buttons */}
@@ -408,7 +408,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                           transition: "color 0.3s ease",
                         }}
                       >
-                        Sur devis
+                        {lang === "en" ? "Custom pricing" : "Sur devis"}
                       </div>
                     ) : (
                       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -476,7 +476,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                               transition: "color 0.3s ease",
                             }}
                           >
-                            /mois
+                            {lang === "en" ? "/mo" : "/mois"}
                           </span>
                         </div>
                       </div>
@@ -520,7 +520,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                       }}
                     >
                       <strong style={{ fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
-                        Tout dans {plan.previousPlan}, plus :
+                        {lang === "en" ? `Everything in ${plan.previousPlan}, plus:` : `Tout dans ${plan.previousPlan}, plus :`}
                       </strong>
                     </p>
                   )}
@@ -536,7 +536,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                       }}
                     >
                       <strong style={{ fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
-                        Inclus :
+                        {lang === "en" ? "Includes:" : "Inclus :"}
                       </strong>
                     </p>
                   )}

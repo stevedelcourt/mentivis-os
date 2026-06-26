@@ -95,6 +95,11 @@ Failover procedure: `docs/FAILOVER-sc10.md`.
 - `docs/infrastructure.md` — full deployment reference
 - `docs/FAILOVER-sc10.md` — Passenger down procedure
 
+## Deployment SSH Note
+- **French mobile carriers (Free Mobile, Orange, etc.) block port 22** — SSH to o2switch (`terre.o2switch.net:22`) will timeout on phone hotspots.
+- Must be on a non-mobile network (home/office WiFi) to deploy.
+- Attempting to deploy on a mobile connection: expect SSH timeout, do NOT retry indefinitely.
+
 ## Conventions
 
 - Components: PascalCase, files: kebab-case (assets) / PascalCase (components)
