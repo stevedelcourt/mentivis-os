@@ -22,6 +22,7 @@ interface BottomBar {
   systemName: string;
   tagline: string;
   cta: string;
+  ctaHref?: string;
 }
 
 interface Sector {
@@ -120,6 +121,7 @@ const SECTORS: Sector[] = [
       systemName: "MentivisOS Open",
       tagline: "La plateforme d'apprentissage libre, pour toutes les envies",
       cta: "Gratuit !",
+      ctaHref: "https://open.mentivisos.com",
     },
   },
   {
@@ -523,7 +525,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                 <strong>{sector.bottomBar.systemName}</strong> — {sector.bottomBar.tagline}
               </p>
               <Link
-                href={`/${lang}/demo`}
+                href={sector.bottomBar.ctaHref || `/${lang}/demo`}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
