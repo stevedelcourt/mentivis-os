@@ -83,13 +83,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 padding: "12px 20px",
               }}
             >
-              {locale === "en" ? "See a demo for your case" : "Voir une démo sur votre cas"}
+              {locale === "en" ? "Test MentivisOS Pro" : "Tester MentivisOS Pro"}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
             <Link
-              href={`/${locale}/contact`}
+              href={`/${locale}/demo`}
               className="btn-pill btn-warm"
               style={{
                 display: "inline-flex",
