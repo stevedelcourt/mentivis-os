@@ -52,20 +52,20 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
 
 ## Notre manière de travailler
 
-• ADN éducation — Notre expertise s'appuie sur des années d'expérience dans l'éducation, la formation, la stratégie institutionnelle et l'ingénierie pédagogique.
-• AI-first — Nous intégrons l'IA sur l'ensemble du cycle de développement des compétences : conception des programmes, admissions, accompagnement des apprenants, formation, évaluation, administration, recrutement et pilotage stratégique.
-• Pensé pour l'exécution — Nous nous concentrons sur le déploiement, l'adoption, la gouvernance et les résultats mesurables.
-• Équipes interdisciplinaires — Nos projets croisent pédagogie, IA, stratégie, opérations, communication, technologie et management institutionnel.
-• Transformation centrée sur l'humain — Nous pensons que l'IA doit renforcer les capacités humaines, améliorer l'accès à l'éducation et aider les institutions à s'adapter de manière responsable.
+• ADN éducation - Notre expertise s'appuie sur des années d'expérience dans l'éducation, la formation, la stratégie institutionnelle et l'ingénierie pédagogique.
+• AI-first - Nous intégrons l'IA sur l'ensemble du cycle de développement des compétences : conception des programmes, admissions, accompagnement des apprenants, formation, évaluation, administration, recrutement et pilotage stratégique.
+• Pensé pour l'exécution - Nous nous concentrons sur le déploiement, l'adoption, la gouvernance et les résultats mesurables.
+• Équipes interdisciplinaires - Nos projets croisent pédagogie, IA, stratégie, opérations, communication, technologie et management institutionnel.
+• Transformation centrée sur l'humain - Nous pensons que l'IA doit renforcer les capacités humaines, améliorer l'accès à l'éducation et aider les institutions à s'adapter de manière responsable.
 
 ## Ce que nous construisons
 
-• Infrastructures d'apprentissage intelligentes — Un écosystème unique pour gérer la formation, le développement des talents, l'assistance IA et les opérations pédagogiques.
-• Transformation institutionnelle — Un accompagnement stratégique et opérationnel pour les organisations confrontées à l'IA, à la transformation numérique et à l'évolution des métiers.
-• Accélération des talents — Des systèmes pour recruter, former, fidéliser et faire évoluer les talents à grande échelle.
-• Acculturation IA — À travers des initiatives comme ICIA - Institut Collectif de l'Intelligence Artificielle, nous participons à la diffusion massive des connaissances et usages de l'IA.
-• Écosystèmes adaptatifs — Des infrastructures flexibles conçues pour évoluer en permanence avec les transformations technologiques, économiques et sociétales.
-• Partenariats de long terme — Nous travaillons aux côtés des institutions et des organisations pour co-construire des modèles éducatifs et RH durables dans le temps.`);
+• Infrastructures d'apprentissage intelligentes - Un écosystème unique pour gérer la formation, le développement des talents, l'assistance IA et les opérations pédagogiques.
+• Transformation institutionnelle - Un accompagnement stratégique et opérationnel pour les organisations confrontées à l'IA, à la transformation numérique et à l'évolution des métiers.
+• Accélération des talents - Des systèmes pour recruter, former, fidéliser et faire évoluer les talents à grande échelle.
+• Acculturation IA - À travers des initiatives comme ICIA - Institut Collectif de l'Intelligence Artificielle, nous participons à la diffusion massive des connaissances et usages de l'IA.
+• Écosystèmes adaptatifs - Des infrastructures flexibles conçues pour évoluer en permanence avec les transformations technologiques, économiques et sociétales.
+• Partenariats de long terme - Nous travaillons aux côtés des institutions et des organisations pour co-construire des modèles éducatifs et RH durables dans le temps.`);
   const [published, setPublished] = useState(false);
 
   useEffect(() => {
@@ -240,7 +240,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
               /carrieres/{slug}
             </div>
             <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
-              URL generee automatiquement — non modifiable
+              URL generee automatiquement - non modifiable
             </p>
           </div>
         )}

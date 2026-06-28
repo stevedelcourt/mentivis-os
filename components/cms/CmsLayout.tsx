@@ -234,7 +234,7 @@ export function CmsReadOnlyBanner() {
         fontSize: 14,
       }}
     >
-      Lecture seule — Vous n&apos;avez pas les droits de modification sur cette section.
+      Lecture seule - Vous n&apos;avez pas les droits de modification sur cette section.
     </div>
   );
 }

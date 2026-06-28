@@ -140,7 +140,7 @@ export default function CandidaturesPage() {
     >
       {!canManage && (
         <div style={{ padding: "12px 16px", background: "#FFF3E0", borderRadius: 10, marginBottom: 20, color: "#E65100", fontSize: 14 }}>
-          Lecture seule — Vous n&apos;avez pas les droits de modification sur cette section.
+          Lecture seule - Vous n&apos;avez pas les droits de modification sur cette section.
         </div>
       )}
 

@@ -130,7 +130,7 @@ export default function PagesEditorPage() {
       lang={lang}
       token={token}
       role={role}
-      title={`${PAGE_OPTIONS.find(p => p.key === activePage)?.label || "Page"} — Hero`}
+      title={`${PAGE_OPTIONS.find(p => p.key === activePage)?.label || "Page"} - Hero`}
       maxWidth={800}
     >
       {!canEdit && <CmsReadOnlyBanner />}

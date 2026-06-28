@@ -190,7 +190,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
         <div className="container">
           <Image
             src="/images/former.avif"
-            alt="Former n'est pas un coût — Steven Delcourt"
+            alt="Former n'est pas un coût - Steven Delcourt"
             width={2400}
             height={1350}
             className="about-conviction-img"

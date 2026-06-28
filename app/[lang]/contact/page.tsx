@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Contact — MentivisOS" : "Contact — MentivisOS",
+    title: isFr ? "Contact - MentivisOS" : "Contact - MentivisOS",
     description: isFr
       ? "Contactez l'équipe Mentivis. Réponse sous 24h ouvrées."
       : "Contact the Mentivis team. Response within 24 business hours.",

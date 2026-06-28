@@ -234,8 +234,8 @@ export default function BetaQuestionnairePage() {
         </h1>
         <p style={pageDescStyle}>
           {isFr
-            ? "Devenir bêta-testeur MentivisOS — répondez à ce questionnaire pour nous aider à comprendre votre contexte et vos besoins."
-            : "Become a MentivisOS beta tester — fill out this questionnaire to help us understand your context and needs."}
+            ? "Devenir bêta-testeur MentivisOS - répondez à ce questionnaire pour nous aider à comprendre votre contexte et vos besoins."
+            : "Become a MentivisOS beta tester - fill out this questionnaire to help us understand your context and needs."}
         </p>
 
         {error && (

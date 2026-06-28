@@ -7,7 +7,7 @@ import { ReferentielSplit } from "./referentiel-split";
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === "fr" ? "Le Référentiel — Guides formation professionnelle | MentivisOS" : "The Reference — Professional Training Guides | MentivisOS",
+    title: lang === "fr" ? "Le Référentiel - Guides formation professionnelle | MentivisOS" : "The Reference - Professional Training Guides | MentivisOS",
     description: lang === "fr"
       ? "Articles pratiques et conformes sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences."
       : "Practical compliance guides for training organizations. Qualiopi, funding, skills development, AI training.",
@@ -42,7 +42,7 @@ export default async function ReferentielPage({ params, searchParams }: { params
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "CollectionPage",
-              name: lang === "en" ? "The Reference — MentivisOS" : "Le Référentiel — MentivisOS",
+              name: lang === "en" ? "The Reference - MentivisOS" : "Le Référentiel - MentivisOS",
               description: lang === "en"
                 ? "Practical compliance guides for training organizations. Qualiopi, funding, skills development, AI training."
                 : "Articles pratiques sur la formation professionnelle, le référentiel Qualiopi, le développement des compétences et l'intégration IA.",

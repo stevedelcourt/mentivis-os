@@ -30,8 +30,8 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
             name: "LearningOS",
             applicationCategory: "EducationalApplication",
             description: isFr
-              ? "Système de formation native IA — générez des parcours personnalisés et pilotez la montée en compétences."
-              : "AI-native training system — generate personalized learning paths and drive skills development.",
+              ? "Système de formation native IA - générez des parcours personnalisés et pilotez la montée en compétences."
+              : "AI-native training system - generate personalized learning paths and drive skills development.",
             url: `${SITE_URL}/${lang}/learningos`,
           }),
         }}

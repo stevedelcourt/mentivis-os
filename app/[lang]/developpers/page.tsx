@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Développeurs — API MentivisOS" : "Developers — MentivisOS API",
+    title: isFr ? "Développeurs - API MentivisOS" : "Developers - MentivisOS API",
     description: isFr
       ? "Documentation technique et guides d'intégration de l'API MentivisOS. Connectez vos systèmes ATS, SIRH et outils de formation."
       : "Technical documentation and integration guides for the MentivisOS API. Connect your ATS, HRIS and training tools.",

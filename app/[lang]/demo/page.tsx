@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Démonstration — MentivisOS" : "Demo — MentivisOS",
+    title: isFr ? "Démonstration - MentivisOS" : "Demo - MentivisOS",
     description: isFr
       ? "Pas de démonstration standard. Un cas réel, issu de votre organisation, traité en direct."
       : "No standard demo. A real case from your organization, handled live.",

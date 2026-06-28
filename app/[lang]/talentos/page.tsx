@@ -30,8 +30,8 @@ export default async function TalentOSPage({ params }: { params: Promise<{ lang:
             name: "TalentOS",
             applicationCategory: "BusinessApplication",
             description: isFr
-              ? "Le système de recrutement IA — ATS intelligent, matching de profils et pilotage des recrutements."
-              : "The AI recruitment system — smart ATS, profile matching and recruitment pipeline management.",
+              ? "Le système de recrutement IA - ATS intelligent, matching de profils et pilotage des recrutements."
+              : "The AI recruitment system - smart ATS, profile matching and recruitment pipeline management.",
             url: `${SITE_URL}/${lang}/talentos`,
           }),
         }}

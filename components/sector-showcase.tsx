@@ -522,7 +522,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   lineHeight: 1.5,
                 }}
               >
-                <strong>{sector.bottomBar.systemName}</strong> — {sector.bottomBar.tagline}
+                <strong>{sector.bottomBar.systemName}</strong> - {sector.bottomBar.tagline}
               </p>
               <Link
                 href={sector.bottomBar.ctaHref || `/${lang}/demo`}

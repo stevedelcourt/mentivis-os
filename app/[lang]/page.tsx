@@ -52,7 +52,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "VideoObject",
-            name: "MentivisOS — démonstration du système de formation IA",
+            name: "MentivisOS - démonstration du système de formation IA",
             description: "Présentation du flux complet MentivisOS : diagnostic de compétences, génération de parcours, accompagnement IA, certification.",
             thumbnailUrl: "https://mentivisos.com/images/LearningOS/thumb-product.webp",
             uploadDate: "2026-01-01T00:00:00Z",

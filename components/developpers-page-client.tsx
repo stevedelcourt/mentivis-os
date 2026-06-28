@@ -5,7 +5,7 @@ import { Locale } from "@/lib/i18n";
 const SECTIONS = [
   { id: "presentation", labelFr: "Présentation", labelEn: "Overview" },
   { id: "debuter", labelFr: "Débuter", labelEn: "Getting Started" },
-  { id: "ats", labelFr: "ATS — Recrutement", labelEn: "ATS — Recruitment" },
+  { id: "ats", labelFr: "ATS - Recrutement", labelEn: "ATS - Recruitment" },
   { id: "sirh", labelFr: "SIRH / HRIS", labelEn: "HRIS" },
   { id: "pennylane", labelFr: "Pennylane", labelEn: "Pennylane" },
   { id: "webhooks", labelFr: "Webhooks", labelEn: "Webhooks" },
@@ -274,11 +274,11 @@ Key endpoints: /api/external/v2/customer_invoices, /api/external/v2/products,
 
 Événements disponibles
 
-- learning_path.completed — Un apprenant a terminé un parcours
-- assessment.passed — Une évaluation a été réussie
-- certificate.issued — Un certificat a été délivré
-- learner.enrolled — Un apprenant a été inscrit à un parcours
-- learner.skill_updated — Les compétences d'un apprenant ont été mises à jour
+- learning_path.completed - Un apprenant a terminé un parcours
+                    - assessment.passed - Une évaluation a été réussie
+                    - certificate.issued - Un certificat a été délivré
+                    - learner.enrolled - Un apprenant a été inscrit à un parcours
+                    - learner.skill_updated - Les compétences d'un apprenant ont été mises à jour
 
 Configuration
 
@@ -299,11 +299,11 @@ Votre endpoint doit répondre en 2 secondes maximum avec un code HTTP 200. En ca
 
 Available Events
 
-- learning_path.completed — A learner has finished a path
-- assessment.passed — An assessment has been passed
-- certificate.issued — A certificate has been issued
-- learner.enrolled — A learner has been enrolled in a path
-- learner.skill_updated — A learner's skills have been updated
+- learning_path.completed - A learner has finished a path
+                    - assessment.passed - An assessment has been passed
+                    - certificate.issued - A certificate has been issued
+                    - learner.enrolled - A learner has been enrolled in a path
+                    - learner.skill_updated - A learner's skills have been updated
 
 Configuration
 
