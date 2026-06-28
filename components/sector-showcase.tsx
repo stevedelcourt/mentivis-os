@@ -126,8 +126,8 @@ const SECTORS: Sector[] = [
     title: "MentivisOS Open",
     members: [],
     advantages: [],
-    gradient: "linear-gradient(135deg, #0D7377 0%, #14A3A8 30%, #67D1A0 70%, #A8E6CF 100%)",
-    accent: "#14A3A8",
+    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+    accent: "#7030A0",
     tag: "Gratuit pour toujours",
     orbClass: "",
     image: "/images/student.avif",
@@ -318,9 +318,9 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   padding: "8px 16px",
                   borderRadius: 999,
                   border: "1.5px solid",
-                  borderColor: activeSubTabIdx === i ? "#14A3A8" : "rgba(0,0,0,0.08)",
-                  background: activeSubTabIdx === i ? "rgba(20, 163, 168, 0.08)" : "transparent",
-                  color: activeSubTabIdx === i ? "#0D7377" : "#3a3a3a",
+                  borderColor: activeSubTabIdx === i ? "#7030A0" : "rgba(0,0,0,0.08)",
+                  background: activeSubTabIdx === i ? "rgba(112, 48, 160, 0.08)" : "transparent",
+                  color: activeSubTabIdx === i ? "#7030A0" : "#3a3a3a",
                   fontFamily: "var(--font-sans)",
                   fontSize: 13,
                   fontWeight: activeSubTabIdx === i ? 600 : 400,
@@ -529,8 +529,8 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   fontFamily: "var(--font-sans)",
                   fontSize: 14,
                   fontWeight: 600,
-                  color: "#0D7377",
-                  background: "rgba(20, 163, 168, 0.1)",
+                  color: "#7030A0",
+                  background: "rgba(112, 48, 160, 0.1)",
                   borderRadius: 8,
                   padding: "12px 24px",
                   textDecoration: "none",
@@ -538,10 +538,10 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(20, 163, 168, 0.18)";
+                  e.currentTarget.style.background = "rgba(112, 48, 160, 0.18)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(20, 163, 168, 0.1)";
+                  e.currentTarget.style.background = "rgba(112, 48, 160, 0.1)";
                 }}
               >
                 {sector.bottomBar.cta}
