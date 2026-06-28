@@ -50,7 +50,7 @@ const SECTORS: Sector[] = [
     accent: "#7030A0",
     tag: "Gratuit pour toujours",
     orbClass: "",
-    image: "/images/student.avif",
+    image: "/images/lyceens.avif",
     labelSection: "Pour tous",
     subTabs: [
       {
