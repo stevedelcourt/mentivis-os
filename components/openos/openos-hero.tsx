@@ -13,8 +13,8 @@ const GRADIENT = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, 
 const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headlinePart3: string; subheadline: string; cta: string; ctaLink: string; proof: string }> = {
   fr: {
     eyebrow: "MENTIVISOS OPEN",
-    headlinePart2: "Apprenez tout ce que vous voulez,",
-    headlinePart3: "gratuitement.",
+    headlinePart2: "Apprenez tout ce que vous voulez, gratuitement.",
+    headlinePart3: "",
     subheadline: "La plateforme d'apprentissage native IA ouverte à tous. Que vous soyez étudiant, professionnel ou simplement curieux, Open MentivisOS est fait pour vous.",
     cta: "C'est gratuit !",
     ctaLink: "https://open.mentivisos.com",
@@ -22,8 +22,8 @@ const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headline
   },
   en: {
     eyebrow: "MENTIVISOS OPEN",
-    headlinePart2: "Learn anything you want,",
-    headlinePart3: "for free.",
+    headlinePart2: "Learn anything you want, for free.",
+    headlinePart3: "",
     subheadline: "The native AI learning platform open to everyone. Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
     cta: "It's free!",
     ctaLink: "https://open.mentivisos.com",
@@ -89,7 +89,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
               MentivisOS Open.
             </span>
             <span style={{ display: "block" }}>{c.headlinePart2}</span>
-            <span style={{ display: "block" }}>{c.headlinePart3}</span>
+            {c.headlinePart3 && <span style={{ display: "block" }}>{c.headlinePart3}</span>}
           </h1>
           <p
             style={{
