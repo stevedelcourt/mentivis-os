@@ -22,8 +22,8 @@ const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headline
   },
   en: {
     eyebrow: "MENTIVISOS OPEN",
-    headlinePart2: "Learn anything you want, for free.",
-    headlinePart3: "",
+    headlinePart2: "Learn anything you want,",
+    headlinePart3: "for free.",
     subheadline: "The native AI learning platform open to everyone. Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
     cta: "It's free!",
     ctaLink: "https://open.mentivisos.com",
