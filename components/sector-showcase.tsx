@@ -41,87 +41,6 @@ interface Sector {
 
 const SECTORS: Sector[] = [
   {
-    id: "entreprises",
-    title: "Entreprises & Réseaux",
-    members: [
-      "Entreprises", "ETI", "Grands Groupes", "PME", "ESN",
-      "Campus d'entreprise", "Franchises", "Santé"
-    ],
-    advantages: [
-      "Parcours générés par IA, calibrés par métier",
-      "Pilotage centralisé à l'échelle du groupe",
-      "Recrutement calibré aux besoins opérationnels",
-      "Onboarding ciblé par profil et site",
-      "Déploiement multi-sites, multi-pays",
-      "Connexion SIRH, ATS, outils internes"
-    ],
-    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 50%, #B02050 100%)",
-    accent: "#7030A0",
-    tag: "8 types d'organisations",
-    orbClass: "sector-orb-purple",
-    image: "/images/formation.avif",
-  },
-  {
-    id: "formation",
-    title: "Formation & Éducation",
-    members: [
-      "CFA", "Écoles", "Universités", "Organismes de formation", "Centres de formation internes"
-    ],
-    advantages: [
-      "Formation personnalisée par apprenant",
-      "Recalibrage pédagogique automatique",
-      "Conformité Qualiopi et certification intégrée",
-      "Gestion OPCO et financements automatiques",
-      "Évaluation des acquis, pas de la consommation",
-      "Workflows pédagogiques automatisés"
-    ],
-    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
-    accent: "#B07820",
-    tag: "5 organismes de formation",
-    orbClass: "sector-orb-amber",
-    image: "/images/student.avif",
-  },
-  {
-    id: "public",
-    title: "Public & Institutionnel",
-    members: [
-      "Collectivités", "Ministères", "Agences publiques", "Réseaux associatifs", "Acteurs de l'insertion"
-    ],
-    advantages: [
-      "Diagnostic des écarts territoriaux",
-      "Recommandations adaptées aux politiques publiques",
-      "Mise en oeuvre rapide, sans refonte",
-      "Optimisation des budgets formation publics",
-      "Mesure d'impact sur l'emploi et l'insertion",
-      "Infrastructure souveraine et évolutive"
-    ],
-    gradient: "linear-gradient(135deg, #A03020 0%, #C05828 50%, #D08840 100%)",
-    accent: "#C05828",
-    tag: "5 acteurs institutionnels",
-    orbClass: "sector-orb-rust",
-    image: "/images/ministere.avif",
-  },
-  {
-    id: "professionnels",
-    title: "Professionnels & Métiers",
-    members: [
-      "Cabinets de conseil", "Opérateurs de compétences", "Fédérations professionnelles", "Branches métiers"
-    ],
-    advantages: [
-      "Analyse de faisabilité avant prescription",
-      "Scoring technique et opérationnel des parcours",
-      "Agents IA métier, embarqués dans les référentiels",
-      "Tableaux de bord par branche et fédération",
-      "Veille compétences et upskilling continu",
-      "Orchestration formation et placement"
-    ],
-    gradient: "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 50%, #4D9AAF 100%)",
-    accent: "#2D7A9F",
-    tag: "4 fédérations métiers",
-    orbClass: "sector-orb-sky",
-    image: "/images/workers.avif",
-  },
-  {
     id: "open",
     title: "MentivisOS Open",
     members: [],
@@ -203,6 +122,87 @@ const SECTORS: Sector[] = [
       cta: "Gratuit !",
     },
   },
+  {
+    id: "entreprises",
+    title: "Entreprises & Réseaux",
+    members: [
+      "Entreprises", "ETI", "Grands Groupes", "PME", "ESN",
+      "Campus d'entreprise", "Franchises", "Santé"
+    ],
+    advantages: [
+      "Parcours générés par IA, calibrés par métier",
+      "Pilotage centralisé à l'échelle du groupe",
+      "Recrutement calibré aux besoins opérationnels",
+      "Onboarding ciblé par profil et site",
+      "Déploiement multi-sites, multi-pays",
+      "Connexion SIRH, ATS, outils internes"
+    ],
+    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 50%, #B02050 100%)",
+    accent: "#7030A0",
+    tag: "8 types d'organisations",
+    orbClass: "sector-orb-purple",
+    image: "/images/formation.avif",
+  },
+  {
+    id: "formation",
+    title: "Formation & Éducation",
+    members: [
+      "CFA", "Écoles", "Universités", "Organismes de formation", "Centres de formation internes"
+    ],
+    advantages: [
+      "Formation personnalisée par apprenant",
+      "Recalibrage pédagogique automatique",
+      "Conformité Qualiopi et certification intégrée",
+      "Gestion OPCO et financements automatiques",
+      "Évaluation des acquis, pas de la consommation",
+      "Workflows pédagogiques automatisés"
+    ],
+    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
+    accent: "#B07820",
+    tag: "5 organismes de formation",
+    orbClass: "sector-orb-amber",
+    image: "/images/student.avif",
+  },
+  {
+    id: "public",
+    title: "Public & Institutionnel",
+    members: [
+      "Collectivités", "Ministères", "Agences publiques", "Réseaux associatifs", "Acteurs de l'insertion"
+    ],
+    advantages: [
+      "Diagnostic des écarts territoriaux",
+      "Recommandations adaptées aux politiques publiques",
+      "Mise en oeuvre rapide, sans refonte",
+      "Optimisation des budgets formation publics",
+      "Mesure d'impact sur l'emploi et l'insertion",
+      "Infrastructure souveraine et évolutive"
+    ],
+    gradient: "linear-gradient(135deg, #A03020 0%, #C05828 50%, #D08840 100%)",
+    accent: "#C05828",
+    tag: "5 acteurs institutionnels",
+    orbClass: "sector-orb-rust",
+    image: "/images/ministere.avif",
+  },
+  {
+    id: "professionnels",
+    title: "Professionnels & Métiers",
+    members: [
+      "Cabinets de conseil", "Opérateurs de compétences", "Fédérations professionnelles", "Branches métiers"
+    ],
+    advantages: [
+      "Analyse de faisabilité avant prescription",
+      "Scoring technique et opérationnel des parcours",
+      "Agents IA métier, embarqués dans les référentiels",
+      "Tableaux de bord par branche et fédération",
+      "Veille compétences et upskilling continu",
+      "Orchestration formation et placement"
+    ],
+    gradient: "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 50%, #4D9AAF 100%)",
+    accent: "#2D7A9F",
+    tag: "4 fédérations métiers",
+    orbClass: "sector-orb-sky",
+    image: "/images/workers.avif",
+  },
 ];
 
 export default function SectorShowcase({ lang }: SectorShowcaseProps) {
@@ -278,8 +278,10 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                 padding: "14px 16px",
                 borderRadius: 12,
                 border: "1.5px solid",
-                borderColor: activeIdx === i ? "#757676" : "rgba(0,0,0,0.08)",
-                background: activeIdx === i ? "#757676" : "transparent",
+                borderColor: activeIdx === i ? (s.id === "open" ? "#7030A0" : "#757676") : "rgba(0,0,0,0.08)",
+                background: activeIdx === i && s.id === "open"
+                  ? "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)"
+                  : activeIdx === i ? "#757676" : "transparent",
                 color: activeIdx === i ? "#ffffff" : "#3a3a3a",
                 fontFamily: "var(--font-sans)",
                 fontSize: 13,
