@@ -263,7 +263,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${SECTORS.length}, 1fr)`,
-            gap: 12,
+            gap: 8,
             marginBottom: sector.subTabs ? 12 : 32,
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
@@ -275,20 +275,21 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               key={s.id}
               onClick={() => selectSector(i)}
               style={{
-                padding: "16px 20px",
+                padding: "14px 16px",
                 borderRadius: 12,
                 border: "1.5px solid",
                 borderColor: activeIdx === i ? "#757676" : "rgba(0,0,0,0.08)",
                 background: activeIdx === i ? "#757676" : "transparent",
                 color: activeIdx === i ? "#ffffff" : "#3a3a3a",
                 fontFamily: "var(--font-sans)",
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: 500,
                 letterSpacing: "0.01em",
                 cursor: "pointer",
                 transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
-                textAlign: "left",
-                lineHeight: 1.4,
+                textAlign: "center",
+                lineHeight: 1.3,
+                whiteSpace: "nowrap",
               }}
             >
               {s.title}
