@@ -178,8 +178,17 @@ export default function NavBar({ lang }: NavBarProps) {
               className="t-nav navbar-link"
               data-active={isActive("/learningos")}
               style={{ padding: "20px 0" }}
+          >
+            {t.nav.learningOS}
+          </Link>
+{/* Open */}
+            <Link
+              href={`/${lang}/openos`}
+              className="t-nav navbar-link"
+              data-active={isActive("/openos")}
+              style={{ padding: "20px 0" }}
             >
-              {t.nav.learningOS}
+              Open
             </Link>
 
             {/* TalentOS */}

@@ -1,5 +1,6 @@
 {
   "nav": {
+    "open": "Open",
     "learningOS": "LearningOS",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
