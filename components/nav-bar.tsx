@@ -170,7 +170,7 @@ export default function NavBar({ lang }: NavBarProps) {
           {/* Desktop nav */}
           <nav
             className="navbar-links"
-            style={{ display: "flex", gap: 32, alignItems: "center" }}
+            style={{ display: "flex", gap: 32, alignItems: "center", flex: 1, justifyContent: "center" }}
           >
             {/* LearningOS */}
             <Link
@@ -248,7 +248,7 @@ export default function NavBar({ lang }: NavBarProps) {
           </nav>
 
           {/* Right side CTAs */}
-          <div style={{ display: "flex", gap: 10, alignItems: "center", marginLeft: "auto" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Link
               href={`/${lang}/contact`}
               className="btn-header-outline hide-mobile"
