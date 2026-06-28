@@ -254,7 +254,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               color: "#1a1a1a",
             }}
           >
-            Quelles organisations peuvent former, recruter et piloter les compétences depuis un seul système ?
+            Un seul système pour former, recruter, piloter et apprendre.
           </h2>
         </div>
 
