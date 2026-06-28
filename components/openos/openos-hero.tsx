@@ -10,10 +10,11 @@ interface OpenOSHeroProps {
 
 const GRADIENT = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)";
 
-const CONTENT: Record<string, { eyebrow: string; headline: string; subheadline: string; cta: string; ctaLink: string; proof: string }> = {
+const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headlinePart3: string; subheadline: string; cta: string; ctaLink: string; proof: string }> = {
   fr: {
     eyebrow: "MENTIVISOS OPEN",
-    headline: "Apprenez tout ce que vous voulez,\ngratuitement.",
+    headlinePart2: "Apprenez tout ce que vous voulez,",
+    headlinePart3: "gratuitement.",
     subheadline: "La plateforme d'apprentissage native IA ouverte à tous. Que vous soyez étudiant, professionnel ou simplement curieux, Open MentivisOS est fait pour vous.",
     cta: "C'est gratuit !",
     ctaLink: "https://open.mentivisos.com",
@@ -21,7 +22,8 @@ const CONTENT: Record<string, { eyebrow: string; headline: string; subheadline: 
   },
   en: {
     eyebrow: "MENTIVISOS OPEN",
-    headline: "Learn anything you want,\nfor free.",
+    headlinePart2: "Learn anything you want,",
+    headlinePart3: "for free.",
     subheadline: "The native AI learning platform open to everyone. Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
     cta: "It's free!",
     ctaLink: "https://open.mentivisos.com",
@@ -81,16 +83,13 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                display: "block",
               }}
             >
-              MentivisOS Open
+              MentivisOS Open.
             </span>
-            <span>. </span>
-            {c.headline.split("\n").map((line, i) => (
-              <span key={i} style={{ display: "block" }}>
-                {line}
-              </span>
-            ))}
+            <span style={{ display: "block" }}>{c.headlinePart2}</span>
+            <span style={{ display: "block" }}>{c.headlinePart3}</span>
           </h1>
           <p
             style={{
