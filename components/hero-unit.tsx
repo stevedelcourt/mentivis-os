@@ -123,7 +123,6 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             style={{
               marginTop: 32,
               color: "var(--text-tertiary)",
-              fontStyle: "italic",
             }}
           >
             {t.hero.proof}
