@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
+import SuperButton from "@/components/super-button";
 import OpenOSHero from "./openos-hero";
 import OpenOSWorkflow from "./openos-workflow";
 import OpenOSTestimonials from "./openos-testimonials";
@@ -14,38 +15,44 @@ function OpenOSCTA() {
 
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "var(--section-gap) 0" }}>
-      <div className="container" style={{ textAlign: "center" }}>
-        <h2 className="t-display" style={{ ...sectionAnim(visible, 0), fontSize: "clamp(28px, 4vw, 44px)", marginBottom: 16, lineHeight: 1.1 }}>
-          <span style={{ background: gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MentivisOS Open</span>
-          {" "}est disponible maintenant.
-        </h2>
-        <p style={{ ...sectionAnim(visible, 0.05), fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: 1.6, color: "#4e4e4e", marginBottom: 40 }}>
-          Gratuit pour toujours. Prêt en trente secondes.
-        </p>
-        <Link
-          href="https://open.mentivisos.com"
+      <div className="container">
+        <div
           style={{
-            ...sectionAnim(visible, 0.1),
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            padding: "14px 28px",
-            fontSize: 16,
-            fontWeight: 600,
-            color: "#fff",
-            background: "#0A0A0A",
-            borderRadius: 8,
-            textDecoration: "none",
-            transition: "background 0.2s ease",
+            background: "#ffffff",
+            borderRadius: 24,
+            padding: "clamp(32px, 4vw, 48px) clamp(24px, 4vw, 44px)",
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#333"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "#0A0A0A"; }}
         >
-          C&apos;est gratuit !
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </Link>
+          <div
+            className="openos-cta-inner"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 40,
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h2 className="t-display" style={{ ...sectionAnim(visible, 0), fontSize: "clamp(24px, 3.5vw, 40px)", marginBottom: 20, lineHeight: 1.2 }}>
+                <span style={{ background: gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MentivisOS Open</span>
+                {" "}est disponible maintenant.
+              </h2>
+              <p style={{ ...sectionAnim(visible, 0.05), fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--text-secondary)", margin: 0 }}>
+                Gratuit pour toujours. Prêt en trente secondes.
+              </p>
+            </div>
+            <SuperButton href="https://open.mentivisos.com" />
+          </div>
+        </div>
+        <style>{`
+          @media (max-width: 768px) {
+            .openos-cta-inner {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              gap: 32px !important;
+            }
+          }
+        `}</style>
       </div>
     </section>
   );
