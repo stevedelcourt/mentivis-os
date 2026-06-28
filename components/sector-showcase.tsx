@@ -278,7 +278,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                 padding: "14px 16px",
                 borderRadius: 12,
                 border: "1.5px solid",
-                borderColor: activeIdx === i ? (s.id === "open" ? "#7030A0" : "#757676") : "rgba(0,0,0,0.08)",
+                borderColor: activeIdx === i ? (s.id === "open" ? "rgba(255,255,255,0.4)" : "#757676") : "rgba(0,0,0,0.08)",
                 background: activeIdx === i && s.id === "open"
                   ? "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)"
                   : activeIdx === i ? "#757676" : "transparent",
