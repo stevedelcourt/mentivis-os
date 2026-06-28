@@ -55,8 +55,13 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
   return (
     <>
       {/* Open */}
-      <Link href={`/${lang}/openos`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.open}</span>
+      <Link href={`/${lang}/openos`} onClick={onClose} style={{...navStyle}}>
+        <span style={{
+          background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>{t.nav.open}</span>
       </Link>
 
       {/* LearningOS */}

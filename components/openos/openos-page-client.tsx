@@ -5,7 +5,7 @@ import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 import SuperButton from "@/components/super-button";
 import OpenOSHero from "./openos-hero";
-import OpenOSWorkflow from "./openos-workflow";
+import OpenOSPipeline from "./openos-pipeline";
 import OpenOSTestimonials from "./openos-testimonials";
 import OpenOSFAQ from "./openos-faq";
 
@@ -62,9 +62,9 @@ export default function OpenOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
       <OpenOSHero lang={lang} />
-      <OpenOSWorkflow lang={lang} />
+      <OpenOSPipeline lang={lang} />
       <OpenOSTestimonials />
-      <OpenOSFAQ />
+      <OpenOSFAQ lang={lang} />
       <OpenOSCTA />
     </>
   );

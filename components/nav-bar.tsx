@@ -172,6 +172,22 @@ export default function NavBar({ lang }: NavBarProps) {
             className="navbar-links"
             style={{ display: "flex", gap: 32, alignItems: "center", flex: 1, justifyContent: "center" }}
           >
+            {/* Open */}
+            <Link
+              href={`/${lang}/openos`}
+              className="t-nav navbar-link"
+              data-active={isActive("/openos")}
+              style={{
+                padding: "20px 0",
+                background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {t.nav.open}
+            </Link>
+
             {/* LearningOS */}
             <Link
               href={`/${lang}/learningos`}
@@ -181,15 +197,6 @@ export default function NavBar({ lang }: NavBarProps) {
           >
             {t.nav.learningOS}
           </Link>
-{/* Open */}
-            <Link
-              href={`/${lang}/openos`}
-              className="t-nav navbar-link"
-              data-active={isActive("/openos")}
-              style={{ padding: "20px 0" }}
-            >
-              Open
-            </Link>
 
             {/* TalentOS */}
             <Link
