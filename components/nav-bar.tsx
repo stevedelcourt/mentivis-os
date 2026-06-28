@@ -248,7 +248,7 @@ export default function NavBar({ lang }: NavBarProps) {
           </nav>
 
           {/* Right side CTAs */}
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", marginLeft: "auto" }}>
             <Link
               href={`/${lang}/contact`}
               className="btn-header-outline hide-mobile"
