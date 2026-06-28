@@ -1,7 +1,6 @@
 import { Locale } from "@/lib/i18n";
 import { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
-import Link from "next/link";
 import HeroUnit from "@/components/hero-unit";
 import SectorShowcase from "@/components/sector-showcase";
 import MathFeaturesSection from "@/components/math-features-section";
@@ -32,94 +31,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <HeroUnit lang={locale} />
-      <section style={{ padding: "var(--section-gap) 0", background: "var(--bg-primary)" }}>
-        <div className="container">
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "var(--text-caption)",
-              fontWeight: 500,
-              letterSpacing: "0.14px",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 24,
-            }}
-          >
-            Mentivis OS
-          </p>
-          <h2
-            className="t-display"
-            style={{
-              fontSize: "clamp(28px, 4vw, 44px)",
-              marginBottom: 20,
-              lineHeight: 1.1,
-            }}
-          >
-            {locale === "en"
-              ? "A single system that trains, recruits and upskills your teams."
-              : "Un seul système qui forme, recrute et fait monter vos équipes en compétences."}
-          </h2>
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 800,
-              marginBottom: 40,
-              lineHeight: 1.6,
-            }}
-          >
-            {locale === "en"
-              ? "MentivisOS is the AI operating system for skills transformation."
-              : "MentivisOS est le système d'exploitation IA pour la transformation des compétences."}
-          </p>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <Link
-              href={`/${locale}/demo`}
-              className="btn-pill btn-black"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                borderRadius: 8,
-                padding: "12px 20px",
-              }}
-            >
-              {locale === "en" ? "Test MentivisOS Pro" : "Tester MentivisOS Pro"}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link
-              href={`/${locale}/demo`}
-              className="btn-pill btn-warm"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                borderRadius: 8,
-                padding: "12px 20px",
-              }}
-            >
-              {locale === "en" ? "Contact the team" : "Contacter l'équipe"}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-          </div>
-          <p
-            className="t-caption"
-            style={{
-              marginTop: 32,
-              color: "var(--text-tertiary)",
-            }}
-          >
-            {locale === "en"
-              ? "Used by companies, schools, universities, CFA and corporate campuses."
-              : "Adopté par les entreprises, les écoles, les universités, les CFA et les campus d'entreprise."}
-          </p>
-        </div>
-      </section>
-      <ProblemSection lang={locale} />
       <SectorShowcase lang={locale} />
+      <ProblemSection lang={locale} />
       <MathFeaturesSection lang={locale} />
       <TransformationTimeline lang={locale} />
       <EnterpriseCardsSection lang={locale} />
