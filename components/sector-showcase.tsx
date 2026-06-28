@@ -40,7 +40,7 @@ interface Sector {
   bottomBar?: BottomBar;
 }
 
-const SECTORS: Sector[] = [
+const SECTORS_FR: Sector[] = [
   {
     id: "open",
     title: "MentivisOS Open",
@@ -207,7 +207,175 @@ const SECTORS: Sector[] = [
   },
 ];
 
+const SECTORS_EN: Sector[] = [
+  {
+    id: "open",
+    title: "MentivisOS Open",
+    members: [],
+    advantages: [],
+    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+    accent: "#7030A0",
+    tag: "Free forever",
+    orbClass: "",
+    image: "/images/lyceens.avif",
+    labelSection: "For everyone",
+    subTabs: [
+      {
+        label: "Students",
+        advantages: [
+          { text: "AI-generated learning paths adapted to your level and goals", icon: "sparkles" },
+          { text: "Explore subjects beyond your curriculum", icon: "arrows-exchange" },
+          { text: "Build skills that make a difference in interviews", icon: "certificate" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "High schoolers",
+        advantages: [
+          { text: "Discover fields and careers to prepare your orientation", icon: "sparkles" },
+          { text: "Learn differently, at your own pace, on what truly interests you", icon: "brain" },
+          { text: "Free access, safe environment", icon: "shield-check" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "Employees",
+        advantages: [
+          { text: "Build skills in your field or beyond your role", icon: "sparkles" },
+          { text: "Prepare a career change without waiting for an employer program", icon: "arrows-exchange" },
+          { text: "Learn at your own pace, outside work hours", icon: "clock" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "Freelancers",
+        advantages: [
+          { text: "Develop new skills without a training budget", icon: "sparkles" },
+          { text: "Explore tools and practices adjacent to your activity", icon: "tool" },
+          { text: "Pivot or expand your offering by testing a new direction", icon: "arrows-exchange" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "Job seekers",
+        advantages: [
+          { text: "Regain confidence and grow during your transition", icon: "sparkles" },
+          { text: "Explore a new field before committing", icon: "arrows-exchange" },
+          { text: "Acquire skills valued in interviews", icon: "certificate" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "Individuals",
+        advantages: [
+          { text: "Learn what you've always wanted to learn, no justification needed", icon: "sparkles" },
+          { text: "Follow a curiosity for pleasure or personal interest", icon: "heart" },
+          { text: "Go at your own pace, no validation constraints", icon: "clock" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+      {
+        label: "Retirees",
+        advantages: [
+          { text: "Stay intellectually active and discover new subjects", icon: "sparkles" },
+          { text: "Learn at your own pace, without pressure or evaluation", icon: "brain" },
+          { text: "Share learning journeys with loved ones or explore alone", icon: "heart" },
+          { text: "No prerequisites, no deadlines, no fees", icon: "target" },
+        ],
+      },
+    ],
+    bottomBar: {
+      systemName: "MentivisOS Open",
+      tagline: "The free learning platform, for every curiosity",
+      cta: "Free!",
+      ctaHref: "https://open.mentivisos.com",
+    },
+  },
+  {
+    id: "entreprises",
+    title: "Companies & Networks",
+    members: [
+      "Companies", "ETI", "Large Groups", "SMEs", "ESNs",
+      "Corporate Campuses", "Franchises", "Healthcare"
+    ],
+    advantages: [
+      "AI-generated learning paths calibrated by role",
+      "Centralized management at group scale",
+      "Recruitment aligned with operational needs",
+      "Targeted onboarding by profile and site",
+      "Multi-site, multi-country deployment",
+      "HRIS, ATS and internal tools integration"
+    ],
+    gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 50%, #B02050 100%)",
+    accent: "#7030A0",
+    tag: "8 types of organizations",
+    orbClass: "sector-orb-purple",
+    image: "/images/formation.avif",
+  },
+  {
+    id: "formation",
+    title: "Training & Education",
+    members: [
+      "CFAs", "Schools", "Universities", "Training Organizations", "Internal Training Centers"
+    ],
+    advantages: [
+      "Personalized learning per learner",
+      "Automatic pedagogical recalibration",
+      "Qualiopi compliance and integrated certification",
+      "OPCO and automated funding management",
+      "Outcome-based assessment, not consumption",
+      "Automated pedagogical workflows"
+    ],
+    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 50%, #909840 100%)",
+    accent: "#B07820",
+    tag: "5 training organizations",
+    orbClass: "sector-orb-amber",
+    image: "/images/student.avif",
+  },
+  {
+    id: "public",
+    title: "Public & Institutional",
+    members: [
+      "Local Authorities", "Ministries", "Public Agencies", "Association Networks", "Integration Actors"
+    ],
+    advantages: [
+      "Territorial skills gap diagnosis",
+      "Recommendations aligned with public policy",
+      "Fast implementation, no overhaul needed",
+      "Optimized public training budgets",
+      "Impact measurement on employment and integration",
+      "Sovereign and scalable infrastructure"
+    ],
+    gradient: "linear-gradient(135deg, #A03020 0%, #C05828 50%, #D08840 100%)",
+    accent: "#C05828",
+    tag: "5 institutional actors",
+    orbClass: "sector-orb-rust",
+    image: "/images/ministere.avif",
+  },
+  {
+    id: "professionnels",
+    title: "Professionals & Trades",
+    members: [
+      "Consulting Firms", "Skills Operators", "Professional Federations", "Trade Branches"
+    ],
+    advantages: [
+      "Feasibility analysis before prescription",
+      "Technical and operational scoring of learning paths",
+      "Embedded AI agents in reference frameworks",
+      "Dashboards by branch and federation",
+      "Continuous skills monitoring and upskilling",
+      "Training and placement orchestration"
+    ],
+    gradient: "linear-gradient(135deg, #1A4A6C 0%, #2D7A9F 50%, #4D9AAF 100%)",
+    accent: "#2D7A9F",
+    tag: "4 trade federations",
+    orbClass: "sector-orb-sky",
+    image: "/images/workers.avif",
+  },
+];
+
 export default function SectorShowcase({ lang }: SectorShowcaseProps) {
+  const SECTORS = lang === "en" ? SECTORS_EN : SECTORS_FR;
   const [activeIdx, setActiveIdx] = useState(0);
   const [activeSubTabIdx, setActiveSubTabIdx] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -256,7 +424,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               color: "#1a1a1a",
             }}
           >
-            Un seul système pour former, recruter, piloter et apprendre.
+            {lang === "en" ? "A single system to train, recruit, manage and learn." : "Un seul système pour former, recruter, piloter et apprendre."}
           </h2>
         </div>
 
@@ -565,7 +733,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   lineHeight: 1.5,
                 }}
               >
-                Le système opérationnel des compétences, du recrutement à l'impact
+                {lang === "en" ? "The operational skills system, from recruitment to impact." : "Le système opérationnel des compétences, du recrutement à l'impact"}
               </p>
               <Link
                 href={`/${lang}/demo`}
@@ -591,7 +759,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
                   e.currentTarget.style.background = "#1a1a1a";
                 }}
               >
-                Demander une démo
+                {lang === "en" ? "Request a demo" : "Demander une démo"}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
