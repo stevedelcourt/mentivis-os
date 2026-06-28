@@ -9,9 +9,10 @@ import OpenOSPipeline from "./openos-pipeline";
 import OpenOSTestimonials from "./openos-testimonials";
 import OpenOSFAQ from "./openos-faq";
 
-function OpenOSCTA() {
+function OpenOSCTA({ lang }: { lang: string }) {
   const { ref, visible } = useVisible(0.05);
   const gradient = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)";
+  const isFr = lang === "fr";
 
   return (
     <section ref={ref} style={{ background: "#ffffff", padding: "var(--section-gap) 0" }}>
@@ -35,10 +36,10 @@ function OpenOSCTA() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <h2 className="t-display" style={{ ...sectionAnim(visible, 0), fontSize: "clamp(24px, 3.5vw, 40px)", marginBottom: 20, lineHeight: 1.2 }}>
                 <span style={{ background: gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MentivisOS Open</span>
-                {" "}est disponible maintenant.
+                {" "}{isFr ? "est disponible maintenant." : "is available now."}
               </h2>
               <p style={{ ...sectionAnim(visible, 0.05), fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--text-secondary)", margin: 0 }}>
-                Gratuit pour toujours. Prêt en trente secondes.
+                {isFr ? "Gratuit pour toujours. Prêt en trente secondes." : "Free forever. Ready in thirty seconds."}
               </p>
             </div>
             <SuperButton href="https://open.mentivisos.com" />
@@ -63,9 +64,9 @@ export default function OpenOSPageClient({ lang }: { lang: Locale }) {
     <>
       <OpenOSHero lang={lang} />
       <OpenOSPipeline lang={lang} />
-      <OpenOSTestimonials />
+      <OpenOSTestimonials lang={lang} />
       <OpenOSFAQ lang={lang} />
-      <OpenOSCTA />
+      <OpenOSCTA lang={lang} />
     </>
   );
 }
