@@ -69,10 +69,12 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         <span>{t.nav.learningOS}</span>
       </Link>
 
-      {/* TalentOS */}
+      {/* TalentOS — hidden */}
+      {false && (
       <Link href={`/${lang}/talentos`} onClick={onClose} style={navStyle}>
         <span>{t.nav.pipelineOS}</span>
       </Link>
+      )}
 
       {/* Entreprise Section */}
       <button
@@ -123,10 +125,12 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
       {/* Ressources — hidden for now, reserved for future evolution */}
 
-      {/* Tarifs */}
+      {/* Tarifs — hidden */}
+      {false && (
       <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
         <span>{t.nav.tarifs}</span>
       </Link>
+      )}
     </>
   );
 }

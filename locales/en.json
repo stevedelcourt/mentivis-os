@@ -1,7 +1,7 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "LearningOS",
+    "learningOS": "MentivisOS Pro",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Resources",
@@ -608,8 +608,8 @@
     "legal": "Legal",
     "copyright": "MentivisOS is developed by Mentivis.",
     "sections": {
-      "produits": ["LearningOS", "TalentOS", "Mentivis API", "Pricing"],
-      "workflows": ["Training & Learning", "Talent Pipeline HR", "Developers"],
+      "produits": ["MentivisOS Open", "MentivisOS Pro"],
+      "workflows": [],
       "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers"],
       "contact": "Contact"
     },

@@ -198,7 +198,8 @@ export default function NavBar({ lang }: NavBarProps) {
             {t.nav.learningOS}
           </Link>
 
-            {/* TalentOS */}
+            {/* TalentOS — hidden */}
+            {false && (
             <Link
               href={`/${lang}/talentos`}
               className="t-nav navbar-link"
@@ -207,6 +208,7 @@ export default function NavBar({ lang }: NavBarProps) {
             >
               {t.nav.pipelineOS}
             </Link>
+            )}
 
             {/* Entreprise (was Ressources) */}
             <div
@@ -252,7 +254,8 @@ export default function NavBar({ lang }: NavBarProps) {
 
             {/* Resources — hidden for now, reserved for future evolution */}
 
-            {/* Tarifs */}
+            {/* Tarifs — hidden */}
+            {false && (
             <Link
               href={`/${lang}/tarifs`}
               className="t-nav navbar-link"
@@ -261,6 +264,7 @@ export default function NavBar({ lang }: NavBarProps) {
             >
               {t.nav.tarifs}
             </Link>
+            )}
           </nav>
 
           {/* Right side CTAs */}
