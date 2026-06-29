@@ -16,22 +16,22 @@ interface ProductCardGridProps {
 
 const CARDS: ProductCard[] = [
   {
-    tag: "LearningOS & MentivisOS Open",
-    title: "Intelligence de formation",
+    tag: "Only MentivisOS Open",
+    title: "Apprendre gratuitement !",
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
+    href: "/openos",
+  },
+  {
+    tag: "MentivisOS Pro",
+    title: "Intelligence de formation",
+    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
     href: "/learningos",
   },
   {
-    tag: "TalentOS",
-    title: "Talent Pipeline IA",
-    gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
-    href: "/talentos",
-  },
-  {
-    tag: "Mentivis API",
-    title: "Connecté à votre écosystème",
+    tag: "MentivisOS Démo",
+    title: "Testez avec vos données réelles",
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
-    href: "/",
+    href: "/demo",
   },
 ];
 
