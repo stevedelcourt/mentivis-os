@@ -177,15 +177,15 @@ export default function NavBar({ lang }: NavBarProps) {
               href={`/${lang}/openos`}
               className="t-nav navbar-link"
               data-active={isActive("/openos")}
-              style={{
-                padding: "20px 0",
+              style={{ padding: "20px 0" }}
+            >
+              MentivisOS{" "}
+              <span style={{
                 background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-              }}
-            >
-              {t.nav.open}
+              }}>Open</span>
             </Link>
 
             {/* LearningOS */}
