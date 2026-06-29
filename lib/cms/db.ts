@@ -184,7 +184,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
     proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
   },
   learningos: {
-    eyebrow: "LearningOS",
+    eyebrow: "MentivisOS Pro",
     headline: "Le système de formation native IA\nqui transforme vos collaborateurs en talents.",
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
     ctaPrimary: "Demarrer gratuitement",
@@ -247,7 +247,7 @@ const DEFAULT_HERO_EN: Record<string, HeroContent> = {
     proof: "Used by training departments, CFAs, corporate campuses.",
   },
   learningos: {
-    eyebrow: "LearningOS",
+    eyebrow: "MentivisOS Pro",
     headline: "The AI-native training system\nthat turns your employees into talents.",
     subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development, all in a single system.",
     ctaPrimary: "Start for free",
@@ -487,7 +487,7 @@ const DEFAULT_PRICING: PricingContent = {
     },
     {
       name: "Growth",
-      description: "IA matching, scoring, multi-recruteurs, portail candidats, automatisations avancees, analytics RH, onboarding sync LearningOS.",
+      description: "IA matching, scoring, multi-recruteurs, portail candidats, automatisations avancees, analytics RH, onboarding sync MentivisOS Pro.",
       monthlyPrice: null,
       yearlyPrice: null,
       originalPrice: null,
@@ -503,7 +503,7 @@ const DEFAULT_PRICING: PricingContent = {
         "Portail candidats",
         "Automatisations avancees",
         "Analytics RH",
-        "Onboarding sync LearningOS",
+        "Onboarding sync MentivisOS Pro",
       ],
       creditLimit: "Sur devis",
       popular: false,
@@ -697,7 +697,7 @@ const DEFAULT_PRICING_EN: PricingContent = {
     },
     {
       name: "Growth",
-      description: "AI matching, scoring, multi-recruiter, candidate portal, advanced automations, HR analytics, LearningOS onboarding sync.",
+      description: "AI matching, scoring, multi-recruiter, candidate portal, advanced automations, HR analytics, MentivisOS Pro onboarding sync.",
       monthlyPrice: null, yearlyPrice: null, originalPrice: 4900, setupFee: null,
       cta: "Choose Growth",
       ctaLink: "/demo",
@@ -710,7 +710,7 @@ const DEFAULT_PRICING_EN: PricingContent = {
         "Candidate portal",
         "Advanced automations",
         "HR analytics",
-        "LearningOS onboarding sync",
+        "MentivisOS Pro onboarding sync",
       ],
       creditLimit: "Unlimited",
       popular: true,

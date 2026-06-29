@@ -1,7 +1,7 @@
 {
   "title": {
-    "fr": "Parcours LearningOS",
-    "en": "LearningOS Journey"
+    "fr": "Parcours MentivisOS Pro",
+    "en": "MentivisOS Pro Journey"
   },
   "chapters": [
     { "id": 0, "label": { "fr": "Définir", "en": "Define" }, "thumbnail": "ch0.jpg", "startTime": 0 },

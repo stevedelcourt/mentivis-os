@@ -37,6 +37,8 @@ export async function GET(request: Request) {
 
   if (lang === "en") {
     posts = posts.filter((p) => p.contentEn);
+  } else {
+    posts = posts.filter((p) => p.content);
   }
 
   posts.sort((a, b) => {

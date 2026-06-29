@@ -5,12 +5,12 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const TESTIMONIALS = {
   fr: [
-    { quote: "LearningOS a transformé notre approche de la formation. Nous générons des parcours personnalisés en quelques minutes, et nos apprenants progressent deux fois plus vite.", stat: "2x", statLabel: "Progression", company: "CFA Partenaire" },
+    { quote: "MentivisOS Pro a transformé notre approche de la formation. Nous générons des parcours personnalisés en quelques minutes, et nos apprenants progressent deux fois plus vite.", stat: "2x", statLabel: "Progression", company: "CFA Partenaire" },
     { quote: "Le dashboard nous donne une visibilité sans précédent sur les compétences de nos équipes. Le reporting OPCO est désormais automatisé.", stat: "100%", statLabel: "Conformité", company: "Groupe de formation" },
     { quote: "Les agents IA accompagnent nos apprenants 24/7. Le taux de complétion des formations a augmenté de 40% en trois mois.", stat: "+40%", statLabel: "Complétion", company: "Campus d'entreprise" },
   ],
   en: [
-    { quote: "LearningOS transformed our training approach. We generate personalized paths in minutes, and our learners progress twice as fast.", stat: "2x", statLabel: "Progression", company: "Partner CFA" },
+    { quote: "MentivisOS Pro transformed our training approach. We generate personalized paths in minutes, and our learners progress twice as fast.", stat: "2x", statLabel: "Progression", company: "Partner CFA" },
     { quote: "The dashboard gives us unprecedented visibility into our teams' skills. OPCO reporting is now fully automated.", stat: "100%", statLabel: "Compliance", company: "Training Group" },
     { quote: "AI agents support our learners 24/7. Course completion rates increased by 40% in three months.", stat: "+40%", statLabel: "Completion", company: "Corporate Campus" },
   ],

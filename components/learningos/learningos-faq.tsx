@@ -82,8 +82,8 @@ export default function LearningOSFAQ({ lang }: { lang: Locale }) {
               }}
             >
               {lang === "fr"
-                ? "Tout ce que vous devez savoir sur LearningOS."
-                : "Everything you need to know about LearningOS."}
+                ? "Tout ce que vous devez savoir sur MentivisOS Pro."
+                : "Everything you need to know about MentivisOS Pro."}
             </p>
           </div>
 

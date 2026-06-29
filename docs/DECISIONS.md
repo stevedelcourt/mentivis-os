@@ -15,12 +15,12 @@
 **Status**: ✅ Deployed
 
 ### Workflow Images Per-Tab
-**Problem**: TalentOS workflow used `.avif` images; LearningOS workflow used a single static screenshot for all tabs.
-**Decision**: TalentOS: swap to `.webp` (talent-import, talent-score, talent-dash). LearningOS: add `IMAGES` array with per-tab images (01-generation-cours, 02-former, 03-dashboard). No structural changes.
+**Problem**: TalentOS workflow used `.avif` images; MentivisOS Pro workflow used a single static screenshot for all tabs.
+**Decision**: TalentOS: swap to `.webp` (talent-import, talent-score, talent-dash). MentivisOS Pro: add `IMAGES` array with per-tab images (01-generation-cours, 02-former, 03-dashboard). No structural changes.
 **Files**: `talentos-workflow-tabs.tsx`, `learningos-workflow-tabs.tsx`
 **Status**: ✅ Deployed
 
-### LearningOS Showcase Screenshots
+### MentivisOS Pro Showcase Screenshots
 **Problem**: Big card used gradient backgrounds — abstract, not informative. 5 real screenshots existed.
 **Decision**: Replace `GRADIENTS` array with `IMAGES` array (skillagents, moteuradaptif, gestion-certifications, dashboard-entreprise, api-integrations). Remove all text overlay from big card (image-only). Default to moteur adaptatif image.
 **Files**: `learningos-showcase.tsx`
@@ -97,7 +97,7 @@
 
 ### Menu Reorganisation
 **Problem**: Nav order confusing (Ressources before Entreprise), MentivisAPI not needed in nav.
-**Decision**: Swapped Entreprise/Ressources, hid MentivisAPI. Final order: LearningOS | TalentOS | Entreprise | Tarifs.
+**Decision**: Swapped Entreprise/Ressources, hid MentivisAPI. Final order: MentivisOS Pro | TalentOS | Entreprise | Tarifs.
 **Status**: ✅ Deployed
 
 ### Multi-Tag Categories

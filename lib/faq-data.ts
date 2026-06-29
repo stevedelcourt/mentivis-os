@@ -9,24 +9,24 @@ export interface FaqItem {
 
 export const learningosFaq: Record<Locale, FaqItem[]> = {
   fr: [
-    { question: "Qu'est-ce que LearningOS ?", answer: "LearningOS est le système de formation native IA de Mentivis. Il génère des parcours personnalisés, adapte les contenus automatiquement et pilote la montée en compétences, le tout dans une seule plateforme." },
-    { question: "Comment LearningOS crée-t-il des parcours personnalisés ?", answer: "LearningOS analyse les compétences visées, les référentiels métier internes et le profil de chaque apprenant pour générer des parcours sur mesure avec objectifs, modules et évaluations adaptés." },
-    { question: "LearningOS est-il compatible avec les financements OPCO ?", answer: "Oui. LearningOS inclut un module OPCO Manager qui simplifie le montage et le suivi des dossiers de financement, avec export des données de conformité directement exploitables." },
-    { question: "Puis-je intégrer LearningOS à mes outils existants ?", answer: "Oui. LearningOS expose une API REST complète et des connecteurs prêts à l'emploi pour les principaux SIRH, LMS et CRM." },
-    { question: "LearningOS est-il conforme au RGPD ?", answer: "Oui. LearningOS est conforme RGPD, certifié SOC 2 Type II, et propose le chiffrement AES-256 des données au repos et TLS 1.3 en transit." },
-    { question: "Quels types de formations puis-je créer avec LearningOS ?", answer: "Formations internes, parcours certifiants, modules d'onboarding, formations réglementaires, programmes de montée en compétences, tout format, tout métier." },
+    { question: "Qu'est-ce que MentivisOS Pro ?", answer: "MentivisOS Pro est le système de formation native IA de Mentivis. Il génère des parcours personnalisés, adapte les contenus automatiquement et pilote la montée en compétences, le tout dans une seule plateforme." },
+    { question: "Comment MentivisOS Pro crée-t-il des parcours personnalisés ?", answer: "MentivisOS Pro analyse les compétences visées, les référentiels métier internes et le profil de chaque apprenant pour générer des parcours sur mesure avec objectifs, modules et évaluations adaptés." },
+    { question: "MentivisOS Pro est-il compatible avec les financements OPCO ?", answer: "Oui. MentivisOS Pro inclut un module OPCO Manager qui simplifie le montage et le suivi des dossiers de financement, avec export des données de conformité directement exploitables." },
+    { question: "Puis-je intégrer MentivisOS Pro à mes outils existants ?", answer: "Oui. MentivisOS Pro expose une API REST complète et des connecteurs prêts à l'emploi pour les principaux SIRH, LMS et CRM." },
+    { question: "MentivisOS Pro est-il conforme au RGPD ?", answer: "Oui. MentivisOS Pro est conforme RGPD, certifié SOC 2 Type II, et propose le chiffrement AES-256 des données au repos et TLS 1.3 en transit." },
+    { question: "Quels types de formations puis-je créer avec MentivisOS Pro ?", answer: "Formations internes, parcours certifiants, modules d'onboarding, formations réglementaires, programmes de montée en compétences, tout format, tout métier." },
     { question: "Comment les apprenants sont-ils accompagnés ?", answer: "Les agents IA (SkillAgents) accompagnent chaque apprenant 24/7, répondent à ses questions, l'orientent vers les ressources adaptées et adaptent le rythme en temps réel." },
-    { question: "LearningOS propose-t-il un support entreprise ?", answer: "Oui. Nous proposons des SLA garantis, un support prioritaire, un accompagnement dédié au déploiement et des services gérés pour les besoins à grande échelle." },
+    { question: "MentivisOS Pro propose-t-il un support entreprise ?", answer: "Oui. Nous proposons des SLA garantis, un support prioritaire, un accompagnement dédié au déploiement et des services gérés pour les besoins à grande échelle." },
   ],
   en: [
-    { question: "What is LearningOS?", answer: "LearningOS is Mentivis's AI-native training system. It generates personalized learning paths, automatically adapts content, and drives skills development, all in a single platform." },
-    { question: "How does LearningOS create personalized paths?", answer: "LearningOS analyzes target skills, internal job frameworks, and each learner's profile to generate custom paths with objectives, modules and adapted assessments." },
-    { question: "Is LearningOS compatible with OPCO funding?", answer: "Yes. LearningOS includes an OPCO Manager module that simplifies the setup and tracking of funding applications, with exportable compliance data." },
-    { question: "Can I integrate LearningOS with my existing tools?", answer: "Yes. LearningOS exposes a complete REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
-    { question: "Is LearningOS GDPR compliant?", answer: "Yes. LearningOS is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption at rest and TLS 1.3 in transit." },
-    { question: "What types of training can I create with LearningOS?", answer: "Internal training, certified programs, onboarding modules, regulatory training, upskilling programs, any format, any profession." },
+    { question: "What is MentivisOS Pro?", answer: "MentivisOS Pro is Mentivis's AI-native training system. It generates personalized learning paths, automatically adapts content, and drives skills development, all in a single platform." },
+    { question: "How does MentivisOS Pro create personalized paths?", answer: "MentivisOS Pro analyzes target skills, internal job frameworks, and each learner's profile to generate custom paths with objectives, modules and adapted assessments." },
+    { question: "Is MentivisOS Pro compatible with OPCO funding?", answer: "Yes. MentivisOS Pro includes an OPCO Manager module that simplifies the setup and tracking of funding applications, with exportable compliance data." },
+    { question: "Can I integrate MentivisOS Pro with my existing tools?", answer: "Yes. MentivisOS Pro exposes a complete REST API and ready-to-use connectors for major HRIS, LMS and CRM systems." },
+    { question: "Is MentivisOS Pro GDPR compliant?", answer: "Yes. MentivisOS Pro is GDPR compliant, SOC 2 Type II certified, with AES-256 encryption at rest and TLS 1.3 in transit." },
+    { question: "What types of training can I create with MentivisOS Pro?", answer: "Internal training, certified programs, onboarding modules, regulatory training, upskilling programs, any format, any profession." },
     { question: "How are learners supported?", answer: "AI agents (SkillAgents) accompany each learner 24/7, answer questions, direct them to relevant resources and adapt the pace in real time." },
-    { question: "Does LearningOS offer enterprise support?", answer: "Yes. We offer guaranteed SLAs, priority support, dedicated deployment assistance, and managed services for large-scale needs." },
+    { question: "Does MentivisOS Pro offer enterprise support?", answer: "Yes. We offer guaranteed SLAs, priority support, dedicated deployment assistance, and managed services for large-scale needs." },
   ],
 };
 

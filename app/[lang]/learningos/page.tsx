@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "LearningOS - Formation native IA" : "LearningOS - AI-native training",
+    title: isFr ? "MentivisOS Pro - Formation native IA" : "MentivisOS Pro - AI-native training",
     description: isFr
       ? "Le système de formation native IA qui transforme vos collaborateurs en talents."
       : "The AI-native training system that turns your employees into talents.",
@@ -27,7 +27,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "LearningOS",
+            name: "MentivisOS Pro",
             applicationCategory: "EducationalApplication",
             description: isFr
               ? "Système de formation native IA - générez des parcours personnalisés et pilotez la montée en compétences."

@@ -7,33 +7,33 @@ Note : contenus écrits au niveau bénéfice et logique produit, sans spécifica
 ---
 ---
 
-# 11. LearningOS et TalentOS : quelle différence
+# 11. MentivisOS Pro et TalentOS : quelle différence
 
-LearningOS et TalentOS sont les deux modules complémentaires de la suite MentivisOS : LearningOS produit la formation, TalentOS pilote les compétences. LearningOS répond à la question du comment former, en générant programmes, supports et évaluations. TalentOS répond à la question du quoi développer et pour qui, en cartographiant les compétences, identifiant les écarts et suivant les parcours. L'un fabrique, l'autre oriente et suit. Ensemble, ils couvrent le cycle complet, du besoin de compétences à l'acquisition mesurée.
+MentivisOS Pro et TalentOS sont les deux modules complémentaires de la suite MentivisOS : MentivisOS Pro produit la formation, TalentOS pilote les compétences. MentivisOS Pro répond à la question du comment former, en générant programmes, supports et évaluations. TalentOS répond à la question du quoi développer et pour qui, en cartographiant les compétences, identifiant les écarts et suivant les parcours. L'un fabrique, l'autre oriente et suit. Ensemble, ils couvrent le cycle complet, du besoin de compétences à l'acquisition mesurée.
 
-## LearningOS, le moteur de production
+## MentivisOS Pro, le moteur de production
 
-LearningOS est la fonction de génération. À partir d'un besoin et d'un référentiel, il produit la chaîne pédagogique : objectifs, séquençage, supports, évaluation. Son rôle est de fabriquer le parcours exact qui comble un écart. C'est le module qui incarne la distinction fondamentale avec un LMS : il génère le contenu au lieu de le diffuser.
+MentivisOS Pro est la fonction de génération. À partir d'un besoin et d'un référentiel, il produit la chaîne pédagogique : objectifs, séquençage, supports, évaluation. Son rôle est de fabriquer le parcours exact qui comble un écart. C'est le module qui incarne la distinction fondamentale avec un LMS : il génère le contenu au lieu de le diffuser.
 
 ## TalentOS, la couche de pilotage
 
-TalentOS est la fonction de pilotage. Il ne fabrique pas la formation, il détermine laquelle est nécessaire, pour qui, et en suit l'effet. Cartographie des compétences, identification des écarts, suivi des trajectoires individuelles dans le temps : TalentOS oriente l'effort de formation et l'inscrit dans une logique de développement continu. Il donne le cap, LearningOS exécute.
+TalentOS est la fonction de pilotage. Il ne fabrique pas la formation, il détermine laquelle est nécessaire, pour qui, et en suit l'effet. Cartographie des compétences, identification des écarts, suivi des trajectoires individuelles dans le temps : TalentOS oriente l'effort de formation et l'inscrit dans une logique de développement continu. Il donne le cap, MentivisOS Pro exécute.
 
 ## Pourquoi les deux ensemble
 
-La valeur naît de l'articulation. TalentOS sans LearningOS identifierait des écarts sans pouvoir les combler facilement. LearningOS sans TalentOS produirait des parcours sans toujours savoir lesquels prioriser ni en suivre l'effet dans la durée. Ensemble, l'écart identifié par TalentOS déclenche la génération par LearningOS, dont l'acquisition est ensuite suivie par TalentOS. La boucle est complète et sans rupture.
+La valeur naît de l'articulation. TalentOS sans MentivisOS Pro identifierait des écarts sans pouvoir les combler facilement. MentivisOS Pro sans TalentOS produirait des parcours sans toujours savoir lesquels prioriser ni en suivre l'effet dans la durée. Ensemble, l'écart identifié par TalentOS déclenche la génération par MentivisOS Pro, dont l'acquisition est ensuite suivie par TalentOS. La boucle est complète et sans rupture.
 
 ## Ce qu'il faut retenir
 
-- LearningOS produit la formation ; TalentOS pilote les compétences.
-- LearningOS répond au comment former ; TalentOS au quoi développer et pour qui.
-- LearningOS génère la chaîne pédagogique ; TalentOS cartographie et suit.
-- TalentOS donne le cap, LearningOS exécute.
+- MentivisOS Pro produit la formation ; TalentOS pilote les compétences.
+- MentivisOS Pro répond au comment former ; TalentOS au quoi développer et pour qui.
+- MentivisOS Pro génère la chaîne pédagogique ; TalentOS cartographie et suit.
+- TalentOS donne le cap, MentivisOS Pro exécute.
 - Ensemble, ils couvrent le cycle du besoin de compétences à l'acquisition mesurée.
 
 ---
 
-LearningOS génère, TalentOS pilote : ensemble, ils opèrent le développement des compétences de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
+MentivisOS Pro génère, TalentOS pilote : ensemble, ils opèrent le développement des compétences de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
 À lire aussi : Qu'est-ce que TalentOS dans la suite MentivisOS · Comment TalentOS relie la stratégie de compétences à la formation · Qu'est-ce que MentivisOS et en quoi est-ce différent d'un LMS.
 
@@ -101,7 +101,7 @@ Le suivi rend la trajectoire pilotable. Visualiser où en est chaque individu, c
 
 TalentOS suit l'acquisition réelle de chaque parcours dans la durée et la relie à la stratégie. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
-À lire aussi : Comment TalentOS cartographie les compétences d'une organisation · Comment MentivisOS mesure l'acquisition réelle des compétences · LearningOS et TalentOS : quelle différence.
+À lire aussi : Comment TalentOS cartographie les compétences d'une organisation · Comment MentivisOS mesure l'acquisition réelle des compétences · MentivisOS Pro et TalentOS : quelle différence.
 
 ---
 ---
@@ -306,11 +306,11 @@ MentivisOS permet aux organismes et CFA de produire conforme, à grande échelle
 
 # 20. MentivisOS pour les entreprises
 
-Pour une entreprise, MentivisOS couvre le cycle complet du développement des compétences : diagnostiquer les écarts avec TalentOS, générer les formations exactes avec LearningOS, et déployer le tout dans les outils existants via l'API. C'est la différence entre acheter des formations au coup par coup et opérer une fonction compétences de bout en bout. Le système produit des contenus sur mesure, adaptés au contexte de l'entreprise, à un coût et un délai sans rapport avec la production traditionnelle, et s'intègre au SIRH déjà en place.
+Pour une entreprise, MentivisOS couvre le cycle complet du développement des compétences : diagnostiquer les écarts avec TalentOS, générer les formations exactes avec MentivisOS Pro, et déployer le tout dans les outils existants via l'API. C'est la différence entre acheter des formations au coup par coup et opérer une fonction compétences de bout en bout. Le système produit des contenus sur mesure, adaptés au contexte de l'entreprise, à un coût et un délai sans rapport avec la production traditionnelle, et s'intègre au SIRH déjà en place.
 
 ## Du besoin diagnostiqué à la formation générée
 
-L'entreprise part souvent d'un plan de compétences resté théorique, faute de moyens de le traduire en actions. MentivisOS opère cette traduction : TalentOS identifie les écarts précis, LearningOS génère les parcours qui les comblent. La chaîne est continue, du diagnostic à la production, sans rupture ni recours à des prestataires multiples. Le plan de compétences devient un dispositif opérationnel.
+L'entreprise part souvent d'un plan de compétences resté théorique, faute de moyens de le traduire en actions. MentivisOS opère cette traduction : TalentOS identifie les écarts précis, MentivisOS Pro génère les parcours qui les comblent. La chaîne est continue, du diagnostic à la production, sans rupture ni recours à des prestataires multiples. Le plan de compétences devient un dispositif opérationnel.
 
 ## Du sur-mesure à l'échelle
 
@@ -323,7 +323,7 @@ MentivisOS ne suppose pas de tout remplacer. Via l'API, il s'intègre au SIRH et
 ## Ce qu'il faut retenir
 
 - MentivisOS couvre le cycle complet : diagnostic, génération, déploiement.
-- TalentOS identifie les écarts, LearningOS génère les parcours qui les comblent.
+- TalentOS identifie les écarts, MentivisOS Pro génère les parcours qui les comblent.
 - Le plan de compétences devient un dispositif opérationnel, pas une intention.
 - Le moteur rend le sur-mesure accessible à l'échelle, au-delà de quelques formations.
 - L'API intègre le système au SIRH existant, sur un hébergement conforme au RGPD.

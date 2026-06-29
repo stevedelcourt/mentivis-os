@@ -188,7 +188,7 @@ export default function NavBar({ lang }: NavBarProps) {
               }}>Open</span>
             </Link>
 
-            {/* LearningOS */}
+            {/* MentivisOS Pro */}
             <Link
               href={`/${lang}/learningos`}
               className="t-nav navbar-link"

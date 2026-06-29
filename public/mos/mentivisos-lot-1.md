@@ -273,11 +273,11 @@ MentivisOS opère seul ou se branche sur vos outils existants via API : à vous 
 
 # 9. Qu'est-ce que TalentOS dans la suite MentivisOS
 
-TalentOS est le module de la suite MentivisOS dédié au pilotage des compétences et des parcours individuels. Là où LearningOS produit la formation, TalentOS gère ce qui l'entoure : cartographie des compétences, identification des écarts, suivi des parcours dans le temps, lien entre les besoins de l'organisation et les actions de développement. C'est la couche qui relie la stratégie de compétences à la formation générée, et qui inscrit chaque action dans une trajectoire plutôt que dans un événement isolé.
+TalentOS est le module de la suite MentivisOS dédié au pilotage des compétences et des parcours individuels. Là où MentivisOS Pro produit la formation, TalentOS gère ce qui l'entoure : cartographie des compétences, identification des écarts, suivi des parcours dans le temps, lien entre les besoins de l'organisation et les actions de développement. C'est la couche qui relie la stratégie de compétences à la formation générée, et qui inscrit chaque action dans une trajectoire plutôt que dans un événement isolé.
 
 ## La place de TalentOS dans la suite
 
-La suite MentivisOS distingue la production de la formation, portée par LearningOS, et le pilotage des compétences, porté par TalentOS. Les deux fonctionnent ensemble : TalentOS identifie l'écart de compétences à combler, LearningOS génère le parcours qui le comble, et TalentOS suit l'acquisition dans la durée. Cette articulation relie le pourquoi, le besoin de compétences, et le comment, la formation produite.
+La suite MentivisOS distingue la production de la formation, portée par MentivisOS Pro, et le pilotage des compétences, porté par TalentOS. Les deux fonctionnent ensemble : TalentOS identifie l'écart de compétences à combler, MentivisOS Pro génère le parcours qui le comble, et TalentOS suit l'acquisition dans la durée. Cette articulation relie le pourquoi, le besoin de compétences, et le comment, la formation produite.
 
 ## Du besoin à la trajectoire
 
@@ -290,23 +290,23 @@ Pour une entreprise, TalentOS est le moteur qui relie la stratégie de compéten
 ## Ce qu'il faut retenir
 
 - TalentOS est le module de pilotage des compétences de la suite MentivisOS.
-- Il complète LearningOS, qui produit la formation, en gérant ce qui l'entoure.
+- Il complète MentivisOS Pro, qui produit la formation, en gérant ce qui l'entoure.
 - Il cartographie les compétences, identifie les écarts et suit les parcours dans le temps.
 - Il inscrit chaque action de formation dans une trajectoire, pas un événement isolé.
 - Il relie la stratégie de compétences aux actions concrètes de développement.
 
 ---
 
-TalentOS pilote les compétences et les parcours ; LearningOS génère la formation. Ensemble, ils opèrent le développement de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
+TalentOS pilote les compétences et les parcours ; MentivisOS Pro génère la formation. Ensemble, ils opèrent le développement de bout en bout. [Découvrir MentivisOS](https://mentivisos.com/fr/learningos/)
 
-À lire aussi : Comment TalentOS relie la stratégie de compétences à la formation · LearningOS et TalentOS : quelle différence · MentivisOS pour les entreprises.
+À lire aussi : Comment TalentOS relie la stratégie de compétences à la formation · MentivisOS Pro et TalentOS : quelle différence · MentivisOS pour les entreprises.
 
 ---
 ---
 
 # 10. Comment TalentOS relie la stratégie de compétences à la formation
 
-TalentOS relie la stratégie de compétences à la formation en transformant un besoin organisationnel en parcours individuels suivis et mesurés. Le module part des compétences requises par la stratégie, les confronte aux compétences disponibles pour identifier les écarts, puis déclenche la génération des parcours qui les comblent via LearningOS, et suit l'acquisition dans la durée. Cette chaîne fait passer d'une intention stratégique, souvent restée sur le papier, à des actions concrètes dont l'effet se mesure.
+TalentOS relie la stratégie de compétences à la formation en transformant un besoin organisationnel en parcours individuels suivis et mesurés. Le module part des compétences requises par la stratégie, les confronte aux compétences disponibles pour identifier les écarts, puis déclenche la génération des parcours qui les comblent via MentivisOS Pro, et suit l'acquisition dans la durée. Cette chaîne fait passer d'une intention stratégique, souvent restée sur le papier, à des actions concrètes dont l'effet se mesure.
 
 ## Du besoin stratégique à l'écart mesuré
 
@@ -314,7 +314,7 @@ Une stratégie de compétences reste théorique tant qu'elle n'est pas traduite 
 
 ## De l'écart au parcours
 
-L'écart identifié déclenche la production. TalentOS transmet le besoin à LearningOS, qui génère le parcours exact pour le combler. Cette continuité entre le diagnostic et la génération est ce qui distingue la suite d'une juxtaposition d'outils : l'écart n'est pas constaté dans un coin puis traité ailleurs à la main, il alimente directement la production du parcours. La boucle est sans rupture.
+L'écart identifié déclenche la production. TalentOS transmet le besoin à MentivisOS Pro, qui génère le parcours exact pour le combler. Cette continuité entre le diagnostic et la génération est ce qui distingue la suite d'une juxtaposition d'outils : l'écart n'est pas constaté dans un coin puis traité ailleurs à la main, il alimente directement la production du parcours. La boucle est sans rupture.
 
 ## Du parcours à la trajectoire suivie
 
@@ -324,7 +324,7 @@ TalentOS ne s'arrête pas à la génération. Il suit l'acquisition dans la dur�
 
 - TalentOS traduit la stratégie de compétences en écarts précis et mesurés.
 - Il cartographie les compétences disponibles et les confronte aux compétences requises.
-- L'écart identifié déclenche directement la génération du parcours via LearningOS.
+- L'écart identifié déclenche directement la génération du parcours via MentivisOS Pro.
 - Il suit l'acquisition dans la durée, sans rupture entre diagnostic et production.
 - Il fait passer d'une intention stratégique à un pilotage mesurable.
 

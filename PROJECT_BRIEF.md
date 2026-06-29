@@ -144,7 +144,7 @@ The actual SaaS application runs separately at `https://app.mentivisOS.com`.
 
 - **Posts:** Full markdown editor, image upload, featured flag, publish/draft toggle
 - **SEO:** Per-page per-language title, description, JSON-LD
-- **Pricing:** 3 products (LearningOS, TalentOS, MentivisAPI) × 3 tiers each
+- **Pricing:** 3 products (MentivisOS Pro, TalentOS, MentivisAPI) × 3 tiers each
 - **Submissions:** Demo/contact form inbox with read/unread tracking and notes
 - **Users:** God-only user creation with role assignment
 

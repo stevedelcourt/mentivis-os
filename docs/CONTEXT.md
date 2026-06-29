@@ -20,10 +20,10 @@
 - Shorter mobile version: "Générez des parcours personnalisés, adaptez les contenus et pilotez la montée en compétences de vos équipes."
 
 ### CMS Update
-- LearningOS FR hero updated via API: headline to "Former autrement.\nPerformer durablement.", shortened subheadline
+- MentivisOS Pro FR hero updated via API: headline to "Former autrement.\nPerformer durablement.", shortened subheadline
 
 ## Product Pages (in order)
-### LearningOS
+### MentivisOS Pro
 Hero → Edge-to-edge banner (proportions.avif) → FeatureGrid → WorkflowTabs → Showcase → Pipeline (video) → Enterprise → Testimonials → FAQ → CTABlock
 
 ### TalentOS
@@ -59,13 +59,13 @@ Hero (with ambassador.avif visual) → WHO → HOW → FAQ → Bottom CTA
 
 ### Workflow Images
 - **TalentOS workflow**: `.avif` → `.webp` swap (talent-import, talent-score, talent-dash)
-- **LearningOS workflow**: Per-tab images (01-generation-cours, 02-former, 03-dashboard)
-- **LearningOS showcase**: 5 real screenshots replacing gradient backgrounds (skillagents, moteuradaptif, gestion-certifications, dashboard-entreprise, api-integrations)
+- **MentivisOS Pro workflow**: Per-tab images (01-generation-cours, 02-former, 03-dashboard)
+- **MentivisOS Pro showcase**: 5 real screenshots replacing gradient backgrounds (skillagents, moteuradaptif, gestion-certifications, dashboard-entreprise, api-integrations)
 
 ### Misc Fixes
-- LearningOS feature grid 2 cols mobile + aspect-ratio fix
-- LearningOS banner left-anchored on mobile (fill + objectPosition: left)
-- LearningOS showcase mobile click-to-expand description
+- MentivisOS Pro feature grid 2 cols mobile + aspect-ratio fix
+- MentivisOS Pro banner left-anchored on mobile (fill + objectPosition: left)
+- MentivisOS Pro showcase mobile click-to-expand description
 - TalentOS showcase mobile click-to-reveal image
 - Tarifs eyebrow bilingual (Tarifs/Pricing)
 - Tarifs headline `<br />` rendered as JSX element instead of string
@@ -119,7 +119,7 @@ Hero (with ambassador.avif visual) → WHO → HOW → FAQ → Bottom CTA
 - **Sitemap**: `/sitemap.xml` — 16 pages × 2 langs, no CMS/videos
 - **LLMs.txt**: `/llms.txt` — project overview for AI tools
 - **Bilingual footer**: All footer text now locale-driven (fr.json/en.json)
-- **FAQ redesign**: LearningOS & TalentOS FAQ match homepage design (2-col, numbered badges, plus/minus toggle)
+- **FAQ redesign**: MentivisOS Pro & TalentOS FAQ match homepage design (2-col, numbered badges, plus/minus toggle)
 - **Video player**: Dark glass buttons, chapter thumbnails at 0s/18s/27s/41s/49s
 - **Enterprise cards**: #f8f8f8 default with gradient on hover
 - **Footer restructure**: WORKFLOWS section, ENTREPRISE restructured, Sécurité moved to bottom bar

@@ -30,7 +30,7 @@ interface PricingData {
 }
 
 const PRODUCT_TABS = [
-  { key: "learningos" as const, label: "LearningOS" },
+  { key: "learningos" as const, label: "MentivisOS Pro" },
   { key: "pipelineos" as const, label: "TalentOS" },
   { key: "api" as const, label: "MentivisAPI" },
 ];

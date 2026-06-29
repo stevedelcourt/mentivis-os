@@ -20,7 +20,7 @@
     },
     "learningOSMenu": {
       "produits": [
-        "LearningOS",
+        "MentivisOS Pro",
         "SkillAgents"
       ],
       "workflows": [
@@ -860,7 +860,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "LearningOS",
+      "eyebrow": "MentivisOS Pro",
       "headline": "The AI-native training system that turns your employees into talents.",
       "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development, all in a single system."
     },
@@ -886,7 +886,7 @@
     },
     "testimonials": {
       "eyebrow": "TRUSTED BY",
-      "title": "Join the teams training with LearningOS."
+      "title": "Join the teams training with MentivisOS Pro."
     },
     "faq": {
       "eyebrow": "FAQ",

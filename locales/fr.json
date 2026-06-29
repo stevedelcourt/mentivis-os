@@ -20,7 +20,7 @@
     },
     "learningOSMenu": {
       "produits": [
-        "LearningOS",
+        "MentivisOS Pro",
         "SkillAgents"
       ],
       "workflows": [
@@ -860,7 +860,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "LearningOS",
+      "eyebrow": "MentivisOS Pro",
       "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
       "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes, le tout dans un seul système."
     },
@@ -886,7 +886,7 @@
     },
     "testimonials": {
       "eyebrow": "ILS NOUS FONT CONFIANCE",
-      "title": "Rejoignez les équipes qui forment avec LearningOS."
+      "title": "Rejoignez les équipes qui forment avec MentivisOS Pro."
     },
     "faq": {
       "eyebrow": "FAQ",

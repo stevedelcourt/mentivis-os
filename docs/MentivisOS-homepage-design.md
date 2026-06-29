@@ -270,7 +270,7 @@ Les sections suivantes ont été supprimées de la homepage et ne doivent pas r�
 - **Inner container** : max-width `var(--container-wide)` (1440px), padding `0 var(--grid-margin)`
 - **Logo** : `<img src="/images/MentivisOS/mentivisos-logo-wordmark-noir.svg" alt="MentivisOS" height="36" />`
 - **Liens desktop** : 4 items avec dropdowns (gap 32px)
-  - LearningOS, TalentOS, Entreprise, Tarifs
+  - MentivisOS Pro, TalentOS, Entreprise, Tarifs
   - Chaque lien : weight 500, underline animé (scaleX 0→1, 0.25s, cubic-bezier(0.22,1,0.36,1))
 - **MegaMenu** : position `absolute`, `top: calc(100% + 20px)`, min-width 220px, radius 16px, shadow `var(--shadow-card-full), var(--shadow-soft)`
 - **Bridge invisible** : `.navbar-dropdown-bridge`, height 24px, entre le lien et le dropdown

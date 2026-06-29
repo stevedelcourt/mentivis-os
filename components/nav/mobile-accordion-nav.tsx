@@ -64,7 +64,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         }}>Open</span></span>
       </Link>
 
-      {/* LearningOS */}
+      {/* MentivisOS Pro */}
       <Link href={`/${lang}/learningos`} onClick={onClose} style={navStyle}>
         <span>{t.nav.learningOS}</span>
       </Link>

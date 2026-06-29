@@ -4,12 +4,12 @@
 ```
 NavBar
 ├── MegaMenu (desktop dropdowns)
-│   ├── LearningOS → produits, workflows
+│   ├── MentivisOS Pro → produits, workflows
 │   ├── TalentOS → produits, workflowsRH
 │   ├── Entreprise → Ressources (blog), Ambassadeurs
 │   └── Tarifs → plain link
 ├── MobileAccordionNav (mobile fullscreen)
-│   ├── LearningOS → plain link
+│   ├── MentivisOS Pro → plain link
 │   ├── TalentOS → plain link
 │   ├── Entreprise → accordion (blog, ambassadors)
 │   └── Tarifs → plain link

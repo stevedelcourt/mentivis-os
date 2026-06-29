@@ -9,7 +9,7 @@ const TABS = {
     {
       label: "Créer",
       title: "Générez des parcours structurés",
-      desc: "À partir des compétences visées, des métiers et des référentiels internes, LearningOS génère des parcours de formation complets avec objectifs, modules et évaluations.",
+      desc: "À partir des compétences visées, des métiers et des référentiels internes, MentivisOS Pro génère des parcours de formation complets avec objectifs, modules et évaluations.",
       features: ["Génération automatique de parcours", "Alignement sur les référentiels métier", "Modules prêts à l'emploi"],
     },
     {
@@ -29,7 +29,7 @@ const TABS = {
     {
       label: "Create",
       title: "Generate structured paths",
-      desc: "From target skills, job profiles and internal frameworks, LearningOS generates complete training paths with objectives, modules and assessments.",
+      desc: "From target skills, job profiles and internal frameworks, MentivisOS Pro generates complete training paths with objectives, modules and assessments.",
       features: ["Automatic path generation", "Alignment with job frameworks", "Ready-to-use modules"],
     },
     {

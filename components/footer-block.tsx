@@ -85,7 +85,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.produits}
             </h4>
             <ul>
-              {(f.sections?.produits || ["LearningOS", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
+              {(f.sections?.produits || ["MentivisOS Pro", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
                 const PRODUITS_PATH: Record<string, string> = { "MentivisOS Open": "/openos", "MentivisOS Pro": "/learningos" };
                 const path = PRODUITS_PATH[link] || "/learningos";
                 return (

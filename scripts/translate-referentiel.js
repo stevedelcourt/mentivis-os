@@ -214,28 +214,28 @@ After training is completed, TalentOS updates the skills map with the new acquis
 - After training, the skills map is updated with new data.
 - Progress is visible at individual, team and organizational levels.`,
 
-  "learningos-et-talentos-quelle-difference": `## LearningOS and TalentOS: what's the difference
+  "learningos-et-talentos-quelle-difference": `## MentivisOS Pro and TalentOS: what's the difference
 
-LearningOS and TalentOS are two components of the MentivisOS suite that operate at different levels of the skills management cycle. LearningOS handles training — generating, adapting, and assessing learning paths. TalentOS handles the skills framework — mapping, tracking, and analyzing competencies across the organization. They share the same data and work in sequence.
+MentivisOS Pro and TalentOS are two components of the MentivisOS suite that operate at different levels of the skills management cycle. MentivisOS Pro handles training — generating, adapting, and assessing learning paths. TalentOS handles the skills framework — mapping, tracking, and analyzing competencies across the organization. They share the same data and work in sequence.
 
 ## The functional split
 
-LearningOS is a training generation and delivery system. It takes a target framework and a learner profile and produces a personalized learning path. TalentOS is a skills management system. It maintains the organizational competency map, identifies gaps, and tracks progress over time.
+MentivisOS Pro is a training generation and delivery system. It takes a target framework and a learner profile and produces a personalized learning path. TalentOS is a skills management system. It maintains the organizational competency map, identifies gaps, and tracks progress over time.
 
 ## How they work together
 
-TalentOS identifies that your sales team needs consultative selling skills — it models the target profile, assesses current levels, and produces a gap analysis. It sends this to LearningOS, which generates a customized training program for each team member. After training, LearningOS sends back the acquisition data, and TalentOS updates the skills map.
+TalentOS identifies that your sales team needs consultative selling skills — it models the target profile, assesses current levels, and produces a gap analysis. It sends this to MentivisOS Pro, which generates a customized training program for each team member. After training, MentivisOS Pro sends back the acquisition data, and TalentOS updates the skills map.
 
 ## Key takeaways
 
-- LearningOS: training generation and delivery.
+- MentivisOS Pro: training generation and delivery.
 - TalentOS: skills framework and gap analysis.
 - They share the same competency data and work in sequence.
-- The cycle: TalentOS identifies gaps → LearningOS trains → TalentOS updates.`,
+- The cycle: TalentOS identifies gaps → MentivisOS Pro trains → TalentOS updates.`,
 
   "comment-talentos-cartographie-les-competences-dune-organisation": `## How TalentOS maps an organization's skills
 
-TalentOS builds a skills map by importing data from multiple sources: HRIS, performance reviews, certifications, self-assessments, and the training history from LearningOS. Each source contributes information about who has which skills at what level. The system merges this data into a unified competency map that is continuously updated.
+TalentOS builds a skills map by importing data from multiple sources: HRIS, performance reviews, certifications, self-assessments, and the training history from MentivisOS Pro. Each source contributes information about who has which skills at what level. The system merges this data into a unified competency map that is continuously updated.
 
 ## Import sources
 
@@ -254,7 +254,7 @@ All this data is combined into a single skills map where each person has a skill
 
   "comment-talentos-suit-les-parcours-individuels-dans-le-temps": `## How TalentOS tracks individual paths over time
 
-TalentOS tracks each individual's competency development over time by maintaining a historical log of their skill profile at each assessment point. Every time a person completes training in LearningOS or undergoes an assessment, their profile is updated with the new data. The system can show progression curves, highlight stagnating skills, and predict future levels.
+TalentOS tracks each individual's competency development over time by maintaining a historical log of their skill profile at each assessment point. Every time a person completes training in MentivisOS Pro or undergoes an assessment, their profile is updated with the new data. The system can show progression curves, highlight stagnating skills, and predict future levels.
 
 ## The historical record
 
@@ -273,11 +273,11 @@ Based on the progression data, TalentOS can predict when a person will reach a t
 
   "comment-un-organisme-de-formation-utilise-talentos-pour-ses-clients": `## How a training organization uses TalentOS for its clients
 
-A training organization can use TalentOS as a service platform for its client companies. Each client gets its own skills framework, employee profiles, and gap analysis. TalentOS identifies the training needs for each client, and LearningOS generates the corresponding programs. The training organization manages everything through a single dashboard.
+A training organization can use TalentOS as a service platform for its client companies. Each client gets its own skills framework, employee profiles, and gap analysis. TalentOS identifies the training needs for each client, and MentivisOS Pro generates the corresponding programs. The training organization manages everything through a single dashboard.
 
 ## The service model
 
-The training organization configures TalentOS with the client's competency framework and employee data. TalentOS performs an initial skills audit, identifies gaps, and recommends training actions. LearningOS generates the training, which the organization delivers. After training, TalentOS measures the skill improvement and reports results to the client.
+The training organization configures TalentOS with the client's competency framework and employee data. TalentOS performs an initial skills audit, identifies gaps, and recommends training actions. MentivisOS Pro generates the training, which the organization delivers. After training, TalentOS measures the skill improvement and reports results to the client.
 
 ## Multi-client management
 
@@ -395,7 +395,7 @@ Companies use MentivisOS to close skills gaps at scale, reduce training producti
 
 ## What changes for companies
 
-Instead of managing training as a series of disconnected projects — a compliance module here, a manager request there, an annual training plan — the company adopts a continuous skills management model. TalentOS maintains the skills map, identifies gaps automatically, and LearningOS generates the training to close them. The result is a closed-loop skills system.
+Instead of managing training as a series of disconnected projects — a compliance module here, a manager request there, an annual training plan — the company adopts a continuous skills management model. TalentOS maintains the skills map, identifies gaps automatically, and MentivisOS Pro generates the training to close them. The result is a closed-loop skills system.
 
 ## ROI drivers
 
@@ -404,7 +404,7 @@ MentivisOS reduces content production costs by automating program generation, im
 ## Key takeaways
 
 - Replaces fragmented training management with continuous skills management.
-- TalentOS identifies gaps; LearningOS generates training automatically.
+- TalentOS identifies gaps; MentivisOS Pro generates training automatically.
 - Reduces content production costs, improves compliance, accelerates onboarding.
 - Provides real-time visibility into workforce capabilities.`,
 };

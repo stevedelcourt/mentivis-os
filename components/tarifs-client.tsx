@@ -111,7 +111,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             {/* Product Tabs */}
             <div className="tarifs-tabs" style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
-              { key: "learningos", label: "LearningOS" },
+              { key: "learningos", label: "MentivisOS Pro" },
               { key: "pipelineos", label: "TalentOS" },
               { key: "api", label: "MentivisAPI" },
             ].map((tab) => (
@@ -258,7 +258,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                     borderRadius: "50%",
                     background: "#7eb8c8",
                   }} />
-                  LearningOS
+                  MentivisOS Pro
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "auto", opacity: 0.7 }}>
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
