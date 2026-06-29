@@ -102,6 +102,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               })}
             </ul>
           </div>
+          {(f.sections?.workflows?.length ?? 0) > 0 && (
           <div>
             <h4
               style={{
@@ -117,7 +118,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.workflows || "Workflows"}
             </h4>
             <ul>
-              {(f.sections?.workflows || ["Formation & Learning", "Talent Pipeline HR", "Developpeurs"]).map((link: string) => {
+              {f.sections.workflows.map((link: string) => {
                 const WORKFLOWS_PATH: Record<string, string> = {
                   "Formation & Learning": "/learningos", "Formation & Apprentissage": "/learningos", "Training & Learning": "/learningos",
                   "Talent Pipeline HR": "/talentos", "Recrutement & Pipeline": "/talentos",
@@ -138,6 +139,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               })}
             </ul>
           </div>
+          )}
         </div>
 
         {/* Column 3 — Entreprise */}
