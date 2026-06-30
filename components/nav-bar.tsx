@@ -195,7 +195,13 @@ export default function NavBar({ lang }: NavBarProps) {
               data-active={isActive("/entreprises")}
               style={{ padding: "20px 0" }}
           >
-            {t.nav.learningOS}
+            MentivisOS{" "}
+            <span style={{
+              background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>Entreprise</span>
           </Link>
 
             {/* MentivisOS Edu */}
@@ -205,7 +211,13 @@ export default function NavBar({ lang }: NavBarProps) {
               data-active={isActive("/education")}
               style={{ padding: "20px 0" }}
             >
-              {t.nav.ecoles}
+              MentivisOS{" "}
+              <span style={{
+                background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>Edu</span>
             </Link>
 
             {/* TalentOS — hidden */}

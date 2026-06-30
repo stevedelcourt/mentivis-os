@@ -66,12 +66,22 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
       {/* MentivisOS Entreprise */}
       <Link href={`/${lang}/entreprises`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.learningOS}</span>
+        <span>MentivisOS <span style={{
+          background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>Entreprise</span></span>
       </Link>
 
       {/* MentivisOS Edu */}
       <Link href={`/${lang}/education`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.ecoles}</span>
+        <span>MentivisOS <span style={{
+          background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>Edu</span></span>
       </Link>
 
       {/* TalentOS — hidden */}

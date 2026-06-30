@@ -28,7 +28,7 @@ const CARDS: ProductCard[] = [
     href: "/entreprises",
   },
   {
-    tag: "MentivisOS Ecoles",
+    tag: "MentivisOS Education",
     title: "Individualisation à grande échelle",
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
     href: "/education",
