@@ -235,6 +235,7 @@ export default function NavBar({ lang }: NavBarProps) {
                         { label: t.nav.ressourcesMenu.entreprise[1], href: `/${lang}/about` },
                         { label: t.nav.ressourcesMenu.entreprise[2], href: `/${lang}/security` },
                         { label: t.nav.ressourcesMenu.entreprise[3], href: `/${lang}/carrieres` },
+                        { label: "Écoles", href: `/${lang}/ecoles` },
                       ],
                     },
                     {

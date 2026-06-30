@@ -12,6 +12,7 @@ const LABELS: Record<string, { fr: string; en: string }> = {
   contact: { fr: "Contact", en: "Contact" },
   demo: { fr: "Démonstration", en: "Demo" },
   tarifs: { fr: "Tarifs", en: "Pricing" },
+  ecoles: { fr: "Écoles", en: "Schools" },
   security: { fr: "Sécurité", en: "Security" },
   privacy: { fr: "Confidentialité", en: "Privacy" },
   terms: { fr: "CGU", en: "Terms of Service" },
