@@ -430,6 +430,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
 
         {/* Tabs */}
         <div
+          className="sector-tabs"
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${SECTORS.length}, 1fr)`,
@@ -509,6 +510,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
 
         {/* Content Area */}
         <div
+          className="sector-content"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -520,6 +522,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
         >
           {/* Left Box */}
           <div
+            className="sector-left-box"
             style={{
               background: "#f8f8f8",
               borderRadius: 24,
@@ -616,6 +619,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
 
           {/* Right Box — Image Card */}
           <div
+            className="sector-image-box"
             style={{
               position: "relative",
               borderRadius: 24,
@@ -771,11 +775,26 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
 
       <style>{`
         @media (max-width: 768px) {
-          .container > div:nth-child(2) {
+          .sector-tabs {
+            display: flex !important;
+            overflow-x: auto;
+            gap: 6px;
+            flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .sector-tabs::-webkit-scrollbar { display: none; }
+          .sector-tabs > button {
+            flex-shrink: 0;
+          }
+          .sector-content {
             grid-template-columns: 1fr !important;
           }
-          .container > div:nth-child(3) {
-            grid-template-columns: 1fr !important;
+          .sector-left-box {
+            padding: 24px 20px !important;
+          }
+          .sector-image-box {
+            min-height: 220px !important;
           }
         }
       `}</style>
