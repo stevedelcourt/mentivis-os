@@ -7,7 +7,7 @@
     "ressources": "Ressources",
     "entreprise": "Entreprise",
     "tarifs": "Tarifs",
-    "ecoles": "Écoles",
+    "ecoles": "MentivisOS Education",
     "contact": "Contactez-nous",
     "login": "Se connecter",
     "cta": "Contactez-nous",
@@ -62,7 +62,7 @@
         "A propos",
         "Securite",
         "Carrieres",
-        "Écoles"
+        "MentivisOS Education"
       ],
       "initiatives": [
         "Programme Impact",
@@ -612,7 +612,7 @@
     "sections": {
       "produits": ["MentivisOS Open", "MentivisOS Pro"],
       "workflows": [],
-      "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières", "Écoles"],
+      "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières", "MentivisOS Education"],
       "contact": "Contact"
     },
     "bottom": {

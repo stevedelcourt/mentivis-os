@@ -4,7 +4,7 @@ import Link from "next/link";
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: "MentivisOS Écoles - MentivisOS",
+    title: "MentivisOS Education - MentivisOS",
     description: "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement.",
     robots: lang !== "fr" ? { index: false } : undefined,
   };
@@ -28,7 +28,7 @@ export default async function EcolesPage({ params }: { params: Promise<{ lang: s
       {/* Hero */}
       <section style={{ padding: "120px 0 80px", background: "var(--bg-secondary)" }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          <p style={{ fontSize: "var(--text-micro)", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16 }}>MentivisOS Écoles</p>
+          <p style={{ fontSize: "var(--text-micro)", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16 }}>MentivisOS Education</p>
           <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 20 }}>
             Former autrement.<br />Performer durablement.
           </h1>

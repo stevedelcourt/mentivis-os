@@ -110,8 +110,8 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           <Link href={`/${lang}/carrieres`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.entreprise?.[3] || "Carrieres"}
           </Link>
-          <Link href={`/${lang}/ecoles`} onClick={onClose} style={subItemStyle}>
-            Écoles
+          <Link href={`/${lang}/education`} onClick={onClose} style={subItemStyle}>
+            MentivisOS Education
           </Link>
           <span style={eyebrowStyle}>{t.nav.eyebrows.initiatives}</span>
           <Link href={`/${lang}/impact`} onClick={onClose} style={subItemStyle}>

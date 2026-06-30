@@ -167,7 +167,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                       "A propos": "/about", "About": "/about", "À propos": "/about",
                       "Affiliation & Ambassadeurs": "/ambassadors", "Affiliation & Ambassadors": "/ambassadors",
                       "Carrieres": "/carrieres", "Careers": "/carrieres", "Carrières": "/carrieres",
-                      "Écoles": "/ecoles", "Schools": "/ecoles",
+                      "MentivisOS Education": "/education",
                     };
                     return `/${lang}${ENTREPRISE_PATH[link] || ""}`;
                   })()}
