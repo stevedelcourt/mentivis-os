@@ -13,6 +13,7 @@ export interface PageHeroContent {
   ctaSecondary?: string;
   ctaSecondaryLink?: string;
   proof?: string;
+  headlineGradient?: string;
 }
 
 interface PageHeroProps {
@@ -75,7 +76,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
             }}
           >
             {c.headline.split("\n").map((line, i) => (
-              <span key={i} style={{ display: "block" }}>
+              <span key={i} style={{ display: "block", ...(i === 0 && c.headlineGradient ? { background: c.headlineGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : {}) }}>
                 {line}
               </span>
             ))}

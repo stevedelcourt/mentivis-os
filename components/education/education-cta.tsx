@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
+import SuperButton from "@/components/super-button";
 
 export default function EducationCTA({ lang }: { lang: string }) {
   const { ref, visible } = useVisible(0.05);
@@ -34,16 +34,7 @@ export default function EducationCTA({ lang }: { lang: string }) {
                 {isFr ? "Contactez-nous pour une démonstration." : "Contact us for a demonstration."}
               </p>
             </div>
-            <Link
-              href={`/${lang}/contact`}
-              className="btn-pill btn-black"
-              style={{ padding: "14px 32px", fontSize: 15, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}
-            >
-              {isFr ? "Contactez-nous" : "Contact us"}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            <SuperButton href={`/${lang}/contact`} />
           </div>
         </div>
         <style>{`
