@@ -198,6 +198,16 @@ export default function NavBar({ lang }: NavBarProps) {
             {t.nav.learningOS}
           </Link>
 
+            {/* MentivisOS Education */}
+            <Link
+              href={`/${lang}/education`}
+              className="t-nav navbar-link"
+              data-active={isActive("/education")}
+              style={{ padding: "20px 0" }}
+            >
+              MentivisOS Education
+            </Link>
+
             {/* TalentOS — hidden */}
             {false && (
             <Link
@@ -235,7 +245,6 @@ export default function NavBar({ lang }: NavBarProps) {
                         { label: t.nav.ressourcesMenu.entreprise[1], href: `/${lang}/about` },
                         { label: t.nav.ressourcesMenu.entreprise[2], href: `/${lang}/security` },
                         { label: t.nav.ressourcesMenu.entreprise[3], href: `/${lang}/carrieres` },
-                        { label: "MentivisOS Education", href: `/${lang}/education` },
                       ],
                     },
                     {

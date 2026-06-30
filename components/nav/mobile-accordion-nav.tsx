@@ -69,6 +69,11 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         <span>{t.nav.learningOS}</span>
       </Link>
 
+      {/* MentivisOS Education */}
+      <Link href={`/${lang}/education`} onClick={onClose} style={navStyle}>
+        <span>MentivisOS Education</span>
+      </Link>
+
       {/* TalentOS — hidden */}
       {false && (
       <Link href={`/${lang}/talentos`} onClick={onClose} style={navStyle}>
@@ -109,9 +114,6 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           </Link>
           <Link href={`/${lang}/carrieres`} onClick={onClose} style={subItemStyle}>
             {t.nav.ressourcesMenu?.entreprise?.[3] || "Carrieres"}
-          </Link>
-          <Link href={`/${lang}/education`} onClick={onClose} style={subItemStyle}>
-            MentivisOS Education
           </Link>
           <span style={eyebrowStyle}>{t.nav.eyebrows.initiatives}</span>
           <Link href={`/${lang}/impact`} onClick={onClose} style={subItemStyle}>
