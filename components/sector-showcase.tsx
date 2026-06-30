@@ -154,7 +154,7 @@ const SECTORS_FR: Sector[] = [
     advantages: [
       "Formation personnalisée par apprenant",
       "Recalibrage pédagogique automatique",
-      "Conformité Qualiopi et certification intégrée",
+      "Conformité Qualiopi et suivi intégré",
       "Gestion OPCO et financements automatiques",
       "Évaluation des acquis, pas de la consommation",
       "Workflows pédagogiques automatisés"
@@ -321,7 +321,7 @@ const SECTORS_EN: Sector[] = [
     advantages: [
       "Personalized learning per learner",
       "Automatic pedagogical recalibration",
-      "Qualiopi compliance and integrated certification",
+      "Qualiopi compliance and integrated tracking",
       "OPCO and automated funding management",
       "Outcome-based assessment, not consumption",
       "Automated pedagogical workflows"

@@ -302,16 +302,16 @@ export function LearningOSPipeline({ lang }: LearningOSPipelineProps) {
         { label: "Définir", desc: "Compétences visées, métiers, référentiels internes." },
         { label: "Générer", desc: "Parcours personnalisés avec objectifs et modules." },
         { label: "Former", desc: "Agents IA accompagnent chaque apprenant." },
-        { label: "Évaluer", desc: "Quiz, mises en situation, validation des acquis." },
-        { label: "Certifier", desc: "Certifications et badges de compétences." },
+        { label: "Évaluer", desc: "Quiz, mises en situation, mesure des acquis." },
+        { label: "Badger", desc: "Badges de compétences." },
         { label: "Analyser", desc: "Dashboard, reporting, conformité OPCO." },
       ]
     : [
         { label: "Define", desc: "Target skills, job roles, internal frameworks." },
         { label: "Generate", desc: "Personalized paths with objectives and modules." },
         { label: "Train", desc: "AI agents accompany each learner." },
-        { label: "Assess", desc: "Quizzes, simulations, skills validation." },
-        { label: "Certify", desc: "Certifications and skill badges." },
+        { label: "Assess", desc: "Quizzes, simulations, skills measurement." },
+        { label: "Badge", desc: "Skill badges." },
         { label: "Analyze", desc: "Dashboard, reporting, OPCO compliance." },
       ];
 

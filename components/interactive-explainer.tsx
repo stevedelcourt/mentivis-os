@@ -20,7 +20,7 @@ const ORBS_BY_PRODUCT: Record<string, Array<{ grad: string; title: string; desc:
   talent: [
     { grad: "explainer-orb-1", title: "Profil candidat", desc: "Compétences, expérience, objectifs de carrière." },
     { grad: "explainer-orb-2", title: "Fiche de poste", desc: "Référentiel métier, exigences techniques, culture d'équipe." },
-    { grad: "explainer-orb-3", title: "Tests métier", desc: "Cas pratiques, scoring technique, validation des acquis." },
+    { grad: "explainer-orb-3", title: "Tests métier", desc: "Cas pratiques, scoring technique, mesure des acquis." },
     { grad: "explainer-orb-4", title: "Adéquation générée", desc: "Score de fit, risque d'erreur, temps d'intégration estimé." },
     { grad: "explainer-orb-5", title: "Pipeline structuré", desc: "Ordonnancement des étapes, suivi par profil, décision data." },
     { grad: "explainer-orb-6", title: "Onboarding ciblé", desc: "Parcours d'intégration personnalisé selon les écarts identifiés." },

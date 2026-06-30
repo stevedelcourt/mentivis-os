@@ -223,7 +223,7 @@
         "performance": "Performance signals",
         "engagement": "Engagement rhythm",
         "cognitive": "Cognitive load",
-        "objectives": "Objectives and certifications"
+        "objectives": "Objectives and progress"
       },
       "context": {
         "title": "Context-aware adaptation",
@@ -880,7 +880,7 @@
     },
     "pipeline": {
       "eyebrow": "COMPLETE JOURNEY",
-      "title": "From framework to certification, a single flow."
+      "title": "From framework to badge, a single flow."
     },
     "enterprise": {
       "eyebrow": "SECURITY & INFRASTRUCTURE",

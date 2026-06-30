@@ -52,7 +52,7 @@ const APPROACH_FR = [
   {
     tag: "Ingenierie pédagogique",
     title: "Ingenierie pédagogique",
-    body: "Referentiels, certifications, parcours. Conception fine des objets pédagogiques et de leur evaluation par l'IA.",
+    body: "Référentiels, parcours, progression. Conception fine des objets pédagogiques et de leur evaluation par l'IA.",
   },
   {
     tag: "Marketing et admissions",
@@ -62,7 +62,7 @@ const APPROACH_FR = [
   {
     tag: "Conformite et déploiement",
     title: "Conformite et déploiement",
-    body: "OPCO, dispositifs publics, certifications qualite, mise en oeuvre opérationnelle quotidienne.",
+    body: "OPCO, dispositifs publics, conformité qualité, mise en oeuvre opérationnelle quotidienne.",
   },
 ];
 
@@ -75,7 +75,7 @@ const APPROACH_EN = [
   {
     tag: "Pedagogical engineering",
     title: "Pedagogical engineering",
-    body: "Frameworks, certifications, pathways. Fine design of pedagogical objects and their AI-powered assessment.",
+    body: "Frameworks, pathways, progress. Fine design of pedagogical objects and their AI-powered assessment.",
   },
   {
     tag: "Marketing & admissions",
@@ -85,7 +85,7 @@ const APPROACH_EN = [
   {
     tag: "Compliance & deployment",
     title: "Compliance & deployment",
-    body: "OPCO, public schemes, quality certifications, day-to-day operational implementation.",
+    body: "OPCO, public schemes, quality compliance, day-to-day operational implementation.",
   },
 ];
 
@@ -134,7 +134,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
   const H = isFr ? {
     heroEyebrow: "À propos",
     heroHeadline: "MentivisOS est le système de formation native IA conçu par Mentivis",
-    heroSub: "De la stratégie au déploiement opérationnel. Un seul OS pour former, certifier et faire grandir les talents.",
+    heroSub: "De la stratégie au déploiement opérationnel. Un seul OS pour former, développer et faire grandir les talents.",
     convictionText: "Former n'est pas un cout. C'est un système de production de valeur.",
     convictionAuthor: "Steven Delcourt, Fondateur, Mentivis",
     histoireTitle: "Ne d'un constat opérationnel",

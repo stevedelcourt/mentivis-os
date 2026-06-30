@@ -38,7 +38,7 @@ const TABS_FR: ProductTab[] = [
     orbs: [
       { title: "Profil candidat", desc: "Compétences, expérience, objectifs de carrière.", gradient: "radial-gradient(circle at 30% 30%, #93c5fd, #2563eb 55%, #1e40af)" },
       { title: "Fiche de poste", desc: "Référentiel métier, exigences techniques, culture d'équipe.", gradient: "radial-gradient(circle at 30% 30%, #c4b5fd, #7c3aed 55%, #4c1d95)" },
-      { title: "Tests métier", desc: "Cas pratiques, scoring technique, validation des acquis.", gradient: "radial-gradient(circle at 30% 30%, #fcd34d, #d97706 55%, #92400e)" },
+      { title: "Tests métier", desc: "Cas pratiques, scoring technique, mesure des acquis.", gradient: "radial-gradient(circle at 30% 30%, #fcd34d, #d97706 55%, #92400e)" },
       { title: "Adéquation générée", desc: "Score de fit, risque d'erreur, temps d'intégration estimé.", gradient: "radial-gradient(circle at 30% 30%, #fda4af, #e11d48 55%, #9f1239)" },
       { title: "Pipeline structuré", desc: "Ordonnancement des étapes, suivi par profil, décision data.", gradient: "radial-gradient(circle at 30% 30%, #5eead4, #0d9488 55%, #115e59)" },
       { title: "Onboarding ciblé", desc: "Parcours d'intégration personnalisé selon les écarts identifiés.", gradient: "radial-gradient(circle at 30% 30%, #cbd5e1, #475569 55%, #1e293b)" },
@@ -77,7 +77,7 @@ const TABS_EN: ProductTab[] = [
     orbs: TABS_FR[1].orbs.map((o, i) => ({
       ...o,
       title: ["Candidate profile", "Job framework", "Skills testing", "Generated fit", "Structured pipeline", "Targeted onboarding"][i],
-      desc: ["Skills, experience, career objectives.", "Job framework, technical requirements, team culture.", "Practical cases, technical scoring, skill validation.", "Fit score, hiring risk, estimated integration time.", "Step ordering, per-profile tracking, data-driven decisions.", "Personalized integration path based on identified gaps."][i],
+      desc: ["Skills, experience, career objectives.", "Job framework, technical requirements, team culture.", "Practical cases, technical scoring, skill measurement.", "Fit score, hiring risk, estimated integration time.", "Step ordering, per-profile tracking, data-driven decisions.", "Personalized integration path based on identified gaps."][i],
     })),
   },
   {

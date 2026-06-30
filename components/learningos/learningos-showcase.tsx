@@ -16,14 +16,14 @@ const ITEMS = {
   fr: [
     { title: "SkillAgents", desc: "Des agents IA spécialisés qui coachent chaque apprenant, répondent à ses questions et l'orientent vers les ressources adaptées.", tag: "IA" },
     { title: "Moteur adaptatif", desc: "Le contenu s'ajuste automatiquement au niveau, au rythme et aux préférences d'apprentissage de chaque utilisateur.", tag: "Moteur" },
-    { title: "Gestion des certifications", desc: "Créez, publiez et gérez des programmes certifiants avec suivi individuel et validation des compétences.", tag: "Certification" },
+    { title: "Gestion des badges", desc: "Créez, publiez et gérez des programmes avancés avec suivi individuel et suivi des compétences.", tag: "Badges" },
     { title: "Dashboard entreprise", desc: "Une vue complète sur la progression des compétences, les taux de complétion et la conformité réglementaire.", tag: "Dashboard" },
     { title: "API & Intégrations", desc: "Connectez MentivisOS Pro à vos outils existants, SIRH, LMS, CRM, via notre API REST.", tag: "API" },
   ],
   en: [
     { title: "SkillAgents", desc: "Specialized AI agents that coach each learner, answer questions and direct them to relevant resources.", tag: "AI" },
     { title: "Adaptive Engine", desc: "Content automatically adjusts to each user's level, pace and learning preferences.", tag: "Engine" },
-    { title: "Certification Manager", desc: "Create, publish and manage certified programs with individual tracking and skills validation.", tag: "Certification" },
+    { title: "Badge Manager", desc: "Create, publish and manage advanced programs with individual tracking and skills tracking.", tag: "Badges" },
     { title: "Enterprise Dashboard", desc: "A complete view of skills progression, completion rates and regulatory compliance.", tag: "Dashboard" },
     { title: "API & Integrations", desc: "Connect MentivisOS Pro to your existing tools, HRIS, LMS, CRM, via our REST API.", tag: "API" },
   ],

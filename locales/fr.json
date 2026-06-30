@@ -26,7 +26,7 @@
       ],
       "workflows": [
         "Former collaborateurs",
-        "Formations certifiantes",
+        "Formations avancées",
         "Dashboard Entreprise",
         "OPCO Manager"
       ]
@@ -85,7 +85,7 @@
   },
   "productCards": {
     "card1": "Accès libre à l'apprentissage IA. Gratuit pour toujours, pour tous.",
-    "card2": "Système de formation native IA pour générer, piloter et certifier les compétences.",
+    "card2": "Système de formation native IA pour générer, piloter et suivre les compétences.",
     "card3": "MentivisOS pour les organismes de formation, CFA et écoles."
   },
   "products": {
@@ -161,7 +161,7 @@
       "description": "Langage commun pour les directions formation. Un parcours par profil, un suivi a la maille fine."
     },
     "analytics": {
-      "title": "Mesure et preuve",
+      "title": "Mesure et traçabilité",
       "description": "Faisabilite, écarts, progression. Des chiffres qui permettent de decider, pas de supposer."
     },
     "security": {
@@ -223,7 +223,7 @@
         "performance": "Signaux de performance",
         "engagement": "Rythme d'engagement",
         "cognitive": "Charge cognitive",
-        "objectives": "Objectifs et certifications"
+        "objectives": "Objectifs et progression"
       },
       "context": {
         "title": "Adaptation contextuelle",
@@ -880,7 +880,7 @@
     },
     "pipeline": {
       "eyebrow": "PARCOURS COMPLET",
-      "title": "Du référentiel à la certification, un seul flux."
+      "title": "Du référentiel au badge, un seul flux."
     },
     "enterprise": {
       "eyebrow": "SÉCURITÉ & INFRASTRUCTURE",

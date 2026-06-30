@@ -6,8 +6,8 @@ const STEPS_FR = [
   { num: "1", title: "Définir", desc: "Compétences visées, métiers, référentiels internes." },
   { num: "2", title: "Générer", desc: "Parcours personnalisés avec objectifs et modules." },
   { num: "3", title: "Former", desc: "Agents IA accompagnent chaque apprenant." },
-  { num: "4", title: "Évaluer", desc: "Quiz, mises en situation, validation des acquis." },
-  { num: "5", title: "Certifier", desc: "Certifications et badges de compétences." },
+  { num: "4", title: "Évaluer", desc: "Quiz, mises en situation, mesure des acquis." },
+  { num: "5", title: "Badger", desc: "Badges de compétences." },
   { num: "6", title: "Analyser", desc: "Dashboard, reporting, conformité OPCO." },
 ];
 
@@ -15,8 +15,8 @@ const STEPS_EN = [
   { num: "1", title: "Define", desc: "Target skills, job profiles, internal frameworks." },
   { num: "2", title: "Generate", desc: "Personalized paths with objectives and modules." },
   { num: "3", title: "Train", desc: "AI agents accompany each learner." },
-  { num: "4", title: "Assess", desc: "Quizzes, simulations, skills validation." },
-  { num: "5", title: "Certify", desc: "Certifications and skill badges." },
+  { num: "4", title: "Assess", desc: "Quizzes, simulations, skills measurement." },
+  { num: "5", title: "Badge", desc: "Skill badges." },
   { num: "6", title: "Analyze", desc: "Dashboard, reporting, OPCO compliance." },
 ];
 
@@ -49,8 +49,8 @@ export default function OpenOSWorkflow({ lang }: { lang: string }) {
         </p>
         <h2 style={{ ...sectionAnim(visible, 0.05), fontWeight: 300, fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 48, maxWidth: 600 }}>
           {lang === "fr"
-            ? "Du référentiel à la certification, un seul flux."
-            : "From framework to certification, a single flow."}
+            ? "Du référentiel au badge, un seul flux."
+            : "From framework to badge, a single flow."}
         </h2>
 
         <div

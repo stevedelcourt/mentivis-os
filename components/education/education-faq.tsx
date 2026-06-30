@@ -10,11 +10,11 @@ const FAQS_FR = [
   },
   {
     question: "MentivisOS est-il compatible avec nos référentiels de compétences existants ?",
-    answer: "Oui. Nous intégrons vos référentiels (RNCP, blocs de compétences, référentiels internes, etc.) directement dans l'instance. L'IA s'appuie sur vos référentiels pour générer les parcours et les certifications.",
+    answer: "Oui. Nous intégrons vos référentiels (RNCP, blocs de compétences, référentiels internes, etc.) directement dans l'instance. L'IA s'appuie sur vos référentiels pour générer les parcours et les badges.",
   },
   {
     question: "Comment assurez-vous la traçabilité demandée par les financeurs ?",
-    answer: "MentivisOS produit nativement une trace compétence par compétence : temps passé, acquis validés, niveau atteint. Les tableaux de bord exportables répondent aux exigences OPCO, France Compétences et Régions. Plus besoin de ressaisir manuellement les données.",
+    answer: "MentivisOS produit nativement une trace compétence par compétence : temps passé, acquis mesurés, niveau atteint. Les tableaux de bord exportables répondent aux exigences OPCO, France Compétences et Régions. Plus besoin de ressaisir manuellement les données.",
   },
   {
     question: "Quel est le délai de déploiement ?",
@@ -41,11 +41,11 @@ const FAQS_EN = [
   },
   {
     question: "Is MentivisOS compatible with our existing skills frameworks?",
-    answer: "Yes. We integrate your frameworks (RNCP, skill blocks, internal frameworks, etc.) directly into the instance. AI uses your frameworks to generate paths and certifications.",
+    answer: "Yes. We integrate your frameworks (RNCP, skill blocks, internal frameworks, etc.) directly into the instance. AI uses your frameworks to generate paths and badges.",
   },
   {
     question: "How do you ensure the traceability required by funders?",
-    answer: "MentivisOS natively produces a skill-by-skill trace: time spent, validated acquisitions, level reached. Exportable dashboards meet OPCO, France Compétences and Regional requirements. No more manual data entry.",
+    answer: "MentivisOS natively produces a skill-by-skill trace: time spent, tracked acquisitions, level reached. Exportable dashboards meet OPCO, France Compétences and Regional requirements. No more manual data entry.",
   },
   {
     question: "What is the deployment timeline?",

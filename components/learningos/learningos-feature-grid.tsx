@@ -7,7 +7,7 @@ const FEATURES = {
   fr: [
     { title: "Parcours personnalisés", desc: "Générez des parcours de formation adaptés à chaque profil, poste et objectif professionnel.", icon: "01" },
     { title: "Agents pédagogiques IA", desc: "Des agents conversationnels qui accompagnent les apprenants et répondent à leurs questions en temps réel.", icon: "02" },
-    { title: "Formations certifiantes", desc: "Créez et gérez des parcours certifiants avec suivi de progression et validation des acquis.", icon: "03" },
+    { title: "Formations avancées", desc: "Créez et gérez des parcours adaptatifs avec suivi de progression et suivi des acquis.", icon: "03" },
     { title: "Dashboard compétences", desc: "Visualisez en temps réel les compétences acquises, les progrès et les écarts à combler.", icon: "04" },
     { title: "Adaptation automatique", desc: "Les contenus s'adaptent automatiquement au niveau et au rythme de chaque apprenant.", icon: "05" },
     { title: "Bibliothèque dynamique", desc: "Une bibliothèque métier alimentée par IA qui s'enrichit et se structure automatiquement.", icon: "06" },
@@ -17,7 +17,7 @@ const FEATURES = {
   en: [
     { title: "Personalized paths", desc: "Generate training paths tailored to each profile, position, and professional goal.", icon: "01" },
     { title: "AI teaching agents", desc: "Conversational agents that accompany learners and answer their questions in real time.", icon: "02" },
-    { title: "Certified training", desc: "Create and manage certified training programs with progress tracking.", icon: "03" },
+    { title: "Adaptive training", desc: "Create and manage adaptive training programs with progress tracking.", icon: "03" },
     { title: "Skills dashboard", desc: "Visualize acquired skills, progress, and gaps in real time.", icon: "04" },
     { title: "Automatic adaptation", desc: "Content automatically adapts to each learner's level and pace.", icon: "05" },
     { title: "Dynamic library", desc: "An AI-powered business library that enriches and structures itself automatically.", icon: "06" },
