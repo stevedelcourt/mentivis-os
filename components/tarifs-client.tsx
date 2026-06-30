@@ -111,7 +111,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
             {/* Product Tabs */}
             <div className="tarifs-tabs" style={{ display: "flex", justifyContent: "flex-start", gap: 8, marginBottom: 40 }}>
             {[
-              { key: "learningos", label: "MentivisOS Pro" },
+              { key: "learningos", label: "MentivisOS Entreprise" },
               { key: "pipelineos", label: "TalentOS" },
               { key: "api", label: "MentivisAPI" },
             ].map((tab) => (

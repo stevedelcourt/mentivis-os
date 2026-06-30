@@ -188,24 +188,24 @@ export default function NavBar({ lang }: NavBarProps) {
               }}>Open</span>
             </Link>
 
-            {/* MentivisOS Pro */}
+            {/* MentivisOS Entreprise */}
             <Link
-              href={`/${lang}/learningos`}
+              href={`/${lang}/entreprises`}
               className="t-nav navbar-link"
-              data-active={isActive("/learningos")}
+              data-active={isActive("/entreprises")}
               style={{ padding: "20px 0" }}
           >
             {t.nav.learningOS}
           </Link>
 
-            {/* MentivisOS Education */}
+            {/* MentivisOS Edu */}
             <Link
               href={`/${lang}/education`}
               className="t-nav navbar-link"
               data-active={isActive("/education")}
               style={{ padding: "20px 0" }}
             >
-              MentivisOS Education
+              {t.nav.ecoles}
             </Link>
 
             {/* TalentOS — hidden */}
@@ -220,7 +220,7 @@ export default function NavBar({ lang }: NavBarProps) {
             </Link>
             )}
 
-            {/* Entreprise (was Ressources) */}
+            {/* Corporate (was Ressources) */}
             <div
               ref={entrepriseRef}
               className="navbar-item"

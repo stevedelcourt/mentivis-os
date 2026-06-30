@@ -9,7 +9,7 @@ import { CmsLayout, CmsLoading, CmsAlert, CmsReadOnlyBanner } from "@/components
 
 const PAGE_OPTIONS = [
   { key: "homepage", label: "Page d'accueil" },
-  { key: "learningos", label: "MentivisOS Pro" },
+  { key: "learningos", label: "MentivisOS Entreprise" },
   { key: "talentos", label: "TalentOS" },
   { key: "about", label: "A propos" },
   { key: "security", label: "Securite" },

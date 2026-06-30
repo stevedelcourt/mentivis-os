@@ -1,13 +1,13 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "MentivisOS Pro",
+    "learningOS": "MentivisOS Entreprise",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Resources",
-    "entreprise": "Enterprise",
+    "entreprise": "Corporate",
     "tarifs": "Pricing",
-    "ecoles": "MentivisOS Education",
+    "ecoles": "MentivisOS Edu",
     "contact": "Contact us",
     "login": "Log in",
     "cta": "Contact us",
@@ -21,7 +21,7 @@
     },
     "learningOSMenu": {
       "produits": [
-        "MentivisOS Pro",
+        "MentivisOS Entreprise",
         "SkillAgents"
       ],
       "workflows": [
@@ -62,7 +62,7 @@
         "About",
         "Security",
         "Careers",
-        "MentivisOS Education"
+        "MentivisOS Edu"
       ],
       "initiatives": [
         "Impact Program",
@@ -80,13 +80,13 @@
     "tagline": "Learn anything you want, for free.",
     "description": "The native AI learning platform open to everyone.",
     "bodyText": "Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
-    "ctaPrimary": "It's free!",
+    "ctaPrimary": "Start with Open",
     "proof": "Free forever. Learn for life."
   },
   "productCards": {
     "card1": "Free AI learning access for everyone. Always free, forever.",
     "card2": "AI-native training system to generate, track and certify skills.",
-    "card3": "Test MentivisOS with your own programs, data and real use cases."
+    "card3": "MentivisOS for training organizations, CFAs and schools."
   },
   "products": {
     "atelier": {
@@ -610,7 +610,7 @@
     "legal": "Legal",
     "copyright": "MentivisOS is developed by Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Pro"],
+      "produits": ["MentivisOS Open", "MentivisOS Entreprise"],
       "workflows": [],
       "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers", "MentivisOS Education"],
       "contact": "Contact"
@@ -862,7 +862,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "MentivisOS Pro",
+      "eyebrow": "MentivisOS Entreprise",
       "headline": "The AI-native training system that turns your employees into talents.",
       "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development, all in a single system."
     },

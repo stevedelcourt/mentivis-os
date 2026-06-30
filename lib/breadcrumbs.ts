@@ -3,7 +3,8 @@ import { Locale } from "@/lib/i18n";
 
 const LABELS: Record<string, { fr: string; en: string }> = {
   "": { fr: "Accueil", en: "Home" },
-  learningos: { fr: "MentivisOS Pro", en: "MentivisOS Pro" },
+  learningos: { fr: "MentivisOS Entreprise", en: "MentivisOS Entreprise" },
+  entreprises: { fr: "MentivisOS Entreprise", en: "MentivisOS Entreprise" },
   talentos: { fr: "TalentOS", en: "TalentOS" },
   impact: { fr: "Programme Impact", en: "Impact Program" },
   about: { fr: "À propos", en: "About" },

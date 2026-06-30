@@ -1,13 +1,13 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "MentivisOS Pro",
+    "learningOS": "MentivisOS Entreprise",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Ressources",
-    "entreprise": "Entreprise",
+    "entreprise": "Corporate",
     "tarifs": "Tarifs",
-    "ecoles": "MentivisOS Education",
+    "ecoles": "MentivisOS Edu",
     "contact": "Contactez-nous",
     "login": "Se connecter",
     "cta": "Contactez-nous",
@@ -21,7 +21,7 @@
     },
     "learningOSMenu": {
       "produits": [
-        "MentivisOS Pro",
+        "MentivisOS Entreprise",
         "SkillAgents"
       ],
       "workflows": [
@@ -62,7 +62,7 @@
         "A propos",
         "Securite",
         "Carrieres",
-        "MentivisOS Education"
+        "MentivisOS Edu"
       ],
       "initiatives": [
         "Programme Impact",
@@ -80,13 +80,13 @@
     "tagline": "Apprenez tout ce que vous voulez, gratuitement.",
     "description": "La plateforme d'apprentissage native IA ouverte à tous.",
     "bodyText": "Que vous soyez étudiant, professionnel ou simplement curieux, Open MentivisOS est fait pour vous.",
-    "ctaPrimary": "C'est gratuit !",
+    "ctaPrimary": "Démarrer avec Open",
     "proof": "Gratuit pour toujours. Apprenez toute votre vie."
   },
   "productCards": {
     "card1": "Accès libre à l'apprentissage IA. Gratuit pour toujours, pour tous.",
     "card2": "Système de formation native IA pour générer, piloter et certifier les compétences.",
-    "card3": "Testez MentivisOS avec vos programmes, vos données et vos cas réels."
+    "card3": "MentivisOS pour les organismes de formation, CFA et écoles."
   },
   "products": {
     "atelier": {
@@ -610,7 +610,7 @@
     "legal": "Légal",
     "copyright": "MentivisOS est développé par Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Pro"],
+      "produits": ["MentivisOS Open", "MentivisOS Entreprise"],
       "workflows": [],
       "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières", "MentivisOS Education"],
       "contact": "Contact"
@@ -862,7 +862,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "MentivisOS Pro",
+      "eyebrow": "MentivisOS Entreprise",
       "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
       "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes, le tout dans un seul système."
     },

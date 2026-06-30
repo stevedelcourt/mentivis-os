@@ -64,14 +64,14 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
         }}>Open</span></span>
       </Link>
 
-      {/* MentivisOS Pro */}
-      <Link href={`/${lang}/learningos`} onClick={onClose} style={navStyle}>
+      {/* MentivisOS Entreprise */}
+      <Link href={`/${lang}/entreprises`} onClick={onClose} style={navStyle}>
         <span>{t.nav.learningOS}</span>
       </Link>
 
-      {/* MentivisOS Education */}
+      {/* MentivisOS Edu */}
       <Link href={`/${lang}/education`} onClick={onClose} style={navStyle}>
-        <span>MentivisOS Education</span>
+        <span>{t.nav.ecoles}</span>
       </Link>
 
       {/* TalentOS — hidden */}
@@ -81,7 +81,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
       </Link>
       )}
 
-      {/* Entreprise Section */}
+      {/* Corporate Section */}
       <button
         onClick={() => {
           setEntrepriseOpen(!entrepriseOpen);
