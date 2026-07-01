@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 import SuperButton from "@/components/super-button";
+import EnviesSplitFlap from "@/components/envies-split-flap";
 import OpenOSHero from "./openos-hero";
 import OpenOSPipeline from "./openos-pipeline";
 import OpenOSTestimonials from "./openos-testimonials";
@@ -62,6 +63,7 @@ function OpenOSCTA({ lang }: { lang: string }) {
 export default function OpenOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
+      <EnviesSplitFlap />
       <OpenOSHero lang={lang} />
       <OpenOSPipeline lang={lang} />
       <OpenOSTestimonials lang={lang} />
