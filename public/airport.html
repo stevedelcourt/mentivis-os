@@ -3,49 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les envies &mdash; airport split-flap</title>
+<title>Les envies — departures board</title>
 <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@300&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: #0d0d0f;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     font-family: 'Handjet', monospace;
     font-weight: 300;
-    padding: 24px;
   }
 
-  .logo {
+  #board {
+    width: 100%;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: clamp(24px, 4vw, 48px);
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: clamp(12px, 1.5vh, 24px);
+    gap: clamp(2px, 0.3vh, 6px);
   }
 
-  .logo-icon {
-    height: clamp(28px, 4.5vw, 42px);
-    width: auto;
-    opacity: .9;
-  }
-
-  .logo-text {
-    color: #e8e8ed;
-    font-size: clamp(16px, 2.8vw, 26px);
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-shadow: 0 0 6px rgba(255,255,255,.08);
-  }
-
-  #word-container {
+  .row {
     display: flex;
-    gap: 3px;
-    flex-wrap: nowrap;
     justify-content: center;
+    gap: 2px;
   }
 
   .flap-unit {
@@ -53,14 +38,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: clamp(22px, 3.8vw, 34px);
-    height: clamp(28px, 5vw, 44px);
+    width: clamp(16px, 2.8vw, 30px);
+    height: clamp(22px, 4.2vh, 42px);
     background: #222226;
     border: 0.5px solid #2e2e34;
-    border-radius: 4px;
+    border-radius: 3px;
     overflow: hidden;
     flex-shrink: 0;
-    font-size: clamp(18px, 3.2vw, 30px);
+    font-size: clamp(11px, 2.6vh, 24px);
     font-weight: 300;
     color: #e8e8ed;
     text-transform: uppercase;
@@ -81,75 +66,96 @@
 
   .flap-space {
     display: inline-block;
-    width: 20px;
+    width: 14px;
     flex-shrink: 0;
   }
 </style>
 </head>
 <body>
-  <div class="logo">
-    <img class="logo-icon" src="/images/MentivisOS/mentivisos-logomark-blanc.svg" alt="MentivisOS">
-    <span class="logo-text">Open</span>
-  </div>
-  <div id="word-container"></div>
+  <div id="board"></div>
   <script>
 (function() {
 
 const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÉÈÊÀÂÙÎÔÇ0123456789';
-const ROTATION_MS = 3000;
+const ROTATION_MS = 3500;
 const STAGGER_MS = 35;
 const FLIP_STEP_MS = 50;
-const FLIP_MIN = 6;
-const FLIP_EXTRA = 3;
+const FLIP_MIN = 5;
+const FLIP_EXTRA = 4;
+const ROW_STAGGER_MS = 80;
 
-const container = document.getElementById('word-container');
+const board = document.getElementById('board');
 let items = [];
-let currentIdx = 0;
-let spans = [];
-let rotTimer = null;
+let rows = [];
+let rowCount = 0;
 
-fetch('/envies.txt')
-  .then(r => r.text())
-  .then(text => {
-    items = text.split('\n').map(l => l.trim()).filter(Boolean);
-    if (items.length > 0) {
-      buildSpans(items[0]);
-      rotTimer = setInterval(tick, ROTATION_MS);
-    }
-  })
-  .catch(() => {});
+function measureRowHeight() {
+  const probe = document.createElement('div');
+  probe.className = 'row';
+  const unit = document.createElement('span');
+  unit.className = 'flap-unit';
+  probe.appendChild(unit);
+  document.body.appendChild(probe);
+  const h = probe.getBoundingClientRect().height;
+  document.body.removeChild(probe);
+  return h;
+}
 
-function buildSpans(word) {
-  container.innerHTML = '';
-  spans = [];
-  const frag = document.createDocumentFragment();
+function calcRowCount() {
+  const rh = measureRowHeight();
+  const gap = parseFloat(getComputedStyle(board).gap) || 4;
+  const pad = 24;
+  const available = window.innerHeight - pad;
+  return Math.max(20, Math.floor(available / (rh + gap)));
+}
+
+function buildRow(word) {
+  const row = document.createElement('div');
+  row.className = 'row';
+  const spans = [];
   for (let i = 0; i < word.length; i++) {
     const ch = word[i];
     if (ch === ' ') {
       const sp = document.createElement('span');
       sp.className = 'flap-space';
-      frag.appendChild(sp);
+      row.appendChild(sp);
       spans.push(null);
     } else {
       const el = document.createElement('span');
       el.className = 'flap-unit';
       el.textContent = '';
-      frag.appendChild(el);
+      row.appendChild(el);
       spans.push(el);
     }
   }
-  container.appendChild(frag);
+  board.appendChild(row);
+  return { row, word, spans };
 }
 
-function tick() {
-  let next = Math.floor(Math.random() * items.length);
-  if (next === currentIdx && items.length > 1) next = (next + 1) % items.length;
-  currentIdx = next;
-  flipTo(items[next]);
-}
+function flipRow(entry, word) {
+  const { row, spans } = entry;
+  const currentLen = spans.length;
+  const newLen = word.length;
 
-function flipTo(word) {
-  if (!spans.length || word.length !== spans.length) buildSpans(word);
+  if (currentLen !== newLen) {
+    row.innerHTML = '';
+    spans.length = 0;
+    for (let i = 0; i < word.length; i++) {
+      const ch = word[i];
+      if (ch === ' ') {
+        const sp = document.createElement('span');
+        sp.className = 'flap-space';
+        row.appendChild(sp);
+        spans.push(null);
+      } else {
+        const el = document.createElement('span');
+        el.className = 'flap-unit';
+        el.textContent = '';
+        row.appendChild(el);
+        spans.push(el);
+      }
+    }
+  }
 
   for (let i = 0; i < word.length; i++) {
     const el = spans[i];
@@ -175,7 +181,50 @@ function flipTo(word) {
       }, FLIP_STEP_MS);
     }, i * STAGGER_MS);
   }
+
+  entry.word = word;
 }
+
+function tickAll() {
+  for (let r = 0; r < rowCount; r++) {
+    const idx = Math.floor(Math.random() * items.length);
+    const word = items[idx];
+    setTimeout(() => flipRow(rows[r], word), r * ROW_STAGGER_MS);
+  }
+}
+
+function initBoard() {
+  board.innerHTML = '';
+  rowCount = calcRowCount();
+  rows = [];
+
+  for (let r = 0; r < rowCount; r++) {
+    const idx = r % items.length;
+    const entry = buildRow(items[idx]);
+    rows.push(entry);
+  }
+}
+
+fetch('/envies.txt')
+  .then(r => r.text())
+  .then(text => {
+    items = text.split('\n').map(l => l.trim()).filter(Boolean);
+    if (items.length > 0) {
+      initBoard();
+      setTimeout(tickAll, 500);
+      setInterval(tickAll, ROTATION_MS);
+    }
+  })
+  .catch(() => {});
+
+window.addEventListener('resize', () => {
+  if (items.length > 0) {
+    const newCount = calcRowCount();
+    if (newCount !== rowCount) {
+      initBoard();
+    }
+  }
+});
 
 })();
 </script>
