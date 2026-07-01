@@ -18,20 +18,6 @@ export default function EnviesSplitFlap() {
   const indexRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
-    fetch("/envies.txt")
-      .then((r) => r.text())
-      .then((text) => {
-        const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-        setItems(lines);
-        if (lines.length > 0) {
-          setCurrentWord(lines[0]);
-          setDisplayLetters(lines[0].split(""));
-        }
-      })
-      .catch(() => {});
-  }, []);
-
   const animateWord = useCallback((word: string) => {
     const letters = word.split("");
     const units: string[] = new Array(letters.length).fill("");
@@ -40,19 +26,35 @@ export default function EnviesSplitFlap() {
     letters.forEach((char, i) => {
       const totalSteps = FLIP_MIN_STEPS + Math.floor(Math.random() * FLIP_MAX_EXTRA_STEPS);
       let step = 0;
-      const timer = setInterval(() => {
-        if (step < totalSteps - 1) {
-          units[i] = FLIP_CHARS[Math.floor(Math.random() * FLIP_CHARS.length)];
-          setDisplayLetters([...units]);
-        } else {
-          clearInterval(timer);
-          units[i] = char;
-          setDisplayLetters([...units]);
-        }
-        step++;
-      }, FLIP_STEP_MS);
+      setTimeout(() => {
+        const timer = setInterval(() => {
+          if (step < totalSteps - 1) {
+            units[i] = FLIP_CHARS[Math.floor(Math.random() * FLIP_CHARS.length)];
+            setDisplayLetters([...units]);
+          } else {
+            clearInterval(timer);
+            units[i] = char;
+            setDisplayLetters([...units]);
+          }
+          step++;
+        }, FLIP_STEP_MS);
+      }, i * LETTER_STAGGER_MS);
     });
   }, []);
+
+  useEffect(() => {
+    fetch("/envies.txt")
+      .then((r) => r.text())
+      .then((text) => {
+        const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
+        setItems(lines);
+        if (lines.length > 0) {
+          setCurrentWord(lines[0]);
+          animateWord(lines[0]);
+        }
+      })
+      .catch(() => {});
+  }, [animateWord]);
 
   useEffect(() => {
     if (items.length === 0) return;
@@ -109,9 +111,9 @@ export default function EnviesSplitFlap() {
         {displayLetters.map((char, i) => {
           const isSpace = currentWord[i] === " ";
           return (
-            <span
-              key={`${i}-${currentWord}`}
-              style={{
+              <span
+                  key={i}
+                  style={{
                 position: "relative",
                 width: isSpace ? 10 : 24,
                 height: 34,
