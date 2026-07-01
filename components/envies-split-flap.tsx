@@ -43,14 +43,15 @@ export default function EnviesSplitFlap() {
         display:flex;
         align-items:center;
         justify-content:center;
-        width:${isSpace ? 10 : 24}px;
-        height:34px;
+        width:${isSpace ? 6 : "clamp(16px, 3.5vw, 24px)"};
+        height:clamp(26px, 4.5vw, 34px);
         background:#f5f5f5;
         border:0.5px solid #e0e0e0;
         border-radius:4px;
         overflow:hidden;
+        flex-shrink:0;
         font-family:var(--font-sans);
-        font-size:18px;
+        font-size:clamp(13px, 3vw, 18px);
         font-weight:500;
         color:#1a1a1a;
         text-transform:uppercase;
@@ -113,10 +114,7 @@ export default function EnviesSplitFlap() {
         display: "flex",
         alignItems: "center",
         gap: 14,
-        flexWrap: "wrap",
-        marginBottom: 32,
-        maxWidth: 720,
-        minHeight: ready ? "auto" : 34,
+        minHeight: ready ? "auto" : "clamp(26px, 4.5vw, 34px)",
         opacity: ready ? 1 : 0,
         transition: "opacity 0.6s ease",
       }}
@@ -128,11 +126,12 @@ export default function EnviesSplitFlap() {
           fontWeight: 500,
           color: "#4e4e4e",
           whiteSpace: "nowrap",
+          flexShrink: 0,
         }}
       >
         Les envies :
       </span>
-      <div ref={wordRef} style={{ display: "flex", gap: 3 }} />
+      <div ref={wordRef} style={{ display: "flex", gap: 3, overflowX: "auto" }} />
     </div>
   );
 }

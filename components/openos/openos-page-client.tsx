@@ -63,8 +63,9 @@ function OpenOSCTA({ lang }: { lang: string }) {
 export default function OpenOSPageClient({ lang }: { lang: Locale }) {
   return (
     <>
-      <EnviesSplitFlap />
-      <OpenOSHero lang={lang} />
+      <OpenOSHero lang={lang}>
+        <EnviesSplitFlap />
+      </OpenOSHero>
       <OpenOSPipeline lang={lang} />
       <OpenOSTestimonials lang={lang} />
       <OpenOSFAQ lang={lang} />

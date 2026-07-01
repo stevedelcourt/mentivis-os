@@ -6,6 +6,7 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface OpenOSHeroProps {
   lang: Locale;
+  children?: React.ReactNode;
 }
 
 const GRADIENT = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)";
@@ -31,7 +32,7 @@ const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headline
   },
 };
 
-export default function OpenOSHero({ lang }: OpenOSHeroProps) {
+export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
   const c = CONTENT[lang === "fr" ? "fr" : "en"];
   const { ref, visible } = useVisible(0.01);
 
@@ -54,6 +55,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
         }}
       >
         <div style={{ maxWidth: 720 }}>
+          {children}
           <p
             style={{
               ...sectionAnim(visible, 0),

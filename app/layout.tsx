@@ -37,7 +37,7 @@ export default function RootLayout({
                 'ad_storage': 'denied',
                 'ad_user_data': 'denied',
                 'ad_personalization': 'denied',
-                'analytics_storage': 'denied',
+                'analytics_storage': 'granted',
                 'functionality_storage': 'granted',
                 'personalization_storage': 'denied',
                 'security_storage': 'granted',
