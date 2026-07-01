@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les envies &mdash; airport split-flap</title>
+<link href="https://fonts.googleapis.com/css2?family=Handjet:wght@300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d0d0f;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Handjet', monospace;
+    font-weight: 300;
+  }
+
+  #board {
+    background: #1a1a1e;
+    border-radius: 12px;
+    padding: clamp(24px, 4vw, 48px) clamp(20px, 4vw, 48px);
+    max-width: 900px;
+    width: 100%;
+    margin: 24px;
+    box-shadow:
+      inset 0 2px 6px rgba(0,0,0,.55),
+      0 8px 40px rgba(0,0,0,.45);
+  }
+
+  #word-container {
+    display: flex;
+    gap: 3px;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+
+  .flap-unit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(22px, 3.8vw, 34px);
+    height: clamp(28px, 5vw, 44px);
+    background: #222226;
+    border: 0.5px solid #2e2e34;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    font-size: clamp(18px, 3.2vw, 30px);
+    font-weight: 300;
+    color: #e8e8ed;
+    text-transform: uppercase;
+    text-shadow: 0 0 6px rgba(255,255,255,.08);
+    letter-spacing: 0.02em;
+  }
+
+  .flap-unit::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: #2e2e34;
+    transform: translateY(-0.5px);
+  }
+
+  .flap-space {
+    display: inline-block;
+    width: 20px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+  <div id="board">
+    <div id="word-container"></div>
+  </div>
+  <script>
+(function() {
+
+const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÉÈÊÀÂÙÎÔÇ0123456789';
+const ROTATION_MS = 3000;
+const STAGGER_MS = 35;
+const FLIP_STEP_MS = 50;
+const FLIP_MIN = 6;
+const FLIP_EXTRA = 3;
+
+const container = document.getElementById('word-container');
+let items = [];
+let currentIdx = 0;
+let spans = [];
+let rotTimer = null;
+
+fetch('/envies.txt')
+  .then(r => r.text())
+  .then(text => {
+    items = text.split('\n').map(l => l.trim()).filter(Boolean);
+    if (items.length > 0) {
+      buildSpans(items[0]);
+      rotTimer = setInterval(tick, ROTATION_MS);
+    }
+  })
+  .catch(() => {});
+
+function buildSpans(word) {
+  container.innerHTML = '';
+  spans = [];
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < word.length; i++) {
+    const ch = word[i];
+    if (ch === ' ') {
+      const sp = document.createElement('span');
+      sp.className = 'flap-space';
+      frag.appendChild(sp);
+      spans.push(null);
+    } else {
+      const el = document.createElement('span');
+      el.className = 'flap-unit';
+      el.textContent = '';
+      frag.appendChild(el);
+      spans.push(el);
+    }
+  }
+  container.appendChild(frag);
+}
+
+function tick() {
+  let next = Math.floor(Math.random() * items.length);
+  if (next === currentIdx && items.length > 1) next = (next + 1) % items.length;
+  currentIdx = next;
+  flipTo(items[next]);
+}
+
+function flipTo(word) {
+  if (!spans.length || word.length !== spans.length) buildSpans(word);
+
+  for (let i = 0; i < word.length; i++) {
+    const el = spans[i];
+    if (!el) continue;
+    if (word[i] === ' ') continue;
+
+    const finalChar = word[i];
+    const steps = FLIP_MIN + Math.floor(Math.random() * FLIP_EXTRA);
+    let step = 0;
+
+    setTimeout(() => {
+      el.textContent = '';
+      const timer = setInterval(() => {
+        if (step < steps - 1) {
+          el.textContent = FLIP_CHARS[Math.floor(Math.random() * FLIP_CHARS.length)];
+          el.style.transform = 'scaleY(0.85)';
+          setTimeout(() => { el.style.transform = 'scaleY(1)'; }, 30);
+        } else {
+          clearInterval(timer);
+          el.textContent = finalChar;
+        }
+        step++;
+      }, FLIP_STEP_MS);
+    }, i * STAGGER_MS);
+  }
+}
+
+})();
+</script>
+</body>
+</html>
