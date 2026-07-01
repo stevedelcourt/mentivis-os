@@ -110,10 +110,12 @@ export default function EnviesSplitFlap() {
 
   return (
     <div
+      className="envies-flap"
       style={{
         display: "flex",
         alignItems: "center",
         gap: 14,
+        marginBottom: 25,
         minHeight: ready ? "auto" : "clamp(26px, 4.5vw, 34px)",
         opacity: ready ? 1 : 0,
         transition: "opacity 0.6s ease",
@@ -131,7 +133,12 @@ export default function EnviesSplitFlap() {
       >
         Les envies :
       </span>
-      <div ref={wordRef} style={{ display: "flex", gap: 3, overflowX: "auto" }} />
+      <div ref={wordRef} style={{ display: "flex", gap: 3 }} />
+      <style>{`
+        @media (max-width: 768px) {
+          .envies-flap { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
