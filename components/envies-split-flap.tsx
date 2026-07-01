@@ -38,30 +38,38 @@ export default function EnviesSplitFlap() {
     for (let i = 0; i < word.length; i++) {
       const isSpace = word[i] === " ";
       const span = document.createElement("span");
-      span.style.cssText = `
-        position:relative;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        width:${isSpace ? 6 : "clamp(16px, 3.5vw, 24px)"};
-        height:clamp(26px, 4.5vw, 34px);
-        background:#f5f5f5;
-        border:0.5px solid #e0e0e0;
-        border-radius:4px;
-        overflow:hidden;
-        flex-shrink:0;
-        font-family:var(--font-sans);
-        font-size:clamp(13px, 3vw, 18px);
-        font-weight:500;
-        color:#1a1a1a;
-        text-transform:uppercase;
-      `;
-      const divider = document.createElement("span");
-      divider.style.cssText = `
-        position:absolute;left:0;right:0;top:50%;height:1px;
-        background:#e0e0e0;transform:translateY(-0.5px);
-      `;
-      span.appendChild(divider);
+      if (isSpace) {
+        span.style.cssText = `
+          display:inline-block;
+          width:12px;
+          flex-shrink:0;
+        `;
+      } else {
+        span.style.cssText = `
+          position:relative;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          width:clamp(14px, 2.8vw, 20px);
+          height:clamp(22px, 3.5vw, 28px);
+          background:#f5f5f5;
+          border:0.5px solid #e0e0e0;
+          border-radius:4px;
+          overflow:hidden;
+          flex-shrink:0;
+          font-family:var(--font-sans);
+          font-size:clamp(11px, 2.2vw, 14px);
+          font-weight:500;
+          color:#1a1a1a;
+          text-transform:uppercase;
+        `;
+        const divider = document.createElement("span");
+        divider.style.cssText = `
+          position:absolute;left:0;right:0;top:50%;height:1px;
+          background:#e0e0e0;transform:translateY(-0.5px);
+        `;
+        span.appendChild(divider);
+      }
       frag.appendChild(span);
       spansRef.current.push(span);
     }
@@ -78,6 +86,7 @@ export default function EnviesSplitFlap() {
       const char = word[i];
       const span = spansRef.current[i];
       if (!span) continue;
+      if (char === " ") continue;
       const totalSteps = FLIP_MIN_STEPS + Math.floor(Math.random() * FLIP_MAX_EXTRA_STEPS);
       let step = 0;
       setTimeout(() => {
