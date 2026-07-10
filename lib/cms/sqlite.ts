@@ -352,16 +352,14 @@ function runMigrations(db: SqlJsDb) {
   // Migration: add new columns if missing
   const refCols = db.prepare("PRAGMA table_info(referentiel_articles)").all() as { name: string }[];
   const refColNames = refCols.map((c) => c.name);
-  const refNewCols = ["chapeau", "bloc", "position_in_bloc", "cible", "faq"];
+  const refNewCols = ["chapeau", "chapeau_en", "bloc", "position_in_bloc", "cible", "faq", "faq_en"];
   for (const col of refNewCols) {
     if (!refColNames.includes(col)) {
       try {
-        db.exec(`ALTER TABLE referentiel_articles ADD COLUMN ${col} TEXT`);
+        const type = col === "position_in_bloc" ? "INTEGER DEFAULT 0" : "TEXT";
+        db.exec(`ALTER TABLE referentiel_articles ADD COLUMN ${col} ${type}`);
       } catch {}
     }
-  }
-  if (!refColNames.includes("position_in_bloc")) {
-    try { db.exec("ALTER TABLE referentiel_articles ADD COLUMN position_in_bloc INTEGER DEFAULT 0"); } catch {}
   }
 
   try {
