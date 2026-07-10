@@ -84,41 +84,62 @@ function parseArticles(md) {
     const title = articleMatch[3].trim();
     const slug = generateSlug(title);
 
-    // Extract body: everything after the title line, before FAQ
-    const afterTitle = t.replace(/^##\s+[MNP]\d+\.\s+.+$/m, "").trim();
+    // Split on <!-- EN --> to separate French and English sections
+    const enIdx = t.indexOf("<!-- EN -->");
+    const frPart = enIdx >= 0 ? t.slice(0, enIdx).trim() : t.trim();
+    const enPart = enIdx >= 0 ? t.slice(enIdx + 11).trim() : "";
 
-    const faqIdx = afterTitle.indexOf("### Questions fréquentes");
-    let contentBody = "";
-    let faqSection = "";
+    function extractArticle(text, lang) {
+      const isEn = lang === "en";
+      const body = text.replace(/^##\s+[MNP]\d+\.\s+.+$/m, "").trim();
+      const faqTag = isEn ? "### Frequently Asked Questions" : "### Questions fréquentes";
+      const faqIdx = body.indexOf(faqTag);
+      let contentBody = "";
+      let faqSection = "";
 
-    if (faqIdx >= 0) {
-      contentBody = afterTitle.slice(0, faqIdx).trim();
-      faqSection = afterTitle.slice(faqIdx + 26).trim(); // after "### Questions fréquentes"
-    } else {
-      contentBody = afterTitle;
-    }
-
-    // First paragraph = chapeau (summary)
-    const bodyLines = contentBody.split("\n").filter(l => l.trim());
-    let chapeau = "";
-    for (const line of bodyLines) {
-      const s = line.trim();
-      if (s && !s.startsWith("#") && !s.startsWith("---")) {
-        chapeau = s;
-        break;
+      if (faqIdx >= 0) {
+        contentBody = body.slice(0, faqIdx).trim();
+        faqSection = body.slice(faqIdx + faqTag.length).trim();
+      } else {
+        contentBody = body;
       }
+
+      const bodyLines = contentBody.split("\n").filter(l => l.trim());
+      let chapeau = "";
+      for (const line of bodyLines) {
+        const s = line.trim();
+        if (s && !s.startsWith("#") && !s.startsWith("---")) {
+          chapeau = s;
+          break;
+        }
+      }
+
+      const faqs = parseFAQ(faqSection);
+      const enTitle = isEn ? text.match(/^##\s+[MNP]\d+\.\s+(.+)$/m)?.[1]?.trim() || "" : "";
+
+      return {
+        title: isEn ? enTitle : title,
+        chapeau,
+        content: isEn ? text : `## ${title}\n\n${contentBody}${faqs.length > 0 ? `\n\n${faqTag}\n\n${faqs.map(f => `**${f.q}**\n${f.a}`).join("\n\n")}` : ""}`,
+        faq: JSON.stringify(faqs),
+      };
     }
 
-    const faqs = parseFAQ(faqSection);
+    const fr = extractArticle(frPart, "fr");
+    const en = enPart ? extractArticle(enPart, "en") : null;
 
     articles.push({
       slug,
-      title,
+      title: fr.title,
+      titleEn: en ? en.title : "",
       bloc,
       positionInBloc,
-      chapeau,
-      content: `## ${title}\n\n${contentBody}${faqs.length > 0 ? `\n\n### Questions fréquentes\n\n${faqs.map(f => `**${f.q}**\n${f.a}`).join("\n\n")}` : ""}`,
-      faq: JSON.stringify(faqs),
+      chapeau: fr.chapeau,
+      chapeauEn: en ? en.chapeau : "",
+      content: fr.content,
+      contentEn: en ? en.content : "",
+      faq: fr.faq,
+      faqEn: en ? en.faq : "[]",
     });
   }
 
@@ -160,6 +181,8 @@ async function main() {
   const colNames = colsResult.length > 0 ? colsResult[0].values.map(v => v[1]) : [];
 
   const newCols = [
+    "title_en TEXT",
+    "content_en TEXT",
     "chapeau TEXT",
     "chapeau_en TEXT",
     "bloc TEXT",
@@ -193,18 +216,22 @@ async function main() {
     const now = new Date().toISOString();
 
     const stmt = db.prepare(`
-      INSERT INTO referentiel_articles (slug, title, content, chapeau, bloc, position_in_bloc, cible, faq, position, published, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
+      INSERT INTO referentiel_articles (slug, title, title_en, content, content_en, chapeau, chapeau_en, bloc, position_in_bloc, cible, faq, faq_en, position, published, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
     `);
     stmt.bind([
       article.slug,
       article.title,
+      article.titleEn || "",
       article.content,
+      article.contentEn || "",
       article.chapeau,
+      article.chapeauEn || "",
       article.bloc,
       article.positionInBloc,
       cible,
       article.faq,
+      article.faqEn || "[]",
       article.positionInBloc + (article.bloc === "M" ? 0 : article.bloc === "N" ? 100 : 200),
       now,
       now,
