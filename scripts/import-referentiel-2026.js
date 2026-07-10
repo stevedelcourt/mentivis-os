@@ -156,8 +156,8 @@ async function main() {
   const db = new SQL.Database(new Uint8Array(buf));
 
   // Add new columns if missing
-  const cols = db.prepare("PRAGMA table_info(referentiel_articles)").all();
-  const colNames = cols.map(c => c.name);
+  const colsResult = db.exec("PRAGMA table_info(referentiel_articles)");
+  const colNames = colsResult.length > 0 ? colsResult[0].values.map(v => v[1]) : [];
 
   const newCols = [
     "chapeau TEXT",
@@ -178,9 +178,10 @@ async function main() {
   }
 
   // Delete existing articles
-  const existingCount = db.prepare("SELECT COUNT(*) as c FROM referentiel_articles").get();
+  const countResult = db.exec("SELECT COUNT(*) as c FROM referentiel_articles");
+  const existingCount = countResult.length > 0 ? countResult[0].values[0][0] : 0;
   db.exec("DELETE FROM referentiel_articles");
-  console.log(`Deleted ${existingCount.c} existing articles`);
+  console.log(`Deleted ${existingCount} existing articles`);
 
   const md = fs.readFileSync(FILE, "utf-8");
   const articles = parseArticles(md);
@@ -191,10 +192,11 @@ async function main() {
     const cible = guessCible(article.title, article.content);
     const now = new Date().toISOString();
 
-    db.prepare(`
+    const stmt = db.prepare(`
       INSERT INTO referentiel_articles (slug, title, content, chapeau, bloc, position_in_bloc, cible, faq, position, published, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-    `).run([
+    `);
+    stmt.bind([
       article.slug,
       article.title,
       article.content,
@@ -207,6 +209,8 @@ async function main() {
       now,
       now,
     ]);
+    stmt.step();
+    stmt.free();
     console.log(`  ${article.bloc}${article.positionInBloc}. ${article.title} [${cible}]`);
     total++;
   }
