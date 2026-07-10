@@ -33,10 +33,8 @@ export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cible
     return Array.from(set);
   }, [allArticles]);
 
-  function href(params: Record<string, string | undefined>) {
+  function makeUrl(bloc?: string | null, cible?: string | null) {
     const p = new URLSearchParams();
-    const bloc = params.bloc ?? blocFilter;
-    const cible = params.cible ?? cibleFilter;
     if (bloc) p.set("bloc", bloc);
     if (cible) p.set("cible", cible);
     const qs = p.toString();
@@ -51,16 +49,20 @@ export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cible
             {isFr ? "Blocs" : "Blocks"}
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {!blocFilter && !cibleFilter && (
-              <Link href={href({ bloc: undefined, cible: undefined })}
-                style={{ padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, border: "1px solid #0A0A0A", background: "#0A0A0A", color: "#fff", textDecoration: "none", cursor: "pointer" }}>
-                {isFr ? "Tous" : "All"}
-              </Link>
-            )}
+            <Link href={`/${lang}/referentiel`}
+              style={{
+                padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500,
+                border: `1px solid ${!blocFilter && !cibleFilter ? "#0A0A0A" : "#ccc"}`,
+                background: !blocFilter && !cibleFilter ? "#0A0A0A" : "transparent",
+                color: !blocFilter && !cibleFilter ? "#fff" : "#888",
+                textDecoration: "none", cursor: "pointer",
+              }}>
+              {isFr ? "Tous" : "All"}
+            </Link>
             {blocs.map((b) => {
               const active = blocFilter === b && !cibleFilter;
               return (
-                <Link key={b} href={active ? href({ bloc: undefined }) : href({ bloc: b })}
+                <Link key={b} href={active ? makeUrl(null, cibleFilter) : makeUrl(b, cibleFilter)}
                   style={{
                     padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500,
                     border: `1px solid ${blocColors[b]}`, textDecoration: "none", cursor: "pointer",
@@ -79,16 +81,20 @@ export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cible
             {isFr ? "Public" : "Audience"}
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {!blocFilter && !cibleFilter && (
-              <Link href={href({ bloc: undefined, cible: undefined })}
-                style={{ padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500, border: "1px solid #0A0A0A", background: "#0A0A0A", color: "#fff", textDecoration: "none", cursor: "pointer" }}>
-                {isFr ? "Tous" : "All"}
-              </Link>
-            )}
+            <Link href={`/${lang}/referentiel`}
+              style={{
+                padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500,
+                border: `1px solid ${!blocFilter && !cibleFilter ? "#0A0A0A" : "#ccc"}`,
+                background: !blocFilter && !cibleFilter ? "#0A0A0A" : "transparent",
+                color: !blocFilter && !cibleFilter ? "#fff" : "#888",
+                textDecoration: "none", cursor: "pointer",
+              }}>
+              {isFr ? "Tous" : "All"}
+            </Link>
             {cibles.map((c) => {
               const active = cibleFilter === c && !blocFilter;
               return (
-                <Link key={c} href={active ? href({ cible: undefined }) : href({ cible: c })}
+                <Link key={c} href={active ? makeUrl(blocFilter, null) : makeUrl(blocFilter, c)}
                   style={{
                     padding: "6px 16px", borderRadius: 20, fontSize: 13, fontWeight: 500,
                     border: `1px solid ${cibleColors[c] || "#888"}`, textDecoration: "none", cursor: "pointer",
