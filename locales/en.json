@@ -610,9 +610,9 @@
     "legal": "Legal",
     "copyright": "MentivisOS is developed by Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Entreprise"],
+      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "MentivisOS Education"],
       "workflows": [],
-      "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers", "MentivisOS Education"],
+      "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers"],
       "contact": "Contact"
     },
     "bottom": {
