@@ -2,18 +2,20 @@
 
 import { Locale } from "@/lib/i18n";
 
-export default function TalentOSWave({ lang }: { lang: Locale }) {
-  const scrollToPipeline = () => {
+export default function TalentOSWave({ lang, inactive }: { lang: Locale; inactive?: boolean }) {
+  const scrollToPipeline = !inactive ? () => {
     const el = document.getElementById("parcours-complet");
     if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  } : undefined;
+
+  const handleClick = scrollToPipeline;
 
   return (
     <div className="talentos-wave">
       <button
-        className="talentos-wave__btn"
+        className={`talentos-wave__btn${inactive ? " talentos-wave__btn--inactive" : ""}`}
         type="button"
-        onClick={scrollToPipeline}
+        onClick={handleClick}
         aria-label={lang === "fr" ? "Voir le parcours complet" : "View complete journey"}
       />
       <div className="talentos-wave__container">
@@ -66,6 +68,10 @@ export default function TalentOSWave({ lang }: { lang: Locale }) {
         .talentos-wave__btn:active {
           opacity: 0.7;
           transform: rotate(45deg) scale(1);
+        }
+        .talentos-wave__btn--inactive {
+          cursor: default;
+          pointer-events: none;
         }
         .talentos-wave__container {
           position: absolute;

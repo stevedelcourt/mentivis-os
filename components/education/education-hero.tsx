@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
+import TalentOSWave from "@/components/talentos/talentos-wave";
 
 interface EducationHeroProps {
   lang: Locale;
@@ -49,9 +50,13 @@ export default function EducationHero({ lang }: EducationHeroProps) {
           maxWidth: 1240,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 48,
         }}
       >
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 720, flex: 1 }}>
           <p
             style={{
               ...sectionAnim(visible, 0),
@@ -132,6 +137,7 @@ export default function EducationHero({ lang }: EducationHeroProps) {
             </Link>
           </div>
         </div>
+        <TalentOSWave lang={lang} inactive />
       </div>
     </section>
   );
