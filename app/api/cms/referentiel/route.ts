@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllReferentielArticles, getReferentielArticle, saveReferentielArticle, deleteReferentielArticle } from "@/lib/cms/db";
-import { generateSlug } from "@/lib/cms/utils";
+import { getAllReferentielArticles, saveReferentielArticle, deleteReferentielArticle } from "@/lib/cms/db";
 import { requireAuth, requireRole } from "@/lib/cms/auth";
 
 export async function GET(request: Request) {
@@ -36,6 +35,11 @@ export async function POST(request: Request) {
     await saveReferentielArticle({
       title: body.title,
       content: body.content,
+      chapeau: body.chapeau || "",
+      bloc: body.bloc || "",
+      positionInBloc: body.positionInBloc ?? 0,
+      cible: body.cible || "Tout public",
+      faq: body.faq || "[]",
       position: body.position ?? 0,
       published: !!body.published,
     });
@@ -61,6 +65,14 @@ export async function PUT(request: Request) {
       slug: body.slug,
       title: body.title,
       content: body.content,
+      contentEn: body.contentEn || "",
+      chapeau: body.chapeau || "",
+      chapeauEn: body.chapeauEn || "",
+      bloc: body.bloc || "",
+      positionInBloc: body.positionInBloc ?? 0,
+      cible: body.cible || "Tout public",
+      faq: body.faq || "[]",
+      faqEn: body.faqEn || "[]",
       position: body.position ?? 0,
       published: !!body.published,
     });

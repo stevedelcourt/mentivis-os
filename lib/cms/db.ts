@@ -1,5 +1,5 @@
 import { getDb } from "./sqlite";
-import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS, ReferentielArticle } from "./types";
+import { Post, PageContent, PricingContent, SeoContent, FormSubmission, Job, JobApplication, JobType, HeroContent, PageKey, PAGE_KEYS, ReferentielArticle, Cible, Bloc } from "./types";
 import { SITE_URL } from "@/lib/site-url";
 
 export { generateSlug } from "./utils";
@@ -840,56 +840,58 @@ export async function savePricing(data: PricingContent) {
 
 // ── Référentiel ──
 
-export async function getReferentielArticles(): Promise<ReferentielArticle[]> {
-  const db = await getDb();
-  const rows = db.prepare("SELECT * FROM referentiel_articles WHERE published = 1 ORDER BY position ASC").all() as any[];
-  return rows.map((row: any) => ({
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    titleEn: row.title_en || "",
-    content: row.content,
-    contentEn: row.content_en || "",
-    position: row.position,
-    published: !!row.published,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at,
-  }));
-}
+const REF_FIELDS = "id, slug, title, title_en as titleEn, content, content_en as contentEn, chapeau, chapeau_en as chapeauEn, bloc, position_in_bloc as positionInBloc, cible, faq, faq_en as faqEn, position, published, created_at as createdAt, updated_at as updatedAt";
 
-export async function getAllReferentielArticles(): Promise<ReferentielArticle[]> {
-  const db = await getDb();
-  const rows = db.prepare("SELECT * FROM referentiel_articles ORDER BY position ASC").all() as any[];
-  return rows.map((row: any) => ({
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    titleEn: row.title_en || "",
-    content: row.content,
-    contentEn: row.content_en || "",
-    position: row.position,
-    published: !!row.published,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at,
-  }));
-}
-
-export async function getReferentielArticle(slug: string): Promise<ReferentielArticle | undefined> {
-  const db = await getDb();
-  const row = db.prepare("SELECT * FROM referentiel_articles WHERE slug = ?").get(slug) as any;
-  if (!row) return undefined;
+function rowToArticle(row: any): ReferentielArticle {
   return {
     id: row.id,
     slug: row.slug,
     title: row.title,
-    titleEn: row.title_en || "",
+    titleEn: row.titleEn || "",
     content: row.content,
-    contentEn: row.content_en || "",
+    contentEn: row.contentEn || "",
+    chapeau: row.chapeau || "",
+    chapeauEn: row.chapeauEn || "",
+    bloc: row.bloc as Bloc,
+    positionInBloc: row.positionInBloc || 0,
+    cible: (row.cible || "Tout public") as Cible,
+    faq: row.faq || "[]",
+    faqEn: row.faqEn || "[]",
     position: row.position,
     published: !!row.published,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
   };
+}
+
+export async function getReferentielArticles(filters?: { bloc?: string; cible?: string }): Promise<ReferentielArticle[]> {
+  const db = await getDb();
+  let sql = `SELECT ${REF_FIELDS} FROM referentiel_articles WHERE published = 1`;
+  const params: any[] = [];
+  if (filters?.bloc) {
+    sql += " AND bloc = ?";
+    params.push(filters.bloc);
+  }
+  if (filters?.cible) {
+    sql += " AND cible = ?";
+    params.push(filters.cible);
+  }
+  sql += " ORDER BY position ASC";
+  const rows = db.prepare(sql).all(...params) as any[];
+  return rows.map(rowToArticle);
+}
+
+export async function getAllReferentielArticles(): Promise<ReferentielArticle[]> {
+  const db = await getDb();
+  const rows = db.prepare(`SELECT ${REF_FIELDS} FROM referentiel_articles ORDER BY position ASC`).all() as any[];
+  return rows.map(rowToArticle);
+}
+
+export async function getReferentielArticle(slug: string): Promise<ReferentielArticle | undefined> {
+  const db = await getDb();
+  const row = db.prepare(`SELECT ${REF_FIELDS} FROM referentiel_articles WHERE slug = ?`).get(slug) as any;
+  if (!row) return undefined;
+  return rowToArticle(row);
 }
 
 export async function saveReferentielArticle(data: Partial<ReferentielArticle> & { title: string; content: string }) {
@@ -899,13 +901,13 @@ export async function saveReferentielArticle(data: Partial<ReferentielArticle> &
 
   if (data.id) {
     db.prepare(`
-      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, content_en = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
-    `).run(slug, data.title, data.content, data.contentEn || "", data.position ?? 0, data.published ? 1 : 0, now, data.id);
+      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, content_en = ?, chapeau = ?, bloc = ?, position_in_bloc = ?, cible = ?, faq = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
+    `).run(slug, data.title, data.content, data.contentEn || "", data.chapeau || "", data.bloc || "", data.positionInBloc ?? 0, data.cible || "Tout public", data.faq || "[]", data.position ?? 0, data.published ? 1 : 0, now, data.id);
   } else {
     db.prepare(`
-      INSERT INTO referentiel_articles (slug, title, content, content_en, position, published, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(slug, data.title, data.content, data.contentEn || "", data.position ?? 0, data.published ? 1 : 0, now, now);
+      INSERT INTO referentiel_articles (slug, title, content, content_en, chapeau, bloc, position_in_bloc, cible, faq, position, published, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(slug, data.title, data.content, data.contentEn || "", data.chapeau || "", data.bloc || "", data.positionInBloc ?? 0, data.cible || "Tout public", data.faq || "[]", data.position ?? 0, data.published ? 1 : 0, now, now);
   }
 }
 

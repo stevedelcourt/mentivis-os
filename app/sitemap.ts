@@ -63,10 +63,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const article of refArticles) {
       for (const lang of langs) {
         entries.push({
-          url: `${BASE_URL}/${lang}/referentiel/?article=${article.slug}`,
+          url: `${BASE_URL}/${lang}/referentiel/${article.slug}/`,
           lastModified: new Date(article.updatedAt),
           changeFrequency: "monthly",
           priority: 0.5,
+          alternates: {
+            languages: Object.fromEntries(
+              langs.map((l) => [l, `${BASE_URL}/${l}/referentiel/${article.slug}/`])
+            ),
+          },
         });
       }
     }

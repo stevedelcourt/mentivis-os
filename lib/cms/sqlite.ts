@@ -334,6 +334,11 @@ function runMigrations(db: SqlJsDb) {
         slug TEXT UNIQUE NOT NULL,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
+        chapeau TEXT,
+        bloc TEXT,
+        position_in_bloc INTEGER DEFAULT 0,
+        cible TEXT,
+        faq TEXT,
         position INTEGER DEFAULT 0,
         published INTEGER DEFAULT 1,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -342,6 +347,21 @@ function runMigrations(db: SqlJsDb) {
     `);
   } catch {
     // Table already exists
+  }
+
+  // Migration: add new columns if missing
+  const refCols = db.prepare("PRAGMA table_info(referentiel_articles)").all() as { name: string }[];
+  const refColNames = refCols.map((c) => c.name);
+  const refNewCols = ["chapeau", "bloc", "position_in_bloc", "cible", "faq"];
+  for (const col of refNewCols) {
+    if (!refColNames.includes(col)) {
+      try {
+        db.exec(`ALTER TABLE referentiel_articles ADD COLUMN ${col} TEXT`);
+      } catch {}
+    }
+  }
+  if (!refColNames.includes("position_in_bloc")) {
+    try { db.exec("ALTER TABLE referentiel_articles ADD COLUMN position_in_bloc INTEGER DEFAULT 0"); } catch {}
   }
 
   try {

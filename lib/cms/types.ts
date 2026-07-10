@@ -108,6 +108,10 @@ export interface FormSubmission {
   notes?: string;
 }
 
+export type Cible = "Directions formation" | "DRH et DAF" | "Apprenants" | "Organismes de formation" | "Tout public";
+
+export type Bloc = "M" | "N" | "P";
+
 // ── Users & Roles ──
 
 export interface ReferentielArticle {
@@ -117,6 +121,13 @@ export interface ReferentielArticle {
   titleEn: string;
   content: string;
   contentEn: string;
+  chapeau: string;
+  chapeauEn: string;
+  bloc: Bloc;
+  positionInBloc: number;
+  cible: Cible;
+  faq: string;
+  faqEn: string;
   position: number;
   published: boolean;
   createdAt: string;
