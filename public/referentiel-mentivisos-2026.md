@@ -456,7 +456,7 @@ Choisir sur la base d'une démonstration sur un cas idéal. Demander une démons
 
 **Comment évaluer la solidité d'un éditeur jeune ?** Demandez des références clients en production depuis au moins un an, des études de cas documentées avec des indicateurs mesurés, et des informations sur la structure financière.
 
-**Un pilote est-il recommandé avant un déploiement général ?** Oui systématiquement. Un pilote de 90 jours sur un périmètre limité révèle les problèmes réels que la démonstration ne montre pas.
+**Un pilote est-il recommandé avant un déploiement général ?** Oui systématiquement. Un pilote sur un périmètre limité révèle les problèmes réels que la démonstration ne montre pas.
 
 <!-- EN -->
 ## M8. How to choose an AI training system: the right questions to ask
@@ -489,7 +489,7 @@ Choosing based on a demonstration on an ideal case. Request a demonstration on y
 
 **How to evaluate a young vendor's solidity?** Ask for client references in production for at least one year, documented case studies with measured indicators, and information about financial structure.
 
-**Is a pilot recommended before full deployment?** Yes, systematically. A 90-day pilot on a limited scope reveals real problems that demonstrations do not show.
+**Is a pilot recommended before full deployment?** Yes, systematically. A pilot on a limited scope reveals real problems that demonstrations do not show.
 
 ---
 
@@ -900,7 +900,7 @@ Directions de la formation qui veulent passer d'un pilotage par les présences �
 
 ### Comment se déroule un déploiement
 
-Un déploiement MentivisOS Entreprise commence par un diagnostic : cartographie des compétences existantes, analyse des besoins, évaluation de la maturité IA de l'organisation. Il se poursuit par un pilote de 90 jours sur un périmètre limité avant toute généralisation. Mentivis assure l'intégration end to end : configuration, connexion aux outils existants, formation des équipes, mise en production.
+Un déploiement MentivisOS Entreprise commence par un diagnostic : cartographie des compétences existantes, analyse des besoins, évaluation de la maturité IA de l'organisation. Il se poursuit par un pilote sur un périmètre limité avant toute généralisation. Mentivis assure l'intégration end to end : configuration, connexion aux outils existants, formation des équipes, mise en production.
 
 ### Questions fréquentes
 
@@ -927,7 +927,7 @@ Training departments that want to move from attendance-based management to skill
 
 ### How deployment works
 
-A MentivisOS Entreprise deployment begins with a diagnostic: mapping existing skills, needs analysis, assessment of the organization's AI maturity. It continues with a 90-day pilot on a limited scope before any generalization. Mentivis handles end-to-end integration: configuration, connection to existing tools, team training, production launch.
+A MentivisOS Entreprise deployment begins with a diagnostic: mapping existing skills, needs analysis, assessment of the organization's AI maturity. It continues with a pilot on a limited scope before any generalization. Mentivis handles end-to-end integration: configuration, connection to existing tools, team training, production launch.
 
 ### Frequently Asked Questions
 
@@ -1028,7 +1028,7 @@ Vous êtes un organisme de formation, un CFA ou une école qui veut individualis
 
 **Les trois produits partagent-ils les données des apprenants ?** Non. Chaque instance est cloisonnée. Les données d'un apprenant sur MentivisOS Open ne sont pas accessibles à une organisation MentivisOS Entreprise.
 
-**Y a-t-il une période d'essai pour Entreprise et Education ?** Un pilote de 90 jours sur un périmètre limité est proposé avant tout déploiement général. La démonstration se fait sur un cas réel issu de votre organisation.
+**Y a-t-il une période d'essai pour Entreprise et Education ?** Un pilote sur un périmètre limité est proposé avant tout déploiement général. La démonstration se fait sur un cas réel issu de votre organisation.
 
 <!-- EN -->
 ## P4. MentivisOS Open, Entreprise, Education: differences and how to choose
@@ -1063,7 +1063,7 @@ You are a training organization, CFA, or school that wants to individualize path
 
 **Do the three products share learner data?** No. Each instance is siloed. A learner's data on MentivisOS Open is not accessible to a MentivisOS Entreprise organization.
 
-**Is there a trial period for Entreprise and Education?** A 90-day pilot on a limited scope is offered before any general deployment. The demonstration is done on a real case from your organization.
+**Is there a trial period for Entreprise and Education?** A pilot on a limited scope is offered before any general deployment. The demonstration is done on a real case from your organization.
 
 ---
 
