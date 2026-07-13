@@ -150,22 +150,6 @@ function StepCard({ step, lang }: { step: (typeof STEPS_FR)[number]; lang: strin
         {step.desc}
       </p>
 
-      {"detail" in step && step.detail && (
-        <p
-          style={{
-            fontSize: 12,
-            lineHeight: 1.6,
-            color: "#888",
-            margin: 0,
-            fontStyle: "italic",
-            borderTop: "1px solid #e5e5e5",
-            paddingTop: 12,
-          }}
-        >
-          {step.detail}
-        </p>
-      )}
-
       {"chips" in step && step.chips && (
         <div
           style={{
