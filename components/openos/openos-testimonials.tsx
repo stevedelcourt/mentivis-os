@@ -5,30 +5,30 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 const TESTIMONIALS_FR = [
   {
     quote: "J'ai indiqué que je voulais apprendre le marketing digital. En 30 secondes j'avais un parcours complet de 12 modules. Bluffant.",
-    author: "Quitterie V., salariée en reconversion",
+    author: "Clara M., salariée en reconversion",
   },
   {
     quote: "Je prépare un concours. MentivisOS Open a généré exactement les révisions dont j'avais besoin, dans le bon ordre.",
-    author: "Samori T., étudiant",
+    author: "Alexandre K., étudiant",
   },
   {
     quote: "Gratuit et plus pertinent que les MOOCs que j'avais payés. Je ne comprends pas comment c'est possible.",
-    author: "François C., cadre en activité",
+    author: "Sophie L., cadre en activité",
   },
 ];
 
 const TESTIMONIALS_EN = [
   {
     quote: "I said I wanted to learn digital marketing. In 30 seconds I had a complete 12-module path. Mind-blowing.",
-    author: "Quitterie V., career changer",
+    author: "Clara M., career changer",
   },
   {
     quote: "I'm preparing for an exam. MentivisOS Open generated exactly the revision I needed, in the right order.",
-    author: "Samori T., student",
+    author: "Alexandre K., student",
   },
   {
     quote: "Free and more relevant than the MOOCs I had paid for. I don't understand how this is possible.",
-    author: "François C., working professional",
+    author: "Sophie L., working professional",
   },
 ];
 
