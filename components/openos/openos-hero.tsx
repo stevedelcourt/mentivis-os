@@ -12,7 +12,7 @@ const CTAS_FR = {
   subheadline:
     "MentivisOS Open analyse votre objectif, mesure vos écarts de compétences, et génère un parcours d'apprentissage complet adapté à votre profil. Pour tout le monde, pour tout sujet.",
   cta: "Commencer gratuitement \u2192",
-  proof: "181+ apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
+  proof: "Des milliers d'apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
 };
 
 const CTAS_EN = {
@@ -20,7 +20,7 @@ const CTAS_EN = {
   subheadline:
     "MentivisOS Open analyzes your goal, measures your skill gaps, and generates a complete learning path adapted to your profile. For everyone, on any topic.",
   cta: "Start free \u2192",
-  proof: "181+ learners \u00B7 Free forever \u00B7 No credit card",
+  proof: "Thousands of learners \u00B7 Free forever \u00B7 No credit card",
 };
 
 export default function OpenOSHero({ lang }: OpenOSHeroProps) {

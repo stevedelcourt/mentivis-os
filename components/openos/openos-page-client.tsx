@@ -40,15 +40,15 @@ function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | 
                 padding: "16px 32px",
                 fontSize: 17,
                 fontWeight: 500,
-                color: "#fff",
-                background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+                color: "#0A0A0A",
+                background: "#fff",
                 borderRadius: 12,
                 textDecoration: "none",
                 border: "none",
                 transition: "all 0.2s ease",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.filter = "brightness(1.15)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.filter = "none"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#e5e5e5"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; }}
             >
               {isFr ? "Commencer gratuitement \u2192" : "Start free \u2192"}
             </a>
