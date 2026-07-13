@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
+import EnviesSplitFlap from "@/components/envies-split-flap";
 import OpenOSHero from "./openos-hero";
 import OpenOSWorkflow from "./openos-workflow";
 import OpenOSPipeline from "./openos-pipeline";
@@ -150,6 +151,7 @@ export default function OpenOSPageClient({ lang }: { lang: string }) {
           `,
         }}
       />
+      <EnviesSplitFlap />
       <OpenOSHero lang={lang as any} />
       <OpenOSWorkflow lang={lang} />
       <OpenOSCTA lang={lang} variant="intermediate" />
