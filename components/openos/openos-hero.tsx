@@ -43,9 +43,12 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
           maxWidth: 1240,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
+          display: "flex",
+          alignItems: "center",
+          gap: "clamp(32px, 5vw, 64px)",
         }}
       >
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 720, flex: 1, minWidth: 0 }}>
         <h1
           style={{
             ...sectionAnim(visible, 0.1),
@@ -114,7 +117,27 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
           {c.proof}
         </p>
         </div>
+
+        <img
+          src="/open-woman.avif"
+          alt=""
+          className="openos-hero-image"
+          style={{
+            width: "clamp(200px, 28vw, 380px)",
+            height: "auto",
+            borderRadius: 24,
+            flexShrink: 0,
+          }}
+        />
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .openos-hero-image {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
