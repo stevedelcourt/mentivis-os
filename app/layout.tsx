@@ -31,6 +31,29 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              (function() {
+                var p = new URLSearchParams(window.location.search);
+                var params = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid','rdt_cid'];
+                params.forEach(function(param) {
+                  var val = p.get(param);
+                  if (val) localStorage.setItem(param, val);
+                });
+                var stored = {};
+                params.forEach(function(param) {
+                  var val = localStorage.getItem(param);
+                  if (val) stored[param] = val;
+                });
+                if (Object.keys(stored).length > 0) {
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push(stored);
+                }
+              })();
+            `,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag() { dataLayer.push(arguments); }
               gtag('consent', 'default', {
