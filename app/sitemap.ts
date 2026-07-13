@@ -8,6 +8,7 @@ const langs = ["fr", "en"];
 const pages = [
   { path: "", priority: 1.0, changeFreq: "weekly" as const },
   { path: "/learningos", priority: 0.9, changeFreq: "weekly" as const },
+  { path: "/openos", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/talentos", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/tarifs", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/about", priority: 0.8, changeFreq: "monthly" as const },

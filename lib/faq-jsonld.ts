@@ -1,8 +1,8 @@
-import { getHomepageFaq, getAmbassadorsFaq, learningosFaq, talentosFaq, FaqItem } from "@/lib/faq-data";
+import { getHomepageFaq, getAmbassadorsFaq, learningosFaq, talentosFaq, openosFaq, FaqItem } from "@/lib/faq-data";
 import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 
-export type FaqPage = "homepage" | "learningos" | "talentos" | "ambassadors";
+export type FaqPage = "homepage" | "learningos" | "talentos" | "ambassadors" | "openos";
 
 function buildFaqSchema(items: FaqItem[], url: string) {
   return {
@@ -33,6 +33,8 @@ export function getFaqJsonLd(page: FaqPage, lang: Locale): Record<string, unknow
       return buildFaqSchema(talentosFaq[lang], `${base}/talentos/`);
     case "ambassadors":
       return buildFaqSchema(getAmbassadorsFaq(lang), `${base}/ambassadors/`);
+    case "openos":
+      return buildFaqSchema(openosFaq[lang], `${base}/openos/`);
     default:
       return null;
   }

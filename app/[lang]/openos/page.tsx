@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import OpenOSPageClient from "@/components/openos/openos-page-client";
+import { getFaqJsonLd } from "@/lib/faq-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -32,6 +33,12 @@ export default async function OpenOSPage({ params }: { params: Promise<{ lang: s
               : "Generate your personalized learning path in 30 seconds. Free forever.",
             url: `${SITE_URL}/${lang}/openos`,
           }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFaqJsonLd("openos", lang as Locale)),
         }}
       />
     </>

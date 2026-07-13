@@ -53,6 +53,19 @@ export const talentosFaq: Record<Locale, FaqItem[]> = {
   ],
 };
 
+export const openosFaq: Record<Locale, FaqItem[]> = {
+  fr: [
+    { question: "C'est vraiment gratuit ?", answer: "Oui. MentivisOS Open est gratuit pour toujours. Pas de freemium, pas de carte bancaire, pas de limite de parcours." },
+    { question: "Ça marche pour quel type de sujet ?", answer: "Tout. Marketing, IA, code, langues, finance, préparation d'examen, reconversion professionnelle, curiosité personnelle. Si vous pouvez le formuler en une phrase, MentivisOS Open peut générer votre cours." },
+    { question: "C'est différent d'un MOOC ?", answer: "Un MOOC est un cours fixe que vous suivez. MentivisOS Open génère votre cours sur mesure selon votre profil et votre objectif. C'est adaptatif, pas générique." },
+  ],
+  en: [
+    { question: "Is it really free?", answer: "Yes. MentivisOS Open is free forever. No freemium, no credit card, no path limits." },
+    { question: "What kind of topics does it work for?", answer: "Anything. Marketing, AI, code, languages, finance, exam prep, career change, personal curiosity. If you can phrase it in one sentence, MentivisOS Open can generate your course." },
+    { question: "How is it different from a MOOC?", answer: "A MOOC is a fixed course that you follow. MentivisOS Open generates your custom course based on your profile and goal. It's adaptive, not generic." },
+  ],
+};
+
 export function getHomepageFaq(lang: Locale): FaqItem[] {
   const locale = lang === "fr" ? fr : en;
   return locale.faq.items.map((item: Record<string, string>) => ({
