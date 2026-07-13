@@ -14,7 +14,7 @@ function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | 
 
   if (variant === "intermediate") {
     return (
-      <section ref={ref} style={{ padding: "clamp(80px, 10vw, 120px) 0", backgroundImage: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)" }}>
+      <section ref={ref} style={{ padding: "clamp(80px, 10vw, 120px) 0", background: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <h2
             style={{
@@ -44,6 +44,7 @@ function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | 
                 background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
                 borderRadius: 12,
                 textDecoration: "none",
+                border: "none",
                 transition: "all 0.2s ease",
               }}
               onMouseEnter={(e) => { e.currentTarget.style.filter = "brightness(1.15)"; }}
