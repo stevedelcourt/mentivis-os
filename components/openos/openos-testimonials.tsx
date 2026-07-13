@@ -89,7 +89,7 @@ export default function OpenOSTestimonials({ lang }: { lang: string }) {
             color: "#888",
           }}
         >
-          {lang === "fr" ? "Des milliers d'apprenants \u00B7 Lanc\u00E9 en 2026" : "Thousands of learners \u00B7 Launched in 2026"}
+          {lang === "fr" ? "181 apprenants actifs \u00B7 Lanc\u00E9 en 2026" : "181 active learners \u00B7 Launched in 2026"}
         </p>
       </div>
     </section>

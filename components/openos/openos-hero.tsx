@@ -8,19 +8,21 @@ interface OpenOSHeroProps {
 }
 
 const CTAS_FR = {
-  headline: "Votre cours sur mesure, généré par IA en 30 secondes. Gratuit.",
+  headline: "Votre formation sur mesure, gratuite et illimitée.",
   subheadline:
-    "MentivisOS Open analyse votre objectif, mesure vos écarts de compétences, et génère un parcours d'apprentissage complet adapté à votre profil. Pour tout le monde, pour tout sujet.",
-  cta: "Commencer gratuitement \u2192",
-  proof: "Des milliers d'apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
+    "Pour vous pr\u00E9parer \u00E0 un nouveau poste, passer un dipl\u00F4me ou un concours, ou simplement par d\u00E9sir d'apprendre.",
+  cta: "L'aventure commence ici \u2192",
+  tagline: "MentivisOS, la plateforme universelle pour apprendre, se former et r\u00E9viser.",
+  proof: "181+ apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
 };
 
 const CTAS_EN = {
-  headline: "Your custom course, AI-generated in 30 seconds. Free.",
+  headline: "Your custom training, free and unlimited.",
   subheadline:
-    "MentivisOS Open analyzes your goal, measures your skill gaps, and generates a complete learning path adapted to your profile. For everyone, on any topic.",
-  cta: "Start free \u2192",
-  proof: "Thousands of learners \u00B7 Free forever \u00B7 No credit card",
+    "To prepare for a new role, pass a diploma or exam, or simply out of a desire to learn.",
+  cta: "The adventure starts here \u2192",
+  tagline: "MentivisOS, the universal platform to learn, train and revise.",
+  proof: "181+ learners \u00B7 Free forever \u00B7 No credit card",
 };
 
 export default function OpenOSHero({ lang }: OpenOSHeroProps) {
@@ -108,8 +110,20 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
         </div>
         <p
           style={{
+            ...sectionAnim(visible, 0.35),
+            marginTop: 24,
+            marginBottom: 0,
+            color: "#888",
+            fontSize: 14,
+            maxWidth: 600,
+          }}
+        >
+          {c.tagline}
+        </p>
+        <p
+          style={{
             ...sectionAnim(visible, 0.4),
-            marginTop: 32,
+            marginTop: 12,
             color: "#888",
             fontSize: 14,
           }}

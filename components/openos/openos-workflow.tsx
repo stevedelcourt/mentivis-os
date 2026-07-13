@@ -11,25 +11,28 @@ const STEPS_FR = [
         <path d="M8 46c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
-    title: "Créez votre compte",
-    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Aucune carte bancaire, aucun engagement. Gratuit pour toujours.",
-    detail: "Indiquez votre statut en une phrase : étudiant, salarié en activité, en reconversion, curieux / passionné, ou autre. Ce n'est pas un CV, juste votre situation aujourd'hui.",
+    title: "Vous cr\u00E9ez votre profil et votre objectif de formation",
+    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Indique votre statut (etudiant, salari\u00E9, en reconversion, curieux) et formule votre objectif en une phrase. Pas de CV, pas de niveau acad\u00E9mique. Juste ou tu en es et ou tu veux aller.",
+    chips: [
+      "Je veux apprendre le marketing digital",
+      "Je pr\u00E9pare une reconversion en data",
+      "Je veux ma\u00EEtriser ChatGPT",
+      "Je pr\u00E9pare un concours",
+      "Je veux progresser en management",
+    ],
   },
   {
     num: "02",
     icon: (
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden="true">
-        <circle cx="26" cy="26" r="16" stroke="#7030A0" strokeWidth="2.5" />
-        <circle cx="26" cy="26" r="5" fill="#7030A0" />
-        <line x1="26" y1="10" x2="26" y2="16" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="26" y1="36" x2="26" y2="42" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="10" y1="26" x2="16" y2="26" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="36" y1="26" x2="42" y2="26" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="26" cy="26" r="18" stroke="#7030A0" strokeWidth="2.5" />
+        <circle cx="22" cy="22" r="8" stroke="#7030A0" strokeWidth="2.5" />
+        <line x1="28" y1="28" x2="38" y2="38" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
-    title: "Dites ce que vous voulez apprendre",
-    desc: "Tapez votre objectif en langage naturel. « Je veux apprendre le marketing digital », « Je prépare une reconversion en data », « Je veux maîtriser ChatGPT pour mon travail ». MentivisOS Open comprend.",
-    chips: ["Marketing digital", "Intelligence artificielle", "Développement web", "Communication", "Finance personnelle", "Préparation d'examen", "Management", "Et tout ce que vous voulez..."],
+    title: "Analyse des \u00E9carts, comp\u00E9tences manquantes, personnalisation",
+    desc: "MentivisOS Open analyse l'\u00E9cart entre votre profil actuel et votre objectif. Il identifie les comp\u00E9tences manquantes, les pr\u00E9requis \u00E0 consolider, et les priorit\u00E9s d'apprentissage. Le r\u00E9sultat : un diagnostic personnalis\u00E9 qui sert de base \u00E0 votre programme.",
+    badge: "Analyse en temps r\u00E9el",
   },
   {
     num: "03",
@@ -38,9 +41,9 @@ const STEPS_FR = [
         <polygon points="26,6 32,22 48,22 35,32 39,48 26,38 13,48 17,32 4,22 20,22" fill="#7030A0" />
       </svg>
     ),
-    title: "Votre cours sur mesure est prêt",
-    desc: "MentivisOS Open mesure l'écart entre votre profil et votre objectif, puis génère la totalité de votre parcours d'apprentissage : modules, séquences, exercices, évaluations. Auto-adaptatif : le cours évolue avec vous.",
-    badge: "Généré en moins de 30 secondes",
+    title: "G\u00E9n\u00E9ration du programme et des contenus",
+    desc: "MentivisOS Open g\u00E9n\u00E8re la totalit\u00E9 de ton parcours : modules, s\u00E9quences, exercices, \u00E9valuations, contenus. Auto-adaptatif : le programme \u00E9volue avec votre progression. Pas un catalogue de cours existants \u2014 un programme cr\u00E9\u00E9 pour toi, maintenant.",
+    badge: "G\u00E9n\u00E9r\u00E9 en moins de 30 secondes",
   },
 ];
 
@@ -53,25 +56,28 @@ const STEPS_EN = [
         <path d="M8 46c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
-    title: "Create your account",
-    desc: "Sign up in 30 seconds with your email or Google. No credit card, no commitment. Free forever.",
-    detail: "Tell us your status in one sentence: student, working professional, career changer, curious learner, or other. This is not a CV — just your situation today.",
+    title: "You create your profile and your training goal",
+    desc: "Sign up in 30 seconds with your email or Google. Tell us your status (student, employee, career changer, curious) and phrase your goal in one sentence. No CV, no academic level. Just where you are and where you want to go.",
+    chips: [
+      "I want to learn digital marketing",
+      "I'm preparing a career change into data",
+      "I want to master ChatGPT",
+      "I'm preparing for an exam",
+      "I want to improve my management skills",
+    ],
   },
   {
     num: "02",
     icon: (
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden="true">
-        <circle cx="26" cy="26" r="16" stroke="#7030A0" strokeWidth="2.5" />
-        <circle cx="26" cy="26" r="5" fill="#7030A0" />
-        <line x1="26" y1="10" x2="26" y2="16" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="26" y1="36" x2="26" y2="42" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="10" y1="26" x2="16" y2="26" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="36" y1="26" x2="42" y2="26" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="26" cy="26" r="18" stroke="#7030A0" strokeWidth="2.5" />
+        <circle cx="22" cy="22" r="8" stroke="#7030A0" strokeWidth="2.5" />
+        <line x1="28" y1="28" x2="38" y2="38" stroke="#7030A0" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
-    title: "Tell us what you want to learn",
-    desc: "Type your goal in natural language. \"I want to learn digital marketing\", \"I'm preparing a career change into data\", \"I want to master ChatGPT for my work\". MentivisOS Open understands.",
-    chips: ["Digital marketing", "Artificial intelligence", "Web development", "Communication", "Personal finance", "Exam preparation", "Management", "And whatever you want..."],
+    title: "Gap analysis, missing skills, personalization",
+    desc: "MentivisOS Open analyzes the gap between your current profile and your goal. It identifies missing skills, prerequisites to consolidate, and learning priorities. The result: a personalized diagnosis that serves as the basis for your program.",
+    badge: "Real-time analysis",
   },
   {
     num: "03",
@@ -80,8 +86,8 @@ const STEPS_EN = [
         <polygon points="26,6 32,22 48,22 35,32 39,48 26,38 13,48 17,32 4,22 20,22" fill="#7030A0" />
       </svg>
     ),
-    title: "Your custom course is ready",
-    desc: "MentivisOS Open measures the gap between your profile and your goal, then generates your entire learning path: modules, sequences, exercises, assessments. Self-adaptive: the course evolves with you.",
+    title: "Program and content generation",
+    desc: "MentivisOS Open generates your entire path: modules, sequences, exercises, assessments, content. Self-adaptive: the program evolves with your progress. Not a catalog of existing courses \u2014 a program created for you, now.",
     badge: "Generated in under 30 seconds",
   },
 ];
