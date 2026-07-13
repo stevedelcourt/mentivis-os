@@ -229,11 +229,11 @@ function Chevron() {
           width: 44,
           height: 44,
           borderRadius: "50%",
-          background: "#f0f0f0",
+          background: "#7030A0",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#7030A0",
+          color: "#fff",
         }}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
