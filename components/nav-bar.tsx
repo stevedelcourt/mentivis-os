@@ -326,25 +326,25 @@ export default function NavBar({ lang }: NavBarProps) {
             <Link
               href={`/${lang}/demo`}
               className="btn-header-black hide-mobile"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "8px 16px",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#FFFFFF",
-                background: "#0A0A0A",
-                borderRadius: 8,
-                textDecoration: "none",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#222";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#0A0A0A";
-              }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "8px 16px",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: "#FFFFFF",
+                    background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+                    borderRadius: 8,
+                    textDecoration: "none",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.filter = "brightness(1.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.filter = "none";
+                  }}
             >
               Pro Démo
             </Link>
@@ -480,7 +480,7 @@ export default function NavBar({ lang }: NavBarProps) {
                 fontSize: 14,
                 fontWeight: 500,
                 color: "#FFFFFF",
-                background: "#0A0A0A",
+                background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
                 borderRadius: 12,
                 textDecoration: "none",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.12)",

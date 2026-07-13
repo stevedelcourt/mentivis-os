@@ -88,16 +88,16 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
               fontSize: 17,
               fontWeight: 500,
               color: "#fff",
-              background: "#0A0A0A",
+              background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
               borderRadius: 12,
               textDecoration: "none",
               transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#222";
+              e.currentTarget.style.filter = "brightness(1.15)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#0A0A0A";
+              e.currentTarget.style.filter = "none";
             }}
           >
             {c.cta}

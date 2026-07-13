@@ -194,7 +194,7 @@ function StepCard({ step, lang }: { step: (typeof STEPS_FR)[number]; lang: strin
           style={{
             display: "inline-flex",
             alignSelf: "flex-start",
-            background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+            background: "#0A0A0A",
             color: "#fff",
             fontSize: 11,
             fontWeight: 600,

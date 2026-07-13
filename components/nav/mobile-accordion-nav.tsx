@@ -159,7 +159,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
           style={{
             ...navStyle,
             color: "#fff",
-            background: "#0A0A0A",
+            background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
             borderRadius: 12,
             padding: "14px 20px",
             justifyContent: "center",
