@@ -12,7 +12,7 @@ const STEPS_FR = [
       </svg>
     ),
     title: "Vous cr\u00E9ez votre profil et votre objectif de formation",
-    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Indique votre statut (etudiant, salari\u00E9, en reconversion, curieux) et formule votre objectif en une phrase. Pas de CV, pas de niveau acad\u00E9mique. Juste ou tu en es et ou tu veux aller.",
+    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Indique votre statut (etudiant, salari\u00E9, en reconversion, curieux) et formule votre objectif en une phrase. Pas de CV, pas de niveau acad\u00E9mique. Juste o\u00F9 vous en \u00EAtes et o\u00F9 vous voulez aller.",
     chips: [
       "Je veux apprendre le marketing digital",
       "Je pr\u00E9pare une reconversion en data",
@@ -42,7 +42,7 @@ const STEPS_FR = [
       </svg>
     ),
     title: "G\u00E9n\u00E9ration du programme et des contenus",
-    desc: "MentivisOS Open g\u00E9n\u00E8re la totalit\u00E9 de ton parcours : modules, s\u00E9quences, exercices, \u00E9valuations, contenus. Auto-adaptatif : le programme \u00E9volue avec votre progression. Pas un catalogue de cours existants \u2014 un programme cr\u00E9\u00E9 pour toi, maintenant.",
+    desc: "MentivisOS Open g\u00E9n\u00E8re la totalit\u00E9 de votre parcours : modules, s\u00E9quences, exercices, \u00E9valuations, contenus. Auto-adaptatif : le programme \u00E9volue avec votre progression. Pas un catalogue de cours existants : un programme cr\u00E9\u00E9 pour vous, maintenant.",
     badge: "G\u00E9n\u00E9r\u00E9 en moins de 30 secondes",
   },
 ];
