@@ -1,39 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface OpenOSHeroProps {
   lang: Locale;
-  children?: React.ReactNode;
 }
 
-const GRADIENT = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)";
-
-const CONTENT: Record<string, { eyebrow: string; headlinePart2: string; headlinePart3: string; subheadline: string; cta: string; ctaLink: string; proof: string }> = {
-  fr: {
-    eyebrow: "MENTIVISOS OPEN",
-    headlinePart2: "Apprenez tout ce que vous voulez, gratuitement.",
-    headlinePart3: "",
-    subheadline: "La plateforme d'apprentissage native IA ouverte à tous. Que vous soyez étudiant, professionnel ou simplement curieux, Open MentivisOS est fait pour vous.",
-    cta: "C'est gratuit !",
-    ctaLink: "https://open.mentivisos.com",
-    proof: "Gratuit pour toujours. Apprenez toute votre vie.",
-  },
-  en: {
-    eyebrow: "MENTIVISOS OPEN",
-    headlinePart2: "Learn anything you want,",
-    headlinePart3: "for free.",
-    subheadline: "The native AI learning platform open to everyone. Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
-    cta: "It's free!",
-    ctaLink: "https://open.mentivisos.com",
-    proof: "Free forever. Learn for life.",
-  },
+const CTAS_FR = {
+  headline: "Votre cours sur mesure, généré par IA en 30 secondes. Gratuit.",
+  subheadline:
+    "MentivisOS Open analyse votre objectif, mesure vos écarts de compétences, et génère un parcours d'apprentissage complet adapté à votre profil. Pour tout le monde, pour tout sujet.",
+  cta: "Commencer gratuitement \u2192",
+  proof: "181+ apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
 };
 
-export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
-  const c = CONTENT[lang === "fr" ? "fr" : "en"];
+const CTAS_EN = {
+  headline: "Your custom course, AI-generated in 30 seconds. Free.",
+  subheadline:
+    "MentivisOS Open analyzes your goal, measures your skill gaps, and generates a complete learning path adapted to your profile. For everyone, on any topic.",
+  cta: "Start free \u2192",
+  proof: "181+ learners \u00B7 Free forever \u00B7 No credit card",
+};
+
+export default function OpenOSHero({ lang }: OpenOSHeroProps) {
+  const c = lang === "fr" ? CTAS_FR : CTAS_EN;
   const { ref, visible } = useVisible(0.01);
 
   return (
@@ -49,102 +40,79 @@ export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
       <div
         className="container"
         style={{
-          maxWidth: 1240,
+          maxWidth: 900,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
+          textAlign: "center",
         }}
       >
-        <div style={{ maxWidth: 720 }}>
-          {children}
-          <p
+        <h1
+          style={{
+            ...sectionAnim(visible, 0.1),
+            marginBottom: 20,
+            fontWeight: 300,
+            lineHeight: 1.1,
+            letterSpacing: "-0.03em",
+            fontSize: "clamp(32px, 5vw, 56px)",
+          }}
+        >
+          {c.headline}
+        </h1>
+        <p
+          style={{
+            ...sectionAnim(visible, 0.2),
+            margin: "0 auto 40px",
+            maxWidth: 680,
+            fontSize: 18,
+            lineHeight: 1.6,
+            color: "#4e4e4e",
+          }}
+        >
+          {c.subheadline}
+        </p>
+        <div
+          style={{
+            ...sectionAnim(visible, 0.3),
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <a
+            href="https://open.mentivisos.com/"
+            className="cta-open"
             style={{
-              ...sectionAnim(visible, 0),
-              marginBottom: 24,
-              color: "#4e4e4e",
-              textTransform: "uppercase",
-              letterSpacing: "0.14px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "16px 32px",
+              fontSize: 17,
               fontWeight: 500,
-              fontSize: 12,
+              color: "#fff",
+              background: "#0A0A0A",
+              borderRadius: 12,
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#222";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#0A0A0A";
             }}
           >
-            {c.eyebrow}
-          </p>
-          <h1
-            style={{
-              ...sectionAnim(visible, 0.1),
-              marginBottom: 20,
-              fontWeight: 300,
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              fontSize: "clamp(32px, 5vw, 56px)",
-            }}
-          >
-            <span
-              style={{
-                background: GRADIENT,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                display: "block",
-              }}
-            >
-              MentivisOS Open.
-            </span>
-            <span style={{ display: "block" }}>{c.headlinePart2}</span>
-            {c.headlinePart3 && <span style={{ display: "block" }}>{c.headlinePart3}</span>}
-          </h1>
-          <p
-            style={{
-              ...sectionAnim(visible, 0.2),
-              marginBottom: 40,
-              maxWidth: 560,
-              fontSize: 18,
-              lineHeight: 1.6,
-              color: "#4e4e4e",
-            }}
-          >
-            {c.subheadline}
-          </p>
-          <div
-            style={{
-              ...sectionAnim(visible, 0.3),
-              display: "flex",
-              gap: 12,
-              flexWrap: "wrap",
-            }}
-          >
-            <Link
-              href={c.ctaLink}
-              style={{
-                padding: "12px 20px",
-                fontSize: 15,
-                fontWeight: 500,
-                color: "#fff",
-                background: "#0A0A0A",
-                borderRadius: 8,
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              {c.cta}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </Link>
-          </div>
-          <p
-            style={{
-              ...sectionAnim(visible, 0.4),
-              marginTop: 32,
-              color: "#4e4e4e",
-              fontSize: 14,
-            }}
-          >
-            {c.proof}
-          </p>
+            {c.cta}
+          </a>
         </div>
+        <p
+          style={{
+            ...sectionAnim(visible, 0.4),
+            marginTop: 32,
+            color: "#888",
+            fontSize: 14,
+          }}
+        >
+          {c.proof}
+        </p>
       </div>
     </section>
   );

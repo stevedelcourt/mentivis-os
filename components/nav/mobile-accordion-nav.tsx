@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface MobileAccordionNavProps {
   t: any;
@@ -10,6 +11,8 @@ interface MobileAccordionNavProps {
 }
 
 export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordionNavProps) {
+  const pathname = usePathname();
+  const isOpenOS = pathname.startsWith(`/${lang}/openos`);
   const [entrepriseOpen, setEntrepriseOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
@@ -145,6 +148,26 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
       <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
         <span>{t.nav.tarifs}</span>
       </Link>
+      )}
+
+      {/* OpenOS CTA — only on /openos/ */}
+      {isOpenOS && (
+        <a
+          href="https://open.mentivisos.com/"
+          className="cta-open"
+          onClick={onClose}
+          style={{
+            ...navStyle,
+            color: "#fff",
+            background: "#0A0A0A",
+            borderRadius: 12,
+            padding: "14px 20px",
+            justifyContent: "center",
+            marginTop: 12,
+          }}
+        >
+          {lang === "fr" ? "Commencer gratuitement" : "Start free"}
+        </a>
       )}
     </>
   );

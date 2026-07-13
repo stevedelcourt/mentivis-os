@@ -1,75 +1,161 @@
 "use client";
 
-import Link from "next/link";
-import { Locale } from "@/lib/i18n";
+import Script from "next/script";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
-import SuperButton from "@/components/super-button";
-import EnviesSplitFlap from "@/components/envies-split-flap";
 import OpenOSHero from "./openos-hero";
+import OpenOSWorkflow from "./openos-workflow";
 import OpenOSPipeline from "./openos-pipeline";
 import OpenOSTestimonials from "./openos-testimonials";
 import OpenOSFAQ from "./openos-faq";
 
-function OpenOSCTA({ lang }: { lang: string }) {
+function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | "final" }) {
   const { ref, visible } = useVisible(0.05);
-  const gradient = "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)";
   const isFr = lang === "fr";
 
-  return (
-    <section ref={ref} style={{ background: "#ffffff", padding: "var(--section-gap) 0" }}>
-      <div className="container">
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: 24,
-            padding: "clamp(32px, 4vw, 48px) clamp(24px, 4vw, 44px)",
-          }}
-        >
-          <div
-            className="openos-cta-inner"
+  if (variant === "intermediate") {
+    return (
+      <section ref={ref} style={{ background: "#0A0A0A", padding: "clamp(80px, 10vw, 120px) 0" }}>
+        <div className="container" style={{ textAlign: "center" }}>
+          <h2
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 40,
+              ...sectionAnim(visible, 0),
+              color: "#fff",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 4vw, 44px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+              marginBottom: 32,
             }}
           >
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h2 className="t-display" style={{ ...sectionAnim(visible, 0), fontSize: "clamp(24px, 3.5vw, 40px)", marginBottom: 20, lineHeight: 1.2 }}>
-                <span style={{ background: gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>MentivisOS Open</span>
-                {" "}{isFr ? "est disponible maintenant." : "is available now."}
-              </h2>
-              <p style={{ ...sectionAnim(visible, 0.05), fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--text-secondary)", margin: 0 }}>
-                {isFr ? "Gratuit pour toujours. Prêt en trente secondes." : "Free forever. Ready in thirty seconds."}
-              </p>
-            </div>
-            <SuperButton href="https://open.mentivisos.com" />
+            {isFr ? "Votre parcours vous attend." : "Your path awaits."}
+          </h2>
+          <div style={{ ...sectionAnim(visible, 0.1) }}>
+            <a
+              href="https://open.mentivisos.com/"
+              className="cta-open"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "16px 32px",
+                fontSize: 17,
+                fontWeight: 500,
+                color: "#0A0A0A",
+                background: "#fff",
+                borderRadius: 12,
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#e5e5e5"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; }}
+            >
+              {isFr ? "Commencer gratuitement \u2192" : "Start free \u2192"}
+            </a>
           </div>
         </div>
-        <style>{`
-          @media (max-width: 768px) {
-            .openos-cta-inner {
-              flex-direction: column !important;
-              align-items: flex-start !important;
-              gap: 32px !important;
-            }
-          }
-        `}</style>
+      </section>
+    );
+  }
+
+  return (
+    <section ref={ref} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
+      <div className="container" style={{ textAlign: "center" }}>
+        <h2
+          style={{
+            ...sectionAnim(visible, 0),
+            fontWeight: 300,
+            fontSize: "clamp(32px, 5vw, 48px)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.02em",
+            marginBottom: 12,
+          }}
+        >
+          {isFr ? "Prêt à commencer ?" : "Ready to start?"}
+        </h2>
+        <p
+          style={{
+            ...sectionAnim(visible, 0.05),
+            fontSize: 18,
+            color: "#4e4e4e",
+            marginBottom: 40,
+          }}
+        >
+          {isFr ? "Votre parcours sur mesure en 30 secondes. Gratuit." : "Your custom path in 30 seconds. Free."}
+        </p>
+        <div style={{ ...sectionAnim(visible, 0.1) }}>
+          <a
+            href="https://open.mentivisos.com/"
+            className="cta-open"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "16px 32px",
+              fontSize: 17,
+              fontWeight: 500,
+              color: "#fff",
+              background: "#0A0A0A",
+              borderRadius: 12,
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#222"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#0A0A0A"; }}
+          >
+            {isFr ? "Commencer gratuitement \u2192" : "Start free \u2192"}
+          </a>
+        </div>
+        <p
+          style={{
+            ...sectionAnim(visible, 0.15),
+            marginTop: 24,
+            fontSize: 13,
+            color: "#888",
+          }}
+        >
+          {isFr
+            ? "Sans inscription compliquée \u00B7 Sans carte bancaire \u00B7 Gratuit pour toujours"
+            : "No complicated signup \u00B7 No credit card \u00B7 Free forever"}
+        </p>
       </div>
     </section>
   );
 }
 
-export default function OpenOSPageClient({ lang }: { lang: Locale }) {
+export default function OpenOSPageClient({ lang }: { lang: string }) {
   return (
     <>
-      <OpenOSHero lang={lang}>
-        <EnviesSplitFlap />
-      </OpenOSHero>
-      <OpenOSPipeline lang={lang} />
+      <Script
+        id="build-open-url"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              function buildOpenURL() {
+                var base = 'https://open.mentivisos.com/';
+                var params = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+                var query = [];
+                params.forEach(function(p) {
+                  var val = new URLSearchParams(window.location.search).get(p)
+                         || localStorage.getItem(p);
+                  if (val) query.push(p + '=' + encodeURIComponent(val));
+                });
+                return base + (query.length ? '?' + query.join('&') : '');
+              }
+              document.querySelectorAll('.cta-open').forEach(function(btn) {
+                btn.href = buildOpenURL();
+              });
+            })();
+          `,
+        }}
+      />
+      <OpenOSHero lang={lang as any} />
+      <OpenOSWorkflow lang={lang} />
+      <OpenOSCTA lang={lang} variant="intermediate" />
       <OpenOSTestimonials lang={lang} />
+      <OpenOSPipeline lang={lang} />
       <OpenOSFAQ lang={lang} />
-      <OpenOSCTA lang={lang} />
+      <OpenOSCTA lang={lang} variant="final" />
     </>
   );
 }

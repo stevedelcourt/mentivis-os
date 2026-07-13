@@ -7,10 +7,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "Open - MentivisOS" : "Open - MentivisOS",
+    title: isFr ? "MentivisOS Open — Votre cours sur mesure, gratuit." : "MentivisOS Open — Your custom course, free.",
     description: isFr
-      ? "La plateforme d'apprentissage libre, gratuite et ouverte à tous."
-      : "The free, open learning platform for everyone.",
+      ? "Générez votre parcours d'apprentissage personnalisé en 30 secondes. Gratuit pour toujours. Par IA, pour tout sujet."
+      : "Generate your personalized learning path in 30 seconds. Free forever. AI-powered, for any topic.",
   };
 }
 
@@ -28,8 +28,8 @@ export default async function OpenOSPage({ params }: { params: Promise<{ lang: s
             name: "MentivisOS Open",
             applicationCategory: "EducationalApplication",
             description: lang === "fr"
-              ? "Plateforme d'apprentissage libre et gratuite pour tous."
-              : "Free and open learning platform for everyone.",
+              ? "Générez votre parcours d'apprentissage personnalisé en 30 secondes. Gratuit pour toujours."
+              : "Generate your personalized learning path in 30 seconds. Free forever.",
             url: `${SITE_URL}/${lang}/openos`,
           }),
         }}

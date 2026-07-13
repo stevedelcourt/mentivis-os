@@ -5,55 +5,31 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const FAQS_FR = [
   {
-    question: "C'est vraiment gratuit ? Pas de carte bancaire demandée ?",
-    answer: "Oui, gratuit pour toujours. Aucune carte bancaire n'est demandée, aucun essai limité dans le temps, aucune conversion forcée vers une offre payante. MentivisOS Open est conçu pour rester accessible à tous.",
+    question: "C'est vraiment gratuit ?",
+    answer: "Oui. MentivisOS Open est gratuit pour toujours. Pas de freemium, pas de carte bancaire, pas de limite de parcours.",
   },
   {
-    question: "Faut-il un diplôme ou un niveau minimum pour commencer ?",
-    answer: "Aucun prérequis. Que tu aies le bac, aucun diplôme, ou un doctorat, le parcours s'adapte à ton niveau dès les premières minutes. L'IA calibre le contenu en fonction de ce que tu sais déjà.",
+    question: "Ça marche pour quel type de sujet ?",
+    answer: "Tout. Marketing, IA, code, langues, finance, préparation d'examen, reconversion professionnelle, curiosité personnelle. Si vous pouvez le formuler en une phrase, MentivisOS Open peut générer votre cours.",
   },
   {
-    question: "Par où commencer si je ne sais pas ce que je veux apprendre ?",
-    answer: "Il suffit de décrire une envie, une question ou une situation. L'IA te propose un point de départ. Tu peux tester plusieurs domaines, changer de direction à tout moment, sans avoir à recommencer de zéro.",
-  },
-  {
-    question: "Combien de temps faut-il y consacrer ?",
-    answer: "Aucune durée imposée. Certains progressent en dix minutes par jour, d'autres en sessions longues le week-end. La plateforme s'adapte à ton rythme, sans pression de complétion ni délai d'expiration.",
-  },
-  {
-    question: "Mes données d'apprentissage sont-elles confidentielles ?",
-    answer: "Tes parcours, résultats et préférences restent privés. Ils ne sont ni revendus, ni partagés avec des employeurs ou des tiers. Ils servent uniquement à personnaliser ton expérience.",
-  },
-  {
-    question: "Quelle est la différence avec la version professionnelle ?",
-    answer: "Open donne accès à l'ensemble des parcours d'apprentissage générés par IA. Les versions professionnelles ajoutent le pilotage collectif, le reporting RH, les intégrations SIRH, et le déploiement multi-sites pour les organisations.",
+    question: "C'est différent d'un MOOC ?",
+    answer: "Un MOOC est un cours fixe que vous suivez. MentivisOS Open génère votre cours sur mesure selon votre profil et votre objectif. C'est adaptatif, pas générique.",
   },
 ];
 
 const FAQS_EN = [
   {
-    question: "Is it really free? No credit card required?",
-    answer: "Yes, free forever. No credit card required, no time-limited trial, no forced conversion to a paid plan. MentivisOS Open is designed to remain accessible to everyone.",
+    question: "Is it really free?",
+    answer: "Yes. MentivisOS Open is free forever. No freemium, no credit card, no path limits.",
   },
   {
-    question: "Do I need a diploma or minimum level to start?",
-    answer: "No prerequisites. Whether you have a high school diploma, no diploma, or a PhD, the path adapts to your level from the first minutes. AI calibrates content based on what you already know.",
+    question: "What kind of topics does it work for?",
+    answer: "Anything. Marketing, AI, code, languages, finance, exam prep, career change, personal curiosity. If you can phrase it in one sentence, MentivisOS Open can generate your course.",
   },
   {
-    question: "Where do I start if I don't know what I want to learn?",
-    answer: "Just describe a desire, a question or a situation. The AI proposes a starting point. You can explore multiple fields, change direction at any time, without starting from scratch.",
-  },
-  {
-    question: "How much time do I need to dedicate?",
-    answer: "No imposed duration. Some progress in ten minutes a day, others in long weekend sessions. The platform adapts to your pace, with no completion pressure or expiration deadline.",
-  },
-  {
-    question: "Are my learning data confidential?",
-    answer: "Your paths, results and preferences remain private. They are not sold, shared with employers or third parties. They only serve to personalize your experience.",
-  },
-  {
-    question: "What's the difference with the professional version?",
-    answer: "Open gives access to all AI-generated learning paths. Professional versions add collective management, HR reporting, HRIS integrations, and multi-site deployment for organizations.",
+    question: "How is it different from a MOOC?",
+    answer: "A MOOC is a fixed course that you follow. MentivisOS Open generates your custom course based on your profile and goal. It's adaptive, not generic.",
   },
 ];
 
@@ -88,19 +64,18 @@ export default function OpenOSFAQ({ lang }: { lang: string }) {
         >
           <div className="o-faq-intro">
             <p
-              className="t-caption"
               style={{
                 marginBottom: "1.75rem",
                 color: "var(--text-tertiary)",
                 fontWeight: 500,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
+                fontSize: 11,
               }}
             >
               FAQ
             </p>
             <h2
-              className="t-display"
               style={{
                 fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 300,
@@ -110,11 +85,10 @@ export default function OpenOSFAQ({ lang }: { lang: string }) {
               }}
             >
               {lang === "fr"
-                ? "Tout ce qu'il faut savoir avant de commencer."
-                : "Everything you need to know before starting."}
+                ? "Vous avez une question ?"
+                : "Have a question?"}
             </h2>
             <p
-              className="t-lead"
               style={{
                 fontSize: "0.9375rem",
                 lineHeight: 1.65,
@@ -124,8 +98,8 @@ export default function OpenOSFAQ({ lang }: { lang: string }) {
               }}
             >
               {lang === "fr"
-                ? "Des questions sur MentivisOS Open ? Les réponses sont ici."
-                : "Questions about MentivisOS Open? Answers are here."}
+                ? "Les réponses aux questions les plus fréquentes."
+                : "Answers to the most frequently asked questions."}
             </p>
           </div>
 
@@ -246,7 +220,7 @@ export default function OpenOSFAQ({ lang }: { lang: string }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media (max-width: 950px) {
           .o-faq-grid {
             grid-template-columns: 1fr !important;

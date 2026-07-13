@@ -115,6 +115,7 @@ export default function NavBar({ lang }: NavBarProps) {
   }, []);
 
   const isActive = (path: string) => pathname.startsWith(`/${lang}${path}`);
+  const isOpenOS = isActive("/openos");
 
   return (
     <>
@@ -347,6 +348,35 @@ export default function NavBar({ lang }: NavBarProps) {
               Pro Démo
             </Link>
 
+            {/* OpenOS CTA — only on /openos/ */}
+            {isOpenOS && (
+              <a
+                href="https://open.mentivisos.com/"
+                className="cta-open"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "8px 16px",
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: "#FFFFFF",
+                  background: "#0A0A0A",
+                  borderRadius: 8,
+                  textDecoration: "none",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#222";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#0A0A0A";
+                }}
+              >
+                {lang === "fr" ? "Commencer gratuitement" : "Start free"}
+              </a>
+            )}
+
             {/* Language switcher */}
             <Link
               href={pathname.replace(/^\/(fr|en)/, `/${lang === "fr" ? "en" : "fr"}`)}
@@ -433,6 +463,30 @@ export default function NavBar({ lang }: NavBarProps) {
           background: "#ffffff",
           borderTop: "1px solid rgba(0,0,0,0.06)",
         }}>
+          {isOpenOS && (
+            <a
+              href="https://open.mentivisos.com/"
+              className="cta-open"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 6,
+                padding: "12px 20px",
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#FFFFFF",
+                background: "#0A0A0A",
+                borderRadius: 12,
+                textDecoration: "none",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+              }}
+            >
+              {lang === "fr" ? "Commencer gratuitement" : "Start free"}
+            </a>
+          )}
           <Link
             href={`/${lang}/contact`}
             onClick={() => setMobileOpen(false)}
