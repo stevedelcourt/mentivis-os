@@ -151,8 +151,9 @@ export default function OpenOSPageClient({ lang }: { lang: string }) {
           `,
         }}
       />
-      <EnviesSplitFlap />
-      <OpenOSHero lang={lang as any} />
+      <OpenOSHero lang={lang as any}>
+        <EnviesSplitFlap />
+      </OpenOSHero>
       <OpenOSWorkflow lang={lang} />
       <OpenOSCTA lang={lang} variant="intermediate" />
       <OpenOSTestimonials lang={lang} />

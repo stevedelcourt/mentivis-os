@@ -5,6 +5,7 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface OpenOSHeroProps {
   lang: Locale;
+  children?: React.ReactNode;
 }
 
 const CTAS_FR = {
@@ -25,7 +26,7 @@ const CTAS_EN = {
   proof: "181+ learners \u00B7 Free forever \u00B7 No credit card",
 };
 
-export default function OpenOSHero({ lang }: OpenOSHeroProps) {
+export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
   const c = lang === "fr" ? CTAS_FR : CTAS_EN;
   const { ref, visible } = useVisible(0.01);
 
@@ -51,6 +52,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
         }}
       >
         <div style={{ maxWidth: 720, flex: 1, minWidth: 0 }}>
+        <div style={{ marginBottom: 32, textAlign: "left" }}>{children}</div>
         <h1
           style={{
             ...sectionAnim(visible, 0.1),
