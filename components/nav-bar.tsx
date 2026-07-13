@@ -322,6 +322,7 @@ export default function NavBar({ lang }: NavBarProps) {
               {t.nav.contact}
             </Link>
 
+            {!isOpenOS && (
             <Link
               href={`/${lang}/demo`}
               className="btn-header-black hide-mobile"
@@ -347,6 +348,7 @@ export default function NavBar({ lang }: NavBarProps) {
             >
               Pro Démo
             </Link>
+            )}
 
             {/* OpenOS CTA — only on /openos/ */}
             {isOpenOS && (
@@ -509,6 +511,7 @@ export default function NavBar({ lang }: NavBarProps) {
           >
             {t.nav.contact}
           </Link>
+          {!isOpenOS && (
           <Link
             href={`/${lang}/demo`}
             onClick={() => setMobileOpen(false)}
@@ -530,6 +533,7 @@ export default function NavBar({ lang }: NavBarProps) {
           >
             Pro Démo
           </Link>
+          )}
         </div>
       </div>
 

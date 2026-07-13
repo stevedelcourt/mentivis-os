@@ -40,12 +40,12 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
       <div
         className="container"
         style={{
-          maxWidth: 900,
+          maxWidth: 1240,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
-          textAlign: "center",
         }}
       >
+        <div style={{ maxWidth: 720 }}>
         <h1
           style={{
             ...sectionAnim(visible, 0.1),
@@ -61,7 +61,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
         <p
           style={{
             ...sectionAnim(visible, 0.2),
-            margin: "0 auto 40px",
+            margin: "0 0 40px",
             maxWidth: 680,
             fontSize: 18,
             lineHeight: 1.6,
@@ -74,7 +74,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
           style={{
             ...sectionAnim(visible, 0.3),
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }}
         >
           <a
@@ -113,6 +113,7 @@ export default function OpenOSHero({ lang }: OpenOSHeroProps) {
         >
           {c.proof}
         </p>
+        </div>
       </div>
     </section>
   );
