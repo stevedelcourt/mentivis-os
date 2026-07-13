@@ -89,7 +89,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 const PRODUITS_PATH: Record<string, string> = { "MentivisOS Open": "/openos", "MentivisOS Entreprise": "/entreprises", "MentivisOS Education": "/education" };
                 const path = PRODUITS_PATH[link] || "/entreprises";
                 return (
-                <li key={link} style={{ marginBottom: 8 }}>
+                <li key={link} style={{ marginBottom: 8, whiteSpace: "nowrap" }}>
                   <Link
                     href={`/${lang}${path}`}
                     className="footer-link t-caption"
