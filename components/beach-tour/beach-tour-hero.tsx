@@ -90,7 +90,7 @@ export default function BeachTourHero({ lang }: { lang: string }) {
         </div>
 
         <img
-          src="/images/beach-tour.webp"
+          src="/images/summer-sq.webp"
           alt=""
           style={{
             width: "clamp(200px, 28vw, 380px)",
