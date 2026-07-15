@@ -69,7 +69,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 color: "#99219b",
               }}
             >
-              Offre \u00C9t\u00E9 2026
+              {"Offre \u00C9t\u00E9 2026"}
             </p>
             <h1
               style={{
@@ -345,7 +345,11 @@ export default function SummerPage({ lang }: { lang: string }) {
           </p>
 
           <div className="summer-contact-row" style={{ ...sectionAnim(ctaVis, 0.1), display: "flex", alignItems: "center", gap: "clamp(32px, 5vw, 64px)", justifyContent: "center" }}>
-            <img
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
+              <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1A1A18", textAlign: "center" }}>
+                {"Mathias Costes, Partner MentivisOS"}
+              </p>
+              <img
               src="/images/team/mathias-costes.avif"
               alt="Mathias Costes"
               style={{

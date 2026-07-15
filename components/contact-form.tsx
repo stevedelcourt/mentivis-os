@@ -100,7 +100,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
           {/* Row 3: Email */}
           {formContext === "summer26" ? (
             <div style={{ marginBottom: 24 }}>
-              <FormField label={t.demo.form.email} name="email" type="email" required autoComplete="email" />
+              <FormField label="Email" name="email" type="email" required autoComplete="email" />
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
@@ -173,7 +173,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
               gap: 6,
             }}
           >
-            {status === "loading" ? "..." : (isContact ? (t.contact?.form?.submit || "Envoyer") : t.demo.form.submit)}
+            {status === "loading" ? "..." : (isContact ? (t.contact?.form?.submit || "Envoyer") : formContext === "summer26" ? "Mathias vous r\u00E9pond en 24H !" : t.demo.form.submit)}
             {status !== "loading" && (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
