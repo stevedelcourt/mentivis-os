@@ -31,42 +31,30 @@ export default function NotFoundContent({ lang }: { lang: string }) {
         404
       </h1>
 
-      <svg
-        width="120"
-        height="120"
-        viewBox="0 0 120 120"
-        style={{ display: "block", marginBottom: "2.5rem" }}
+      <div
+        style={{
+          position: "relative",
+          width: 120,
+          height: 120,
+          marginBottom: "2.5rem",
+        }}
       >
         {[0, 0.8, 1.6].map((delay, i) => (
-          <circle
+          <div
             key={i}
-            cx="60"
-            cy="60"
-            r="4"
-            fill="none"
-            stroke="#1a1a1a"
-            strokeWidth="2"
-          >
-            <animate
-              attributeName="r"
-              values="4;60"
-              dur="2.4s"
-              begin={`${delay}s`}
-              repeatCount="indefinite"
-              calcMode="spline"
-              keySplines="0.16 1 0.3 1"
-              keyTimes="0;1"
-            />
-            <animate
-              attributeName="opacity"
-              values="0.7;0"
-              dur="2.4s"
-              begin={`${delay}s`}
-              repeatCount="indefinite"
-            />
-          </circle>
+            style={{
+              position: "absolute",
+              inset: 0,
+              margin: "auto",
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              border: "2px solid #1a1a1a",
+              animation: `ring-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s infinite`,
+            }}
+          />
         ))}
-      </svg>
+      </div>
 
       <p
         style={{
@@ -80,6 +68,13 @@ export default function NotFoundContent({ lang }: { lang: string }) {
       >
         {phrase}
       </p>
+
+      <style>{`
+        @keyframes ring-pulse {
+          0% { transform: scale(0.3); opacity: 0.7; }
+          100% { transform: scale(3); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
