@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { useState } from "react";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const S = (s: string) => ({ __html: s });
@@ -32,6 +33,140 @@ function CtaBtn({ href, children, dark }: { href: string; children: React.ReactN
     >
       {children}
     </a>
+  );
+}
+
+function LightContactForm({ lang }: { lang: string }) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    try {
+      const res = await fetch("/api/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) setStatus("success");
+      else setStatus("error");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <p style={{ fontSize: 18, fontWeight: 600, color: "#631A96", marginBottom: 8 }}>
+          Merci de votre int\u00E9r\u00eat.
+        </p>
+        <p style={{ fontSize: 14, color: "#666", lineHeight: 1.6, margin: 0 }}>
+          {"Notre \u00E9quipe vous recontactera sous 24h ouvr\u00E9es pour \u00E9changer sur votre projet."}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} autoComplete="on" style={{ width: "100%", maxWidth: 400 }}>
+      <div style={{ marginBottom: 16 }}>
+        <label htmlFor="light-email" style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#1A1A18", marginBottom: 6 }}>
+          Email professionnel
+        </label>
+        <input
+          id="light-email"
+          type="email"
+          name="email"
+          required
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          autoComplete="email"
+          placeholder="vous@organisation.fr"
+          style={{
+            width: "100%",
+            padding: "12px 16px",
+            border: "1px solid #ddd",
+            borderRadius: 12,
+            fontFamily: "var(--font-sans, Inter, sans-serif)",
+            fontSize: 15,
+            background: "#fff",
+            color: "#1A1A18",
+            boxSizing: "border-box",
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label htmlFor="light-message" style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#1A1A18", marginBottom: 6 }}>
+          Votre message
+        </label>
+        <textarea
+          id="light-message"
+          name="objective"
+          required
+          maxLength={500}
+          rows={3}
+          placeholder="Parlez-nous de votre projet..."
+          style={{
+            width: "100%",
+            padding: "12px 16px",
+            border: "1px solid #ddd",
+            borderRadius: 12,
+            fontFamily: "var(--font-sans, Inter, sans-serif)",
+            fontSize: 15,
+            background: "#fff",
+            color: "#1A1A18",
+            resize: "vertical",
+            boxSizing: "border-box",
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+          <input type="checkbox" name="consent" value="yes" required style={{ marginTop: 2 }} />
+          <span style={{ fontSize: 12, lineHeight: 1.5, color: "#999" }}>
+            {"Je consens au traitement de mes donn\u00E9es personnelles."}
+          </span>
+        </label>
+      </div>
+
+      <input type="hidden" name="formType" value="demo" />
+      <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
+
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        style={{
+          width: "100%",
+          padding: "14px 32px",
+          fontSize: 15,
+          fontWeight: 600,
+          color: "#fff",
+          background: status === "loading" ? "#ccc" : "#99219b",
+          border: "none",
+          borderRadius: 12,
+          cursor: status === "loading" ? "not-allowed" : "pointer",
+          transition: "all 0.2s ease",
+          boxShadow: "0 4px 16px rgba(153,33,155,0.3)",
+        }}
+        onMouseEnter={e => { if (status !== "loading") e.currentTarget.style.filter = "brightness(1.1)"; }}
+        onMouseLeave={e => { e.currentTarget.style.filter = "none"; }}
+      >
+        {status === "loading" ? "..." : "Envoyer la demande"}
+      </button>
+
+      {status === "error" && (
+        <p style={{ fontSize: 13, color: "#c62828", marginTop: 12, textAlign: "center" }}>
+          Une erreur est survenue. Veuillez r\u00E9essayer.
+        </p>
+      )}
+    </form>
   );
 }
 
@@ -322,41 +457,38 @@ export default function SummerPage({ lang }: { lang: string }) {
         </div>
       </section>
 
-      <section ref={ctaRef} style={{ background: "linear-gradient(135deg, #631A96, #99219b, #FF6B35)", padding: "clamp(64px, 8vw, 96px) 0" }}>
-        <div className="container" style={{ maxWidth: 640, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", textAlign: "center" }}>
-          <h2 style={{ ...sectionAnim(ctaVis, 0.1), margin: "0 0 12px", fontWeight: 300, fontSize: "clamp(28px, 4vw, 42px)", lineHeight: 1.1, letterSpacing: "-0.025em", color: "#fff" }}>
+      <section ref={ctaRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
+        <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <h2 style={{ ...sectionAnim(ctaVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", textAlign: "center", marginBottom: 8, color: "#1A1A18" }}>
             {"Parlons de votre rentr\u00E9e."}
           </h2>
-          <p style={{ ...sectionAnim(ctaVis, 0.15), margin: "0 0 32px", fontSize: 16, color: "rgba(255,255,255,0.85)", lineHeight: 1.6, maxWidth: 480 }}>
-            {"Construisons ensemble le dispositif adapt\u00E9 \u00E0 vos besoins. Vous profitez de l\u2019offre estivale avant le 31 ao\u00FBt."}
+          <p style={{ ...sectionAnim(ctaVis, 0.05), textAlign: "center", color: "#888", fontSize: 16, marginBottom: 48, maxWidth: 500, marginLeft: "auto", marginRight: "auto" }}>
+            {"Construisons ensemble le dispositif adapt\u00E9 \u00E0 vos besoins. Profitez de l\u2019offre estivale avant le 31 ao\u00FBt."}
           </p>
-          <div style={{ ...sectionAnim(ctaVis, 0.2) }}>
-            <a
-              href="https://mentivisos.com/fr/demo/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026"
-              className="cta-summer"
-              target="_blank"
-              rel="noopener noreferrer"
+
+          <div className="summer-contact-row" style={{ ...sectionAnim(ctaVis, 0.1), display: "flex", alignItems: "center", gap: "clamp(32px, 5vw, 64px)", justifyContent: "center" }}>
+            <img
+              src="/images/team/mathias-costes.avif"
+              alt="Mathias Costes"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "16px 40px",
-                fontSize: 16,
-                fontWeight: 600,
-                color: "#1A1A18",
-                background: "#fff",
-                borderRadius: 12,
-                textDecoration: "none",
-                letterSpacing: "-0.01em",
-                transition: "all 0.2s ease",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+                width: "clamp(120px, 18vw, 200px)",
+                height: "clamp(120px, 18vw, 200px)",
+                borderRadius: "50%",
+                objectFit: "cover",
+                flexShrink: 0,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#F0E0F0"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}
-            >
-              {"R\u00E9server un \u00E9change \u2192"}
-            </a>
+            />
+            <LightContactForm lang={lang} />
           </div>
+          <style>{`
+            @media (max-width: 768px) {
+              .summer-contact-row {
+                flex-direction: column !important;
+                text-align: center;
+              }
+            }
+          `}</style>
         </div>
       </section>
     </>
