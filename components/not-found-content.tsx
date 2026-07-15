@@ -42,15 +42,29 @@ export default function NotFoundContent({ lang }: { lang: string }) {
             key={i}
             cx="60"
             cy="60"
-            r="12"
+            r="4"
             fill="none"
             stroke="#1a1a1a"
             strokeWidth="2"
-            className="ring"
-            style={{
-              animation: `ring-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s infinite`,
-            }}
-          />
+          >
+            <animate
+              attributeName="r"
+              values="4;60"
+              dur="2.4s"
+              begin={`${delay}s`}
+              repeatCount="indefinite"
+              calcMode="spline"
+              keySplines="0.16 1 0.3 1"
+              keyTimes="0;1"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.7;0"
+              dur="2.4s"
+              begin={`${delay}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
         ))}
       </svg>
 
@@ -66,14 +80,6 @@ export default function NotFoundContent({ lang }: { lang: string }) {
       >
         {phrase}
       </p>
-
-      <style>{`
-        @keyframes ring-pulse {
-          0% { transform: scale(0.3); opacity: 0.7; }
-          100% { transform: scale(3); opacity: 0; }
-        }
-        .ring { transform-origin: 60px 60px; }
-      `}</style>
     </section>
   );
 }
