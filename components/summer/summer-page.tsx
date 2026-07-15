@@ -225,23 +225,35 @@ export default function SummerPage({ lang }: { lang: string }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
             {[
               {
-                emoji: "\u26F5",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2v10" /><path d="M12 12l-6 4h12l-6-4z" /><path d="M4 18c0 2 2 4 8 4s8-2 8-4" /><path d="M8 18v2" /><path d="M16 18v2" />
+                  </svg>
+                ),
                 title: "Un temps mort strat\u00E9gique",
                 text: "L\u2019activit\u00E9 ralentit, vos \u00E9quipes ont de la disponibilit\u00E9. C\u2019est le moment id\u00E9al pour d\u00E9ployer sans perturber le quotidien.",
               },
               {
-                emoji: "\uD83D\uDE80",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 22h16" /><path d="M12 2v10" /><path d="M6.5 12.5c-1-1-2-2.5-2-4.5 0-3 4-6 7.5-6s7.5 3 7.5 6c0 2-.5 3.5-2 4.5" /><path d="M12 12l-2.5 3.5" /><path d="M12 12l2.5 3.5" /><path d="M9.5 17.5c0 1.5 1 2.5 2.5 2.5s2.5-1 2.5-2.5" />
+                  </svg>
+                ),
                 title: "Pr\u00EAt pour la rentr\u00E9e",
                 text: "Arrivez en septembre avec une plateforme op\u00E9rationnelle, des parcours configur\u00E9s et des \u00E9quipes d\u00E9j\u00E0 form\u00E9es \u00E0 l\u2019outil.",
               },
               {
-                emoji: "\uD83C\uDF89",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 3l3 18h3l1-9 6 6 3-1-5-5 2-4-4-2-5 5-9-1z" /><path d="M16 8l4-4" /><path d="M19 6l2-2" />
+                  </svg>
+                ),
                 title: "Une offre exceptionnelle",
                 text: "50% sur le d\u00E9ploiement et 3 mois offerts. Une opportunit\u00E9 unique pour \u00E9quiper votre organisation sans d\u00E9passer le budget.",
               },
             ].map((item, i) => (
               <div key={i} style={{ ...sectionAnim(whyVis, 0.1 + i * 0.08), textAlign: "center" }}>
-                <div style={{ fontSize: 40, marginBottom: 16, lineHeight: 1 }}>{item.emoji}</div>
+                <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>{item.icon}</div>
                 <h3 style={{ fontSize: 17, fontWeight: 500, lineHeight: 1.3, marginBottom: 10, color: "#1a1a1a" }}>
                   {item.title}
                 </h3>
