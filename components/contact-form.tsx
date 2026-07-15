@@ -85,17 +85,29 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
             <FormField label={t.demo.form.lastName} name="lastname" required autoComplete="family-name" />
           </div>
 
-          {/* Row 2: Organisation + Nom */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label={t.demo.form.organization} name="organization" required={formContext !== "summer26"} autoComplete="organization" />
-            <FormField label="Nom" name="name" autoComplete="name" />
-          </div>
+          {/* Row 2: Organisation */}
+          {formContext === "summer26" ? (
+            <div style={{ marginBottom: 24 }}>
+              <FormField label={t.demo.form.organization} name="organization" autoComplete="organization" />
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+              <FormField label={t.demo.form.organization} name="organization" required autoComplete="organization" />
+              <FormField label="Nom" name="name" autoComplete="name" />
+            </div>
+          )}
 
-          {/* Row 3: Email + Téléphone */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label={t.demo.form.email} name="email" type="email" required autoComplete="email" />
-            <FormField label={t.demo.form.phone} name="phone" type="tel" autoComplete="tel" />
-          </div>
+          {/* Row 3: Email */}
+          {formContext === "summer26" ? (
+            <div style={{ marginBottom: 24 }}>
+              <FormField label={t.demo.form.email} name="email" type="email" required autoComplete="email" />
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+              <FormField label={t.demo.form.email} name="email" type="email" required autoComplete="email" />
+              <FormField label={t.demo.form.phone} name="phone" type="tel" autoComplete="tel" />
+            </div>
+          )}
 
           {/* Row 4: Message / Demande */}
           <div style={{ marginBottom: 24 }}>
