@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
-import DemoFormCustom from "@/components/demo-form-custom";
+import ContactForm from "@/components/contact-form";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -48,7 +48,7 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             className="demo-image"
             style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
-          <DemoFormCustom lang={lang as Locale} />
+          <ContactForm lang={lang as Locale} mode="demo" />
         </div>
       </section>
       <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } .demo-form-layout > section > .container { max-width: none !important; } }`}</style>

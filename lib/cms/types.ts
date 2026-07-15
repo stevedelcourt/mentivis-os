@@ -100,7 +100,7 @@ export interface SeoContent {
 
 export interface FormSubmission {
   id: number;
-  formType: "demo" | "contact" | "beta" | "demo-custom";
+  formType: "demo" | "contact" | "beta";
   data: Record<string, string | boolean | number | null>;
   email: string;
   createdAt: string;
