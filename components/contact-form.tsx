@@ -100,7 +100,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
           {/* Row 4: Message / Demande */}
           <div style={{ marginBottom: 24 }}>
             <label htmlFor="objective" className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-              {isContact ? "Message" : "Votre message"}
+              {isContact || formContext === "summer26" ? "Message" : "Votre message"}
             </label>
             <textarea
               id="objective"
