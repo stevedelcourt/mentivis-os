@@ -29,6 +29,15 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             : "In just a few days, our teams configure MentivisOS around a concrete case from your context.",
         }}
       />
+      <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <div className="container" style={{ maxWidth: 800, margin: "0 auto", padding: "0 0 48px" }}>
+          <p style={{ fontSize: 15, lineHeight: 1.8, color: "#555", margin: 0 }}>
+            {"Parlons de votre rentr\u00E9e."}<br />
+            {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
+            {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
+          </p>
+        </div>
+      </section>
       <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px)" }}>
         <div style={{ maxWidth: 1240, margin: "0 auto", display: "grid", gap: 48, alignItems: "start" }} className="demo-form-layout">
           <Image
