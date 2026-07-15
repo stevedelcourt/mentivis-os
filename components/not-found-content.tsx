@@ -34,8 +34,8 @@ export default function NotFoundContent({ lang }: { lang: string }) {
       <div
         style={{
           position: "relative",
-          width: 120,
-          height: 120,
+          width: 400,
+          height: 400,
           marginBottom: "2.5rem",
         }}
       >
@@ -46,8 +46,8 @@ export default function NotFoundContent({ lang }: { lang: string }) {
               position: "absolute",
               inset: 0,
               margin: "auto",
-              width: 8,
-              height: 8,
+              width: 40,
+              height: 40,
               borderRadius: "50%",
               border: "2px solid #1a1a1a",
               animation: `ring-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s infinite`,
@@ -72,7 +72,7 @@ export default function NotFoundContent({ lang }: { lang: string }) {
       <style>{`
         @keyframes ring-pulse {
           0% { transform: scale(0.3); opacity: 0.7; }
-          100% { transform: scale(3); opacity: 0; }
+          100% { transform: scale(9); opacity: 0; }
         }
       `}</style>
     </section>
