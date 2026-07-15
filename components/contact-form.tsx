@@ -9,13 +9,15 @@ export type ContactFormMode = "contact" | "demo";
 interface ContactFormProps {
   lang: Locale;
   mode?: ContactFormMode;
+  formContext?: string;
+  subject?: string;
 }
 
-export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
+export default function ContactForm({ lang, mode = "demo", formContext, subject: subjectProp }: ContactFormProps) {
   const t = getT(lang);
   const isContact = mode === "contact";
   const searchParams = useSearchParams();
-  const subjectParam = searchParams.get("subject");
+  const subjectParam = subjectProp || searchParams.get("subject");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,8 +32,17 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (res.ok) setStatus("success");
-      else setStatus("error");
+      if (res.ok) {
+        setStatus("success");
+        if (formContext === "summer26" && typeof window !== "undefined") {
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({
+            event: "summer26_lead",
+            form_type: "summer26",
+            structure_type: data.type_structure || "",
+          });
+        }
+      } else setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -75,10 +86,42 @@ export default function ContactForm({ lang, mode = "demo" }: ContactFormProps) {
             <FormField label={t.demo.form.lastName} name="lastname" required autoComplete="family-name" />
           </div>
 
-          {/* Row 2: Organisation + Poste/Role */}
+          {/* Row 2: Organisation + Poste/Role or Type de structure */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
             <FormField label={t.demo.form.organization} name="organization" required autoComplete="organization" />
-            <FormField label={t.demo.form.role} name="role" autoComplete="organization-title" />
+            {formContext === "summer26" ? (
+              <div>
+                <label htmlFor="type_structure" className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
+                  Type de structure
+                </label>
+                <select
+                  id="type_structure"
+                  name="type_structure"
+                  required
+                  className="form-input"
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    border: `1px solid var(--border-light)`,
+                    borderRadius: "var(--r-card)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "var(--text-body-sm)",
+                    background: "var(--bg-primary)",
+                    color: "var(--text-primary)",
+                    appearance: "auto",
+                  }}
+                >
+                  <option value="">S\u00E9lectionnez...</option>
+                  <option value="Organisme de formation">Organisme de formation</option>
+                  <option value="CFA">CFA</option>
+                  <option value="Entreprise">Entreprise</option>
+                  <option value="Institution">Institution</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+            ) : (
+              <FormField label={t.demo.form.role} name="role" autoComplete="organization-title" />
+            )}
           </div>
 
           {/* Row 3: Email + Téléphone */}

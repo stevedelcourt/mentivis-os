@@ -1,8 +1,9 @@
 "use client";
 
 import Script from "next/script";
-import { useState } from "react";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
+import ContactForm from "@/components/contact-form";
+import type { Locale } from "@/lib/i18n";
 
 const S = (s: string) => ({ __html: s });
 
@@ -33,140 +34,6 @@ function CtaBtn({ href, children, dark }: { href: string; children: React.ReactN
     >
       {children}
     </a>
-  );
-}
-
-function LightContactForm({ lang }: { lang: string }) {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("loading");
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    try {
-      const res = await fetch("/api/demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) setStatus("success");
-      else setStatus("error");
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "success") {
-    return (
-      <div style={{ maxWidth: 400 }}>
-        <p style={{ fontSize: 18, fontWeight: 600, color: "#631A96", marginBottom: 8 }}>
-          Merci de votre int\u00E9r\u00eat.
-        </p>
-        <p style={{ fontSize: 14, color: "#666", lineHeight: 1.6, margin: 0 }}>
-          {"Notre \u00E9quipe vous recontactera sous 24h ouvr\u00E9es pour \u00E9changer sur votre projet."}
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} autoComplete="on" style={{ width: "100%", maxWidth: 400 }}>
-      <div style={{ marginBottom: 16 }}>
-        <label htmlFor="light-email" style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#1A1A18", marginBottom: 6 }}>
-          Email professionnel
-        </label>
-        <input
-          id="light-email"
-          type="email"
-          name="email"
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          autoComplete="email"
-          placeholder="vous@organisation.fr"
-          style={{
-            width: "100%",
-            padding: "12px 16px",
-            border: "1px solid #ddd",
-            borderRadius: 12,
-            fontFamily: "var(--font-sans, Inter, sans-serif)",
-            fontSize: 15,
-            background: "#fff",
-            color: "#1A1A18",
-            boxSizing: "border-box",
-          }}
-        />
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <label htmlFor="light-message" style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#1A1A18", marginBottom: 6 }}>
-          Votre message
-        </label>
-        <textarea
-          id="light-message"
-          name="objective"
-          required
-          maxLength={500}
-          rows={3}
-          placeholder="Parlez-nous de votre projet..."
-          style={{
-            width: "100%",
-            padding: "12px 16px",
-            border: "1px solid #ddd",
-            borderRadius: 12,
-            fontFamily: "var(--font-sans, Inter, sans-serif)",
-            fontSize: 15,
-            background: "#fff",
-            color: "#1A1A18",
-            resize: "vertical",
-            boxSizing: "border-box",
-          }}
-        />
-      </div>
-
-      <div style={{ marginBottom: 20 }}>
-        <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
-          <input type="checkbox" name="consent" value="yes" required style={{ marginTop: 2 }} />
-          <span style={{ fontSize: 12, lineHeight: 1.5, color: "#999" }}>
-            {"Je consens au traitement de mes donn\u00E9es personnelles."}
-          </span>
-        </label>
-      </div>
-
-      <input type="hidden" name="formType" value="demo" />
-      <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
-
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        style={{
-          width: "100%",
-          padding: "14px 32px",
-          fontSize: 15,
-          fontWeight: 600,
-          color: "#fff",
-          background: status === "loading" ? "#ccc" : "#99219b",
-          border: "none",
-          borderRadius: 12,
-          cursor: status === "loading" ? "not-allowed" : "pointer",
-          transition: "all 0.2s ease",
-          boxShadow: "0 4px 16px rgba(153,33,155,0.3)",
-        }}
-        onMouseEnter={e => { if (status !== "loading") e.currentTarget.style.filter = "brightness(1.1)"; }}
-        onMouseLeave={e => { e.currentTarget.style.filter = "none"; }}
-      >
-        {status === "loading" ? "..." : "Envoyer la demande"}
-      </button>
-
-      {status === "error" && (
-        <p style={{ fontSize: 13, color: "#c62828", marginTop: 12, textAlign: "center" }}>
-          Une erreur est survenue. Veuillez r\u00E9essayer.
-        </p>
-      )}
-    </form>
   );
 }
 
@@ -479,7 +346,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
               }}
             />
-            <LightContactForm lang={lang} />
+            <ContactForm lang={lang as Locale} mode="demo" formContext="summer26" subject="Offre Summer'26" />
           </div>
           <style>{`
             @media (max-width: 768px) {
