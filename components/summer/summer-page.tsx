@@ -7,36 +7,6 @@ import type { Locale } from "@/lib/i18n";
 
 const S = (s: string) => ({ __html: s });
 
-function CtaBtn({ href, children, dark }: { href: string; children: React.ReactNode; dark?: boolean }) {
-  return (
-    <a
-      href={href}
-      className="cta-summer"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "14px 32px",
-        fontSize: 15,
-        fontWeight: 600,
-        color: dark ? "#99219b" : "#fff",
-        background: dark ? "#fff" : "#99219b",
-        borderRadius: 12,
-        textDecoration: "none",
-        letterSpacing: "-0.01em",
-        transition: "all 0.2s ease",
-        boxShadow: dark ? "none" : "0 4px 16px rgba(153,33,155,0.3)",
-      }}
-      onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.1)"; }}
-      onMouseLeave={e => { e.currentTarget.style.filter = "none"; }}
-    >
-      {children}
-    </a>
-  );
-}
-
 export default function SummerPage({ lang }: { lang: string }) {
   const { ref: heroRef, visible: heroVis } = useVisible(0.01);
   const { ref: offerRef, visible: offerVis } = useVisible(0.05);
@@ -139,9 +109,9 @@ export default function SummerPage({ lang }: { lang: string }) {
               {"Pendant que l\u2019activit\u00E9 ralentit, vos \u00E9quipes montent en comp\u00E9tences et votre dispositif de formation se met en place. Sans la pression du quotidien."}
             </p>
             <div style={{ ...sectionAnim(heroVis, 0.25) }}>
-              <CtaBtn href={"https://mentivisos.com/fr/demo/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026"}>
+              <a href="#summer-form" className="cta-summer scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
                 {"R\u00E9server un \u00E9change \u2192"}
-              </CtaBtn>
+              </a>
             </div>
           </div>
 
@@ -235,9 +205,9 @@ export default function SummerPage({ lang }: { lang: string }) {
           </p>
 
           <div style={{ ...sectionAnim(offerVis, 0.3), textAlign: "center" }}>
-            <CtaBtn href="https://mentivisos.com/fr/demo/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026">
+            <a href="#summer-form" className="cta-summer scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
               {"Profiter de l\u2019offre \u2192"}
-            </CtaBtn>
+            </a>
           </div>
         </div>
       </section>
@@ -337,7 +307,8 @@ export default function SummerPage({ lang }: { lang: string }) {
         </div>
       </section>
 
-      <section ref={ctaRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+      <section id="summer-form" ref={ctaRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
         <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
           <h2 style={{ ...sectionAnim(ctaVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", textAlign: "center", marginBottom: 8, color: "#1A1A18" }}>
             {"Parlons de votre rentr\u00E9e."}
