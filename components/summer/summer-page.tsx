@@ -109,7 +109,7 @@ export default function SummerPage({ lang }: { lang: string }) {
               {"Pendant que l\u2019activit\u00E9 ralentit, vos \u00E9quipes montent en comp\u00E9tences et votre dispositif de formation se met en place. Sans la pression du quotidien."}
             </p>
             <div style={{ ...sectionAnim(heroVis, 0.25) }}>
-              <a href="#summer-form" className="cta-summer scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
+              <a href="#summer-form" className="scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
                 {"R\u00E9server un \u00E9change \u2192"}
               </a>
             </div>
@@ -206,7 +206,7 @@ export default function SummerPage({ lang }: { lang: string }) {
           </p>
 
           <div style={{ ...sectionAnim(offerVis, 0.3), textAlign: "center" }}>
-            <a href="#summer-form" className="cta-summer scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
+            <a href="#summer-form" className="scroll-to-form" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 32px", fontSize: 15, fontWeight: 600, color: "#fff", background: "#99219b", borderRadius: 12, textDecoration: "none", letterSpacing: "-0.01em", transition: "all 0.2s ease", boxShadow: "0 4px 16px rgba(153,33,155,0.3)", cursor: "pointer" }}>
               {"Profiter de l\u2019offre \u2192"}
             </a>
           </div>
@@ -278,13 +278,13 @@ export default function SummerPage({ lang }: { lang: string }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {[
               {
-                href: "https://iciafrance.com/fr/mentivisos/?utm_source=summer26&utm_medium=referral&utm_campaign=ete-2026",
+                href: "https://iciafrance.com/fr/mentivisos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
                 label: "MentivisOS ICIA",
                 desc: "La version d\u00E9di\u00E9e \u00E0 la formation \u00E0 l\u2019intelligence artificielle, de d\u00E9butant \u00E0 expert.",
                 gradient: "linear-gradient(135deg, #631A96 0%, #99219b 50%, #FF6B35 100%)",
               },
               {
-                href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=ete-2026",
+                href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
                 label: "MentivisOS Open",
                 desc: "La version universelle et totalement d\u00E9brid\u00E9e, pour apprendre sur tous les sujets.",
                 gradient: "linear-gradient(135deg, #FF6B35 0%, #99219b 50%, #631A96 100%)",

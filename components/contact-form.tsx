@@ -25,7 +25,10 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     setStatus("loading");
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const data: Record<string, string> = {};
+    formData.forEach((v, k) => { data[k] = v as string; });
+    const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
+    if (match) data.hubspotutk = match[1];
     try {
       const res = await fetch("/api/demo", {
         method: "POST",
@@ -155,6 +158,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
           </div>
 
           <input type="hidden" name="formType" value={mode} />
+          {formContext && <input type="hidden" name="formContext" value={formContext} />}
           {subjectParam && <input type="hidden" name="subject" value={subjectParam} />}
           <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" style={{ display: "none" }} aria-hidden="true" />
 

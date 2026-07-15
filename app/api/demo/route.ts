@@ -44,7 +44,11 @@ export async function POST(request: NextRequest) {
       consent,
       honeypot,
       formType,
+      formContext,
+      hubspotutk,
     } = body;
+
+    const isSummer = formContext === "summer26";
 
     if (honeypot) {
       return NextResponse.json(
@@ -63,7 +67,7 @@ export async function POST(request: NextRequest) {
     // Always persist locally as backup
     try {
       await createSubmission({
-        formType: formType === "contact" ? "contact" : "demo",
+        formType: isSummer ? "summer" : formType === "contact" ? "contact" : "demo",
         data: {
           firstname,
           lastname,
@@ -82,7 +86,9 @@ export async function POST(request: NextRequest) {
     }
 
     const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
-    const hubspotFormId = process.env.HUBSPOT_FORM_ID;
+    const hubspotFormId = isSummer
+      ? (process.env.HUBSPOT_SUMMER_FORM_ID || process.env.HUBSPOT_FORM_ID)
+      : process.env.HUBSPOT_FORM_ID;
 
     if (!hubspotPortalId || !hubspotFormId) {
       console.log("[Demo API] HubSpot not configured:", {
@@ -117,7 +123,8 @@ export async function POST(request: NextRequest) {
           ],
           context: {
             pageUri: request.url,
-            pageName: "Demo/Contact Request",
+            pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
+            ...(hubspotutk ? { hutk: hubspotutk } : {}),
           },
         }),
       }
