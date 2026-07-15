@@ -321,8 +321,9 @@ export default function SummerPage({ lang }: { lang: string }) {
           <h2 style={{ ...sectionAnim(ctaVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", textAlign: "center", marginBottom: 8, color: "#1A1A18" }}>
             {"Parlons de votre rentr\u00E9e."}
           </h2>
-          <p style={{ ...sectionAnim(ctaVis, 0.05), textAlign: "center", color: "#888", fontSize: 16, marginBottom: 48, maxWidth: 500, marginLeft: "auto", marginRight: "auto" }}>
-            {"Construisons ensemble le dispositif adapt\u00E9 \u00E0 vos besoins. Profitez de l\u2019offre estivale avant le 31 ao\u00FBt."}
+          <p style={{ ...sectionAnim(ctaVis, 0.05), textAlign: "center", color: "#888", fontSize: 14, lineHeight: 1.7, marginBottom: 48, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+            {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
+            {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
           </p>
 
           <div className="summer-contact-row" style={{ ...sectionAnim(ctaVis, 0.1), display: "flex", alignItems: "center", gap: "clamp(32px, 5vw, 64px)", justifyContent: "center" }}>
