@@ -51,7 +51,7 @@ export default function BeachTourHero({ lang }: { lang: string }) {
               color: "#3A2010",
             }}
           >
-            Cet \u00E9t\u00E9, r\u00E9visez, apprenez, progressez. Gratuitement.
+            Cet été, révisez, apprenez, progressez. Gratuitement.
           </h1>
           <p
             style={{
@@ -63,7 +63,7 @@ export default function BeachTourHero({ lang }: { lang: string }) {
               color: "#6A4030",
             }}
           >
-            Invitez 10 amis et d\u00E9bloquez 1 mois de formation illimit\u00E9e. 40 cours par mois, sur tous les sujets.
+            Invitez 10 amis et débloquez 1 mois de formation illimitée. 40 cours par mois, sur tous les sujets.
           </p>
           <div style={{ ...sectionAnim(visible, 0.3), display: "flex", gap: 16, flexWrap: "wrap" }}>
             <a
@@ -84,7 +84,7 @@ export default function BeachTourHero({ lang }: { lang: string }) {
               onMouseEnter={(e) => { e.currentTarget.style.background = "#803010"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "#A04020"; }}
             >
-              Je commence gratuitement \u2192
+              Je commence gratuitement →
             </a>
           </div>
         </div>

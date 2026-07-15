@@ -75,7 +75,7 @@ export default function BeachTourComparison({ lang }: { lang: string }) {
             marginBottom: 12,
           }}
         >
-          Ce que vous d\u00E9bloquez
+          Ce que vous débloquez
         </h2>
         <p
           style={{

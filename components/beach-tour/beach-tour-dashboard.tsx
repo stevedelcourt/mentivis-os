@@ -60,7 +60,7 @@ export default function BeachTourDashboard({ lang }: { lang: string }) {
           </div>
 
           <p style={{ fontSize: 15, color: "#666", margin: "0 0 24px" }}>
-            Plus que 3 amis pour d\u00E9bloquer votre mois illimit\u00E9\u00A0!
+            Plus que 3 amis pour débloquer votre mois illimité !
           </p>
 
           <div

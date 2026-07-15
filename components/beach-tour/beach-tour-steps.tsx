@@ -61,7 +61,7 @@ export default function BeachTourSteps({ lang }: { lang: string }) {
             marginBottom: 12,
           }}
         >
-          Comment \u00E7a marche
+          Comment ça marche
         </h2>
         <p
           style={{
@@ -72,7 +72,7 @@ export default function BeachTourSteps({ lang }: { lang: string }) {
             marginBottom: 56,
           }}
         >
-          3 \u00E9tapes pour d\u00E9bloquer l\u2019\u00E9t\u00E9 illimit\u00E9
+          3 étapes pour débloquer l'été illimité
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
