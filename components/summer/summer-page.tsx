@@ -278,13 +278,13 @@ export default function SummerPage({ lang }: { lang: string }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {[
               {
-                href: "https://iciafrance.com/fr/mentivisos/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026",
+                href: "https://iciafrance.com/fr/mentivisos/?utm_source=summer26&utm_medium=referral&utm_campaign=ete-2026",
                 label: "MentivisOS ICIA",
                 desc: "La version d\u00E9di\u00E9e \u00E0 la formation \u00E0 l\u2019intelligence artificielle, de d\u00E9butant \u00E0 expert.",
                 gradient: "linear-gradient(135deg, #631A96 0%, #99219b 50%, #FF6B35 100%)",
               },
               {
-                href: "https://mentivisos.com/fr/openos/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026",
+                href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=ete-2026",
                 label: "MentivisOS Open",
                 desc: "La version universelle et totalement d\u00E9brid\u00E9e, pour apprendre sur tous les sujets.",
                 gradient: "linear-gradient(135deg, #FF6B35 0%, #99219b 50%, #631A96 100%)",
