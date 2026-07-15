@@ -38,7 +38,7 @@ export default function BeachTourDashboard({ lang }: { lang: string }) {
                 Votre Beach Tour
               </h2>
               <p style={{ fontSize: 14, color: "#999", margin: "2px 0 0" }}>
-                ���u vu de la m\u00E9diterran\u00E9e
+                {"Au vu de la m\u00E9diterran\u00E9e"}
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function BeachTourDashboard({ lang }: { lang: string }) {
           </div>
 
           <p style={{ fontSize: 18, fontWeight: 400, color: "#555", margin: "0 0 28px", lineHeight: 1.4 }}>
-            Plus que 3 amis pour d\u00E9bloquer votre mois illimit\u00E9 !
+            {"Plus que 3 amis pour d\u00E9bloquer votre mois illimit\u00E9 !"}
           </p>
 
           <div
