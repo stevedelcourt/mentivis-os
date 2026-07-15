@@ -266,15 +266,15 @@ export default function SummerPage({ lang }: { lang: string }) {
             {[
               {
                 href: "https://iciafrance.com/fr/mentivisos/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026",
-                icon: "\uD83C\uDFAF",
                 label: "MentivisOS ICIA",
                 desc: "La version d\u00E9di\u00E9e \u00E0 la formation \u00E0 l\u2019intelligence artificielle, de d\u00E9butant \u00E0 expert.",
+                gradient: "linear-gradient(135deg, #631A96 0%, #99219b 50%, #FF6B35 100%)",
               },
               {
                 href: "https://mentivisos.com/fr/openos/?utm_source=newsletter&utm_medium=email&utm_campaign=ete-2026",
-                icon: "\uD83C\uDF10",
                 label: "MentivisOS Open",
                 desc: "La version universelle et totalement d\u00E9brid\u00E9e, pour apprendre sur tous les sujets.",
+                gradient: "linear-gradient(135deg, #FF6B35 0%, #99219b 50%, #631A96 100%)",
               },
             ].map((card, i) => (
               <a
@@ -287,20 +287,28 @@ export default function SummerPage({ lang }: { lang: string }) {
                   ...sectionAnim(discoverVis, 0.1 + i * 0.08),
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  padding: "clamp(28px, 3vw, 36px) clamp(20px, 2vw, 28px)",
-                  background: "#FFF8F5",
-                  borderRadius: 20,
+                  alignItems: "flex-start",
+                  textAlign: "left",
+                  padding: "clamp(36px, 4vw, 48px) clamp(28px, 3vw, 40px)",
+                  background: card.gradient,
+                  borderRadius: 24,
                   textDecoration: "none",
-                  border: "1px solid rgba(153,33,155,0.08)",
-                  transition: "all 0.25s ease",
+                  transition: "all 0.3s ease",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "#99219b"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(153,33,155,0.1)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(153,33,155,0.08)"; e.currentTarget.style.boxShadow = "none"; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.boxShadow = "0 16px 48px rgba(99,26,150,0.25)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
               >
-                <span style={{ fontSize: 36, marginBottom: 12 }}>{card.icon}</span>
-                <span style={{ color: "#99219b", fontWeight: 700, fontSize: 15, display: "block", marginBottom: 8 }}>{card.label}</span>
-                <span style={{ fontSize: 13, color: "#666", lineHeight: 1.6 }}>{card.desc}</span>
+                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 700, fontSize: "clamp(20px, 2.5vw, 28px)", display: "block", marginBottom: 12, letterSpacing: "-0.02em" }}>
+                  {card.label}
+                </span>
+                <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(14px, 1.5vw, 16px)", lineHeight: 1.6, maxWidth: "35ch" }}>
+                  {card.desc}
+                </span>
+                <span style={{ marginTop: 20, color: "#fff", fontWeight: 600, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.9 }}>
+                  {"Tester \u2192"}
+                </span>
               </a>
             ))}
           </div>
