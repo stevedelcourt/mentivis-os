@@ -31,32 +31,28 @@ export default function NotFoundContent({ lang }: { lang: string }) {
         404
       </h1>
 
-      <div
-        style={{
-          position: "relative",
-          width: 120,
-          height: 120,
-          marginBottom: "2.5rem",
-        }}
+      <svg
+        width="120"
+        height="120"
+        viewBox="0 0 120 120"
+        style={{ display: "block", marginBottom: "2.5rem" }}
       >
         {[0, 0.8, 1.6].map((delay, i) => (
-          <span
+          <circle
             key={i}
+            cx="60"
+            cy="60"
+            r="12"
+            fill="none"
+            stroke="#1a1a1a"
+            strokeWidth="2"
+            className="ring"
             style={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              width: 24,
-              height: 24,
-              marginLeft: -12,
-              marginTop: -12,
-              borderRadius: "50%",
-              border: "2px solid #1a1a1a",
               animation: `ring-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s infinite`,
             }}
           />
         ))}
-      </div>
+      </svg>
 
       <p
         style={{
@@ -76,6 +72,7 @@ export default function NotFoundContent({ lang }: { lang: string }) {
           0% { transform: scale(0.3); opacity: 0.7; }
           100% { transform: scale(3); opacity: 0; }
         }
+        .ring { transform-origin: 60px 60px; }
       `}</style>
     </section>
   );
