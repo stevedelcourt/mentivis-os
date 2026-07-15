@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
-import ContactForm from "@/components/contact-form";
+import DemoFormCustom from "@/components/demo-form-custom";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -29,15 +29,6 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             : "In just a few days, our teams configure MentivisOS around a concrete case from your context.",
         }}
       />
-      <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <div className="container" style={{ maxWidth: 800, margin: "0 auto", padding: "0 0 48px" }}>
-          <p style={{ fontSize: 15, lineHeight: 1.8, color: "#555", margin: 0 }}>
-            {"Pas de d\u00E9monstration standard."}<br />
-            {"Un cas r\u00E9el, issu de votre organisation, trait\u00E9 en direct."}<br />
-            {"Une d\u00E9monstration MentivisOS est conduite par un consultant p\u00E9dagogique de Mentivis. Elle se pr\u00E9pare en quelques jours \u00E0 partir d\u2019un objectif ou d\u2019un profil repr\u00E9sentatif de votre situation. Elle se conduit en visioconf\u00E9rence ou sur site."}
-          </p>
-        </div>
-      </section>
       <section style={{ background: "#fff", padding: "0 clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px)" }}>
         <div style={{ maxWidth: 1240, margin: "0 auto", display: "grid", gap: 48, alignItems: "start" }} className="demo-form-layout">
           <Image
@@ -48,7 +39,7 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             className="demo-image"
             style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
-          <ContactForm lang={lang as Locale} mode="demo" />
+          <DemoFormCustom lang={lang as Locale} />
         </div>
       </section>
       <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } .demo-form-layout > section > .container { max-width: none !important; } }`}</style>
