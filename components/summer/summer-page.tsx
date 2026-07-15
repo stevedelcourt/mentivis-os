@@ -271,7 +271,7 @@ export default function SummerPage({ lang }: { lang: string }) {
           <h2 style={{ ...sectionAnim(discoverVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 8, color: "#1A1A18" }}>
             {"Testez gratuitement"}
           </h2>
-          <p style={{ ...sectionAnim(discoverVis, 0.05), margin: "0 0 40px", fontSize: 16, color: "#888", lineHeight: 1.6, maxWidth: 500 }}>
+          <p style={{ ...sectionAnim(discoverVis, 0.05), margin: "0 auto 40px", fontSize: 16, color: "#888", lineHeight: 1.6, maxWidth: 500, textAlign: "center" }}>
             {"Avant de d\u00E9ployer votre version sur mesure, d\u00E9couvrez ce que MentivisOS g\u00E9n\u00E8re en quelques secondes."}
           </p>
 
@@ -313,7 +313,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.boxShadow = "0 16px 48px rgba(99,26,150,0.25)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
               >
-                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 700, fontSize: "clamp(20px, 2.5vw, 28px)", display: "block", marginBottom: 12, letterSpacing: "-0.02em" }}>
+                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 300, fontSize: "clamp(20px, 2.5vw, 28px)", display: "block", marginBottom: 12, letterSpacing: "-0.02em" }}>
                   {card.label}
                 </span>
                 <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(14px, 1.5vw, 16px)", lineHeight: 1.6, maxWidth: "35ch" }}>
