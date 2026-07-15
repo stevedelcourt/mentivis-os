@@ -361,6 +361,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
               }}
             />
+            </div>
             <ContactForm lang={lang as Locale} mode="demo" formContext="summer26" subject="Offre Summer'26" />
           </div>
           <style>{`
