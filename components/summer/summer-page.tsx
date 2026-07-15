@@ -134,12 +134,12 @@ export default function SummerPage({ lang }: { lang: string }) {
       </section>
 
       <section ref={offerRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
-        <div className="container" style={{ maxWidth: 700, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 32 }}>
+        <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <div className="summer-offer-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 32 }}>
             {[
               {
                 icon: (
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
                   </svg>
                 ),
@@ -149,7 +149,7 @@ export default function SummerPage({ lang }: { lang: string }) {
               },
               {
                 icon: (
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                 ),
@@ -159,7 +159,7 @@ export default function SummerPage({ lang }: { lang: string }) {
               },
               {
                 icon: (
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                   </svg>
                 ),
@@ -174,25 +174,26 @@ export default function SummerPage({ lang }: { lang: string }) {
                   ...sectionAnim(offerVis, 0.1 + i * 0.08),
                   background: "#FFF8F5",
                   borderRadius: 24,
-                  padding: "40px 36px",
+                  padding: "32px 24px",
                   border: "1px solid rgba(153,33,155,0.08)",
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: "column",
                   alignItems: "center",
-                  gap: 24,
+                  textAlign: "center",
+                  gap: 16,
                 }}
               >
-                <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#FFF0F5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#FFF0F5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {item.icon}
                 </div>
                 <div>
-                  <p style={{ margin: "0 0 2px", fontSize: 36, fontWeight: 700, color: "#99219b", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+                  <p style={{ margin: "0 0 2px", fontSize: 32, fontWeight: 700, color: "#99219b", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
                     {item.value}
                   </p>
-                  <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 500, color: "#1A1A18" }}>
+                  <p style={{ margin: "0 0 8px", fontSize: 16, fontWeight: 500, color: "#1A1A18" }}>
                     {item.label}
                   </p>
-                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#666" }}>
+                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "#666" }}>
                     {item.desc}
                   </p>
                 </div>
@@ -315,7 +316,12 @@ export default function SummerPage({ lang }: { lang: string }) {
         </div>
       </section>
 
-      <style>{`html { scroll-behavior: smooth; }`}</style>
+      <style>{`
+        html { scroll-behavior: smooth; }
+        @media (max-width: 768px) {
+          .summer-offer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <section id="summer-form" ref={ctaRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
         <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
           <h2 style={{ ...sectionAnim(ctaVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", textAlign: "center", marginBottom: 8, color: "#1A1A18" }}>
