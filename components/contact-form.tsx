@@ -88,7 +88,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
 
           {/* Row 2: Organisation + Poste/Role or Type de structure */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
-            <FormField label={t.demo.form.organization} name="organization" required autoComplete="organization" />
+            <FormField label={t.demo.form.organization} name="organization" required={formContext !== "summer26"} autoComplete="organization" />
             {formContext === "summer26" ? (
               <div>
                 <label htmlFor="type_structure" className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
@@ -133,17 +133,18 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
           {/* Row 4: Message / Demande */}
           <div style={{ marginBottom: 24 }}>
             <label htmlFor="objective" className="t-caption" style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-              {isContact ? "Message" : "Demande de démonstration"}
+              {isContact ? "Message" : "Votre message"}
             </label>
             <textarea
               id="objective"
               name="objective"
-              required
+              required={formContext !== "summer26"}
               maxLength={500}
               autoComplete="off"
-              placeholder={isContact ? "Votre message..." : "Décrivez votre besoin..."}
+              placeholder={isContact ? "Votre message..." : "D\u00E9crivez votre besoin..."}
               rows={4}
               className="form-textarea"
+              defaultValue={formContext === "summer26" ? "Oui je suis int\u00E9ress\u00E9 !" : undefined}
               style={{
                 width: "100%",
                 padding: "12px 16px",

@@ -164,28 +164,38 @@ export default function SummerPage({ lang }: { lang: string }) {
       </section>
 
       <section ref={offerRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
-        <div className="container" style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 32 }}>
+        <div className="container" style={{ maxWidth: 700, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 32 }}>
             {[
               {
                 icon: (
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
                   </svg>
                 ),
                 value: "50%",
                 label: "de r\u00E9duction",
-                desc: "Sur la customisation et le d\u00E9ploiement de votre plateforme MentivisOS.",
+                desc: "Sur la customisation et le d\u00E9ploiement de votre plateforme MentivisOS \u00E0 vos couleurs, vos parcours et vos objectifs.",
               },
               {
                 icon: (
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                 ),
                 value: "3 mois",
                 label: "de licences offerts",
-                desc: "Pour tous vos collaborateurs, quel que soit leur nombre. Sans engagement.",
+                desc: "Pour tous vos collaborateurs, quel que soit leur nombre. Aucune limite de si\u00E8ges.",
+              },
+              {
+                icon: (
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#99219b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                ),
+                value: "Sereine",
+                label: "Une rentr\u00E9e sans stress",
+                desc: "Une plateforme de formation native IA enti\u00E8rement configur\u00E9e et op\u00E9rationnelle d\u00E8s septembre.",
               },
             ].map((item, i) => (
               <div
@@ -193,26 +203,29 @@ export default function SummerPage({ lang }: { lang: string }) {
                 style={{
                   ...sectionAnim(offerVis, 0.1 + i * 0.08),
                   background: "#FFF8F5",
-                  borderRadius: 20,
-                  padding: "36px 32px",
+                  borderRadius: 24,
+                  padding: "40px 36px",
                   border: "1px solid rgba(153,33,155,0.08)",
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 24,
                 }}
               >
-                <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#FFF0F5", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#FFF0F5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {item.icon}
                 </div>
-                <p style={{ margin: "0 0 2px", fontSize: 32, fontWeight: 700, color: "#99219b", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
-                  {item.value}
-                </p>
-                <p style={{ margin: "0 0 10px", fontSize: 16, fontWeight: 500, color: "#1A1A18" }}>
-                  {item.label}
-                </p>
-                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "#666" }}>
-                  {item.desc}
-                </p>
+                <div>
+                  <p style={{ margin: "0 0 2px", fontSize: 36, fontWeight: 700, color: "#99219b", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+                    {item.value}
+                  </p>
+                  <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 500, color: "#1A1A18" }}>
+                    {item.label}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#666" }}>
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
