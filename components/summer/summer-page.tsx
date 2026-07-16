@@ -275,14 +275,8 @@ export default function SummerPage({ lang }: { lang: string }) {
             {"Avant de d\u00E9ployer votre version sur mesure, d\u00E9couvrez ce que MentivisOS g\u00E9n\u00E8re en quelques secondes."}
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, maxWidth: 480, margin: "0 auto" }}>
             {[
-              {
-                href: "https://iciafrance.com/fr/mentivisos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
-                label: "MentivisOS ICIA",
-                desc: "La version d\u00E9di\u00E9e \u00E0 la formation \u00E0 l\u2019intelligence artificielle, de d\u00E9butant \u00E0 expert.",
-                gradient: "linear-gradient(135deg, #631A96 0%, #99219b 50%, #FF6B35 100%)",
-              },
               {
                 href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
                 label: "MentivisOS Open",
