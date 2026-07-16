@@ -95,9 +95,8 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
               <FormField label={t.demo.form.organization} name="organization" autoComplete="organization" />
             </div>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+            <div style={{ marginBottom: 24 }}>
               <FormField label={t.demo.form.organization} name="organization" required autoComplete="organization" />
-              <FormField label="Nom" name="name" autoComplete="name" />
             </div>
           )}
 
