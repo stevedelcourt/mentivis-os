@@ -133,6 +133,20 @@ export default function SummerPage({ lang }: { lang: string }) {
         `}</style>
       </section>
 
+      <section style={{ background: "#ffffff", padding: "0 0 clamp(40px, 5vw, 60px)" }}>
+        <div className="container" style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: 0 }}>
+            {"MentivisOS est une plateforme de formation native IA qui g\u00E9n\u00E8re des parcours d\u2019apprentissage sur mesure en quelques secondes."}
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: "20px 0 0" }}>
+            {"Vous indiquez un objectif. MentivisOS analyse vos acquis, identifie vos \u00E9carts de comp\u00E9tences et cr\u00E9e la totalit\u00E9 de votre programme\u00A0: modules, s\u00E9quences, exercices, \u00E9valuations. Le tout adapt\u00E9 \u00E0 votre profil, pas \u00E0 un catalogue g\u00E9n\u00E9rique."}
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: "20px 0 0" }}>
+            {"Pour les organismes de formation et les entreprises, MentivisOS se d\u00E9ploie comme une plateforme branded, int\u00E9gr\u00E9e \u00E0 vos dispositifs existants. Pour les apprenants individuels, MentivisOS Open est gratuit et illimit\u00E9."}
+          </p>
+        </div>
+      </section>
+
       <section ref={offerRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
         <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
           <div className="summer-offer-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 32 }}>
