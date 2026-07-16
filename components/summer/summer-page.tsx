@@ -134,16 +134,55 @@ export default function SummerPage({ lang }: { lang: string }) {
       </section>
 
       <section style={{ background: "#ffffff", padding: "0 0 clamp(40px, 5vw, 60px)" }}>
-        <div className="container" style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: 0 }}>
-            {"MentivisOS est une plateforme de formation native IA qui g\u00E9n\u00E8re des parcours d\u2019apprentissage sur mesure en quelques secondes."}
-          </p>
-          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: "20px 0 0" }}>
-            {"Vous indiquez un objectif. MentivisOS analyse vos acquis, identifie vos \u00E9carts de comp\u00E9tences et cr\u00E9e la totalit\u00E9 de votre programme\u00A0: modules, s\u00E9quences, exercices, \u00E9valuations. Le tout adapt\u00E9 \u00E0 votre profil, pas \u00E0 un catalogue g\u00E9n\u00E9rique."}
-          </p>
-          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#444", margin: "20px 0 0" }}>
-            {"Pour les organismes de formation et les entreprises, MentivisOS se d\u00E9ploie comme une plateforme branded, int\u00E9gr\u00E9e \u00E0 vos dispositifs existants. Pour les apprenants individuels, MentivisOS Open est gratuit et illimit\u00E9."}
-          </p>
+        <div className="container" style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <div style={{
+            background: "#F8F6F4",
+            borderRadius: 24,
+            padding: "clamp(32px, 4vw, 48px)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+          }}>
+            {[
+              {
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2l2 4 4-2-2 4 4 2-4 2 2 4-4-2-2 4-2-4-4 2 2-4-4-2 4-2-2-4 4 2z" />
+                    <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                  </svg>
+                ),
+                text: "MentivisOS est une plateforme de formation native IA qui g\u00E9n\u00E8re des parcours d\u2019apprentissage sur mesure en quelques secondes.",
+              },
+              {
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                ),
+                text: "Vous indiquez un objectif. MentivisOS analyse vos acquis, identifie vos \u00E9carts de comp\u00E9tences et cr\u00E9e la totalit\u00E9 de votre programme\u00A0: modules, s\u00E9quences, exercices, \u00E9valuations. Le tout adapt\u00E9 \u00E0 votre profil, pas \u00E0 un catalogue g\u00E9n\u00E9rique.",
+              },
+              {
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                  </svg>
+                ),
+                text: "Pour les organismes de formation et les entreprises, MentivisOS se d\u00E9ploie comme une plateforme branded, int\u00E9gr\u00E9e \u00E0 vos dispositifs existants. Pour les apprenants individuels, MentivisOS Open est gratuit et illimit\u00E9.",
+              },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+                  {item.icon}
+                </div>
+                <p style={{ fontSize: 15, lineHeight: 1.7, color: "#444", margin: "10px 0 0" }}>
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -281,77 +320,91 @@ export default function SummerPage({ lang }: { lang: string }) {
       </section>
 
       <section ref={discoverRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
-        <div className="container" style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", textAlign: "center" }}>
-          <h2 style={{ ...sectionAnim(discoverVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 8, color: "#1A1A18" }}>
-            {"Testez gratuitement"}
-          </h2>
-          <p style={{ ...sectionAnim(discoverVis, 0.05), margin: "0 auto 40px", fontSize: 16, color: "#888", lineHeight: 1.6, maxWidth: 500, textAlign: "center" }}>
-            {"Avant de d\u00E9ployer votre version sur mesure, d\u00E9couvrez ce que MentivisOS g\u00E9n\u00E8re en quelques secondes."}
-          </p>
+        <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          <div className="summer-side-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "clamp(40px, 5vw, 80px)", alignItems: "start" }}>
+            <div style={{ textAlign: "center" }}>
+              <h2 style={{ ...sectionAnim(discoverVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 8, color: "#1A1A18" }}>
+                {"Testez gratuitement"}
+              </h2>
+              <p style={{ ...sectionAnim(discoverVis, 0.05), margin: "0 auto 40px", fontSize: 16, color: "#888", lineHeight: 1.6, maxWidth: 500, textAlign: "center" }}>
+                {"Avant de d\u00E9ployer votre version sur mesure, d\u00E9couvrez ce que MentivisOS g\u00E9n\u00E8re en quelques secondes."}
+              </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, maxWidth: 480, margin: "0 auto" }}>
-            {[
-              {
-                href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
-                label: "MentivisOS Open",
-                desc: "La version universelle et totalement d\u00E9brid\u00E9e, pour apprendre sur tous les sujets.",
-                gradient: "linear-gradient(135deg, #FF6B35 0%, #99219b 50%, #631A96 100%)",
-              },
-            ].map((card, i) => (
-              <a
-                key={i}
-                href={card.href}
-                className="cta-summer"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  ...sectionAnim(discoverVis, 0.1 + i * 0.08),
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  textAlign: "left",
-                  padding: "clamp(36px, 4vw, 48px) clamp(28px, 3vw, 40px)",
-                  background: card.gradient,
-                  borderRadius: 24,
-                  textDecoration: "none",
-                  transition: "all 0.3s ease",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.boxShadow = "0 16px 48px rgba(99,26,150,0.25)"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 300, fontSize: "clamp(20px, 2.5vw, 28px)", display: "block", marginBottom: 12, letterSpacing: "-0.02em" }}>
-                  {card.label}
-                </span>
-                <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(14px, 1.5vw, 16px)", lineHeight: 1.6, maxWidth: "35ch" }}>
-                  {card.desc}
-                </span>
-                <span style={{ marginTop: 20, color: "#fff", fontWeight: 600, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.9 }}>
-                  {"Tester \u2192"}
-                </span>
-              </a>
-            ))}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20, maxWidth: 480, margin: "0 auto" }}>
+                {[
+                  {
+                    href: "https://mentivisos.com/fr/openos/?utm_source=summer26&utm_medium=referral&utm_campaign=summer",
+                    label: "MentivisOS Open",
+                    desc: "La version universelle et totalement d\u00E9brid\u00E9e, pour apprendre sur tous les sujets.",
+                    gradient: "linear-gradient(135deg, #FF6B35 0%, #99219b 50%, #631A96 100%)",
+                  },
+                ].map((card, i) => (
+                  <a
+                    key={i}
+                    href={card.href}
+                    className="cta-summer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      ...sectionAnim(discoverVis, 0.1 + i * 0.08),
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      textAlign: "left",
+                      padding: "clamp(36px, 4vw, 48px) clamp(28px, 3vw, 40px)",
+                      background: card.gradient,
+                      borderRadius: 24,
+                      textDecoration: "none",
+                      transition: "all 0.3s ease",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.boxShadow = "0 16px 48px rgba(99,26,150,0.25)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 300, fontSize: "clamp(20px, 2.5vw, 28px)", display: "block", marginBottom: 12, letterSpacing: "-0.02em" }}>
+                      {card.label}
+                    </span>
+                    <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(14px, 1.5vw, 16px)", lineHeight: 1.6, maxWidth: "35ch" }}>
+                      {card.desc}
+                    </span>
+                    <span style={{ marginTop: 20, color: "#fff", fontWeight: 600, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.9 }}>
+                      {"Tester \u2192"}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ paddingTop: "clamp(40px, 4vw, 64px)" }}>
+              <h2 style={{ fontWeight: 300, fontSize: "clamp(24px, 3vw, 34px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 12, color: "#1A1A18" }}>
+                {"Parlons de votre rentr\u00E9e."}
+              </h2>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#666", marginBottom: 24 }}>
+                {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
+                {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
+              </p>
+              <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1A1A18" }}>
+                {"Mathias Costes"}
+              </p>
+              <p style={{ margin: "2px 0 0", fontSize: 13, color: "#888" }}>
+                {"Mathias Costes, Partner MentivisOS"}
+              </p>
+            </div>
           </div>
+          <style>{`
+            html { scroll-behavior: smooth; }
+            @media (max-width: 860px) {
+              .summer-side-grid { grid-template-columns: 1fr !important; }
+            }
+            @media (max-width: 768px) {
+              .summer-offer-grid { grid-template-columns: 1fr !important; }
+            }
+          `}</style>
         </div>
       </section>
-
-      <style>{`
-        html { scroll-behavior: smooth; }
-        @media (max-width: 768px) {
-          .summer-offer-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
       <section id="summer-form" ref={ctaRef} style={{ background: "#ffffff", padding: "clamp(80px, 10vw, 120px) 0" }}>
         <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-          <h2 style={{ ...sectionAnim(ctaVis, 0), fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", textAlign: "center", marginBottom: 8, color: "#1A1A18" }}>
-            {"Parlons de votre rentr\u00E9e."}
-          </h2>
-          <p style={{ ...sectionAnim(ctaVis, 0.05), textAlign: "center", color: "#888", fontSize: 14, lineHeight: 1.7, marginBottom: 48, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
-            {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
-            {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
-          </p>
-
           <div className="summer-contact-row" style={{ ...sectionAnim(ctaVis, 0.1), display: "flex", alignItems: "center", gap: "clamp(32px, 5vw, 64px)", justifyContent: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
               <img
@@ -372,16 +425,16 @@ export default function SummerPage({ lang }: { lang: string }) {
             </div>
             <ContactForm lang={lang as Locale} mode="demo" formContext="summer26" subject="Offre Summer'26" />
           </div>
-          <style>{`
-            @media (max-width: 768px) {
-              .summer-contact-row {
-                flex-direction: column !important;
-                text-align: center;
-              }
-            }
-          `}</style>
         </div>
       </section>
+      <style>{`
+        @media (max-width: 768px) {
+          .summer-contact-row {
+            flex-direction: column !important;
+            text-align: center;
+          }
+        }
+      `}</style>
     </>
   );
 }
