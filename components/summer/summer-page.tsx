@@ -82,7 +82,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 color: "#1A1A18",
               }}
             >
-              {"Cet \u00E9t\u00E9, pr\u00E9parez la rentr\u00E9e sans la pression."}
+              {"MentivisOS. Cet \u00E9t\u00E9, pr\u00E9parez la rentr\u00E9e sans la pression."}
             </h1>
             <p
               style={{
@@ -133,20 +133,20 @@ export default function SummerPage({ lang }: { lang: string }) {
         `}</style>
       </section>
 
-      <section style={{ background: "#ffffff", padding: "0 0 clamp(40px, 5vw, 60px)" }}>
-        <div className="container" style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <section style={{ background: "#ffffff", padding: "clamp(48px, 5vw, 72px) 0 clamp(40px, 5vw, 60px)" }}>
+        <div className="container" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
           <div style={{
-            background: "#F8F6F4",
+            background: "#fff8f5",
             borderRadius: 24,
-            padding: "clamp(32px, 4vw, 48px)",
+            padding: "clamp(36px, 4vw, 52px)",
             display: "flex",
             flexDirection: "column",
-            gap: 20,
+            gap: 24,
           }}>
             {[
               {
                 icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2l2 4 4-2-2 4 4 2-4 2 2 4-4-2-2 4-2-4-4 2 2-4-4-2 4-2-2-4 4 2z" />
                     <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
                   </svg>
@@ -155,7 +155,7 @@ export default function SummerPage({ lang }: { lang: string }) {
               },
               {
                 icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <circle cx="12" cy="12" r="6" />
                     <circle cx="12" cy="12" r="2" />
@@ -165,7 +165,7 @@ export default function SummerPage({ lang }: { lang: string }) {
               },
               {
                 icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1A18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                     <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
                   </svg>
@@ -173,11 +173,11 @@ export default function SummerPage({ lang }: { lang: string }) {
                 text: "Pour les organismes de formation et les entreprises, MentivisOS se d\u00E9ploie comme une plateforme branded, int\u00E9gr\u00E9e \u00E0 vos dispositifs existants. Pour les apprenants individuels, MentivisOS Open est gratuit et illimit\u00E9.",
               },
             ].map((item, i) => (
-              <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+              <div key={i} style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
                   {item.icon}
                 </div>
-                <p style={{ fontSize: 15, lineHeight: 1.7, color: "#444", margin: "10px 0 0" }}>
+                <p style={{ fontSize: 16, lineHeight: 1.75, color: "#444", margin: "13px 0 0" }}>
                   {item.text}
                 </p>
               </div>
@@ -368,8 +368,11 @@ export default function SummerPage({ lang }: { lang: string }) {
                     <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(14px, 1.5vw, 16px)", lineHeight: 1.6, maxWidth: "35ch" }}>
                       {card.desc}
                     </span>
-                    <span style={{ marginTop: 20, color: "#fff", fontWeight: 600, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.9 }}>
-                      {"Tester \u2192"}
+                    <span style={{ marginTop: 20, color: "#fff", fontSize: 15, fontWeight: 300, display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.9 }}>
+                      {"Tester"}
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
                     </span>
                   </a>
                 ))}
