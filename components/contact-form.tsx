@@ -29,8 +29,9 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     formData.forEach((v, k) => { data[k] = v as string; });
     const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
     if (match) data.hubspotutk = match[1];
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     try {
-      const res = await fetch("/api/demo", {
+      const res = await fetch(`${baseUrl}/api/demo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
