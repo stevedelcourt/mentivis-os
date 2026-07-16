@@ -105,37 +105,43 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, fallback: true });
     }
 
+    console.log("[Demo API] HubSpot config:", { portalId: hubspotPortalId?.slice(0, 4) + "***", formId: hubspotFormId?.slice(0, 4) + "***", isSummer, formContext });
+
+    const submissionPayload = {
+      fields: [
+        { name: "firstname", value: firstname },
+        { name: "lastname", value: lastname },
+        { name: "company", value: organization || "" },
+        { name: "jobtitle", value: role || "" },
+        { name: "message", value: objective || "" },
+        { name: "email", value: email },
+        { name: "phone", value: phone || "" },
+        { name: "consent", value: consent || "" },
+        ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
+      ],
+      context: {
+        pageUri: request.url,
+        pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
+        ...(hubspotutk ? { hutk: hubspotutk } : {}),
+      },
+    };
+
+    console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
+
     const hubspotResponse = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fields: [
-            { name: "firstname", value: firstname },
-            { name: "lastname", value: lastname },
-            { name: "company", value: organization || "" },
-            { name: "jobtitle", value: role || "" },
-            { name: "message", value: objective || "" },
-            { name: "email", value: email },
-            { name: "phone", value: phone || "" },
-            { name: "consent", value: consent || "" },
-            ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
-          ],
-          context: {
-            pageUri: request.url,
-            pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
-            ...(hubspotutk ? { hutk: hubspotutk } : {}),
-          },
-        }),
+        body: JSON.stringify(submissionPayload),
       }
     );
 
     if (!hubspotResponse.ok) {
       const errorText = await hubspotResponse.text();
-      console.error("[Demo API] HubSpot error:", errorText);
+      console.error("[Demo API] HubSpot error:", hubspotResponse.status, errorText);
       return NextResponse.json(
-        { success: false, error: "HubSpot submission failed" },
+        { success: false, error: "HubSpot submission failed", status: hubspotResponse.status, details: errorText },
         { status: 502 }
       );
     }
