@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSubmission } from "@/lib/cms/db";
 import { checkRateLimit, cleanupRateLimits } from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site-url";
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "http://localhost:3000").split(",");
 
@@ -120,7 +121,7 @@ export async function POST(request: NextRequest) {
         ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
       ],
       context: {
-        pageUri: request.url,
+        pageUri: `${SITE_URL}${request.nextUrl.pathname}${request.nextUrl.search}`,
         pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
         ...(hubspotutk ? { hutk: hubspotutk } : {}),
       },
