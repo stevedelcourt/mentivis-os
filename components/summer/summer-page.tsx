@@ -379,19 +379,13 @@ export default function SummerPage({ lang }: { lang: string }) {
               </div>
             </div>
 
-            <div style={{ paddingTop: "clamp(40px, 4vw, 64px)" }}>
-              <h2 style={{ fontWeight: 300, fontSize: "clamp(24px, 3vw, 34px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 12, color: "#1A1A18" }}>
+            <div style={{ textAlign: "left" }}>
+              <h2 style={{ fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 8, color: "#1A1A18" }}>
                 {"Parlons de votre rentr\u00E9e."}
               </h2>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#666", marginBottom: 24 }}>
+              <p style={{ fontSize: 16, lineHeight: 1.7, color: "#666", marginBottom: 0 }}>
                 {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
                 {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
-              </p>
-              <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1A1A18" }}>
-                {"Mathias Costes"}
-              </p>
-              <p style={{ margin: "2px 0 0", fontSize: 13, color: "#888" }}>
-                {"Mathias Costes, Partner MentivisOS"}
               </p>
             </div>
           </div>
