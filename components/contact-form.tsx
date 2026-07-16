@@ -31,7 +31,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     if (match) data.hubspotutk = match[1];
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     try {
-      const res = await fetch(`${baseUrl}/api/demo`, {
+      const res = await fetch(`${baseUrl}/api/demo/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
