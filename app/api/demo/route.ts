@@ -120,6 +120,7 @@ export async function POST(request: NextRequest) {
             { name: "email", value: email },
             { name: "phone", value: phone || "" },
             { name: "consent", value: consent || "" },
+            ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
           ],
           context: {
             pageUri: request.url,
