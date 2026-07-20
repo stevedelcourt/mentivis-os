@@ -145,7 +145,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       };
       const params = new URLSearchParams(payload);
       params.set("_t", Date.now().toString());
-      const res = await fetch(`/api/job-applications?${params}`);
+      const res = await fetch(`/api/job-applications/?${params}`);
       if (res.ok) {
         setFormState("success");
         setFirstName("");
