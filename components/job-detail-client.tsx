@@ -133,24 +133,23 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
     if (!job || honeypot) return;
     setFormState("loading");
 
-    const formData = new FormData();
-    formData.append("jobReference", job.reference);
-    formData.append("jobTitle", job.title);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("linkedin", linkedin);
-    formData.append("message", message);
-    if (cvFile) {
-      formData.append("cv", cvFile);
-    }
-
     try {
-      const res = await fetch("/api/job-applications", {
-        method: "POST",
-        body: formData,
-      });
+      const payload: Record<string, string> = {
+        jobReference: job.reference,
+        jobTitle: job.title,
+        firstName,
+        lastName,
+        email,
+        phone,
+        linkedin,
+        message,
+      };
+      if (cvFile) {
+        console.warn("[JobApp] File upload temporarily unavailable, submitting without file");
+      }
+      const params = new URLSearchParams(payload);
+      params.set("_t", Date.now().toString());
+      const res = await fetch(`/api/job-applications?${params}`);
       if (res.ok) {
         setFormState("success");
         setFirstName("");

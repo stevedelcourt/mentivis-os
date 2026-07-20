@@ -181,15 +181,13 @@ export default function BetaQuestionnairePage() {
     setError("");
 
     try {
-      const res = await fetch("/api/beta-questionnaire", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          features: form.features.join(", "),
-          honeypot: "",
-        }),
+      const params = new URLSearchParams({
+        ...form,
+        features: form.features.join(", "),
+        honeypot: "",
+        _t: Date.now().toString(),
       });
+      const res = await fetch(`/api/beta-questionnaire?${params}`);
       const data = await res.json();
       if (!data.success) {
         setError(data.error || (isFr ? "Erreur d'envoi" : "Submission error"));
