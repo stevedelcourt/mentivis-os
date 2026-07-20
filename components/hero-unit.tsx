@@ -101,7 +101,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href="https://open.mentivisos.com"
+              href="https://open.mentivisos.com/?utm_source=openos&utm_medium=button&utm_campaign=click"
               className="btn-pill btn-black"
               style={{
                 display: "inline-flex",
