@@ -13,7 +13,7 @@ function getIp(request: NextRequest): string {
   );
 }
 
-export async function POST(request: NextRequest) {
+async function handleSubmission(request: NextRequest, params: Record<string, string>) {
   const ip = getIp(request);
 
   if (!checkRateLimit(ip, 5, 60_000)) {
@@ -31,124 +31,134 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const {
+    firstname = "",
+    lastname = "",
+    organization = "",
+    role = "",
+    objective = "",
+    email = "",
+    phone = "",
+    consent = "",
+    honeypot = "",
+    formType = "",
+    formContext = "",
+    hubspotutk = "",
+  } = params;
+
+  const isSummer = formContext === "summer26";
+
+  if (honeypot) {
+    return NextResponse.json(
+      { success: false, error: "Spam detected" },
+      { status: 400 }
+    );
+  }
+
+  if (!firstname || !lastname || !email) {
+    return NextResponse.json(
+      { success: false, error: "Missing required fields" },
+      { status: 400 }
+    );
+  }
+
   try {
-    const body = await request.json();
-
-    const {
-      firstname,
-      lastname,
-      organization,
-      role,
-      objective,
-      email,
-      phone,
-      consent,
-      honeypot,
-      formType,
-      formContext,
-      hubspotutk,
-    } = body;
-
-    const isSummer = formContext === "summer26";
-
-    if (honeypot) {
-      return NextResponse.json(
-        { success: false, error: "Spam detected" },
-        { status: 400 }
-      );
-    }
-
-    if (!firstname || !lastname || !email) {
-      return NextResponse.json(
-        { success: false, error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
-    // Always persist locally as backup
-    try {
-      await createSubmission({
-        formType: isSummer ? "summer" : formType === "contact" ? "contact" : "demo",
-        data: {
-          firstname,
-          lastname,
-          organization: organization || null,
-          role: role || null,
-          objective: objective || null,
-          email,
-          phone: phone || null,
-          consent: consent || false,
-        },
-        email,
-        read: false,
-      });
-    } catch (err) {
-      console.error("[Demo API] Local persistence failed:", err);
-    }
-
-    const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
-    const hubspotFormId = isSummer
-      ? (process.env.HUBSPOT_SUMMER_FORM_ID || process.env.HUBSPOT_FORM_ID)
-      : process.env.HUBSPOT_FORM_ID;
-
-    if (!hubspotPortalId || !hubspotFormId) {
-      console.log("[Demo API] HubSpot not configured:", {
+    await createSubmission({
+      formType: isSummer ? "summer" : formType === "contact" ? "contact" : "demo",
+      data: {
         firstname,
         lastname,
-        organization,
-        role,
-        objective,
+        organization: organization || null,
+        role: role || null,
+        objective: objective || null,
         email,
-        phone,
-        consent,
-      });
-
-      return NextResponse.json({ success: true, fallback: true });
-    }
-
-    console.log("[Demo API] HubSpot config:", { portalId: hubspotPortalId?.slice(0, 4) + "***", formId: hubspotFormId?.slice(0, 4) + "***", isSummer, formContext });
-
-    const submissionPayload = {
-      fields: [
-        { name: "firstname", value: firstname },
-        { name: "lastname", value: lastname },
-        { name: "company", value: organization || "" },
-        { name: "jobtitle", value: role || "" },
-        { name: "message", value: objective || "" },
-        { name: "email", value: email },
-        { name: "phone", value: phone || "" },
-        { name: "consent", value: consent || "" },
-        ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
-      ],
-      context: {
-        pageUri: `${SITE_URL}${request.nextUrl.pathname}${request.nextUrl.search}`,
-        pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
-        ...(hubspotutk ? { hutk: hubspotutk } : {}),
+        phone: phone || null,
+        consent: consent || false,
       },
-    };
+      email,
+      read: false,
+    });
+  } catch (err) {
+    console.error("[Demo API] Local persistence failed:", err);
+  }
 
-    console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
+  const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
+  const hubspotFormId = isSummer
+    ? (process.env.HUBSPOT_SUMMER_FORM_ID || process.env.HUBSPOT_FORM_ID)
+    : process.env.HUBSPOT_FORM_ID;
 
-    const hubspotResponse = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submissionPayload),
-      }
-    );
+  if (!hubspotPortalId || !hubspotFormId) {
+    console.log("[Demo API] HubSpot not configured:", {
+      firstname, lastname, organization, role, objective, email, phone, consent,
+    });
+    return NextResponse.json({ success: true, fallback: true });
+  }
 
-    if (!hubspotResponse.ok) {
-      const errorText = await hubspotResponse.text();
-      console.error("[Demo API] HubSpot error:", hubspotResponse.status, errorText);
-      return NextResponse.json(
-        { success: false, error: "HubSpot submission failed", status: hubspotResponse.status, details: errorText },
-        { status: 502 }
-      );
+  console.log("[Demo API] HubSpot config:", { portalId: hubspotPortalId?.slice(0, 4) + "***", formId: hubspotFormId?.slice(0, 4) + "***", isSummer, formContext });
+
+  const pagePath = request.nextUrl.pathname;
+
+  const submissionPayload = {
+    fields: [
+      { name: "firstname", value: firstname },
+      { name: "lastname", value: lastname },
+      { name: "company", value: organization || "" },
+      { name: "jobtitle", value: role || "" },
+      { name: "message", value: objective || "" },
+      { name: "email", value: email },
+      { name: "phone", value: phone || "" },
+      { name: "consent", value: consent || "" },
+      ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
+    ],
+    context: {
+      pageUri: `${SITE_URL}${pagePath}`,
+      pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
+      ...(hubspotutk ? { hutk: hubspotutk } : {}),
+    },
+  };
+
+  console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
+
+  const hubspotResponse = await fetch(
+    `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(submissionPayload),
     }
+  );
 
-    const hubspotData = await hubspotResponse.json();
-    return NextResponse.json({ success: true, hubspot: hubspotData });
+  if (!hubspotResponse.ok) {
+    const errorText = await hubspotResponse.text();
+    console.error("[Demo API] HubSpot error:", hubspotResponse.status, errorText);
+    return NextResponse.json(
+      { success: false, error: "HubSpot submission failed", status: hubspotResponse.status, details: errorText },
+      { status: 502 }
+    );
+  }
+
+  const hubspotData = await hubspotResponse.json();
+  return NextResponse.json({ success: true, hubspot: hubspotData });
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    return handleSubmission(request, body);
+  } catch (error) {
+    console.error("[Demo API] Error:", error);
+    return NextResponse.json(
+      { success: false, error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const params: Record<string, string> = {};
+    request.nextUrl.searchParams.forEach((value, key) => { params[key] = value; });
+    return handleSubmission(request, params);
   } catch (error) {
     console.error("[Demo API] Error:", error);
     return NextResponse.json(

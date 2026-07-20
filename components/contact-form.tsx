@@ -31,11 +31,9 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     if (match) data.hubspotutk = match[1];
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     try {
-      const res = await fetch(`${baseUrl}/api/demo/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "User-Agent": "MentivisOS/1.0" },
-        body: JSON.stringify(data),
-      });
+      const params = new URLSearchParams(data);
+      params.set("_t", Date.now().toString());
+      const res = await fetch(`${baseUrl}/api/demo/?${params}`);
       if (res.ok) {
         setStatus("success");
         if (formContext === "summer26" && typeof window !== "undefined") {
