@@ -62,9 +62,9 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
     );
   }
 
-  try {
-    await createSubmission({
-      formType: isSummer ? "summer" : formType === "contact" ? "contact" : "demo",
+    try {
+      await createSubmission({
+        formType: formType === "contact" ? "contact" : "demo",
       data: {
         firstname,
         lastname,
@@ -83,9 +83,7 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
   }
 
   const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
-  const hubspotFormId = isSummer
-    ? (process.env.HUBSPOT_SUMMER_FORM_ID || process.env.HUBSPOT_FORM_ID)
-    : process.env.HUBSPOT_FORM_ID;
+  const hubspotFormId = process.env.HUBSPOT_FORM_ID;
 
   if (!hubspotPortalId || !hubspotFormId) {
     console.log("[Demo API] HubSpot not configured:", {
@@ -104,20 +102,20 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
       { name: "lastname", value: lastname },
       { name: "company", value: organization || "" },
       { name: "jobtitle", value: role || "" },
-      { name: "message", value: objective || "" },
+      { name: "message", value: isSummer
+        ? "Summer'26 - " + (organization || "") + "\n\n" + (objective || "")
+        : objective || "" },
       { name: "email", value: email },
       { name: "phone", value: phone || "" },
       { name: "consent", value: consent || "" },
-      ...(isSummer ? [{ name: "subject", value: "Summer'26 - " + (organization || "") }] : []),
-    ],
-    context: {
-      pageUri: `${SITE_URL}${pagePath}`,
-      pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
-      ...(hubspotutk ? { hutk: hubspotutk } : {}),
-    },
-  };
-
-  console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
+      ],
+      context: {
+        pageUri: `${SITE_URL}${pagePath}`,
+        pageName: isSummer ? "Offre Été 2026" : "Demo/Contact Request",
+        ...(hubspotutk ? { hutk: hubspotutk } : {}),
+      },
+    };
+    console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
 
   const tryHubSpot = async (payload: typeof submissionPayload) => {
     const res = await fetch(

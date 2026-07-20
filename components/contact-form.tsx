@@ -118,7 +118,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
             <textarea
               id="objective"
               name="objective"
-              required={formContext !== "summer26"}
+              required={false}
               maxLength={500}
               autoComplete="off"
               placeholder={isContact ? "Votre message..." : "D\u00E9crivez votre besoin..."}
