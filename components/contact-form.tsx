@@ -33,7 +33,7 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     try {
       const res = await fetch(`${baseUrl}/api/demo/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "User-Agent": "MentivisOS/1.0" },
         body: JSON.stringify(data),
       });
       if (res.ok) {
