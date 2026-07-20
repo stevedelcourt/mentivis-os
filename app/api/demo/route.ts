@@ -119,26 +119,39 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
 
   console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
 
-  const hubspotResponse = await fetch(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(submissionPayload),
+  const tryHubSpot = async (payload: typeof submissionPayload) => {
+    const res = await fetch(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+    if (!res.ok) {
+      const text = await res.text();
+      return { ok: false, status: res.status, text };
     }
-  );
+    return { ok: true, data: await res.json() };
+  };
 
-  if (!hubspotResponse.ok) {
-    const errorText = await hubspotResponse.text();
-    console.error("[Demo API] HubSpot error:", hubspotResponse.status, errorText);
+  let result = await tryHubSpot(submissionPayload);
+
+  if (!result.ok && hubspotutk && result.text?.includes("INVALID_HUTK")) {
+    console.log("[Demo API] Invalid hutk, retrying without it");
+    const { hutk: _, ...contextClean } = submissionPayload.context;
+    result = await tryHubSpot({ ...submissionPayload, context: contextClean });
+  }
+
+  if (!result.ok) {
+    console.error("[Demo API] HubSpot error:", result.status, result.text);
     return NextResponse.json(
-      { success: false, error: "HubSpot submission failed", status: hubspotResponse.status, details: errorText },
+      { success: false, error: "HubSpot submission failed", status: result.status, details: result.text },
       { status: 502 }
     );
   }
 
-  const hubspotData = await hubspotResponse.json();
-  return NextResponse.json({ success: true, hubspot: hubspotData });
+  return NextResponse.json({ success: true, hubspot: result.data });
 }
 
 export async function POST(request: NextRequest) {
