@@ -698,6 +698,7 @@ export default function SectorShowcase({ lang }: SectorShowcaseProps) {
               </p>
               <Link
                 href={sector.bottomBar.ctaHref || `/${lang}/demo`}
+                {...(sector.bottomBar.ctaHref?.includes("open.mentivisos.com") ? { "data-gtm-click": "openos-cta" } : {})}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
