@@ -137,10 +137,12 @@ export default function OpenOSPageClient({ lang }: { lang: string }) {
                 var base = 'https://open.mentivisos.com/';
                 var params = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
                 var query = [];
+                var defaults = {utm_source:'openos',utm_medium:'button',utm_campaign:'click'};
                 params.forEach(function(p) {
                   var val = new URLSearchParams(window.location.search).get(p)
                          || localStorage.getItem(p);
-                  if (val) query.push(p + '=' + encodeURIComponent(val));
+                  if (val) { query.push(p + '=' + encodeURIComponent(val)); }
+                  else if (defaults[p]) { query.push(p + '=' + defaults[p]); }
                 });
                 return base + (query.length ? '?' + query.join('&') : '');
               }
