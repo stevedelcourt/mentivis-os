@@ -181,13 +181,12 @@ export default function BetaQuestionnairePage() {
     setError("");
 
     try {
-      const params = new URLSearchParams({
-        ...form,
-        features: form.features.join(", "),
-        honeypot: "",
-        _t: Date.now().toString(),
-      });
-      const res = await fetch(`/api/beta-questionnaire?${params}`);
+      const payload: Record<string, string> = {};
+      Object.entries(form).forEach(([k, v]) => { payload[k] = String(v); });
+      payload.features = form.features.join(", ");
+      payload.honeypot = "";
+      payload._t = Date.now().toString();
+      const res = await fetch(`/api/beta-questionnaire?${new URLSearchParams(payload)}`);
       const data = await res.json();
       if (!data.success) {
         setError(data.error || (isFr ? "Erreur d'envoi" : "Submission error"));
