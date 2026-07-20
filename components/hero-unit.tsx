@@ -116,22 +116,6 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-            <Link
-              href={`/${lang}/openos`}
-              className="btn-pill btn-warm"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                borderRadius: 8,
-                padding: "12px 20px",
-              }}
-            >
-              {lang === "en" ? "Learn more" : "En savoir plus"}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
           </div>
 
           <p
