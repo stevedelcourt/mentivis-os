@@ -355,6 +355,7 @@ export default function NavBar({ lang }: NavBarProps) {
               <a
                 href="https://open.mentivisos.com/"
                 className="cta-open"
+                data-gtm-click="openos-cta"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -469,6 +470,7 @@ export default function NavBar({ lang }: NavBarProps) {
             <a
               href="https://open.mentivisos.com/"
               className="cta-open"
+              data-gtm-click="openos-cta"
               onClick={() => setMobileOpen(false)}
               style={{
                 flex: 1,

@@ -34,6 +34,7 @@ function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | 
             <a
               href="https://open.mentivisos.com/"
               className="cta-open"
+              data-gtm-click="openos-cta"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -88,6 +89,7 @@ function OpenOSCTA({ lang, variant }: { lang: string; variant: "intermediate" | 
           <a
             href="https://open.mentivisos.com/"
             className="cta-open"
+            data-gtm-click="openos-cta"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

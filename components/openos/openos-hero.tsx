@@ -87,6 +87,7 @@ export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
           <a
             href="https://open.mentivisos.com/"
             className="cta-open"
+            data-gtm-click="openos-cta"
             style={{
               display: "inline-flex",
               alignItems: "center",

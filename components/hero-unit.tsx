@@ -103,6 +103,7 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             <Link
               href="https://open.mentivisos.com/?utm_source=openos&utm_medium=button&utm_campaign=click"
               className="btn-pill btn-black"
+              data-gtm-click="openos-cta"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
