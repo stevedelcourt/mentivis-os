@@ -36,13 +36,11 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
       const res = await fetch(`${baseUrl}/api/demo/?${params}`);
       if (res.ok) {
         setStatus("success");
-        if (formContext === "summer26" && typeof window !== "undefined") {
-          (window as any).dataLayer = (window as any).dataLayer || [];
-          (window as any).dataLayer.push({
-            event: "summer26_lead",
-            form_type: "summer26",
-          });
-        }
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "form_lead",
+          form_type: formContext === "summer26" ? "summer26" : mode,
+        });
       } else setStatus("error");
     } catch {
       setStatus("error");

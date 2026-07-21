@@ -193,6 +193,8 @@ export default function BetaQuestionnairePage() {
         return;
       }
       setSubmitted(true);
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({ event: "form_lead", form_type: "beta" });
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
       setError(isFr ? "Erreur réseau" : "Network error");

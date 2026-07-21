@@ -148,6 +148,8 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       const res = await fetch(`/api/job-applications/?${params}`);
       if (res.ok) {
         setFormState("success");
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: "form_lead", form_type: "candidature" });
         setFirstName("");
         setLastName("");
         setEmail("");
