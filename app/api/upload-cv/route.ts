@@ -5,7 +5,7 @@ import path from "path";
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const CVS_DIR = path.join(DATA_DIR, "cvs");
 
-export async function PUT(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get("cv") as File | null;
@@ -36,6 +36,10 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ success: true, cvUrl });
   } catch (err) {
     console.error("[UploadCV] Error:", err);
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    return NextResponse.json({ error: "Upload failed", message: String(err) }, { status: 500 });
   }
+}
+
+export async function PUT(request: NextRequest) {
+  return POST(request);
 }
