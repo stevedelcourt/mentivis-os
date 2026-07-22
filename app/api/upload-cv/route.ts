@@ -7,7 +7,7 @@ const CVS_DIR = path.join(DATA_DIR, "cvs");
 
 export async function PUT(request: NextRequest) {
   try {
-    const filename = request.nextUrl.searchParams.get("filename");
+    const filename = request.nextUrl.searchParams.get("filename") || "";
     const originalName = request.nextUrl.searchParams.get("originalName") || filename;
     if (!filename) {
       return NextResponse.json({ error: "Missing filename" }, { status: 400 });
