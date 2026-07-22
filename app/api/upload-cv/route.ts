@@ -24,40 +24,22 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "File too large. Max 6MB" }, { status: 400 });
     }
 
-    // Save locally as backup
+    // Use the ORIGINAL filename on disk so HubSpot link shows the real name
+    const safeOriginal = originalName
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9._-]/g, "_");
+
     if (!fs.existsSync(CVS_DIR)) {
       fs.mkdirSync(CVS_DIR, { recursive: true });
     }
-    fs.writeFileSync(path.join(CVS_DIR, filename), buffer);
 
-    // Upload to HubSpot Files API with original filename
-    let hubspotUrl = "";
-    if (process.env.HUBSPOT_ACCESS_TOKEN) {
-      try {
-        const fileFormData = new FormData();
-        fileFormData.append("file", new Blob([new Uint8Array(buffer)], { type: "application/pdf" }), originalName || filename);
-        fileFormData.append("options", JSON.stringify({ access: "PRIVATE", folderPath: "/cvs", fileName: originalName || filename }));
-        const fileRes = await fetch("https://api.hubapi.com/files/v3/files", {
-          method: "POST",
-          headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` },
-          body: fileFormData,
-        });
-        if (fileRes.ok) {
-          const fileData = await fileRes.json();
-          hubspotUrl = fileData.url;
-        } else {
-          const errText = await fileRes.text().catch(() => "unknown");
-          console.error("[UploadCV] HubSpot Files API error:", fileRes.status, errText);
-        }
-      } catch (err) {
-        console.error("[UploadCV] HubSpot Files upload error:", err);
-      }
-    }
+    // Save with original filename
+    const filePath = path.join(CVS_DIR, safeOriginal);
+    fs.writeFileSync(filePath, buffer);
 
-    return NextResponse.json({
-      success: true,
-      cvUrl: hubspotUrl || `/api/cvs/${filename}`,
-    });
+    const cvUrl = `/api/cvs/${encodeURIComponent(safeOriginal)}`;
+
+    return NextResponse.json({ success: true, cvUrl });
   } catch (err) {
     console.error("[UploadCV] Error:", err);
     return NextResponse.json({ error: "Upload failed", message: String(err) }, { status: 500 });
