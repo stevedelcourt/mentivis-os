@@ -149,12 +149,10 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         const safeLastName = lastName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
         const safeFirstName = firstName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
         const filename = `${safeLastName}-${safeFirstName}-cv.pdf`;
-        const cvForm = new FormData();
-        cvForm.append("cv", cvFile);
-        cvForm.append("filename", filename);
-        const cvRes = await fetch("/api/upload-cv", {
+        const cvRes = await fetch(`/api/upload-cv?filename=${encodeURIComponent(filename)}`, {
           method: "PUT",
-          body: cvForm,
+          headers: { "Content-Type": "application/pdf" },
+          body: cvFile,
         });
         if (cvRes.ok) {
           const cvData = await cvRes.json();
