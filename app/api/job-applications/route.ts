@@ -118,7 +118,7 @@ async function handleSubmissionBase(params: Record<string, string>, cvUrl?: stri
     read: false,
   });
 
-  const cvFinalUrl = cvUrl ? `${SITE_URL}${cvUrl}` : "";
+  const cvFinalUrl = cvUrl?.startsWith("http") ? cvUrl : cvUrl ? `${SITE_URL}${cvUrl}` : "";
   const hubspotOk = await submitToHubspot({ firstName, lastName, email, phone, linkedin, message, jobTitle, jobReference, cvFinalUrl });
 
   // Ensure lien_cv is set via CRM API
