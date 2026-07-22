@@ -173,7 +173,9 @@ export async function GET(request: NextRequest) {
 
   const params: Record<string, string> = {};
   request.nextUrl.searchParams.forEach((value, key) => { params[key] = value; });
-  return handleSubmissionBase(params);
+  const cvUrl = params.cvUrl || "";
+  delete params.cvUrl;
+  return handleSubmissionBase(params, cvUrl);
 }
 
 export async function POST(request: NextRequest) {
