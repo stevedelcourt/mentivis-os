@@ -10,11 +10,6 @@ const nextConfig: NextConfig = {
   experimental: {
     cpus: 2,
   },
-  async rewrites() {
-    return [
-      { source: "/api/admin/:path*", destination: "/api/cms/:path*" },
-    ];
-  },
   async headers() {
     return [
       {

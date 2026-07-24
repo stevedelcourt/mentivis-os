@@ -55,8 +55,8 @@ export default function ContentManagementPage() {
     e.preventDefault();
     setLoginError("");
     try {
-      const res = await fetch("/api/admin/auth/login/", {
-        method: "POST",
+      const res = await fetch("/api/cms/auth/login/", {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
         redirect: "follow",

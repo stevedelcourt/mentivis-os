@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { createToken, isAuthorizedEmail } from "@/lib/cms/auth";
 import { getUserByEmail, verifyPassword, seedDefaultUsers, updateUser } from "@/lib/cms/users";
 
-export async function POST(request: Request) {
+export async function POST(request: Request) { return handleLogin(request); }
+export async function PUT(request: Request) { return handleLogin(request); }
+
+async function handleLogin(request: Request) {
   try {
     const body = await request.json();
     const { email, password } = body;
