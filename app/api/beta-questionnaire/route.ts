@@ -86,6 +86,10 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
   return NextResponse.json({ success: true });
 }
 
+export async function PUT(request: NextRequest) {
+  try { const body = await request.json(); return handleSubmission(request, body); }
+  catch (error) { console.error("[Beta API] Error:", error); return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 }); }
+}
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

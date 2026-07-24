@@ -178,6 +178,19 @@ export async function GET(request: NextRequest) {
   return handleSubmissionBase(params, cvUrl);
 }
 
+export async function PUT(request: NextRequest) {
+  const block = checkRateLimitAndOrigin(request);
+  if (block) return block;
+
+  const contentType = request.headers.get("content-type") || "";
+  if (contentType.includes("json")) {
+    try { const body = await request.json(); return handleSubmissionBase(body); }
+    catch (error) { console.error("[Job API] PUT error:", error); return NextResponse.json({ error: "Invalid request" }, { status: 400 }); }
+  }
+
+  // For multipart (CV upload), delegate to POST handler
+  return POST(request);
+}
 export async function POST(request: NextRequest) {
   const block = checkRateLimitAndOrigin(request);
   if (block) return block;
