@@ -80,17 +80,7 @@ export default function OpenOSTestimonials({ lang }: { lang: string }) {
             </div>
           ))}
         </div>
-        <p
-          style={{
-            ...sectionAnim(visible, 0.3),
-            textAlign: "center",
-            marginTop: 32,
-            fontSize: 13,
-            color: "#888",
-          }}
-        >
-          {lang === "fr" ? "181 apprenants actifs \u00B7 Lanc\u00E9 en 2026" : "181 active learners \u00B7 Launched in 2026"}
-        </p>
+
       </div>
     </section>
   );
