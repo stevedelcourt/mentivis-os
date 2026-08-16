@@ -45,6 +45,11 @@ export default function PostEditorPage() {
   const [featured, setFeatured] = useState(false);
   const [published, setPublished] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
+  const [pdfTitle, setPdfTitle] = useState("");
+  const [pdfTitleEn, setPdfTitleEn] = useState("");
+  const [pdfImage, setPdfImage] = useState("");
+  const [pdfContext, setPdfContext] = useState("");
 
   // Auth guard
   useEffect(() => {
@@ -86,6 +91,11 @@ export default function PostEditorPage() {
         setGradientId(p.gradientId || undefined);
         setFeatured(p.featured);
         setPublished(p.published);
+        setPdfUrl(p.pdfUrl || "");
+        setPdfTitle(p.pdfTitle || "");
+        setPdfTitleEn(p.pdfTitleEn || "");
+        setPdfImage(p.pdfImage || "");
+        setPdfContext(p.pdfContext || "");
       }
     } catch {
       setError(t("Erreur lors du chargement de l'article", "Error loading article"));
@@ -161,6 +171,11 @@ export default function PostEditorPage() {
       gradientId: gradientId ?? null,
       featured,
       published,
+      pdfUrl: pdfUrl || undefined,
+      pdfTitle: pdfTitle || "",
+      pdfTitleEn: pdfTitleEn || "",
+      pdfImage: pdfImage || "",
+      pdfContext: pdfContext || "",
     };
 
     try {
@@ -505,6 +520,80 @@ export default function PostEditorPage() {
           <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
             {t("Utilise un motif de fond si l'article n'a pas d'image a la une", "Use gradient if article has no featured image")}
           </p>
+        </div>
+
+        {/* PDF unlock */}
+        <div
+          style={{
+            marginBottom: 20,
+            padding: "20px 20px 8px",
+            border: "1px solid #e5e5e5",
+            borderRadius: 12,
+            background: "#FAFAF8",
+          }}
+        >
+          <label style={{ ...labelStyle, fontWeight: 700, color: "#0A0A0A" }}>
+            {t("PDF a telecharger (optionnel)", "PDF to download (optional)")}
+          </label>
+          <p style={{ fontSize: 12, color: "#A8A29E", marginTop: -2, marginBottom: 16 }}>
+            {t(
+              "Affiche un bloc a la fin de l'article avec un bouton Deverrouiller. Le lecteur renseigne un mini formulaire, puis le PDF s'ouvre dans un nouvel onglet.",
+              "Adds a block at the end of the article with an Unlock button. The reader fills a mini form, then the PDF opens in a new tab."
+            )}
+          </p>
+          <div style={{ marginBottom: 16 }}>
+            <label style={labelStyle}>{t("URL du PDF", "PDF URL")}</label>
+            <input
+              type="text"
+              value={pdfUrl}
+              onChange={(e) => setPdfUrl(e.target.value)}
+              style={inputStyle}
+              placeholder="/PDF/Etude_IA_Capital_Humain_2026-2030.pdf"
+            />
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <label style={labelStyle}>{t("Titre du document (FR)", "Document title (FR)")}</label>
+            <input
+              type="text"
+              value={pdfTitle}
+              onChange={(e) => setPdfTitle(e.target.value)}
+              style={inputStyle}
+              placeholder="L'IA et la transformation du capital humain"
+            />
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <label style={labelStyle}>{t("Titre du document (EN)", "Document title (EN)")}</label>
+            <input
+              type="text"
+              value={pdfTitleEn}
+              onChange={(e) => setPdfTitleEn(e.target.value)}
+              style={inputStyle}
+              placeholder="AI and the Transformation of Human Capital"
+            />
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <label style={labelStyle}>{t("Image de couverture (petite, max 200px)", "Cover image (small, max 200px)")}</label>
+            <input
+              type="text"
+              value={pdfImage}
+              onChange={(e) => setPdfImage(e.target.value)}
+              style={inputStyle}
+              placeholder="/images/etudeIA-cover.jpg"
+            />
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <label style={labelStyle}>{t("Contexte (marqueur de formulaire)", "Context (form marker)")}</label>
+            <input
+              type="text"
+              value={pdfContext}
+              onChange={(e) => setPdfContext(e.target.value)}
+              style={inputStyle}
+              placeholder="etude-ia-2026"
+            />
+            <p style={{ fontSize: 12, color: "#A8A29E", marginTop: 4 }}>
+              {t("Utilise pour le suivi des soumissions (formContext)", "Used for submission tracking (formContext)")}
+            </p>
+          </div>
         </div>
 
         {/* Language-aware Content */}

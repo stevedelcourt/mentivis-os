@@ -36,9 +36,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       locale: lang === "fr" ? "fr_FR" : "en_US",
       siteName: "MentivisOS",
       type: "website",
+      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
+      images: [`${SITE_URL}/images/OG-image.jpg`],
     },
     robots: {
       index: true,

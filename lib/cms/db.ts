@@ -30,6 +30,11 @@ function rowToPost(row: any): Post {
     gradientId: row.gradient_id,
     featured: !!row.featured,
     published: !!row.published,
+    pdfUrl: row.pdf_url || undefined,
+    pdfTitle: row.pdf_title || "",
+    pdfTitleEn: row.pdf_title_en || "",
+    pdfImage: row.pdf_image || "",
+    pdfContext: row.pdf_context || "",
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -83,13 +88,15 @@ export async function createPost(post: Omit<Post, "id" | "createdAt" | "updatedA
   const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
-    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
+    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, pdf_url, pdf_title, pdf_title_en, pdf_image, pdf_context, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `  ).run(
     post.slug, post.title, post.excerpt, post.content, post.category, post.date, post.dateISO,
     post.imageUrl || null, post.imageTag || null, post.imageCaption || null,
     post.gradientId ?? null,
-    post.featured ? 1 : 0, post.published ? 1 : 0, now, now
+    post.featured ? 1 : 0, post.published ? 1 : 0,
+    post.pdfUrl || null, post.pdfTitle || "", post.pdfTitleEn || "", post.pdfImage || "", post.pdfContext || "",
+    now, now
   );
   postsCache = null;
   return { ...post, id: Number(result.lastInsertRowid), createdAt: now, updatedAt: now };
@@ -116,6 +123,11 @@ export async function updatePost(id: number, updates: Partial<Omit<Post, "id" | 
   if (updates.gradientId !== undefined) { setParts.push("gradient_id = ?"); values.push(updates.gradientId); }
   if (updates.featured !== undefined) { setParts.push("featured = ?"); values.push(updates.featured ? 1 : 0); }
   if (updates.published !== undefined) { setParts.push("published = ?"); values.push(updates.published ? 1 : 0); }
+  if (updates.pdfUrl !== undefined) { setParts.push("pdf_url = ?"); values.push(updates.pdfUrl || null); }
+  if (updates.pdfTitle !== undefined) { setParts.push("pdf_title = ?"); values.push(updates.pdfTitle || ""); }
+  if (updates.pdfTitleEn !== undefined) { setParts.push("pdf_title_en = ?"); values.push(updates.pdfTitleEn || ""); }
+  if (updates.pdfImage !== undefined) { setParts.push("pdf_image = ?"); values.push(updates.pdfImage || ""); }
+  if (updates.pdfContext !== undefined) { setParts.push("pdf_context = ?"); values.push(updates.pdfContext || ""); }
 
   if (setParts.length === 0) return existing;
 

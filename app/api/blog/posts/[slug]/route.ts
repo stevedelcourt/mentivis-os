@@ -6,8 +6,9 @@ function localizePost(p: any, lang: string) {
     if (p.titleEn) p.title = p.titleEn;
     if (p.excerptEn) p.excerpt = p.excerptEn;
     if (p.contentEn) p.content = p.contentEn;
+    if (p.pdfTitleEn) p.pdfTitle = p.pdfTitleEn;
   }
-  delete p.titleEn; delete p.excerptEn; delete p.contentEn;
+  delete p.titleEn; delete p.excerptEn; delete p.contentEn; delete p.pdfTitleEn;
   return p;
 }
 

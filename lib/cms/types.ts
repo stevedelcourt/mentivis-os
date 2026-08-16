@@ -16,6 +16,11 @@ export interface Post {
   gradientId: string;
   featured: boolean;
   published: boolean;
+  pdfUrl?: string;
+  pdfTitle?: string;
+  pdfTitleEn?: string;
+  pdfImage?: string;
+  pdfContext?: string;
   createdAt: string;
   updatedAt: string;
 }

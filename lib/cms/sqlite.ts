@@ -59,6 +59,7 @@ async function createDb(): Promise<SqlJsDb> {
   initDatabase(wrapper);
   runMigrations(wrapper);
   migrateFromJson(wrapper);
+  seedPostsFromJsons(wrapper);
   wrapper.autoSave = true;
   wrapper.save();
 
@@ -276,6 +277,26 @@ function runMigrations(db: SqlJsDb) {
     db.exec("ALTER TABLE posts ADD COLUMN gradient_id INTEGER");
   } catch {
     // Column already exists
+  }
+
+  const postCols = db.prepare("PRAGMA table_info(posts)").all() as { name: string }[];
+  const postColNames = postCols.map((c) => c.name);
+  const postNewCols: [string, string][] = [
+    ["title_en", "TEXT"],
+    ["excerpt_en", "TEXT"],
+    ["content_en", "TEXT"],
+    ["pdf_url", "TEXT"],
+    ["pdf_title", "TEXT"],
+    ["pdf_title_en", "TEXT"],
+    ["pdf_image", "TEXT"],
+    ["pdf_context", "TEXT"],
+  ];
+  for (const [col, type] of postNewCols) {
+    if (!postColNames.includes(col)) {
+      try {
+        db.exec(`ALTER TABLE posts ADD COLUMN ${col} ${type}`);
+      } catch {}
+    }
   }
 
   try {
@@ -499,5 +520,57 @@ function migrateFromJson(db: SqlJsDb) {
       }
       fs.renameSync(files.seo, files.seo + ".bak");
     } catch {}
+  }
+}
+
+// ── Versioned editorial content (idempotent seeds) ──
+
+// Seeds are plain JSON files in lib/cms/seeds/. Each becomes a blog post,
+// inserted only if the slug is not already present (CMS edits are preserved).
+function seedPostsFromJsons(db: SqlJsDb) {
+  const seedsDir = path.join(process.cwd(), "lib", "cms", "seeds");
+  if (!fs.existsSync(seedsDir)) return;
+
+  const files = fs
+    .readdirSync(seedsDir)
+    .filter((f) => f.endsWith(".json"))
+    .sort();
+
+  const stmt = db.prepare(`
+    INSERT OR IGNORE INTO posts (slug, title, title_en, excerpt, excerpt_en, content, content_en, category, date, date_iso, image_url, featured, published, pdf_url, pdf_title, pdf_title_en, pdf_image, pdf_context, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  for (const file of files) {
+    try {
+      const row = JSON.parse(fs.readFileSync(path.join(seedsDir, file), "utf-8"));
+      if (!row.slug || !row.title || !row.content) continue;
+      const now = new Date().toISOString();
+      stmt.run(
+        row.slug,
+        row.title,
+        row.titleEn || "",
+        row.excerpt || "",
+        row.excerptEn || "",
+        row.content,
+        row.contentEn || "",
+        row.category || "strategie",
+        row.date || "",
+        row.dateISO || now,
+        row.imageUrl || null,
+        row.featured ? 1 : 0,
+        row.published ? 1 : 0,
+        row.pdfUrl || null,
+        row.pdfTitle || "",
+        row.pdfTitleEn || "",
+        row.pdfImage || "",
+        row.pdfContext || "",
+        now,
+        now
+      );
+      console.log(`[seed] post: ${row.slug}`);
+    } catch (e) {
+      console.error(`[seed] failed ${file}:`, e);
+    }
   }
 }

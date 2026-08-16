@@ -7,6 +7,7 @@ import styles from "../blog.module.css";
 import { Post } from "@/lib/cms/types";
 import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { renderMarkdown } from "@/lib/markdown";
+import PdfUnlock from "@/components/pdf-unlock";
 
 export default function BlogPostPage() {
   const params = useParams();
@@ -137,6 +138,16 @@ export default function BlogPostPage() {
               Cet article a été publie le {post.date} dans la categorie {post.category.split(",")[0]}.
             </p>
           </div>
+
+          {post.pdfUrl && (
+            <PdfUnlock
+              pdfUrl={post.pdfUrl}
+              title={post.pdfTitle || post.title}
+              cover={post.pdfImage || undefined}
+              lang={lang}
+              context={post.pdfContext || post.slug}
+            />
+          )}
         </article>
       </div>
       <script

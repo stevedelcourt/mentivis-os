@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, titleEn, excerpt, excerptEn, content, contentEn, category, date, dateISO, imageUrl, imageTag, imageCaption, gradientId, featured, published } = body;
+    const { title, titleEn, excerpt, excerptEn, content, contentEn, category, date, dateISO, imageUrl, imageTag, imageCaption, gradientId, featured, published, pdfUrl, pdfTitle, pdfTitleEn, pdfImage, pdfContext } = body;
 
     if (!title || !excerpt || !content || !category || !date || !dateISO) {
       return NextResponse.json(
@@ -58,6 +58,11 @@ export async function POST(request: Request) {
       gradientId: gradientId ?? undefined,
       featured: !!featured,
       published: !!published,
+      pdfUrl: pdfUrl || undefined,
+      pdfTitle: pdfTitle || "",
+      pdfTitleEn: pdfTitleEn || "",
+      pdfImage: pdfImage || "",
+      pdfContext: pdfContext || "",
     });
 
     return NextResponse.json({ success: true, post });

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     openGraph: {
       title: "Offre \u00C9t\u00E9 2026 MentivisOS",
       description: "50% sur le d\u00E9ploiement + 3 mois de licences offerts pour tous vos collaborateurs.",
-      images: [{ url: `${SITE_URL}/images/og-summer-2026.jpg`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
     },
   };
 }
