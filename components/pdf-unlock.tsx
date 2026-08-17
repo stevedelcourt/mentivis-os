@@ -57,7 +57,7 @@ function PdfUnlockModal({
     setError("");
     try {
       const res = await fetch("/api/demo/", {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstname,
