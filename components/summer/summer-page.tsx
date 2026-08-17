@@ -255,7 +255,7 @@ export default function SummerPage({ lang }: { lang: string }) {
           </div>
 
           <p style={{ ...sectionAnim(offerVis, 0.25), textAlign: "center", fontSize: 14, color: "#999", marginBottom: 28 }}>
-            {"Offre valable jusqu\u2019au 31 ao\u00FBt 2026 pour les organismes de formation et les entreprises."}
+            {"Offre valable jusqu\u2019au 30 septembre 2026 pour les organismes de formation et les entreprises."}
           </p>
 
           <div style={{ ...sectionAnim(offerVis, 0.3), textAlign: "center" }}>
@@ -384,7 +384,7 @@ export default function SummerPage({ lang }: { lang: string }) {
                 {"Parlons de votre rentr\u00E9e."}
               </h2>
               <p style={{ fontSize: 16, lineHeight: 1.7, color: "#666", marginBottom: 0 }}>
-                {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 31 ao\u00FBt."}<br />
+                {"Profitez de l\u2019offre \u00E9t\u00E9 2026 avant le 30 septembre."}<br />
                 {"50% de r\u00E9duction sur le d\u00E9ploiement de votre plateforme MentivisOS, et 3 mois de licences offertes pour tous vos collaborateurs. Laissez-nous vos coordonn\u00E9es, notre \u00E9quipe vous recontacte sous 24h pour activer votre offre et construire votre dispositif de rentr\u00E9e."}
               </p>
             </div>
