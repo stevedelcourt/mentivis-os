@@ -253,6 +253,29 @@ export default function BlogPostPage() {
           color: var(--text-tertiary);
           font-style: italic;
         }
+        .article-body table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 24px;
+          font-size: 15px;
+          line-height: 1.6;
+        }
+        .article-body th,
+        .article-body td {
+          border: 1px solid var(--border-light);
+          padding: 10px 14px;
+          text-align: left;
+          vertical-align: top;
+          color: var(--text-secondary);
+        }
+        .article-body th {
+          background: var(--bg-secondary);
+          color: var(--text-primary);
+          font-weight: 500;
+        }
+        .article-body tr:nth-child(even) td {
+          background: rgba(0, 0, 0, 0.02);
+        }
         .article-body img {
           max-width: 100%;
           border-radius: 8px;

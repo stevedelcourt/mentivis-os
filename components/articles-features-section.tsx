@@ -37,7 +37,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
   useEffect(() => {
     async function loadPosts() {
       try {
-        const res = await fetch("/api/blog/posts");
+        const res = await fetch(`/api/blog/posts?lang=${lang}`);
         if (res.ok) {
           const data = await res.json();
           // API already sorts, but ensure we take the first 3
