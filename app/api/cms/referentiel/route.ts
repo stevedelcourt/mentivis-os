@@ -56,13 +56,13 @@ export async function PUT(request: Request) {
 
   try {
     const body = await request.json();
-    if (!body.id || !body.title || !body.content) {
+    if (!body.title || !body.content) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     await saveReferentielArticle({
-      id: body.id,
-      slug: body.slug,
+      ...(body.id ? { id: body.id } : {}),
+      ...(body.slug ? { slug: body.slug } : {}),
       title: body.title,
       content: body.content,
       contentEn: body.contentEn || "",

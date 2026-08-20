@@ -62,7 +62,7 @@ export default function ReferentielCmsPage() {
     setSaving(true);
     setError("");
 
-    const method = selected.id ? "PUT" : "POST";
+    const method = "PUT";
     const res = await fetch("/api/cms/referentiel", {
       method,
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
