@@ -161,9 +161,11 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
         }
       }
 
-      const params = new URLSearchParams(payload);
-      params.set("_t", Date.now().toString());
-      const res = await fetch(`/api/job-applications/?${params}`);
+      const res = await fetch(`/api/job-applications/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, _t: Date.now().toString() }),
+      });
       if (res.ok) {
         setFormState("success");
         (window as any).dataLayer = (window as any).dataLayer || [];

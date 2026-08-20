@@ -186,7 +186,11 @@ export default function BetaQuestionnairePage() {
       payload.features = form.features.join(", ");
       payload.honeypot = "";
       payload._t = Date.now().toString();
-      const res = await fetch(`/api/beta-questionnaire?${new URLSearchParams(payload)}`);
+      const res = await fetch(`/api/beta-questionnaire`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json();
       if (!data.success) {
         setError(data.error || (isFr ? "Erreur d'envoi" : "Submission error"));
