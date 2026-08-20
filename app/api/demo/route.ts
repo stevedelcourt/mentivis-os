@@ -86,9 +86,7 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
   const hubspotFormId = process.env.HUBSPOT_FORM_ID;
 
   if (!hubspotPortalId || !hubspotFormId) {
-    console.log("[Demo API] HubSpot not configured:", {
-      firstname, lastname, organization, role, objective, email, phone, consent,
-    });
+    console.log("[Demo API] HubSpot not configured");
     return NextResponse.json({ success: true, fallback: true });
   }
 
@@ -115,7 +113,7 @@ async function handleSubmission(request: NextRequest, params: Record<string, str
         ...(hubspotutk ? { hutk: hubspotutk } : {}),
       },
     };
-    console.log("[Demo API] HubSpot payload:", JSON.stringify(submissionPayload));
+    console.log("[Demo API] HubSpot submission for", email);
 
   const tryHubSpot = async (payload: typeof submissionPayload) => {
     const res = await fetch(

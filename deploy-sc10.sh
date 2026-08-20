@@ -55,6 +55,7 @@ HUBSPOT_FORM_ID=${HUBSPOT_FORM_ID}
 HUBSPOT_ACCESS_TOKEN=${HUBSPOT_ACCESS_TOKEN}
 ALLOWED_ORIGINS=${ALLOWED_ORIGINS},https://sc10bovu7233.universe.wf,https://mirror.sc10bovu7233.universe.wf
 SITE_URL=https://mentivisos.com
+NEXT_PUBLIC_SITE_URL=https://mentivisos.com
 DATA_DIR=/home/sc10bovu7233/data
 PORT=3001
 ASSET_PREFIX=/s

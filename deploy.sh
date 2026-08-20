@@ -16,6 +16,7 @@ LIVE_URL="https://sc4bovu7233.universe.wf"
 : "${HUBSPOT_FORM_ID:?Environment variable HUBSPOT_FORM_ID is required}"
 : "${HUBSPOT_ACCESS_TOKEN:?Environment variable HUBSPOT_ACCESS_TOKEN is required}"
 : "${ALLOWED_ORIGINS:?Environment variable ALLOWED_ORIGINS is required}"
+: "${SITE_URL:=https://mentivisos.com}"
 
 chmod 600 "$SSH_KEY"
 
@@ -53,6 +54,7 @@ HUBSPOT_ACCESS_TOKEN=${HUBSPOT_ACCESS_TOKEN}
 ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
 SITE_URL=${SITE_URL}
 NEXT_PUBLIC_SITE_URL=${SITE_URL}
+DATA_DIR=/home/sc4bovu7233/data
 PORT=3001
 ASSET_PREFIX=/statics
 ENVEOF

@@ -8,10 +8,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 const DATA_DIR = process.env.DATA_DIR || "/home/sc4bovu7233/data";
 const CVS_DIR = path.join(DATA_DIR, "cvs");
 
-const ALLOWED_ORIGINS = [
-  SITE_URL,
-  "http://localhost:3000",
-];
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || `${SITE_URL},http://localhost:3000`).split(",");
 
 const MAX_FILE_SIZE = 6 * 1024 * 1024; // 6MB
 

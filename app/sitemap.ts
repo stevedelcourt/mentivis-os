@@ -51,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const lang of langs) {
         entries.push({
           url: `${BASE_URL}/${lang}/blog/${post.slug}/`,
-          lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.dateISO),
+          lastModified: post.dateISO ? new Date(post.dateISO) : new Date(post.updatedAt),
           changeFrequency: "monthly",
           priority: 0.6,
         });

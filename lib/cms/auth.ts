@@ -2,12 +2,18 @@ import crypto from "crypto";
 import { UserRole } from "./types";
 import { getUserByEmail } from "./users";
 
-const SECRET = process.env.CMS_AUTH_SECRET || process.env.INTERNAL_TOKEN || "mentivis-cms-fallback-secret";
+function getSecret(): string {
+  const secret = process.env.CMS_AUTH_SECRET || process.env.INTERNAL_TOKEN || "";
+  if (!secret) {
+    throw new Error("CMS_AUTH_SECRET or INTERNAL_TOKEN environment variable is required");
+  }
+  return secret;
+}
 
 export function createToken(email: string, role: UserRole): string {
   const payload = { email, role, exp: Date.now() + 24 * 60 * 60 * 1000 };
   const data = Buffer.from(JSON.stringify(payload)).toString("base64url");
-  const sig = crypto.createHmac("sha256", SECRET).update(data).digest("base64url");
+  const sig = crypto.createHmac("sha256", getSecret()).update(data).digest("base64url");
   return `${data}.${sig}`;
 }
 
@@ -16,7 +22,7 @@ export function verifyToken(token: string): { email: string; role: UserRole } | 
   if (parts.length !== 2) return null;
   const [data, sig] = parts;
   if (!data || !sig) return null;
-  const expectedSig = crypto.createHmac("sha256", SECRET).update(data).digest("base64url");
+  const expectedSig = crypto.createHmac("sha256", getSecret()).update(data).digest("base64url");
   if (sig !== expectedSig) return null;
   try {
     const payload = JSON.parse(Buffer.from(data, "base64url").toString());

@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local sqlite database (contains user PII / credentials; never commit)
+data/mentivis.db
+data/mentivis.db-shm
+data/mentivis.db-wal

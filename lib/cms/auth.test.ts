@@ -1,6 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import crypto from "crypto";
 import { createToken, verifyToken, isAuthorizedEmail } from "./auth";
+
+beforeAll(() => {
+  process.env.CMS_AUTH_SECRET = "test-secret-for-unit-tests";
+});
 
 const SECRET = process.env.CMS_AUTH_SECRET || process.env.INTERNAL_TOKEN || "mentivis-cms-fallback-secret";
 

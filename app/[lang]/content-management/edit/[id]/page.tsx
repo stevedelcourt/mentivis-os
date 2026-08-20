@@ -131,7 +131,7 @@ export default function PostEditorPage() {
       const formData = new FormData();
       formData.append("file", file);
       const res = await cmsFetch("/api/cms/upload", {
-        method: "POST",
+        method: "PUT",
         body: formData,
       });
       const data = await res.json();
@@ -182,7 +182,7 @@ export default function PostEditorPage() {
       let res;
       if (isNew) {
         res = await cmsFetch("/api/cms/posts", {
-          method: "POST",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });

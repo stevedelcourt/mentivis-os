@@ -31,9 +31,12 @@ export default function ContactForm({ lang, mode = "demo", formContext, subject:
     if (match) data.hubspotutk = match[1];
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     try {
-      const params = new URLSearchParams(data);
-      params.set("_t", Date.now().toString());
-      const res = await fetch(`${baseUrl}/api/demo/?${params}`);
+      const payload = { ...data, _t: Date.now().toString() };
+      const res = await fetch(`${baseUrl}/api/demo/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       if (res.ok) {
         setStatus("success");
         (window as any).dataLayer = (window as any).dataLayer || [];

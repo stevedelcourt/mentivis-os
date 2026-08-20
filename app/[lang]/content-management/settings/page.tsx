@@ -85,7 +85,7 @@ export default function SettingsPage() {
     setSuccess("");
     try {
       const res = await cmsFetch("/api/cms/users", {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: inviteEmail, name: inviteName, password: invitePassword, role: inviteRole }),
       });

@@ -69,3 +69,7 @@ export async function POST(
     );
   }
 }
+
+export async function PUT(request: Request, context: { params: Promise<{ id: string }> }) {
+  return POST(request, context);
+}

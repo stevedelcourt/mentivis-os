@@ -100,7 +100,7 @@ export default function CandidaturesPage() {
     setHubspotSending((prev) => ({ ...prev, [id]: true }));
     try {
       const res = await cmsFetch(`/api/cms/job-applications/${id}/send-to-hubspot`, {
-        method: "POST",
+        method: "PUT",
       });
       if (res.ok) {
         setHubspotSent((prev) => ({ ...prev, [id]: true }));

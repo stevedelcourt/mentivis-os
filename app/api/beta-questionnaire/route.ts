@@ -103,16 +103,9 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
-  try {
-    const params: Record<string, string> = {};
-    request.nextUrl.searchParams.forEach((value, key) => { params[key] = value; });
-    return handleSubmission(request, params);
-  } catch (error) {
-    console.error("[Beta API] Error:", error);
-    return NextResponse.json(
-      { success: false, error: "Internal server error" },
-      { status: 500 }
-    );
-  }
+export async function GET() {
+  return NextResponse.json(
+    { success: false, error: "Method not allowed" },
+    { status: 405 }
+  );
 }

@@ -151,7 +151,7 @@ MentivisOS combine conseil stratégique, expertise pédagogique, exécution opé
       let res;
       if (isNew) {
         res = await cmsFetch("/api/cms/jobs", {
-          method: "POST",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
