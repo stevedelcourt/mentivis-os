@@ -13,10 +13,10 @@ const GRADIENT = "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, 
 
 const CONTENT: Record<string, { eyebrow: string; headlineGradient: string; headlinePlain: string; subheadline: string; cta: string; ctaLink: string }> = {
   fr: {
-    eyebrow: "MentivisOS Education",
-    headlineGradient: "MentivisOS Education",
+    eyebrow: "EduOS",
+    headlineGradient: "EduOS",
     headlinePlain: "Apprendre autrement. Réussir durablement.",
-    subheadline: "MentivisOS pour les organismes de formation, CFA et écoles.",
+    subheadline: "EduOS pour les organismes de formation, CFA et écoles.",
     cta: "Contactez-nous",
     ctaLink: "/fr/contact",
   },

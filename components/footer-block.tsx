@@ -79,11 +79,22 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 color: "var(--text-tertiary)",
-                marginBottom: 16,
+                marginBottom: 4,
               }}
             >
               {f.produits}
             </h4>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 10,
+                color: "var(--text-tertiary)",
+                marginBottom: 16,
+                letterSpacing: "0.04em",
+              }}
+            >
+              powered by MentivisOS
+            </p>
             <ul>
               {(f.sections?.produits || ["MentivisOS Entreprise", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
                 const PRODUITS_PATH: Record<string, string> = { "OpenOS": "/openos", "MentivisOS Open": "/openos", "SkillOS": "/entreprises", "MentivisOS Entreprise": "/entreprises", "EduOS": "/education", "MentivisOS Education": "/education" };

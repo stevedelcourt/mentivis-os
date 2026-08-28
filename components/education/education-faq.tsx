@@ -9,12 +9,12 @@ const FAQS_FR = [
     answer: "L'IA diagnostique le niveau réel de chaque apprenant dès son arrivée, puis construit un parcours sur mesure. Chaque étape est recalculée en fonction de la progression et des difficultés rencontrées. Pour un organisme, cela signifie qu'une centaine d'apprenants peuvent suivre cent parcours différents sans charge supplémentaire pour les équipes pédagogiques.",
   },
   {
-    question: "MentivisOS est-il compatible avec nos référentiels de compétences existants ?",
+    question: "EduOS est-il compatible avec nos référentiels de compétences existants ?",
     answer: "Oui. Nous intégrons vos référentiels (RNCP, blocs de compétences, référentiels internes, etc.) directement dans l'instance. L'IA s'appuie sur vos référentiels pour générer les parcours et les badges.",
   },
   {
     question: "Comment assurez-vous la traçabilité demandée par les financeurs ?",
-    answer: "MentivisOS produit nativement une trace compétence par compétence : temps passé, acquis mesurés, niveau atteint. Les tableaux de bord exportables répondent aux exigences OPCO, France Compétences et Régions. Plus besoin de ressaisir manuellement les données.",
+    answer: "EduOS produit nativement une trace compétence par compétence : temps passé, acquis mesurés, niveau atteint. Les tableaux de bord exportables répondent aux exigences OPCO, France Compétences et Régions. Plus besoin de ressaisir manuellement les données.",
   },
   {
     question: "Quel est le délai de déploiement ?",
@@ -25,8 +25,8 @@ const FAQS_FR = [
     answer: "Chaque instance est dédiée et hébergée en France. Les données d'apprentissage, résultats et informations personnelles restent strictement confidentielles. Nous ne les utilisons pas pour entraîner nos modèles ni ne les partageons avec des tiers.",
   },
   {
-    question: "Quelle est la différence avec MentivisOS Open ?",
-    answer: "MentivisOS Open est la version gratuite ouverte à tous les apprenants individuels. La version Education ajoute le pilotage collectif (tableau de bord par cohorte), l'intégration de vos référentiels, le suivi des financeurs, le branding personnalisé (instance dédiée avec votre logo) et la gestion des équipes pédagogiques.",
+    question: "Quelle est la différence avec OpenOS ?",
+    answer: "OpenOS est la version gratuite ouverte à tous les apprenants individuels. EduOS ajoute le pilotage collectif (tableau de bord par cohorte), l'intégration de vos référentiels, le suivi des financeurs, le branding personnalisé (instance dédiée avec votre logo) et la gestion des équipes pédagogiques.",
   },
   {
     question: "Proposez-vous un accompagnement à la prise en main ?",
@@ -132,7 +132,7 @@ export default function EducationFAQ({ lang }: { lang: string }) {
               }}
             >
               {lang === "fr"
-                ? "Des questions sur MentivisOS Education ? Les réponses sont ici."
+                ? "Des questions sur EduOS ? Les réponses sont ici."
                 : "Questions about MentivisOS Education? Answers are here."}
             </p>
           </div>

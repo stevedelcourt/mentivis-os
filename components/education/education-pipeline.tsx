@@ -3,12 +3,12 @@
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const PARADIGM_FR = [
-  { trad: "Logique traditionnelle", menti: "Logique MentivisOS", items: [
+  { trad: "Logique traditionnelle", menti: "Logique EduOS", items: [
     "Le contenu est figé, l'apprenant s'adapte",
     "On mesure la complétion",
     "Un programme unique pour tous",
   ]},
-  { trad: "Logique traditionnelle", menti: "Logique MentivisOS", items: [
+  { trad: "Logique traditionnelle", menti: "Logique EduOS", items: [
     "Le parcours s'adapte à chaque apprenant",
     "On mesure l'acquisition réelle, compétence par compétence",
     "Un programme individuel, recalculé à chaque étape",
@@ -29,9 +29,9 @@ const PARADIGM_EN = [
 ];
 
 const PAIN_POINTS_FR = [
-  { title: "Individualisation à grande échelle.", body: "Différencier un parcours pour des centaines d'apprenants, avec des équipes limitées, est impossible sans IA native. MentivisOS automatise le diagnostic, la construction et l'ajustement du parcours." },
-  { title: "Décrochage en formation.", body: "En calibrant chaque parcours sur le niveau réel d'entrée, MentivisOS réduit l'écart entre rythme imposé et capacité de l'apprenant." },
-  { title: "Preuve de l'acquisition de compétences.", body: "Les financeurs (OPCO, France Compétences, Régions) exigent une traçabilité fine, au-delà du simple taux de complétion. MentivisOS la produit nativement, compétence par compétence." },
+  { title: "Individualisation à grande échelle.", body: "Différencier un parcours pour des centaines d'apprenants, avec des équipes limitées, est impossible sans IA native. EduOS automatise le diagnostic, la construction et l'ajustement du parcours." },
+  { title: "Décrochage en formation.", body: "En calibrant chaque parcours sur le niveau réel d'entrée, EduOS réduit l'écart entre rythme imposé et capacité de l'apprenant." },
+  { title: "Preuve de l'acquisition de compétences.", body: "Les financeurs (OPCO, France Compétences, Régions) exigent une traçabilité fine, au-delà du simple taux de complétion. EduOS la produit nativement, compétence par compétence." },
   { title: "Charge des équipes pédagogiques.", body: "L'IA prend en charge la génération et l'ajustement des parcours, vos formateurs se concentrent sur l'accompagnement." },
 ];
 
@@ -112,7 +112,7 @@ export default function EducationPipeline({ lang }: { lang: string }) {
             }}
           >
             {isFr
-              ? "Les dispositifs de formation actuels diffusent le même contenu, dans le même ordre, au même rythme, à des apprenants qui n'ont ni les mêmes acquis, ni les mêmes objectifs, ni le même temps disponible. MentivisOS renverse cette logique."
+              ? "Les dispositifs de formation actuels diffusent le même contenu, dans le même ordre, au même rythme, à des apprenants qui n'ont ni les mêmes acquis, ni les mêmes objectifs, ni le même temps disponible. EduOS renverse cette logique."
               : "Current training systems deliver the same content, in the same order, at the same pace, to learners who don't share the same background, goals, or available time. MentivisOS reverses this logic."}
           </p>
           <div
@@ -155,7 +155,7 @@ export default function EducationPipeline({ lang }: { lang: string }) {
               fontSize: 11,
             }}
           >
-            {isFr ? "CE À QUOI MENTIVISOS RÉPOND" : "WHAT MENTIVISOS ADDRESSES"}
+            {isFr ? "CE À QUOI EDUOS RÉPOND" : "WHAT MENTIVISOS ADDRESSES"}
           </p>
           <h2
             style={{
@@ -167,7 +167,7 @@ export default function EducationPipeline({ lang }: { lang: string }) {
               maxWidth: 600,
             }}
           >
-            {isFr ? "Ce à quoi MentivisOS répond" : "What MentivisOS addresses"}
+            {isFr ? "Ce à quoi EduOS répond" : "What MentivisOS addresses"}
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
             {painPoints.map((item) => (

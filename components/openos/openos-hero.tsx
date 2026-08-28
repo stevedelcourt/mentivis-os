@@ -13,7 +13,7 @@ const CTAS_FR = {
   subheadline:
     "Pour vous pr\u00E9parer \u00E0 un nouveau poste, passer un dipl\u00F4me ou un concours, ou simplement par d\u00E9sir d'apprendre.",
   cta: "L'aventure commence ici \u2192",
-  tagline: "MentivisOS, la plateforme universelle pour apprendre, se former et r\u00E9viser.",
+  tagline: "OpenOS, la plateforme universelle pour apprendre, se former et r\u00E9viser.",
   proof: "Gratuit pour toujours \u00B7 Sans carte bancaire",
 };
 

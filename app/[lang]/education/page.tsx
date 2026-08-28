@@ -7,9 +7,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const isFr = lang === "fr";
   return {
-    title: isFr ? "MentivisOS Education - MentivisOS" : "MentivisOS Education - MentivisOS",
+    title: isFr ? "EduOS - MentivisOS" : "MentivisOS Education - MentivisOS",
     description: isFr
-      ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
+      ? "EduOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
       : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.",
     robots: lang !== "fr" ? { index: false } : undefined,
   };

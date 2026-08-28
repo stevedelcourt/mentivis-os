@@ -6,11 +6,11 @@ const GRADIENT_VERT = "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 
 
 const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
-    eyebrow: "MENTIVIS OS ENTREPRISE",
-    headline: "MentivisOS Entreprise\nFormer autrement.\nPerformer durablement.",
+    eyebrow: "SKILL OS",
+    headline: "SkillOS : former autrement.\nPerformer durablement.",
     headlineGradient: GRADIENT_VERT,
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
-    ctaPrimary: "Testez MentivisOS Entreprise",
+    ctaPrimary: "Testez SkillOS",
     ctaPrimaryLink: "/demo",
     ctaSecondary: "",
     ctaSecondaryLink: "",
