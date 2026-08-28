@@ -15,7 +15,7 @@ const CONTENT: Record<string, { eyebrow: string; headlineGradient: string; headl
   fr: {
     eyebrow: "EduOS",
     headlineGradient: "EduOS",
-    headlinePlain: "Apprendre autrement. Réussir durablement.",
+    headlinePlain: "Apprendre autrement.\nRéussir durablement.",
     subheadline: "EduOS pour les organismes de formation, CFA et écoles.",
     cta: "Contactez-nous",
     ctaLink: "/fr/contact",
@@ -91,7 +91,7 @@ export default function EducationHero({ lang }: EducationHeroProps) {
             >
               {c.headlineGradient}
             </span>
-            <span style={{ display: "block" }}>
+            <span style={{ display: "block", whiteSpace: "pre-line" }}>
               {c.headlinePlain}
             </span>
           </h1>
