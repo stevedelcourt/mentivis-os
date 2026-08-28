@@ -15,7 +15,7 @@ const CONTENT: Record<string, { eyebrow: string; headlineGradient: string; headl
   fr: {
     eyebrow: "EduOS",
     headlineGradient: "EduOS",
-    headlinePlain: "Apprendre autrement.\nRéussir durablement.",
+    headlinePlain: "Apprendre\u00A0autrement.\nRéussir\u00A0durablement.",
     subheadline: "EduOS pour les organismes de formation, CFA et écoles.",
     cta: "Contactez-nous",
     ctaLink: "/fr/contact",
