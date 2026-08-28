@@ -9,7 +9,7 @@ interface OpenOSHeroProps {
 }
 
 const CTAS_FR = {
-  headline: "Votre formation sur mesure, gratuite et illimitée.",
+  headline: "OpenOS : votre formation sur mesure, gratuite et illimitée.",
   subheadline:
     "Pour vous pr\u00E9parer \u00E0 un nouveau poste, passer un dipl\u00F4me ou un concours, ou simplement par d\u00E9sir d'apprendre.",
   cta: "L'aventure commence ici \u2192",
@@ -63,7 +63,23 @@ export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
             fontSize: "clamp(32px, 5vw, 56px)",
           }}
         >
-          {c.headline}
+          {lang === "fr" && c.headline.startsWith("OpenOS") ? (
+            <>
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                OpenOS
+              </span>
+              {c.headline.slice(6)}
+            </>
+          ) : (
+            c.headline
+          )}
         </h1>
         <p
           style={{
