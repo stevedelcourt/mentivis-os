@@ -13,7 +13,7 @@ const GRADIENT = "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, 
 
 const CONTENT: Record<string, { eyebrow: string; headlineGradient: string; headlinePlain: string; subheadline: string; cta: string; ctaLink: string }> = {
   fr: {
-    eyebrow: "EduOS",
+    eyebrow: "EDU OS",
     headlineGradient: "EduOS",
     headlinePlain: "Apprendre\u00A0autrement.\nRéussir\u00A0durablement.",
     subheadline: "EduOS pour les organismes de formation, CFA et écoles.",
