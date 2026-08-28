@@ -258,7 +258,7 @@ export default function OpenOSWorkflow({ lang }: { lang: string }) {
             textAlign: "center",
           }}
         >
-          {lang === "fr" ? "En 3 étapes, votre cours sur mesure." : "In 3 steps, your custom course."}
+          {lang === "fr" ? "OpenOS : votre cours sur mesure en 3 étapes." : "OpenOS: your custom course in 3 steps."}
         </h2>
 
         <div

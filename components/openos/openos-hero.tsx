@@ -14,7 +14,7 @@ const CTAS_FR = {
     "Pour vous pr\u00E9parer \u00E0 un nouveau poste, passer un dipl\u00F4me ou un concours, ou simplement par d\u00E9sir d'apprendre.",
   cta: "L'aventure commence ici \u2192",
   tagline: "MentivisOS, la plateforme universelle pour apprendre, se former et r\u00E9viser.",
-  proof: "181+ apprenants \u00B7 Gratuit pour toujours \u00B7 Sans carte bancaire",
+  proof: "Gratuit pour toujours \u00B7 Sans carte bancaire",
 };
 
 const CTAS_EN = {
@@ -23,7 +23,7 @@ const CTAS_EN = {
     "To prepare for a new role, pass a diploma or exam, or simply out of a desire to learn.",
   cta: "The adventure starts here \u2192",
   tagline: "MentivisOS, the universal platform to learn, train and revise.",
-  proof: "181+ learners \u00B7 Free forever \u00B7 No credit card",
+  proof: "Free forever \u00B7 No credit card",
 };
 
 export default function OpenOSHero({ lang, children }: OpenOSHeroProps) {
