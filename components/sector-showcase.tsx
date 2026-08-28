@@ -43,7 +43,7 @@ interface Sector {
 const SECTORS_FR: Sector[] = [
   {
     id: "open",
-    title: "MentivisOS Open",
+    title: "OpenOS",
     members: [],
     advantages: [],
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
@@ -118,7 +118,7 @@ const SECTORS_FR: Sector[] = [
       },
     ],
     bottomBar: {
-      systemName: "MentivisOS Open",
+      systemName: "OpenOS",
       tagline: "La plateforme d'apprentissage libre, pour toutes les envies",
       cta: "Gratuit !",
       ctaHref: "https://open.mentivisos.com",
@@ -210,7 +210,7 @@ const SECTORS_FR: Sector[] = [
 const SECTORS_EN: Sector[] = [
   {
     id: "open",
-    title: "MentivisOS Open",
+    title: "OpenOS",
     members: [],
     advantages: [],
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
@@ -285,7 +285,7 @@ const SECTORS_EN: Sector[] = [
       },
     ],
     bottomBar: {
-      systemName: "MentivisOS Open",
+      systemName: "OpenOS",
       tagline: "The free learning platform, for every curiosity",
       cta: "Free!",
       ctaHref: "https://open.mentivisos.com",
