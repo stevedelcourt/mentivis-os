@@ -16,20 +16,20 @@ interface ProductCardGridProps {
 
 const CARDS: ProductCard[] = [
   {
-    tag: "MentivisOS Open",
-    title: "Apprendre gratuitement !",
+    tag: "OpenOS",
+    title: "Apprenez tout ce que vous voulez. Gratuitement.",
     gradient: "linear-gradient(135deg, #1A2B80 0%, #7030A0 38%, #B02050 72%, #C83040 100%)",
     href: "/openos",
   },
   {
-    tag: "MentivisOS Entreprise",
-    title: "Intelligence de formation",
+    tag: "SkillOS",
+    title: "La formation comme levier opérationnel.",
     gradient: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
     href: "/entreprises",
   },
   {
-    tag: "MentivisOS Education",
-    title: "Individualisation à grande échelle",
+    tag: "EduOS",
+    title: "L'individualisation à grande échelle, enfin opérationnelle.",
     gradient: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
     href: "/education",
   },
@@ -39,8 +39,12 @@ const DESCRIPTION_KEYS = ["card1", "card2", "card3"] as const;
 
 export default function ProductCardGrid({ lang }: ProductCardGridProps) {
   const t = getT(lang);
+  const eyebrow = (t.productCards as any).eyebrow;
   return (
     <div className="product-card-grid-wrapper" style={{ marginTop: 32 }}>
+      {eyebrow && (
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "var(--text-caption)", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 16 }}>{eyebrow}</p>
+      )}
       <div className="product-card-grid">
         {CARDS.map((card, i) => (
           <div key={i} style={{ display: "flex", flexDirection: "column" }}>

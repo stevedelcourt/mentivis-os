@@ -57,34 +57,34 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
   return (
     <>
-      {/* Open */}
+      {/* OpenOS */}
       <Link href={`/${lang}/openos`} onClick={onClose} style={{...navStyle}}>
-        <span>MentivisOS <span style={{
+        <span style={{
           background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
-        }}>Open</span></span>
+        }}>OpenOS</span>
       </Link>
 
-      {/* MentivisOS Entreprise */}
+      {/* SkillOS */}
       <Link href={`/${lang}/entreprises`} onClick={onClose} style={navStyle}>
-        <span>MentivisOS <span style={{
+        <span style={{
           background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
-        }}>Entreprise</span></span>
+        }}>SkillOS</span>
       </Link>
 
-      {/* MentivisOS Edu */}
+      {/* EduOS */}
       <Link href={`/${lang}/education`} onClick={onClose} style={navStyle}>
-        <span>MentivisOS <span style={{
+        <span style={{
           background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
-        }}>Edu</span></span>
+        }}>EduOS</span>
       </Link>
 
       {/* TalentOS — hidden */}

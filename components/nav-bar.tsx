@@ -173,52 +173,49 @@ export default function NavBar({ lang }: NavBarProps) {
             className="navbar-links"
             style={{ display: "flex", gap: 32, alignItems: "center", flex: 1, justifyContent: "center" }}
           >
-            {/* Open */}
+            {/* OpenOS */}
             <Link
               href={`/${lang}/openos`}
               className="t-nav navbar-link"
               data-active={isActive("/openos")}
               style={{ padding: "20px 0" }}
             >
-              MentivisOS{" "}
               <span style={{
                 background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-              }}>Open</span>
+              }}>OpenOS</span>
             </Link>
 
-            {/* MentivisOS Entreprise */}
+            {/* SkillOS */}
             <Link
               href={`/${lang}/entreprises`}
               className="t-nav navbar-link"
               data-active={isActive("/entreprises")}
               style={{ padding: "20px 0" }}
-          >
-            MentivisOS{" "}
+           >
             <span style={{
               background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>Entreprise</span>
+            }}>SkillOS</span>
           </Link>
 
-            {/* MentivisOS Edu */}
+            {/* EduOS */}
             <Link
               href={`/${lang}/education`}
               className="t-nav navbar-link"
               data-active={isActive("/education")}
               style={{ padding: "20px 0" }}
             >
-              MentivisOS{" "}
               <span style={{
                 background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-              }}>Edu</span>
+              }}>EduOS</span>
             </Link>
 
             {/* TalentOS — hidden */}
@@ -346,7 +343,7 @@ export default function NavBar({ lang }: NavBarProps) {
                     e.currentTarget.style.filter = "none";
                   }}
             >
-              Pro Démo
+              Démo
             </Link>
             )}
 
@@ -533,7 +530,7 @@ export default function NavBar({ lang }: NavBarProps) {
               boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
             }}
           >
-            Pro Démo
+            Démo
           </Link>
           )}
         </div>

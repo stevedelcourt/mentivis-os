@@ -74,36 +74,40 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
             >
               {t.hero.headline}
             </span>
-            . {t.hero.tagline}
+            {t.hero.tagline ? ` . ${t.hero.tagline}` : ""}
           </h1>
 
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 800,
-              marginBottom: 12,
-              lineHeight: 1.5,
-            }}
-          >
-            {t.hero.description}
-          </p>
+          {t.hero.description && (
+            <p
+              className="t-lead"
+              style={{
+                maxWidth: 800,
+                marginBottom: 12,
+                lineHeight: 1.5,
+              }}
+            >
+              {t.hero.description}
+            </p>
+          )}
 
-          <p
-            className="t-lead"
-            style={{
-              maxWidth: 800,
-              marginBottom: 40,
-              lineHeight: 1.6,
-            }}
-          >
-            {t.hero.bodyText}
-          </p>
+          {t.hero.bodyText && (
+            <p
+              className="t-lead"
+              style={{
+                maxWidth: 800,
+                marginBottom: 40,
+                lineHeight: 1.6,
+              }}
+            >
+              {t.hero.bodyText}
+            </p>
+          )}
+          {!t.hero.bodyText && t.hero.description && <div style={{ marginBottom: 40 }} />}
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <Link
-              href="https://open.mentivisos.com/?utm_source=openos&utm_medium=button&utm_campaign=click"
+              href={`/${lang}/demo`}
               className="btn-pill btn-black"
-              data-gtm-click="openos-cta"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -117,6 +121,28 @@ export default function HeroUnit({ lang }: HeroUnitProps) {
                 <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
+            {(t.hero as any).ctaSecondary && (
+              <Link
+                href="https://open.mentivisos.com/?utm_source=openos&utm_medium=button&utm_campaign=click"
+                className="btn-pill"
+                data-gtm-click="openos-cta"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  borderRadius: 8,
+                  padding: "12px 20px",
+                  background: "#fff",
+                  color: "#0A0A0A",
+                  border: "1px solid rgba(0,0,0,0.12)",
+                }}
+              >
+                {(t.hero as any).ctaSecondary}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            )}
           </div>
 
           <p

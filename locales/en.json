@@ -81,9 +81,11 @@
     "description": "The native AI learning platform open to everyone.",
     "bodyText": "Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
     "ctaPrimary": "Start with Open",
+    "ctaSecondary": "Try OpenOS for free",
     "proof": "Free forever. Learn for life."
   },
   "productCards": {
+    "eyebrow": "Three systems. One common engine.",
     "card1": "Free AI learning access for everyone. Always free, forever.",
     "card2": "AI-native training system to generate, track and certify skills.",
     "card3": "MentivisOS for training organizations, CFAs and schools."

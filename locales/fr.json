@@ -1,14 +1,14 @@
 {
   "nav": {
-    "open": "Open",
-    "learningOS": "MentivisOS Entreprise",
+    "open": "OpenOS",
+    "learningOS": "SkillOS",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Ressources",
-    "entreprise": "Corporate",
+    "entreprise": "Entreprise",
     "tarifs": "Tarifs",
-    "ecoles": "MentivisOS Edu",
-    "contact": "Contactez-nous",
+    "ecoles": "EduOS",
+    "contact": "Contact",
     "login": "Se connecter",
     "cta": "Contactez-nous",
     "eyebrows": {
@@ -75,18 +75,20 @@
     }
   },
   "hero": {
-    "eyebrow": "MENTIVIS OS OPEN",
-    "headline": "MentivisOS Open",
-    "tagline": "Apprenez tout ce que vous voulez, gratuitement.",
-    "description": "La plateforme d'apprentissage native IA ouverte à tous.",
-    "bodyText": "Que vous soyez étudiant, professionnel ou simplement curieux, Open MentivisOS est fait pour vous.",
-    "ctaPrimary": "Démarrer avec Open",
-    "proof": "Gratuit pour toujours. Apprenez toute votre vie."
+    "eyebrow": "MENTIVIS OS",
+    "headline": "Le système d'exploitation de la montée en compétences.",
+    "tagline": "",
+    "description": "MentivisOS orchestre l'intégralité du cycle : diagnostic, génération de parcours, mesure compétence par compétence, recalcul en continu. Pas un outil. Une infrastructure.",
+    "bodyText": "",
+    "ctaPrimary": "Voir une démonstration réelle",
+    "ctaSecondary": "Essayer OpenOS gratuitement",
+    "proof": "Le parcours s'ajuste. Pas vous."
   },
   "productCards": {
-    "card1": "Accès libre à l'apprentissage IA. Gratuit pour toujours, pour tous.",
-    "card2": "Système de formation native IA pour générer, piloter et suivre les compétences.",
-    "card3": "MentivisOS pour les organismes de formation, CFA et écoles."
+    "eyebrow": "Trois systèmes. Un moteur commun.",
+    "card1": "Parcours personnalisés générés par IA, accessibles à tous, sans prérequis ni durée imposée. Pour les étudiants, les professionnels, les curieux. Accès libre, gratuit pour toujours.",
+    "card2": "SkillOS génère, déploie et mesure la montée en compétences à l'échelle d'une organisation. Diagnostic quantifié, parcours alignés sur les métiers, pilotage en temps réel. Pour les entreprises, les DRH et les directions formation.",
+    "card3": "EduOS est conçu pour les organismes de formation, les CFA et les établissements d'enseignement supérieur. Il structure, personnalise et mesure sans alourdir les équipes pédagogiques. Pour les écoles, CFA et organismes de formation."
   },
   "products": {
     "atelier": {
@@ -594,9 +596,9 @@
     ]
   },
   "finalCta": {
-    "headline": "Pas de demonstration standard.\nUn cas réel, issu de votre organisation, traite en direct.",
-    "button": "Demander une demonstration",
-    "subline": "Visioconference ou sur site."
+    "headline": "Pas de démonstration standard.\nUn cas réel, issu de votre organisation, traité en direct.",
+    "button": "Demander une démonstration",
+    "subline": "Visioconférence ou sur site."
   },
   "footer": {
     "slogan": "Le parcours s'ajuste. Pas vous.",
@@ -610,7 +612,7 @@
     "legal": "Légal",
     "copyright": "MentivisOS est développé par Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "MentivisOS Education"],
+      "produits": ["OpenOS", "SkillOS", "EduOS"],
       "workflows": [],
       "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"],
       "contact": "Contact"
