@@ -23,9 +23,10 @@ export function proxy(request: NextRequest) {
 
   const res = NextResponse.next();
   res.headers.set("x-current-path", pathname);
+  res.headers.set("x-pathname", pathname);
   return res;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|visuals-library|sounds).*)",],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|visuals-library|sounds|sitemap.xml|robots.txt|llms.txt).*)",],
 };

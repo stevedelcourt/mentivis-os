@@ -32,7 +32,23 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: `${title} | ${isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS"}`,
     description: desc,
     robots: { index: true, follow: true },
-    alternates: { canonical: `${SITE_URL}/${lang}/referentiel/${slug}` },
+    alternates: {
+      canonical: `${SITE_URL}/${lang}/referentiel/${slug}/`,
+      languages: {
+        fr: `${SITE_URL}/fr/referentiel/${slug}/`,
+        en: `${SITE_URL}/en/referentiel/${slug}/`,
+        "x-default": `${SITE_URL}/fr/referentiel/${slug}/`,
+      },
+    },
+    openGraph: {
+      title: `${title} | ${isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS"}`,
+      description: desc,
+      url: `${SITE_URL}/${lang}/referentiel/${slug}/`,
+      type: "article",
+      locale: isFr ? "fr_FR" : "en_US",
+      siteName: "MentivisOS",
+      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
+    },
   };
 }
 
@@ -174,13 +190,37 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
             "@type": "Article",
             headline: title,
             description: chapeau || article.content.substring(0, 160),
+            url: `${SITE_URL}/${lang}/referentiel/${slug}/`,
+            inLanguage: isFr ? "fr-FR" : "en-US",
+            image: `${SITE_URL}/images/OG-image.jpg`,
             datePublished: article.createdAt,
             dateModified: article.updatedAt,
             author: { "@type": "Organization", name: "MentivisOS" },
-            publisher: { "@type": "Organization", name: "MentivisOS" },
+            publisher: {
+              "@type": "Organization",
+              name: "MentivisOS",
+              logo: { "@type": "ImageObject", url: `${SITE_URL}/images/MentivisOS/mentivisos-logo-wordmark-noir.svg`, width: 200, height: 50 },
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/${lang}/referentiel/${slug}/` },
           }),
         }}
       />
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            }),
+          }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
