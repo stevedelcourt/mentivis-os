@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
-  assetPrefix: process.env.ASSET_PREFIX || undefined,
+  assetPrefix: process.env.VERCEL ? undefined : (process.env.ASSET_PREFIX || undefined),
   images: {
     remotePatterns: [],
   },
