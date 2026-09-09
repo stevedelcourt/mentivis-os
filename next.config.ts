@@ -10,6 +10,30 @@ const nextConfig: NextConfig = {
   experimental: {
     cpus: 2,
   },
+  async redirects() {
+    return [
+      {
+        source: "/fr/referentiel/comment-lia-personnalise-un-parcours-de-formation",
+        destination: "/fr/referentiel/comment-lia-personnalise-et-adapte-un-parcours-de-formation",
+        permanent: true,
+      },
+      {
+        source: "/en/referentiel/comment-lia-personnalise-un-parcours-de-formation",
+        destination: "/en/referentiel/comment-lia-personnalise-et-adapte-un-parcours-de-formation",
+        permanent: true,
+      },
+      {
+        source: "/fr/referentiel/comment-lia-personnalise-un-parcours-de-formation/",
+        destination: "/fr/referentiel/comment-lia-personnalise-et-adapte-un-parcours-de-formation/",
+        permanent: true,
+      },
+      {
+        source: "/en/referentiel/comment-lia-personnalise-un-parcours-de-formation/",
+        destination: "/en/referentiel/comment-lia-personnalise-et-adapte-un-parcours-de-formation/",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

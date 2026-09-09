@@ -850,82 +850,30 @@ export async function savePricing(data: PricingContent) {
   }
 }
 
-// ── Référentiel ──
-
-const REF_FIELDS = "id, slug, title, title_en as titleEn, content, content_en as contentEn, chapeau, chapeau_en as chapeauEn, bloc, position_in_bloc as positionInBloc, cible, faq, faq_en as faqEn, position, published, created_at as createdAt, updated_at as updatedAt";
-
-function rowToArticle(row: any): ReferentielArticle {
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    titleEn: row.titleEn || "",
-    content: row.content,
-    contentEn: row.contentEn || "",
-    chapeau: row.chapeau || "",
-    chapeauEn: row.chapeauEn || "",
-    bloc: row.bloc as Bloc,
-    positionInBloc: row.positionInBloc || 0,
-    cible: (row.cible || "Tout public") as Cible,
-    faq: row.faq || "[]",
-    faqEn: row.faqEn || "[]",
-    position: row.position,
-    published: !!row.published,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-  };
-}
+// ── Référentiel (en dur, 42 articles) ──
+import { REFERENTIEL_ARTICLES } from "./referentiel";
 
 export async function getReferentielArticles(filters?: { bloc?: string; cible?: string }): Promise<ReferentielArticle[]> {
-  const db = await getDb();
-  let sql = `SELECT ${REF_FIELDS} FROM referentiel_articles WHERE published = 1`;
-  const params: any[] = [];
-  if (filters?.bloc) {
-    sql += " AND bloc = ?";
-    params.push(filters.bloc);
-  }
-  if (filters?.cible) {
-    sql += " AND cible = ?";
-    params.push(filters.cible);
-  }
-  sql += " ORDER BY position ASC";
-  const rows = db.prepare(sql).all(...params) as any[];
-  return rows.map(rowToArticle);
+  let result = REFERENTIEL_ARTICLES.filter((a) => a.published);
+  if (filters?.bloc) result = result.filter((a) => a.bloc === filters.bloc);
+  if (filters?.cible) result = result.filter((a) => a.cible === filters.cible);
+  return result.sort((a, b) => a.position - b.position);
 }
 
 export async function getAllReferentielArticles(): Promise<ReferentielArticle[]> {
-  const db = await getDb();
-  const rows = db.prepare(`SELECT ${REF_FIELDS} FROM referentiel_articles ORDER BY position ASC`).all() as any[];
-  return rows.map(rowToArticle);
+  return [...REFERENTIEL_ARTICLES].sort((a, b) => a.position - b.position);
 }
 
 export async function getReferentielArticle(slug: string): Promise<ReferentielArticle | undefined> {
-  const db = await getDb();
-  const row = db.prepare(`SELECT ${REF_FIELDS} FROM referentiel_articles WHERE slug = ?`).get(slug) as any;
-  if (!row) return undefined;
-  return rowToArticle(row);
+  return REFERENTIEL_ARTICLES.find((a) => a.slug === slug);
 }
 
-export async function saveReferentielArticle(data: Partial<ReferentielArticle> & { title: string; content: string }) {
-  const db = await getDb();
-  const slug = data.slug || _genSlug(data.title);
-  const now = new Date().toISOString();
-
-  if (data.id) {
-    db.prepare(`
-      UPDATE referentiel_articles SET slug = ?, title = ?, content = ?, content_en = ?, chapeau = ?, bloc = ?, position_in_bloc = ?, cible = ?, faq = ?, position = ?, published = ?, updated_at = ? WHERE id = ?
-    `).run(slug, data.title, data.content, data.contentEn || "", data.chapeau || "", data.bloc || "", data.positionInBloc ?? 0, data.cible || "Tout public", data.faq || "[]", data.position ?? 0, data.published ? 1 : 0, now, data.id);
-  } else {
-    db.prepare(`
-      INSERT INTO referentiel_articles (slug, title, content, content_en, chapeau, bloc, position_in_bloc, cible, faq, position, published, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(slug, data.title, data.content, data.contentEn || "", data.chapeau || "", data.bloc || "", data.positionInBloc ?? 0, data.cible || "Tout public", data.faq || "[]", data.position ?? 0, data.published ? 1 : 0, now, now);
-  }
+export async function saveReferentielArticle(_data: Partial<ReferentielArticle> & { title: string; content: string }) {
+  throw new Error("Referentiel is now hard-coded in lib/cms/referentiel.ts - use code instead of CMS");
 }
 
-export async function deleteReferentielArticle(id: number) {
-  const db = await getDb();
-  db.prepare("DELETE FROM referentiel_articles WHERE id = ?").run(id);
+export async function deleteReferentielArticle(_id: number) {
+  throw new Error("Referentiel is now hard-coded");
 }
 
 // ── SEO / JSON-LD ──
