@@ -26,7 +26,7 @@ MentivisOS is an AI-native pedagogical engine — not an LMS, not a catalog. It'
 - /ambassadors → Affiliation & Ambassadors program
 - /impact → Impact program (ICIA x MentivisOS)
 - /blog → News & publications (CMS-managed)
-- /referentiel → Reference hub (18 factual articles on AI in training, adaptive learning, blocks M/N/P)
+- /referentiel → Reference hub (42 factual articles on AI in training, adaptive learning, blocks M/N/P)
 - /tarifs → Pricing page
 - /carrieres → Careers/jobs page
 - /contact → Contact form
