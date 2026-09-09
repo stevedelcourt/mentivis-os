@@ -20,6 +20,7 @@ const LABELS: Record<string, { fr: string; en: string }> = {
   cgv: { fr: "CGV", en: "Terms of Sale" },
   legal: { fr: "Mentions légales", en: "Legal notices" },
   blog: { fr: "Blog", en: "Blog" },
+  referentiel: { fr: "Le Référentiel", en: "The Reference" },
   modules: { fr: "Modules", en: "Modules" },
   composants: { fr: "Composants", en: "Components" },
 };

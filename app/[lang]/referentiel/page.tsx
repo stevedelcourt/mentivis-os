@@ -11,10 +11,28 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: lang === "fr" ? "Le Référentiel - Guides IA, formation et compétences | MentivisOS" : "The Reference - AI, Training & Skills Guides | MentivisOS",
     description: lang === "fr"
-      ? "18 articles de référence sur l'IA dans la formation en entreprise, l'apprentissage adaptatif et les produits MentivisOS."
-      : "18 reference articles on AI in corporate training, adaptive learning, and MentivisOS products.",
+      ? "42 articles de référence sur l'IA dans la formation en entreprise, l'apprentissage adaptatif et les produits MentivisOS."
+      : "42 reference articles on AI in corporate training, adaptive learning, and MentivisOS products.",
     robots: { index: true, follow: true },
-    alternates: { canonical: `${SITE_URL}/${lang}/referentiel/` },
+    alternates: {
+      canonical: `${SITE_URL}/${lang}/referentiel/`,
+      languages: {
+        fr: `${SITE_URL}/fr/referentiel/`,
+        en: `${SITE_URL}/en/referentiel/`,
+        "x-default": `${SITE_URL}/fr/referentiel/`,
+      },
+    },
+    openGraph: {
+      title: lang === "fr" ? "Le Référentiel - Guides IA, formation et compétences | MentivisOS" : "The Reference - AI, Training & Skills Guides | MentivisOS",
+      description: lang === "fr"
+        ? "42 articles de référence sur l'IA dans la formation en entreprise, l'apprentissage adaptatif et les produits MentivisOS."
+        : "42 reference articles on AI in corporate training, adaptive learning, and MentivisOS products.",
+      url: `${SITE_URL}/${lang}/referentiel/`,
+      type: "website",
+      locale: lang === "fr" ? "fr_FR" : "en_US",
+      siteName: "MentivisOS",
+      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
+    },
   };
 }
 
@@ -85,8 +103,8 @@ export default async function ReferentielPage({ params, searchParams }: { params
           </h1>
           <p style={{ fontSize: 16, color: "#4e4e4e", marginTop: 12, maxWidth: 600 }}>
             {isFr
-              ? "18 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
-              : "18 factual articles on AI in training, adaptive learning, and MentivisOS products."}
+              ? "42 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
+              : "42 factual articles on AI in training, adaptive learning, and MentivisOS products."}
           </p>
         </div>
       </header>
@@ -99,11 +117,20 @@ export default async function ReferentielPage({ params, searchParams }: { params
             "@type": "CollectionPage",
             name: isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS",
             description: isFr
-              ? "18 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
-              : "18 factual articles on AI in training, adaptive learning, and MentivisOS products.",
+              ? "42 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
+              : "42 factual articles on AI in training, adaptive learning, and MentivisOS products.",
             url: `${SITE_URL}/${lang}/referentiel/`,
             inLanguage: isFr ? "fr-FR" : "en-US",
             publisher: { "@type": "Organization", name: "MentivisOS", url: SITE_URL },
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: localized.map((a, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                url: `${SITE_URL}/${lang}/referentiel/${a.slug}/`,
+                name: a.title,
+              })),
+            },
           }),
         }}
       />
