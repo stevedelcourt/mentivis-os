@@ -2,6 +2,8 @@
 
 Reference document for the MentivisOS deployment environment, database architecture, and deployment pipeline.
 
+> Manuel opérationnel en français (SC4/sc10, réglages o2switch, transfert vers un autre serveur) : voir `docs/MANUEL-SERVEURS.md`.
+
 ---
 
 ## Hosting Environment
