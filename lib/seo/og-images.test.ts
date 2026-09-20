@@ -73,6 +73,23 @@ describe("og generated files exist", () => {
   });
 });
 
+describe("referentiel per-article heroes", () => {
+  it("every article carries an image field resolving to a committed jpg", async () => {
+    const { REFERENTIEL_ARTICLES } = await import("../cms/referentiel");
+    expect(REFERENTIEL_ARTICLES.length).toBeGreaterThan(0);
+    for (const a of REFERENTIEL_ARTICLES) {
+      expect(a.image, `article ${a.slug} needs an image field`).toBeTruthy();
+      const out = ogImageForArticle(a);
+      expect(out.endsWith(".jpg"), `article ${a.slug} resolves to non-jpg`).toBe(true);
+      expect(publicExists(out), `missing generated OG ${out} - run npm run og`).toBe(true);
+      const src = (a.image as string).startsWith("/")
+        ? path.join(PUBLIC_DIR, (a.image as string).replace(/^\//, ""))
+        : null;
+      expect(src && fs.existsSync(src), `missing source image ${a.image}`).toBe(true);
+    }
+  });
+});
+
 describe("seed posts coverage", () => {
   it("every seed post with avif/webp image has a manifest.posts entry", () => {
     const seedsDir = path.join(__dirname, "..", "cms", "seeds");
