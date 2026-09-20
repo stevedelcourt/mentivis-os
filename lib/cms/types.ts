@@ -128,6 +128,7 @@ export interface ReferentielArticle {
   contentEn: string;
   chapeau: string;
   chapeauEn: string;
+  image?: string;
   bloc: Bloc;
   positionInBloc: number;
   cible: Cible;

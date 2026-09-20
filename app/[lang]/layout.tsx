@@ -7,6 +7,7 @@ import CookieConsentDeferred from "@/components/cookie-consent-deferred";
 import { getSeo } from "@/lib/cms/db";
 import { headers } from "next/headers";
 import { buildBreadcrumbJsonLd } from "@/lib/breadcrumbs";
+import { ogImageForRoute, OG_WIDTH, OG_HEIGHT } from "@/lib/seo/og-images";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const relativePath = path.replace(/^\/(fr|en)/, "") || "/";
   const normalizedRelative = relativePath === "/" ? "/" : `/${relativePath.replace(/^\/+|\/+$/g, "")}/`;
   const canonicalPath = `/${lang}${normalizedRelative === "/" ? "" : normalizedRelative}`;
+  const ogImage = ogImageForRoute(normalizedRelative);
 
   return {
     title: pageSeo?.title || "MentivisOS",
@@ -37,11 +39,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       locale: lang === "fr" ? "fr_FR" : "en_US",
       siteName: "MentivisOS",
       type: "website",
-      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}${ogImage}`, width: OG_WIDTH, height: OG_HEIGHT }],
     },
     twitter: {
       card: "summary_large_image",
-      images: [`${SITE_URL}/images/OG-image.jpg`],
     },
     robots: {
       index: true,

@@ -5,6 +5,7 @@ import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles, getReferentielArticle } from "@/lib/cms/db";
 import { renderMarkdown } from "@/lib/markdown";
+import { ogImageForArticle, OG_WIDTH, OG_HEIGHT } from "@/lib/seo/og-images";
 
 export async function generateStaticParams() {
   try {
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       type: "article",
       locale: isFr ? "fr_FR" : "en_US",
       siteName: "MentivisOS",
-      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}${ogImageForArticle(article)}`, width: OG_WIDTH, height: OG_HEIGHT }],
     },
   };
 }
@@ -192,7 +193,7 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
             description: chapeau || article.content.substring(0, 160),
             url: `${SITE_URL}/${lang}/referentiel/${slug}/`,
             inLanguage: isFr ? "fr-FR" : "en-US",
-            image: `${SITE_URL}/images/OG-image.jpg`,
+            image: `${SITE_URL}${ogImageForArticle(article)}`,
             datePublished: article.createdAt,
             dateModified: article.updatedAt,
             author: { "@type": "Organization", name: "MentivisOS" },

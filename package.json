@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
+    "og": "python3 scripts/generate-og-images.py",
+    "og:check": "python3 scripts/generate-og-images.py --check",
+    "prebuild": "command -v python3 >/dev/null && python3 scripts/generate-og-images.py || echo '[og] python3 missing, skipping OG generation'",
     "build": "next build --webpack",
     "build:clean": "rm -rf .next && npm run build",
     "start": "node server.js",

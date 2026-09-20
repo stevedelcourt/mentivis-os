@@ -17,7 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   return {
     alternates: { canonical: `${SITE_URL}/${lang}/` },
-    openGraph: { url: `${SITE_URL}/${lang}/` },
+    openGraph: {
+      url: `${SITE_URL}/${lang}/`,
+      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
+    },
   };
 }
 

@@ -28,6 +28,7 @@ MentivisOS is an AI-native pedagogical engine — not an LMS, not a catalog.
 - **French text must have proper accents**: `système` not `systeme`, `équipe` not `equipe`, etc.
 - **o2switch Tiger-Protect blocks `/_next/static/*` URLs**: Fix: `assetPrefix=/statics` in build. Apache serves from `~/nextapp/statics/_next/static/`. 3 chunks get `void 0;\n` prepended. (May 2026)
 - **No mod_proxy on o2switch subdomains**: Mirror uses PHP-based proxy (`proxy.php`) instead.
+- **OG images are generated JPGs**: `npm run og` converts sources to 1200x630 `public/images/og/*.jpg` via `lib/seo/og-manifest.json`. Runs automatically on every build (`prebuild`). Never reference `.avif` in `og:image` tags (scrapers do not support it). Per-article hero goes in the `image` field of `lib/cms/referentiel.ts`.
 
 ## Architecture Capsule
 

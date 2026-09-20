@@ -1,0 +1,21 @@
+{
+  "blocDefaults": {
+    "M": "/images/formation.avif",
+    "N": "/images/lyceens.avif",
+    "P": "/images/LearningOS/thumb-product.webp"
+  },
+  "pages": {
+    "/openos": "/open-woman.avif",
+    "/education": "/images/student.avif",
+    "/entreprises": "/images/workers.avif",
+    "/impact": "/images/impact.avif",
+    "/blog": "/images/profarticle.avif",
+    "/contact": "/images/demo-cool.webp",
+    "/demo": "/images/demo-cool.webp",
+    "/summer": "/images/og-summer-2026.jpg"
+  },
+  "posts": {
+    "marche-education-formation-france-2026": "/images/marche-2026.avif",
+    "lia-et-la-transformation-de-leducation-2026-2030": "/images/etude-IA.webp"
+  }
+}
