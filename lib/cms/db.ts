@@ -88,10 +88,10 @@ export async function createPost(post: Omit<Post, "id" | "createdAt" | "updatedA
   const db = await getDb();
   const now = new Date().toISOString();
   const result = db.prepare(`
-    INSERT INTO posts (slug, title, excerpt, content, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, pdf_url, pdf_title, pdf_title_en, pdf_image, pdf_context, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO posts (slug, title, title_en, excerpt, excerpt_en, content, content_en, category, date, date_iso, image_url, image_tag, image_caption, gradient_id, featured, published, pdf_url, pdf_title, pdf_title_en, pdf_image, pdf_context, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `  ).run(
-    post.slug, post.title, post.excerpt, post.content, post.category, post.date, post.dateISO,
+    post.slug, post.title, post.titleEn || "", post.excerpt, post.excerptEn || "", post.content, post.contentEn || "", post.category, post.date, post.dateISO,
     post.imageUrl || null, post.imageTag || null, post.imageCaption || null,
     post.gradientId ?? null,
     post.featured ? 1 : 0, post.published ? 1 : 0,
@@ -112,8 +112,11 @@ export async function updatePost(id: number, updates: Partial<Omit<Post, "id" | 
 
   if (updates.slug !== undefined) { setParts.push("slug = ?"); values.push(updates.slug); }
   if (updates.title !== undefined) { setParts.push("title = ?"); values.push(updates.title); }
+  if (updates.titleEn !== undefined) { setParts.push("title_en = ?"); values.push(updates.titleEn || ""); }
   if (updates.excerpt !== undefined) { setParts.push("excerpt = ?"); values.push(updates.excerpt); }
+  if (updates.excerptEn !== undefined) { setParts.push("excerpt_en = ?"); values.push(updates.excerptEn || ""); }
   if (updates.content !== undefined) { setParts.push("content = ?"); values.push(updates.content); }
+  if (updates.contentEn !== undefined) { setParts.push("content_en = ?"); values.push(updates.contentEn || ""); }
   if (updates.category !== undefined) { setParts.push("category = ?"); values.push(updates.category); }
   if (updates.date !== undefined) { setParts.push("date = ?"); values.push(updates.date); }
   if (updates.dateISO !== undefined) { setParts.push("date_iso = ?"); values.push(updates.dateISO); }
