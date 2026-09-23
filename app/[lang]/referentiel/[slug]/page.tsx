@@ -121,6 +121,12 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
           )}
         </div>
 
+        <p style={{ fontSize: 13, color: "#888", margin: "0 0 16px" }}>
+          {isFr
+            ? `Publié le ${new Date(article.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Mis à jour le ${new Date(article.updatedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Par MentivisOS`
+            : `Published ${new Date(article.createdAt).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })} · Updated ${new Date(article.updatedAt).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })} · By MentivisOS`}
+        </p>
+
         <h1 style={{ fontSize: "clamp(28px, 3.5vw, 38px)", fontWeight: 300, lineHeight: 1.2, color: "#0A0A0A", margin: "0 0 16px" }}>
           {title}
         </h1>

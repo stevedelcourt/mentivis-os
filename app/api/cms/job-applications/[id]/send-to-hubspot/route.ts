@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getJobApplicationById } from "@/lib/cms/db";
 import { requireAuth } from "@/lib/cms/auth";
+import { SITE_URL } from "@/lib/site-url";
 
 export async function POST(
   request: Request,
@@ -45,7 +46,7 @@ export async function POST(
             { name: "lien_cv", value: application.cvUrl || "" },
           ],
           context: {
-            pageUri: request.url,
+            pageUri: `${SITE_URL}/fr/carrieres/`,
             pageName: "Job Application",
           },
         }),
