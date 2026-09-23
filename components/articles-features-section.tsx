@@ -94,14 +94,13 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
               News & publications
             </p>
           </div>
+          <div style={{ display: "flex", gap: 12, marginTop: "auto", alignSelf: "flex-end", flexWrap: "wrap" }}>
           <Link
             href={`/${lang}/blog`}
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 6,
-              marginTop: "auto",
-              alignSelf: "flex-end",
               fontFamily: "var(--font-sans)",
               fontSize: 14,
               fontWeight: 500,
@@ -131,6 +130,37 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
               <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
+          <Link
+            href={`/${lang}/referentiel`}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              fontFamily: "var(--font-sans)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#FFFFFF",
+              background: "#0A0A0A",
+              borderRadius: 8,
+              padding: "10px 18px",
+              textDecoration: "none",
+              boxShadow: "rgba(0,0,0,.04) 0 2px 8px",
+              transition: "all .22s ease",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.filter = "brightness(1.25)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.filter = "none";
+            }}
+          >
+            {lang === "fr" ? "Le Référentiel" : "The Reference"}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, transition: "transform .22s ease" }}>
+              <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          </div>
         </div>
 
         {/* ── ARTICLES GRID ── */}

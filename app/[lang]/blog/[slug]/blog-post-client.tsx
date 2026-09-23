@@ -66,7 +66,7 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
             <span className={styles.badge} style={{ marginRight: 12 }}>
               {post.category.split(",")[0]}
             </span>
-            <span className={styles.date}>{post.date}</span>
+            <span className={styles.date}>{post.date} · {lang === "fr" ? "Par MentivisOS" : "By MentivisOS"}</span>
           </div>
 
           <h1

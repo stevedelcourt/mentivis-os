@@ -54,6 +54,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: post.dateISO ? new Date(post.dateISO) : new Date(post.updatedAt),
           changeFrequency: "monthly",
           priority: 0.6,
+          alternates: {
+            languages: Object.fromEntries(
+              langs.map((l) => [l, `${BASE_URL}/${l}/blog/${post.slug}/`])
+            ),
+          },
         });
       }
     }
