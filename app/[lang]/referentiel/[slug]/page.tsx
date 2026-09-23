@@ -116,7 +116,13 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
               fontSize: 12, fontWeight: 400, color: CIBLE_COLORS[article.cible] || "#888",
               background: `${CIBLE_COLORS[article.cible] || "#888"}1a`,
             }}>
-              {article.cible}
+              {isFr ? article.cible : ({
+                "Directions formation": "Training Directors",
+                "DRH et DAF": "HR & Finance",
+                Apprenants: "Learners",
+                "Organismes de formation": "Training Orgs",
+                "Tout public": "General",
+              }[article.cible] || article.cible)}
             </span>
           )}
         </div>
@@ -173,7 +179,7 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
               <Link href={`/${lang}/referentiel/${prev.slug}`}
                 style={{ fontSize: 14, color: "#0A0A0A", textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                {prev.title}
+                {isFr ? prev.title : (prev.titleEn || prev.title)}
               </Link>
             )}
           </div>
@@ -181,7 +187,7 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
             {next && (
               <Link href={`/${lang}/referentiel/${next.slug}`}
                 style={{ fontSize: 14, color: "#0A0A0A", textDecoration: "none", display: "flex", alignItems: "center", gap: 4, textAlign: "right" }}>
-                {next.title}
+                {isFr ? next.title : (next.titleEn || next.title)}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             )}
