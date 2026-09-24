@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     description: isFr
       ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
       : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.",
-    robots: lang !== "fr" ? { index: false } : undefined,
+    robots: { index: true, follow: true },
   };
 }
 

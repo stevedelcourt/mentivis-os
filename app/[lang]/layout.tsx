@@ -95,6 +95,7 @@ export default async function LangLayout({
             "@type": "Organization",
             name: "Mentivis",
             alternateName: "MentivisOS",
+            description: "MentivisOS est le système de formation native IA qui mesure les écarts de compétences, génère des parcours personnalisés et produit la traçabilité nécessaire aux financeurs.",
             url: SITE_URL,
             logo: {
               "@type": "ImageObject",
