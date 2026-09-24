@@ -217,7 +217,6 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
             { label: f.bottom?.cms || "CMS", href: `/${lang}/content-management` },
-            { label: lang === "en" ? "The Reference" : "Le Référentiel", href: `/${lang}/referentiel` },
             { label: f.bottom?.securite || "Securite", href: `/${lang}/security` },
             { label: f.bottom?.mentions || "Mentions legales", href: `/${lang}/legal` },
             { label: f.bottom?.confidentialite || "Confidentialite", href: `/${lang}/privacy` },

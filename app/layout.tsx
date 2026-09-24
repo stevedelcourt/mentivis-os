@@ -1,11 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Bevan } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Exception au ban serif (Inter uniquement) : chiffres des prix tarifs.
+// Demandé explicitement, limité à .pricing-card-amount.
+const bevan = Bevan({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bevan",
   display: "swap",
 });
 
@@ -92,7 +101,7 @@ export default async function RootLayout({
           />
         )}
       </head>
-      <body className={inter.variable}>
+      <body className={`${inter.variable} ${bevan.variable}`}>
         {allowTracking && (
           <noscript>
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T94BWBCG"

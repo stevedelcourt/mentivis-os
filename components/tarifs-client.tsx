@@ -441,17 +441,17 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
                           </div>
                         )}
                         <div style={{ display: "flex", alignItems: "flex-end", gap: 3, lineHeight: 1, marginBottom: 2 }}>
-                          <span
-                            className="pricing-card-amount"
-                            style={{
-                              fontSize: 42,
-                              fontWeight: 300,
-                              letterSpacing: "-0.04em",
-                              color: "var(--text-primary)",
-                              fontFamily: "var(--font-sans)",
-                              transition: "color 0.3s ease",
-                            }}
-                          >
+                            <span
+                              className="pricing-card-amount"
+                              style={{
+                                fontSize: 42,
+                                fontWeight: 400,
+                                letterSpacing: "0",
+                                color: "var(--text-primary)",
+                                fontFamily: "var(--font-bevan)",
+                                transition: "color 0.3s ease",
+                              }}
+                            >
                             {billingCycle === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
                           </span>
                           <span
