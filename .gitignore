@@ -44,3 +44,8 @@ next-env.d.ts
 data/mentivis.db
 data/mentivis.db-shm
 data/mentivis.db-wal
+data/snapshot.db
+data/snapshot.db-shm
+data/snapshot.db-wal
+data/snapshot-uploads/
+data/snapshot-uploads.json
