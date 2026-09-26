@@ -59,6 +59,12 @@ Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(
 SetEnvIfNoCase Host ^(www\.)?__CANONICAL_HOST_RE__$ CANONICAL_HOST
 Header always set X-Robots-Tag "noindex, nofollow" env=!CANONICAL_HOST
 
+# Fichiers non destinés aux moteurs : charges RSC de Next (index.txt, __next.*.txt)
+# et pages publiques héritées hors site (airport, envie, maintenance, export .md).
+<FilesMatch "^(index\.txt|__next\..*\.txt|airport\.html|envie\.html|maintenance\.html|.*\.md)$">
+  Header set X-Robots-Tag "noindex"
+</FilesMatch>
+
 # Cache : ressources versionnées de Next.js immuables, HTML toujours revalidé.
 <FilesMatch "\.(js|css|woff2?|ttf|otf)$">
   Header set Cache-Control "public, max-age=31536000, immutable"

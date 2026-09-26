@@ -380,7 +380,7 @@ export default function InteractiveShowcase({ lang }: InteractiveShowcaseProps) 
                 </h2>
                 <button
                   onClick={() => toggleAudio(activeIdx)}
-                  aria-label={isPlaying && playingOrbIdx === activeIdx ? "Pause" : "Ecouter"}
+                  aria-label={isPlaying && playingOrbIdx === activeIdx ? "Pause" : "Écouter"}
                   style={{
                     width: 28,
                     height: 28,

@@ -12,7 +12,7 @@ const STEPS_FR = [
       </svg>
     ),
     title: "Vous cr\u00E9ez votre profil et votre objectif de formation",
-    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Indique votre statut (etudiant, salari\u00E9, en reconversion, curieux) et formule votre objectif en une phrase. Pas de CV, pas de niveau acad\u00E9mique. Juste o\u00F9 vous en \u00EAtes et o\u00F9 vous voulez aller.",
+    desc: "Inscrivez-vous en 30 secondes avec votre email ou Google. Indiquez votre statut (étudiant, salari\u00E9, en reconversion, curieux) et formulez votre objectif en une phrase. Pas de CV, pas de niveau acad\u00E9mique. Juste o\u00F9 vous en \u00EAtes et o\u00F9 vous voulez aller.",
     chips: [
       "Je veux apprendre le marketing digital",
       "Je pr\u00E9pare une reconversion en data",

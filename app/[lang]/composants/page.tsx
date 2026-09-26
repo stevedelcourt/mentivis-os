@@ -23,19 +23,19 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 const SAMPLE_CHAT = {
   user1: "Puis-je obtenir un remboursement ?",
-  agent: "Bien sur. Pouvez-vous partager votre numero de commande s'il vous plait ?",
+  agent: "Bien sûr. Pouvez-vous partager votre numéro de commande s'il vous plaît ?",
   user2: "C'est EL4543490",
-  agent2: "Merci. J'ai lance le processus de remboursement de la commande.",
-  success: "Remboursement effectue",
+  agent2: "Merci. J'ai lancé le processus de remboursement de la commande.",
+  success: "Remboursement effectué",
 };
 
 const SAMPLE_CHART = {
-  title: "Taux de resolution",
+  title: "Taux de résolution",
   value: "83.4%",
   v1: "V1: 75.10%",
   v2: "V2: 62.65%",
-  dateStart: "17 aout",
-  dateEnd: "24 aout",
+  dateStart: "17 août",
+  dateEnd: "24 août",
 };
 
 interface ComponentDef {
@@ -57,9 +57,9 @@ const COMPONENTS: ComponentDef[] = [
     preview: (
       <div style={{ padding: 24, background: "#f5f5f5", borderRadius: 12 }}>
         <p style={{ fontSize: 10, fontWeight: 500, color: "#777", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>MentivisOS</p>
-        <h3 style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.2, color: "#1a1a1a", marginBottom: 8 }}>Une plateforme capable de s'adapter en temps reel</h3>
+        <h3 style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.2, color: "#1a1a1a", marginBottom: 8 }}>Une plateforme capable de s'adapter en temps réel</h3>
         <div style={{ display: "flex", gap: 8 }}>
-          <span style={{ padding: "6px 12px", borderRadius: 8, background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500 }}>Demarrer</span>
+          <span style={{ padding: "6px 12px", borderRadius: 8, background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500 }}>Démarrer</span>
           <span style={{ padding: "6px 12px", borderRadius: 8, background: "#e5e5e5", color: "#1a1a1a", fontSize: 11, fontWeight: 500 }}>Contacter</span>
         </div>
       </div>
@@ -68,7 +68,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "BentoSection",
     file: "bento-section.tsx",
-    desc: "Grille bento avec chat mockup, chart mockup et cartes fonctionnalites",
+    desc: "Grille bento avec chat mockup, chart mockup et cartes fonctionnalités",
     category: "Layout",
     color: "#4a7c5c",
     preview: (
@@ -76,7 +76,7 @@ const COMPONENTS: ComponentDef[] = [
         <div style={{ padding: 16, background: "#1a3a2a", borderRadius: 16, minHeight: 80 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <div style={{ alignSelf: "flex-end", padding: "4px 10px", borderRadius: 12, background: "rgba(255,255,255,0.1)", fontSize: 9, color: "#fff" }}>Hello</div>
-            <div style={{ alignSelf: "flex-start", padding: "4px 10px", borderRadius: 12, background: "#fff", fontSize: 9, color: "#1a1a1a" }}>Reponse</div>
+            <div style={{ alignSelf: "flex-start", padding: "4px 10px", borderRadius: 12, background: "#fff", fontSize: 9, color: "#1a1a1a" }}>Réponse</div>
           </div>
         </div>
         <div style={{ padding: 16, background: "#f5f5f5", borderRadius: 16, minHeight: 80 }}>
@@ -155,7 +155,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "ProblemSection",
     file: "problem-section.tsx",
-    desc: "Section probleme/solution",
+    desc: "Section problème/solution",
     category: "Content",
     color: "#3A3A3A",
     preview: (
@@ -168,14 +168,14 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "ProofSection",
     file: "proof-section.tsx",
-    desc: "Cas reel avec outputs du diagnostic",
+    desc: "Cas réel avec outputs du diagnostic",
     category: "Content",
     color: "#4F8068",
     preview: (
       <div style={{ padding: 16, background: "#fff", borderRadius: 12, boxShadow: "0 0 0 1px rgba(0,0,0,.06)" }}>
         <p style={{ fontSize: 9, fontWeight: 500, color: "#999", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>Output MentivisOS</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          {["Faisabilite: exigeante", "Score: 84/100", "Risque: 22"].map((l) => (
+          {["Faisabilité: exigeante", "Score: 84/100", "Risque: 22"].map((l) => (
             <div key={l} style={{ fontSize: 10, color: "#1a1a1a", padding: "3px 0", borderBottom: "1px solid #f0f0f0" }}>{l}</div>
           ))}
         </div>
@@ -185,7 +185,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "ShiftsSection",
     file: "shifts-section.tsx",
-    desc: "4 deplacements pour les directions formation",
+    desc: "4 déplacements pour les directions formation",
     category: "Content",
     color: "#5688C8",
     preview: (
@@ -202,7 +202,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "IntegrationSection",
     file: "integration-section.tsx",
-    desc: "3 modes d'integration en cartes gradient",
+    desc: "3 modes d'intégration en cartes gradient",
     category: "Layout",
     color: "#7eb8c8",
     preview: (
@@ -251,7 +251,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "CTABlock",
     file: "cta-block.tsx",
-    desc: "Bloc d'appel a l'action final",
+    desc: "Bloc d'appel à l'action final",
     category: "Content",
     color: "#1a1a1a",
     preview: (
@@ -264,7 +264,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "FaqSection",
     file: "faq-section.tsx",
-    desc: "Accordeon FAQ numerote avec animation expand/collapse",
+    desc: "Accordéon FAQ numéroté avec animation expand/collapse",
     category: "Content",
     color: "#4e4e4e",
     preview: (
@@ -305,7 +305,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "FooterBlock",
     file: "footer-block.tsx",
-    desc: "Pied de page avec logomark anime",
+    desc: "Pied de page avec logomark animé",
     category: "Navigation",
     color: "#1a1a1a",
     preview: (
@@ -322,7 +322,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "LogomarkMotion",
     file: "logomark-motion.tsx",
-    desc: "Animation SVG 17 carres W02 Drop Physics",
+    desc: "Animation SVG 17 carrés W02 Drop Physics",
     category: "Motion",
     color: "#1a1a1a",
     preview: (
@@ -368,7 +368,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "DemoClient",
     file: "demo-client.tsx",
-    desc: "Formulaire de demande de demo",
+    desc: "Formulaire de demande de démo",
     category: "Form",
     color: "#6058A8",
     preview: (
@@ -385,7 +385,7 @@ const COMPONENTS: ComponentDef[] = [
   {
     name: "ModuleCard",
     file: "module-card.tsx",
-    desc: "Carte de module carree avec gradient",
+    desc: "Carte de module carrée avec gradient",
     category: "Card",
     color: "#a89bc2",
     preview: (
@@ -445,7 +445,7 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
         </h1>
         <p className="t-lead" style={{ marginBottom: 48, maxWidth: 600 }}>
           {locale === "fr"
-            ? "Inventaire interne des composants React de MentivisOS. Chaque composant est illustre par un apercu visuel."
+            ? "Inventaire interne des composants React de MentivisOS. Chaque composant est illustré par un aperçu visuel."
             : "Internal inventory of MentivisOS React components. Each component is shown with a visual preview."}
         </p>
 
@@ -576,7 +576,7 @@ export default async function ComposantsPage({ params }: { params: Promise<{ lan
               marginBottom: 20,
             }}
           >
-            {locale === "fr" ? "Bibliotheque visuelle" : "Visual Library"}
+            {locale === "fr" ? "Bibliothèque visuelle" : "Visual Library"}
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
             {[

@@ -45,23 +45,23 @@ const TEAM = [
 
 const APPROACH_FR = [
   {
-    tag: "Strategie",
-    title: "Strategie",
-    body: "Cadrage du projet, positionnement de marche, modèle economique. Ce qui rend le système viable avant même le premier inscrit.",
+    tag: "Stratégie",
+    title: "Stratégie",
+    body: "Cadrage du projet, positionnement de marché, modèle économique. Ce qui rend le système viable avant même le premier inscrit.",
   },
   {
-    tag: "Ingenierie pédagogique",
-    title: "Ingenierie pédagogique",
-    body: "Référentiels, parcours, progression. Conception fine des objets pédagogiques et de leur evaluation par l'IA.",
+    tag: "Ingénierie pédagogique",
+    title: "Ingénierie pédagogique",
+    body: "Référentiels, parcours, progression. Conception fine des objets pédagogiques et de leur évaluation par l'IA.",
   },
   {
     tag: "Marketing et admissions",
     title: "Marketing et admissions",
-    body: "Recrutement des apprenants, notoriété, conversion. Du tunnel de candidature a l'identite de marque.",
+    body: "Recrutement des apprenants, notoriété, conversion. Du tunnel de candidature à l'identité de marque.",
   },
   {
-    tag: "Conformite et déploiement",
-    title: "Conformite et déploiement",
+    tag: "Conformité et déploiement",
+    title: "Conformité et déploiement",
     body: "OPCO, dispositifs publics, conformité qualité, mise en oeuvre opérationnelle quotidienne.",
   },
 ];
@@ -90,25 +90,25 @@ const APPROACH_EN = [
 ];
 
 const SIGS_FR = [
-  { num: "01", title: "Obsession du resultat", body: "Pas du rapport. Un projet qui n'est pas lancé n'a pas existe." },
-  { num: "02", title: "Maitrise du financement", body: "OPCO, dispositifs publics, montages hybrides. Le levier economique du projet." },
-  { num: "03", title: "Approche full-stack", body: "Strategie, pédagogie, marketing, conformité. Sous un seul toit." },
-  { num: "04", title: "Capacite a opèrer", body: "Pas seulement a conseiller. Nous tenons les renes jusqu'à la premiere promotion." },
+  { num: "01", title: "Obsession du résultat", body: "Pas du rapport. Un projet qui n'est pas lancé n'a pas existé." },
+  { num: "02", title: "Maîtrise du financement", body: "OPCO, dispositifs publics, montages hybrides. Le levier économique du projet." },
+  { num: "03", title: "Approche full-stack", body: "Stratégie, pédagogie, marketing, conformité. Sous un seul toit." },
+  { num: "04", title: "Capacité à opérer", body: "Pas seulement à conseiller. Nous tenons les rênes jusqu'à la première promotion." },
 ];
 
 const SIGS_EN = [
   { num: "01", title: "Results obsession", body: "Not reports. A project that hasn't launched doesn't exist." },
   { num: "02", title: "Funding mastery", body: "OPCO, public schemes, hybrid structures. The economic lever of the project." },
   { num: "03", title: "Full-stack approach", body: "Strategy, pedagogy, marketing, compliance. Under one roof." },
-  { num: "04", title: "Ability to opérate", body: "Not just advisory. We hold the reins until the first cohort." },
+  { num: "04", title: "Ability to operate", body: "Not just advisory. We hold the reins until the first cohort." },
 ];
 
 const VALUES_FR = [
-  { title: "Clarte", body: "Dire ce qui fonctionne. Eliminer le reste." },
-  { title: "Execution", body: "Un projet n'existe que s'il est lancé." },
-  { title: "Responsabilite", body: "Nous allons jusqu'au resultat." },
-  { title: "Confidentialite", body: "Les projets ne circulent pas." },
-  { title: "Utilite", body: "Chaque action doit creer de la valeur mesurable." },
+  { title: "Clarté", body: "Dire ce qui fonctionne. Éliminer le reste." },
+  { title: "Exécution", body: "Un projet n'existe que s'il est lancé." },
+  { title: "Responsabilité", body: "Nous allons jusqu'au résultat." },
+  { title: "Confidentialité", body: "Les projets ne circulent pas." },
+  { title: "Utilité", body: "Chaque action doit créer de la valeur mesurable." },
 ];
 
 const VALUES_EN = [
@@ -135,20 +135,20 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     heroEyebrow: "À propos",
     heroHeadline: "MentivisOS est le système de formation native IA conçu par Mentivis",
     heroSub: "De la stratégie au déploiement opérationnel. Un seul OS pour former, développer et faire grandir les talents.",
-    convictionText: "Former n'est pas un cout. C'est un système de production de valeur.",
+    convictionText: "Former n'est pas un coût. C'est un système de production de valeur.",
     convictionAuthor: "Steven Delcourt, Fondateur, Mentivis",
-    histoireTitle: "Ne d'un constat opérationnel",
-    histoireBody1: "Les fondateurs de Mentivis ont déjà cree des écoles ensemble. Pedagogie, développement commercial, marketing, conformité, opérations. Toutes les dimensions du metier.",
-    histoireBody2: "Ils se sont associes pour une raison precise. Les mutations rapides de l'education et de la formation exigent un acteur spécialisé, capable de faire le lien entre entreprises, dispositifs de formation et enjeux a venir.",
-    histoireBody3: "Un choix des l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent réellement.",
+    histoireTitle: "Né d'un constat opérationnel",
+    histoireBody1: "Les fondateurs de Mentivis ont déjà créé des écoles ensemble. Pédagogie, développement commercial, marketing, conformité, opérations. Toutes les dimensions du métier.",
+    histoireBody2: "Ils se sont associés pour une raison précise. Les mutations rapides de l'éducation et de la formation exigent un acteur spécialisé, capable de faire le lien entre entreprises, dispositifs de formation et enjeux à venir.",
+    histoireBody3: "Un choix dès l'origine. Ne pas faire du conseil abstrait, mais construire des dispositifs qui fonctionnent réellement.",
     equipeTitle: "L'équipe",
     equipeSub: "Les fondateurs",
     approcheTitle: "Notre approche",
-    approcheSub: "Quatre blocs intégrés. Un seul objectif. Un système viable, finance, activable rapidement.",
+    approcheSub: "Quatre blocs intégrés. Un seul objectif. Un système viable, financé, activable rapidement.",
     signaturesTitle: "Ce qui nous distingue",
     signaturesSub: "Quatre signatures.",
     valeursTitle: "Nos valeurs",
-    valeursSub: "Cinq regles de fonctionnement.",
+    valeursSub: "Cinq règles de fonctionnement.",
   } : {
     heroEyebrow: "About",
     heroHeadline: "MentivisOS is the native AI training system built by Mentivis",
@@ -166,7 +166,7 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
     signaturesTitle: "What sets us apart",
     signaturesSub: "Four signatures.",
     valeursTitle: "Our values",
-    valeursSub: "Five opérating rules.",
+    valeursSub: "Five operating rules.",
   };
 
   const approach = isFr ? APPROACH_FR : APPROACH_EN;

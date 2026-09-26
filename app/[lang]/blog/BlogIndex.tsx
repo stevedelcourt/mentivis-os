@@ -201,12 +201,12 @@ interface CategoryFilterProps {
 
 function CategoryFilter({ active, onChange, lang }: CategoryFilterProps) {
   const allCategories: { key: CategoryKey; label: string }[] = [
-    { key: "all", label: lang === "en" ? "Featured" : "A la une" },
+    { key: "all", label: lang === "en" ? "Featured" : "À la une" },
     ...CATEGORIES.map((c) => ({ key: c.key, label: lang === "en" ? c.labelEn : c.labelFr })),
   ];
 
   return (
-    <nav className={styles.cats} aria-label="Filtrer par categorie">
+    <nav className={styles.cats} aria-label="Filtrer par catégorie">
       {allCategories.map((cat) => (
         <button
           key={cat.key}

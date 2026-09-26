@@ -758,7 +758,9 @@
       "subject": "Application %s - %s",
       "cvLabel": "CV (PDF, max 5 MB)",
       "cvChoose": "Choose a PDF file",
-      "cvTooLarge": "File too large (max 5 MB). Please choose a smaller file."
+      "cvTooLarge": "File too large (max 5 MB). Please choose a smaller file.",
+      "cvNotPdf": "Only PDF files are accepted.",
+      "cvRemove": "Remove the file and send without a CV"
     },
     "spontaneous": {
       "title": "Spontaneous application",

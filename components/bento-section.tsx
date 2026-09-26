@@ -164,7 +164,7 @@ export default function BentoSection({ lang }: { lang: Locale }) {
             <div>
               <p style={{ fontSize: 14, fontWeight: 500, color: "#1a1a1a" }}>Meesho</p>
               <p style={{ fontSize: 13, fontWeight: 300, color: "#6b6b6b" }}>
-                Assurer un support client multilingue en temps reel avec des agents vocaux
+                Assurer un support client multilingue en temps réel avec des agents vocaux
               </p>
             </div>
           </div>

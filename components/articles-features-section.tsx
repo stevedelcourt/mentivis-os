@@ -266,7 +266,7 @@ export default function ArticlesFeaturesSection({ lang, posts }: ArticlesFeature
             </Link>
           )) : (
             <p style={{ gridColumn: "1 / -1", color: "#777777", fontSize: 14, padding: "40px 0" }}>
-              Aucun article publie pour le moment.
+              Aucun article publié pour le moment.
             </p>
           )}
         </div>

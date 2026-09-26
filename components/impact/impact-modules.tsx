@@ -6,7 +6,7 @@ import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 const CONTENT = {
   fr: {
-    eyebrow: "CE QUE LE PROGRAMME IMPACT CHANGE CONCRETEMENT",
+    eyebrow: "CE QUE LE PROGRAMME IMPACT CHANGE CONCRÈTEMENT",
     title: "Cinq modules progressifs, sans prérequis.",
     modules: [
       {

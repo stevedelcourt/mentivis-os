@@ -21,7 +21,7 @@ function parseMetric(line: string): { label: string; value: string; suffix?: str
   }
 
   // Duration: "70 heures - 7 semaines..." → extract number + unit, rest as detail
-  if (label.toLowerCase().includes("duree") || label.toLowerCase().includes("duration")) {
+  if (label.toLowerCase().includes("durée") || label.toLowerCase().includes("duration")) {
     const match = rest.match(/^(\d+)\s*(\w+)/);
     if (match) {
       const detailStart = rest.indexOf(" - ");
@@ -35,7 +35,7 @@ function parseMetric(line: string): { label: string; value: string; suffix?: str
   }
 
   // Feasibility: "exigeante" / "demanding"
-  if (label.toLowerCase().includes("faisabilite") || label.toLowerCase().includes("feasibility")) {
+  if (label.toLowerCase().includes("faisabilité") || label.toLowerCase().includes("feasibility")) {
     return { label, value: rest };
   }
 

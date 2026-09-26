@@ -160,7 +160,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
             {f.entreprise}
           </h4>
           <ul>
-            {(f.sections?.entreprise || ["News & publications", "A propos", "Affiliation & Ambassadeurs", "Carrieres"]).map((link: string) => (
+            {(f.sections?.entreprise || ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"]).map((link: string) => (
               <li key={link} style={{ marginBottom: 8 }}>
                 <Link
                   href={(() => {
@@ -219,9 +219,9 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
             { label: lang === "en" ? "The Reference" : "Le Référentiel", href: `/${lang}/referentiel` },
-            { label: f.bottom?.securite || "Securite", href: `/${lang}/security` },
-            { label: f.bottom?.mentions || "Mentions legales", href: `/${lang}/legal` },
-            { label: f.bottom?.confidentialite || "Confidentialite", href: `/${lang}/privacy` },
+            { label: f.bottom?.securite || "Sécurité", href: `/${lang}/security` },
+            { label: f.bottom?.mentions || "Mentions légales", href: `/${lang}/legal` },
+            { label: f.bottom?.confidentialite || "Confidentialité", href: `/${lang}/privacy` },
             { label: f.bottom?.cgu || "CGU", href: `/${lang}/terms` },
             { label: f.bottom?.cgv || "CGV", href: `/${lang}/cgv` },
           ].map((item) => (

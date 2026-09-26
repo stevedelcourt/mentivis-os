@@ -49,6 +49,17 @@ Le build vérifie que chaque cible de redirection existe et qu'aucune source n'e
 - **Liens internes** : `/contact/` sans langue et liens absolus vers `mentivisOS.com` dans deux articles remplacés par `/fr/...` ou `/en/...`.
 - Pas d'image sans `alt`, un seul `h1` par page.
 
+### Vérifications de bout en bout (26 septembre 2026)
+
+- **Formulaires PHP** testés dans Chromium sur une copie de `out/` servie par PHP 8.4, avec un faux HubSpot local (`HUBSPOT_FORMS_BASE_URL` et `HUBSPOT_API_BASE_URL` de `mentivis-config.php`) :
+  - contact FR et EN : soumission reçue avec tous les champs et le consentement ;
+  - candidature spontanée avec CV PDF : envoi dans HubSpot Files (privé, dossier `/cvs`), soumission du formulaire avec `lien_cv`, puis mise à jour du contact ;
+  - bêta : testé par requête directe (mêmes champs que le client), soumission reçue ; le déverrouillage de PDF utilise `submit.php` comme le contact, non testé dans le navigateur ;
+  - refus attendus : fichier non PDF (400), origine étrangère (403), GET (405), accès à `_lib.php` (404).
+- **Correction** : un CV de plus de 5 Mo ou non PDF était écarté puis la candidature partait sans CV, avec un message de réussite. L'envoi est désormais bloqué tant que l'erreur est affichée ; un lien « Retirer le fichier et envoyer sans CV » permet de continuer sans CV. Le message « Seuls les fichiers PDF sont acceptés » remplace l'erreur générique.
+- **`.htaccess`** testé sous Apache 2.4 (mod_rewrite, mod_headers) : racine et chemins sans langue, www, slash final, 36 redirections de slugs, `/api/` en 410, `.env` en 403, 404, `noindex` hors hôte canonique. Ajout d'un `X-Robots-Tag: noindex` sur les fichiers techniques de Next (`index.txt`, `__next.*.txt`) et sur les pages héritées `airport.html`, `envie.html`, `maintenance.html` et l'export `.md`.
+- **Accents** : 188 textes de `locales/fr.json` et environ 100 textes en dur (sécurité, à propos, composants, pied de page…) étaient sans accents ou mal accentués (« Prenom », « reessayer », « creer », « détécter »). Corrigés, ainsi que quelques mots anglais abîmés par un ancien remplacement (« opérate », « réténtion »).
+
 ## Lot 3 : fusion du travail local de Steven (branche `wip/static-export-local`)
 
 Le travail local non poussé de la branche `feat/static-export` a été sauvegardé sur `wip/static-export-local` (commit `97371f6`), puis repris ici. Ce qui a été intégré :
@@ -309,7 +320,7 @@ Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
 3. **AI Act** : le document de cadrage mentionne une réécriture du texte le 27 juillet 2026. Cette date n'a pas pu être vérifiée. Les nouveaux articles reprennent la formulation fournie (« précisé en 2026 »). L'article checklist existant n'a pas été réécrit.
 4. **Valeurs SEO de l'ancien CMS** : traité au lot 4 (`content/seo.json` supprimé, `content/pages.json` corrigé).
 5. **4 fiches produit vides du Référentiel** (ids 14 à 17, bloc P) : actuellement `noindex` et masquées. À rédiger ou à dépublier.
-6. **Fichiers publics orphelins, indexables et copiés dans `out/`** : `airport.html`, `envie.html`, `maintenance.html`, `referentiel-mentivisos-2026.md`. Je recommande de les supprimer ; je ne l'ai pas fait sans accord. (`envies.txt` est utilisé par `components/envies-split-flap.tsx`, à garder.)
+6. **Fichiers publics orphelins copiés dans `out/`** (désormais `noindex` par en-tête) : `airport.html`, `envie.html`, `maintenance.html`, `referentiel-mentivisos-2026.md`. Je recommande de les supprimer ; je ne l'ai pas fait sans accord. (`envies.txt` est utilisé par `components/envies-split-flap.tsx`, à garder.)
 7. **Sécurité** : `docs/infrastructure.md` contient une passphrase SSH en clair dans un fichier versionné (déjà signalé par `docs/MANUEL-SERVEURS.md`). Rotation recommandée.
 8. **Relecture des traductions EN** : choix signalés par les traducteurs :
    - « maîtrise » rendu par « proficiency » ;

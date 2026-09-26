@@ -109,6 +109,8 @@ export default function JobDetailClient({ lang, job }: JobDetailProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!job || honeypot) return;
+    // Un CV refusé reste signalé : on n'envoie pas la candidature sans lui.
+    if (cvError) return;
     if (cvFile && cvFile.size > MAX_CV_SIZE) {
       setCvError(t.careers.form.cvTooLarge);
       return;
@@ -144,6 +146,12 @@ export default function JobDetailClient({ lang, job }: JobDetailProps) {
         setLinkedin("");
         setMessage("");
         setCvFile(null);
+      } else if (res.status === 413) {
+        setCvError(t.careers.form.cvTooLarge);
+        setFormState("idle");
+      } else if (res.status === 400 && cvFile && /PDF/i.test(await res.text())) {
+        setCvError(t.careers.form.cvNotPdf);
+        setFormState("idle");
       } else {
         setFormState("error");
       }
@@ -603,9 +611,10 @@ export default function JobDetailClient({ lang, job }: JobDetailProps) {
                           accept=".pdf,application/pdf"
                           onChange={(e) => {
                             const f = e.target.files?.[0] || null;
-                            if (f && f.size > MAX_CV_SIZE) {
+                            const isPdf = !f || f.type === "application/pdf" || /\.pdf$/i.test(f.name);
+                            if (f && (!isPdf || f.size > MAX_CV_SIZE)) {
                               setCvFile(null);
-                              setCvError(t.careers.form.cvTooLarge);
+                              setCvError(isPdf ? t.careers.form.cvTooLarge : t.careers.form.cvNotPdf);
                               e.target.value = "";
                             } else {
                               setCvError("");
@@ -625,7 +634,14 @@ export default function JobDetailClient({ lang, job }: JobDetailProps) {
                       </label>
                       {cvError && (
                         <p style={{ fontSize: 12, color: "#c45c4a", marginTop: 4 }}>
-                          {cvError}
+                          {cvError}{" "}
+                          <button
+                            type="button"
+                            onClick={() => { setCvError(""); setCvFile(null); }}
+                            style={{ background: "none", border: 0, padding: 0, color: "inherit", textDecoration: "underline", cursor: "pointer", fontSize: 12 }}
+                          >
+                            {t.careers.form.cvRemove}
+                          </button>
                         </p>
                       )}
                     </div>

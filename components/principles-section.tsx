@@ -247,21 +247,21 @@ export default function PrinciplesSection({ lang }: { lang: Locale }) {
     {
       title: isFr ? "Précision" : "Precision",
       description: isFr
-        ? "La plateforme s'adapte en temps reel au profil, au rythme et au contexte de chaque apprenant."
+        ? "La plateforme s'adapte en temps réel au profil, au rythme et au contexte de chaque apprenant."
         : "The platform adapts in real time to each learner's profile, pace, and context.",
       Visual: NestedRosesSVG,
     },
     {
       title: isFr ? "Structure" : "Structure",
       description: isFr
-        ? "Chaque dispositif est architecture selon les canons de l'ingenierie pedagogique."
+        ? "Chaque dispositif est architecturé selon les canons de l'ingénierie pédagogique."
         : "Every program is architected according to the canons of pedagogical engineering.",
       Visual: StructureSVG,
     },
     {
       title: isFr ? "Continuité" : "Continuity",
       description: isFr
-        ? "Le suivi ne s'arrete pas au deploiement. Il se mesure et s'affine en continu."
+        ? "Le suivi ne s'arrête pas au déploiement. Il se mesure et s'affine en continu."
         : "Tracking does not stop at deployment. It is measured and refined continuously.",
       Visual: ContinuitySVG,
     },
