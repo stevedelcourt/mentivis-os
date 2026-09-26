@@ -12,10 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang,
     path: "contact",
-    title: isFr ? "Contact - MentivisOS" : "Contact - MentivisOS",
+    title: isFr ? "Contacter l'équipe - MentivisOS" : "Contact the Team - MentivisOS",
     description: isFr
-      ? "Contactez l'équipe Mentivis. Réponse sous 24h ouvrées."
-      : "Contact the Mentivis team. Response within 24 business hours.",
+      ? "Contactez l'équipe Mentivis pour un projet de formation, une démonstration de MentivisOS ou un partenariat. Réponse sous 24 h ouvrées."
+      : "Contact the Mentivis team about a training project, a MentivisOS demo or a partnership. Response within 24 business hours.",
   });
 }
 

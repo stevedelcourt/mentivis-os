@@ -117,6 +117,29 @@ for (const [, p] of pages) {
   }
 }
 
+// Redirections 301 : chaque cible doit exister, aucune source ne doit masquer une page réelle.
+const redirects = JSON.parse(readFileSync(join(root, "content/redirects.json"), "utf8"));
+for (const { from, to } of redirects) {
+  if (!existsSync(join(outDir, to, "index.html"))) err("content/redirects.json", `cible absente : ${to}`);
+  if (existsSync(join(outDir, from, "index.html"))) err("content/redirects.json", `source encore servie : ${from}`);
+}
+
+// Pages index : chaque article indexable doit y être lié dans le HTML statique
+// (une liste rendue seulement côté navigateur serait invisible pour les robots).
+for (const lang of ["fr", "en"]) {
+  for (const section of ["blog", "referentiel"]) {
+    const index = pages.get(`${SITE_URL}/${lang}/${section}/`);
+    if (!index) continue;
+    const prefix = `/${lang}/${section}/`;
+    for (const [, p] of pages) {
+      if (p.noindex || !p.path.startsWith(prefix) || p.path === prefix) continue;
+      if (/\/page\/\d+\/$/.test(p.path)) continue;
+      if (!index.links.includes(p.path) && !index.links.includes(`${SITE_URL}${p.path}`))
+        err(prefix, `article absent de la page index : ${p.path}`);
+    }
+  }
+}
+
 const unique = (a) => [...new Set(a)];
 console.log(`${pages.size} pages contrôlées, ${locs.length} URL dans le sitemap.`);
 if (warn.length) console.log(`\nAvertissements (${warn.length}) :\n  ${unique(warn).join("\n  ")}`);

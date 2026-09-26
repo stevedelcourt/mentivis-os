@@ -1,6 +1,6 @@
 ---
 title: "Training ROI by sector: what the available data can tell us"
-slug: le-roi-de-la-formation-selon-le-secteur-ce-que-les-donnees-disponibles-permetten
+slug: roi-de-la-formation-par-secteur-ce-que-disent-les-donnees
 ---
 
 > Training ROI varies significantly by sector, mainly because of two factors: the weight of mandatory regulatory training (whose ROI is measured in penalties avoided rather than in productivity gains) and the degree of correlation between the skills trained and measurable operational results. The sectors where the link between training and performance is best documented are sales and customer service, manufacturing and financial services.

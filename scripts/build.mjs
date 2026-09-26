@@ -17,8 +17,15 @@ const outDir = join(root, "out");
 const SITE_URL = (process.env.SITE_URL || "https://mentivisos.com").replace(/\/$/, "");
 const canonicalHost = new URL(SITE_URL).hostname.replace(/^www\./, "");
 
-const OLD_REF_SLUG = "comment-lia-personnalise-un-parcours-de-formation";
-const NEW_REF_SLUG = "comment-lia-personnalise-et-adapte-un-parcours-de-formation";
+// Redirections 301 des anciennes URL (slugs renommés, pages supprimées) : content/redirects.json.
+const REDIRECTS = JSON.parse(readFileSync(join(root, "content/redirects.json"), "utf8"));
+
+/** Règle mod_rewrite pour une redirection : chemin échappé, slash final facultatif, cible absolue. */
+function redirectRule({ from, to }) {
+  const path = from.replace(/^\/+|\/+$/g, "");
+  const pattern = path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return `RewriteRule "^${pattern}/?$" "https://%{HTTP_HOST}${to}" [R=301,L,NE]`;
+}
 
 function run(cmd, args, env = process.env) {
   const res = spawnSync(cmd, args, { cwd: root, env, stdio: "inherit" });
@@ -32,9 +39,7 @@ function build() {
 }
 
 function writeExtras() {
-  const legacy = ["fr", "en"]
-    .map((lang) => `RewriteRule ^${lang}/referentiel/${OLD_REF_SLUG}/?$ https://%{HTTP_HOST}/${lang}/referentiel/${NEW_REF_SLUG}/ [R=301,L]`)
-    .join("\n");
+  const legacy = REDIRECTS.map(redirectRule).join("\n");
   const htaccess = readFileSync(join(root, "scripts/static-export/htaccess"), "utf8")
     .replace("__LEGACY_REDIRECTS__", legacy)
     .replace("__CANONICAL_HOST_RE__", canonicalHost.replace(/\./g, "\\."));

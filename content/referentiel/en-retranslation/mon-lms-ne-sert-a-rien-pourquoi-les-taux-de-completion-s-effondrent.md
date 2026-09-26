@@ -1,6 +1,6 @@
 ---
 title: "My LMS is useless: why completion rates collapse and how to fix it"
-slug: mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent-et-comment-y
+slug: mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent
 ---
 
 > The average completion rate for online training in companies lies between 5% and 20%, depending on the study and the sector. This figure is systematically underestimated by L&D teams, who measure the administrative completion rate (the module has been "completed" in the system) and not the real completion rate. The main cause is not learners' lack of motivation: it is the disconnect between the content of the training and real work situations.

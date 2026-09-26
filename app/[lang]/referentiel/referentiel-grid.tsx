@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Locale } from "@/lib/i18n";
 import { ReferentielArticle } from "@/lib/cms/types";
 
@@ -22,7 +22,16 @@ interface Props {
 export function ReferentielGrid({ lang, piliers, articles, blocColors, blocLabels, blocFull, cibleLabels, cibleColors }: Props) {
   const isFr = lang === "fr";
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // Paramètres lus après le rendu (pas de useSearchParams) : la grille complète figure
+  // dans le HTML statique, donc tous les liens d'articles sont explorables.
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    const sync = () => setSearch(window.location.search);
+    sync();
+    window.addEventListener("popstate", sync);
+    return () => window.removeEventListener("popstate", sync);
+  }, []);
+  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
   const blocFilter = searchParams.get("bloc") || undefined;
   const cibleFilter = searchParams.get("cible") || undefined;
   const legacyArticle = searchParams.get("article");
@@ -56,6 +65,12 @@ export function ReferentielGrid({ lang, piliers, articles, blocColors, blocLabel
     if (cible) p.set("cible", cible);
     const qs = p.toString();
     return `/${lang}/referentiel/${qs ? `?${qs}` : ""}`;
+  }
+
+  function applyFilter(e: React.MouseEvent<HTMLAnchorElement>, url: string) {
+    e.preventDefault();
+    window.history.pushState(null, "", url);
+    setSearch(new URL(url, window.location.href).search);
   }
 
   const card = (a: ReferentielArticle, i: number) => (
@@ -138,13 +153,13 @@ export function ReferentielGrid({ lang, piliers, articles, blocColors, blocLabel
         <div>
           <p style={label}>{isFr ? "Blocs" : "Blocks"}</p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Link href={`/${lang}/referentiel/`} style={allPill}>{isFr ? "Tous" : "All"}</Link>
+            <a href={`/${lang}/referentiel/`} onClick={(e) => applyFilter(e, `/${lang}/referentiel/`)} style={allPill}>{isFr ? "Tous" : "All"}</a>
             {blocs.map((b) => {
               const active = blocFilter === b && !cibleFilter;
               return (
-                <Link key={b} href={active ? makeUrl(null, cibleFilter) : makeUrl(b, cibleFilter)} style={pill(active, blocColors[b])}>
+                <a key={b} href={active ? makeUrl(null, cibleFilter) : makeUrl(b, cibleFilter)} onClick={(e) => applyFilter(e, active ? makeUrl(null, cibleFilter) : makeUrl(b, cibleFilter))} rel="nofollow" style={pill(active, blocColors[b])}>
                   {blocLabels[b]}
-                </Link>
+                </a>
               );
             })}
           </div>
@@ -153,13 +168,13 @@ export function ReferentielGrid({ lang, piliers, articles, blocColors, blocLabel
         <div>
           <p style={label}>{isFr ? "Public" : "Audience"}</p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Link href={`/${lang}/referentiel/`} style={allPill}>{isFr ? "Tous" : "All"}</Link>
+            <a href={`/${lang}/referentiel/`} onClick={(e) => applyFilter(e, `/${lang}/referentiel/`)} style={allPill}>{isFr ? "Tous" : "All"}</a>
             {cibles.map((c) => {
               const active = cibleFilter === c && !blocFilter;
               return (
-                <Link key={c} href={active ? makeUrl(blocFilter, null) : makeUrl(blocFilter, c)} style={pill(active, cibleColors[c] || "#888")}>
+                <a key={c} href={active ? makeUrl(blocFilter, null) : makeUrl(blocFilter, c)} onClick={(e) => applyFilter(e, active ? makeUrl(blocFilter, null) : makeUrl(blocFilter, c))} rel="nofollow" style={pill(active, cibleColors[c] || "#888")}>
                   {cibleLabels[c] || c}
-                </Link>
+                </a>
               );
             })}
           </div>

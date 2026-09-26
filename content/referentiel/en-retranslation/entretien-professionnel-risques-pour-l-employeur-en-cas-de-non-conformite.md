@@ -1,6 +1,6 @@
 ---
 title: "Professional development review: what employers really risk if they are non-compliant"
-slug: entretien-professionnel-ce-que-l-employeur-risque-vraiment-en-cas-de-non-conform
+slug: entretien-professionnel-risques-pour-l-employeur-en-cas-de-non-conformite
 ---
 
 > The professional development review is mandatory every two years for every employee with at least two years' service, and also following certain absences (maternity leave, sick leave of more than six months, parental leave). Every six years, the employer must carry out a summary review. If the employee has not received at least one non-mandatory training action over that period, the employer must pay 3,000 euros into their CPF, in companies with 50 or more employees.

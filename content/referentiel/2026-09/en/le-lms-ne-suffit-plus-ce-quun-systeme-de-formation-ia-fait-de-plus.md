@@ -15,7 +15,7 @@ An LMS centralises content, manages enrolments, distributes modules to the right
 
 **Personalisation remains manual.** An LMS distributes the same module to an entire population, or variants designed by hand through conditional paths defined in advance. Producing a distinct learning path for each profile, matched to what the person already masters, requires design work that does not hold up at the scale of hundreds of employees.
 
-**Completion is not acquisition.** The completion rate shows that a person has been exposed to content. It does not say whether they can use the target skill. An LMS's reports answer the question "did the training take place", not "was the skill acquired". The subject is covered in [My LMS is useless: why completion rates collapse and how to fix it](/referentiel/mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent-et-comment-y).
+**Completion is not acquisition.** The completion rate shows that a person has been exposed to content. It does not say whether they can use the target skill. An LMS's reports answer the question "did the training take place", not "was the skill acquired". The subject is covered in [My LMS is useless: why completion rates collapse and how to fix it](/referentiel/mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent).
 
 **Content ages.** A module produced once goes out of date at the pace of its subject. Updating it depends on internal or external producers, with lead times incompatible with fast-moving fields such as the uses of AI.
 

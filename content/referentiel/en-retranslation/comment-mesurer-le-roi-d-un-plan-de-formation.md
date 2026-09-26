@@ -1,6 +1,6 @@
 ---
 title: "How to measure the return on investment of a corporate training plan"
-slug: comment-mesurer-le-retour-sur-investissement-d-un-plan-de-formation-en-entrepris
+slug: comment-mesurer-le-roi-d-un-plan-de-formation
 ---
 
 > The return on investment of training is measured using three main approaches. The Kirkpatrick model assesses four levels: reaction, learning, behaviour and results. The Phillips ROI model adds a fifth level, financial ROI expressed as a percentage. The marginal contribution method isolates the impact of training on a specific performance indicator while controlling for other variables. None of these methods is universal: the choice depends on the type of training, the data available and the audience to be convinced.

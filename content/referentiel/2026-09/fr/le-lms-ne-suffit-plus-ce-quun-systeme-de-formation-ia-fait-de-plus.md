@@ -15,7 +15,7 @@ Un LMS centralise les contenus, gère les inscriptions, distribue les modules au
 
 **La personnalisation reste manuelle.** Un LMS distribue le même module à toute une population, ou des variantes conçues à la main par des chemins conditionnels définis à l'avance. Produire un parcours distinct pour chaque profil, calé sur ce que la personne maîtrise déjà, suppose un travail de conception qui ne tient pas à l'échelle de centaines de collaborateurs.
 
-**La complétion n'est pas l'acquisition.** Le taux de complétion atteste qu'une personne a été exposée à un contenu. Il ne dit pas si elle sait utiliser la compétence visée. Les rapports d'un LMS répondent à la question « la formation a-t-elle eu lieu », pas à « la compétence a-t-elle été acquise ». Le sujet est développé dans [Mon LMS ne sert à rien : pourquoi les taux de complétion s'effondrent](/referentiel/mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent-et-comment-y).
+**La complétion n'est pas l'acquisition.** Le taux de complétion atteste qu'une personne a été exposée à un contenu. Il ne dit pas si elle sait utiliser la compétence visée. Les rapports d'un LMS répondent à la question « la formation a-t-elle eu lieu », pas à « la compétence a-t-elle été acquise ». Le sujet est développé dans [Mon LMS ne sert à rien : pourquoi les taux de complétion s'effondrent](/referentiel/mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent).
 
 **Les contenus vieillissent.** Un module produit une fois se périme au rythme de son sujet. Sa mise à jour dépend de producteurs internes ou externes, avec des délais incompatibles avec des domaines qui évoluent vite, comme les usages de l'IA.
 

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { SITE_URL } from "@/lib/site-url";
 import { getPost, getPosts, localizePost } from "@/lib/content";
 import { ogImageForPost } from "@/lib/seo/og-images";
-import { pageMetadata } from "@/lib/seo/page-metadata";
+import { brandedTitle, pageMetadata } from "@/lib/seo/page-metadata";
 import JsonLd from "@/components/seo/json-ld";
 import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import BlogPostClient from "./blog-post-client";
@@ -23,10 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const raw = getPost(slug);
   if (!raw) return { title: "Not Found", robots: { index: false, follow: true } };
   const post = localizePost(raw, lang);
+  const isFr = lang === "fr";
   return pageMetadata({
     lang,
     path: `blog/${slug}`,
-    title: `${post.title} | News MentivisOS`,
+    title: brandedTitle(post.title, isFr ? "Actualités MentivisOS" : "MentivisOS News"),
     description: post.excerpt,
     ogImage: ogImageForPost(raw),
     type: "article",

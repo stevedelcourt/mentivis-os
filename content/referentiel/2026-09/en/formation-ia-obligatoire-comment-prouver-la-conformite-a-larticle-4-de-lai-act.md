@@ -23,7 +23,7 @@ In an inspection by a national authority, or in a defence following an incident,
 
 Solid proof of training within the meaning of Article 4 rests on four elements. A map of AI uses by profile and by department, identifying who must be trained and in what. A measurement of acquisition built into the learning path, checking the ability to use the tool and not merely to recite its definition. A summary of acquired skills per person, time-stamped and usable by an auditor. A link with an AI use charter, whose signature at the end of the learning path formalises the employee's commitment.
 
-These elements turn an imposed obligation into a risk management system. They make compliance demonstrable rather than declarative. The list of organisational measures to have in place is covered in [AI Act Article 4: what your organisation must have in place on AI training](/referentiel/ai-act-article-4-ce-que-votre-entreprise-doit-avoir-mis-en-place-en-matiere-de-f).
+These elements turn an imposed obligation into a risk management system. They make compliance demonstrable rather than declarative. The list of organisational measures to have in place is covered in [AI Act Article 4: what your organisation must have in place on AI training](/referentiel/ai-act-article-4-ce-que-votre-entreprise-doit-mettre-en-place).
 
 ### Funding compliance
 

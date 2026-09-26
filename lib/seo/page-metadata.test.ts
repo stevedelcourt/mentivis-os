@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildAlternates, normalizePath, pageMetadata } from "./page-metadata";
+import { brandedTitle, buildAlternates, metaDescription, normalizePath, pageMetadata } from "./page-metadata";
 import { localizeHref } from "../i18n";
 
 describe("normalizePath", () => {
@@ -41,5 +41,28 @@ describe("localizeHref", () => {
     expect(localizeHref("/fr/demo/", "en")).toBe("/fr/demo/");
     expect(localizeHref("https://app.mentivisos.com", "fr")).toBe("https://app.mentivisos.com");
     expect(localizeHref(undefined, "fr")).toBe("#");
+  });
+});
+
+describe("brandedTitle", () => {
+  it("ajoute le suffixe s'il tient, sinon la marque seule, sinon rien", () => {
+    expect(brandedTitle("Court", "Le Référentiel MentivisOS")).toBe("Court | Le Référentiel MentivisOS");
+    expect(brandedTitle("x".repeat(45), "Le Référentiel MentivisOS")).toBe(`${"x".repeat(45)} | MentivisOS`);
+    expect(brandedTitle("x".repeat(70))).toBe("x".repeat(70));
+  });
+});
+
+describe("metaDescription", () => {
+  it("laisse intacte une description courte et retire le Markdown", () => {
+    expect(metaDescription("Voir [le guide](/fr/x/) **ici**.")).toBe("Voir le guide ici.");
+  });
+  it("coupe à la fin de phrase ou au mot, sans dépasser 160 caractères", () => {
+    const long = `${"Une phrase assez longue pour compter dans la limite. ".repeat(2)}${"mot ".repeat(40)}`;
+    const d = metaDescription(long);
+    expect(d.length).toBeLessThanOrEqual(160);
+    expect(d.endsWith(".")).toBe(true);
+    const words = metaDescription("mot ".repeat(60));
+    expect(words.length).toBeLessThanOrEqual(160);
+    expect(words.endsWith("mot\u2026")).toBe(true);
   });
 });

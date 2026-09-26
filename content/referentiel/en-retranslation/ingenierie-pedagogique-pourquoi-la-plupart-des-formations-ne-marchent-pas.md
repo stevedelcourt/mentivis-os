@@ -1,6 +1,6 @@
 ---
 title: "Learning design in the workplace: why most training fails"
-slug: ingenierie-pedagogique-en-entreprise-pourquoi-la-plupart-des-formations-ne-march
+slug: ingenierie-pedagogique-pourquoi-la-plupart-des-formations-ne-marchent-pas
 ---
 
 > The forgetting curve established by Hermann Ebbinghaus at the end of the nineteenth century remains valid: without review or application, 50% of what has been learnt in training is forgotten within 24 hours, and 80% within a week. The main cause of failure in workplace training is not the quality of the trainer but the absence of any arrangement for consolidation and application after the session. Learning design is the discipline that designs training arrangements which take these constraints into account.

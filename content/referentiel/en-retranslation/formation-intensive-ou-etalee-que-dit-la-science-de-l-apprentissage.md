@@ -1,6 +1,6 @@
 ---
 title: "Intensive training vs spaced learning: what does learning science say?"
-slug: formation-intensive-vs-formation-etalee-dans-le-temps-que-dit-la-science-de-l-ap
+slug: formation-intensive-ou-etalee-que-dit-la-science-de-l-apprentissage
 ---
 
 > Learning science is unambiguous on this point: learning the same amount of content in several short sessions spaced out over time produces significantly better long-term retention than equivalent intensive training. The spacing effect, documented since Ebbinghaus's work in the nineteenth century and confirmed by hundreds of studies since, is one of the most robust findings of cognitive psychology applied to learning.

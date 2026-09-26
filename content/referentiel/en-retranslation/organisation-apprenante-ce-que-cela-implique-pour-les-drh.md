@@ -1,6 +1,6 @@
 ---
 title: "The organisation as a learning organisation: what it means in practice for HR Directors"
-slug: l-entreprise-comme-organisation-apprenante-ce-que-cela-implique-concretement-pou
+slug: organisation-apprenante-ce-que-cela-implique-pour-les-drh
 ---
 
 > A learning organisation is one that has developed the ability to learn collectively from its experience, adapt its practices and generate new knowledge continuously. It is not a state reached once and for all, but an organisational capability that is built and maintained. In practice, it requires four kinds of infrastructure: processes for sharing experience, safe spaces for questioning, real-time skills management, and leadership that models learning rather than delegating it.

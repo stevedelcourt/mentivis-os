@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang,
     path: "demo",
-    title: isFr ? "Démonstration - MentivisOS" : "Demo - MentivisOS",
+    title: isFr ? "Démonstration - MentivisOS" : "Live Demo - MentivisOS",
     description: isFr
       ? "Pas de démonstration standard. Un cas réel, issu de votre organisation, traité en direct."
       : "No standard demo. A real case from your organization, handled live.",

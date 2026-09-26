@@ -24,6 +24,31 @@ Décisions prises avec Steven :
 - auteur nommé « Steven Delcourt » ;
 - TalentOS en `noindex`.
 
+## Lot 4 : contenu en dur, slugs et audit SEO
+
+Tout le contenu est désormais dans des fichiers du dépôt, lus au build. Aucune base de données, aucun CMS.
+- `content/blog/*.json` : 11 articles (import du 06ab1c8, doublon supprimé) ;
+- `content/jobs/` : aucune offre, la carte « Candidature spontanée » reste toujours présente ;
+- `content/pages.json` : textes de hero, accents et accords corrigés ;
+- `content/referentiel/**` : Référentiel FR/EN ;
+- `content/redirects.json` : redirections 301, transformées en règles `.htaccess` par `scripts/build.mjs`.
+
+`content/seo.json` importé a été supprimé : valeurs désaccentuées, mention du recrutement et prix. Les valeurs corrigées de `lib/content/defaults.ts` s'appliquent ; seul le lien Google Maps (`hasMap`) a été repris.
+
+### Slugs renommés (301 depuis l'ancienne URL, FR et EN)
+
+Référentiel : 11 slugs tronqués à 80 caractères au milieu d'un mot (par exemple `...doit-avoir-mis-en-place-en-matiere-de-f`) remplacés par des slugs courts et complets. Blog : 2 slugs avec espaces et majuscules (titres utilisés comme slugs), 1 avec triple tiret, 1 tronqué. Liste complète dans `content/redirects.json` (36 entrées, dont `/fr/tarifs/` et `/en/tarifs/` vers `/entreprises/`, et le doublon `mentivisos-open-is-live-free-forever`).
+
+Le build vérifie que chaque cible de redirection existe et qu'aucune source n'est encore servie. `lib/content/content.test.ts` impose des slugs en minuscules, tirets simples, 80 caractères au plus.
+
+### Audit SEO de `out/` et corrections
+
+- **Pages index vides pour les robots** (corrigé, le plus important) : `/blog/` et `/referentiel/` lisaient les filtres avec `useSearchParams`, ce qui faisait sortir la liste du HTML statique (Suspense sans contenu). Les pages ne contenaient aucun lien vers les articles, ni `h1` pour le blog. Les filtres sont désormais lus après le rendu ; les 11 articles et les 55 fiches sont liés dans le HTML. Le build échoue si un article indexable manque sur sa page index.
+- **Descriptions** : 130 dépassaient 160 caractères (jusqu'à 736). `metaDescription()` coupe à la dernière fin de phrase, sinon au dernier mot entier. Extraits trop courts réécrits (Marius IA, ICIA, contact, blog).
+- **Titres** : `brandedTitle()` n'ajoute le suffixe de marque que s'il tient dans 65 caractères. Titres en double corrigés (blog, contact, éducation). Environ 75 titres d'articles dépassent encore 65 caractères : c'est le titre éditorial lui-même, gardé tel quel (Google l'affiche tronqué, sans pénalité).
+- **Liens internes** : `/contact/` sans langue et liens absolus vers `mentivisOS.com` dans deux articles remplacés par `/fr/...` ou `/en/...`.
+- Pas d'image sans `alt`, un seul `h1` par page.
+
 ## Lot 3 : fusion du travail local de Steven (branche `wip/static-export-local`)
 
 Le travail local non poussé de la branche `feat/static-export` a été sauvegardé sur `wip/static-export-local` (commit `97371f6`), puis repris ici. Ce qui a été intégré :
@@ -282,7 +307,7 @@ Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
 1. **Auteur** : `jobTitle` de Steven Delcourt non renseigné (non fourni). À ajouter dans `lib/referentiel-labels.ts` (`ARTICLE_AUTHOR`) puis dans le JSON-LD.
 2. **Consent Mode à `denied` par défaut** : conforme à la doctrine CNIL, mais les volumes GA4 et Ads baisseront pour les visiteurs qui ne consentent pas. À valider juridiquement et côté marketing.
 3. **AI Act** : le document de cadrage mentionne une réécriture du texte le 27 juillet 2026. Cette date n'a pas pu être vérifiée. Les nouveaux articles reprennent la formulation fournie (« précisé en 2026 »). L'article checklist existant n'a pas été réécrit.
-4. **Valeurs SEO de l'ancien CMS** : après `npm run content:export`, vérifier dans `content/seo.json` que titres, descriptions et adresse sont accentués (« 60 rue François 1er »). Même remarque pour les textes de hero dans `content/pages.json`.
+4. **Valeurs SEO de l'ancien CMS** : traité au lot 4 (`content/seo.json` supprimé, `content/pages.json` corrigé).
 5. **4 fiches produit vides du Référentiel** (ids 14 à 17, bloc P) : actuellement `noindex` et masquées. À rédiger ou à dépublier.
 6. **Fichiers publics orphelins, indexables et copiés dans `out/`** : `airport.html`, `envie.html`, `maintenance.html`, `referentiel-mentivisos-2026.md`. Je recommande de les supprimer ; je ne l'ai pas fait sans accord. (`envies.txt` est utilisé par `components/envies-split-flap.tsx`, à garder.)
 7. **Sécurité** : `docs/infrastructure.md` contient une passphrase SSH en clair dans un fichier versionné (déjà signalé par `docs/MANUEL-SERVEURS.md`). Rotation recommandée.

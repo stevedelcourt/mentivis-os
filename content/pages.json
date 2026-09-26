@@ -7,9 +7,9 @@
         "subheadline": "MentivisOS est le système d'exploitation IA pour la transformation des compétences.",
         "ctaPrimary": "Voir une démo sur votre cas",
         "ctaPrimaryLink": "/fr/demo/",
-        "ctaSecondary": "Contacter l'equipe",
+        "ctaSecondary": "Contacter l'équipe",
         "ctaSecondaryLink": "/fr/contact",
-        "proof": "Adopté par les entreprises, les écoles, les universités, les CFA et les campus d’entreprise."
+        "proof": "Adopté par les entreprises, les écoles, les universités, les CFA et les campus d'entreprise."
       }
     },
     "learningos": {
@@ -29,18 +29,18 @@
         "eyebrow": "TalentOS",
         "headline": "Recruter devient un système.",
         "subheadline": "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements, le tout dans un seul système connecté à vos outils RH.",
-        "ctaPrimary": "Demarrer gratuitement",
+        "ctaPrimary": "Démarrer gratuitement",
         "ctaPrimaryLink": "https://app.mentivisOS.com",
-        "ctaSecondary": "Contacter l'equipe",
+        "ctaSecondary": "Contacter l'équipe",
         "ctaSecondaryLink": "/contact",
-        "proof": "Utilise par les directions RH, les cabinets de recrutement, les CFA."
+        "proof": "Utilisé par les directions RH, les cabinets de recrutement, les CFA."
       }
     },
     "about": {
       "hero": {
-        "eyebrow": "A propos",
-        "headline": "La formation native IA conçu par Mentivis",
-        "subheadline": "De la strategie au deploiement operationnel. Un seul OS pour former, certifier et faire grandir les talents.",
+        "eyebrow": "À propos",
+        "headline": "La formation native IA conçue par Mentivis",
+        "subheadline": "De la stratégie au déploiement opérationnel. Un seul OS pour former, certifier et faire grandir les talents.",
         "ctaPrimary": "",
         "ctaPrimaryLink": "",
         "ctaSecondary": "",
@@ -50,8 +50,8 @@
     },
     "security": {
       "hero": {
-        "eyebrow": "Securite",
-        "headline": "Transformer la formation,\navec confidentialité \net protections intégrées.",
+        "eyebrow": "Sécurité",
+        "headline": "Transformer la formation,\navec confidentialité\net protections intégrées.",
         "subheadline": "Conformité intégrée.",
         "ctaPrimary": "",
         "ctaPrimaryLink": "",

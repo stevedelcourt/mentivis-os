@@ -1,6 +1,6 @@
 ---
 title: "AI Act Article 4: what your organisation must have in place on AI training"
-slug: ai-act-article-4-ce-que-votre-entreprise-doit-avoir-mis-en-place-en-matiere-de-f
+slug: ai-act-article-4-ce-que-votre-entreprise-doit-mettre-en-place
 ---
 
 > Article 4 of the European regulation on artificial intelligence (Regulation (EU) 2024/1689, known as the AI Act) became applicable on 2 February 2025. It requires providers and deployers of AI systems to take the measures necessary to ensure a sufficient level of AI literacy among their staff. The obligation applies regardless of size: an SME with five employees using ChatGPT for work is covered in the same way as a large industrial group. National authorities, including the CNIL in France, have been able to carry out inspections and impose sanctions since 2 August 2026.

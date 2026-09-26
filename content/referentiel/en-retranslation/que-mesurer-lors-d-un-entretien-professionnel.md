@@ -1,6 +1,6 @@
 ---
 title: "What to measure in a professional development review to make it a genuine skills management tool"
-slug: que-mesurer-lors-d-un-entretien-professionnel-pour-en-faire-un-vrai-outil-de-ges
+slug: que-mesurer-lors-d-un-entretien-professionnel
 ---
 
 > The professional development review, mandatory every two years, is often treated as a formality. Yet, when conducted well, it becomes the most powerful skills management tool: four questions are enough to turn a compulsory review into an operational diagnosis.

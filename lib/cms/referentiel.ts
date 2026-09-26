@@ -403,7 +403,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 21,
-    "slug": "entretien-professionnel-ce-que-l-employeur-risque-vraiment-en-cas-de-non-conform",
+    "slug": "entretien-professionnel-risques-pour-l-employeur-en-cas-de-non-conformite",
     "image": "/images/workers.avif",
     "title": "Entretien professionnel : ce que l'employeur risque vraiment en cas de non-conformité",
     "titleEn": "Professional development review: what employers really risk if they are non-compliant",
@@ -423,7 +423,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 22,
-    "slug": "ai-act-article-4-ce-que-votre-entreprise-doit-avoir-mis-en-place-en-matiere-de-f",
+    "slug": "ai-act-article-4-ce-que-votre-entreprise-doit-mettre-en-place",
     "image": "/images/visuals/robot.webp",
     "title": "AI Act article 4 : ce que votre entreprise doit avoir mis en place en matière de formation IA",
     "titleEn": "AI Act Article 4: what your organisation must have in place on AI training",
@@ -523,7 +523,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 27,
-    "slug": "comment-mesurer-le-retour-sur-investissement-d-un-plan-de-formation-en-entrepris",
+    "slug": "comment-mesurer-le-roi-d-un-plan-de-formation",
     "image": "/images/TalentOS/04talent.webp",
     "title": "Comment mesurer le retour sur investissement d'un plan de formation en entreprise",
     "titleEn": "How to measure the return on investment of a corporate training plan",
@@ -603,7 +603,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 31,
-    "slug": "ingenierie-pedagogique-en-entreprise-pourquoi-la-plupart-des-formations-ne-march",
+    "slug": "ingenierie-pedagogique-pourquoi-la-plupart-des-formations-ne-marchent-pas",
     "image": "/images/los-workflow/01-generation-cours.webp",
     "title": "Ingénierie pédagogique en entreprise : pourquoi la plupart des formations ne marchent pas",
     "titleEn": "Learning design in the workplace: why most training fails",
@@ -643,7 +643,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 33,
-    "slug": "que-mesurer-lors-d-un-entretien-professionnel-pour-en-faire-un-vrai-outil-de-ges",
+    "slug": "que-mesurer-lors-d-un-entretien-professionnel",
     "image": "/images/TalentOS/talent-import.webp",
     "title": "Que mesurer lors d'un entretien professionnel pour en faire un vrai outil de gestion des compétences ?",
     "titleEn": "What to measure in a professional development review to make it a genuine skills management tool",
@@ -683,7 +683,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 35,
-    "slug": "mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent-et-comment-y",
+    "slug": "mon-lms-ne-sert-a-rien-pourquoi-les-taux-de-completion-s-effondrent",
     "image": "/images/demo-cool.webp",
     "title": "Mon LMS ne sert à rien : pourquoi les taux de complétion s'effondrent et comment y remédier",
     "titleEn": "My LMS is useless: why completion rates collapse and how to fix it",
@@ -723,7 +723,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 37,
-    "slug": "formation-intensive-vs-formation-etalee-dans-le-temps-que-dit-la-science-de-l-ap",
+    "slug": "formation-intensive-ou-etalee-que-dit-la-science-de-l-apprentissage",
     "image": "/images/wave-big.webp",
     "title": "Formation intensive vs formation étalée dans le temps : que dit la science de l'apprentissage ?",
     "titleEn": "Intensive training vs spaced learning: what does learning science say?",
@@ -743,7 +743,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 38,
-    "slug": "l-entreprise-comme-organisation-apprenante-ce-que-cela-implique-concretement-pou",
+    "slug": "organisation-apprenante-ce-que-cela-implique-pour-les-drh",
     "image": "/images/ministere.avif",
     "title": "L'entreprise comme organisation apprenante : ce que cela implique concrètement pour les DRH",
     "titleEn": "The organisation as a learning organisation: what it means in practice for HR Directors",
@@ -763,7 +763,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 39,
-    "slug": "le-roi-de-la-formation-selon-le-secteur-ce-que-les-donnees-disponibles-permetten",
+    "slug": "roi-de-la-formation-par-secteur-ce-que-disent-les-donnees",
     "image": "/images/marche-2026.avif",
     "title": "Le ROI de la formation selon le secteur : ce que les données disponibles permettent de dire",
     "titleEn": "Training ROI by sector: what the available data can tell us",
@@ -783,7 +783,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 40,
-    "slug": "les-competences-les-plus-rares-en-france-en-2026-et-comment-les-developper-en-in",
+    "slug": "competences-les-plus-rares-en-france-en-2026-et-comment-les-developper",
     "image": "/images/profarticle.avif",
     "title": "Les compétences les plus rares en France en 2026 et comment les développer en interne",
     "titleEn": "The scarcest skills in France in 2026 and how to develop them internally",
@@ -803,7 +803,7 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
   },
   {
     "id": 41,
-    "slug": "rgpd-et-formation-en-entreprise-ce-que-les-drh-doivent-savoir-sur-les-donnees-de",
+    "slug": "rgpd-et-formation-ce-que-les-drh-doivent-savoir-sur-les-donnees-des-apprenants",
     "image": "/images/data-flower.webp",
     "title": "RGPD et formation en entreprise : ce que les DRH doivent savoir sur les données des apprenants",
     "titleEn": "RGPD and corporate training: what HR Directors need to know about learner data",

@@ -23,7 +23,7 @@ En cas de contrôle par une autorité nationale, ou en défense après un incide
 
 Une preuve de formation solide au sens de l'article 4 repose sur quatre éléments. Une cartographie des usages de l'IA par profil et par service, qui identifie qui doit être formé et à quoi. Une mesure de l'acquisition intégrée au parcours, qui vérifie la capacité à utiliser l'outil et pas seulement à en réciter la définition. Une synthèse des acquis par personne, horodatée et exploitable pour un auditeur. Une articulation avec une charte d'usage de l'IA, dont la signature à l'issue du parcours matérialise l'engagement du collaborateur.
 
-Ces éléments transforment une obligation subie en dispositif de gestion des risques. Ils rendent la conformité démontrable au lieu de déclarative. La liste des mesures organisationnelles à avoir mises en place est traitée dans [AI Act article 4 : ce que votre entreprise doit avoir mis en place](/referentiel/ai-act-article-4-ce-que-votre-entreprise-doit-avoir-mis-en-place-en-matiere-de-f).
+Ces éléments transforment une obligation subie en dispositif de gestion des risques. Ils rendent la conformité démontrable au lieu de déclarative. La liste des mesures organisationnelles à avoir mises en place est traitée dans [AI Act article 4 : ce que votre entreprise doit avoir mis en place](/referentiel/ai-act-article-4-ce-que-votre-entreprise-doit-mettre-en-place).
 
 ### Le financement de la mise en conformité
 

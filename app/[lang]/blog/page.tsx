@@ -12,10 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang,
     path: "blog",
-    title: "News - MentivisOS",
+    title: isFr ? "Actualités - IA, formation et compétences | MentivisOS" : "News - AI, Training and Skills | MentivisOS",
     description: isFr
-      ? "Actualités, analyses et points de vue sur la formation et l'IA."
-      : "News, analysis and perspectives on training and AI.",
+      ? "Actualités, annonces et analyses de MentivisOS sur la formation en entreprise, l'IA générative et la mesure des compétences."
+      : "News, announcements and analysis from MentivisOS on corporate training, generative AI and skills measurement.",
   });
 }
 

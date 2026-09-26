@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang,
     path: "education",
-    title: isFr ? "MentivisOS Education - MentivisOS" : "MentivisOS Education - MentivisOS",
+    title: isFr ? "MentivisOS Education - Système de formation IA pour institutions" : "MentivisOS Education - AI Training System for Institutions",
     description: isFr
       ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
       : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.",

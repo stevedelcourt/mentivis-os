@@ -1,6 +1,6 @@
 ---
 title: "RGPD and corporate training: what HR Directors need to know about learner data"
-slug: rgpd-et-formation-en-entreprise-ce-que-les-drh-doivent-savoir-sur-les-donnees-de
+slug: rgpd-et-formation-ce-que-les-drh-doivent-savoir-sur-les-donnees-des-apprenants
 ---
 
 > Online training platforms (LMSs) collect personal data about learners: identity, progress through modules, assessment results, time spent on each piece of content, and login data. This data is subject to the General Data Protection Regulation (GDPR). Companies that deploy an LMS have specific obligations regarding legal basis, retention period, learners' rights and information. The CNIL has issued several formal notices in this area since 2022.

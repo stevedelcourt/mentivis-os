@@ -6,7 +6,7 @@ import { getReferentielArticles, getReferentielArticle } from "@/lib/content";
 import type { ReferentielArticle } from "@/lib/cms/types";
 import { renderMarkdown } from "@/lib/markdown";
 import { ogImageForArticle } from "@/lib/seo/og-images";
-import { pageMetadata } from "@/lib/seo/page-metadata";
+import { brandedTitle, pageMetadata } from "@/lib/seo/page-metadata";
 import { prepareArticle, plainText, type FaqItem } from "@/lib/referentiel-content";
 import { CLUSTERS, PRODUCT_LINKS, isPilier, pilierOf, relatedOf } from "@/lib/cms/referentiel-clusters";
 import {
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang,
     path: `referentiel/${slug}`,
-    title: `${title} | ${isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS"}`,
+    title: brandedTitle(title, isFr ? "Le Référentiel MentivisOS" : "The MentivisOS Reference"),
     description: chapeau,
     ogImage: ogImageForArticle(article),
     type: "article",

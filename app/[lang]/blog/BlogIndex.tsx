@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { Locale } from "@/lib/i18n";
 import { Post, CATEGORIES, sortPostsLatestFirst } from "@/lib/cms/types";
 import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
@@ -31,15 +30,15 @@ interface BlogIndexProps {
 export default function BlogIndex({ lang, posts }: BlogIndexProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
   const [page, setPage] = useState(1);
-  const searchParams = useSearchParams();
 
-  // Read category from URL search params on mount and when they change
+  // ?category= est lu côté client après le rendu : sans useSearchParams, la liste complète
+  // des articles est présente dans le HTML statique (liens explorables par les robots).
   useEffect(() => {
-    const cat = searchParams?.get("category");
+    const cat = new URLSearchParams(window.location.search).get("category");
     if (cat && ["strategie", "ia", "annonces", "cas", "clients", "partenariat"].includes(cat)) {
       setActiveCategory(cat as CategoryKey);
     }
-  }, [searchParams]);
+  }, []);
 
   const filteredPosts = useMemo(() => {
     let result = posts;

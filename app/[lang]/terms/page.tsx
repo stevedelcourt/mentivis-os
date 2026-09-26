@@ -14,7 +14,7 @@ export async function generateMetadata({
   return pageMetadata({
     lang,
     path: "terms",
-    title: isFr ? "Conditions générales d'utilisation" : "Terms of Use",
+    title: isFr ? "Conditions générales d'utilisation - MentivisOS" : "Terms of Use - MentivisOS",
     description: isFr
       ? "Conditions générales d'utilisation de MentivisOS."
       : "Terms of use of MentivisOS.",

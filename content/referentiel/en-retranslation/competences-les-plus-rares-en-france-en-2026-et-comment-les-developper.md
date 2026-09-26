@@ -1,6 +1,6 @@
 ---
 title: "The scarcest skills in France in 2026 and how to develop them internally"
-slug: les-competences-les-plus-rares-en-france-en-2026-et-comment-les-developper-en-in
+slug: competences-les-plus-rares-en-france-en-2026-et-comment-les-developper
 ---
 
 > In 2026, the skills in shortest supply on the French labour market fall into five clusters: AI and data skills (development, deployment and supervision of AI systems), cybersecurity skills, technical skills in the energy transition sectors (specialist electricians, solar system installers, energy efficiency engineers), nursing and personal care skills, and skills in AI-augmented customer relationship management. In each of these fields, internal training is a credible alternative to hiring, provided there is a clear skills framework and a sufficient time horizon.
