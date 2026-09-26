@@ -31,9 +31,10 @@ npm run build        # produit out/ et vérifie le SEO ; échoue au moindre prob
    Passenger s'arrête ; rien d'autre à couper à la main.
 3. Vider `public_html/` en gardant `.well-known/`, puis y déposer **tout** le contenu
    de `out/`, fichiers cachés compris (`.htaccess`, `forms/.htaccess`, `forms/.user.ini`).
-4. Créer `~/mentivis-config.php` (au-dessus de `public_html`) à partir de
-   `scripts/static-export/mentivis-config.example.php`, avec les valeurs HubSpot de
-   `.env.deploy`.
+4. Sur le Mac, `npm run config` : génère `mentivis-config.php` à la racine du dépôt à partir
+   de `docs/env.hubspot.md` (sinon `.env.deploy`, ou un chemin passé après `--`). Les deux
+   fichiers sont ignorés par git. Déposer `mentivis-config.php` par FTP dans le dossier qui
+   contient `public_html` (`~/mentivis-config.php`), jamais dedans.
 5. Tester : `/`, `/fr/`, `/en/`, une page pilier, un envoi de démo (contact visible dans
    HubSpot), une candidature avec CV en PDF.
 

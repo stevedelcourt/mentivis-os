@@ -60,6 +60,10 @@ Le build vérifie que chaque cible de redirection existe et qu'aucune source n'e
 - **`.htaccess`** testé sous Apache 2.4 (mod_rewrite, mod_headers) : racine et chemins sans langue, www, slash final, 36 redirections de slugs, `/api/` en 410, `.env` en 403, 404, `noindex` hors hôte canonique. Ajout d'un `X-Robots-Tag: noindex` sur les fichiers techniques de Next (`index.txt`, `__next.*.txt`) et sur les pages héritées `airport.html`, `envie.html`, `maintenance.html` et l'export `.md`.
 - **Accents** : 188 textes de `locales/fr.json` et environ 100 textes en dur (sécurité, à propos, composants, pied de page…) étaient sans accents ou mal accentués (« Prenom », « reessayer », « creer », « détécter »). Corrigés, ainsi que quelques mots anglais abîmés par un ancien remplacement (« opérate », « réténtion »).
 
+### Configuration des formulaires : `npm run config`
+
+`scripts/make-config.mjs` écrit `mentivis-config.php` complet à partir de `docs/env.hubspot.md` (ou `.env.deploy`). Il accepte les formats `CLE=valeur`, `CLE: valeur` et tableau Markdown, s'arrête si l'identifiant du portail ou du formulaire manque, vérifie la syntaxe avec `php -l` et n'affiche que les 4 derniers caractères du jeton. `mentivis-config.php` et `docs/env.hubspot.md` sont dans `.gitignore` : aucun secret ne peut partir sur GitHub.
+
 ## Lot 3 : fusion du travail local de Steven (branche `wip/static-export-local`)
 
 Le travail local non poussé de la branche `feat/static-export` a été sauvegardé sur `wip/static-export-local` (commit `97371f6`), puis repris ici. Ce qui a été intégré :

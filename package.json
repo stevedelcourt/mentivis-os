@@ -17,6 +17,7 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf .next out",
     "test": "vitest run",
+    "config": "node scripts/make-config.mjs",
     "test:watch": "vitest"
   },
   "dependencies": {

@@ -45,3 +45,7 @@ data/mentivis.db
 data/mentivis.db-shm
 data/mentivis.db-wal
 /.static-export-stash/
+
+# Configuration des formulaires (secrets HubSpot) : jamais dans git.
+/mentivis-config.php
+/docs/env.hubspot.md
