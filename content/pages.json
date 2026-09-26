@@ -1,1 +1,90 @@
-{}
+{
+  "fr": {
+    "homepage": {
+      "hero": {
+        "eyebrow": "Mentivis OS",
+        "headline": "Un seul système qui forme, recrute et fait monter vos équipes en compétences.",
+        "subheadline": "MentivisOS est le système d'exploitation IA pour la transformation des compétences.",
+        "ctaPrimary": "Voir une démo sur votre cas",
+        "ctaPrimaryLink": "/fr/demo/",
+        "ctaSecondary": "Contacter l'equipe",
+        "ctaSecondaryLink": "/fr/contact",
+        "proof": "Adopté par les entreprises, les écoles, les universités, les CFA et les campus d’entreprise."
+      }
+    },
+    "learningos": {
+      "hero": {
+        "eyebrow": "MENTIVIS OS PRO",
+        "headline": "Former autrement.\nPerformer durablement.",
+        "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
+        "ctaPrimary": "Testez MentivisOS Pro",
+        "ctaPrimaryLink": "/demo",
+        "ctaSecondary": "",
+        "ctaSecondaryLink": "",
+        "proof": ""
+      }
+    },
+    "talentos": {
+      "hero": {
+        "eyebrow": "TalentOS",
+        "headline": "Recruter devient un système.",
+        "subheadline": "ATS intelligent, matching de profils, tests & cas pratiques, et pilotage de vos recrutements, le tout dans un seul système connecté à vos outils RH.",
+        "ctaPrimary": "Demarrer gratuitement",
+        "ctaPrimaryLink": "https://app.mentivisOS.com",
+        "ctaSecondary": "Contacter l'equipe",
+        "ctaSecondaryLink": "/contact",
+        "proof": "Utilise par les directions RH, les cabinets de recrutement, les CFA."
+      }
+    },
+    "about": {
+      "hero": {
+        "eyebrow": "A propos",
+        "headline": "La formation native IA conçu par Mentivis",
+        "subheadline": "De la strategie au deploiement operationnel. Un seul OS pour former, certifier et faire grandir les talents.",
+        "ctaPrimary": "",
+        "ctaPrimaryLink": "",
+        "ctaSecondary": "",
+        "ctaSecondaryLink": "",
+        "proof": ""
+      }
+    },
+    "security": {
+      "hero": {
+        "eyebrow": "Securite",
+        "headline": "Transformer la formation,\navec confidentialité \net protections intégrées.",
+        "subheadline": "Conformité intégrée.",
+        "ctaPrimary": "",
+        "ctaPrimaryLink": "",
+        "ctaSecondary": "",
+        "ctaSecondaryLink": "",
+        "proof": ""
+      }
+    }
+  },
+  "en": {
+    "homepage": {
+      "hero": {
+        "eyebrow": "Mentivis OS",
+        "headline": "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+        "subheadline": "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
+        "ctaPrimary": "Start for free",
+        "ctaPrimaryLink": "/en/demo/",
+        "ctaSecondary": "Contact the team",
+        "ctaSecondaryLink": "/en/contact",
+        "proof": "Used by training departments, CFAs, corporate campuses."
+      }
+    },
+    "learningos": {
+      "hero": {
+        "eyebrow": "MENTIVIS OS PRO",
+        "headline": "Build skills right.\nDeliver results.",
+        "subheadline": "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development, all in a single system.",
+        "ctaPrimary": "Test MentivisOS Pro",
+        "ctaPrimaryLink": "/demo",
+        "ctaSecondary": "",
+        "ctaSecondaryLink": "",
+        "proof": ""
+      }
+    }
+  }
+}
