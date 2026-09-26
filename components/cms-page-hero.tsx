@@ -1,7 +1,6 @@
-"use client";
-
-import { useEffect, useState, ReactNode } from "react";
+import { ReactNode } from "react";
 import PageHero, { PageHeroContent } from "./page-hero";
+import pages from "@/content/pages.json";
 
 interface CmsPageHeroProps {
   page: string;
@@ -11,22 +10,15 @@ interface CmsPageHeroProps {
   className?: string;
 }
 
+type HeroOverrides = Record<string, Record<string, { hero?: Partial<PageHeroContent> } & Partial<PageHeroContent>>>;
+
+// Textes de hero : valeurs du composant, éventuellement remplacées par content/pages.json
+// (textes repris de l'ancien CMS par scripts/export-cms-content.mjs). La ligne « proof »
+// reste celle du composant, comme avec le CMS.
 export default function CmsPageHero({ page, lang, defaults, visual, className }: CmsPageHeroProps) {
-  const [content, setContent] = useState<PageHeroContent>(defaults);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(`/api/pages?page=${page}&lang=${lang}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (!cancelled && data?.page?.hero) {
-          const { proof: _p, ...rest } = data.page.hero;
-          setContent({ ...defaults, ...rest });
-        }
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, [page, lang]);
-
-  return <PageHero content={content} visual={visual} className={className} />;
+  const entry = (pages as HeroOverrides)[lang]?.[page];
+  const hero = entry?.hero ?? entry ?? {};
+  const rest: Partial<PageHeroContent> = { ...(hero as Partial<PageHeroContent>) };
+  delete rest.proof;
+  return <PageHero content={{ ...defaults, ...rest }} visual={visual} className={className} />;
 }

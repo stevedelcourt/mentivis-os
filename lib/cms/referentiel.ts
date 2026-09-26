@@ -842,21 +842,3 @@ export const REFERENTIEL_ARTICLES: ReferentielArticle[] = [
     "updatedAt": "2026-09-09T00:00:00.000Z"
   }
 ];
-
-export function getReferentielArticles(filters?: { bloc?: string; cible?: string }): ReferentielArticle[] {
-  let result = REFERENTIEL_ARTICLES.filter(a => a.published);
-  if (filters?.bloc) result = result.filter(a => a.bloc === filters.bloc);
-  if (filters?.cible) result = result.filter(a => a.cible === filters.cible);
-  return result.sort((a,b) => a.position - b.position);
-}
-
-export function getAllReferentielArticles(): ReferentielArticle[] {
-  return [...REFERENTIEL_ARTICLES].sort((a,b) => a.position - b.position);
-}
-
-export function getReferentielArticle(slug: string): ReferentielArticle | undefined {
-  return REFERENTIEL_ARTICLES.find(a => a.slug === slug);
-}
-
-export async function saveReferentielArticle(data: any) { throw new Error("Referentiel is now hard-coded, use referentiel.ts"); }
-export async function deleteReferentielArticle(id: number) { throw new Error("Referentiel is now hard-coded"); }

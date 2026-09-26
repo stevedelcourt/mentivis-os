@@ -3,7 +3,7 @@ import { Locale } from "@/lib/i18n";
 import { Suspense } from "react";
 import BlogIndex from "./BlogIndex";
 import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
-import { getSeo } from "@/lib/cms/db";
+import { getPostsForLang, getSeo } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -32,7 +32,7 @@ export default async function BlogPage({
     <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh" }}>
       <BreadcrumbJsonLd lang={lang} path="blog" />
       <Suspense fallback={null}>
-        <BlogIndex lang={lang as Locale} />
+        <BlogIndex lang={lang as Locale} posts={getPostsForLang(lang)} />
       </Suspense>
       {blogSeo?.jsonLd && (
         <script

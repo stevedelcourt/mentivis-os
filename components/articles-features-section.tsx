@@ -8,6 +8,8 @@ import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 
 interface ArticlesFeaturesSectionProps {
   lang: Locale;
+  /** Trois derniers articles, déjà localisés, fournis au build. */
+  posts: Post[];
 }
 
 function getGradientCss(post: Post): string {
@@ -18,10 +20,9 @@ function getGradientCss(post: Post): string {
   return GRADIENT_PATTERNS[post.id % GRADIENT_PATTERNS.length].css;
 }
 
-export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectionProps) {
+export default function ArticlesFeaturesSection({ lang, posts }: ArticlesFeaturesSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const el = ref.current;
@@ -32,22 +33,6 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        const res = await fetch(`/api/blog/posts?lang=${lang}`);
-        if (res.ok) {
-          const data = await res.json();
-          // API already sorts, but ensure we take the first 3
-          setPosts((data.posts || []).slice(0, 3));
-        }
-      } catch {
-        setPosts([]);
-      }
-    }
-    loadPosts();
   }, []);
 
   return (

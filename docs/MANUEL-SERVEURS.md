@@ -10,6 +10,40 @@ dans le sens sc10 → sc4 sans consigne explicite.
 
 ---
 
+## 0. Depuis le 26 septembre 2026 : site 100 % statique
+
+Le site n'utilise plus Node, Passenger, le CMS ni la base SQLite. Les sections 1 à 9
+décrivent l'ancienne architecture ; elles restent utiles pour la bascule et l'historique.
+
+**Construire** (sur le Mac) :
+
+```bash
+npm install
+npm run build        # produit out/ et vérifie le SEO ; échoue au moindre problème
+```
+
+**Déployer** sur un serveur o2switch (sc4 d'abord, sc10 ensuite) :
+
+1. Sauvegarder `public_html/` et `~/data/`. `~/data/` contient la base, les
+   soumissions et les CV : données personnelles, à garder hors ligne puis à supprimer
+   selon la politique RGPD.
+2. cPanel, « Setup Node.js App » : arrêter puis supprimer l'application du domaine.
+   Passenger s'arrête ; rien d'autre à couper à la main.
+3. Vider `public_html/` en gardant `.well-known/`, puis y déposer **tout** le contenu
+   de `out/`, fichiers cachés compris (`.htaccess`, `forms/.htaccess`, `forms/.user.ini`).
+4. Créer `~/mentivis-config.php` (au-dessus de `public_html`) à partir de
+   `scripts/static-export/mentivis-config.example.php`, avec les valeurs HubSpot de
+   `.env.deploy`.
+5. Tester : `/`, `/fr/`, `/en/`, une page pilier, un envoi de démo (contact visible dans
+   HubSpot), une candidature avec CV en PDF.
+
+**Mettre à jour le contenu** : modifier les fichiers de `content/` (ou `locales/`),
+`npm run build`, redéposer `out/`.
+
+**Anciennes URL** : `/api/*` répond 410, `/fr/content-management/` n'existe plus.
+
+---
+
 ## 1. Vue d'ensemble et rôles
 
 | Élément | SC4 | sc10 |

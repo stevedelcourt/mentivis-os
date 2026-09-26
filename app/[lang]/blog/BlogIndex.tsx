@@ -22,11 +22,11 @@ const POSTS_PER_PAGE = 6;
 
 interface BlogIndexProps {
   lang: Locale;
+  /** Articles déjà localisés, fournis au build. */
+  posts: Post[];
 }
 
-export default function BlogIndex({ lang }: BlogIndexProps) {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function BlogIndex({ lang, posts }: BlogIndexProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
   const [page, setPage] = useState(1);
   const searchParams = useSearchParams();
@@ -38,21 +38,6 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
       setActiveCategory(cat as CategoryKey);
     }
   }, [searchParams]);
-
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        const res = await fetch(`/api/blog/posts?lang=${lang}`);
-        const data = await res.json();
-        setPosts(data.posts || []);
-      } catch {
-        setPosts([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadPosts();
-  }, []);
 
   const filteredPosts = useMemo(() => {
     let result = posts;
@@ -83,30 +68,14 @@ export default function BlogIndex({ lang }: BlogIndexProps) {
     setPage(1);
   }, []);
 
-  if (loading) {
-    return (
-    <main className={styles.wrap}>
-      <header className={styles.pageHeader}>
-        <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
-          {lang === "en" ? "News & Analysis" : "Actualites et analyses"}
-        </p>
-        <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
-          {lang === "en" ? "Latest Publications" : "Dernieres publications"}
-        </h1>
-      </header>
-      <p style={{ textAlign: "center", color: "#4e4e4e", padding: 60 }}>{lang === "en" ? "Loading..." : "Chargement..."}</p>
-      </main>
-    );
-  }
-
   return (
     <main className={styles.wrap}>
       <header className={styles.pageHeader}>
         <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4e4e4e", marginBottom: 10 }}>
-          {lang === "en" ? "News & Analysis" : "Actualites et analyses"}
+          {lang === "en" ? "News & Analysis" : "Actualités et analyses"}
         </p>
         <h1 className="t-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 300, lineHeight: 1.35, letterSpacing: "-0.01em", color: "#4e4e4e" }}>
-          {lang === "en" ? "Latest Publications" : "Dernieres publications"}
+          {lang === "en" ? "Latest Publications" : "Dernières publications"}
         </h1>
       </header>
 

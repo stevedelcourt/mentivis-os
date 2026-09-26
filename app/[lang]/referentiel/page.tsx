@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
-import { getReferentielArticles } from "@/lib/cms/db";
+import { getReferentielArticles } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import { PILIERS } from "@/lib/cms/referentiel-clusters";
 import { BLOC_COLORS, BLOC_FULL, BLOC_LABELS, CIBLE_COLORS, CIBLE_LABELS } from "@/lib/referentiel-labels";
@@ -50,8 +50,8 @@ export default async function ReferentielPage({ params }: { params: Promise<{ la
     Object.fromEntries(Object.entries(m).map(([k, v]) => [k, pick(v)]));
 
   const intro = isFr
-    ? `4 piliers et ${others.length} articles factuels sur l'IA dans la formation, la mesure des compétences, l'apprentissage adaptatif et la conformité.`
-    : `4 pillars and ${others.length} factual articles on AI in training, skills measurement, adaptive learning and compliance.`;
+    ? "Articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
+    : "Factual articles on AI in training, adaptive learning and MentivisOS products.";
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { getT, Locale, localizeHref } from "@/lib/i18n";
 import { PricingPlan } from "@/lib/cms/types";
@@ -8,12 +8,14 @@ import { HOVER_GRADIENTS, FALLBACK_PLANS, FALLBACK_PLANS_EN, FEATURES_COMPARISON
 
 interface TarifsClientProps {
   lang: Locale;
+  /** Grilles tarifaires fournies au build (content/pricing.json ou valeurs par défaut). */
+  pricing?: Record<string, PricingPlan[]>;
 }
 
 type ProductTab = "learningos" | "pipelineos" | "api";
 type BillingCycle = "monthly" | "yearly";
 
-export default function TarifsClient({ lang }: TarifsClientProps) {
+export default function TarifsClient({ lang, pricing }: TarifsClientProps) {
   const t = getT(lang);
   const features = lang === "en" ? FEATURES_COMPARISON_EN : FEATURES_COMPARISON;
   const faq = lang === "en" ? FAQ_ITEMS_EN : FAQ_ITEMS;
@@ -21,24 +23,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
   const [calculatorValue, setCalculatorValue] = useState(10);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [cmsPricing, setCmsPricing] = useState<Record<string, PricingPlan[]>>({});
-
-  useEffect(() => {
-    async function loadPricing() {
-      try {
-        const res = await fetch(`/api/pricing?lang=${lang}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.pricing) {
-            setCmsPricing(data.pricing);
-          }
-        }
-      } catch {
-        // Fallback to hardcoded
-      }
-    }
-    loadPricing();
-  }, []);
+  const cmsPricing: Record<string, PricingPlan[]> = pricing || {};
 
   const currentPlans = cmsPricing[activeTab]?.length > 0
     ? cmsPricing[activeTab]

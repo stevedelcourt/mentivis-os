@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Locale, getT } from "@/lib/i18n";
-import { Job, JobType } from "@/lib/cms/types";
+import { Job } from "@/lib/cms/types";
 import CTABlock from "@/components/cta-block";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useVisible } from "@/hooks/use-visible";
 
 interface CareersPageProps {
   lang: Locale;
+  /** Offres publiées, déjà localisées, fournies au build. */
+  jobs: Job[];
 }
 
 const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
@@ -20,32 +22,14 @@ const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
   alternance: { fr: "Alternance", en: "Work-study" },
 };
 
-export default function CareersPageClient({ lang }: CareersPageProps) {
+export default function CareersPageClient({ lang, jobs }: CareersPageProps) {
   const t = getT(lang);
   const isMobile = useIsMobile();
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selectedDept, setSelectedDept] = useState<string>("all");
 
   const heroV = useVisible(0.2);
   const whyV = useVisible(0.1);
   const listV = useVisible(0.1);
-
-  const fetchJobs = useCallback(async () => {
-    try {
-        const res = await fetch(`/api/jobs?lang=${lang}`);
-      const data = await res.json();
-      setJobs(data.jobs || []);
-    } catch {
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchJobs();
-  }, [fetchJobs]);
 
   const departments = Array.from(new Set(jobs.map((j) => j.department)));
   const filteredJobs = selectedDept === "all"
@@ -347,9 +331,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
               )}
             </div>
 
-            {loading ? (
-              <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
-            ) : filteredJobs.length === 0 ? (
+            {filteredJobs.length === 0 ? (
               <div
                 style={{
                   textAlign: "center",

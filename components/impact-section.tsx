@@ -28,6 +28,8 @@ const LAYOUTS: Record<string, { pos: CSSProperties }[]> = {
 
 interface ImpactSectionProps {
   lang: Locale;
+  /** Articles de blog, fournis au build. */
+  posts: Post[];
 }
 
 function bgStyle(post: Post | null, gradient: string) {
@@ -59,11 +61,9 @@ function filterToCards(posts: Post[], tab: "clients" | "partenariat"): (Post | n
   return result;
 }
 
-export default function ImpactSection({ lang }: ImpactSectionProps) {
+export default function ImpactSection({ lang, posts: allPosts }: ImpactSectionProps) {
   const t = getT(lang);
   const [activeTab, setActiveTab] = useState<"clients" | "partenariat">("partenariat");
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [postsLoaded, setPostsLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -78,26 +78,13 @@ export default function ImpactSection({ lang }: ImpactSectionProps) {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    fetch("/api/blog/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllPosts(data.posts || []);
-        setPostsLoaded(true);
-      })
-      .catch(() => setPostsLoaded(true));
-  }, []);
-
-  const { clientsCards, partenariatCards } = useMemo(() => {
-    if (!postsLoaded) return { clientsCards: [null, null, null], partenariatCards: [null, null, null] };
-    return {
-      clientsCards: filterToCards(allPosts, "clients"),
-      partenariatCards: filterToCards(allPosts, "partenariat"),
-    };
-  }, [allPosts, postsLoaded]);
+  const { clientsCards, partenariatCards } = useMemo(() => ({
+    clientsCards: filterToCards(allPosts, "clients"),
+    partenariatCards: filterToCards(allPosts, "partenariat"),
+  }), [allPosts]);
 
   const activePosts = activeTab === "clients" ? clientsCards : partenariatCards;
-  const showFallback = postsLoaded && activePosts.every((p) => p === null);
+  const showFallback = activePosts.every((p) => p === null);
 
   function renderGrid(cards: (Post | null)[], tab: "clients" | "partenariat") {
     const layout = LAYOUTS[tab];

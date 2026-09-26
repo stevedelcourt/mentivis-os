@@ -1,5 +1,11 @@
 # MentivisOS — Current State
 
+## Milestone: site 100 % statique (2026-09-26, soir)
+
+- Plus de Node, de CMS ni de base : `npm run build` produit `out/`, à déposer dans `public_html`.
+- Contenu dans `content/` (blog, offres, tarifs, heroes, SEO) et `content/referentiel/`.
+- Formulaires : `public/forms/*.php` vers HubSpot. Détail : `docs/progress.md` (lot 2), bascule : `docs/MANUEL-SERVEURS.md` section 0.
+
 ## Milestone: SEO/GEO, Référentiel en 4 piliers, export statique (2026-09-26)
 
 - Détail complet, vérifications et points ouverts : `docs/progress.md`.

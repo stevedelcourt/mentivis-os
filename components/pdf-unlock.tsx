@@ -56,8 +56,8 @@ function PdfUnlockModal({
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/demo/", {
-        method: "PUT",
+      const res = await fetch("/forms/submit.php", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstname,
@@ -69,6 +69,7 @@ function PdfUnlockModal({
           honeypot,
           formType: "demo",
           formContext: context,
+          pageUri: window.location.href,
         }),
       });
       const data = await res.json();

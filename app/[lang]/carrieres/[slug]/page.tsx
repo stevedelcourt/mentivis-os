@@ -1,27 +1,31 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Locale, getT } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
-import { getJobBySlug, getPublishedJobs } from "@/lib/cms/db";
+import { getJob, getJobs, localizeJob } from "@/lib/content";
 import JobDetailClient from "@/components/job-detail-client";
 
-// Offres prérendues depuis la base disponible au build ; en export statique, la page
-// coquille "_" sert en plus les offres publiées après le build (réécriture .htaccess).
-export async function generateStaticParams() {
-  const jobs = await getPublishedJobs().catch(() => []);
-  const params = jobs.flatMap((j) => [
+export const dynamicParams = false;
+
+// Sans offre publiée, l'export statique exige tout de même un paramètre : une page
+// technique rend alors la 404 (noindex, absente du sitemap et des liens).
+const NO_JOB = "aucune-offre";
+
+export function generateStaticParams() {
+  const jobs = getJobs();
+  if (jobs.length === 0) return [{ lang: "fr", slug: NO_JOB }, { lang: "en", slug: NO_JOB }];
+  return jobs.flatMap((j) => [
     { lang: "fr", slug: j.slug },
     { lang: "en", slug: j.slug },
   ]);
-  if (process.env.STATIC_EXPORT === "1") {
-    params.push({ lang: "fr", slug: "_" }, { lang: "en", slug: "_" });
-  }
-  return params;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   const t = getT(lang as Locale);
-  const job = slug === "_" ? undefined : await getJobBySlug(slug).catch(() => undefined);
+  const raw = getJob(slug);
+  const job = raw ? localizeJob(raw, lang) : undefined;
   return {
     title: job ? `${job.title} - ${t.careers.meta.title}` : t.careers.meta.title,
     description: job ? `${job.title} - ${job.department} - ${job.location}` : t.careers.meta.description,
@@ -42,11 +46,23 @@ function getEmploymentType(type: string): string {
 
 export default async function JobDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
-  const job = slug === "_" ? undefined : await getJobBySlug(slug).catch(() => undefined);
+  if (slug === NO_JOB) {
+    return (
+      <section style={{ minHeight: "60vh", padding: "120px 24px", maxWidth: 720, margin: "0 auto" }}>
+        <p style={{ color: "#4e4e4e", marginBottom: 16 }}>{getT(lang as Locale).careers.list.empty}</p>
+        <Link href={`/${lang}/carrieres/`} style={{ color: "#0A0A0A", textDecoration: "underline" }}>
+          {getT(lang as Locale).careers.detail.back}
+        </Link>
+      </section>
+    );
+  }
+  const raw = getJob(slug);
+  if (!raw) notFound();
+  const job = localizeJob(raw, lang);
 
   return (
     <>
-      <JobDetailClient lang={lang as Locale} slug={slug} />
+      <JobDetailClient lang={lang as Locale} job={job} />
       {job && (
         <script
           type="application/ld+json"

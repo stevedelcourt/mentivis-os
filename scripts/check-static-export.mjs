@@ -34,7 +34,6 @@ for (const file of htmlFiles(outDir)) {
   const rel = "/" + relative(outDir, dirname(file)).split("\\").join("/");
   const path = rel === "/" ? "/" : `${rel}/`;
   if (path === "/") continue; // redirection racine
-  if (/\/_\/$/.test(path)) continue; // pages coquilles
   if (path === "/404/" || path === "/_not-found/") continue; // artefacts 404 de Next
   const html = readFileSync(file, "utf8");
   const url = `${SITE_URL}${path}`;
@@ -111,8 +110,6 @@ for (const [, p] of pages) {
       if (pathOnly && !existsSync(join(outDir, pathOnly))) err(p.path, `fichier lié absent : ${pathOnly}`);
       continue;
     }
-    if (/^\/(fr|en)\/(blog|carrieres)\/[^/]+\/?$/.test(pathOnly)) continue; // servis par la page coquille
-    if (/^\/(fr|en)\/content-management/.test(pathOnly)) continue; // CMS sur le serveur Node
     const normalized = pathOnly.endsWith("/") ? pathOnly : `${pathOnly}/`;
     if (!files.has(normalized) && !existsSync(join(outDir, normalized, "index.html"))) {
       err(p.path, `lien interne cassé : ${href}`);

@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-09-26 (soir)
+
+### Site 100 % statique, CMS et Node supprimés
+**Problem**: Steven ne veut plus utiliser le CMS ; l'hébergement doit se limiter à un `public_html` contenant le site, sans Node ni Passenger.
+**Decision**: `output: "export"` en permanence. Contenu éditorial en fichiers (`content/`, `lib/content/`). Formulaires en PHP (`public/forms/`) vers HubSpot, secrets dans `~/mentivis-config.php`, CV déposés en privé dans HubSpot Files sans copie serveur. Suppression de l'API Node, du CMS, de sql.js, de Passenger et des scripts associés. État précédent : commit `c05638c`.
+**Files**: `next.config.ts`, `lib/content/*`, `content/*`, `public/forms/*`, `scripts/build.mjs`, `scripts/export-cms-content.mjs`, `scripts/static-export/*`
+**Status**: branche `claude/compassionate-cray-kjww7b`, bascule de sc4 à faire (`docs/MANUEL-SERVEURS.md`, section 0)
+
 ## 2026-09-26
 
 ### Métadonnées par page, sans headers()

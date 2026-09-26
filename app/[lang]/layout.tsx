@@ -8,7 +8,7 @@ import NavBar from "@/components/nav-bar";
 import FooterBlock from "@/components/footer-block";
 import CookieConsentDeferred from "@/components/cookie-consent-deferred";
 import JsonLd from "@/components/seo/json-ld";
-import { getSeo } from "@/lib/cms/db";
+import { getSeo } from "@/lib/content";
 
 const inter = Inter({
   subsets: ["latin"],

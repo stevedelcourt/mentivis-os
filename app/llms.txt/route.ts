@@ -1,5 +1,5 @@
 import { SITE_URL } from "@/lib/site-url";
-import { getReferentielArticles } from "@/lib/cms/db";
+import { getReferentielArticles } from "@/lib/content";
 import { CLUSTERS, PILIERS } from "@/lib/cms/referentiel-clusters";
 
 export const dynamic = "force-static";

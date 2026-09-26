@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Locale, getT } from "@/lib/i18n";
@@ -70,7 +70,8 @@ function escapeHtml(text: string): string {
 
 interface JobDetailProps {
   lang: Locale;
-  slug: string;
+  /** Offre déjà localisée, fournie au build. */
+  job: Job;
 }
 
 const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
@@ -81,15 +82,12 @@ const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
   alternance: { fr: "Alternance", en: "Work-study" },
 };
 
-export default function JobDetailClient({ lang, slug }: JobDetailProps) {
+export default function JobDetailClient({ lang, job }: JobDetailProps) {
   const t = getT(lang);
   const isMobile = useIsMobile();
   const params = useParams();
   const urlLang = (params.lang as string) || lang;
 
-  const [job, setJob] = useState<Job | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -103,31 +101,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
   const [cvFile, setCvFile] = useState<File | null>(null);
 
-  useEffect(() => {
-    // Export statique : la page coquille "_" sert toutes les offres, le slug est lu dans l'URL.
-    const jobSlug = slug === "_" ? window.location.pathname.split("/").filter(Boolean)[2] || "" : slug;
-    async function fetchJob() {
-      try {
-        const res = await fetch(`/api/jobs/${jobSlug}?lang=${lang}`);
-        if (res.status === 404) {
-          setError("notFound");
-          return;
-        }
-        const data = await res.json();
-        if (data.job) {
-          setJob(data.job);
-        } else {
-          setError("notFound");
-        }
-      } catch {
-        setError("error");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchJob();
-  }, [slug]);
-
   const typeLabel = (type: string) => JOB_TYPE_LABELS[type]?.[lang] || type;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -136,38 +109,22 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
     setFormState("loading");
 
     try {
-      const payload: Record<string, string> = {
-        jobReference: job.reference,
-        jobTitle: job.title,
-        firstName,
-        lastName,
-        email,
-        phone,
-        linkedin,
-        message,
-      };
+      // Candidature envoyée en multipart au script PHP (public/forms/apply.php),
+      // qui transmet à HubSpot. Le CV n'est pas conservé sur le serveur.
+      const form = new FormData();
+      form.append("jobReference", job.reference);
+      form.append("jobTitle", job.title);
+      form.append("firstName", firstName);
+      form.append("lastName", lastName);
+      form.append("email", email);
+      form.append("phone", phone);
+      form.append("linkedin", linkedin);
+      form.append("message", message);
+      form.append("pageUri", window.location.href);
+      form.append("honeypot", honeypot);
+      if (cvFile) form.append("cv", cvFile, cvFile.name);
 
-      if (cvFile) {
-        const safeLastName = lastName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-        const safeFirstName = firstName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-        const filename = `${safeLastName}-${safeFirstName}-cv.pdf`;
-        const url = `/api/upload-cv/?filename=${encodeURIComponent(filename)}&originalName=${encodeURIComponent(cvFile.name)}`;
-        const cvRes = await fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/pdf" },
-          body: cvFile,
-        });
-        if (cvRes.ok) {
-          const cvData = await cvRes.json();
-          payload.cvUrl = cvData.cvUrl;
-        }
-      }
-
-      const res = await fetch(`/api/job-applications/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, _t: Date.now().toString() }),
-      });
+      const res = await fetch("/forms/apply.php", { method: "POST", body: form });
       if (res.ok) {
         setFormState("success");
         (window as any).dataLayer = (window as any).dataLayer || [];
@@ -186,32 +143,6 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       setFormState("error");
     }
   };
-
-  if (loading) {
-    return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#4e4e4e" }}>Chargement...</p>
-      </div>
-    );
-  }
-
-  if (error === "notFound" || !job) {
-    return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-        <div style={{ textAlign: "center" }}>
-          <h1 style={{ fontSize: 24, fontWeight: 500, color: "#0A0A0A", marginBottom: 12 }}>
-            {lang === "fr" ? "Offre introuvable" : "Position not found"}
-          </h1>
-          <Link
-            href={`/${urlLang}/carrieres`}
-            style={{ color: "#0A0A0A", textDecoration: "underline" }}
-          >
-            {t.careers.detail.back}
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>

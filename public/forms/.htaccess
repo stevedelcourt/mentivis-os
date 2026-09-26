@@ -1,0 +1,8 @@
+# Seuls les points d'entrée des formulaires sont accessibles.
+Options -Indexes
+<Files "_lib.php">
+  Require all denied
+</Files>
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>

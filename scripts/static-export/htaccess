@@ -1,7 +1,14 @@
-# MentivisOS, export statique (généré par scripts/build-static-export.mjs).
+# MentivisOS, site statique (généré par scripts/build.mjs).
 # À déposer à la racine du site avec le contenu de out/.
 
 Options -Indexes -MultiViews
+ServerSignature Off
+
+# Fichiers cachés (.env, .git, .user.ini...) inaccessibles, sauf .well-known (certificats).
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+</IfModule>
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
@@ -16,12 +23,14 @@ RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
 
-# 2. API : relais vers le serveur Node via proxy.php (formulaires, blog, offres).
-RewriteRule ^api/(.*)$ proxy.php?__path=api/$1 [L,QSA]
+# 2. Anciennes API Node : retirées définitivement.
+RewriteRule ^api/ - [G,L]
 
-# 3. Racine et chemins sans langue vers la version française.
+# 3. Racine et chemins sans langue vers la version française
+#    (hors .well-known, utilisé pour les certificats SSL).
 RewriteRule ^$ https://%{HTTP_HOST}/fr/ [R=301,L]
 RewriteCond %{REQUEST_URI} !^/(fr|en)(/|$)
+RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]+$
@@ -32,17 +41,11 @@ __LEGACY_REDIRECTS__
 
 # 5. Slash final sur les pages (trailingSlash: true).
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteCond %{REQUEST_URI} !/$
 RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]+$
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1/ [R=301,L]
 
-# 6. Articles de blog et offres publiés après le build : page coquille rendue côté client.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(fr|en)/blog/[^/]+/$ /$1/blog/_/index.html [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(fr|en)/carrieres/[^/]+/$ /$1/carrieres/_/index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -55,11 +58,6 @@ Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(
 # Seul l'hôte canonique est indexable (préprod, miroirs, hôtes techniques : noindex).
 SetEnvIfNoCase Host ^(www\.)?__CANONICAL_HOST_RE__$ CANONICAL_HOST
 Header always set X-Robots-Tag "noindex, nofollow" env=!CANONICAL_HOST
-
-# Pages coquilles et fichiers internes : jamais indexés.
-<FilesMatch "^(proxy\.php)$">
-  Header always set X-Robots-Tag "noindex"
-</FilesMatch>
 
 # Cache : ressources versionnées de Next.js immuables, HTML toujours revalidé.
 <FilesMatch "\.(js|css|woff2?|ttf|otf)$">

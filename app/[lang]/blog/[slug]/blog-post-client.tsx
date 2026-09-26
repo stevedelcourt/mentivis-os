@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "../blog.module.css";
 import { Post } from "@/lib/cms/types";
@@ -8,54 +7,9 @@ import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { renderMarkdown } from "@/lib/markdown";
 import PdfUnlock from "@/components/pdf-unlock";
 
-export default function BlogPostClient({ lang, slug: slugProp, initialPost }: { lang: string; slug: string; initialPost: Post | null }) {
-  const [post, setPost] = useState<Post | null>(initialPost);
-  const [loading, setLoading] = useState(!initialPost);
+// Article déjà localisé, fourni au build.
+export default function BlogPostClient({ lang, post }: { lang: string; post: Post }) {
   const isFr = lang === "fr";
-
-  useEffect(() => {
-    // Export statique : la page coquille "_" sert tous les articles, le slug est lu dans l'URL.
-    const slug = slugProp === "_" ? window.location.pathname.split("/").filter(Boolean)[2] || "" : slugProp;
-    async function loadPost() {
-      try {
-        const res = await fetch(`/api/blog/posts/${slug}?lang=${lang}`);
-        if (res.ok) {
-          const data = await res.json();
-          setPost(data.post);
-        } else {
-          setPost(null);
-        }
-      } catch {
-        setPost(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadPost();
-  }, [slugProp, lang]);
-
-  if (loading) {
-    return (
-      <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
-        <div className="container">
-          <p style={{ color: "#4e4e4e" }}>{isFr ? "Chargement..." : "Loading..."}</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (!post) {
-    return (
-      <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
-        <div className="container">
-          <Link href={`/${lang}/blog`} className={styles.featCta} style={{ marginBottom: 32, display: "inline-flex" }}>
-            ← {isFr ? "Retour aux articles" : "Back to articles"}
-          </Link>
-          <p>{isFr ? "Article introuvable." : "Article not found."}</p>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>

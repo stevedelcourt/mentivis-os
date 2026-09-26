@@ -1,6 +1,7 @@
 import { Locale } from "@/lib/i18n";
 import TarifsClient from "@/components/tarifs-client";
-import { getSeo } from "@/lib/cms/db";
+import { getPricing, getSeo } from "@/lib/content";
+import type { PricingPlan } from "@/lib/cms/types";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
@@ -24,7 +25,7 @@ export default async function TarifsPage({ params }: { params: Promise<{ lang: s
   return (
     <>
       <BreadcrumbJsonLd lang={lang} path="tarifs" />
-      <TarifsClient lang={lang as Locale} />
+      <TarifsClient lang={lang as Locale} pricing={getPricing(lang) as unknown as Record<string, PricingPlan[]>} />
       {tarifsSeo?.jsonLd && (
         <script
           type="application/ld+json"

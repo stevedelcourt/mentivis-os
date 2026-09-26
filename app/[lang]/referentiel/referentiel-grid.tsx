@@ -126,7 +126,7 @@ export function ReferentielGrid({ lang, piliers, articles, blocColors, blocLabel
       {piliers.length > 0 && noFilter && (
         <section style={{ marginBottom: 48 }}>
           <h2 style={{ fontSize: 22, fontWeight: 300, color: "#0A0A0A", margin: "8px 0 16px" }}>
-            {isFr ? "Les 4 piliers" : "The 4 pillars"}
+            {isFr ? "Points clés" : "Key points"}
           </h2>
           <div className="referentiel-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
             {piliers.map(card)}

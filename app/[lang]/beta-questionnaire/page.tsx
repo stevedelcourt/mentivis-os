@@ -185,9 +185,9 @@ export default function BetaQuestionnairePage() {
       Object.entries(form).forEach(([k, v]) => { payload[k] = String(v); });
       payload.features = form.features.join(", ");
       payload.honeypot = "";
-      payload._t = Date.now().toString();
-      const res = await fetch(`/api/beta-questionnaire`, {
-        method: "PUT",
+      payload.pageUri = window.location.href;
+      const res = await fetch("/forms/beta.php", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });

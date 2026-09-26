@@ -1,4 +1,4 @@
-# Progress : SEO/GEO, Référentiel FR/EN, export statique /out
+# Progress : SEO/GEO, Référentiel FR/EN, site statique
 
 Branche : `claude/compassionate-cray-kjww7b` (partie de `main` au commit `1022782`). Rien n'a été poussé sur `main` ni déployé.
 Date : 26 septembre 2026.
@@ -23,6 +23,62 @@ Décisions prises avec Steven :
 - rédaction des 3 articles manquants cités par les piliers ;
 - auteur nommé « Steven Delcourt » ;
 - TalentOS en `noindex`.
+
+## Lot 2 : site 100 % statique, sans Node ni CMS
+
+Demande de Steven : ne plus utiliser le CMS, un `public_html` qui ne contient que le site, formulaires et candidatures en PHP vers HubSpot, suppression du code serveur, bascule de sc4.
+
+### Réalisé
+
+- **Référentiel** : la section des piliers s'appelle « Points clés » (EN : « Key points »). Nouveau texte sous le titre : « Articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS. »
+- **Contenu en fichiers** (`lib/content/`) :
+  - blog : `content/blog/<slug>.json` ;
+  - offres : `content/jobs/<slug>.json` ;
+  - optionnels : `content/pricing.json`, `content/pages.json`, `content/seo.json` ;
+  - valeurs par défaut dans `lib/content/defaults.ts`.
+  Les 2 articles de blog versionnés (anciens « seeds ») sont dans `content/blog/`.
+- **Plus aucun appel `/api/`** : blog, sections de la home, carrières, offre, tarifs et textes de hero reçoivent leurs données au build.
+- **Formulaires PHP** (`public/forms/`) :
+  - `submit.php` : contact, démo, PDF, offre été ;
+  - `beta.php` : questionnaire bêta ;
+  - `apply.php` : candidature avec CV en PDF, déposé en privé dans HubSpot Files puis relié au contact via `lien_cv`, sans copie sur le serveur ;
+  - `_lib.php` : contrôle d'origine, limite par formulaire et par IP, honeypot, relance sans `hutk`.
+  - Secrets dans `~/mentivis-config.php`, hors du web.
+- **Export du CMS** : `npm run content:export` (`scripts/export-cms-content.mjs`), adapté de `scripts/snapshot-prod-db.js`. Il écrit des JSON et télécharge les images dans `public/uploads/`. Il ne lit ni soumissions, ni candidatures, ni CV.
+- **Code supprimé** : `app/api/`, CMS (`app/[lang]/content-management/`, `components/cms/`, hooks CMS), `proxy.ts`, `lib/cms/{db,sqlite,auth,users,utils}.ts`, `lib/rate-limit.ts`, `server.js`, `sql.js.d.ts`, scripts de déploiement Passenger et de synchronisation, `vercel.json`, `.htaccess` racine, dépendances `sql.js`, `bcryptjs`, `@vercel/blob`.
+  - Le tag `pre-static-2026-09` a été refusé par le proxy git de l'environnement. L'état d'avant suppression est le commit `c05638c`.
+- **Build** :
+  - `npm run build` = export statique + `.htaccess` + contrôle SEO. Le build échoue au moindre problème.
+  - `.htaccess` : `/api/*` répond 410 ; fichiers cachés bloqués sauf `.well-known` (certificats) ; plus de relais PHP vers Node.
+- **Lien « CMS »** retiré du pied de page. `robots.txt` exclut `/forms/`.
+- **Documentation** : `AGENTS.md` réécrit pour l'architecture statique ; `docs/MANUEL-SERVEURS.md`, section 0 (procédure de bascule).
+
+### Vérifications (lot 2)
+
+- `npm run typecheck` : OK.
+- `npm test` : 39 tests passent. Les tests en échec de `rate-limit` ont disparu avec le module.
+- `npx eslint` : 157 problèmes (contre 286 au départ), tous antérieurs ; aucun dans le code ajouté.
+- `npm run build` : 171 pages, contrôle SEO sans erreur (168 pages, 148 URL de sitemap). Aucun `fetch("/api/` dans `out/_next`.
+- Apache 2.4 sur `out/` :
+  - redirections www, HTTPS, racine et ancien slug ;
+  - `/api/*` en 410, `/.well-known/` servi ;
+  - `forms/_lib.php`, `forms/.user.ini` et `.htaccess` en 403 ;
+  - 404 sur les pages inexistantes.
+- PHP 8.4 contre un faux HubSpot local :
+  - envoi démo, dont la relance sans `hutk` refusé ;
+  - honeypot, champs manquants, origine refusée, méthode GET ;
+  - questionnaire bêta ;
+  - candidature avec PDF (Files, formulaire, lecture puis mise à jour du contact) ;
+  - faux PDF refusé, fichier de 7 Mo refusé (413), 4e candidature dans la minute refusée (429).
+- Captures Playwright de `out/` (blog, article, carrières EN, tarifs, contact, Référentiel, à propos) : aucune erreur JavaScript ni ressource en erreur.
+
+### Reste à faire (actions de Steven)
+
+1. **Réconcilier le travail local de la branche `feat/static-export`** (modifications non commitées). Le pousser sur `wip/static-export-local` pour que je le compare.
+2. **Lancer `npm run content:export`** avec `CMS_AUTH_SECRET` tant que sc4 tourne encore, puis commiter `content/` et `public/uploads/`. Sans cela, le blog n'a que 2 articles, il n'y a aucune offre, et les tarifs et textes de hero restent ceux du code.
+3. **Basculer sc4** selon `docs/MANUEL-SERVEURS.md`, section 0, puis sc10 (`mentivisos.com`) une fois sc4 validé.
+
+## Lot 1 : SEO/GEO, Référentiel FR/EN, premier export
 
 ## État des lieux initial (avant modifications)
 
@@ -143,7 +199,7 @@ Décisions prises avec Steven :
 - **Nommage** « MentivisOS » soudé dans les eyebrows (« MENTIVISOS ENTREPRISE », « MENTIVISOS OPEN »).
 - **`stripMarkdown`** : les images sont retirées avant les liens (le test en échec passe).
 
-### 5. Export statique `out/` pour FTP
+### 5. Export statique `out/` pour FTP (remplacé au lot 2 : plus de proxy.php ni de serveur Node)
 
 Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
 
@@ -169,7 +225,7 @@ Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
   - liens internes.
 - **Résultat** : 173 pages HTML, 212 Mo (dont 138 Mo de vidéos et 39 Mo d'images).
 
-### Upload FTP
+### Upload FTP (procédure du lot 1 ; la procédure actuelle est dans `docs/MANUEL-SERVEURS.md`, section 0)
 
 1. `npm install` puis `npm run build:static`. Optionnel : `DATA_DIR=/chemin/copie/data` pour le blog et les offres.
 2. `node scripts/check-static-export.mjs` doit afficher « Aucune erreur ».
@@ -201,9 +257,9 @@ Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
 1. **Auteur** : `jobTitle` de Steven Delcourt non renseigné (non fourni). À ajouter dans `lib/referentiel-labels.ts` (`ARTICLE_AUTHOR`) puis dans le JSON-LD.
 2. **Consent Mode à `denied` par défaut** : conforme à la doctrine CNIL, mais les volumes GA4 et Ads baisseront pour les visiteurs qui ne consentent pas. À valider juridiquement et côté marketing.
 3. **AI Act** : le document de cadrage mentionne une réécriture du texte le 27 juillet 2026. Cette date n'a pas pu être vérifiée. Les nouveaux articles reprennent la formulation fournie (« précisé en 2026 »). L'article checklist existant n'a pas été réécrit.
-4. **Valeurs SEO stockées en base (CMS sc4)** : elles priment sur les valeurs par défaut en SSR. Réaccentuer et aligner via l'onglet SEO du CMS : titres et descriptions homepage et business, adresse « 60 rue François 1er ». Même remarque pour les eyebrows de hero modifiés par le CMS.
+4. **Valeurs SEO de l'ancien CMS** : après `npm run content:export`, vérifier dans `content/seo.json` que titres, descriptions et adresse sont accentués (« 60 rue François 1er »). Même remarque pour les textes de hero dans `content/pages.json`.
 5. **4 fiches produit vides du Référentiel** (ids 14 à 17, bloc P) : actuellement `noindex` et masquées. À rédiger ou à dépublier.
-6. **Fichiers publics orphelins, indexables et copiés dans `out/`** : `airport.html`, `envie.html`, `envies.txt`, `maintenance.html`, `referentiel-mentivisos-2026.md`. Je recommande de les supprimer ; je ne l'ai pas fait sans accord.
+6. **Fichiers publics orphelins, indexables et copiés dans `out/`** : `airport.html`, `envie.html`, `maintenance.html`, `referentiel-mentivisos-2026.md`. Je recommande de les supprimer ; je ne l'ai pas fait sans accord. (`envies.txt` est utilisé par `components/envies-split-flap.tsx`, à garder.)
 7. **Sécurité** : `docs/infrastructure.md` contient une passphrase SSH en clair dans un fichier versionné (déjà signalé par `docs/MANUEL-SERVEURS.md`). Rotation recommandée.
 8. **Relecture des traductions EN** : choix signalés par les traducteurs :
    - « maîtrise » rendu par « proficiency » ;
@@ -213,7 +269,7 @@ Commande : `npm run build:static` (script `scripts/build-static-export.mjs`).
    Les 3 nouveaux articles rédigés sont à relire avant publication.
 9. **Traductions non faites** : page `summer` (contenu FR uniquement, `noindex`, offre qui se termine le 30 septembre 2026) et module interactif de `/composants` (`noindex`).
 10. **Images OG des piliers** : image par défaut. Pour des images dédiées, ajouter des entrées dans `lib/seo/og-manifest.json` puis lancer `npm run og` sur macOS (le script utilise `sips`).
-11. **CMS** : il n'existe pas sur l'hébergement statique. Il reste sur sc4 (source de vérité). Toute modification CMS (blog, offres, tarifs) passe par l'API relayée ; les pages statiques qui en dépendent se mettent à jour côté client.
+11. **CMS** : supprimé au lot 2. Le contenu se modifie dans `content/` puis `npm run build`.
 12. **Tarifs** : `recommendedPlan` dans `components/tarifs-client.tsx` compare des noms de plans qui n'existent pas (« Essentiel », « Équipe »). Code mort, non modifié.
 
 ## Fichiers principaux

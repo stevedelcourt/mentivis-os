@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
-import { getPublishedPosts, getReferentielArticles } from "@/lib/cms/db";
+import { getPosts, getReferentielArticles } from "@/lib/content";
 import { PILIERS } from "@/lib/cms/referentiel-clusters";
 
 export const dynamic = "force-static";
@@ -60,8 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  try {
-    const posts = await getPublishedPosts();
+  {
+    const posts = getPosts();
     for (const post of posts) {
       const withEn = Boolean(post.contentEn && post.contentEn.trim());
       for (const lang of withEn ? langs : (["fr"] as const)) {
@@ -74,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
     }
-  } catch {}
+  }
 
   const refArticles = (await getReferentielArticles()).filter((a) => a.content && a.content.trim());
   for (const article of refArticles) {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { getJobs, localizeJob } from "@/lib/content";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale, getT } from "@/lib/i18n";
 import CareersPageClient from "@/components/careers-page-client";
@@ -22,7 +23,7 @@ export default async function CareersPage({ params }: { params: Promise<{ lang: 
   return (
     <>
       <BreadcrumbJsonLd lang={lang} path="carrieres" />
-      <CareersPageClient lang={lang as Locale} />
+      <CareersPageClient lang={lang as Locale} jobs={getJobs().map((j) => localizeJob(j, lang))} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

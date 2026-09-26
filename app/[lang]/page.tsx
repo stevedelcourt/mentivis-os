@@ -12,7 +12,7 @@ import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
-import { getSeo } from "@/lib/cms/db";
+import { getPosts, getPostsForLang, getSeo, localizePost } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -39,10 +39,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <SectorShowcase lang={locale} />
       <MathFeaturesSection lang={locale} />
       <TransformationTimeline lang={locale} />
-      <ImpactSection lang={locale} />
+      <ImpactSection lang={locale} posts={getPosts().map((p) => localizePost(p, lang))} />
       <FaqSection lang={locale} />
       <CTABlock lang={locale} variant="final" />
-      <ArticlesFeaturesSection lang={locale} />
+      <ArticlesFeaturesSection lang={locale} posts={getPostsForLang(lang).slice(0, 3)} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

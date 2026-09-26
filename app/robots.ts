@@ -4,8 +4,8 @@ import { SITE_URL } from "@/lib/site-url";
 export const dynamic = "force-static";
 
 // Tout le contenu public est ouvert aux moteurs et aux robots des assistants IA.
-// Seuls le CMS et l'API sont exclus du crawl.
-const DISALLOW = ["/api/", "/fr/content-management/", "/en/content-management/"];
+// Seuls les scripts de formulaires sont exclus du crawl.
+const DISALLOW = ["/forms/"];
 
 const AI_CRAWLERS = [
   "GPTBot",
