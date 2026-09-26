@@ -12,21 +12,26 @@ import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import { getSeo } from "@/lib/cms/db";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  return {
-    alternates: { canonical: `${SITE_URL}/${lang}/` },
-    openGraph: {
-      url: `${SITE_URL}/${lang}/`,
-      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
-    },
-  };
+  const seo = await getSeo();
+  const home = seo[lang as "fr" | "en"]?.homepage;
+  return pageMetadata({
+    lang,
+    path: "",
+    title: home?.title || "MentivisOS",
+    description: home?.description || "",
+    ogImage: "/images/OG-image.jpg",
+  });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const locale = lang as Locale;
+  const isFr = lang === "fr";
 
   return (
     <>
@@ -50,14 +55,19 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "VideoObject",
-            name: "MentivisOS - démonstration du système de formation IA",
-            description: "Présentation du flux complet MentivisOS : diagnostic de compétences, génération de parcours, accompagnement IA, badges de compétences.",
-            thumbnailUrl: "https://mentivisos.com/images/LearningOS/thumb-product.webp",
+            name: isFr
+              ? "MentivisOS - démonstration du système de formation IA"
+              : "MentivisOS - AI training system demo",
+            description: isFr
+              ? "Présentation du flux complet MentivisOS : diagnostic de compétences, génération de parcours, accompagnement IA, badges de compétences."
+              : "Walkthrough of the full MentivisOS flow: skills diagnostic, learning path generation, AI coaching, skill badges.",
+            thumbnailUrl: `${SITE_URL}/images/LearningOS/thumb-product.webp`,
             uploadDate: "2026-01-01T00:00:00Z",
             duration: "PT2M",
-            contentUrl: "https://mentivisos.com/videos/mOS-720.mp4",
-            embedUrl: "https://mentivisos.com/fr/",
-            publisher: { "@type": "Organization", name: "MentivisOS", url: "https://mentivisos.com" },
+            contentUrl: `${SITE_URL}/videos/mOS-720.mp4`,
+            embedUrl: `${SITE_URL}/${lang}/`,
+            inLanguage: isFr ? "fr" : "en",
+            publisher: { "@type": "Organization", name: "MentivisOS", url: SITE_URL },
           }),
         }}
       />

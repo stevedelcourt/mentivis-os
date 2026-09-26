@@ -34,8 +34,6 @@ export function proxy(request: NextRequest) {
   }
 
   const res = NextResponse.next();
-  res.headers.set("x-current-path", pathname);
-  res.headers.set("x-pathname", pathname);
   if (!isCanonicalHost(request)) {
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
   }

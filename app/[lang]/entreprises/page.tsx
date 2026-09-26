@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import LearningOSPageClient from "@/components/learningos/learningos-page-client";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "entreprises",
     title: isFr ? "MentivisOS Entreprise - Formation native IA" : "MentivisOS Entreprise - AI-native training",
     description: isFr
       ? "Le système de formation native IA qui transforme vos collaborateurs en talents."
       : "The AI-native training system that turns your employees into talents.",
-  };
+  });
 }
 
 export default async function LearningOSPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,6 +24,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
   const isFr = lang === "fr";
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="entreprises" />
       <LearningOSPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"

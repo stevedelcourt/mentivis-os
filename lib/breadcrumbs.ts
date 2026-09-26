@@ -14,6 +14,8 @@ const LABELS: Record<string, { fr: string; en: string }> = {
   demo: { fr: "Démonstration", en: "Demo" },
   tarifs: { fr: "Tarifs", en: "Pricing" },
   education: { fr: "MentivisOS Education", en: "MentivisOS Education" },
+  openos: { fr: "MentivisOS Open", en: "MentivisOS Open" },
+  developpers: { fr: "Développeurs", en: "Developers" },
   security: { fr: "Sécurité", en: "Security" },
   privacy: { fr: "Confidentialité", en: "Privacy" },
   terms: { fr: "CGU", en: "Terms of Service" },
@@ -52,8 +54,14 @@ export function getBreadcrumbItems(lang: Locale, pathname: string): BreadcrumbIt
   return items;
 }
 
-export function buildBreadcrumbJsonLd(lang: Locale, pathname: string) {
+/**
+ * BreadcrumbList unique par page. Le dernier maillon porte le titre de la page
+ * (libellé lisible, pas le slug) et n'a pas d'`item`, conformément aux
+ * recommandations Google.
+ */
+export function buildBreadcrumbJsonLd(lang: Locale, pathname: string, lastLabel?: string) {
   const items = getBreadcrumbItems(lang, pathname);
+  if (lastLabel && items.length > 1) items[items.length - 1].name = lastLabel;
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -61,7 +69,7 @@ export function buildBreadcrumbJsonLd(lang: Locale, pathname: string) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: item.url,
+      ...(i < items.length - 1 ? { item: item.url } : {}),
     })),
   };
 }

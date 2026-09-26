@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import SecurityPageClient from "@/components/security-page-client";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "security",
     title: isFr ? "Sécurité - MentivisOS" : "Security - MentivisOS",
     description: isFr
       ? "L'IA pédagogique conçue pour transformer la formation, guidée par la responsabilité et des protections qui garantissent la confidentialité des données."
       : "AI-powered pedagogy built to transform training, guided by responsibility and protections that guarantee data confidentiality.",
-  };
+  });
 }
 
 export default async function SecurityPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -19,6 +23,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ lang:
   const isFr = lang === "fr";
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="security" />
       <SecurityPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"

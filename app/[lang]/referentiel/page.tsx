@@ -1,95 +1,57 @@
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles } from "@/lib/cms/db";
-import { Cible, Bloc } from "@/lib/cms/types";
+import { pageMetadata } from "@/lib/seo/page-metadata";
+import { PILIERS } from "@/lib/cms/referentiel-clusters";
+import { BLOC_COLORS, BLOC_FULL, BLOC_LABELS, CIBLE_COLORS, CIBLE_LABELS } from "@/lib/referentiel-labels";
+import JsonLd from "@/components/seo/json-ld";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import { ReferentielGrid } from "./referentiel-grid";
+
+async function listedArticles() {
+  // Les articles sans contenu ne sont ni listés ni indexés.
+  return (await getReferentielArticles()).filter((a) => a.content && a.content.trim());
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  return {
-    title: lang === "fr" ? "Le Référentiel - Guides IA, formation et compétences | MentivisOS" : "The Reference - AI, Training & Skills Guides | MentivisOS",
-    description: lang === "fr"
-      ? "42 articles de référence sur l'IA dans la formation en entreprise, l'apprentissage adaptatif et les produits MentivisOS."
-      : "42 reference articles on AI in corporate training, adaptive learning, and MentivisOS products.",
-    robots: { index: true, follow: true },
-    alternates: {
-      canonical: `${SITE_URL}/${lang}/referentiel/`,
-      languages: {
-        fr: `${SITE_URL}/fr/referentiel/`,
-        en: `${SITE_URL}/en/referentiel/`,
-        "x-default": `${SITE_URL}/fr/referentiel/`,
-      },
-    },
-    openGraph: {
-      title: lang === "fr" ? "Le Référentiel - Guides IA, formation et compétences | MentivisOS" : "The Reference - AI, Training & Skills Guides | MentivisOS",
-      description: lang === "fr"
-        ? "42 articles de référence sur l'IA dans la formation en entreprise, l'apprentissage adaptatif et les produits MentivisOS."
-        : "42 reference articles on AI in corporate training, adaptive learning, and MentivisOS products.",
-      url: `${SITE_URL}/${lang}/referentiel/`,
-      type: "website",
-      locale: lang === "fr" ? "fr_FR" : "en_US",
-      siteName: "MentivisOS",
-      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
-    },
-  };
+  const isFr = lang === "fr";
+  const count = (await listedArticles()).filter((a) => a.bloc !== "PILIER").length;
+  return pageMetadata({
+    lang,
+    path: "referentiel",
+    title: isFr
+      ? "Le Référentiel - Guides IA, formation et compétences | MentivisOS"
+      : "The Reference - AI, Training & Skills Guides | MentivisOS",
+    description: isFr
+      ? `4 piliers et ${count} articles de référence sur l'IA dans la formation en entreprise, la mesure des compétences, l'apprentissage adaptatif et la conformité AI Act.`
+      : `4 pillars and ${count} reference articles on AI in corporate training, skills measurement, adaptive learning and AI Act compliance.`,
+    ogImage: "/images/OG-image.jpg",
+  });
 }
 
-export default async function ReferentielPage({ params, searchParams }: { params: Promise<{ lang: string }>; searchParams: Promise<{ article?: string; bloc?: string; cible?: string }> }) {
+export default async function ReferentielPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const sp = await searchParams;
-
-  if (sp.article) {
-    redirect(`/${lang}/referentiel/${sp.article}`);
-  }
-
   const isFr = lang === "fr";
-  const blocFilter = sp.bloc as Bloc | undefined;
-  const cibleFilter = sp.cible as Cible | undefined;
+  const pick = (v: { fr: string; en: string }) => (isFr ? v.fr : v.en);
 
-  const articles = await getReferentielArticles({ bloc: blocFilter, cible: cibleFilter });
-  const allArticles = blocFilter || cibleFilter ? await getReferentielArticles() : articles;
-
-  const localized = isFr ? articles : articles.map((a) => ({
+  const articles = (await listedArticles()).map((a) => (isFr ? a : {
     ...a,
     title: a.titleEn || a.title,
     content: a.contentEn || a.content,
     chapeau: a.chapeauEn || a.chapeau,
   }));
+  const piliers = PILIERS.map((s) => articles.find((a) => a.slug === s)).filter((a) => a !== undefined);
+  const others = articles.filter((a) => a.bloc !== "PILIER");
 
-  const localizedAll = isFr ? allArticles : allArticles.map((a) => ({
-    ...a,
-    title: a.titleEn || a.title,
-    content: a.contentEn || a.content,
-    chapeau: a.chapeauEn || a.chapeau,
-  }));
+  const mapLabels = (m: Record<string, { fr: string; en: string }>) =>
+    Object.fromEntries(Object.entries(m).map(([k, v]) => [k, pick(v)]));
 
-  const BLOC_COLORS: Record<string, string> = { M: "#0891b2", N: "#15803d", P: "#7c3aed" };
-  const BLOC_LABELS: Record<string, string> = {
-    M: isFr ? "IA & Formation" : "AI & Training",
-    N: isFr ? "IA & Apprentissage" : "AI & Learning",
-    P: isFr ? "Produits" : "Products",
-  };
-  const BLOC_FULL: Record<string, string> = {
-    M: isFr ? "IA et formation en entreprise" : "AI in Corporate Training",
-    N: isFr ? "IA et apprentissage" : "AI and Learning",
-    P: isFr ? "Produits MentivisOS" : "MentivisOS Products",
-  };
-  const CIBLE_LABELS: Record<string, string> = {
-    "Directions formation": isFr ? "Directions formation" : "Training Directors",
-    "DRH et DAF": isFr ? "DRH & DAF" : "HR & Finance",
-    Apprenants: isFr ? "Apprenants" : "Learners",
-    "Organismes de formation": isFr ? "Organismes de formation" : "Training Orgs",
-    "Tout public": isFr ? "Tout public" : "General",
-  };
-  const CIBLE_COLORS: Record<string, string> = {
-    "Directions formation": "#2563eb",
-    "DRH et DAF": "#7c3aed",
-    Apprenants: "#0891b2",
-    "Organismes de formation": "#059669",
-    "Tout public": "#6b7280",
-  };
+  const intro = isFr
+    ? `4 piliers et ${others.length} articles factuels sur l'IA dans la formation, la mesure des compétences, l'apprentissage adaptatif et la conformité.`
+    : `4 pillars and ${others.length} factual articles on AI in training, skills measurement, adaptive learning and compliance.`;
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -102,51 +64,50 @@ export default async function ReferentielPage({ params, searchParams }: { params
             {isFr ? "Le Référentiel" : "The Reference"}
           </h1>
           <p style={{ fontSize: 16, color: "#4e4e4e", marginTop: 12, maxWidth: 600 }}>
-            {isFr
-              ? "42 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
-              : "42 factual articles on AI in training, adaptive learning, and MentivisOS products."}
+            {intro}
           </p>
         </div>
       </header>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS",
-            description: isFr
-              ? "42 articles factuels sur l'IA dans la formation, l'apprentissage adaptatif et les produits MentivisOS."
-              : "42 factual articles on AI in training, adaptive learning, and MentivisOS products.",
-            url: `${SITE_URL}/${lang}/referentiel/`,
-            inLanguage: isFr ? "fr-FR" : "en-US",
-            publisher: { "@type": "Organization", name: "MentivisOS", url: SITE_URL },
-            mainEntity: {
-              "@type": "ItemList",
-              itemListElement: localized.map((a, i) => ({
-                "@type": "ListItem",
-                position: i + 1,
-                url: `${SITE_URL}/${lang}/referentiel/${a.slug}/`,
-                name: a.title,
-              })),
-            },
-          }),
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS",
+          description: intro,
+          url: `${SITE_URL}/${lang}/referentiel/`,
+          inLanguage: isFr ? "fr-FR" : "en-GB",
+          publisher: { "@id": `${SITE_URL}/#organization` },
+          hasPart: piliers.map((a) => ({
+            "@type": "WebPage",
+            "@id": `${SITE_URL}/${lang}/referentiel/${a.slug}/`,
+            name: a.title,
+          })),
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: articles.map((a, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${SITE_URL}/${lang}/referentiel/${a.slug}/`,
+              name: a.title,
+            })),
+          },
         }}
       />
+      <BreadcrumbJsonLd lang={lang} path="referentiel" />
 
-      <ReferentielGrid
-        lang={lang as Locale}
-        articles={localized}
-        allArticles={localizedAll}
-        blocFilter={blocFilter}
-        cibleFilter={cibleFilter}
-        blocColors={BLOC_COLORS}
-        blocLabels={BLOC_LABELS}
-        blocFull={BLOC_FULL}
-        cibleLabels={CIBLE_LABELS}
-        cibleColors={CIBLE_COLORS}
-      />
+      <Suspense fallback={null}>
+        <ReferentielGrid
+          lang={lang as Locale}
+          piliers={piliers}
+          articles={others}
+          blocColors={BLOC_COLORS}
+          blocLabels={mapLabels(BLOC_LABELS)}
+          blocFull={mapLabels(BLOC_FULL)}
+          cibleLabels={mapLabels(CIBLE_LABELS)}
+          cibleColors={CIBLE_COLORS}
+        />
+      </Suspense>
     </div>
   );
 }

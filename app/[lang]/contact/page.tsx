@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "contact",
     title: isFr ? "Contact - MentivisOS" : "Contact - MentivisOS",
     description: isFr
       ? "Contactez l'équipe Mentivis. Réponse sous 24h ouvrées."
       : "Contact the Mentivis team. Response within 24 business hours.",
-  };
+  });
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,6 +24,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
   const isFr = lang === "fr";
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="contact" />
       <PageHero
         content={{
           eyebrow: isFr ? "Contact" : "Contact",

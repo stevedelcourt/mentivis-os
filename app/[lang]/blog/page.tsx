@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
+import { Suspense } from "react";
 import BlogIndex from "./BlogIndex";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import { getSeo } from "@/lib/cms/db";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
-export const metadata: Metadata = {
-  title: "News - MentivisOS",
-  description: "Actualites, insights et points de vue sur la formation et l'IA.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const isFr = lang === "fr";
+  return pageMetadata({
+    lang,
+    path: "blog",
+    title: "News - MentivisOS",
+    description: isFr
+      ? "Actualités, analyses et points de vue sur la formation et l'IA."
+      : "News, analysis and perspectives on training and AI.",
+  });
+}
 
 export default async function BlogPage({
   params,
@@ -19,7 +30,10 @@ export default async function BlogPage({
 
   return (
     <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh" }}>
-      <BlogIndex lang={lang as Locale} />
+      <BreadcrumbJsonLd lang={lang} path="blog" />
+      <Suspense fallback={null}>
+        <BlogIndex lang={lang as Locale} />
+      </Suspense>
       {blogSeo?.jsonLd && (
         <script
           type="application/ld+json"

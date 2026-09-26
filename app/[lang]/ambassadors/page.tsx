@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import AmbassadorsPageClient from "@/components/ambassadors-page-client";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "ambassadors",
     title: isFr ? "Ambassadeurs - MentivisOS" : "Ambassadors - MentivisOS",
     description: isFr
       ? "Rejoignez le programme Ambassadeurs MentivisOS et participez à la transformation de la formation professionnelle."
       : "Join the MentivisOS Ambassadors program and be part of the training transformation.",
-  };
+  });
 }
 
 export default async function AmbassadorsPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,6 +24,7 @@ export default async function AmbassadorsPage({ params }: { params: Promise<{ la
   const isFr = lang === "fr";
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="ambassadors" />
       <AmbassadorsPageClient locale={lang as Locale} />
       <script
         type="application/ld+json"

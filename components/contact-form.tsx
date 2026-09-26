@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getT, Locale } from "@/lib/i18n";
 
@@ -13,7 +13,16 @@ interface ContactFormProps {
   subject?: string;
 }
 
-export default function ContactForm({ lang, mode = "demo", formContext, subject: subjectProp }: ContactFormProps) {
+// useSearchParams impose une frontière Suspense pour le prérendu statique.
+export default function ContactForm(props: ContactFormProps) {
+  return (
+    <Suspense fallback={null}>
+      <ContactFormInner {...props} />
+    </Suspense>
+  );
+}
+
+function ContactFormInner({ lang, mode = "demo", formContext, subject: subjectProp }: ContactFormProps) {
   const t = getT(lang);
   const isContact = mode === "contact";
   const searchParams = useSearchParams();

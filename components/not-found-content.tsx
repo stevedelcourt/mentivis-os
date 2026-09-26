@@ -1,7 +1,10 @@
 "use client";
 
-export default function NotFoundContent({ lang }: { lang: string }) {
-  const isFr = lang === "fr";
+import { usePathname } from "next/navigation";
+
+export default function NotFoundContent({ lang }: { lang?: string }) {
+  const pathname = usePathname();
+  const isFr = (lang || (pathname?.startsWith("/en") ? "en" : "fr")) === "fr";
   const phrase = isFr
     ? "L'univers a 404 r\u00e9ponses. Celle-ci n'est pas l'une d'elles."
     : "The universe has 404 answers. This isn't one of them.";

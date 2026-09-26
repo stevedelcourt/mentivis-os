@@ -115,7 +115,7 @@ export interface FormSubmission {
 
 export type Cible = "Directions formation" | "DRH et DAF" | "Apprenants" | "Organismes de formation" | "Tout public";
 
-export type Bloc = "M" | "N" | "P";
+export type Bloc = "M" | "N" | "P" | "PILIER";
 
 // ── Users & Roles ──
 

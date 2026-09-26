@@ -1,25 +1,44 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles, getReferentielArticle } from "@/lib/cms/db";
+import type { ReferentielArticle } from "@/lib/cms/types";
 import { renderMarkdown } from "@/lib/markdown";
-import { ogImageForArticle, OG_WIDTH, OG_HEIGHT } from "@/lib/seo/og-images";
+import { ogImageForArticle } from "@/lib/seo/og-images";
+import { pageMetadata } from "@/lib/seo/page-metadata";
+import { prepareArticle, plainText, type FaqItem } from "@/lib/referentiel-content";
+import { CLUSTERS, PRODUCT_LINKS, isPilier, pilierOf, relatedOf } from "@/lib/cms/referentiel-clusters";
+import {
+  ARTICLE_AUTHOR, BLOC_COLORS, BLOC_FULL, BLOC_LABELS, CIBLE_COLORS, CIBLE_LABELS,
+} from "@/lib/referentiel-labels";
+import JsonLd from "@/components/seo/json-ld";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  try {
-    const articles = await getReferentielArticles();
-    return articles.flatMap((a) => [
-      { lang: "fr", slug: a.slug },
-      { lang: "en", slug: a.slug },
-    ]);
-  } catch {
-    return [
-      { lang: "fr", slug: "article" },
-      { lang: "en", slug: "article" },
-    ];
-  }
+  const articles = await getReferentielArticles();
+  return articles.flatMap((a) => [
+    { lang: "fr", slug: a.slug },
+    { lang: "en", slug: a.slug },
+  ]);
+}
+
+/** Un article sans contenu n'est pas indexable ; sans traduction, sa version EN non plus. */
+function hasContent(a: ReferentielArticle) {
+  return Boolean(a.content && a.content.trim());
+}
+function hasEn(a: ReferentielArticle) {
+  return Boolean(a.contentEn && a.contentEn.trim() && a.titleEn);
+}
+
+function localized(a: ReferentielArticle, isFr: boolean) {
+  return {
+    title: isFr ? a.title : (a.titleEn || a.title),
+    chapeau: isFr ? a.chapeau : (a.chapeauEn || a.chapeau || ""),
+    content: isFr ? a.content : (a.contentEn || a.content),
+  };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
@@ -27,30 +46,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const article = await getReferentielArticle(slug);
   if (!article) return { title: "Not Found" };
   const isFr = lang === "fr";
-  const title = isFr ? article.title : (article.titleEn || article.title);
-  const desc = isFr ? (article.chapeau || "") : (article.chapeauEn || article.chapeau || "");
-  return {
+  const { title, chapeau } = localized(article, isFr);
+  const indexable = hasContent(article) && (isFr || hasEn(article));
+  return pageMetadata({
+    lang,
+    path: `referentiel/${slug}`,
     title: `${title} | ${isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS"}`,
-    description: desc,
-    robots: { index: true, follow: true },
-    alternates: {
-      canonical: `${SITE_URL}/${lang}/referentiel/${slug}/`,
-      languages: {
-        fr: `${SITE_URL}/fr/referentiel/${slug}/`,
-        en: `${SITE_URL}/en/referentiel/${slug}/`,
-        "x-default": `${SITE_URL}/fr/referentiel/${slug}/`,
-      },
-    },
-    openGraph: {
-      title: `${title} | ${isFr ? "Le Référentiel - MentivisOS" : "The Reference - MentivisOS"}`,
-      description: desc,
-      url: `${SITE_URL}/${lang}/referentiel/${slug}/`,
-      type: "article",
-      locale: isFr ? "fr_FR" : "en_US",
-      siteName: "MentivisOS",
-      images: [{ url: `${SITE_URL}${ogImageForArticle(article)}`, width: OG_WIDTH, height: OG_HEIGHT }],
-    },
-  };
+    description: chapeau,
+    ogImage: ogImageForArticle(article),
+    type: "article",
+    publishedTime: article.createdAt,
+    modifiedTime: article.updatedAt,
+    noindex: !indexable,
+    en: hasEn(article),
+  });
 }
 
 export default async function ReferentielArticlePage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -59,38 +68,52 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
   if (!article) notFound();
 
   const isFr = lang === "fr";
-  const title = isFr ? article.title : (article.titleEn || article.title);
-  const chapeau = isFr ? article.chapeau : (article.chapeauEn || article.chapeau || "");
-  const content = isFr ? article.content : (article.contentEn || article.content);
-  const html = renderMarkdown(content || article.content);
+  const L = (v: { fr: string; en: string } | undefined, fallback = "") => (v ? (isFr ? v.fr : v.en) : fallback);
+  const { title, chapeau, content } = localized(article, isFr);
+  const prepared = prepareArticle(content || "", lang);
+  const html = renderMarkdown(prepared.body);
 
-  let faqs: { q: string; a: string }[] = [];
-  try {
-    const raw = isFr ? article.faq : (article.faqEn || article.faq);
-    faqs = JSON.parse(raw || "[]");
-  } catch {}
+  let faqs: FaqItem[] = prepared.faqs;
+  if (faqs.length === 0) {
+    try {
+      faqs = JSON.parse((isFr ? article.faq : (article.faqEn || article.faq)) || "[]");
+    } catch {}
+  }
 
-  const BLOC_COLORS: Record<string, string> = { M: "#0891b2", N: "#15803d", P: "#7c3aed" };
-  const CIBLE_COLORS: Record<string, string> = {
-    "Directions formation": "#2563eb",
-    "DRH et DAF": "#7c3aed",
-    Apprenants: "#0891b2",
-    "Organismes de formation": "#059669",
-    "Tout public": "#6b7280",
-  };
+  const all = await getReferentielArticles();
+  const bySlug = new Map(all.map((a) => [a.slug, a]));
+  const pick = (slugs: string[]) =>
+    slugs.map((s) => bySlug.get(s)).filter((a): a is ReferentielArticle => Boolean(a && hasContent(a)));
 
-  // Get prev/next in bloc
-  const siblings = (await getReferentielArticles({ bloc: article.bloc }))
-    .filter((a) => a.bloc === article.bloc)
+  const pilierPage = isPilier(slug);
+  const cluster = pilierPage ? pick(CLUSTERS[slug]) : [];
+  const parentSlug = pilierPage ? undefined : pilierOf(slug);
+  const parent = parentSlug ? bySlug.get(parentSlug) : undefined;
+  const related = pilierPage ? [] : pick(relatedOf(slug));
+  const products = pilierPage ? PRODUCT_LINKS[slug] : parentSlug ? PRODUCT_LINKS[parentSlug] : [];
+
+  // Navigation précédent / suivant dans le bloc
+  const siblings = all
+    .filter((a) => a.bloc === article.bloc && hasContent(a))
     .sort((a, b) => a.positionInBloc - b.positionInBloc);
   const idx = siblings.findIndex((a) => a.slug === slug);
   const prev = idx > 0 ? siblings[idx - 1] : null;
-  const next = idx < siblings.length - 1 ? siblings[idx + 1] : null;
+  const next = idx >= 0 && idx < siblings.length - 1 ? siblings[idx + 1] : null;
+
+  const dateFmt = (d: string) =>
+    new Date(d).toLocaleDateString(isFr ? "fr-FR" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const url = `${SITE_URL}/${lang}/referentiel/${slug}/`;
+  const blocLabel = L(BLOC_LABELS[article.bloc], article.bloc);
+  const cardTitle = (a: ReferentielArticle) => localized(a, isFr).title;
+
+  const listStyle = { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column" as const, gap: 10 };
+  const linkStyle = { fontSize: 15, lineHeight: 1.5, color: "#0A0A0A", textDecoration: "underline", textUnderlineOffset: 3 };
+  const sectionTitle = { fontSize: 20, fontWeight: 300, margin: "0 0 20px", color: "#0A0A0A" };
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <div style={{ maxWidth: 800, margin: "0 auto", width: "100%", padding: "80px 24px 80px" }}>
-        <Link href={`/${lang}/referentiel${lang === "fr" ? "" : ""}`}
+        <Link href={`/${lang}/referentiel/`}
           style={{
             display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, color: "#888",
             textDecoration: "none", marginBottom: 24,
@@ -107,7 +130,7 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
               fontSize: 12, fontWeight: 600, color: "#fff",
               background: BLOC_COLORS[article.bloc] || "#888",
             }}>
-              {article.bloc} — {isFr ? (article.bloc === "M" ? "IA & Formation" : article.bloc === "N" ? "IA & Apprentissage" : "Produits") : (article.bloc === "M" ? "AI & Training" : article.bloc === "N" ? "AI & Learning" : "Products")}
+              {article.bloc === "PILIER" ? blocLabel : `${article.bloc} · ${blocLabel}`}
             </span>
           )}
           {article.cible && (
@@ -116,21 +139,15 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
               fontSize: 12, fontWeight: 400, color: CIBLE_COLORS[article.cible] || "#888",
               background: `${CIBLE_COLORS[article.cible] || "#888"}1a`,
             }}>
-              {isFr ? article.cible : ({
-                "Directions formation": "Training Directors",
-                "DRH et DAF": "HR & Finance",
-                Apprenants: "Learners",
-                "Organismes de formation": "Training Orgs",
-                "Tout public": "General",
-              }[article.cible] || article.cible)}
+              {L(CIBLE_LABELS[article.cible], article.cible)}
             </span>
           )}
         </div>
 
         <p style={{ fontSize: 13, color: "#888", margin: "0 0 16px" }}>
           {isFr
-            ? `Publié le ${new Date(article.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Mis à jour le ${new Date(article.updatedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Par MentivisOS`
-            : `Published ${new Date(article.createdAt).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })} · Updated ${new Date(article.updatedAt).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })} · By MentivisOS`}
+            ? `Publié le ${dateFmt(article.createdAt)} · Mis à jour le ${dateFmt(article.updatedAt)} · Par ${ARTICLE_AUTHOR.name}, MentivisOS`
+            : `Published ${dateFmt(article.createdAt)} · Updated ${dateFmt(article.updatedAt)} · By ${ARTICLE_AUTHOR.name}, MentivisOS`}
         </p>
 
         <h1 style={{ fontSize: "clamp(28px, 3.5vw, 38px)", fontWeight: 300, lineHeight: 1.2, color: "#0A0A0A", margin: "0 0 16px" }}>
@@ -138,8 +155,17 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
         </h1>
 
         {chapeau && (
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: "#555", margin: "0 0 32px", fontStyle: "italic" }}>
+          <p className="referentiel-chapeau" style={{ fontSize: 17, lineHeight: 1.6, color: "#555", margin: "0 0 32px", fontStyle: "italic" }}>
             {chapeau}
+          </p>
+        )}
+
+        {parent && (
+          <p style={{ fontSize: 14, color: "#4e4e4e", margin: "0 0 32px" }}>
+            {isFr ? "Pilier : " : "Pillar: "}
+            <Link href={`/${lang}/referentiel/${parent.slug}/`} style={{ color: "#0A0A0A", textDecoration: "underline", textUnderlineOffset: 3 }}>
+              {cardTitle(parent)}
+            </Link>
           </p>
         )}
 
@@ -149,10 +175,23 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
+        {cluster.length > 0 && (
+          <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid #e4e4e4" }}>
+            <h2 style={sectionTitle}>{isFr ? "Les articles de ce pilier" : "Articles in this pillar"}</h2>
+            <ul style={listStyle}>
+              {cluster.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/${lang}/referentiel/${a.slug}/`} style={linkStyle}>{cardTitle(a)}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {faqs.length > 0 && (
           <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid #e4e4e4" }}>
-            <h2 style={{ fontSize: 20, fontWeight: 300, margin: "0 0 20px", color: "#0A0A0A" }}>
-              {isFr ? "Questions fréquentes" : "Frequently Asked Questions"}
+            <h2 style={sectionTitle}>
+              {isFr ? "Questions fréquentes" : "Frequently asked questions"}
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {faqs.map((faq, i) => (
@@ -163,31 +202,63 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
                   }}>
                     {faq.q}
                   </summary>
-                  <div style={{ padding: "14px 18px", fontSize: 15, lineHeight: 1.6, color: "#555" }}>
-                    {faq.a.split("\n").map((p, j) => <p key={j} style={{ margin: "0 0 8px" }}>{p}</p>)}
-                  </div>
+                  <div
+                    className="referentiel-content"
+                    style={{ padding: "14px 18px", fontSize: 15, lineHeight: 1.6, color: "#555" }}
+                    dangerouslySetInnerHTML={{ __html: renderMarkdown(faq.a) }}
+                  />
                 </details>
               ))}
             </div>
           </div>
         )}
 
-        {/* Prev/Next navigation */}
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 24, borderTop: "1px solid #e4e4e4" }}>
+        {(related.length > 0 || (products && products.length > 0)) && (
+          <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid #e4e4e4" }}>
+            {related.length > 0 && (
+              <>
+                <h2 style={sectionTitle}>{isFr ? "À lire aussi" : "Further reading"}</h2>
+                <ul style={listStyle}>
+                  {related.map((a) => (
+                    <li key={a.slug}>
+                      <Link href={`/${lang}/referentiel/${a.slug}/`} style={linkStyle}>{cardTitle(a)}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {products && products.length > 0 && (
+              <p style={{ fontSize: 14, color: "#4e4e4e", margin: related.length > 0 ? "24px 0 0" : 0 }}>
+                {isFr ? "Produits concernés : " : "Related products: "}
+                {products.map((p, i) => (
+                  <span key={p.path}>
+                    {i > 0 && ", "}
+                    <Link href={`/${lang}/${p.path}/`} style={{ color: "#0A0A0A", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                      {isFr ? p.fr : p.en}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Navigation précédent / suivant */}
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 24, marginTop: 48, paddingTop: 24, borderTop: "1px solid #e4e4e4" }}>
           <div>
             {prev && (
-              <Link href={`/${lang}/referentiel/${prev.slug}`}
+              <Link href={`/${lang}/referentiel/${prev.slug}/`}
                 style={{ fontSize: 14, color: "#0A0A0A", textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                {isFr ? prev.title : (prev.titleEn || prev.title)}
+                {cardTitle(prev)}
               </Link>
             )}
           </div>
           <div>
             {next && (
-              <Link href={`/${lang}/referentiel/${next.slug}`}
+              <Link href={`/${lang}/referentiel/${next.slug}/`}
                 style={{ fontSize: 14, color: "#0A0A0A", textDecoration: "none", display: "flex", alignItems: "center", gap: 4, textAlign: "right" }}>
-                {isFr ? next.title : (next.titleEn || next.title)}
+                {cardTitle(next)}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             )}
@@ -195,59 +266,50 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
         </div>
       </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: title,
-            description: chapeau || article.content.substring(0, 160),
-            url: `${SITE_URL}/${lang}/referentiel/${slug}/`,
-            inLanguage: isFr ? "fr-FR" : "en-US",
-            image: `${SITE_URL}${ogImageForArticle(article)}`,
-            datePublished: article.createdAt,
-            dateModified: article.updatedAt,
-            author: { "@type": "Organization", name: "MentivisOS" },
-            publisher: {
-              "@type": "Organization",
-              name: "MentivisOS",
-              logo: { "@type": "ImageObject", url: `${SITE_URL}/images/MentivisOS/mentivisos-logo-wordmark-noir.svg`, width: 200, height: 50 },
-            },
-            mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/${lang}/referentiel/${slug}/` },
-          }),
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: title,
+          description: chapeau || plainText(content || "").substring(0, 160),
+          url,
+          inLanguage: isFr ? "fr-FR" : "en-GB",
+          image: `${SITE_URL}${ogImageForArticle(article)}`,
+          datePublished: article.createdAt,
+          dateModified: article.updatedAt,
+          author: {
+            "@type": "Person",
+            name: ARTICLE_AUTHOR.name,
+            worksFor: { "@id": `${SITE_URL}/#organization` },
+          },
+          publisher: {
+            "@type": "Organization",
+            "@id": `${SITE_URL}/#organization`,
+            name: "MentivisOS",
+            logo: { "@type": "ImageObject", url: `${SITE_URL}/images/MentivisOS/mentivisos-logo-wordmark-noir.svg`, width: 200, height: 50 },
+          },
+          articleSection: L(BLOC_FULL[article.bloc], article.bloc),
+          ...(parent ? { isPartOf: { "@type": "WebPage", "@id": `${SITE_URL}/${lang}/referentiel/${parent.slug}/`, name: cardTitle(parent) } } : {}),
+          ...(cluster.length > 0 ? { hasPart: cluster.map((a) => ({ "@type": "Article", "@id": `${SITE_URL}/${lang}/referentiel/${a.slug}/`, headline: cardTitle(a) })) } : {}),
+          about: parent ? cardTitle(parent) : title,
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".referentiel-chapeau"] },
+          mainEntityOfPage: { "@type": "WebPage", "@id": url },
         }}
       />
       {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            }),
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: plainText(f.a) },
+            })),
           }}
         />
       )}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: isFr ? "Accueil" : "Home", item: `${SITE_URL}/${lang}/` },
-              { "@type": "ListItem", position: 2, name: isFr ? "Le Référentiel" : "The Reference", item: `${SITE_URL}/${lang}/referentiel/` },
-              { "@type": "ListItem", position: 3, name: title },
-            ],
-          }),
-        }}
-      />
+      <BreadcrumbJsonLd lang={lang} path={`referentiel/${slug}`} title={title} />
 
       <style>{`
         .referentiel-content h1, .referentiel-content h2, .referentiel-content h3 {
@@ -260,11 +322,15 @@ export default async function ReferentielArticlePage({ params }: { params: Promi
         .referentiel-content h2 { font-size: 20px; }
         .referentiel-content h3 { font-size: 17px; }
         .referentiel-content p { margin-bottom: 16px; }
+        .referentiel-content details p:last-child, details .referentiel-content p:last-child { margin-bottom: 0; }
         .referentiel-content ul, .referentiel-content ol { padding-left: 24px; margin-bottom: 16px; }
         .referentiel-content li { margin-bottom: 6px; }
         .referentiel-content a { color: #0A0A0A; text-decoration: underline; }
         .referentiel-content strong { font-weight: 500; }
         .referentiel-content hr { border: none; border-top: 1px solid #e4e4e4; margin: 32px 0; }
+        .referentiel-content table { width: 100%; border-collapse: collapse; margin: 8px 0 24px; font-size: 14px; line-height: 1.5; display: block; overflow-x: auto; }
+        .referentiel-content th, .referentiel-content td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #e4e4e4; }
+        .referentiel-content th { font-weight: 500; color: #0A0A0A; background: #fafafa; }
         details { transition: all 0.2s; }
         details[open] { border-color: #ddd; }
         details[open] summary { border-bottom: 1px solid #eee; }

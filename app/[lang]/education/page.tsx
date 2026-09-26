@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import EducationPageClient from "@/components/education/education-page-client";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "education",
     title: isFr ? "MentivisOS Education - MentivisOS" : "MentivisOS Education - MentivisOS",
     description: isFr
       ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
       : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.",
-    robots: { index: true, follow: true },
-  };
+  });
 }
 
 const FAQ_EDUCATION_FR = [
@@ -27,6 +30,7 @@ export default async function EducationPage({ params }: { params: Promise<{ lang
   const faqItems = lang === "fr" ? FAQ_EDUCATION_FR : [];
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="education" />
       <EducationPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"

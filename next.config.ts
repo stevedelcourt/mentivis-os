@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["sql.js"],
   experimental: {
     cpus: 2,
+    globalNotFound: true,
   },
   async redirects() {
     return [

@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import DeveloppersPageClient from "@/components/developpers-page-client";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
+  return pageMetadata({
+    lang,
+    path: "developpers",
     title: isFr ? "Développeurs - API MentivisOS" : "Developers - MentivisOS API",
     description: isFr
       ? "Documentation technique et guides d'intégration de l'API MentivisOS. Connectez vos systèmes ATS, SIRH et outils de formation."
       : "Technical documentation and integration guides for the MentivisOS API. Connect your ATS, HRIS and training tools.",
-  };
+  });
 }
 
 export default async function DeveloppersPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -19,6 +23,7 @@ export default async function DeveloppersPage({ params }: { params: Promise<{ la
   const isFr = lang === "fr";
   return (
     <>
+      <BreadcrumbJsonLd lang={lang} path="developpers" />
       <DeveloppersPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"

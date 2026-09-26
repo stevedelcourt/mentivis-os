@@ -190,7 +190,7 @@ export function writeJsonFile<T>(filePath: string, data: T) {
 const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   homepage: {
     eyebrow: "Mentivis OS",
-    headline: "MentivisOS forme vos collaborateurs, gère vos recrutements et pilote la montée en compétences de vos équipes.",
+    headline: "MentivisOS mesure les écarts de compétences, génère des parcours personnalisés et pilote la montée en compétences de vos équipes.",
     subheadline: "Un seul système qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecte a vos outils via la Mentivis API. Operationnel immediatement, sans refonte de votre organisation.",
     ctaPrimary: "Demarrer gratuitement",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -253,7 +253,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
 const DEFAULT_HERO_EN: Record<string, HeroContent> = {
   homepage: {
     eyebrow: "Mentivis OS",
-    headline: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+    headline: "MentivisOS measures skill gaps, generates personalised learning paths and drives your teams' skill development.",
     subheadline: "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
     ctaPrimary: "Start for free",
     ctaPrimaryLink: "https://app.mentivisOS.com",
@@ -853,8 +853,17 @@ export async function savePricing(data: PricingContent) {
   }
 }
 
-// ── Référentiel (en dur, 42 articles) ──
-import { REFERENTIEL_ARTICLES } from "./referentiel";
+// ── Référentiel (en dur : 42 articles historiques + piliers et articles de septembre 2026) ──
+import { REFERENTIEL_ARTICLES as REFERENTIEL_BASE } from "./referentiel";
+import { REFERENTIEL_ARTICLES_2026_09 } from "./referentiel-2026-09";
+
+import { REFERENTIEL_EN_OVERRIDES } from "./referentiel-en-overrides";
+
+// Les traductions EN complètes (septembre 2026) remplacent les versions condensées.
+const REFERENTIEL_ARTICLES = [
+  ...REFERENTIEL_BASE.map((a) => ({ ...a, ...(REFERENTIEL_EN_OVERRIDES[a.slug] || {}) })),
+  ...REFERENTIEL_ARTICLES_2026_09,
+];
 
 export async function getReferentielArticles(filters?: { bloc?: string; cible?: string }): Promise<ReferentielArticle[]> {
   let result = REFERENTIEL_ARTICLES.filter((a) => a.published);
@@ -885,14 +894,14 @@ const DEFAULT_SEO: SeoContent = {
   fr: {
     homepage: {
       title: "MentivisOS - Le système de formation native IA",
-      description: "MentivisOS forme vos collaborateurs, gère vos recrutements et pilote la montée en compétences de vos équipes.",
+      description: "MentivisOS mesure les écarts de compétences, génère des parcours personnalisés et pilote la montée en compétences de vos équipes.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: "MentivisOS",
         applicationCategory: "EducationApplication",
-        description: "Systeme de formation native IA pour entreprises et institutions.",
-                url: SITE_URL,
+        description: "Système de formation native IA pour entreprises et institutions.",
+        url: SITE_URL,
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "990",
@@ -904,12 +913,12 @@ const DEFAULT_SEO: SeoContent = {
     },
     tarifs: {
       title: "Tarifs - MentivisOS",
-      description: "Des solutions adaptees a chaque etape de votre croissance, de l'apprenant individuel au déploiement enterprise.",
+      description: "Des solutions adaptées à chaque étape de votre croissance, de l'apprenant individuel au déploiement enterprise.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "Product",
         name: "MentivisOS",
-        description: "Systeme de formation native IA pour entreprises.",
+        description: "Système de formation native IA pour entreprises.",
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "990",
@@ -922,45 +931,45 @@ const DEFAULT_SEO: SeoContent = {
     },
     blog: {
       title: "News - MentivisOS",
-      description: "Actualites, insights et points de vue sur la formation et l'IA.",
+      description: "Actualités, analyses et points de vue sur la formation et l'IA.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "Blog",
         name: "News MentivisOS",
-        description: "Actualites et analyses sur la formation et l'IA.",
+        description: "Actualités et analyses sur la formation et l'IA.",
       },
     },
     business: {
-      title: "Mentivis - Coordonnees",
-      description: "Adresse, telephone et localisation de Mentivis, 60 Rue Francois 1er, 75008 Paris.",
+      title: "Mentivis - Coordonnées",
+      description: "Adresse, téléphone et localisation de Mentivis, 60 rue François 1er, 75008 Paris.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: "Mentivis",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "60 Rue Francois 1er",
+          streetAddress: "60 rue François 1er",
           postalCode: "75008",
           addressLocality: "Paris",
           addressCountry: "FR",
         },
         telephone: "+33189481002",
-                url: SITE_URL,
-        hasMap: "https://maps.google.com/?q=60+Rue+Francois+1er+75008+Paris",
+        url: SITE_URL,
+        hasMap: "https://maps.google.com/?q=60+rue+Fran%C3%A7ois+1er+75008+Paris",
       },
     },
   },
   en: {
     homepage: {
       title: "MentivisOS - The AI-native training system",
-      description: "MentivisOS trains your employees, manages your recruitment and drives your teams' skill development.",
+      description: "MentivisOS measures skill gaps, generates personalised learning paths and drives your teams' skill development.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: "MentivisOS",
         applicationCategory: "EducationApplication",
         description: "AI-native training system for enterprises and institutions.",
-                url: SITE_URL,
+        url: SITE_URL,
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "990",
@@ -1000,30 +1009,36 @@ const DEFAULT_SEO: SeoContent = {
     },
     business: {
       title: "Mentivis - Contact",
-      description: "Address, phone and location of Mentivis, 60 Rue Francois 1er, 75008 Paris, France.",
+      description: "Address, phone and location of Mentivis, 60 rue François 1er, 75008 Paris, France.",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: "Mentivis",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "60 Rue Francois 1er",
+          streetAddress: "60 rue François 1er",
           postalCode: "75008",
           addressLocality: "Paris",
           addressCountry: "FR",
         },
         telephone: "+33189481002",
-                url: SITE_URL,
-        hasMap: "https://maps.google.com/?q=60+Rue+Francois+1er+75008+Paris",
+        url: SITE_URL,
+        hasMap: "https://maps.google.com/?q=60+rue+Fran%C3%A7ois+1er+75008+Paris",
       },
     },
   },
 };
 
 export async function getSeo(): Promise<SeoContent> {
-  const db = await getDb();
-  const rows = db.prepare("SELECT * FROM seo").all() as any[];
   const result: any = JSON.parse(JSON.stringify(DEFAULT_SEO));
+  let rows: any[] = [];
+  try {
+    const db = await getDb();
+    rows = db.prepare("SELECT * FROM seo").all() as any[];
+  } catch {
+    // Base absente (build statique hors serveur) : valeurs par défaut.
+    return result as SeoContent;
+  }
   for (const row of rows) {
     if (!result[row.lang]) result[row.lang] = {};
     result[row.lang][row.page] = {
