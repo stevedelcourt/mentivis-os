@@ -27,10 +27,10 @@ describe("buildAlternates", () => {
 
 describe("pageMetadata", () => {
   it("renseigne robots, Open Graph et Twitter", () => {
-    const m = pageMetadata({ lang: "fr", path: "tarifs", title: "Tarifs", description: "D", noindex: true });
+    const m = pageMetadata({ lang: "fr", path: "about", title: "À propos", description: "D", noindex: true });
     expect(m.robots).toEqual({ index: false, follow: true });
-    expect(m.openGraph).toMatchObject({ url: "https://mentivisos.com/fr/tarifs/", locale: "fr_FR", siteName: "MentivisOS" });
-    expect(m.twitter).toMatchObject({ card: "summary_large_image", title: "Tarifs" });
+    expect(m.openGraph).toMatchObject({ url: "https://mentivisos.com/fr/about/", locale: "fr_FR", siteName: "MentivisOS" });
+    expect(m.twitter).toMatchObject({ card: "summary_large_image", title: "À propos" });
   });
 });
 

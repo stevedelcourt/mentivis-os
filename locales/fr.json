@@ -1,13 +1,13 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "MentivisOS Entreprise",
+    "learningOS": "Mentivis OS Entreprise",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Ressources",
     "entreprise": "Corporate",
     "tarifs": "Tarifs",
-    "ecoles": "MentivisOS Edu",
+    "ecoles": "Mentivis OS Edu",
     "contact": "Contactez-nous",
     "login": "Se connecter",
     "cta": "Contactez-nous",
@@ -60,9 +60,9 @@
       "entreprise": [
         "News",
         "A propos",
-        "Securite",
+        "Le Référentiel",
         "Carrieres",
-        "MentivisOS Edu"
+        "Mentivis OS Edu"
       ],
       "initiatives": [
         "Programme Impact",
@@ -75,11 +75,11 @@
     }
   },
   "hero": {
-    "eyebrow": "MENTIVISOS OPEN",
+    "eyebrow": "MENTIVIS OS OPEN",
     "headline": "MentivisOS Open",
     "tagline": "Apprenez tout ce que vous voulez, gratuitement.",
     "description": "La plateforme d'apprentissage native IA ouverte à tous.",
-    "bodyText": "Que vous soyez étudiant, professionnel ou simplement curieux, MentivisOS Open est fait pour vous.",
+    "bodyText": "Que vous soyez étudiant, professionnel ou simplement curieux, Mentivis OS Open est fait pour vous.",
     "ctaPrimary": "Démarrer avec Open",
     "proof": "Gratuit pour toujours. Apprenez toute votre vie."
   },
@@ -412,7 +412,7 @@
     }
   },
   "timeline": {
-    "eyebrow": "MENTIVISOS",
+    "eyebrow": "MENTIVIS OS",
     "title": "Comment transformer votre structure en organisation apprenante ?",
     "description": "Centralisez les connaissances, automatisez la montée en compétences et alignez formation, operations et IA dans un système unique capable d'evoluer avec votre organisation.",
     "dividerLeft": "Avant",
@@ -456,7 +456,7 @@
     ]
   },
   "impact": {
-    "eyebrow": "MENTIVISOS",
+    "eyebrow": "MENTIVIS OS",
     "title": "Pourquoi l'expertise pédagogique avant la technologie ?",
     "body": [
       "MentivisOS n'a pas été conçu par une start-up decouvrant le secteur de la formation. Le système est porte par un cabinet qui concoit, structure et opère des dispositifs pédagogiques depuis plusieurs annees.",
@@ -613,7 +613,7 @@
       "produits": [
         "MentivisOS Open",
         "MentivisOS Entreprise",
-        "MentivisOS Education"
+        "Mentivis OS Education"
       ],
       "workflows": [],
       "entreprise": [
@@ -755,7 +755,19 @@
       "submit": "Envoyer ma candidature",
       "success": "Merci ! Nous reviendrons vers vous rapidement.",
       "error": "Une erreur est survenue. Veuillez reessayer.",
-      "subject": "Candidature %s - %s"
+      "subject": "Candidature %s - %s",
+      "cvLabel": "CV (PDF, max 5 Mo)",
+      "cvChoose": "Choisir un fichier PDF",
+      "cvTooLarge": "Fichier trop volumineux (max 5 Mo). Veuillez choisir un fichier plus léger."
+    },
+    "spontaneous": {
+      "title": "Candidature spontanée",
+      "subtitle": "Aucune offre ne correspond à votre profil ? Envoyez-nous votre candidature : chaque profil est lu avec attention.",
+      "button": "Déposer une candidature spontanée",
+      "reference": "SPONTANEE",
+      "department": "Toutes les équipes",
+      "location": "Paris & Remote",
+      "description": "Vous ne trouvez pas d'offre correspondant à votre profil ? Parlez-nous de vous : votre parcours, vos compétences, et ce qui vous motive à rejoindre Mentivis. Chaque candidature spontanée est lue par notre équipe, et nous revenons vers vous dès qu'une opportunité correspond."
     }
   },
   "ambassadors": {
@@ -871,7 +883,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "MentivisOS Entreprise",
+      "eyebrow": "Mentivis OS Entreprise",
       "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
       "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes, le tout dans un seul système."
     },

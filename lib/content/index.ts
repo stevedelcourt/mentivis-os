@@ -3,15 +3,15 @@
 //   content/blog/<slug>.json   articles de blog (forme Post)
 //   content/jobs/<slug>.json   offres d'emploi (forme Job)
 //   content/pages.json         textes de hero par page et par langue (lu par components/cms-page-hero.tsx)
-//   content/pricing.json       grilles tarifaires FR (optionnel)
 //   content/seo.json           titres, descriptions et JSON-LD globaux (optionnel)
 //
 // Ces fichiers sont produits une fois par scripts/export-cms-content.mjs à partir de
 // l'ancien CMS, puis édités directement dans le dépôt.
 import fs from "node:fs";
 import path from "node:path";
-import type { Job, Post, PricingContent, SeoContent } from "@/lib/cms/types";
-import { DEFAULT_PRICING, DEFAULT_PRICING_EN, DEFAULT_SEO } from "./defaults";
+import type { Job, Post, SeoContent } from "@/lib/cms/types";
+import { sortPostsLatestFirst } from "@/lib/cms/types";
+import { DEFAULT_SEO } from "./defaults";
 
 export { getReferentielArticles, getReferentielArticle } from "./referentiel";
 
@@ -64,15 +64,13 @@ function normalizePost(raw: Partial<Post>, index: number): Post {
   };
 }
 
-/** Articles publiés, épinglés d'abord puis du plus récent au plus ancien. */
+/** Articles publiés, du plus récent au plus ancien. */
 export function getPosts(): Post[] {
-  return readDir<Partial<Post>>("blog")
-    .map(normalizePost)
-    .filter((p) => p.published && p.slug && p.content)
-    .sort((a, b) => {
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
-      return new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime();
-    });
+  return sortPostsLatestFirst(
+    readDir<Partial<Post>>("blog")
+      .map(normalizePost)
+      .filter((p) => p.published && p.slug && p.content),
+  );
 }
 
 export function getPost(slug: string): Post | undefined {
@@ -146,21 +144,20 @@ export function localizeJob(j: Job, lang: string): Job {
   };
 }
 
-// ── Tarifs ──
-
-export function getPricing(lang: string): PricingContent {
-  // Comme l'ancien CMS : les grilles anglaises sont figées dans le code.
-  if (lang === "en") return DEFAULT_PRICING_EN;
-  const file = readJson<Partial<PricingContent>>("pricing.json");
-  return { ...DEFAULT_PRICING, ...(file || {}) };
-}
-
 // ── SEO global ──
 
 export function getSeo(): SeoContent {
   const file = readJson<Partial<SeoContent>>("seo.json");
-  return {
+  const merged: SeoContent = {
     fr: { ...DEFAULT_SEO.fr, ...(file?.fr || {}) },
     en: { ...DEFAULT_SEO.en, ...(file?.en || {}) },
   };
+  // Plus de page Tarifs publique : aucun prix dans les données structurées (repris de l'ancien CMS).
+  for (const lang of ["fr", "en"] as const) {
+    delete merged[lang].tarifs;
+    for (const page of Object.values(merged[lang])) {
+      if (page?.jsonLd && "offers" in page.jsonLd) delete page.jsonLd.offers;
+    }
+  }
+  return merged;
 }

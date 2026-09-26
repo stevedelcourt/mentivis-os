@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Locale } from "@/lib/i18n";
-import { Post, CATEGORIES } from "@/lib/cms/types";
+import { Post, CATEGORIES, sortPostsLatestFirst } from "@/lib/cms/types";
 import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { stripMarkdown } from "@/lib/markdown";
 import styles from "./blog.module.css";
@@ -18,7 +18,9 @@ export type CategoryKey =
   | "clients"
   | "partenariat";
 
-const POSTS_PER_PAGE = 6;
+// Tient le catalogue actuel (une douzaine d'articles) sur une page ; la pagination
+// revient d'elle-même quand le catalogue dépasse ce nombre.
+const POSTS_PER_PAGE = 12;
 
 interface BlogIndexProps {
   lang: Locale;
@@ -42,14 +44,14 @@ export default function BlogIndex({ lang, posts }: BlogIndexProps) {
   const filteredPosts = useMemo(() => {
     let result = posts;
     if (activeCategory !== "all") {
-      result = posts.filter((p) => p.category.split(",").includes(activeCategory));
+      // Correspondance tolérante : les catégories héritées du CMS peuvent porter
+      // majuscules, espaces ou pluriel ("Partenariats", " IA ").
+      const norm = (s: string) => s.trim().toLowerCase().replace(/s$/, "");
+      const want = norm(activeCategory);
+      result = posts.filter((p) => (p.category || "").split(",").some((c) => norm(c) === want));
     }
-    // Sort: featured first, then by date descending
-    return [...result].sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime();
-    });
+    // Du plus récent au plus ancien, sans épingler les articles « featured ».
+    return sortPostsLatestFirst(result);
   }, [activeCategory, posts]);
 
   // Featured post is the first one (API already sorts featured first, but we re-sort for categories)
@@ -66,6 +68,13 @@ export default function BlogIndex({ lang, posts }: BlogIndexProps) {
   const handleCategoryChange = useCallback((key: CategoryKey) => {
     setActiveCategory(key);
     setPage(1);
+  }, []);
+
+  const handlePageChange = useCallback((p: number) => {
+    setPage(p);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, []);
 
   return (
@@ -94,7 +103,7 @@ export default function BlogIndex({ lang, posts }: BlogIndexProps) {
         </section>
       )}
 
-      <Pagination current={page} total={totalPages} onChange={setPage} />
+      <Pagination current={page} total={totalPages} onChange={handlePageChange} />
     </main>
   );
 }

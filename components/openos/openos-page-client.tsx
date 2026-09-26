@@ -157,6 +157,9 @@ export default function OpenOSPageClient({ lang }: { lang: string }) {
       />
       <OpenOSHero lang={lang as any}>
         <EnviesSplitFlap />
+        <p style={{ margin: "18px 0 0", fontSize: 14, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#0A0A0A" }}>
+          Mentivis OS Open
+        </p>
       </OpenOSHero>
       <OpenOSWorkflow lang={lang} />
       <OpenOSCTA lang={lang} variant="intermediate" />

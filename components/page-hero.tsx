@@ -62,9 +62,9 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
               marginBottom: 24,
               color: "#4e4e4e",
               textTransform: "uppercase",
-              letterSpacing: "0.14px",
+              letterSpacing: "0.14em",
               fontWeight: 500,
-              fontSize: 12,
+              fontSize: 14,
             }}
           >
             {c.eyebrow}

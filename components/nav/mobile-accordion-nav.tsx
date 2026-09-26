@@ -59,7 +59,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
     <>
       {/* Open */}
       <Link href={`/${lang}/openos`} onClick={onClose} style={{...navStyle}}>
-        <span>MentivisOS <span style={{
+        <span>Mentivis OS <span style={{
           background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -69,7 +69,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
       {/* MentivisOS Entreprise */}
       <Link href={`/${lang}/entreprises`} onClick={onClose} style={navStyle}>
-        <span>MentivisOS <span style={{
+        <span>Mentivis OS <span style={{
           background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -79,7 +79,7 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
 
       {/* MentivisOS Edu */}
       <Link href={`/${lang}/education`} onClick={onClose} style={navStyle}>
-        <span>MentivisOS <span style={{
+        <span>Mentivis OS <span style={{
           background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -142,13 +142,6 @@ export default function MobileAccordionNav({ t, lang, onClose }: MobileAccordion
       )}
 
       {/* Ressources — hidden for now, reserved for future evolution */}
-
-      {/* Tarifs — hidden */}
-      {false && (
-      <Link href={`/${lang}/tarifs`} onClick={onClose} style={navStyle}>
-        <span>{t.nav.tarifs}</span>
-      </Link>
-      )}
 
       {/* OpenOS CTA — only on /openos/ */}
       {isOpenOS && (

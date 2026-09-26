@@ -8,6 +8,8 @@ interface CmsPageHeroProps {
   defaults: PageHeroContent;
   visual?: ReactNode;
   className?: string;
+  /** Valeurs imposées, prioritaires sur les défauts et sur content/pages.json (constantes de marque). */
+  overrides?: Partial<PageHeroContent>;
 }
 
 type HeroOverrides = Record<string, Record<string, { hero?: Partial<PageHeroContent> } & Partial<PageHeroContent>>>;
@@ -15,10 +17,10 @@ type HeroOverrides = Record<string, Record<string, { hero?: Partial<PageHeroCont
 // Textes de hero : valeurs du composant, éventuellement remplacées par content/pages.json
 // (textes repris de l'ancien CMS par scripts/export-cms-content.mjs). La ligne « proof »
 // reste celle du composant, comme avec le CMS.
-export default function CmsPageHero({ page, lang, defaults, visual, className }: CmsPageHeroProps) {
+export default function CmsPageHero({ page, lang, defaults, visual, className, overrides }: CmsPageHeroProps) {
   const entry = (pages as HeroOverrides)[lang]?.[page];
   const hero = entry?.hero ?? entry ?? {};
   const rest: Partial<PageHeroContent> = { ...(hero as Partial<PageHeroContent>) };
   delete rest.proof;
-  return <PageHero content={{ ...defaults, ...rest }} visual={visual} className={className} />;
+  return <PageHero content={{ ...defaults, ...rest, ...overrides }} visual={visual} className={className} />;
 }

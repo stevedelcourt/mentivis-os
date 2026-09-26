@@ -12,6 +12,7 @@
     "preview": "npx --yes serve out -l 3007",
     "referentiel:import": "node scripts/import-referentiel-2026-09.mjs",
     "content:export": "node scripts/export-cms-content.mjs",
+    "content:import-db": "python3 scripts/export-db-content.py",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf .next out",

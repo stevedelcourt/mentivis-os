@@ -24,6 +24,31 @@ Décisions prises avec Steven :
 - auteur nommé « Steven Delcourt » ;
 - TalentOS en `noindex`.
 
+## Lot 3 : fusion du travail local de Steven (branche `wip/static-export-local`)
+
+Le travail local non poussé de la branche `feat/static-export` a été sauvegardé sur `wip/static-export-local` (commit `97371f6`), puis repris ici. Ce qui a été intégré :
+
+- **Menu Corporate** : « Sécurité » remplacé par « Le Référentiel » (FR/EN, desktop et mobile).
+- **Carrières** :
+  - carte noire « Candidature spontanée » sous les postes ouverts ;
+  - page `/carrieres/candidature-spontanee/` (textes dans `locales/*.json`, `careers.spontaneous`) ;
+  - CV limité à 5 Mo, vérifié dans le navigateur et dans `public/forms/apply.php`.
+- **Marque** : écriture « Mentivis OS » avec une espace dans la navigation, le pied de page, les heroes, les cartes produit et les données structurées des pages Entreprise et Education. C'est le choix de Steven ; il remplace l'uniformisation « MentivisOS » du lot 1. Eyebrow Entreprise : « MENTIVIS OS PRO ».
+- **Page Tarifs supprimée**, ainsi que ses données. Le bloc `offers` (990 / 2 900 €) est retiré des données structurées : sans page publique des prix, il n'était plus vérifiable.
+- **Blog** : tri strict du plus récent au plus ancien (plus d'épinglage « featured »), 12 articles par page, filtre de catégories tolérant (majuscules, pluriel), retour en haut de page à la pagination.
+- **Visuel** : eyebrow des heroes en 14 px, espacement 0.14em ; mise en page du hero Education ; libellé « Mentivis OS Open » sous le split-flap.
+- **Favicons et manifeste** (`public/favicon-*.png`, `apple-touch-icon.png`, `android-chrome-*.png`, `site.webmanifest`), images OG par page (`public/images/og/page-*.jpg`, `lib/seo/og-manifest.json`).
+- **Images de l'ancien CMS** (`data/uploads/`) copiées dans `public/uploads/`, où les attend `npm run content:export`.
+
+Non repris :
+- les scripts de snapshot et de proxy du travail local (`snapshot-prod-db.js`, `export-api-snapshot.py`, `static-proxy.php.tpl`, `static-export-guard.js`), remplacés par `scripts/export-cms-content.mjs`, `scripts/build.mjs` et `public/forms/` ;
+- `data/rate-limit.json`, qui contient des adresses IP ;
+- le Consent Mode : le travail local le gardait à `granted` par défaut, cette branche reste à `denied` par défaut. Voir point ouvert 2 du lot 1.
+
+**Articles de blog manquants** : seuls 2 articles sont dans le dépôt, les autres sont restés dans la base du CMS. Nouveau script `npm run content:import-db -- <chemin>/mentivis.db --uploads <chemin>/uploads` (`scripts/export-db-content.py`). Il lit une copie locale de la base, en lecture seule et sans serveur, et écrit articles, offres, heroes et SEO dans `content/`. Il ne lit ni soumissions, ni candidatures, ni utilisateurs. Testé sur une base de même schéma. Les blocs `offers` éventuellement présents dans le SEO de la base sont ignorés à la lecture.
+
+Vérifications : typecheck OK, 39 tests passent, `npm run build` sans erreur (169 pages). Captures de la carte « Candidature spontanée », du menu Corporate et de la page de candidature spontanée conformes aux captures de Steven.
+
 ## Lot 2 : site 100 % statique, sans Node ni CMS
 
 Demande de Steven : ne plus utiliser le CMS, un `public_html` qui ne contient que le site, formulaires et candidatures en PHP vers HubSpot, suppression du code serveur, bascule de sc4.

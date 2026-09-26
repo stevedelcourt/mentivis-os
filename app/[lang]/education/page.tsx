@@ -38,7 +38,7 @@ export default async function EducationPage({ params }: { params: Promise<{ lang
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "MentivisOS Education",
+            name: "Mentivis OS Education",
             applicationCategory: "EducationalApplication",
             description: lang === "fr"
               ? "Solution de formation native IA pour organismes de formation, CFA et écoles."

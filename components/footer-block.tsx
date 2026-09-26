@@ -85,9 +85,11 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
               {f.produits}
             </h4>
             <ul>
-              {(f.sections?.produits || ["MentivisOS Entreprise", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
-                const PRODUITS_PATH: Record<string, string> = { "MentivisOS Open": "/openos", "MentivisOS Entreprise": "/entreprises", "MentivisOS Education": "/education" };
+              {(f.sections?.produits || ["Mentivis OS Entreprise", "TalentOS", "Mentivis API", "Tarifs"]).map((link: string) => {
+                const PRODUITS_PATH: Record<string, string> = { "MentivisOS Open": "/openos", "MentivisOS Entreprise": "/entreprises", "Mentivis OS Entreprise": "/entreprises", "MentivisOS Education": "/education", "Mentivis OS Education": "/education" };
                 const path = PRODUITS_PATH[link] || "/entreprises";
+                // Display names use the spaced branding even if CMS still stores the old labels.
+                const displayLabel = link === "MentivisOS Entreprise" ? "Mentivis OS Entreprise" : link === "MentivisOS Education" ? "Mentivis OS Education" : link;
                 return (
                 <li key={link} style={{ marginBottom: 8, whiteSpace: "nowrap" }}>
                   <Link
@@ -95,7 +97,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                     className="footer-link t-caption"
                     style={{ color: "var(--text-tertiary)" }}
                   >
-                    {link}
+                    {displayLabel}
                   </Link>
                 </li>
                 );
@@ -167,7 +169,7 @@ export default function FooterBlock({ lang }: FooterBlockProps) {
                       "A propos": "/about", "About": "/about", "À propos": "/about",
                       "Affiliation & Ambassadeurs": "/ambassadors", "Affiliation & Ambassadors": "/ambassadors",
                       "Carrieres": "/carrieres", "Careers": "/carrieres", "Carrières": "/carrieres",
-                      "MentivisOS Edu": "/education",
+                      "MentivisOS Edu": "/education", "Mentivis OS Edu": "/education",
                     };
                     return `/${lang}${ENTREPRISE_PATH[link] || ""}`;
                   })()}

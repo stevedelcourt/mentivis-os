@@ -21,19 +21,19 @@ The last state with CMS, Node API and Passenger is commit `c05638c`
 | Référentiel (4 pillars + articles, FR/EN) | `content/referentiel/2026-09/{fr,en}/*.md`, `content/referentiel/en-retranslation/*.md`, `lib/cms/referentiel.ts` | `npm run referentiel:import` regenerates `lib/cms/referentiel-2026-09.ts` and `lib/cms/referentiel-en-overrides.ts`. Clusters: `lib/cms/referentiel-clusters.ts` |
 | Blog posts | `content/blog/<slug>.json` (Post shape) | EN page only if `contentEn` exists |
 | Job offers | `content/jobs/<slug>.json` (Job shape) | detail pages are `noindex` |
-| Pricing (FR) | `content/pricing.json` (optional) | EN pricing is hard-coded in `lib/content/defaults.ts` |
 | Page heroes | `content/pages.json` (optional) | read by `components/cms-page-hero.tsx` |
 | Global SEO / JSON-LD | `content/seo.json` (optional) | defaults in `lib/content/defaults.ts` |
 | UI strings | `locales/fr.json`, `locales/en.json` | same keys in both |
 
-One-off import from the old CMS: `npm run content:export` (needs `CMS_AUTH_SECRET`,
-run on Steven's machine). Accessors: `lib/content/index.ts`.
+One-off import from the old CMS, either from a local copy of the database
+(`npm run content:import-db -- /path/to/mentivis.db --uploads /path/to/uploads`, no server needed)
+or from a running CMS (`npm run content:export`, needs `CMS_AUTH_SECRET`). Accessors: `lib/content/index.ts`.
 
 ## Forms (PHP, HubSpot)
 
 - `public/forms/submit.php`: contact, demo, PDF unlock, summer offer.
 - `public/forms/beta.php`: beta questionnaire.
-- `public/forms/apply.php`: job applications, PDF CV (6 MB max, `%PDF` signature) uploaded to HubSpot Files (private), then `lien_cv` set on the contact. No CV is stored on the server.
+- `public/forms/apply.php`: job applications, PDF CV (5 MB max, `%PDF` signature) uploaded to HubSpot Files (private), then `lien_cv` set on the contact. No CV is stored on the server.
 - `public/forms/_lib.php`: config, origin check, per-form rate limit, HubSpot calls. Not reachable over HTTP.
 - Secrets live in `~/mentivis-config.php` on the server, one level above `public_html`, never in the repo. Template: `scripts/static-export/mentivis-config.example.php`.
 

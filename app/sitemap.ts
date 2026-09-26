@@ -18,7 +18,6 @@ const pages = [
   { path: "/openos", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/entreprises", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/education", priority: 0.9, changeFreq: "weekly" as const },
-  { path: "/tarifs", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/referentiel", priority: 0.8, changeFreq: "weekly" as const },
   { path: "/about", priority: 0.7, changeFreq: "monthly" as const },
   { path: "/security", priority: 0.7, changeFreq: "monthly" as const },

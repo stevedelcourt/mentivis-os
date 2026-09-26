@@ -5,14 +5,14 @@
 declare(strict_types=1);
 require __DIR__ . '/_lib.php';
 
-const MAX_CV_BYTES = 6 * 1024 * 1024;
+const MAX_CV_BYTES = 5 * 1024 * 1024;
 
 mv_guard(3);
 $in = $_POST;
 
 // Corps plus gros que post_max_size : PHP vide $_POST et $_FILES.
 if ($in === [] && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
-    mv_json(413, ['success' => false, 'error' => 'File too large. Max 6MB']);
+    mv_json(413, ['success' => false, 'error' => 'File too large. Max 5MB']);
 }
 
 if (mv_str($in, 'honeypot') !== '') {
@@ -39,17 +39,17 @@ $cfg = mv_config();
 $token = $cfg['HUBSPOT_ACCESS_TOKEN'] ?? '';
 $cvUrl = '';
 
-// CV facultatif : PDF uniquement, 6 Mo maximum, vérifié par sa signature.
+// CV facultatif : PDF uniquement, 5 Mo maximum, vérifié par sa signature.
 if (isset($_FILES['cv']) && ($_FILES['cv']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
     $file = $_FILES['cv'];
     if (in_array($file['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
-        mv_json(413, ['success' => false, 'error' => 'File too large. Max 6MB']);
+        mv_json(413, ['success' => false, 'error' => 'File too large. Max 5MB']);
     }
     if ($file['error'] !== UPLOAD_ERR_OK) {
         mv_json(400, ['success' => false, 'error' => 'Upload failed']);
     }
     if ($file['size'] > MAX_CV_BYTES) {
-        mv_json(400, ['success' => false, 'error' => 'File too large. Max 6MB']);
+        mv_json(400, ['success' => false, 'error' => 'File too large. Max 5MB']);
     }
     $head = (string) file_get_contents($file['tmp_name'], false, null, 0, 5);
     if ($head !== '%PDF-') {

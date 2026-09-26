@@ -41,7 +41,6 @@ The site is bilingual. French is the default language (${SITE_URL}/fr/), English
 - [MentivisOS Entreprise](${SITE_URL}/en/entreprises/): AI training system for companies. Skills diagnostic, individual learning paths generated from the measured gap, measurement of acquisition, reporting for HR and training directors.
 - [MentivisOS Education](${SITE_URL}/en/education/): for training organisations, apprenticeship centres (CFA) and schools.
 - [MentivisOS Open](${SITE_URL}/en/openos/): free personalised learning paths on any topic, for individuals.
-- [Pricing](${SITE_URL}/en/tarifs/)
 - [Security and data protection](${SITE_URL}/en/security/)
 - [Request a demo](${SITE_URL}/en/demo/): demonstrations are run on a real case from the prospect's organisation.
 

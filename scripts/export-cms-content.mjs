@@ -11,7 +11,6 @@
 // Écrit :
 //   content/blog/<slug>.json    articles (publiés et brouillons, champ "published" conservé)
 //   content/jobs/<slug>.json    offres d'emploi
-//   content/pricing.json        grilles tarifaires FR
 //   content/pages.json          textes de hero (fr/en)
 //   content/seo.json            titres, descriptions et JSON-LD globaux
 //   public/uploads/<fichier>    images référencées par le contenu (URL réécrites en /uploads/...)
@@ -75,10 +74,9 @@ async function main() {
   if (!login.success || !login.token) throw new Error("Connexion au CMS refusée");
   const token = login.token;
 
-  const [{ posts = [] }, { jobs = [] }, { pricing }, { seo }] = await Promise.all([
+  const [{ posts = [] }, { jobs = [] }, { seo }] = await Promise.all([
     api("/api/cms/posts/", token),
     api("/api/cms/jobs/", token),
-    api("/api/cms/pricing/", token),
     api("/api/cms/seo/", token),
   ]);
 
@@ -90,7 +88,8 @@ async function main() {
     const { id: _id, ...rest } = job;
     write(`content/jobs/${job.slug}.json`, rewriteUploads(rest));
   }
-  write("content/pricing.json", rewriteUploads(pricing));
+  // La page Tarifs n'existe plus : ses données SEO ne sont pas reprises.
+  for (const lang of Object.keys(seo || {})) delete seo[lang].tarifs;
   write("content/seo.json", rewriteUploads(seo));
 
   const pages = { fr: {}, en: {} };

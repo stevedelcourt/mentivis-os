@@ -42,6 +42,21 @@ export const CATEGORIES: { key: CategoryKey; labelFr: string; labelEn: string }[
   { key: "partenariat", labelFr: "Partenariats", labelEn: "Partnerships" },
 ];
 
+// Ordre des articles partagé par la liste du blog et le bloc articles de la home :
+// strictement du plus récent au plus ancien (dateISO), sans épingler les articles
+// « featured » ; articles sans date en dernier ; l'id départage.
+export function sortPostsLatestFirst(posts: Post[]): Post[] {
+  return [...posts].sort((a, b) => {
+    const ta = new Date(a.dateISO).getTime();
+    const tb = new Date(b.dateISO).getTime();
+    if (Number.isNaN(ta) && Number.isNaN(tb)) return 0;
+    if (Number.isNaN(ta)) return 1;
+    if (Number.isNaN(tb)) return -1;
+    if (tb !== ta) return tb - ta;
+    return (b.id ?? 0) - (a.id ?? 0);
+  });
+}
+
 // ── Homepage Hero ──
 
 export interface HeroContent {
@@ -62,30 +77,6 @@ export const PAGE_KEYS: PageKey[] = ["homepage", "learningos", "talentos", "abou
 export interface PageContent {
   fr: Record<PageKey, { hero: HeroContent }>;
   en: Record<PageKey, { hero: HeroContent }>;
-}
-
-// ── Pricing ──
-
-export interface PricingPlan {
-  name: string;
-  description: string;
-  monthlyPrice: number | null;
-  yearlyPrice: number | null;
-  originalPrice: number | null;
-  setupFee: number | null;
-  cta: string;
-  ctaLink: string;
-  gradient: string;
-  previousPlan: string | null;
-  features: string[];
-  creditLimit: string;
-  popular: boolean;
-}
-
-export interface PricingContent {
-  learningos: PricingPlan[];
-  pipelineos: PricingPlan[];
-  api: PricingPlan[];
 }
 
 // ── SEO / JSON-LD ──

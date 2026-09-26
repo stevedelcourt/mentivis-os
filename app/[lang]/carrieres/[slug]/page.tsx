@@ -1,30 +1,57 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Locale, getT } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import { getJob, getJobs, localizeJob } from "@/lib/content";
+import type { Job } from "@/lib/cms/types";
 import JobDetailClient from "@/components/job-detail-client";
 
 export const dynamicParams = false;
 
-// Sans offre publiée, l'export statique exige tout de même un paramètre : une page
-// technique rend alors la 404 (noindex, absente du sitemap et des liens).
-const NO_JOB = "aucune-offre";
+// Page « Candidature spontanée » : toujours présente, construite à partir des textes
+// de locales/ (careers.spontaneous), sans données structurées JobPosting.
+const SPONTANEOUS_SLUG = "candidature-spontanee";
+
+function getSpontaneousJob(): Job {
+  const fr = getT("fr").careers.spontaneous;
+  const en = getT("en").careers.spontaneous;
+  return {
+    id: 0,
+    slug: SPONTANEOUS_SLUG,
+    reference: fr.reference,
+    title: fr.title,
+    titleEn: en.title,
+    location: fr.location,
+    locationEn: en.location,
+    remote: true,
+    type: "cdi",
+    department: fr.department,
+    departmentEn: en.department,
+    description: fr.description,
+    descriptionEn: en.description,
+    whyJoin: "",
+    whyJoinEn: "",
+    published: true,
+    createdAt: "2026-09-26T00:00:00.000Z",
+    updatedAt: "2026-09-26T00:00:00.000Z",
+  };
+}
+
+function findJob(slug: string): Job | undefined {
+  return slug === SPONTANEOUS_SLUG ? getSpontaneousJob() : getJob(slug);
+}
 
 export function generateStaticParams() {
-  const jobs = getJobs();
-  if (jobs.length === 0) return [{ lang: "fr", slug: NO_JOB }, { lang: "en", slug: NO_JOB }];
-  return jobs.flatMap((j) => [
-    { lang: "fr", slug: j.slug },
-    { lang: "en", slug: j.slug },
+  return [SPONTANEOUS_SLUG, ...getJobs().map((j) => j.slug)].flatMap((slug) => [
+    { lang: "fr", slug },
+    { lang: "en", slug },
   ]);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   const t = getT(lang as Locale);
-  const raw = getJob(slug);
+  const raw = findJob(slug);
   const job = raw ? localizeJob(raw, lang) : undefined;
   return {
     title: job ? `${job.title} - ${t.careers.meta.title}` : t.careers.meta.title,
@@ -46,24 +73,14 @@ function getEmploymentType(type: string): string {
 
 export default async function JobDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
-  if (slug === NO_JOB) {
-    return (
-      <section style={{ minHeight: "60vh", padding: "120px 24px", maxWidth: 720, margin: "0 auto" }}>
-        <p style={{ color: "#4e4e4e", marginBottom: 16 }}>{getT(lang as Locale).careers.list.empty}</p>
-        <Link href={`/${lang}/carrieres/`} style={{ color: "#0A0A0A", textDecoration: "underline" }}>
-          {getT(lang as Locale).careers.detail.back}
-        </Link>
-      </section>
-    );
-  }
-  const raw = getJob(slug);
+  const raw = findJob(slug);
   if (!raw) notFound();
   const job = localizeJob(raw, lang);
 
   return (
     <>
       <JobDetailClient lang={lang as Locale} job={job} />
-      {job && (
+      {slug !== SPONTANEOUS_SLUG && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

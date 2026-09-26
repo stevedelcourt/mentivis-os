@@ -32,7 +32,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "MentivisOS Entreprise",
+            name: "Mentivis OS Entreprise",
             applicationCategory: "EducationalApplication",
             description: isFr
               ? "Système de formation native IA - générez des parcours personnalisés et pilotez la montée en compétences."
