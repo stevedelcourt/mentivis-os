@@ -10,7 +10,7 @@ const CVS_DIR = path.join(DATA_DIR, "cvs");
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || `${SITE_URL},http://localhost:3000`).split(",");
 
-const MAX_FILE_SIZE = 6 * 1024 * 1024; // 6MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 function getIp(request: NextRequest): string {
   return (
@@ -181,7 +181,15 @@ export async function PUT(request: NextRequest) {
 
   const contentType = request.headers.get("content-type") || "";
   if (contentType.includes("json")) {
-    try { const body = await request.json(); return handleSubmissionBase(body); }
+    try {
+      const body = await request.json();
+      // The client form (job details) uploads the CV first via /api/upload-cv
+      // then sends its URL in the JSON payload — forward it so it reaches
+      // the database and HubSpot (lien_cv). Without this the CV link was
+      // silently dropped.
+      const cvUrl = typeof body.cvUrl === "string" ? body.cvUrl : undefined;
+      return handleSubmissionBase(body, cvUrl);
+    }
     catch (error) { console.error("[Job API] PUT error:", error); return NextResponse.json({ error: "Invalid request" }, { status: 400 }); }
   }
 
@@ -218,7 +226,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Only PDF files are allowed" }, { status: 400 });
       }
       if (file.size > MAX_FILE_SIZE) {
-        return NextResponse.json({ error: "File too large. Max 6MB" }, { status: 400 });
+        return NextResponse.json({ error: "File too large. Max 5MB" }, { status: 400 });
       }
 
       const safeLastName = sanitizeFilename(lastName);

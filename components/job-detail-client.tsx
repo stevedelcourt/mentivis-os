@@ -71,6 +71,7 @@ function escapeHtml(text: string): string {
 interface JobDetailProps {
   lang: Locale;
   slug: string;
+  initialJob?: Job | null;
 }
 
 const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
@@ -81,15 +82,15 @@ const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
   alternance: { fr: "Alternance", en: "Work-study" },
 };
 
-export default function JobDetailClient({ lang, slug }: JobDetailProps) {
+export default function JobDetailClient({ lang, slug, initialJob }: JobDetailProps) {
   const t = getT(lang);
   const isMobile = useIsMobile();
   const params = useParams();
   const urlLang = (params.lang as string) || lang;
 
-  const [job, setJob] = useState<Job | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [job, setJob] = useState<Job | null>(initialJob ?? null);
+  const [loading, setLoading] = useState(initialJob === undefined);
+  const [error, setError] = useState(initialJob === null ? "notFound" : "");
 
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -102,8 +103,12 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [honeypot, setHoneypot] = useState("");
   const [activeTab, setActiveTab] = useState<"description" | "apply">("description");
   const [cvFile, setCvFile] = useState<File | null>(null);
+  const [cvError, setCvError] = useState("");
+  const MAX_CV_SIZE = 5 * 1024 * 1024;
+  const isSpontaneous = job?.reference === "SPONTANEE";
 
   useEffect(() => {
+    if (initialJob !== undefined) return;
     async function fetchJob() {
       try {
         const res = await fetch(`/api/jobs/${slug}?lang=${lang}`);
@@ -124,6 +129,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
       }
     }
     fetchJob();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   const typeLabel = (type: string) => JOB_TYPE_LABELS[type]?.[lang] || type;
@@ -131,40 +137,35 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!job || honeypot) return;
+    if (cvFile && cvFile.size > MAX_CV_SIZE) {
+      setCvError(t.careers.form.cvTooLarge);
+      return;
+    }
+    setCvError("");
     setFormState("loading");
 
     try {
-      const payload: Record<string, string> = {
-        jobReference: job.reference,
-        jobTitle: job.title,
-        firstName,
-        lastName,
-        email,
-        phone,
-        linkedin,
-        message,
-      };
-
+      // Single multipart POST: works against the Node API (live servers)
+      // and against proxy.php (static hosts). The CV travels with the
+      // fields, so no separate upload round-trip is needed.
+      const fd = new FormData();
+      fd.append("jobReference", job.reference);
+      fd.append("jobTitle", job.title);
+      fd.append("firstName", firstName);
+      fd.append("lastName", lastName);
+      fd.append("email", email);
+      fd.append("phone", phone);
+      fd.append("linkedin", linkedin);
+      fd.append("message", message);
+      fd.append("honeypot", honeypot);
+      fd.append("_t", Date.now().toString());
       if (cvFile) {
-        const safeLastName = lastName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-        const safeFirstName = firstName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-        const filename = `${safeLastName}-${safeFirstName}-cv.pdf`;
-        const url = `/api/upload-cv/?filename=${encodeURIComponent(filename)}&originalName=${encodeURIComponent(cvFile.name)}`;
-        const cvRes = await fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/pdf" },
-          body: cvFile,
-        });
-        if (cvRes.ok) {
-          const cvData = await cvRes.json();
-          payload.cvUrl = cvData.cvUrl;
-        }
+        fd.append("cv", cvFile, cvFile.name);
       }
 
       const res = await fetch(`/api/job-applications/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, _t: Date.now().toString() }),
+        method: "POST",
+        body: fd,
       });
       if (res.ok) {
         setFormState("success");
@@ -407,6 +408,8 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                           {job.department}
                         </p>
                       </div>
+                      {!isSpontaneous && (
+                      <>
                       {/* Type */}
                       <div>
                         <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
@@ -419,6 +422,8 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                           {typeLabel(job.type)}
                         </p>
                       </div>
+                      </>
+                      )}
                       {/* Location */}
                       <div>
                         <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
@@ -431,6 +436,8 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                           {job.location}
                         </p>
                       </div>
+                      {!isSpontaneous && (
+                      <>
                       {/* Remote */}
                       <div>
                         <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
@@ -443,6 +450,8 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                           {job.remote ? t.careers.detail.remoteYes : t.careers.detail.remoteNo}
                         </p>
                       </div>
+                      </>
+                      )}
                       {/* Reference */}
                       <div>
                         <p style={{ fontSize: 12, color: "#4e4e4e", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
@@ -636,7 +645,7 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                     </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle}>CV (PDF, max 6 Mo)</label>
+                      <label style={labelStyle}>{t.careers.form.cvLabel}</label>
                       <label
                         style={{
                           display: "flex",
@@ -652,7 +661,17 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                         <input
                           type="file"
                           accept=".pdf,application/pdf"
-                          onChange={(e) => setCvFile(e.target.files?.[0] || null)}
+                          onChange={(e) => {
+                            const f = e.target.files?.[0] || null;
+                            if (f && f.size > MAX_CV_SIZE) {
+                              setCvFile(null);
+                              setCvError(t.careers.form.cvTooLarge);
+                              e.target.value = "";
+                            } else {
+                              setCvError("");
+                              setCvFile(f);
+                            }
+                          }}
                           style={{ display: "none" }}
                         />
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -661,12 +680,12 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
                           <line x1="12" y1="3" x2="12" y2="15" />
                         </svg>
                         <span style={{ fontSize: 14, color: cvFile ? "#0A0A0A" : "#A8A29E" }}>
-                          {cvFile ? cvFile.name : "Choisir un fichier PDF"}
+                          {cvFile ? cvFile.name : t.careers.form.cvChoose}
                         </span>
                       </label>
-                      {cvFile && cvFile.size > 6 * 1024 * 1024 && (
+                      {cvError && (
                         <p style={{ fontSize: 12, color: "#c45c4a", marginTop: 4 }}>
-                          Fichier trop volumineux (max 6 Mo)
+                          {cvError}
                         </p>
                       )}
                     </div>

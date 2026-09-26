@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { getPublishedPosts, getReferentielArticles } from "@/lib/cms/db";
 
+export const dynamic = "force-static";
+
 const BASE_URL = SITE_URL;
 const langs = ["fr", "en"];
 
@@ -10,7 +12,6 @@ const pages = [
   { path: "/openos", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/entreprises", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/education", priority: 0.9, changeFreq: "weekly" as const },
-  { path: "/tarifs", priority: 0.9, changeFreq: "weekly" as const },
   { path: "/about", priority: 0.8, changeFreq: "monthly" as const },
   { path: "/security", priority: 0.8, changeFreq: "monthly" as const },
   { path: "/ambassadors", priority: 0.8, changeFreq: "monthly" as const },

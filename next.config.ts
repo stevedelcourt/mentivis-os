@@ -1,10 +1,14 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.STATIC_EXPORT === "1";
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  ...(isStaticExport ? { output: "export" as const } : {}),
   assetPrefix: process.env.VERCEL ? undefined : (process.env.ASSET_PREFIX || undefined),
   images: {
     remotePatterns: [],
+    ...(isStaticExport ? { unoptimized: true } : {}),
   },
   serverExternalPackages: ["sql.js"],
   experimental: {

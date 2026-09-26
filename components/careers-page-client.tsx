@@ -10,6 +10,7 @@ import { useVisible } from "@/hooks/use-visible";
 
 interface CareersPageProps {
   lang: Locale;
+  initialJobs?: Job[];
 }
 
 const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
@@ -20,32 +21,16 @@ const JOB_TYPE_LABELS: Record<string, { fr: string; en: string }> = {
   alternance: { fr: "Alternance", en: "Work-study" },
 };
 
-export default function CareersPageClient({ lang }: CareersPageProps) {
+export default function CareersPageClient({ lang, initialJobs }: CareersPageProps) {
   const t = getT(lang);
   const isMobile = useIsMobile();
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [jobs] = useState<Job[]>(initialJobs || []);
+  const [loading] = useState(false);
   const [selectedDept, setSelectedDept] = useState<string>("all");
 
   const heroV = useVisible(0.2);
   const whyV = useVisible(0.1);
   const listV = useVisible(0.1);
-
-  const fetchJobs = useCallback(async () => {
-    try {
-        const res = await fetch(`/api/jobs?lang=${lang}`);
-      const data = await res.json();
-      setJobs(data.jobs || []);
-    } catch {
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchJobs();
-  }, [fetchJobs]);
 
   const departments = Array.from(new Set(jobs.map((j) => j.department)));
   const filteredJobs = selectedDept === "all"
@@ -349,30 +334,7 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
 
             {loading ? (
               <p style={{ textAlign: "center", color: "#4e4e4e", padding: 40 }}>Chargement...</p>
-            ) : filteredJobs.length === 0 ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: 60,
-                  background: "#FAFAF8",
-                  borderRadius: 16,
-                }}
-              >
-                <p style={{ color: "#4e4e4e", marginBottom: 16 }}>
-                  {t.careers.list.empty}
-                </p>
-                <Link
-                  href={`/${lang}/contact`}
-                  style={{
-                    color: "#0A0A0A",
-                    fontWeight: 500,
-                    textDecoration: "underline",
-                  }}
-                >
-                  {t.careers.form.title}
-                </Link>
-              </div>
-            ) : (
+            ) : filteredJobs.length === 0 ? null : (
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {filteredJobs.map((job) => (
                   <Link
@@ -441,6 +403,46 @@ export default function CareersPageClient({ lang }: CareersPageProps) {
                 ))}
               </div>
             )}
+          </div>
+
+          {/* Spontaneous application */}
+          <div
+            style={{
+              marginTop: 32,
+              padding: isMobile ? 28 : 40,
+              background: "#0A0A0A",
+              borderRadius: 16,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 20,
+            }}
+          >
+            <div style={{ flex: "1 1 280px" }}>
+              <h3 style={{ fontSize: 20, fontWeight: 500, color: "#fff", marginBottom: 8 }}>
+                {t.careers.spontaneous.title}
+              </h3>
+              <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.75)", margin: 0 }}>
+                {t.careers.spontaneous.subtitle}
+              </p>
+            </div>
+            <Link
+              href={`/${lang}/carrieres/candidature-spontanee`}
+              style={{
+                padding: "14px 28px",
+                fontSize: 15,
+                fontWeight: 500,
+                color: "#0A0A0A",
+                background: "#fff",
+                borderRadius: 10,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+              }}
+            >
+              {t.careers.spontaneous.button}
+            </Link>
           </div>
         </div>
       </section>

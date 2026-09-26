@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "Démonstration - MentivisOS" : "Demo - MentivisOS",
-    description: isFr
-      ? "Pas de démonstration standard. Un cas réel, issu de votre organisation, traité en direct."
-      : "No standard demo. A real case from your organization, handled live.",
-  };
+  const title = isFr ? "Démonstration - MentivisOS" : "Demo - MentivisOS";
+  const description = isFr
+    ? "Pas de démonstration standard. Un cas réel, issu de votre organisation, traité en direct."
+    : "No standard demo. A real case from your organization, handled live.";
+  return pageMeta(lang as Locale, "/demo", { title, description });
 }
 
 export default async function DemoPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -39,7 +40,9 @@ export default async function DemoPage({ params }: { params: Promise<{ lang: str
             className="demo-image"
             style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
-          <ContactForm lang={lang as Locale} mode="demo" />
+          <Suspense fallback={null}>
+            <ContactForm lang={lang as Locale} mode="demo" />
+          </Suspense>
         </div>
       </section>
       <style>{`@media (min-width: 1024px) { .demo-form-layout { grid-template-columns: 30% 70%; } .demo-image { margin-top: 120px; } .demo-form-layout > section > .container { max-width: none !important; } }`}</style>

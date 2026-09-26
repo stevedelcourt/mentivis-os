@@ -3,8 +3,8 @@ import { Locale } from "@/lib/i18n";
 
 const LABELS: Record<string, { fr: string; en: string }> = {
   "": { fr: "Accueil", en: "Home" },
-  learningos: { fr: "MentivisOS Entreprise", en: "MentivisOS Entreprise" },
-  entreprises: { fr: "MentivisOS Entreprise", en: "MentivisOS Entreprise" },
+  learningos: { fr: "Mentivis OS Entreprise", en: "Mentivis OS Entreprise" },
+  entreprises: { fr: "Mentivis OS Entreprise", en: "Mentivis OS Entreprise" },
   talentos: { fr: "TalentOS", en: "TalentOS" },
   impact: { fr: "Programme Impact", en: "Impact Program" },
   about: { fr: "À propos", en: "About" },
@@ -13,7 +13,7 @@ const LABELS: Record<string, { fr: string; en: string }> = {
   contact: { fr: "Contact", en: "Contact" },
   demo: { fr: "Démonstration", en: "Demo" },
   tarifs: { fr: "Tarifs", en: "Pricing" },
-  education: { fr: "MentivisOS Education", en: "MentivisOS Education" },
+  education: { fr: "Mentivis OS Education", en: "Mentivis OS Education" },
   security: { fr: "Sécurité", en: "Security" },
   privacy: { fr: "Confidentialité", en: "Privacy" },
   terms: { fr: "CGU", en: "Terms of Service" },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import CgvClient from "./CgvClient";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({
   params,
@@ -9,12 +10,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "Conditions générales de vente" : "Terms of Sale",
-    description: isFr
-      ? "Conditions générales de vente de MentivisOS."
-      : "Terms of sale of MentivisOS.",
-  };
+  const title = isFr ? "Conditions générales de vente" : "Terms of Sale";
+  const description = isFr
+    ? "Conditions générales de vente de MentivisOS."
+    : "Terms of sale of MentivisOS.";
+  return pageMeta(lang as Locale, "/cgv", { title, description });
 }
 
 export default async function CgvPage({ params }: { params: Promise<{ lang: string }> }) {

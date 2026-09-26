@@ -5,7 +5,6 @@ import { Locale } from "@/lib/i18n";
 import { getT } from "@/lib/i18n";
 import Link from "next/link";
 import Image from "next/image";
-import CmsPageHero from "@/components/cms-page-hero";
 import AmbassadorsFaq from "@/components/ambassadors-faq";
 import { useVisible } from "@/hooks/use-visible";
 
@@ -45,33 +44,6 @@ export default function AmbassadorsPage({ locale }: { locale: Locale }) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      <CmsPageHero
-        page="ambassadors"
-        lang={locale}
-        className="ambassadors-hero"
-        defaults={{
-          eyebrow: a.hero.eyebrow,
-          headline: a.hero.headline,
-          subheadline: a.hero.body,
-          ctaPrimary: a.hero.ctaJoin,
-          ctaPrimaryLink: `/${locale}/contact?subject=MentivisOS+Programme+Ambassador`,
-          ctaSecondary: a.hero.ctaPresentation,
-          ctaSecondaryLink: `/${locale}/demo`,
-          proof: `${a.hero.commission} - ${a.hero.rate}`,
-        }}
-        visual={
-          <div className="amb-hero-visual">
-            <Image
-              src="/images/ambassador.avif"
-              alt=""
-              width={600}
-              height={600}
-              style={{ width: "100%", height: "auto", borderRadius: 16 }}
-            />
-          </div>
-        }
-      />
-
       {/* WHO */}
       <section
         ref={who.ref}

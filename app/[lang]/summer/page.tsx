@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import SummerPage from "@/components/summer/summer-page";
+import { pageAlternates } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
   return {
     title: "Offre \u00C9t\u00E9 2026 MentivisOS | 50% sur le d\u00E9ploiement + 3 mois offerts",
     description: "Jusqu'au 30 septembre 2026, d\u00E9ployez MentivisOS dans votre organisme ou votre entreprise avec 50% de r\u00E9duction et 3 mois de licences offertes pour tous vos collaborateurs.",
     robots: { index: false },
+    ...pageAlternates(lang as "fr" | "en", "/summer"),
     openGraph: {
       title: "Offre \u00C9t\u00E9 2026 MentivisOS",
       description: "50% sur le d\u00E9ploiement + 3 mois de licences offerts pour tous vos collaborateurs.",

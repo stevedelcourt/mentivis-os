@@ -1,13 +1,13 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "MentivisOS Entreprise",
+    "learningOS": "Mentivis OS Entreprise",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Resources",
     "entreprise": "Corporate",
     "tarifs": "Pricing",
-    "ecoles": "MentivisOS Edu",
+    "ecoles": "Mentivis OS Edu",
     "contact": "Contact us",
     "login": "Log in",
     "cta": "Contact us",
@@ -60,9 +60,9 @@
       "entreprise": [
         "News",
         "About",
-        "Security",
+        "The Reference",
         "Careers",
-        "MentivisOS Edu"
+        "Mentivis OS Edu"
       ],
       "initiatives": [
         "Impact Program",
@@ -610,7 +610,7 @@
     "legal": "Legal",
     "copyright": "MentivisOS is developed by Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "MentivisOS Education"],
+      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "Mentivis OS Education"],
       "workflows": [],
       "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers"],
       "contact": "Contact"
@@ -746,7 +746,19 @@
       "submit": "Send my application",
       "success": "Thank you! We will get back to you shortly.",
       "error": "An error occurred. Please try again.",
-      "subject": "Application %s - %s"
+      "subject": "Application %s - %s",
+      "cvLabel": "CV (PDF, max 5 MB)",
+      "cvChoose": "Choose a PDF file",
+      "cvTooLarge": "File too large (max 5 MB). Please choose a smaller file."
+    },
+    "spontaneous": {
+      "title": "Spontaneous application",
+      "subtitle": "No open position matches your profile? Send us your application: every profile is read with care.",
+      "button": "Submit a spontaneous application",
+      "reference": "SPONTANEE",
+      "department": "All teams",
+      "location": "Paris & Remote",
+      "description": "Can't find a position that matches your profile? Tell us about yourself: your background, your skills, and what motivates you to join Mentivis. Every spontaneous application is read by our team, and we get back to you as soon as an opportunity matches."
     }
   },
   "ambassadors": {
@@ -862,7 +874,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "MentivisOS Entreprise",
+      "eyebrow": "Mentivis OS Entreprise",
       "headline": "The AI-native training system that turns your employees into talents.",
       "subheadline": "Generate personalized learning paths, automatically adapt content, and drive your teams' skill development, all in a single system."
     },

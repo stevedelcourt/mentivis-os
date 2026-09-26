@@ -13,16 +13,16 @@ const GRADIENT = "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, 
 
 const CONTENT: Record<string, { eyebrow: string; headlineGradient: string; headlinePlain: string; subheadline: string; cta: string; ctaLink: string }> = {
   fr: {
-    eyebrow: "MentivisOS Education",
-    headlineGradient: "MentivisOS Education",
+    eyebrow: "Mentivis OS Education",
+    headlineGradient: "Mentivis OS Education",
     headlinePlain: "Apprendre autrement. Réussir durablement.",
     subheadline: "MentivisOS pour les organismes de formation, CFA et écoles.",
     cta: "Contactez-nous",
     ctaLink: "/fr/contact",
   },
   en: {
-    eyebrow: "MentivisOS Education",
-    headlineGradient: "MentivisOS Education",
+    eyebrow: "Mentivis OS Education",
+    headlineGradient: "Mentivis OS Education",
     headlinePlain: "Learn differently. Succeed sustainably.",
     subheadline: "MentivisOS for training organizations, CFA and schools.",
     cta: "Contact us",
@@ -50,22 +50,22 @@ export default function EducationHero({ lang }: EducationHeroProps) {
           maxWidth: 1240,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 48,
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: 80,
+          alignItems: "start",
         }}
       >
-        <div style={{ maxWidth: 720, flex: 1 }}>
+        <div style={{ maxWidth: 640 }}>
           <p
             style={{
               ...sectionAnim(visible, 0),
               marginBottom: 24,
               color: "#4e4e4e",
               textTransform: "uppercase",
-              letterSpacing: "0.14px",
+              letterSpacing: "0.14em",
               fontWeight: 500,
-              fontSize: 12,
+              fontSize: 14,
             }}
           >
             {c.eyebrow}

@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import LearningOSPageClient from "@/components/learningos/learningos-page-client";
+import LearningOSHero from "@/components/learningos/learningos-hero";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "MentivisOS Entreprise - Formation native IA" : "MentivisOS Entreprise - AI-native training",
-    description: isFr
-      ? "Le système de formation native IA qui transforme vos collaborateurs en talents."
-      : "The AI-native training system that turns your employees into talents.",
-  };
+  const title = isFr ? "Mentivis OS Entreprise - Formation native IA" : "Mentivis OS Entreprise - AI-native training";
+  const description = isFr
+    ? "Le système de formation native IA qui transforme vos collaborateurs en talents."
+    : "The AI-native training system that turns your employees into talents.";
+  return pageMeta(lang as Locale, "/entreprises", { title, description });
 }
 
 export default async function LearningOSPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,6 +21,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
   const isFr = lang === "fr";
   return (
     <>
+      <LearningOSHero lang={lang as Locale} />
       <LearningOSPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"
@@ -27,7 +29,7 @@ export default async function LearningOSPage({ params }: { params: Promise<{ lan
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "MentivisOS Entreprise",
+            name: "Mentivis OS Entreprise",
             applicationCategory: "EducationalApplication",
             description: isFr
               ? "Système de formation native IA - générez des parcours personnalisés et pilotez la montée en compétences."

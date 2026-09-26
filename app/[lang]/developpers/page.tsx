@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import DeveloppersPageClient from "@/components/developpers-page-client";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "Développeurs - API MentivisOS" : "Developers - MentivisOS API",
-    description: isFr
-      ? "Documentation technique et guides d'intégration de l'API MentivisOS. Connectez vos systèmes ATS, SIRH et outils de formation."
-      : "Technical documentation and integration guides for the MentivisOS API. Connect your ATS, HRIS and training tools.",
-  };
+  const title = isFr ? "Développeurs - API MentivisOS" : "Developers - MentivisOS API";
+  const description = isFr
+    ? "Documentation technique et guides d'intégration de l'API MentivisOS. Connectez vos systèmes ATS, SIRH et outils de formation."
+    : "Technical documentation and integration guides for the MentivisOS API. Connect your ATS, HRIS and training tools.";
+  return pageMeta(lang as Locale, "/developpers", { title, description });
 }
 
 export default async function DeveloppersPage({ params }: { params: Promise<{ lang: string }> }) {

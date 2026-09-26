@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import ImpactPageClient from "@/components/impact/impact-page-client";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "Programme Impact - ICIA x MentivisOS" : "Impact Program - ICIA x MentivisOS",
-    description: isFr
-      ? "L'IA n'attend pas. Personne non plus. Un programme structuré pour passer de l'inquiétude à la compétence."
-      : "AI won't wait. Neither will we. A structured program to move from concern to competence.",
-  };
+  const title = isFr ? "Programme Impact - ICIA x MentivisOS" : "Impact Program - ICIA x MentivisOS";
+  const description = isFr
+    ? "L'IA n'attend pas. Personne non plus. Un programme structuré pour passer de l'inquiétude à la compétence."
+    : "AI won't wait. Neither will we. A structured program to move from concern to competence.";
+  return pageMeta(lang as Locale, "/impact", { title, description });
 }
 
 export default async function ImpactPage({ params }: { params: Promise<{ lang: string }> }) {

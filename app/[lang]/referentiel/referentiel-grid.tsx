@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Locale } from "@/lib/i18n";
 import { ReferentielArticle, Cible, Bloc } from "@/lib/cms/types";
 
@@ -9,8 +10,6 @@ interface Props {
   lang: Locale;
   articles: ReferentielArticle[];
   allArticles: ReferentielArticle[];
-  blocFilter?: Bloc;
-  cibleFilter?: Cible;
   blocColors: Record<string, string>;
   blocLabels: Record<string, string>;
   blocFull: Record<string, string>;
@@ -18,8 +17,15 @@ interface Props {
   cibleColors: Record<string, string>;
 }
 
-export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cibleFilter, blocColors, blocLabels, blocFull, cibleLabels, cibleColors }: Props) {
+export function ReferentielGrid({ lang, articles, allArticles, blocColors, blocLabels, blocFull, cibleLabels, cibleColors }: Props) {
   const isFr = lang === "fr";
+  const searchParams = useSearchParams();
+  const blocFilter = (searchParams?.get("bloc") as Bloc) || undefined;
+  const cibleFilter = (searchParams?.get("cible") as Cible) || undefined;
+
+  const visibleArticles = useMemo(() => articles.filter(
+    (a) => (!blocFilter || a.bloc === blocFilter) && (!cibleFilter || a.cible === cibleFilter)
+  ), [articles, blocFilter, cibleFilter]);
 
   const blocs = useMemo(() => {
     const set = new Set<string>();
@@ -109,7 +115,7 @@ export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cible
         </div>
       </div>
 
-      {articles.length === 0 && (
+      {visibleArticles.length === 0 && (
         <p style={{ color: "#999", textAlign: "center", padding: 40, fontSize: 15 }}>
           {isFr ? "Aucun article trouvé pour ce filtre." : "No articles found for this filter."}
         </p>
@@ -120,7 +126,7 @@ export function ReferentielGrid({ lang, articles, allArticles, blocFilter, cible
         gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
         gap: 20,
       }}>
-        {articles.map((a, i) => (
+        {visibleArticles.map((a, i) => (
           <Link key={a.id}
             href={`/${lang}/referentiel/${a.slug}`}
             style={{

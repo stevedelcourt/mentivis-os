@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
 import PageHero from "@/components/page-hero";
-import CmsPageHero from "@/components/cms-page-hero";
-import IcosahedronAnimation from "@/components/icosahedron-animation";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface SecurityPageProps {
@@ -181,20 +179,6 @@ export default function SecurityPageClient({ lang }: SecurityPageProps) {
 
   return (
     <div style={{ background: "#ffffff" }}>
-      <CmsPageHero
-        page="security"
-        lang={lang}
-        defaults={{
-          eyebrow: H.heroEyebrow,
-          headline: H.heroHeadline.replace(/<br\s*\/?>/g, "\n"),
-        }}
-        visual={
-          <div className="security-hero-visual" style={{ opacity: 0.5 }}>
-            <IcosahedronAnimation />
-          </div>
-        }
-      />
-
       {/* ── ENGAGEMENT ── */}
       <section id="engagement" ref={engagement.ref} className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)", ...sectionAnim(engagement.visible) }}>
         <div className="container" style={{ maxWidth: 800 }}>

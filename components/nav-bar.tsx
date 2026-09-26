@@ -180,7 +180,7 @@ export default function NavBar({ lang }: NavBarProps) {
               data-active={isActive("/openos")}
               style={{ padding: "20px 0" }}
             >
-              MentivisOS{" "}
+              Mentivis OS{" "}
               <span style={{
                 background: "linear-gradient(135deg, #1A2B80, #7030A0, #B02050, #C83040)",
                 WebkitBackgroundClip: "text",
@@ -196,7 +196,7 @@ export default function NavBar({ lang }: NavBarProps) {
               data-active={isActive("/entreprises")}
               style={{ padding: "20px 0" }}
           >
-            MentivisOS{" "}
+            Mentivis OS{" "}
             <span style={{
               background: "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 78%, #A8B040 100%)",
               WebkitBackgroundClip: "text",
@@ -212,7 +212,7 @@ export default function NavBar({ lang }: NavBarProps) {
               data-active={isActive("/education")}
               style={{ padding: "20px 0" }}
             >
-              MentivisOS{" "}
+              Mentivis OS{" "}
               <span style={{
                 background: "linear-gradient(135deg, #A03020 0%, #C05828 35%, #D08840 70%, #E0AA50 100%)",
                 WebkitBackgroundClip: "text",
@@ -256,7 +256,7 @@ export default function NavBar({ lang }: NavBarProps) {
                       links: [
                         { label: t.nav.ressourcesMenu.entreprise[0], href: `/${lang}/blog` },
                         { label: t.nav.ressourcesMenu.entreprise[1], href: `/${lang}/about` },
-                        { label: t.nav.ressourcesMenu.entreprise[2], href: `/${lang}/security` },
+                        { label: t.nav.ressourcesMenu.entreprise[2], href: `/${lang}/referentiel` },
                         { label: t.nav.ressourcesMenu.entreprise[3], href: `/${lang}/carrieres` },
                       ],
                     },
@@ -276,18 +276,6 @@ export default function NavBar({ lang }: NavBarProps) {
             </div>
 
             {/* Resources — hidden for now, reserved for future evolution */}
-
-            {/* Tarifs — hidden */}
-            {false && (
-            <Link
-              href={`/${lang}/tarifs`}
-              className="t-nav navbar-link"
-              data-active={isActive("/tarifs")}
-              style={{ padding: "20px 0" }}
-            >
-              {t.nav.tarifs}
-            </Link>
-            )}
           </nav>
 
           {/* Right side CTAs */}

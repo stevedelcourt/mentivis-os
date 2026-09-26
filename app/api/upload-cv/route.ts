@@ -19,9 +19,9 @@ export async function PUT(request: NextRequest) {
     }
 
     const buffer = Buffer.from(await request.arrayBuffer());
-    const MAX_SIZE = 6 * 1024 * 1024;
+    const MAX_SIZE = 5 * 1024 * 1024;
     if (buffer.length > MAX_SIZE) {
-      return NextResponse.json({ error: "File too large. Max 6MB" }, { status: 400 });
+      return NextResponse.json({ error: "File too large. Max 5MB" }, { status: 400 });
     }
 
     // Use the ORIGINAL filename on disk so HubSpot link shows the real name

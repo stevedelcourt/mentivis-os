@@ -49,3 +49,7 @@ data/snapshot.db-shm
 data/snapshot.db-wal
 data/snapshot-uploads/
 data/snapshot-uploads.json
+
+# Static export output (Universe) - never commit build artifacts
+/out/
+/.static-export-bak/

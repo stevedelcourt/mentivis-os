@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import EducationPageClient from "@/components/education/education-page-client";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "MentivisOS Education - MentivisOS" : "MentivisOS Education - MentivisOS",
-    description: isFr
-      ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
-      : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.",
-    robots: { index: true, follow: true },
-  };
+  const title = "Mentivis OS Education - MentivisOS";
+  const description = isFr
+    ? "MentivisOS pour les organismes de formation, CFA et écoles. Former autrement. Performer durablement."
+    : "MentivisOS for training organizations, CFA and schools. Train differently. Perform sustainably.";
+  return pageMeta(lang as Locale, "/education", { title, description });
 }
 
 const FAQ_EDUCATION_FR = [
@@ -34,7 +33,7 @@ export default async function EducationPage({ params }: { params: Promise<{ lang
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "MentivisOS Education",
+            name: "Mentivis OS Education",
             applicationCategory: "EducationalApplication",
             description: lang === "fr"
               ? "Solution de formation native IA pour organismes de formation, CFA et écoles."

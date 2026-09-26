@@ -13,6 +13,8 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
   const [loading, setLoading] = useState(!initialPost);
 
   useEffect(() => {
+    // Static export (Universe) has no /api runtime: keep build-time data.
+    if (initialPost) return;
     async function loadPost() {
       try {
         const res = await fetch(`/api/blog/posts/${slug}?lang=${lang}`);
@@ -137,7 +139,7 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
           {post.pdfUrl && (
             <PdfUnlock
               pdfUrl={post.pdfUrl}
-              title={post.pdfTitle || post.title}
+              title={lang === "en" ? (post.pdfTitleEn || post.pdfTitle || post.title) : (post.pdfTitle || post.title)}
               cover={post.pdfImage || undefined}
               lang={lang}
               context={post.pdfContext || post.slug}

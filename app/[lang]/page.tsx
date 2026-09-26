@@ -12,16 +12,17 @@ import ArticlesFeaturesSection from "@/components/articles-features-section";
 import FaqSection from "@/components/faq-section";
 
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import { getSeo } from "@/lib/cms/db";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  return {
-    alternates: { canonical: `${SITE_URL}/${lang}/` },
-    openGraph: {
-      url: `${SITE_URL}/${lang}/`,
-      images: [{ url: `${SITE_URL}/images/OG-image.jpg`, width: 1200, height: 630 }],
-    },
-  };
+  const seo = await getSeo();
+  const pageSeo = seo[lang as "fr" | "en"]?.homepage;
+  return pageMeta(lang as Locale, "/", {
+    title: pageSeo?.title || "MentivisOS",
+    description: pageSeo?.description || "",
+  });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {

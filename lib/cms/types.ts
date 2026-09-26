@@ -42,6 +42,21 @@ export const CATEGORIES: { key: CategoryKey; labelFr: string; labelEn: string }[
   { key: "partenariat", labelFr: "Partenariats", labelEn: "Partnerships" },
 ];
 
+// Latest-first post ordering shared by the blog list, the homepage
+// articles block and the /api/blog/posts route. Strict dateISO desc
+// (featured does NOT pin posts up); undated posts go last; id breaks ties.
+export function sortPostsLatestFirst(posts: Post[]): Post[] {
+  return [...posts].sort((a, b) => {
+    const ta = new Date(a.dateISO).getTime();
+    const tb = new Date(b.dateISO).getTime();
+    if (Number.isNaN(ta) && Number.isNaN(tb)) return 0;
+    if (Number.isNaN(ta)) return 1;
+    if (Number.isNaN(tb)) return -1;
+    if (tb !== ta) return tb - ta;
+    return (b.id ?? 0) - (a.id ?? 0);
+  });
+}
+
 // ── Homepage Hero ──
 
 export interface HeroContent {

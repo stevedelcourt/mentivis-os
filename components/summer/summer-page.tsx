@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Script from "next/script";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 import ContactForm from "@/components/contact-form";
@@ -420,7 +421,9 @@ export default function SummerPage({ lang }: { lang: string }) {
                 {"Mathias Costes, Partner MentivisOS"}
               </p>
             </div>
-            <ContactForm lang={lang as Locale} mode="demo" formContext="summer26" subject="Offre Summer'26" />
+            <Suspense fallback={null}>
+              <ContactForm lang={lang as Locale} mode="demo" formContext="summer26" subject="Offre Summer'26" />
+            </Suspense>
           </div>
         </div>
       </section>

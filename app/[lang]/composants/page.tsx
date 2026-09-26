@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
+import { pageMeta } from "@/lib/seo/page-meta";
 import { ChatMockup } from "@/components/chat-mockup";
 import { ChartMockup } from "@/components/chart-mockup";
 import { ModuleCard } from "@/components/module-card";
@@ -6,10 +8,12 @@ import TopoLines from "@/components/topo-lines";
 import FaqSection from "@/components/faq-section";
 import InteractiveExplainer from "@/components/interactive-explainer";
 
-export const metadata = {
-  title: "Composants - MentivisOS",
-  description: "Les composants de linterface MentivisOS : chat, graphiques, modules et éléments interactifs.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const title = "Composants - MentivisOS";
+  const description = "Les composants de linterface MentivisOS : chat, graphiques, modules et éléments interactifs.";
+  return pageMeta(lang as Locale, "/composants", { title, description });
+}
 
 const SAMPLE_CHAT = {
   user1: "Puis-je obtenir un remboursement ?",

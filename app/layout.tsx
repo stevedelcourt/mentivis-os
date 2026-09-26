@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,6 +11,18 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MentivisOS - Le moteur pédagogique natif IA",
   description: "Un moteur qui produit le diagnostic, le programme et l'accompagnement. Pas un LMS. Pas un catalogue.",
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
@@ -20,19 +31,16 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Les tags Google (consent + GTM) ne sont chargés que sur l'hôte canonique.
-  // Les hosts techniques/masqués continuent de servir le site mais n'envoient
-  // aucun hit page_location à Google. Host vide = prerender au build : on
-  // laisse passer pour ne pas casser le suivi sur les pages statiques.
-  const headersList = await headers();
-  const host = (headersList.get("x-forwarded-host") || headersList.get("host") || "")
-    .split(",")[0].trim().toLowerCase().split(":")[0];
-  const allowTracking = !host || host === "mentivisos.com" || host === "www.mentivisos.com";
+  // Les tags Google (consent + GTM) ne se chargent que sur l'hôte canonique.
+  // Le test est côté client (window.location.hostname) pour rester compatible
+  // avec l'export statique : aucun hit page_location ne part des domaines
+  // techniques/masqués. Le recueil UTM vers dataLayer reste inconditionnel
+  // (first-party, aucune exfiltration).
   return (
     <html lang="fr">
       <head>
@@ -59,46 +67,39 @@ export default async function RootLayout({
             `,
           }}
         />
-        {allowTracking && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag() { dataLayer.push(arguments); }
-              gtag('consent', 'default', {
-                'ad_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted',
-                'analytics_storage': 'granted',
-                'functionality_storage': 'granted',
-                'personalization_storage': 'granted',
-                'security_storage': 'granted',
-                'wait_for_update': 500,
-              });
-            `,
-            }}
-          />
-        )}
-        {allowTracking && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               (function() {
-                var gtmId = window.location.hostname.indexOf('mentivis.com') > -1 ? 'GTM-PM93CCQL' : 'GTM-T94BWBCG';
+                var h = window.location.hostname;
+                if (['mentivisos.com', 'www.mentivisos.com'].indexOf(h) < 0) return;
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('consent', 'default', {
+                  'ad_storage': 'granted',
+                  'ad_user_data': 'granted',
+                  'ad_personalization': 'granted',
+                  'analytics_storage': 'granted',
+                  'functionality_storage': 'granted',
+                  'personalization_storage': 'granted',
+                  'security_storage': 'granted',
+                  'wait_for_update': 500,
+                });
+                var gtmId = h.indexOf('mentivis.com') > -1 ? 'GTM-PM93CCQL' : 'GTM-T94BWBCG';
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',gtmId);
+                var n = document.createElement('noscript');
+                var f2 = document.createElement('iframe');
+                f2.src = 'https://www.googletagmanager.com/ns.html?id=' + gtmId;
+                f2.height = '0'; f2.width = '0';
+                f2.style.display = 'none'; f2.style.visibility = 'hidden';
+                n.appendChild(f2);
+                document.body.appendChild(n);
               })();
             `,
-            }}
-          />
-        )}
+          }}
+        />
       </head>
       <body className={inter.variable}>
-        {allowTracking && (
-          <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T94BWBCG"
-              height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
-          </noscript>
-        )}
         {children}
       </body>
     </html>

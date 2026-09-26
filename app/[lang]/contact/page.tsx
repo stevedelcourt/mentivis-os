@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "Contact - MentivisOS" : "Contact - MentivisOS",
-    description: isFr
-      ? "Contactez l'équipe Mentivis. Réponse sous 24h ouvrées."
-      : "Contact the Mentivis team. Response within 24 business hours.",
-  };
+  const title = "Contact - MentivisOS";
+  const description = isFr
+    ? "Contactez l'équipe Mentivis. Réponse sous 24h ouvrées."
+    : "Contact the Mentivis team. Response within 24 business hours.";
+  return pageMeta(lang as Locale, "/contact", { title, description });
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -39,7 +40,9 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             className="contact-image"
             style={{ width: "100%", height: "auto", borderRadius: 16 }}
           />
-          <ContactForm lang={lang as Locale} mode="contact" />
+          <Suspense fallback={null}>
+            <ContactForm lang={lang as Locale} mode="contact" />
+          </Suspense>
         </div>
       </section>
       <style>{`@media (min-width: 1024px) { .contact-form-layout { grid-template-columns: 30% 70%; } .contact-image { margin-top: 120px; } .contact-form-layout > section > .container { max-width: none !important; } }`}</style>

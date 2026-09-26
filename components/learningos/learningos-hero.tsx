@@ -6,22 +6,22 @@ const GRADIENT_VERT = "linear-gradient(135deg, #243A1A 0%, #607020 40%, #909840 
 
 const DEFAULTS: Record<string, PageHeroContent> = {
   fr: {
-    eyebrow: "MENTIVIS OS ENTREPRISE",
-    headline: "MentivisOS Entreprise\nFormer autrement.\nPerformer durablement.",
+    eyebrow: "MENTIVIS OS PRO",
+    headline: "Mentivis OS Entreprise\nFormer autrement.\nPerformer durablement.",
     headlineGradient: GRADIENT_VERT,
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
-    ctaPrimary: "Testez MentivisOS Entreprise",
+    ctaPrimary: "Testez Mentivis OS Entreprise",
     ctaPrimaryLink: "/demo",
     ctaSecondary: "",
     ctaSecondaryLink: "",
     proof: "Utilisé par les directions de la formation, les CFA, les campus d'entreprise.",
   },
   en: {
-    eyebrow: "MENTIVIS OS ENTREPRISE",
-    headline: "MentivisOS Entreprise\nTrain differently.\nPerform sustainably.",
+    eyebrow: "MENTIVIS OS PRO",
+    headline: "Mentivis OS Entreprise\nTrain differently.\nPerform sustainably.",
     headlineGradient: GRADIENT_VERT,
     subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your team's skill development, all in a single system.",
-    ctaPrimary: "Test MentivisOS Entreprise",
+    ctaPrimary: "Test Mentivis OS Entreprise",
     ctaPrimaryLink: "/demo",
     ctaSecondary: "",
     ctaSecondaryLink: "",
@@ -30,5 +30,5 @@ const DEFAULTS: Record<string, PageHeroContent> = {
 };
 
 export default function LearningOSHero({ lang }: { lang: Locale }) {
-  return <CmsPageHero page="learningos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} />;
+  return <CmsPageHero page="learningos" lang={lang} defaults={DEFAULTS[lang === "fr" ? "fr" : "en"]} overrides={{ eyebrow: "MENTIVIS OS PRO" }} />;
 }

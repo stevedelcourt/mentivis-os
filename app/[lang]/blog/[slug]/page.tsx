@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
-import { getPostBySlug } from "@/lib/cms/db";
+import { getPostBySlug, getPublishedPosts } from "@/lib/cms/db";
 import { ogImageForPost, OG_WIDTH, OG_HEIGHT } from "@/lib/seo/og-images";
 import BlogPostClient from "./blog-post-client";
+
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts().catch(() => []);
+  return posts.flatMap((p) => [{ lang: "fr", slug: p.slug }, { lang: "en", slug: p.slug }]);
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
@@ -38,5 +43,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function BlogPostPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
   const post = await getPostBySlug(slug).catch(() => undefined);
-  return <BlogPostClient lang={lang} slug={slug} initialPost={post ?? null} />;
+  // Localize before passing to the client: the listing shows titleEn/excerptEn
+  // previews, so the article body must match (the client keeps initialPost
+  // without refetching).
+  const localized = !post || lang === "fr" ? post ?? null : {
+    ...post,
+    title: post.titleEn || post.title,
+    excerpt: post.excerptEn || post.excerpt,
+    content: post.contentEn || post.content,
+  };
+  return <BlogPostClient lang={lang} slug={slug} initialPost={localized} />;
 }

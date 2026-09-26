@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Locale } from "@/lib/i18n";
 import CTABlock from "@/components/cta-block";
 import PageHero from "@/components/page-hero";
-import CmsPageHero from "@/components/cms-page-hero";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
 
 interface AboutPageProps {
@@ -175,16 +174,6 @@ export default function AboutPageClient({ lang }: AboutPageProps) {
 
   return (
     <main style={{ background: "#ffffff" }}>
-      <CmsPageHero
-        page="about"
-        lang={lang}
-        defaults={{
-          eyebrow: H.heroEyebrow,
-          headline: H.heroHeadline,
-          subheadline: H.heroSub,
-        }}
-      />
-
       {/* CONVICTION */}
       <section className="section" style={{ paddingTop: "clamp(64px, 8vw, 120px)" }}>
         <div className="container">

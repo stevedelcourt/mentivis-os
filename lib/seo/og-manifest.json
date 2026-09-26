@@ -5,6 +5,7 @@
     "P": "/images/LearningOS/thumb-product.webp"
   },
   "pages": {
+    "/": "/images/OG-image.jpg",
     "/openos": "/open-woman.avif",
     "/education": "/images/student.avif",
     "/entreprises": "/images/workers.avif",
@@ -12,7 +13,14 @@
     "/blog": "/images/profarticle.avif",
     "/contact": "/images/demo-cool.webp",
     "/demo": "/images/demo-cool.webp",
-    "/summer": "/images/og-summer-2026.jpg"
+    "/summer": "/images/og-summer-2026.jpg",
+    "/about": "/images/former.avif",
+    "/ambassadors": "/images/ambassador.avif",
+    "/carrieres": "/images/workers.avif",
+    "/talentos": "/images/TalentOS/talent-dash.webp",
+    "/developpers": "/images/LearningOS/api-integrations.webp",
+    "/composants": "/images/LearningOS/skillagents.webp",
+    "/referentiel": "/images/etudeIA-cover.jpg"
   },
   "posts": {
     "marche-education-formation-france-2026": "/images/marche-2026.avif",

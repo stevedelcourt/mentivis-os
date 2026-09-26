@@ -1,9 +1,8 @@
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import { getReferentielArticles } from "@/lib/cms/db";
-import { Cible, Bloc } from "@/lib/cms/types";
 import { ReferentielGrid } from "./referentiel-grid";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -36,29 +35,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default async function ReferentielPage({ params, searchParams }: { params: Promise<{ lang: string }>; searchParams: Promise<{ article?: string; bloc?: string; cible?: string }> }) {
+export default async function ReferentielPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const sp = await searchParams;
-
-  if (sp.article) {
-    redirect(`/${lang}/referentiel/${sp.article}`);
-  }
 
   const isFr = lang === "fr";
-  const blocFilter = sp.bloc as Bloc | undefined;
-  const cibleFilter = sp.cible as Cible | undefined;
 
-  const articles = await getReferentielArticles({ bloc: blocFilter, cible: cibleFilter });
-  const allArticles = blocFilter || cibleFilter ? await getReferentielArticles() : articles;
+  const articles = await getReferentielArticles();
 
   const localized = isFr ? articles : articles.map((a) => ({
-    ...a,
-    title: a.titleEn || a.title,
-    content: a.contentEn || a.content,
-    chapeau: a.chapeauEn || a.chapeau,
-  }));
-
-  const localizedAll = isFr ? allArticles : allArticles.map((a) => ({
     ...a,
     title: a.titleEn || a.title,
     content: a.contentEn || a.content,
@@ -135,18 +119,18 @@ export default async function ReferentielPage({ params, searchParams }: { params
         }}
       />
 
-      <ReferentielGrid
-        lang={lang as Locale}
-        articles={localized}
-        allArticles={localizedAll}
-        blocFilter={blocFilter}
-        cibleFilter={cibleFilter}
-        blocColors={BLOC_COLORS}
-        blocLabels={BLOC_LABELS}
-        blocFull={BLOC_FULL}
-        cibleLabels={CIBLE_LABELS}
-        cibleColors={CIBLE_COLORS}
-      />
+      <Suspense fallback={<div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", padding: 24, color: "#999" }}>Chargement...</div>}>
+        <ReferentielGrid
+          lang={lang as Locale}
+          articles={localized}
+          allArticles={localized}
+          blocColors={BLOC_COLORS}
+          blocLabels={BLOC_LABELS}
+          blocFull={BLOC_FULL}
+          cibleLabels={CIBLE_LABELS}
+          cibleColors={CIBLE_COLORS}
+        />
+      </Suspense>
     </div>
   );
 }

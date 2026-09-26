@@ -1,13 +1,13 @@
 {
   "nav": {
     "open": "Open",
-    "learningOS": "MentivisOS Entreprise",
+    "learningOS": "Mentivis OS Entreprise",
     "pipelineOS": "TalentOS",
     "mentivisAPI": "MentivisAPI",
     "ressources": "Ressources",
     "entreprise": "Corporate",
     "tarifs": "Tarifs",
-    "ecoles": "MentivisOS Edu",
+    "ecoles": "Mentivis OS Edu",
     "contact": "Contactez-nous",
     "login": "Se connecter",
     "cta": "Contactez-nous",
@@ -60,9 +60,9 @@
       "entreprise": [
         "News",
         "A propos",
-        "Securite",
+        "Le Référentiel",
         "Carrieres",
-        "MentivisOS Edu"
+        "Mentivis OS Edu"
       ],
       "initiatives": [
         "Programme Impact",
@@ -610,7 +610,7 @@
     "legal": "Légal",
     "copyright": "MentivisOS est développé par Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "MentivisOS Education"],
+      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "Mentivis OS Education"],
       "workflows": [],
       "entreprise": ["News & publications", "À propos", "Affiliation & Ambassadeurs", "Carrières"],
       "contact": "Contact"
@@ -746,7 +746,19 @@
       "submit": "Envoyer ma candidature",
       "success": "Merci ! Nous reviendrons vers vous rapidement.",
       "error": "Une erreur est survenue. Veuillez reessayer.",
-      "subject": "Candidature %s - %s"
+      "subject": "Candidature %s - %s",
+      "cvLabel": "CV (PDF, max 5 Mo)",
+      "cvChoose": "Choisir un fichier PDF",
+      "cvTooLarge": "Fichier trop volumineux (max 5 Mo). Veuillez choisir un fichier plus léger."
+    },
+    "spontaneous": {
+      "title": "Candidature spontanée",
+      "subtitle": "Aucune offre ne correspond à votre profil ? Envoyez-nous votre candidature : chaque profil est lu avec attention.",
+      "button": "Déposer une candidature spontanée",
+      "reference": "SPONTANEE",
+      "department": "Toutes les équipes",
+      "location": "Paris & Remote",
+      "description": "Vous ne trouvez pas d'offre correspondant à votre profil ? Parlez-nous de vous : votre parcours, vos compétences, et ce qui vous motive à rejoindre Mentivis. Chaque candidature spontanée est lue par notre équipe, et nous revenons vers vous dès qu'une opportunité correspond."
     }
   },
   "ambassadors": {
@@ -862,7 +874,7 @@
   },
   "learningosPage": {
     "hero": {
-      "eyebrow": "MentivisOS Entreprise",
+      "eyebrow": "Mentivis OS Entreprise",
       "headline": "Le système de formation native IA qui transforme vos collaborateurs en talents.",
       "subheadline": "Générez des parcours personnalisés, adaptez les contenus automatiquement et pilotez la montée en compétences de vos équipes, le tout dans un seul système."
     },

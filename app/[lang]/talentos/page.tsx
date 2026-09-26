@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-url";
 import { Locale } from "@/lib/i18n";
 import TalentOSPageClient from "@/components/talentos/talentos-page-client";
+import TalentOSHero from "@/components/talentos/talentos-hero";
 import { getFaqJsonLd } from "@/lib/faq-jsonld";
+import { pageMeta } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
-  return {
-    title: isFr ? "TalentOS - Recrutement IA" : "TalentOS - AI recruitment",
-    description: isFr
-      ? "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées."
-      : "The AI recruitment system that turns your sourcing into qualified hires.",
-  };
+  const title = isFr ? "TalentOS - Recrutement IA" : "TalentOS - AI recruitment";
+  const description = isFr
+    ? "Le système de recrutement IA qui transforme votre sourcing en embauches qualifiées."
+    : "The AI recruitment system that turns your sourcing into qualified hires.";
+  return pageMeta(lang as Locale, "/talentos", { title, description });
 }
 
 export default async function TalentOSPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,6 +21,7 @@ export default async function TalentOSPage({ params }: { params: Promise<{ lang:
   const isFr = lang === "fr";
   return (
     <>
+      <TalentOSHero lang={lang as Locale} />
       <TalentOSPageClient lang={lang as Locale} />
       <script
         type="application/ld+json"

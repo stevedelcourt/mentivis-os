@@ -4,42 +4,31 @@ import { SITE_URL } from "@/lib/site-url";
 import NavBar from "@/components/nav-bar";
 import FooterBlock from "@/components/footer-block";
 import CookieConsentDeferred from "@/components/cookie-consent-deferred";
+import { Suspense } from "react";
+import BreadcrumbJsonLd from "@/components/breadcrumb-jsonld";
 import { getSeo } from "@/lib/cms/db";
-import { headers } from "next/headers";
-import { buildBreadcrumbJsonLd } from "@/lib/breadcrumbs";
-import { ogImageForRoute, OG_WIDTH, OG_HEIGHT } from "@/lib/seo/og-images";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateStaticParams() {
+  return [{ lang: "fr" }, { lang: "en" }];
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {  const { lang } = await params;
   const seo = await getSeo();
   const pageSeo = seo[lang as "fr" | "en"]?.homepage;
 
-  const headersList = await headers();
-  const rawPath = headersList.get("x-current-path") || headersList.get("next-url") || `/${lang}`;
-  const path = rawPath.startsWith("http") ? new URL(rawPath).pathname : rawPath;
-  const relativePath = path.replace(/^\/(fr|en)/, "") || "/";
-  const normalizedRelative = relativePath === "/" ? "/" : `/${relativePath.replace(/^\/+|\/+$/g, "")}/`;
-  const canonicalPath = `/${lang}${normalizedRelative === "/" ? "" : normalizedRelative}`;
-  const ogImage = ogImageForRoute(normalizedRelative);
-
+  // Note: no per-path canonical/hreflang/images here on purpose.
+  // The request path is unknowable without headers() (incompatible with
+  // static export). Every public page sets its own complete block via
+  // pageMeta() from lib/seo/page-meta.ts, which takes precedence.
   return {
     title: pageSeo?.title || "MentivisOS",
     description: pageSeo?.description || "",
-    alternates: {
-      canonical: `${SITE_URL}${canonicalPath}`,
-      languages: {
-        fr: `${SITE_URL}/fr${normalizedRelative}`,
-        en: `${SITE_URL}/en${normalizedRelative}`,
-        "x-default": `${SITE_URL}/fr${normalizedRelative}`,
-      },
-    },
     openGraph: {
       title: pageSeo?.title || "MentivisOS",
       description: pageSeo?.description || "",
       locale: lang === "fr" ? "fr_FR" : "en_US",
       siteName: "MentivisOS",
       type: "website",
-      images: [{ url: `${SITE_URL}${ogImage}`, width: OG_WIDTH, height: OG_HEIGHT }],
     },
     twitter: {
       card: "summary_large_image",
@@ -62,12 +51,6 @@ export default async function LangLayout({
   const seo = await getSeo();
   const homepageSeo = seo[lang as "fr" | "en"]?.homepage;
   const businessSeo = seo[lang as "fr" | "en"]?.business;
-
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || headersList.get("next-url") || `/${lang}`;
-  const urlPath = pathname.startsWith("http")
-    ? new URL(pathname).pathname
-    : pathname;
 
   return (
     <>
@@ -117,12 +100,9 @@ export default async function LangLayout({
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildBreadcrumbJsonLd(lang as Locale, urlPath)),
-        }}
-      />
+      <Suspense fallback={null}>
+        <BreadcrumbJsonLd lang={lang as Locale} />
+      </Suspense>
     </>
   );
 }

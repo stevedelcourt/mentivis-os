@@ -132,8 +132,8 @@ export default function EducationFAQ({ lang }: { lang: string }) {
               }}
             >
               {lang === "fr"
-                ? "Des questions sur MentivisOS Education ? Les réponses sont ici."
-                : "Questions about MentivisOS Education? Answers are here."}
+                ? "Des questions sur Mentivis OS Education ? Les réponses sont ici."
+                : "Questions about Mentivis OS Education? Answers are here."}
             </p>
           </div>
 

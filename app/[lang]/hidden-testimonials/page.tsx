@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo/page-meta";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const isFr = lang === "fr";
+  const title = isFr ? "Témoignages - MentivisOS" : "Testimonials - MentivisOS";
   return {
-    title: isFr ? "Témoignages - MentivisOS" : "Testimonials - MentivisOS",
+    title,
+    description: isFr ? "Témoignages clients MentivisOS." : "MentivisOS client testimonials.",
     robots: { index: false, follow: false },
+    ...pageAlternates(lang as Locale, "/hidden-testimonials"),
   };
 }
 
