@@ -16,14 +16,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-// 404 des URL qui ne correspondent à aucune route (hors /fr et /en).
+// 404 des URL qui ne correspondent à aucune route. Sert aussi de 404.html dans
+// l'export statique : le message suit la langue de l'URL (détectée côté client).
 export default function GlobalNotFound() {
   return (
     <html lang="fr">
       <body className={inter.variable}>
         <NavBar lang="fr" />
         <main style={{ position: "relative", zIndex: 1, paddingTop: 70 }}>
-          <NotFoundContent lang="fr" />
+          <NotFoundContent />
         </main>
         <FooterBlock lang="fr" />
       </body>

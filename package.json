@@ -9,6 +9,8 @@
     "prebuild": "command -v python3 >/dev/null && python3 scripts/generate-og-images.py || echo '[og] python3 missing, skipping OG generation'",
     "build": "next build --webpack",
     "build:clean": "rm -rf .next && npm run build",
+    "build:static": "node scripts/build-static-export.mjs",
+    "referentiel:import": "node scripts/import-referentiel-2026-09.mjs",
     "start": "node server.js",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

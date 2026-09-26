@@ -24,8 +24,8 @@ export function stripMarkdown(content: string): string {
     .replace(/\*\*|__/g, "") // bold
     .replace(/\*|_/g, "") // italic
     .replace(/`{1,3}([^`]+)`{1,3}/g, "$1") // inline code / code blocks
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "") // images (avant les liens, sinon "![x](y)" devient "!x")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, "") // images
     .replace(/\n/g, " ") // newlines to spaces
     .trim();
 }

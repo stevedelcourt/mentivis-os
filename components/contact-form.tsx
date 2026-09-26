@@ -160,7 +160,7 @@ function ContactFormInner({ lang, mode = "demo", formContext, subject: subjectPr
                 style={{ marginTop: 2 }}
               />
               <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--text-secondary)" }}>
-                Je suis d'accord que Mentivis traite mes données personnelles conformément à la politique de confidentialité.
+                {t.ui.consent}
               </span>
             </label>
           </div>

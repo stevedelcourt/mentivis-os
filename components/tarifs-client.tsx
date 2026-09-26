@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { getT, Locale } from "@/lib/i18n";
+import { getT, Locale, localizeHref } from "@/lib/i18n";
 import { PricingPlan } from "@/lib/cms/types";
 import { HOVER_GRADIENTS, FALLBACK_PLANS, FALLBACK_PLANS_EN, FEATURES_COMPARISON, FAQ_ITEMS, FEATURES_COMPARISON_EN, FAQ_ITEMS_EN } from "@/components/tarifs/pricing-data";
 
@@ -485,7 +485,7 @@ export default function TarifsClient({ lang }: TarifsClientProps) {
 
                   {/* CTA Button - Pill shape, always black */}
                   <Link
-                    href={plan.ctaLink}
+                    href={localizeHref(plan.ctaLink, lang)}
                     className="pricing-card-cta"
                     style={{
                       display: "block",

@@ -56,7 +56,7 @@ const COMPONENTS: ComponentDef[] = [
     color: "#1a1a1a",
     preview: (
       <div style={{ padding: 24, background: "#f5f5f5", borderRadius: 12 }}>
-        <p style={{ fontSize: 10, fontWeight: 500, color: "#777", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>Mentivis OS</p>
+        <p style={{ fontSize: 10, fontWeight: 500, color: "#777", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>MentivisOS</p>
         <h3 style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.2, color: "#1a1a1a", marginBottom: 8 }}>Une plateforme capable de s'adapter en temps reel</h3>
         <div style={{ display: "flex", gap: 8 }}>
           <span style={{ padding: "6px 12px", borderRadius: 8, background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500 }}>Demarrer</span>

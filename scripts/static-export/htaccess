@@ -1,0 +1,86 @@
+# MentivisOS, export statique (généré par scripts/build-static-export.mjs).
+# À déposer à la racine du site avec le contenu de out/.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1. Hôte canonique (www vers apex) puis HTTPS. X-Forwarded-Proto couvre le cas
+#    d'un proxy (Cloudflare) qui termine le TLS en amont.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+# 2. API : relais vers le serveur Node via proxy.php (formulaires, blog, offres).
+RewriteRule ^api/(.*)$ proxy.php?__path=api/$1 [L,QSA]
+
+# 3. Racine et chemins sans langue vers la version française.
+RewriteRule ^$ https://%{HTTP_HOST}/fr/ [R=301,L]
+RewriteCond %{REQUEST_URI} !^/(fr|en)(/|$)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]+$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/fr/$1 [R=301,L]
+
+# 4. Anciens slugs.
+__LEGACY_REDIRECTS__
+
+# 5. Slash final sur les pages (trailingSlash: true).
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]+$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1/ [R=301,L]
+
+# 6. Articles de blog et offres publiés après le build : page coquille rendue côté client.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(fr|en)/blog/[^/]+/$ /$1/blog/_/index.html [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(fr|en)/carrieres/[^/]+/$ /$1/carrieres/_/index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+
+# Seul l'hôte canonique est indexable (préprod, miroirs, hôtes techniques : noindex).
+SetEnvIfNoCase Host ^(www\.)?__CANONICAL_HOST_RE__$ CANONICAL_HOST
+Header always set X-Robots-Tag "noindex, nofollow" env=!CANONICAL_HOST
+
+# Pages coquilles et fichiers internes : jamais indexés.
+<FilesMatch "^(proxy\.php)$">
+  Header always set X-Robots-Tag "noindex"
+</FilesMatch>
+
+# Cache : ressources versionnées de Next.js immuables, HTML toujours revalidé.
+<FilesMatch "\.(js|css|woff2?|ttf|otf)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+<FilesMatch "\.(jpe?g|png|gif|webp|avif|svg|ico|mp4|webm|pdf)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+<FilesMatch "\.(html|xml|txt)$">
+  Header set Cache-Control "public, max-age=0, must-revalidate"
+</FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+AddType text/plain .txt
+AddType application/xml .xml
+AddType image/avif .avif
+AddType image/webp .webp
+AddCharset utf-8 .html .txt .xml .css .js .json
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript application/json image/svg+xml
+</IfModule>

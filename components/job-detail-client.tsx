@@ -104,9 +104,11 @@ export default function JobDetailClient({ lang, slug }: JobDetailProps) {
   const [cvFile, setCvFile] = useState<File | null>(null);
 
   useEffect(() => {
+    // Export statique : la page coquille "_" sert toutes les offres, le slug est lu dans l'URL.
+    const jobSlug = slug === "_" ? window.location.pathname.split("/").filter(Boolean)[2] || "" : slug;
     async function fetchJob() {
       try {
-        const res = await fetch(`/api/jobs/${slug}?lang=${lang}`);
+        const res = await fetch(`/api/jobs/${jobSlug}?lang=${lang}`);
         if (res.status === 404) {
           setError("notFound");
           return;

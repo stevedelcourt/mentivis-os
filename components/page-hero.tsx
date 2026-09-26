@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { getT, localizeHref } from "@/lib/i18n";
 import { ReactNode } from "react";
 import Link from "next/link";
 import { useVisible, sectionAnim } from "@/hooks/use-visible";
@@ -23,6 +25,8 @@ interface PageHeroProps {
 }
 
 export default function PageHero({ content, visual, className }: PageHeroProps) {
+  const pageLang = usePathname()?.startsWith("/en") ? "en" : "fr";
+  const ui = getT(pageLang).ui;
   const c = content;
   const { ref, visible } = useVisible(0.01);
   const hasVisual = Boolean(visual);
@@ -93,7 +97,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
               }}
             >
               <span className="subheadline-desktop">{c.subheadline}</span>
-              <span className="subheadline-mobile">Générez des parcours personnalisés, adaptez les contenus et pilotez la montée en compétences de vos équipes.</span>
+              <span className="subheadline-mobile">{ui.heroMobileSubheadline}</span>
             </p>
           )}
           {c.ctaPrimary && (
@@ -107,7 +111,7 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
               className="hero-buttons"
             >
               <Link
-                href={c.ctaPrimaryLink ?? "#"}
+                href={localizeHref(c.ctaPrimaryLink, pageLang)}
                 style={{
                   padding: "12px 20px",
                   fontSize: 15,
@@ -122,14 +126,14 @@ export default function PageHero({ content, visual, className }: PageHeroProps) 
                 }}
               >
                 <span className="btn-label-desktop">{c.ctaPrimary}</span>
-                <span className="btn-label-mobile">Démo gratuite</span>
+                <span className="btn-label-mobile">{ui.heroMobileCta}</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
               </Link>
               {c.ctaSecondary && (
                 <Link
-                  href={c.ctaSecondaryLink ?? "#"}
+                  href={localizeHref(c.ctaSecondaryLink, pageLang)}
                   style={{
                     padding: "12px 20px",
                     fontSize: 15,

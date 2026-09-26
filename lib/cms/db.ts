@@ -189,7 +189,7 @@ export function writeJsonFile<T>(filePath: string, data: T) {
 
 const DEFAULT_HERO_FR: Record<string, HeroContent> = {
   homepage: {
-    eyebrow: "Mentivis OS",
+    eyebrow: "MentivisOS",
     headline: "MentivisOS mesure les écarts de compétences, génère des parcours personnalisés et pilote la montée en compétences de vos équipes.",
     subheadline: "Un seul système qui dispense les formations, analyse les profils candidats, orchestre les recrutements et suit chaque parcours upskilling. Connecte a vos outils via la Mentivis API. Operationnel immediatement, sans refonte de votre organisation.",
     ctaPrimary: "Demarrer gratuitement",
@@ -199,7 +199,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
     proof: "Utilise par les directions de la formation, les CFA, les campus d'entreprise.",
   },
   learningos: {
-    eyebrow: "MENTIVIS OS ENTREPRISE",
+    eyebrow: "MENTIVISOS ENTREPRISE",
     headline: "MentivisOS Entreprise\nFormer autrement.\nPerformer durablement.",
     subheadline: "Générez des parcours personnalisés, adaptez les contenus automatiquement\net pilotez la montée en compétences de vos équipes, le tout dans un seul système.",
     ctaPrimary: "Demarrer gratuitement",
@@ -252,7 +252,7 @@ const DEFAULT_HERO_FR: Record<string, HeroContent> = {
 
 const DEFAULT_HERO_EN: Record<string, HeroContent> = {
   homepage: {
-    eyebrow: "Mentivis OS",
+    eyebrow: "MentivisOS",
     headline: "MentivisOS measures skill gaps, generates personalised learning paths and drives your teams' skill development.",
     subheadline: "A single system that delivers training, analyzes candidate profiles, orchestrates recruitment and tracks every upskilling journey. Connected to your tools via the Mentivis API. Operational immediately, without restructuring your organization.",
     ctaPrimary: "Start for free",
@@ -262,7 +262,7 @@ const DEFAULT_HERO_EN: Record<string, HeroContent> = {
     proof: "Used by training departments, CFAs, corporate campuses.",
   },
   learningos: {
-    eyebrow: "MENTIVIS OS ENTREPRISE",
+    eyebrow: "MENTIVISOS ENTREPRISE",
     headline: "MentivisOS Entreprise\nTrain differently.\nPerform sustainably.",
     subheadline: "Generate personalized learning paths, automatically adapt content,\nand drive your teams' skill development, all in a single system.",
     ctaPrimary: "Start for free",

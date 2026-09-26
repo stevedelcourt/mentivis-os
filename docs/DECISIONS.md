@@ -1,5 +1,31 @@
 # Decision Log
 
+## 2026-09-26
+
+### Métadonnées par page, sans headers()
+**Problem**: canonical et hreflang étaient construits dans `app/[lang]/layout.tsx` à partir de `x-current-path`, posé par `proxy.ts` sur la réponse et non sur la requête : la plupart des pages avaient un canonical vers la home. `<html lang="fr">` était codé en dur. `headers()` interdisait tout export statique.
+**Decision**: chaque page déclare ses métadonnées via `pageMetadata()` (`lib/seo/page-metadata.ts`). Layout racine déplacé dans `app/[lang]/layout.tsx` (`lang` correct), `app/global-not-found.tsx` pour les 404 hors route. Un seul BreadcrumbList par page (`components/seo/breadcrumb-jsonld.tsx`).
+**Files**: `lib/seo/page-metadata.ts`, `app/[lang]/layout.tsx`, `app/global-not-found.tsx`, `app/[lang]/**/page.tsx`, `lib/breadcrumbs.ts`, `proxy.ts`
+**Status**: branche `claude/compassionate-cray-kjww7b`
+
+### Référentiel en clusters (4 piliers)
+**Problem**: 42 articles à plat, sans FAQPage, versions EN condensées, pas d'étage bas de tunnel.
+**Decision**: 4 pages piliers + 9 articles (sources markdown `content/referentiel/2026-09/`, fichier TS généré). Rattachement de chaque article à un pilier (`lib/cms/referentiel-clusters.ts`). FAQ extraite du markdown et émise en FAQPage. Auteur nommé (Person). Retraduction EN intégrale des articles historiques (`content/referentiel/en-retranslation/`).
+**Files**: `content/referentiel/**`, `lib/cms/referentiel-*.ts`, `lib/referentiel-content.ts`, `app/[lang]/referentiel/**`, `scripts/import-referentiel-2026-09.mjs`
+**Status**: branche `claude/compassionate-cray-kjww7b`
+
+### Export statique Next (remplace le miroir curl)
+**Problem**: `scripts/build-static.sh` aspirait le site en ligne avec une liste de pages obsolète (manquaient entreprises, education, openos, referentiel, etc.), sans vérification TLS dans `proxy.php`.
+**Decision**: `npm run build:static` produit un vrai `output: "export"` dans `out/` (API, CMS et proxy.ts écartés le temps du build), avec `.htaccess` (redirections, en-têtes, noindex hors hôte canonique) et `proxy.php` corrigé. Contrôle : `scripts/check-static-export.mjs`. `scripts/build-static.sh` est conservé mais obsolète.
+**Files**: `next.config.ts`, `scripts/build-static-export.mjs`, `scripts/static-export/*`, `scripts/check-static-export.mjs`
+**Status**: branche `claude/compassionate-cray-kjww7b`
+
+### Consent Mode refusé par défaut
+**Problem**: `gtag('consent','default')` était à `granted` pour tous les signaux avant tout choix de l'utilisateur.
+**Decision**: `denied` par défaut (hors `functionality_storage` et `security_storage`), mise à jour par le bandeau existant. À valider juridiquement.
+**Files**: `app/[lang]/layout.tsx`
+**Status**: branche `claude/compassionate-cray-kjww7b`
+
 ## 2026-05-18
 
 ### Static Mirror for FTP Servers

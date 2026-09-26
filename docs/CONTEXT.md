@@ -1,5 +1,13 @@
 # MentivisOS — Current State
 
+## Milestone: SEO/GEO, Référentiel en 4 piliers, export statique (2026-09-26)
+
+- Détail complet, vérifications et points ouverts : `docs/progress.md`.
+- Métadonnées par page (`lib/seo/page-metadata.ts`), layout racine dans `app/[lang]/layout.tsx`, `lang` correct, plus de `headers()`.
+- Référentiel : 4 piliers et 47 articles publiés (FR et EN), FAQPage, auteur nommé, maillage par clusters.
+- `robots.txt`, `sitemap.xml` et `llms.txt` générés par l'app (`app/robots.ts`, `app/sitemap.ts`, `app/llms.txt/route.ts`).
+- Export FTP : `npm run build:static` puis `node scripts/check-static-export.mjs`, upload de `out/` (avec `.htaccess`).
+
 ## Milestone: v2.3 — Parallax Hero + Mobile Hero Tweaks (2026-05-22)
 
 ### Parallax Hero (`components/learningos/parallax-hero.tsx`)

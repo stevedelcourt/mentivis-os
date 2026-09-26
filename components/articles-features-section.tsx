@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Locale } from "@/lib/i18n";
+import { getT, Locale } from "@/lib/i18n";
 import { Post } from "@/lib/cms/types";
 import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 
@@ -78,7 +78,7 @@ export default function ArticlesFeaturesSection({ lang }: ArticlesFeaturesSectio
                 marginBottom: 10,
               }}
             >
-              News et analyses concrètes sur ce qui transforme la formation en entreprise.
+              {getT(lang).ui.articlesEyebrow}
             </p>
             <p
               style={{

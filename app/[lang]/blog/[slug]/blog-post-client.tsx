@@ -8,11 +8,14 @@ import { GRADIENT_PATTERNS } from "@/lib/cms/gradient-patterns";
 import { renderMarkdown } from "@/lib/markdown";
 import PdfUnlock from "@/components/pdf-unlock";
 
-export default function BlogPostClient({ lang, slug, initialPost }: { lang: string; slug: string; initialPost: Post | null }) {
+export default function BlogPostClient({ lang, slug: slugProp, initialPost }: { lang: string; slug: string; initialPost: Post | null }) {
   const [post, setPost] = useState<Post | null>(initialPost);
   const [loading, setLoading] = useState(!initialPost);
+  const isFr = lang === "fr";
 
   useEffect(() => {
+    // Export statique : la page coquille "_" sert tous les articles, le slug est lu dans l'URL.
+    const slug = slugProp === "_" ? window.location.pathname.split("/").filter(Boolean)[2] || "" : slugProp;
     async function loadPost() {
       try {
         const res = await fetch(`/api/blog/posts/${slug}?lang=${lang}`);
@@ -29,13 +32,13 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
       }
     }
     loadPost();
-  }, [slug, lang]);
+  }, [slugProp, lang]);
 
   if (loading) {
     return (
       <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
         <div className="container">
-          <p style={{ color: "#4e4e4e" }}>Chargement...</p>
+          <p style={{ color: "#4e4e4e" }}>{isFr ? "Chargement..." : "Loading..."}</p>
         </div>
       </section>
     );
@@ -46,9 +49,9 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
       <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
         <div className="container">
           <Link href={`/${lang}/blog`} className={styles.featCta} style={{ marginBottom: 32, display: "inline-flex" }}>
-            ← Retour aux articles
+            ← {isFr ? "Retour aux articles" : "Back to articles"}
           </Link>
-          <p>Article non trouve</p>
+          <p>{isFr ? "Article introuvable." : "Article not found."}</p>
         </div>
       </section>
     );
@@ -58,7 +61,7 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
     <section style={{ paddingTop: 120, paddingBottom: 80, minHeight: "100vh", background: "var(--bg-primary)" }}>
       <div className="container">
         <Link href={`/${lang}/blog`} className={styles.featCta} style={{ marginBottom: 32, display: "inline-flex" }}>
-          ← Retour aux articles
+          ← {isFr ? "Retour aux articles" : "Back to articles"}
         </Link>
 
         <article style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -130,7 +133,9 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
 
           <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid var(--border-light)" }}>
             <p style={{ fontSize: 14, color: "var(--text-tertiary)" }}>
-              Cet article a été publie le {post.date} dans la categorie {post.category.split(",")[0]}.
+              {isFr
+                ? `Cet article a été publié le ${post.date} dans la catégorie ${post.category.split(",")[0]}.`
+                : `This article was published on ${post.date} in the ${post.category.split(",")[0]} category.`}
             </p>
           </div>
 
@@ -145,34 +150,6 @@ export default function BlogPostClient({ lang, slug, initialPost }: { lang: stri
           )}
         </article>
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: post.excerpt,
-            image: post.imageUrl,
-            datePublished: post.dateISO,
-            dateModified: post.updatedAt,
-            author: { "@type": "Organization", name: "MentivisOS" },
-            publisher: {
-              "@type": "Organization",
-              name: "MentivisOS",
-              logo: {
-                "@type": "ImageObject",
-                url: (typeof window !== "undefined" ? window.location.origin : "https://mentivisos.com") + "/icon.svg",
-              },
-            },
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": typeof window !== "undefined" ? window.location.href : `https://mentivisos.com/${lang}/blog/${post.slug}`,
-            },
-          }),
-        }}
-      />
-
       <style>{`
         .article-body {
           font-size: 17px;

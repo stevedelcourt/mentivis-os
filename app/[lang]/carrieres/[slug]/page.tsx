@@ -1,13 +1,27 @@
 import type { Metadata } from "next";
 import { Locale, getT } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
-import { getJobBySlug } from "@/lib/cms/db";
+import { getJobBySlug, getPublishedJobs } from "@/lib/cms/db";
 import JobDetailClient from "@/components/job-detail-client";
+
+// Offres prérendues depuis la base disponible au build ; en export statique, la page
+// coquille "_" sert en plus les offres publiées après le build (réécriture .htaccess).
+export async function generateStaticParams() {
+  const jobs = await getPublishedJobs().catch(() => []);
+  const params = jobs.flatMap((j) => [
+    { lang: "fr", slug: j.slug },
+    { lang: "en", slug: j.slug },
+  ]);
+  if (process.env.STATIC_EXPORT === "1") {
+    params.push({ lang: "fr", slug: "_" }, { lang: "en", slug: "_" });
+  }
+  return params;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   const t = getT(lang as Locale);
-  const job = await getJobBySlug(slug);
+  const job = slug === "_" ? undefined : await getJobBySlug(slug).catch(() => undefined);
   return {
     title: job ? `${job.title} - ${t.careers.meta.title}` : t.careers.meta.title,
     description: job ? `${job.title} - ${job.department} - ${job.location}` : t.careers.meta.description,
@@ -28,7 +42,7 @@ function getEmploymentType(type: string): string {
 
 export default async function JobDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
-  const job = await getJobBySlug(slug);
+  const job = slug === "_" ? undefined : await getJobBySlug(slug).catch(() => undefined);
 
   return (
     <>

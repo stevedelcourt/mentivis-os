@@ -75,11 +75,11 @@
     }
   },
   "hero": {
-    "eyebrow": "MENTIVIS OS OPEN",
+    "eyebrow": "MENTIVISOS OPEN",
     "headline": "MentivisOS Open",
     "tagline": "Learn anything you want, for free.",
     "description": "The native AI learning platform open to everyone.",
-    "bodyText": "Whether you're a student, professional, or just curious, Open MentivisOS is for you.",
+    "bodyText": "Whether you're a student, professional, or just curious, MentivisOS Open is for you.",
     "ctaPrimary": "Start with Open",
     "proof": "Free forever. Learn for life."
   },
@@ -412,7 +412,7 @@
     }
   },
   "timeline": {
-    "eyebrow": "MENTIVIS OS",
+    "eyebrow": "MENTIVISOS",
     "title": "How to transform your structure into a learning organisation ?",
     "description": "Centralise knowledge, automate skills development and align training, operations and AI in a single system capable of evolving with your organisation.",
     "dividerLeft": "Before",
@@ -456,7 +456,7 @@
     ]
   },
   "impact": {
-    "eyebrow": "MENTIVIS OS",
+    "eyebrow": "MENTIVISOS",
     "title": "Why pedagogical expertise before technology ?",
     "body": [
       "MentivisOS was not designed by a startup discovering the training sector. The system is driven by a firm that has been designing, structuring and operating pedagogical programs for several years.",
@@ -610,9 +610,18 @@
     "legal": "Legal",
     "copyright": "MentivisOS is developed by Mentivis.",
     "sections": {
-      "produits": ["MentivisOS Open", "MentivisOS Entreprise", "MentivisOS Education"],
+      "produits": [
+        "MentivisOS Open",
+        "MentivisOS Entreprise",
+        "MentivisOS Education"
+      ],
       "workflows": [],
-      "entreprise": ["News & publications", "About", "Affiliation & Ambassadors", "Careers"],
+      "entreprise": [
+        "News & publications",
+        "About",
+        "Affiliation & Ambassadors",
+        "Careers"
+      ],
       "contact": "Contact"
     },
     "bottom": {
@@ -929,5 +938,14 @@
       "eyebrow": "FAQ",
       "title": "Frequently asked questions"
     }
+  },
+  "ui": {
+    "consent": "I agree that Mentivis may process my personal data in accordance with the privacy policy.",
+    "heroMobileSubheadline": "Generate personalised learning paths, adapt content and drive your teams' skill development.",
+    "heroMobileCta": "Free demo",
+    "articlesEyebrow": "News and practical analysis of what is changing corporate training.",
+    "cardTitle1": "Learn for free!",
+    "cardTitle2": "Training intelligence",
+    "cardTitle3": "Individualisation at scale"
   }
 }

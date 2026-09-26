@@ -36,6 +36,7 @@ const CARDS: ProductCard[] = [
 ];
 
 const DESCRIPTION_KEYS = ["card1", "card2", "card3"] as const;
+const TITLE_KEYS = ["cardTitle1", "cardTitle2", "cardTitle3"] as const;
 
 export default function ProductCardGrid({ lang }: ProductCardGridProps) {
   const t = getT(lang);
@@ -138,7 +139,7 @@ export default function ProductCardGrid({ lang }: ProductCardGridProps) {
                     textAlign: "left",
                   }}
                 >
-                  {card.title}
+                  {t.ui[TITLE_KEYS[i]]}
                 </span>
               </div>
             </Link>
